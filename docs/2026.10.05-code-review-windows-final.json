@@ -1,0 +1,508 @@
+{
+  "status": "complete",
+  "verdict": "Ready with fixes",
+  "scope": {
+    "base": "667ff5045aebbe85ad56d43b4f954eed3358d320",
+    "branch": "feat/initial-plugin",
+    "head_sha": "11fd3dcd60e88dea6d9c882b22a9bcad4b8ba8b6",
+    "pr_url": null,
+    "files_changed": 197,
+    "mode": "standalone",
+    "tree": "Current working tree including staged, unstaged and authorized untracked evidence source/tests.",
+    "secondary_repositories": [
+      "agent-skills: current HEAD diff",
+      "plugin-marketplace: current HEAD diff"
+    ]
+  },
+  "intent": "Implement public Daily Tasks plugin as explicit-acceptance Markdown task skills with UUID identity, append-only decisions, reconciliation and resumable local-day planning. Coordinate optional PARA maturity rename and marketplace listing while preserving narrow executable scope and honest host evidence.",
+  "intent_confidence": "explicit",
+  "reviewers": [
+    "correctness",
+    "security",
+    "adversarial",
+    "testing",
+    "maintainability",
+    "agent-native",
+    "api-contract",
+    "reliability",
+    "project-standards"
+  ],
+  "findings": [
+    {
+      "#": 1,
+      "autofix_class": "gated_auto",
+      "confidence": 75,
+      "evidence": [
+        "bin/daily-tasks.mjs:42:       if (entry.isSymbolicLink()) throw new Error(`Symbolic link excluded: ${filename}`);",
+        "test/integration.test.mjs exercises log CLI operations and UUID surfaces, but contains no inspect-records invocation or filesystem-scan fixture."
+      ],
+      "file": "bin/daily-tasks.mjs",
+      "first_evidence": "bin/daily-tasks.mjs:42:       if (entry.isSymbolicLink()) throw new Error(`Symbolic link excluded: ${filename}`);",
+      "independent_reviewers": [
+        "testing"
+      ],
+      "line": 42,
+      "owner": "downstream-resolver",
+      "pre_existing": false,
+      "requires_verification": true,
+      "reviewers": [
+        "testing"
+      ],
+      "severity": "P2",
+      "suggested_fix": "Add an inspect-records CLI integration test with a nested valid record and a symlink entry; assert the record is returned for the normal tree and the symlink case fails without reading its target. Also cover that hidden directories are skipped if that remains part of the scan contract.",
+      "title": "Cover inspect-records traversal and symlink rejection",
+      "why_it_matters": "The recursive projects-root scan has no CLI integration coverage for nested records, hidden directories or symlink rejection. A future traversal regression could read outside the selected root; no current bypass is asserted.",
+      "validation_status": "confirmed",
+      "validation_reason": "The newly added inspect-records traversal in bin/daily-tasks.mjs:33-52 promises nested traversal, hidden-directory exclusion and symlink rejection in skills/daily-tasks/references/cli.md:27, but inspection of test/integration.test.mjs and a search of every test/evaluation .mjs file found no inspect-records invocation, confirming the behavioral coverage gap for a projectsRoot containing nested records or symlinks; production incidence was not measured and no current boundary bypass is asserted.",
+      "protected_subject": null
+    },
+    {
+      "#": 2,
+      "autofix_class": "manual",
+      "confidence": 75,
+      "evidence": [
+        "lib/reconciliation/reconciliation.mjs:91 --   if (byId.size !== cloned.length) throw new TypeError('Duplicate record identities must be resolved first');",
+        "docs/requirements.md:26 requires missing/duplicate IDs to affect only involved records.",
+        "skills/daily-tasks-checkin/SKILL.md:20 requires no global freeze; bin/daily-tasks.mjs:24 exposes the supplied inventory to reopenAncestors.",
+        "Validator on reviewed HEAD 11fd3dc plus working-tree changes, Node v24.19.0/win32: healthy reopened task returned both completed parent IDs; adding unrelated duplicate project records caused Duplicate record identities must be resolved first."
+      ],
+      "file": "lib/reconciliation/reconciliation.mjs",
+      "first_evidence": "lib/reconciliation/reconciliation.mjs:91 --   if (byId.size !== cloned.length) throw new TypeError('Duplicate record identities must be resolved first');",
+      "independent_reviewers": [
+        "correctness",
+        "adversarial"
+      ],
+      "line": 91,
+      "owner": "downstream-resolver",
+      "pre_existing": false,
+      "requires_verification": true,
+      "reviewers": [
+        "correctness",
+        "adversarial"
+      ],
+      "severity": "P2",
+      "suggested_fix": "Check for one matching record only when resolving a changed ID, affected blocker target or traversed ancestor. Preserve unrelated duplicates unchanged. Add regressions for an unrelated duplicate that permits healthy reopening and an affected duplicate that fails closed; regenerate packaged artifacts.",
+      "title": "Scope duplicate checks to affected reopening records",
+      "why_it_matters": "A copied Markdown record can preserve its hidden UUID. Two unrelated records sharing an ID make reopening a healthy task fail before its unambiguous ancestry is traversed, violating affected-record conflict isolation. The reproduction establishes reachability, not production incidence or random UUID collisions.",
+      "validation_status": "confirmed",
+      "validation_reason": "On reviewed HEAD 11fd3dc plus its current working-tree changes, a read-only Node v24.19.0/win32 reproduction returned both completed parent IDs for an unambiguous reopened task but threw 'Duplicate record identities must be resolved first' after adding two unrelated project records sharing another ID, because the newly added lib/reconciliation/reconciliation.mjs:91 rejects the entire inventory before traversing changedIds, contrary to docs/requirements.md:26 and the check-in skill's conflict isolation rule; bin/daily-tasks.mjs:24 exposes that inventory directly, establishing reachability, while production incidence was not measured.",
+      "protected_subject": "public-contract"
+    }
+  ],
+  "actionable_findings": [
+    {
+      "#": 1,
+      "autofix_class": "gated_auto",
+      "confidence": 75,
+      "evidence": [
+        "bin/daily-tasks.mjs:42:       if (entry.isSymbolicLink()) throw new Error(`Symbolic link excluded: ${filename}`);",
+        "test/integration.test.mjs exercises log CLI operations and UUID surfaces, but contains no inspect-records invocation or filesystem-scan fixture."
+      ],
+      "file": "bin/daily-tasks.mjs",
+      "first_evidence": "bin/daily-tasks.mjs:42:       if (entry.isSymbolicLink()) throw new Error(`Symbolic link excluded: ${filename}`);",
+      "independent_reviewers": [
+        "testing"
+      ],
+      "line": 42,
+      "owner": "downstream-resolver",
+      "pre_existing": false,
+      "requires_verification": true,
+      "reviewers": [
+        "testing"
+      ],
+      "severity": "P2",
+      "suggested_fix": "Add an inspect-records CLI integration test with a nested valid record and a symlink entry; assert the record is returned for the normal tree and the symlink case fails without reading its target. Also cover that hidden directories are skipped if that remains part of the scan contract.",
+      "title": "Cover inspect-records traversal and symlink rejection",
+      "why_it_matters": "The recursive projects-root scan has no CLI integration coverage for nested records, hidden directories or symlink rejection. A future traversal regression could read outside the selected root; no current bypass is asserted.",
+      "validation_status": "confirmed",
+      "validation_reason": "The newly added inspect-records traversal in bin/daily-tasks.mjs:33-52 promises nested traversal, hidden-directory exclusion and symlink rejection in skills/daily-tasks/references/cli.md:27, but inspection of test/integration.test.mjs and a search of every test/evaluation .mjs file found no inspect-records invocation, confirming the behavioral coverage gap for a projectsRoot containing nested records or symlinks; production incidence was not measured and no current boundary bypass is asserted.",
+      "protected_subject": null
+    },
+    {
+      "#": 2,
+      "autofix_class": "manual",
+      "confidence": 75,
+      "evidence": [
+        "lib/reconciliation/reconciliation.mjs:91 --   if (byId.size !== cloned.length) throw new TypeError('Duplicate record identities must be resolved first');",
+        "docs/requirements.md:26 requires missing/duplicate IDs to affect only involved records.",
+        "skills/daily-tasks-checkin/SKILL.md:20 requires no global freeze; bin/daily-tasks.mjs:24 exposes the supplied inventory to reopenAncestors.",
+        "Validator on reviewed HEAD 11fd3dc plus working-tree changes, Node v24.19.0/win32: healthy reopened task returned both completed parent IDs; adding unrelated duplicate project records caused Duplicate record identities must be resolved first."
+      ],
+      "file": "lib/reconciliation/reconciliation.mjs",
+      "first_evidence": "lib/reconciliation/reconciliation.mjs:91 --   if (byId.size !== cloned.length) throw new TypeError('Duplicate record identities must be resolved first');",
+      "independent_reviewers": [
+        "correctness",
+        "adversarial"
+      ],
+      "line": 91,
+      "owner": "downstream-resolver",
+      "pre_existing": false,
+      "requires_verification": true,
+      "reviewers": [
+        "correctness",
+        "adversarial"
+      ],
+      "severity": "P2",
+      "suggested_fix": "Check for one matching record only when resolving a changed ID, affected blocker target or traversed ancestor. Preserve unrelated duplicates unchanged. Add regressions for an unrelated duplicate that permits healthy reopening and an affected duplicate that fails closed; regenerate packaged artifacts.",
+      "title": "Scope duplicate checks to affected reopening records",
+      "why_it_matters": "A copied Markdown record can preserve its hidden UUID. Two unrelated records sharing an ID make reopening a healthy task fail before its unambiguous ancestry is traversed, violating affected-record conflict isolation. The reproduction establishes reachability, not production incidence or random UUID collisions.",
+      "validation_status": "confirmed",
+      "validation_reason": "On reviewed HEAD 11fd3dc plus its current working-tree changes, a read-only Node v24.19.0/win32 reproduction returned both completed parent IDs for an unambiguous reopened task but threw 'Duplicate record identities must be resolved first' after adding two unrelated project records sharing another ID, because the newly added lib/reconciliation/reconciliation.mjs:91 rejects the entire inventory before traversing changedIds, contrary to docs/requirements.md:26 and the check-in skill's conflict isolation rule; bin/daily-tasks.mjs:24 exposes that inventory directly, establishing reachability, while production incidence was not measured.",
+      "protected_subject": "public-contract"
+    }
+  ],
+  "triage_groups": [],
+  "pre_existing_findings": [],
+  "requirements_completeness": {
+    "plan_source": "explicit",
+    "requirements_source": "docs/requirements.md",
+    "requirements": [
+      {
+        "id": "R1",
+        "status": "met",
+        "assessment": "Bounded skills, accepted priorities and automatic carry-forward.",
+        "evidence": [
+          "skills/daily-tasks/SKILL.md",
+          "skills/daily-tasks-plan/SKILL.md"
+        ]
+      },
+      {
+        "id": "R2",
+        "status": "met",
+        "assessment": "Explicit individual or batch acceptance; manual rows remain candidates.",
+        "evidence": [
+          "skills/daily-tasks-capture/SKILL.md"
+        ]
+      },
+      {
+        "id": "R3",
+        "status": "partially addressed",
+        "assessment": "Authoritative records and per-view reconciliation exist; unrelated identity conflicts still block reopening (#2).",
+        "evidence": [
+          "skills/daily-tasks/references/operations.md",
+          "lib/reconciliation/reconciliation.mjs"
+        ]
+      },
+      {
+        "id": "R4",
+        "status": "partially addressed",
+        "assessment": "UUIDv7 identity, hidden references and links exist; duplicate isolation has defect #2.",
+        "evidence": [
+          "lib/identity/identity.mjs",
+          "skills/daily-tasks/references/records.md",
+          "lib/records/links.mjs"
+        ]
+      },
+      {
+        "id": "R5",
+        "status": "met",
+        "assessment": "Flat milestone layout, milestone DoD and Markdown views supplied.",
+        "evidence": [
+          "skills/daily-tasks/assets/",
+          "skills/daily-tasks/references/records.md"
+        ]
+      },
+      {
+        "id": "R6",
+        "status": "met",
+        "assessment": "Optional PARA integration and explicit document-maturity compatibility are present.",
+        "evidence": [
+          "skills/daily-tasks/references/records.md",
+          "agent-skills: skills/para-vault/references/frontmatter-schemas.md"
+        ]
+      },
+      {
+        "id": "R7",
+        "status": "met",
+        "assessment": "Human owner authority and optional stable assignee are distinct.",
+        "evidence": [
+          "skills/daily-tasks-records/SKILL.md",
+          "lib/planning/planning.mjs"
+        ]
+      },
+      {
+        "id": "R8",
+        "status": "met",
+        "assessment": "Lifecycle, explicit activity, UTC storage and local display rules are supplied.",
+        "evidence": [
+          "skills/daily-tasks/references/records.md",
+          "lib/time/time.mjs",
+          "test/time.test.mjs"
+        ]
+      },
+      {
+        "id": "R9",
+        "status": "met",
+        "assessment": "Informational dependencies and independent shared blockers are supplied.",
+        "evidence": [
+          "skills/daily-tasks-records/SKILL.md",
+          "lib/records/closure.mjs"
+        ]
+      },
+      {
+        "id": "R10",
+        "status": "met",
+        "assessment": "Closure checks and explicit child cancellation dispositions are supplied.",
+        "evidence": [
+          "lib/records/closure.mjs",
+          "skills/daily-tasks/references/records.md"
+        ]
+      },
+      {
+        "id": "R11",
+        "status": "partially addressed",
+        "assessment": "Reopening and move protocol exist; unrelated duplicates can prevent parent reopening (#2).",
+        "evidence": [
+          "lib/reconciliation/reconciliation.mjs",
+          "skills/daily-tasks-records/SKILL.md"
+        ]
+      },
+      {
+        "id": "R12",
+        "status": "partially addressed",
+        "assessment": "Resumable local-day check-in, recovery and carry-forward exist; independent reopening is affected by #2.",
+        "evidence": [
+          "skills/daily-tasks-checkin/SKILL.md",
+          "lib/planning/planning.mjs",
+          "lib/reconciliation/reconciliation.mjs"
+        ]
+      },
+      {
+        "id": "R13",
+        "status": "met",
+        "assessment": "Explicit configuration roots, user/timezone/priorities and storage paths are supplied.",
+        "evidence": [
+          "skills/daily-tasks-setup/SKILL.md",
+          "lib/profile/profile.mjs"
+        ]
+      },
+      {
+        "id": "R14",
+        "status": "met",
+        "assessment": "Script-only append/query/archive, corrections and retry deduplication are supplied.",
+        "evidence": [
+          "lib/log/decision-log.mjs",
+          "skills/daily-tasks/references/operations.md",
+          "test/log.test.mjs"
+        ]
+      },
+      {
+        "id": "R15",
+        "status": "met",
+        "assessment": "Pure integrity/recovery proposals and narrow log mutation preserve skill-owned Markdown authoring.",
+        "evidence": [
+          "bin/daily-tasks.mjs",
+          "lib/reconciliation/reconciliation.mjs",
+          "skills/daily-tasks/references/operations.md"
+        ]
+      }
+    ],
+    "implementation_units": [
+      {
+        "id": "U1",
+        "status": "met",
+        "assessment": "Shared contract, canonical skills and portable identity are present.",
+        "evidence": [
+          "docs/requirements.md",
+          "plugin.json",
+          "skills/"
+        ]
+      },
+      {
+        "id": "U2",
+        "status": "met",
+        "assessment": "Decision-log interface and behavioral tests are present.",
+        "evidence": [
+          "lib/log/decision-log.mjs",
+          "test/log.test.mjs"
+        ]
+      },
+      {
+        "id": "U3",
+        "status": "partially addressed",
+        "assessment": "Integrity, reconciliation and recovery are implemented with scoped reopening defect #2.",
+        "evidence": [
+          "lib/records/",
+          "lib/reconciliation/reconciliation.mjs"
+        ]
+      },
+      {
+        "id": "U4",
+        "status": "met",
+        "assessment": "All six routed skills are present.",
+        "evidence": [
+          "skills/"
+        ]
+      },
+      {
+        "id": "U5",
+        "status": "met",
+        "assessment": "PARA compatibility, version update and evaluation scenarios are present; no user-note migration is implied.",
+        "evidence": [
+          "agent-skills: skills/para-vault/references/frontmatter-schemas.md"
+        ]
+      },
+      {
+        "id": "U6",
+        "status": "partially addressed",
+        "assessment": "Adapters, checks, tests and evaluation harness are present; scanner coverage needs #1. Final independent evaluation and publication follow this review by caller instruction.",
+        "evidence": [
+          "scripts/assemble.mjs",
+          "scripts/validate.mjs",
+          "test/",
+          "evals/"
+        ]
+      }
+    ],
+    "unaddressed": [],
+    "unrequested_behavior_rules": [],
+    "reverse_check": "Checked the explicit handoff plan and canonical skills, helpers and coordinated diffs. No additional unrequested behavior rule established. Partial statuses refer to existing findings #1/#2, not omitted implementation units. Native host activation remains unverified; final independent evaluation and publication are caller work after review."
+  },
+  "learnings": [],
+  "agent_native_gaps": [],
+  "deployment_notes": [],
+  "residual_risks": [],
+  "testing_gaps": [],
+  "coverage": {
+    "depth": "full",
+    "mode": "agent report-only",
+    "reviewer_roster": [
+      {
+        "reviewer": "correctness",
+        "tier": "session",
+        "reason": "always-on"
+      },
+      {
+        "reviewer": "security",
+        "tier": "session",
+        "reason": "input/filesystem boundaries"
+      },
+      {
+        "reviewer": "adversarial",
+        "tier": "session",
+        "reason": "persistence and silent-pass guards"
+      },
+      {
+        "reviewer": "testing",
+        "tier": "mid-tier",
+        "reason": "tests and evidence harness changed"
+      },
+      {
+        "reviewer": "maintainability",
+        "tier": "mid-tier",
+        "reason": "large structural diff"
+      },
+      {
+        "reviewer": "agent-native",
+        "tier": "mid-tier",
+        "reason": "skills and host packaging"
+      },
+      {
+        "reviewer": "api-contract",
+        "tier": "mid-tier",
+        "reason": "public CLI and PARA compatibility"
+      },
+      {
+        "reviewer": "reliability",
+        "tier": "mid-tier",
+        "reason": "locks and interrupted recovery"
+      },
+      {
+        "reviewer": "project-standards",
+        "tier": "mid-tier",
+        "reason": "applicable repository instructions"
+      }
+    ],
+    "reviewers_completed": 9,
+    "failed_reviewers": [],
+    "timed_out_reviewers": [],
+    "standards": {
+      "fallback_named": true,
+      "criteria": [
+        "daily-tasks: AGENTS.md",
+        "agent-skills: AGENTS.md",
+        "agent-skills: CLAUDE.md"
+      ],
+      "marketplace": "No applicable criteria files."
+    },
+    "compound_packs": {
+      "roots": [],
+      "warnings": [],
+      "errors": []
+    },
+    "peer": {
+      "selected": true,
+      "target": "claude",
+      "route": "claude",
+      "preference_source": "default",
+      "outcome": "in-process-fallback",
+      "artifact": null,
+      "coverage": "adversarial lens: in-process fallback (cross-model peer not run: Windows runner access failure before any job ID; automatic approval review rejected same-route escalation because external Claude transfer lacked destination-specific authorization). No content sent; no job outstanding."
+    },
+    "validation": {
+      "outcome": "verdicts",
+      "batches": 1,
+      "selected": 3,
+      "confirmed": 2,
+      "rejected": 1,
+      "unresolved": 0,
+      "malformed": 0,
+      "failed": 0,
+      "shortcut_skipped": 0,
+      "bound_exceeded": false,
+      "protected_subject_reclassifications": [],
+      "degraded_blockers": [],
+      "verdicts": [
+        {
+          "#": 1,
+          "status": "confirmed",
+          "protected_subject": null,
+          "reason": "The newly added inspect-records traversal in bin/daily-tasks.mjs:33-52 promises nested traversal, hidden-directory exclusion and symlink rejection in skills/daily-tasks/references/cli.md:27, but inspection of test/integration.test.mjs and a search of every test/evaluation .mjs file found no inspect-records invocation, confirming the behavioral coverage gap for a projectsRoot containing nested records or symlinks; production incidence was not measured and no current boundary bypass is asserted."
+        },
+        {
+          "#": 2,
+          "status": "confirmed",
+          "protected_subject": "public-contract",
+          "reason": "On reviewed HEAD 11fd3dc plus its current working-tree changes, a read-only Node v24.19.0/win32 reproduction returned both completed parent IDs for an unambiguous reopened task but threw 'Duplicate record identities must be resolved first' after adding two unrelated project records sharing another ID, because the newly added lib/reconciliation/reconciliation.mjs:91 rejects the entire inventory before traversing changedIds, contrary to docs/requirements.md:26 and the check-in skill's conflict isolation rule; bin/daily-tasks.mjs:24 exposes that inventory directly, establishing reachability, while production incidence was not measured."
+        },
+        {
+          "#": 3,
+          "status": "rejected",
+          "protected_subject": null,
+          "reason": "Although scripts/write-capabilities.mjs:5-13 duplicates operation names from bin/daily-tasks.mjs:12-31, a read-only comparison of the current CLI --help output with capabilities.json on reviewed HEAD 11fd3dc plus working-tree changes under Node v24.19.0/win32 found all 18 names identical, so the alleged failure requires a hypothetical future unsynchronized edit and the inspected evidence establishes a refactoring preference rather than a current contract mismatch."
+        }
+      ],
+      "evidence_basis": "No quote-anchored independent cross-model corroboration; all three selected findings received verdicts in the single bounded batch."
+    },
+    "suppressed_by_confidence": {},
+    "mode_aware_demotion_count": 0,
+    "missing_first_evidence_demotions": 0,
+    "first_evidence_backfilled": 0,
+    "semantic_duplicates_merged": 1,
+    "malformed_returns": 0,
+    "malformed_findings": 0,
+    "settled_conflicts_removed": 0,
+    "settlement_note": "Explicit plan read; no session-settled KTD annotations.",
+    "fast_pass_candidates": 0,
+    "notes": [
+      "Current working tree includes explicitly authorized untracked evidence source and tests.",
+      "Repository instruction files supply fallback criteria; marketplace has no applicable criteria files.",
+      "Generated repetition reviewed through canonical inputs, generator and representative outputs; coordinated PARA/catalog diffs are secondary scope.",
+      "Caller reports 38 tests, package checks and portable/Cowork manifest validation pass; PARA 33 tests and 60 checks pass. Native host workflows remain unverified.",
+      "No performance lens: documented full-history scanning in personal CLI with no observed consequential scale cost. No migration scripts, frontend, Swift, prior PR comments or learnings corpus/packs.",
+      "adversarial lens: in-process fallback (cross-model peer not run: Windows runner access failure before any job ID; automatic approval review rejected same-route escalation because external Claude transfer lacked destination-specific authorization). No content sent; no job outstanding.",
+      "Same-model correctness/adversarial agreement corroborates #2 without raising its confidence anchor.",
+      "Rejected #3 is a hypothetical future registry drift claim; it is absent from primary findings, residual risks and testing gaps.",
+      "No triage groups: surviving findings have distinct fixes.",
+      "Agent-native review found 5/5 high-priority capabilities accessible and no gaps.",
+      "All requirements and implementation units have corresponding work; partial fulfillment is linked to #1/#2. Final evaluation and publication are intentionally subsequent caller work."
+    ]
+  },
+  "run_id": "windows-final-20261005",
+  "verdict_reason": "Two confirmed P2 findings remain: scope reopening uniqueness checks to affected records (#2), then add inspect-records traversal coverage (#1). All implementation units are represented. This source-review verdict does not establish native-host activation or release acceptance.",
+  "fix_order": [
+    2,
+    1
+  ],
+  "receipt_path": "docs/2026.10.05-code-review-windows-final.json"
+}

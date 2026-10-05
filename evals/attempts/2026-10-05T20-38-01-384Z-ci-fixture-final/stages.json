@@ -1,0 +1,38 @@
+[
+  {
+    "command": [
+      "node",
+      "evals/report.mjs",
+      "write"
+    ],
+    "started_at": "2026-10-05T20:38:18.834Z",
+    "completed_at": "2026-10-05T20:38:18.932Z",
+    "exit": 0,
+    "output": "report-write.txt",
+    "sha256": "21ac6ccfb33af447a54ba8fb780307e3472ba71e78cedacb87657521fb07f644"
+  },
+  {
+    "command": [
+      "node",
+      "evals/report.mjs",
+      "check"
+    ],
+    "started_at": "2026-10-05T20:38:18.934Z",
+    "completed_at": "2026-10-05T20:38:19.026Z",
+    "exit": 0,
+    "output": "report-check.txt",
+    "sha256": "15ea1e8b64cc44f3b640e35b87eb63999e3727067c9eff76e9f24218348f7036"
+  },
+  {
+    "command": [
+      "node",
+      "evals/report.mjs",
+      "release"
+    ],
+    "started_at": "2026-10-05T20:38:19.026Z",
+    "completed_at": "2026-10-05T20:38:19.121Z",
+    "exit": 1,
+    "output": "report-release.txt",
+    "sha256": "136a418737a4e24980e78bdd0f607fcbfb049506b1252e7096dcddf691546cfd"
+  }
+]

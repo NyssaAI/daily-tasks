@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "operations": [
+    {
+      "name": "new-id",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "new id; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs new-id"
+    },
+    {
+      "name": "activity-time",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "activity time; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs activity-time --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "local-day",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "local day; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "timezone"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs local-day --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "format-time",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "format time; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "time",
+          "timezone"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs format-time --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "validate-profile",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "validate profile; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "user",
+          "timezone",
+          "priorities",
+          "vaultRoot",
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs validate-profile --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "parse-record",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "parse record; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "markdown"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs parse-record --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "parse-checklist",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "parse checklist; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "markdown"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs parse-checklist --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "inspect-records",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "inspect records; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs inspect-records --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "validate-records",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "validate records; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "records"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs validate-records --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "check-links",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "check links; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "records"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs check-links --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "check-closure",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "check closure; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "recordId",
+          "records"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs check-closure --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "reconcile-record",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "reconcile record; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "base",
+          "current",
+          "views"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs reconcile-record --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "reopen-ancestors",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "reopen ancestors; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "records",
+          "changedIds"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs reopen-ancestors --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "recover-operation",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "recover operation; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operation",
+          "actual"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs recover-operation --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "carry-forward",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "carry forward; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "rows",
+          "records",
+          "userEmail"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs carry-forward --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "log-append",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "log append; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot",
+          "entry"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "append-log",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs log-append --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "log-query",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "log query; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "temporary-lock",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs log-query --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "log-archive",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "log archive; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "archive-log",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs log-archive --input ABSOLUTE_JSON_FILE"
+    }
+  ]
+}
