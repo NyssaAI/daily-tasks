@@ -78,7 +78,10 @@ retain references; deletion never means cancelled/completed.
 
 R13. Explicit setup captures current user's name/email, IANA timezone, priorities,
 vault root and projects root. Configuration and reconciliation/check-in state reside
-under explicitly chosen `.nyssa/daily-tasks/`. No cwd/cache-derived scope.
+under explicitly chosen `.nyssaai/daily-tasks/`. No cwd/cache-derived scope.
+This is configuration and operating state only. Daily Markdown plans use the configured
+vault output directory; accepted task documents use the projects directory. Neither is
+stored under configRoot. Existing state locations require explicit migration approval.
 Daily plans: `{vault-root}/2-areas/daily-plans/yyyy.mm.dd-daily-plan.md`, configurable
 for alternate conventions. Log: `{projects-root}/.daily-tasks/yyyy.mm.dd-decisions.json`;
 prefix is file creation date, not daily rollover. One plugin-wide logical history,

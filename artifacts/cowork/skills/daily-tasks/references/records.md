@@ -2,9 +2,15 @@
 
 ## Scope and paths
 
-Setup selects absolute configRoot (the `.nyssa/daily-tasks` directory), vaultRoot,
-and projectsRoot. Keep all settings and reconciliation/check-in state outside the
-installed plugin. Default daily plans: `vaultRoot/2-areas/daily-plans/YYYY.MM.DD-daily-plan.md`.
+Setup selects absolute configRoot (the `.nyssaai/daily-tasks` directory), vaultRoot,
+and projectsRoot. configRoot holds `profile.json` and operating state: reconciliation
+baselines, pending operations, candidates and check-in progress. Keep these outside the
+installed plugin. Daily plans and accepted task documents are user output and must stay
+outside configRoot, including legacy `.nyssa/daily-tasks` state directories.
+Daily plans resolve from the profile's `vaultRoot` and `dailyPlansRelative`, never from
+the profile file's parent directory. Missing/invalid output settings require clarification,
+not a fallback into configuration storage. Default daily plans:
+`vaultRoot/2-areas/daily-plans/YYYY.MM.DD-daily-plan.md`.
 The prefix is the user's local day, not UTC. Configuration may override that convention.
 Log is projectsRoot/.daily-tasks/YYYY.MM.DD-decisions.json, named at creation, with
 rotation suffixes as needed. One logical history, archives included by the log CLI.

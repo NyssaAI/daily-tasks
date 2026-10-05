@@ -23,7 +23,9 @@ carries unfinished selected work forward and reconciles manual checkbox edits.
 
 ## Storage and authority
 
-- Configuration/check-in state: user-selected `.nyssa/daily-tasks/` outside the package.
+- Configuration/check-in state: user-selected `.nyssaai/daily-tasks/` outside the package.
+  This directory holds configuration and operating state; daily plans and task documents
+  belong in the configured vault output and project directories.
 - Decision log: `{projects root}/.daily-tasks/yyyy.mm.dd-decisions.json`; date means
   file creation. Append-only logical history, script-only access, explicit rotation.
 - Daily plans: `{vault root}/2-areas/daily-plans/yyyy.mm.dd-daily-plan.md` by default.

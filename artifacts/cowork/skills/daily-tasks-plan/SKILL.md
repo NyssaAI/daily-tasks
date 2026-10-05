@@ -11,7 +11,12 @@ refreshing any existing plan. Use `local-day` for today's date and `format-time`
 display; ALWAYS identify local timezone in the heading and all rendered times.
 
 Use `<vaultRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md` (default
-`2-areas/daily-plans`). Open today's plan if present; create it only if missing, with
+`2-areas/daily-plans`). This is user output. Load the path settings from
+`<configRoot>/profile.json`; the profile's directory is not the daily-plan directory.
+Never save a daily plan in configRoot or `.nyssaai/daily-tasks/`. If the configured
+output is missing or points into the configuration/state directory, resolve the output
+location with the user before writing; do not fall back to configRoot or cwd.
+Open today's plan if present; create it only if missing, with
 UUIDv7 identity and created/updated GMT timestamps. Do not backfill skipped days.
 If absent, find most recent prior plan by valid local-date filename, reconcile that plan's
 edits, then carry selected unresolved work from it. Completed/cancelled items remain in

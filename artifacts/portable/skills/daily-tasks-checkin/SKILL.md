@@ -26,6 +26,8 @@ identity or disposition of unresolved decisions.
    each decision; never interpret interruption or silence as acceptance. Allow skipping
    unresolved items while processing independent ones. Do not ask resolved questions again.
 5. Open/create today's local-day plan using [daily planning](../daily-tasks-plan/SKILL.md).
+   Write it under `<vaultRoot>/<dailyPlansRelative>` from the profile. Only resumable
+   progress belongs in configRoot; the daily Markdown plan must be outside that directory.
    Carry unfinished selections from most recent earlier plan automatically, no skipped-day
    plans. Separate own and delegated work; suggest priority/order from accepted profile.
    Do not require every open task to receive a day allocation. No timeframe fitting.
