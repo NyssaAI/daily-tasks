@@ -1,0 +1,48 @@
+stdout:
+✔ UUIDv7 carries timestamp/version/variant without conflating identities (5.1187ms)
+✔ carry-forward retains selected own/delegated work but not terminal or removed work (1.2578ms)
+✔ profile validates explicit identity timezone and safe independently chosen roots (18.6849ms)
+✔ published templates become valid related records and gate milestone closure (6.8465ms)
+✔ CLI logs explicit acceptance, retries once, queries archive, rejects invalid input and previews without writes (413.8163ms)
+✔ assembled portable and Cowork CLI surfaces preserve operation behavior (93.7186ms)
+✔ append, identical retry, conflicting retry, correction and archive preserve history (113.7807ms)
+✔ dry runs never create storage or modify existing bytes (23.511ms)
+✔ corrupt history and invalid input fail without rewriting history (35.8616ms)
+✔ person actors require email identity while named agents remain valid (17.0875ms)
+✔ separate processes serialize appends without losing entries (226.489ms)
+✔ same-day rotations choose fresh names and query filters include archives (98.6456ms)
+✔ creation date is retained across days; archived IDs remain reserved (44.6396ms)
+✔ failed archive setup preserves original bytes and history (23.4475ms)
+✔ stale locks are reported without mutation or automatic breaking (2.6108ms)
+✔ symlinked storage cannot redirect log operations (2.1921ms)
+✔ stale checkbox never reopens changed task; independent edits merge (1.4604ms)
+✔ conflicts preserve current facts and do not block independent changes (0.4823ms)
+✔ unchecking completed task restores start-aware state and records are not mutated (1.1453ms)
+✔ DoD and blockers reopen parents while preserving completed tasks (0.4227ms)
+✔ recovery compares expected values and never infers ambiguous intent (0.2668ms)
+✔ invalid metadata and blocker checkbox states are handled by record type (0.1795ms)
+✔ reopening clears present resolution timestamp, retaining baseline history (0.1024ms)
+✔ parse scalar frontmatter, hidden identity, relations and criterion IDs (4.3326ms)
+✔ invalid states, dates, metadata, duplicate IDs and unsupported YAML are surfaced (0.508ms)
+✔ milestone closure needs DoD, resolved tasks and no open blocker; dependencies are informational (0.9267ms)
+✔ missing or invalid closure relationships cannot falsely permit closure (0.3749ms)
+✔ link checks propose path repairs by identity and expose missing backlinks (0.6106ms)
+✔ malformed collections diagnose rather than crash and missing index refs gate closure (0.2097ms)
+✔ DoD identity collisions and parent mismatch cannot pass closure (0.17ms)
+✔ project criterion projections use ref IDs without requiring another wiki link (0.2069ms)
+✔ code examples do not create spurious identities or relations (0.1847ms)
+✔ reported activity and recording time remain separate; vague time defaults (2.0675ms)
+✔ invalid precise dates and implicit local timestamps fail instead of defaulting (0.2996ms)
+✔ local day and display use explicit zone across midnight and DST (13.3617ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 710.9435
+
+stderr:
+
+error:

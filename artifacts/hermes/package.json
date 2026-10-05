@@ -1,0 +1,16 @@
+{
+  "name": "@nyssaai/daily-tasks",
+  "version": "0.1.0",
+  "description": "Personal task and daily planning skills with Markdown records and deterministic integrity tools",
+  "type": "module",
+  "private": true,
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "test": "node --test",
+    "assemble": "node scripts/assemble.mjs write",
+    "check": "node scripts/assemble.mjs check && node scripts/validate.mjs",
+    "eval": "node evals/run.mjs",
+    "eval:check": "node evals/report.mjs check"
+  },
+  "license": "MIT"
+}

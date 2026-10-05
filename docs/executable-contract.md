@@ -47,6 +47,12 @@ Do not write documents. Operation recovery plans rely on expected before/after v
 `recoverOperation(operation, actual)` -> report safe pending/already-applied/conflict,
 never infer missing user intent.
 
+Reconciliation change values and recovery before/after use JSON-safe snapshots:
+`{present:false}` or `{present:true,value:...}`. Recovery keys are unique strings;
+actual is plain key->value object with absent keys omitted. Views use null to request
+removal of optional assignee/started_at/resolved_at/target_date fields; missing view
+fields propose nothing. Do not use undefined in persisted checkpoint payloads.
+
 Time module `lib/time/time.mjs`: `activityTime(reported, now?)` ->
 `{activity_at,recorded_at,time_defaulted}`; reject malformed precise timestamps;
 missing/ambiguous natural language falls back to now (caller preserves words).

@@ -1,0 +1,37 @@
+{
+  "runId": "2026-10-05T20-30-23-385Z-publication-final",
+  "started_at": "2026-10-05T20:30:23.385Z",
+  "completed_at": "2026-10-05T20:31:10.885Z",
+  "status": "Incomplete",
+  "candidate_hash": "6e628683c1df7f2ac08793f27bf2b224c1b8a65b741b183dbd01656c15b67bd3",
+  "freeze": "freeze.json",
+  "completed_result": "../../results/2026-10-05T20-30-23-543Z-46352/result.json",
+  "stages": "stages.json",
+  "last_completed_stage": "Fresh full deterministic run and declared report write/check/release",
+  "last_completed_case": "40 tests passed; 138 generated files matched; six skills validated",
+  "release": {
+    "status": "Incomplete",
+    "exit": 1,
+    "diagnostic": "Release incomplete: missing, failed or stale required results"
+  },
+  "dependency_comparison": {
+    "changed": [
+      ".gitattributes",
+      "evals/inventory.mjs"
+    ],
+    "deleted": [],
+    "all_four_runtime_artifact_hashes_unchanged": true,
+    "matrix_scenarios_verifier_and_commands_unchanged": true
+  },
+  "carried_forward": {
+    "receipt": "../2026-10-05T20-25-22-992Z-independent-final/attempt.json",
+    "scope": "13 required unavailable/unverified rows, exact next host/platform checks, version/availability evidence and verifier coverage assessment; no native scores",
+    "reason": "Only Git evidence checkout policy and inventory inclusion changed. Host availability, activation contracts, workflows and native evidence dependencies unchanged.",
+    "discovery_attempted": false
+  },
+  "fresh_calibration": "Full 40-test run includes existing known-valid host evidence acceptance and missing-scenario/false-pass/non-isolated/corrupt evidence rejection, plus valid/missing/stale releaseReady fixtures. Declared report verifier accepted fresh export. Synthetic calibration is not native execution.",
+  "source_unchanged": true,
+  "observed_errors": "No deterministic execution errors. Release exit 1 is expected missing required evidence, including the unresolved required Muse loader/schema contract.",
+  "omitted_output": "No native sessions or artifacts produced. Original redacted availability receipt linked; no private machine/account paths exported.",
+  "publication_status": "Pending; lead must compare published inventory and artifact/evidence bytes with frozen candidate."
+}
