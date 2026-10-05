@@ -78,7 +78,10 @@ retain references; deletion never means cancelled/completed.
 
 R13. Explicit setup captures current user's name/email, IANA timezone, priorities,
 vault root and projects root. Configuration and reconciliation/check-in state reside
-under explicitly chosen `.nyssaai/daily-tasks/`. No cwd/cache-derived scope.
+under the resolved `.nyssaai/daily-tasks/` convention or existing configured location.
+Reuse applicable configuration pointers, common state roots and known vault scope before
+asking questions. Resolve absolute paths from context; do not require the user to type
+them or separately approve state initialization. No cwd/cache-derived scope.
 This is configuration and operating state only. Daily Markdown plans use the configured
 vault output directory; accepted task documents use the projects directory. Neither is
 stored under configRoot. Existing state locations require explicit migration approval.

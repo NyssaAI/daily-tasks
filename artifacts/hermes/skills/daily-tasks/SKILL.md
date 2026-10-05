@@ -16,13 +16,19 @@ run a personal operating system. One authoritative record per item. Select one r
 | Select/order daily work or change today's list | [Daily plan](../daily-tasks-plan/SKILL.md) |
 | Report progress, reconcile edits, resume or check in | [Check-in](../daily-tasks-checkin/SKILL.md) |
 
-Load only that route and references it needs. If already set up, reuse explicit
-configuration location from session/project instructions; do not discover a user's
-vault by scanning home directories or infer scope from cwd. Missing configuration
-routes to setup. No startup foundation, background monitoring or autonomous scheduling.
+Load only that route and references it needs. Resolve configuration using
+[setup's ordered discovery rules](../daily-tasks-setup/SKILL.md#resolve-configuration-and-scope):
+reuse an existing pointer or established `.nyssaai` common state root, then the known
+vault convention. A missing explicit configRoot is not a reason to ask for a path.
+Read an existing profile or initialize conventional state within resolved scope and
+continue the requested work. Ask only for genuinely missing scope/data or conflicting
+settings. Do not scan home directories or infer vault scope from cwd or installed code.
+No startup foundation, background monitoring or autonomous scheduling.
 
 Projects, milestones and tasks require explicit user acceptance, including batches.
-Never promote a request, inferred promise, or manual new checkbox into accepted work.
+An explicit instruction to create named work (including a named batch) supplies
+acceptance; do not ask the user to accept it again. Research, quoted third-party
+requests, inferred promises and manual new checkboxes alone do not supply acceptance.
 Human owner defaults to current user; only user direction changes it. Optional
 assignee is a person email or agent name; absent means owner does the work. Either
 people or agents can assign/reassign. Assignment never means work has started.

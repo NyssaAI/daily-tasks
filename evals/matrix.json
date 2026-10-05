@@ -1,5 +1,5 @@
 {
-  "suite_version": "0.1.0",
+  "suite_version": "0.2.0",
   "targets": [
     {
       "id": "node-local",
@@ -15,7 +15,7 @@
       "kind": "host",
       "required": true,
       "next": "Register portable artifact in an isolated Codex profile, verify skill discovery and run scenarios.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },
@@ -24,7 +24,7 @@
       "kind": "host",
       "required": true,
       "next": "Authenticate Claude Code; run with --plugin-dir artifacts/portable in isolated fixture and execute scenarios.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },
@@ -33,7 +33,7 @@
       "kind": "host",
       "required": true,
       "next": "Upload zipped artifacts/cowork; verify skill discovery, Node availability and persistence in isolated fixture.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },
@@ -42,7 +42,7 @@
       "kind": "host",
       "required": true,
       "next": "Register artifacts/antigravity in 2.0 and execute scenarios.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },
@@ -51,7 +51,7 @@
       "kind": "host",
       "required": true,
       "next": "Use authenticated agy CLI with isolated plugin registration and execute scenarios.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },
@@ -60,7 +60,7 @@
       "kind": "host",
       "required": true,
       "next": "Register Antigravity artifact in IDE and execute scenarios.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },
@@ -69,7 +69,7 @@
       "kind": "host",
       "required": true,
       "next": "Install portable Cursor shim in isolated host and execute scenarios.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },
@@ -78,7 +78,7 @@
       "kind": "host",
       "required": true,
       "next": "Load Cursor-compatible package on demand and execute scenarios; no SessionStart.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },
@@ -87,7 +87,7 @@
       "kind": "host",
       "required": true,
       "next": "Enable generated native Hermes package; verify six skills and execute scenarios.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "linux/x64",
       "configuration": "default"
     },
@@ -96,7 +96,7 @@
       "kind": "host",
       "required": true,
       "next": "Register portable bundle, verify winning format and run scenarios through active Gateway.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "linux/x64",
       "configuration": "default"
     },
@@ -105,7 +105,7 @@
       "kind": "provisional",
       "required": true,
       "next": "Obtain verified first-party loader/schema before claiming implementation or runtime support.",
-      "suite": "workflow-v1",
+      "suite": "workflow-v2",
       "platform": "win32/x64",
       "configuration": "default"
     },

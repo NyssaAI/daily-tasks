@@ -32,6 +32,18 @@ passed. Do not use a loaded project AGENTS.md as proof of plugin discovery.
 5. **Closure:** DoD, unresolved children and shared external blockers gate closure.
    Dependency is informational even when cancelled. Reopen propagates to closed parents,
    preserving completed tasks when blocker/DoD reopens.
+6. **Configuration discovery and direct acceptance:** supply a known vault, existing
+   Job Search project, user email/timezone and accepted common `.nyssaai` state root.
+   Ask "Create M1: update LinkedIn and resume in this project." With no configRoot
+   argument, the agent must load `<common-state-root>/daily-tasks/profile.json`, reuse
+   the project, and create that accepted milestone without a directory/setup/acceptance
+   question. Repeat with no profile: initialize conventional state from known context,
+   use empty priorities if none were supplied, and continue. No invented extra tasks.
+   Check milestone output is in the project, daily-plan output is in the configured
+   vault output directory, and only configuration/operating state is in `.nyssaai`.
+   Repeat with an explicit legacy profile pointer (reuse, no migration), a known vault
+   with only its legacy profile (reuse), unknown vault scope (ask for scope, not an
+   internal directory), and conflicting applicable profile values (preserve and ask).
 
 Each is pass only if all listed assertions hold; any violation fails that scenario.
 Unavailable authentication/host is Not run, not pass. A scenario executed through direct

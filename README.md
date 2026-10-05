@@ -23,7 +23,9 @@ carries unfinished selected work forward and reconciles manual checkbox edits.
 
 ## Storage and authority
 
-- Configuration/check-in state: user-selected `.nyssaai/daily-tasks/` outside the package.
+- Configuration/check-in state: reuse the configured location or established `.nyssaai`
+  common state root; otherwise use `<vault root>/.nyssaai/daily-tasks/` for a known vault.
+  Resolve existing settings before asking questions; no directory-choice approval is needed.
   This directory holds configuration and operating state; daily plans and task documents
   belong in the configured vault output and project directories.
 - Decision log: `{projects root}/.daily-tasks/yyyy.mm.dd-decisions.json`; date means

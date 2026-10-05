@@ -6,7 +6,10 @@ description: Create accepted projects, milestones and tasks; update progress, ow
 # Manage records
 
 Read [records](../daily-tasks/references/records.md), [operation protocol](../daily-tasks/references/operations.md)
-and the needed [CLI operation](../daily-tasks/references/cli.md). Require setup and explicit scope.
+and the needed [CLI operation](../daily-tasks/references/cli.md). Resolve profile and
+scope through [setup](../daily-tasks-setup/SKILL.md); reuse established settings and
+conventional state paths without a separate setup approval. Continue the record request
+once required values are available.
 
 1. Identify existing work by UUID. New projects/milestones/tasks require recorded explicit
    user acceptance via [capture](../daily-tasks-capture/SKILL.md), not implied approval.
