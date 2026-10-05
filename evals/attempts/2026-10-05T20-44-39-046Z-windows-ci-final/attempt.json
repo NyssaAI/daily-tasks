@@ -1,0 +1,39 @@
+{
+  "runId": "2026-10-05T20-44-39-046Z-windows-ci-final",
+  "started_at": "2026-10-05T20:44:39.046Z",
+  "completed_at": "2026-10-05T20:45:21.473Z",
+  "status": "Incomplete",
+  "candidate_hash": "05e438fa0423aeec056eb3b856a830c8e08dd9dea37a3384f5d14e879aff1e64",
+  "freeze": "freeze.json",
+  "completed_result": "../../results/2026-10-05T20-44-39-203Z-4600/result.json",
+  "stages": "stages.json",
+  "last_completed_stage": "Fresh full deterministic run and declared report write/check/release",
+  "last_completed_case": "41 tests passed; 138 generated files matched; six skills validated",
+  "release": {
+    "status": "Incomplete",
+    "exit": 1,
+    "diagnostic": "Release incomplete: missing, failed or stale required results"
+  },
+  "dependency_comparison": {
+    "previous_freeze": "../2026-10-05T20-38-01-384Z-ci-fixture-final/freeze.json",
+    "changed": [
+      "scripts/assemble.mjs",
+      "test/integration.test.mjs"
+    ],
+    "deleted": [],
+    "all_four_runtime_artifact_hashes_unchanged": true,
+    "matrix_scenarios_verifier_and_commands_unchanged": true
+  },
+  "carried_forward": {
+    "receipt": "../2026-10-05T20-25-22-992Z-independent-final/attempt.json",
+    "scope": "13 required unavailable/unverified rows, exact next checks, availability and verifier coverage assessment; no native scores",
+    "reason": "Only assembly root text normalization and its regression changed. Runtime artifact bytes, matrix, activation and native evidence dependencies unchanged.",
+    "discovery_attempted": false
+  },
+  "repair_classification": "Packaging reproducibility defect across Git checkout line endings. Root metadata/license normalization now matches other canonical text. Clean scoped adversarial delta verified equality and assembly; successful remote Windows CI remains pending.",
+  "fresh_calibration": "Full 41-test run includes LF/CRLF full package-map equality regression and existing known-valid/invalid evidence calibration. Declared report verifier accepted fresh export. Calibration is not native execution.",
+  "source_unchanged": true,
+  "observed_errors": "No deterministic execution errors. Release exit 1 reflects missing required evidence, including unresolved required Muse loader/schema contract.",
+  "omitted_output": "No native sessions or artifacts produced; original redacted availability receipt linked. No private paths exported.",
+  "publication_status": "Initial PRs are published; this latest repair/evidence update and new CI pending; lead must verify pushed inventory and artifact/evidence bytes."
+}

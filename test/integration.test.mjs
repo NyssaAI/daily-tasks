@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, readFile, writeFile, readdir, symlink } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, writeFile, readdir, symlink, cp } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { uuid7, isUuid7 } from '../lib/identity/identity.mjs';
 import { parseRecord, validateRecords, checkClosure } from '../lib/records/records.mjs';
 import { carryForward, parseChecklist } from '../lib/planning/planning.mjs';
@@ -20,6 +20,20 @@ function call(entry, operation, inputPath, ...flags) {
   const result = spawnSync(process.execPath,[entry,operation,...(inputPath ? ['--input',inputPath] : []),...flags],{encoding:'utf8',cwd:root});
   return {status:result.status,output:result.stdout.trim() ? JSON.parse(result.stdout) : null,error:result.stderr.trim() ? JSON.parse(result.stderr) : null};
 }
+test('assembled packages and source hashes are identical for LF and CRLF source files', async () => {
+  const directory = await workspace();
+  for (const name of ['skills','lib','bin','plugin.json','LICENSE','package.json','capabilities.json']) {
+    await cp(path.join(root,name),path.join(directory,name),{recursive:true});
+  }
+  await mkdir(path.join(directory,'scripts'));
+  await cp(path.join(root,'scripts/assemble.mjs'),path.join(directory,'scripts/assemble.mjs'));
+  const {buildPackages,tree} = await import(pathToFileURL(path.join(directory,'scripts/assemble.mjs')).href);
+  const sources = await tree(directory);
+  for (const [name,value] of sources) await writeFile(path.join(directory,name),value);
+  const baseline = await buildPackages();
+  for (const [name,value] of sources) await writeFile(path.join(directory,name),value.replaceAll('\n','\r\n'));
+  assert.deepEqual(await buildPackages(),baseline);
+});
 test('UUIDv7 carries timestamp/version/variant without conflating identities', () => {
   const ids = Array.from({length:1000}, () => uuid7(1791217800000));
   assert.equal(new Set(ids).size,1000);

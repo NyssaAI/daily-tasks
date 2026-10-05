@@ -1,0 +1,54 @@
+stdout:
+✔ evidence accepts complete host execution and rejects missing, corrupt and falsely passing results (8.1923ms)
+✔ assembled packages and source hashes are identical for LF and CRLF source files (74.9674ms)
+✔ UUIDv7 carries timestamp/version/variant without conflating identities (3.7052ms)
+✔ carry-forward retains selected own/delegated work but not terminal or removed work (0.538ms)
+✔ profile validates explicit identity timezone and safe independently chosen roots (7.1244ms)
+✔ published templates become valid related records and gate milestone closure (3.4366ms)
+✔ CLI logs explicit acceptance, retries once, queries archive, rejects invalid input and previews without writes (418.9245ms)
+✔ assembled portable and Cowork CLI surfaces preserve operation behavior (106.9706ms)
+✔ inspect-records scans nested records, skips hidden directories and rejects symlinks (110.7052ms)
+✔ append, identical retry, conflicting retry, correction and archive preserve history (111.5372ms)
+✔ dry runs never create storage or modify existing bytes (25.2776ms)
+✔ corrupt history and invalid input fail without rewriting history (32.5025ms)
+✔ person actors require email identity while named agents remain valid (13.6794ms)
+✔ separate processes serialize appends without losing entries (247.9735ms)
+✔ same-day rotations choose fresh names and query filters include archives (106.2124ms)
+✔ creation date is retained across days; archived IDs remain reserved (48.5806ms)
+✔ failed archive setup preserves original bytes and history (26.1154ms)
+✔ stale locks are reported without mutation or automatic breaking (3.323ms)
+✔ symlinked storage cannot redirect log operations (2.6028ms)
+✔ stale checkbox never reopens changed task; independent edits merge (1.3259ms)
+✔ conflicts preserve current facts and do not block independent changes (0.3448ms)
+✔ unchecking completed task restores start-aware state and records are not mutated (0.18ms)
+✔ DoD and blockers reopen parents while preserving completed tasks (0.3657ms)
+✔ recovery compares expected values and never infers ambiguous intent (0.2814ms)
+✔ reopening isolates unrelated copied IDs and rejects ambiguity in affected records (0.3904ms)
+✔ invalid metadata and blocker checkbox states are handled by record type (0.171ms)
+✔ reopening clears present resolution timestamp, retaining baseline history (0.1184ms)
+✔ recovery snapshots survive JSON for absent fields and timestamp removal (0.9617ms)
+✔ explicit null removes optional assignment and target while preserving owner (0.2144ms)
+✔ parse scalar frontmatter, hidden identity, relations and criterion IDs (3.1185ms)
+✔ invalid states, dates, metadata, duplicate IDs and unsupported YAML are surfaced (0.4651ms)
+✔ milestone closure needs DoD, resolved tasks and no open blocker; dependencies are informational (0.8085ms)
+✔ missing or invalid closure relationships cannot falsely permit closure (0.3084ms)
+✔ link checks propose path repairs by identity and expose missing backlinks (0.506ms)
+✔ malformed collections diagnose rather than crash and missing index refs gate closure (0.1973ms)
+✔ DoD identity collisions and parent mismatch cannot pass closure (0.1565ms)
+✔ project criterion projections use ref IDs without requiring another wiki link (0.217ms)
+✔ code examples do not create spurious identities or relations (0.1634ms)
+✔ reported activity and recording time remain separate; vague time defaults (1.7914ms)
+✔ invalid precise dates and implicit local timestamps fail instead of defaulting (0.2588ms)
+✔ local day and display use explicit zone across midnight and DST (12.0549ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 41
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 846.4363
+
+stderr:
+
+error:

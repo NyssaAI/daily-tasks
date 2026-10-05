@@ -28,9 +28,9 @@ export async function buildPackages() {
     ['.cursor-plugin/plugin.json', encode(host)],
     ['.codex-plugin/plugin.json', encode({...host,skills:'./skills/',interface:{displayName:'Daily Tasks',shortDescription:'Personal tasks and daily planning',developerName:'NyssaAI',category:'Productivity'}})],
   ]);
-  const shared = new Map([['plugin.json',encode(identity)],['LICENSE',await readFile(path.join(root,'LICENSE'),'utf8')]]);
+  const shared = new Map([['plugin.json',encode(identity)],['LICENSE',(await readFile(path.join(root,'LICENSE'),'utf8')).replaceAll('\r\n','\n')]]);
   for (const folder of ['skills','lib','bin']) for (const [key,value] of await tree(path.join(root,folder),folder+'/')) shared.set(key,value);
-  for (const name of ['package.json','capabilities.json']) shared.set(name,await readFile(path.join(root,name),'utf8'));
+  for (const name of ['package.json','capabilities.json']) shared.set(name,(await readFile(path.join(root,name),'utf8')).replaceAll('\r\n','\n'));
   const portable = new Map([...shared,...manifests]);
   const agy = new Map(shared); agy.set('plugin.json',encode({name:identity.name,description:identity.description}));
   const cowork = new Map(portable);
