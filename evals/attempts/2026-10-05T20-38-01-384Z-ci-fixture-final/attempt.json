@@ -1,0 +1,38 @@
+{
+  "runId": "2026-10-05T20-38-01-384Z-ci-fixture-final",
+  "started_at": "2026-10-05T20:38:01.384Z",
+  "completed_at": "2026-10-05T20:38:54.364Z",
+  "status": "Incomplete",
+  "candidate_hash": "f5987346f48e33d572058a3b4df1730a015205337994954e53e6838bc764220d",
+  "freeze": "freeze.json",
+  "completed_result": "../../results/2026-10-05T20-38-01-538Z-40428/result.json",
+  "stages": "stages.json",
+  "last_completed_stage": "Fresh full deterministic run and declared report write/check/release",
+  "last_completed_case": "40 tests passed; 138 generated files matched; six skills validated",
+  "release": {
+    "status": "Incomplete",
+    "exit": 1,
+    "diagnostic": "Release incomplete: missing, failed or stale required results"
+  },
+  "dependency_comparison": {
+    "previous_freeze": "../2026-10-05T20-30-23-385Z-publication-final/freeze.json",
+    "changed": [
+      "test/log.test.mjs"
+    ],
+    "deleted": [],
+    "all_four_runtime_artifact_hashes_unchanged": true,
+    "matrix_scenarios_verifier_and_commands_unchanged": true
+  },
+  "carried_forward": {
+    "receipt": "../2026-10-05T20-25-22-992Z-independent-final/attempt.json",
+    "scope": "13 required unavailable/unverified rows, exact next checks, version/availability and verifier coverage assessment; no native scores",
+    "reason": "Only log test fixture now canonicalizes temporary path. Runtime artifacts, matrix, activation and native evidence dependencies unchanged.",
+    "discovery_attempted": false
+  },
+  "repair_classification": "Test-fixture path/host environment mismatch, not established production log defect. Existing safety contract requires canonical root. Scoped adversarial delta independently exercised Windows junction fixture 10/10; actual macOS CI rerun remains pending.",
+  "fresh_calibration": "Full 40-test run includes known-valid host evidence acceptance and missing-scenario/false-pass/non-isolated/corrupt evidence rejection plus valid/missing/stale releaseReady fixtures. Report verifier accepted fresh export. Calibration is not native execution.",
+  "source_unchanged": true,
+  "observed_errors": "No deterministic execution errors. Release exit 1 is missing required evidence, including unresolved required Muse loader/schema contract.",
+  "omitted_output": "No native sessions or artifacts produced; original redacted availability receipt linked. No private paths exported.",
+  "publication_status": "PR update and new CI pending; lead must verify published inventory and artifact/evidence bytes."
+}

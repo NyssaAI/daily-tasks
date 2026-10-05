@@ -1,13 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, readdir, rm, writeFile, mkdir, rename, symlink } from 'node:fs/promises';
+import { mkdtemp, realpath, readFile, readdir, rm, writeFile, mkdir, rename, symlink } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { appendDecision, queryDecisions, archiveDecisions } from '../lib/log/decision-log.mjs';
 import { uuid7 } from '../lib/identity/identity.mjs';
 const makeEntry = (overrides = {}) => ({ id: uuid7(), operation_id: uuid7(), action: 'task.accepted', record_ids: [uuid7()], actor: {kind:'person',id:'user@example.test'}, activity_at:'2026-10-05T14:00:00Z', recorded_at:'2026-10-05T14:30:00Z', time_defaulted:false, ...overrides });
-async function fixture(t) { const root = await mkdtemp(path.join(tmpdir(),'daily-log-')); t.after(() => rm(root,{recursive:true,force:true})); return root; }
+// macOS temporary paths can contain /var, a symlink; log roots must use the real directory.
+async function fixture(t) { const root = await realpath(await mkdtemp(path.join(tmpdir(),'daily-log-'))); t.after(() => rm(root,{recursive:true,force:true})); return root; }
 test('append, identical retry, conflicting retry, correction and archive preserve history', async t => {
  const projectsRoot = await fixture(t); const entry = makeEntry();
  const first = await appendDecision({projectsRoot,entry});

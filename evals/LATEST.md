@@ -4,7 +4,7 @@ Direct code and package checks are separate from native-host activation.
 
 | Target / suite | Platform / configuration | Result | Evidence / next check |
 | --- | --- | --- | --- |
-| node-local / deterministic-v1 | win32/x64 / node-22-plus | pass; current | [2026-10-05T20-30-23-543Z-46352](results/2026-10-05T20-30-23-543Z-46352/result.json) |
+| node-local / deterministic-v1 | win32/x64 / node-22-plus | pass; current | [2026-10-05T20-38-01-538Z-40428](results/2026-10-05T20-38-01-538Z-40428/result.json) |
 | codex / workflow-v1 | win32/x64 / default | Not run / unverified | Register portable artifact in an isolated Codex profile, verify skill discovery and run scenarios. |
 | claude-code / workflow-v1 | win32/x64 / default | Not run / unverified | Authenticate Claude Code; run with --plugin-dir artifacts/portable in isolated fixture and execute scenarios. |
 | claude-cowork / workflow-v1 | win32/x64 / default | Not run / unverified | Upload zipped artifacts/cowork; verify skill discovery, Node availability and persistence in isolated fixture. |
