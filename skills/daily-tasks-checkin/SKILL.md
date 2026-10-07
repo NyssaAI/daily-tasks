@@ -5,10 +5,15 @@ description: Run or resume an anytime personal check-in, reconcile Markdown edit
 
 # Anytime check-in
 
+Apply [response conventions](../daily-tasks/references/response-conventions.md)
+for review screens and numbered status/progress replies.
+Use [planning flow](../daily-tasks/references/planning-flow.md) for the shared
+four-hour maintenance worker, current/previous-plan checks and inventory refresh.
+
 Resolve profile via [setup](../daily-tasks-setup/SKILL.md). Read
 [operation protocol](../daily-tasks/references/operations.md) and
 [CLI](../daily-tasks/references/cli.md). Save compact resumable progress at
-configRoot/checkin.json: local day, pending operation IDs, unresolved candidate/conflict
+stateRoot/checkin.json: local day, pending operation IDs, unresolved candidate/conflict
 IDs, processed source versions and next step. A new day changes plan target, not the
 identity or disposition of unresolved decisions.
 
@@ -27,9 +32,11 @@ identity or disposition of unresolved decisions.
    unresolved items while processing independent ones. Do not ask resolved questions again.
 5. Open/create today's local-day plan using [daily planning](../daily-tasks-plan/SKILL.md).
    Write it under `<vaultRoot>/<dailyPlansRelative>` from the profile. Only resumable
-   progress belongs in configRoot; the daily Markdown plan must be outside that directory.
+   progress belongs in stateRoot; the daily Markdown plan must be outside that directory.
    Carry unfinished selections from most recent earlier plan automatically, no skipped-day
-   plans. Separate own and delegated work; suggest priority/order from accepted profile.
+   plans, including into a plan pre-created by future selection. Use the dated rollover
+   state and pending-operation protocol; file existence is not rollover completion.
+   Separate own and delegated saved work; leave execution order to the person.
    Do not require every open task to receive a day allocation. No timeframe fitting.
 6. Revalidate affected records, links, closure/reopening effects and views, verify log
    appends, then save baselines. Report plan link, changes applied, and any pending

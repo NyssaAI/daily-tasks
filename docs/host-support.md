@@ -7,6 +7,7 @@ for durable operations; unavailable runtimes can only discuss proposals.
 | Host | Artifact / activation route | Runtime evidence |
 | --- | --- | --- |
 | Codex | portable root and generated .codex-plugin overlay; marketplace registration | See evals/LATEST.md; package validation alone is not activation |
+| Codex Windows with phone access | Windows app hosts the vault/Node/plugin; phone connects to that host | Local CLI/packaging tests do not verify pairing or native skill activation |
 | Claude Code | portable .claude-plugin; isolated `claude --plugin-dir <artifact>` | See evals/LATEST.md |
 | Claude Cowork | artifacts/cowork, CLI moved to scripts/; zip this directory for upload | UI/Node/filesystem capabilities require verification |
 | Antigravity 2.0 / CLI / IDE | artifacts/antigravity minimal manifest; install/register through selected surface | Each surface needs independent runtime verification |

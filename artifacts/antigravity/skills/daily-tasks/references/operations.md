@@ -1,15 +1,26 @@
 # Applying and reconciling changes
 
-The skill owns Markdown writes. JS does not own task CRUD. For a consequential change:
+The skill owns Markdown writes. JS does not own task CRUD.
 
-1. Read relevant records and stored per-view baselines in configRoot/reconciliation.json.
+Keep the active vault/projects/daily-plan binding fixed. Validate checkpoint paths
+against that context before recovery or writes: canonical/project views belong to
+its projectsRoot, daily views to its dailyPlansRoot, and operating state to its
+stateRoot. A checkpoint for another binding is suspended for a separate vault
+session; never widen the active roots or search another vault to make an ID resolve.
+Include the context planningBinding in new checkpoints and resumable screen state.
+For legacy checkpoints without it, verify their explicit paths/identities before
+enrollment; absence is not permission to cross vaults.
+
+For a consequential change:
+
+1. Read relevant records and stored per-view baselines in stateRoot/reconciliation.json.
    Validate identities/metadata/links using the CLI. Surface duplicate/missing records;
    preserve their references and continue unrelated items. New unidentified checkboxes
    become capture candidates, not records with fabricated IDs.
 2. Establish user acceptance/authority where required. Build an operation with UUIDv7
    operation_id and event id; exact affected file paths, before/after content hashes,
    intended field changes, actor and timing. Save this pending operation under
-   configRoot/operations/<operation-id>.json BEFORE any Markdown write. This is a
+   stateRoot/operations/<operation-id>.json BEFORE any Markdown write. This is a
    recoverable pending action, not a second decision log. Preserve original words,
    reason, acceptance source and existing event ID/times across retries.
 3. Compare expected before values with actual values immediately before each write.
@@ -20,6 +31,9 @@ The skill owns Markdown writes. JS does not own task CRUD. For a consequential c
    same event and operation IDs/payload. Never directly inspect or patch the log;
    `log-query` verifies whether the operation was recorded. A failure leaves the
    checkpoint pending, not a false success.
+   Compare the queried event's entire payload with the checkpoint's saved event;
+   matching operation/event IDs alone do not prove the intended decision was logged.
+   A differing payload is a conflict and must not advance baselines or completion.
 5. Refresh affected views AFTER reconciliation; preserve cancelled/completed daily
    rows for the day. Update per-view snapshots to the exact rendered field values
    and source values. Mark/remove the completed pending checkpoint only after records,

@@ -1,0 +1,66 @@
+{
+  "fixture": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\planning-yYGuyE/fixture.json",
+  "state": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\planning-yYGuyE\\.nyssaai\\daily-tasks\\phone-review.json",
+  "screen": {
+    "today": "2026.10.06",
+    "counts": {
+      "openProjects": 1,
+      "openTasks": 2,
+      "lateTasks": 0
+    },
+    "selected": [
+      {
+        "id": "01a11339-1278-7509-a09b-537e4a83910d",
+        "projectId": "01a11339-1277-7129-a63f-75af549f798e",
+        "milestoneId": "01a11339-1278-7797-8b60-b16f347d6e1c",
+        "path": "2026.01.01-fixture/first/recovery-task.md",
+        "title": "Recovery task",
+        "state": "not-started",
+        "owner": "fixture@example.test",
+        "assignee": null,
+        "targetDate": null,
+        "dependsOn": [],
+        "blockedBy": [],
+        "planned": [
+          {
+            "date": "2026.10.06",
+            "source": "2-areas/daily-plans/2026.10.06-daily-plan.md"
+          }
+        ],
+        "number": 1,
+        "dueDate": null
+      },
+      {
+        "id": "01a11339-1278-70f1-bbef-ed1c43216f09",
+        "projectId": "01a11339-1277-7129-a63f-75af549f798e",
+        "milestoneId": "01a11339-1278-7797-8b60-b16f347d6e1c",
+        "path": "2026.01.01-fixture/first/other-task.md",
+        "title": "Other task",
+        "state": "not-started",
+        "owner": "fixture@example.test",
+        "assignee": null,
+        "targetDate": null,
+        "dependsOn": [],
+        "blockedBy": [],
+        "planned": [
+          {
+            "date": "2026.10.06",
+            "source": "2-areas/daily-plans/2026.10.06-daily-plan.md"
+          }
+        ],
+        "number": 2,
+        "dueDate": null
+      }
+    ],
+    "available": [],
+    "hasMore": false,
+    "mapping": {
+      "01a11339-1278-7509-a09b-537e4a83910d": 1,
+      "01a11339-1278-70f1-bbef-ed1c43216f09": 2
+    },
+    "outOfViewSelectedIds": [],
+    "diagnostics": [],
+    "mappingBinding": "6b65b5b55e676636c0837f0e34108ae3dcaba71f0cb6b0b2f837b3bcd89a6d56",
+    "incomplete": false
+  }
+}

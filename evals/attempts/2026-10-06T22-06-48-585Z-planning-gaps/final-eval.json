@@ -1,0 +1,212 @@
+{
+  "runId": "2026-10-06T22-07-44-653Z-planning-gap-final",
+  "started_at": "2026-10-06T22:07:44.653Z",
+  "completed_at": "2026-10-06T22:11:50.132Z",
+  "executionCompleteness": "complete for available Windows x64 deterministic environment",
+  "releaseAcceptance": "Incomplete",
+  "pluginVersion": "0.1.0",
+  "suiteRevision": "0.2.0",
+  "platform": "win32/x64",
+  "node": "v24.19.0",
+  "candidate": {
+    "hash": "d9d8051b509ac162708d64af610e91f49dfbd590724a34ea0a574b87809c1b12",
+    "inventoryCount": 235,
+    "sourceUnchanged": true,
+    "freeze": ".temp/host-gap-check/final-freeze.json"
+  },
+  "artifacts": {
+    "portable": {
+      "hash": "0e33e9cd34dd5e3a808110e377d7f3a84f60c7df71ca75452a5c02a11f940885",
+      "count": 43
+    },
+    "cowork": {
+      "hash": "307318ddbf428b08e3777fbdddcfc9e90e7ef7790773836cb2eb994d6fa491a2",
+      "count": 43
+    },
+    "antigravity": {
+      "hash": "44d13002fd03696fe698b58c9cce0771a8dfa68b290a52880b985a45183676cd",
+      "count": 40
+    },
+    "hermes": {
+      "hash": "fcfa37b32ac4ee391701b89e556d49ed4d06271505d352e08bdecf5d2fe9fb88",
+      "count": 41
+    }
+  },
+  "review": {
+    "path": "docs/2026.10.06-planning-gap-review-adversarial.md",
+    "sha256": "bec3cef642f083b33527033dfbb7a7cc3e936609c1a35128fdbde8386d70353d",
+    "scope": "clean planning-gap delta plus bounded original-seven repair replay; earlier full review unchanged coverage retained",
+    "findings": {
+      "originalSeven": "resolved at source/instruction and known regression level",
+      "gapDeltaThree": "resolved",
+      "supplementalRegressions": 17
+    },
+    "limits": "No isolated native acceptance claimed"
+  },
+  "result": {
+    "path": "evals\\results\\2026-10-06T22-07-52-472Z-3728\\result.json",
+    "sha256": "8910c1e35928718eaed705aa036b48a778ef48cf97e0e6a9820005d20f529962"
+  },
+  "counts": {
+    "tests": 85,
+    "passed": 85,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "recoveryTests": 9,
+    "generatedFiles": 170,
+    "skills": 6,
+    "installedParity": {
+      "files": 43,
+      "matches": 43
+    },
+    "observedExportHashes": {
+      "files": 8,
+      "matches": 8
+    },
+    "independentCurrentChatRecoveryFixtures": 4
+  },
+  "grading": {
+    "method": "binary deterministic assertions and exact artifact parity",
+    "agentBehaviorScore": null
+  },
+  "commands": [
+    {
+      "command": "node evals/run.mjs",
+      "exit": 0,
+      "fresh": true
+    },
+    {
+      "command": "node evals/report.mjs write",
+      "exit": 0
+    },
+    {
+      "command": "node evals/report.mjs check",
+      "exit": 0
+    },
+    {
+      "command": "node evals/report.mjs release",
+      "exit": 1,
+      "stderr": "Release incomplete: missing, failed or stale required results"
+    }
+  ],
+  "calibration": {
+    "knownValid": "accepted complete six-scenario synthetic receipt, recovery stages0-4, exact marked completion and fully applied removed checkpoint",
+    "knownInvalid": "rejected missing/duplicate scenario, false pass, non-isolation and changed evidence; unexpected plan/baseline edits, mismatched event record_ids/after, changed canonical/binding, invalid timestamp and pending absent checkpoint",
+    "classification": "verifier and cross-feature regression evidence only"
+  },
+  "observedEvidence": {
+    "recovery": "Independently inspected four retained stage1-4 fixtures: already-applied, verified, one event, preserved canonical/checkpoint intent",
+    "maintenance": "Inspected clean gpt-6-luna worker, failure result, parent validation/freshness and warm targeted-edit observations",
+    "installed": "Independently read all43 installed portable files and verified normalized parity",
+    "durableAttempt": "evals/attempts/2026-10-06T22-06-48-585Z-planning-gaps/attempt.json",
+    "independentRecovery": ".temp/host-gap-check/final-recovery-independent.json",
+    "installedParity": ".temp/host-gap-check/final-installed-parity.json",
+    "exportVerification": ".temp/host-gap-check/final-observed-export-verification.json"
+  },
+  "unavailableRows": [
+    {
+      "id": "codex",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Register portable artifact in an isolated Codex profile, verify skill discovery and run scenarios."
+    },
+    {
+      "id": "claude-code",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Authenticate Claude Code; run with --plugin-dir artifacts/portable in isolated fixture and execute scenarios."
+    },
+    {
+      "id": "claude-cowork",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Upload zipped artifacts/cowork; verify skill discovery, Node availability and persistence in isolated fixture."
+    },
+    {
+      "id": "antigravity-2",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Register artifacts/antigravity in 2.0 and execute scenarios."
+    },
+    {
+      "id": "antigravity-cli",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Use authenticated agy CLI with isolated plugin registration and execute scenarios."
+    },
+    {
+      "id": "antigravity-ide",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Register Antigravity artifact in IDE and execute scenarios."
+    },
+    {
+      "id": "cursor",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Install portable Cursor shim in isolated host and execute scenarios."
+    },
+    {
+      "id": "grok-bot",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Load Cursor-compatible package on demand and execute scenarios; no SessionStart."
+    },
+    {
+      "id": "hermes",
+      "platform": "linux/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Enable generated native Hermes package; verify six skills and execute scenarios."
+    },
+    {
+      "id": "openclaw",
+      "platform": "linux/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Register portable bundle, verify winning format and run scenarios through active Gateway."
+    },
+    {
+      "id": "muse",
+      "platform": "win32/x64",
+      "configuration": "default",
+      "status": "Not run / unverified",
+      "next": "Obtain verified first-party loader/schema before claiming implementation or runtime support."
+    },
+    {
+      "id": "node-linux",
+      "platform": "linux/x64",
+      "configuration": "node-22-plus",
+      "status": "Not run / unverified",
+      "next": "Run node evals/run.mjs on Linux x64."
+    },
+    {
+      "id": "node-macos",
+      "platform": "darwin/arm64",
+      "configuration": "node-22-plus",
+      "status": "Not run / unverified",
+      "next": "Run node evals/run.mjs on macOS arm64."
+    }
+  ],
+  "limitations": [
+    "Current-chat recovery and worker observations inherit repository/user context and are not isolated native host discovery or six-scenario acceptance.",
+    "Phone continuity remains awaiting device-confirmed explicit user reply; prepared screen alone is not evidence of device origin.",
+    "Muse remains a required unresolved loader/schema implementation contract, separate from unavailable runtime access.",
+    "Linux x64 and macOS arm64 deterministic rows and all11 host/provisional rows remain unverified.",
+    "No source, behavior, suite or scoring changes; no fabricated native receipt, subagents or publication.",
+    "Lead must verify committed/pushed inventory, artifact and evidence bytes against frozen candidate before claiming publication."
+  ],
+  "latest": {
+    "path": "evals/LATEST.md",
+    "sha256": "02f88f7030a21dab2beecd64198ff00eb3a8fe64e17d3adece492542ea1b64f4"
+  }
+}

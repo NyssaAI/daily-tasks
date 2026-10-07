@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 
-export const scenarioIds = ['acceptance','assignment-time','reconciliation','day-change','closure'];
+export const scenarioIds = ['acceptance','assignment-time','reconciliation','day-change','closure','configuration-discovery'];
 export const deterministicCommands = [['node','--test'],['node','scripts/assemble.mjs','check'],['node','scripts/validate.mjs']];
 export async function verifyResult(result, directory, target) {
   if (!target || result.target !== target.id || result.kind !== target.kind || result.platform !== target.platform || result.configuration !== target.configuration || result.suite !== target.suite || !['pass','fail'].includes(result.status) || !/^[a-zA-Z0-9-]+$/.test(result.runId) || !Number.isFinite(Date.parse(result.completed_at)) || !/^[a-f0-9]{64}$/.test(result.candidate?.hash || '')) throw new Error('Invalid result identity or matrix coordinates');

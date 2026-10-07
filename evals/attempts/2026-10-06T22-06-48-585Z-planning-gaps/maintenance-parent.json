@@ -1,0 +1,27 @@
+{
+  "successVerified": true,
+  "state": {
+    "schemaVersion": 1,
+    "lastFullReconcileAt": "2026-10-06T22:04:10.935Z",
+    "model": "gpt-6-luna",
+    "contextBinding": "6b65b5b55e676636c0837f0e34108ae3dcaba71f0cb6b0b2f837b3bcd89a6d56",
+    "execution": {
+      "tool": "collaboration.spawn_agent",
+      "agent": "/root/maintenance_luna",
+      "reportHash": "2a07e2f1261276cfafde4a2a3b5bc4c16a53a79ca1e5d4020c3da117f7901f38",
+      "parentVerified": true
+    }
+  },
+  "warmSecondRequest": {
+    "fullReconcileDue": false,
+    "preferredModel": "gpt-6-luna",
+    "alwaysCheck": [
+      "current-plan-edits",
+      "previous-plan-edits",
+      "applicable-pending-operations"
+    ]
+  },
+  "broadWorkerSpawnedOnSecondRequest": false,
+  "failedWorkerStatus": "needs-reconciliation",
+  "failedTimestampUnchanged": true
+}

@@ -1,6 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activityTime, localDay, displayTime } from '../lib/time/time.mjs';
+import { activityTime, localDay, displayTime, resolveTimezone } from '../lib/time/time.mjs';
+
+test('system timezone resolves to the host zone and displays the actual zone', () => {
+  const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  assert.equal(resolveTimezone('system'), detected);
+  assert.equal(resolveTimezone('America/Chicago'), 'America/Chicago');
+  const time = '2026-10-05T02:00:00Z';
+  assert.equal(localDay(time,'system'),localDay(time,detected));
+  assert.equal(displayTime(time,'system'),displayTime(time,detected));
+  assert.ok(!displayTime(time,'system').includes('(system)'));
+  assert.throws(() => resolveTimezone('bad-zone'));
+});
 
 test('reported activity and recording time remain separate; vague time defaults', () => {
   const now = '2026-10-05T18:00:00Z';

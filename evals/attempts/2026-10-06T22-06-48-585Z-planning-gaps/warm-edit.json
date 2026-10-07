@@ -1,0 +1,20 @@
+{
+  "gate": {
+    "fullReconcileDue": false,
+    "preferredModel": "gpt-6-luna",
+    "alwaysCheck": [
+      "current-plan-edits",
+      "previous-plan-edits",
+      "applicable-pending-operations"
+    ]
+  },
+  "broadWorkerSpawned": false,
+  "diagnostics": [
+    {
+      "code": "view-state-difference",
+      "recordId": "01a11339-1278-7509-a09b-537e4a83910d",
+      "path": "2-areas/daily-plans/2026.10.06-daily-plan.md",
+      "message": "Reconcile this editable plan against its baseline before planning affected work"
+    }
+  ]
+}

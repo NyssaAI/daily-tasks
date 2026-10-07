@@ -12,7 +12,7 @@ before proposing a new item. A repeated mention adds context, not another task.
 
 Present a compact candidate list with proposed title, parent milestone/project, owner,
 assignee if specified, target_date only if explicit, source reference and unresolved facts.
-Persist candidates and their stable source keys in configRoot/candidates.json if unfinished.
+Persist candidates and their stable source keys in stateRoot/candidates.json if unfinished.
 This candidate queue is not authoritative task state. Do not guess missing dates or owners
 beyond the configured current-user owner default. Missing assignee means owner does it.
 

@@ -1,0 +1,247 @@
+[
+  {
+    "stage": 1,
+    "observed": {
+      "recovery": {
+        "status": "pending",
+        "pending": [
+          {
+            "key": "sourceMember",
+            "before": {
+              "present": true,
+              "value": true
+            },
+            "after": {
+              "present": true,
+              "value": false
+            }
+          },
+          {
+            "key": "logRecorded",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "baselineHash",
+            "before": {
+              "present": true,
+              "value": "e6d1639e83addc3e3831f8d150c3303f6581edcd8ea865a5ea7cdd0470d1e301"
+            },
+            "after": {
+              "present": true,
+              "value": "6b20fec5b96e08beb2520c412dcc9338b8333fd1ef6dd5075fa0eda65e750a47"
+            }
+          },
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "f650fcc7914f13a0bf71b3dd8778db51b171550ab6d99850d45a00fb01bef4ad"
+            },
+            "after": {
+              "present": true,
+              "value": "747b8727f67525f2bfb6a8b7a8cc65d484bc616a76642fb23a42596ea8276d1b"
+            }
+          }
+        ],
+        "conflicts": []
+      },
+      "unexpectedFiles": [],
+      "actual": {
+        "sourceMember": true,
+        "destinationMember": true,
+        "logRecorded": false,
+        "baselineHash": "e6d1639e83addc3e3831f8d150c3303f6581edcd8ea865a5ea7cdd0470d1e301",
+        "sourceRolloverHash": "f650fcc7914f13a0bf71b3dd8778db51b171550ab6d99850d45a00fb01bef4ad"
+      },
+      "logCount": 0,
+      "active": [],
+      "otherPreserved": true,
+      "prosePreserved": true,
+      "planIdentityPreserved": true,
+      "canonicalPreserved": true,
+      "checkpointIntentPreserved": true,
+      "completionValid": true,
+      "historyPreserved": true,
+      "rolloverPreserved": true,
+      "verified": false
+    }
+  },
+  {
+    "stage": 2,
+    "observed": {
+      "recovery": {
+        "status": "pending",
+        "pending": [
+          {
+            "key": "logRecorded",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "baselineHash",
+            "before": {
+              "present": true,
+              "value": "9a87cff2aff565a0d3b98df6ce4bdb02871ab085a8e0cacf197ead8832fd8bd2"
+            },
+            "after": {
+              "present": true,
+              "value": "0bac339579d9a97534d3afaee783f033d72482862cc8b37c1efab474c3deff53"
+            }
+          },
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "afc075587c02f07502f8d6a41be54266df5b1331b6ab5fde084549d6bc4d92e4"
+            },
+            "after": {
+              "present": true,
+              "value": "221a66572b3afd1b174e28ce17d16f1de21a925c93730972d91650de1c9894a7"
+            }
+          }
+        ],
+        "conflicts": []
+      },
+      "unexpectedFiles": [],
+      "actual": {
+        "sourceMember": false,
+        "destinationMember": true,
+        "logRecorded": false,
+        "baselineHash": "9a87cff2aff565a0d3b98df6ce4bdb02871ab085a8e0cacf197ead8832fd8bd2",
+        "sourceRolloverHash": "afc075587c02f07502f8d6a41be54266df5b1331b6ab5fde084549d6bc4d92e4"
+      },
+      "logCount": 0,
+      "active": [
+        {
+          "date": "2026.10.07",
+          "source": "2-areas/daily-plans/2026.10.07-daily-plan.md"
+        }
+      ],
+      "otherPreserved": true,
+      "prosePreserved": true,
+      "planIdentityPreserved": true,
+      "canonicalPreserved": true,
+      "checkpointIntentPreserved": true,
+      "completionValid": true,
+      "historyPreserved": true,
+      "rolloverPreserved": true,
+      "verified": false
+    }
+  },
+  {
+    "stage": 3,
+    "observed": {
+      "recovery": {
+        "status": "pending",
+        "pending": [
+          {
+            "key": "baselineHash",
+            "before": {
+              "present": true,
+              "value": "afb9c4a7d44b6b2978f19a5a6f3c826666c6641e4ba491bf42bc73dcfeee4af5"
+            },
+            "after": {
+              "present": true,
+              "value": "14e8e18fd0ed7556818e9d695d04bc8d95b879d4b5b4272597b62cba398c33f2"
+            }
+          },
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "ae27e029d9b4c9f5197a7305db30c4c44b66b289977f08474e73824835223fd4"
+            },
+            "after": {
+              "present": true,
+              "value": "e79686b350ceea4ede734f15021db71e99b65bdaa151e5e305f8dd823a7efe54"
+            }
+          }
+        ],
+        "conflicts": []
+      },
+      "unexpectedFiles": [],
+      "actual": {
+        "sourceMember": false,
+        "destinationMember": true,
+        "logRecorded": true,
+        "baselineHash": "afb9c4a7d44b6b2978f19a5a6f3c826666c6641e4ba491bf42bc73dcfeee4af5",
+        "sourceRolloverHash": "ae27e029d9b4c9f5197a7305db30c4c44b66b289977f08474e73824835223fd4"
+      },
+      "logCount": 1,
+      "active": [
+        {
+          "date": "2026.10.07",
+          "source": "2-areas/daily-plans/2026.10.07-daily-plan.md"
+        }
+      ],
+      "otherPreserved": true,
+      "prosePreserved": true,
+      "planIdentityPreserved": true,
+      "canonicalPreserved": true,
+      "checkpointIntentPreserved": true,
+      "completionValid": true,
+      "historyPreserved": true,
+      "rolloverPreserved": true,
+      "verified": false
+    }
+  },
+  {
+    "stage": 4,
+    "observed": {
+      "recovery": {
+        "status": "pending",
+        "pending": [
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "fa57cd91ee394b589245538722cfff571bcfe285596865ec77e584ef2fb22001"
+            },
+            "after": {
+              "present": true,
+              "value": "c57ff108a3e874abb5489770dd447fbf564f0525a33f91288c5a5474db05dd25"
+            }
+          }
+        ],
+        "conflicts": []
+      },
+      "unexpectedFiles": [],
+      "actual": {
+        "sourceMember": false,
+        "destinationMember": true,
+        "logRecorded": true,
+        "baselineHash": "33bfac89d1c1e3fd47c8701f41b931528a274f6fa0012ea5a9fdf13cfc390f74",
+        "sourceRolloverHash": "fa57cd91ee394b589245538722cfff571bcfe285596865ec77e584ef2fb22001"
+      },
+      "logCount": 1,
+      "active": [
+        {
+          "date": "2026.10.07",
+          "source": "2-areas/daily-plans/2026.10.07-daily-plan.md"
+        }
+      ],
+      "otherPreserved": true,
+      "prosePreserved": true,
+      "planIdentityPreserved": true,
+      "canonicalPreserved": true,
+      "checkpointIntentPreserved": true,
+      "completionValid": true,
+      "historyPreserved": true,
+      "rolloverPreserved": true,
+      "verified": false
+    }
+  }
+]
