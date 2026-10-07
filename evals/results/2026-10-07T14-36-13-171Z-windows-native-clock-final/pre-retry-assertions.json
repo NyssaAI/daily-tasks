@@ -1,0 +1,191 @@
+{
+  "phase": "Before native retry, after deliberate foreign-cache injection; not a candidate grade or completion receipt",
+  "expectedPendingCriterion": "Foreign inventory replaced with vault B identities",
+  "assertions": [
+    {
+      "scenario": "acceptance",
+      "name": "Ambiguous/manual candidate remained unaccepted until follow-up",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "Exactly one accepted task added with validated metadata/UUIDv7",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "Acceptance was logged once",
+      "passed": true
+    },
+    {
+      "scenario": "assignment-time",
+      "name": "Owner preserved, agent assignee separate, omitted other assignee remains owner",
+      "passed": true
+    },
+    {
+      "scenario": "assignment-time",
+      "name": "Vague start uses current GMT with original words",
+      "passed": true
+    },
+    {
+      "scenario": "assignment-time",
+      "name": "Local timezone shown explicitly",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Stale unchecked view did not reopen completed canonical",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Changed unchecked view reopens canonical without invented start",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Conflicting completion/cancellation preserved while unrelated assignment proceeds",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Recovery retry kept one exact event (before later explicit removal)",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Decision activity/recorded times were stored correctly on original append",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Original append needed no timestamp correction",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Skipped day created only today and carried own/delegated",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Terminal and unselected open work excluded from carry",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Precreated Other retained, removed Recovery stays out on repeat",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Interrupted destination persisted recovery verified independently",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Explicit future removal persists after planning future date",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-file-conflict preserves pending operation and baseline",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-log-conflict preserves pending operation and baseline",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Open children and missing DoD prevent parent closure",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Unchecked DoD and shared open blocker prevent closure",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-blocker reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-dod reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-task reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Cancelled prerequisite informational and relation retained",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "configuration-discovery creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-no-profile creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-legacy creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-explicit-legacy creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-shared-b creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "No-profile initializes conventional config with empty priorities",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Legacy profile retained without new profile migration",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Conflicting profile preserved awaiting decision",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Unknown scope asks for vault and no internal directory",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign numbered reply and checkpoint refused without canonical writes",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign inventory replaced with vault B identities",
+      "passed": false
+    },
+    {
+      "scenario": "day-change",
+      "name": "New carry decision recorded_at uses actual run clock rather than an invented planning-date instant",
+      "passed": true
+    }
+  ]
+}

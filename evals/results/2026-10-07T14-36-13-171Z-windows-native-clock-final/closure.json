@@ -1,0 +1,123 @@
+{
+  "id": "closure",
+  "method": "Native skill actions through isolated registered installations; independent persisted-artifact assertions and actual execution intervals; retained current-candidate evidence reused with explicit provenance.",
+  "checks": [
+    {
+      "scenario": "closure",
+      "name": "Open children and missing DoD prevent parent closure",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Unchecked DoD and shared open blocker prevent closure",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-blocker reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-dod reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-task reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Cancelled prerequisite informational and relation retained",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "closure: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-blocker: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-dod: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-task: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "cancelled-dependency: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "closure",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:41:29.146Z",
+        "completedAt": "2026-10-07T02:43:10.922Z"
+      },
+      "final": "[Fixture](<RETAINED_SYNTHETIC_ROOT>/closure/planning-pe1TbI/1-projects/2026.01.01-fixture/project-index.md) and First remain open. Installed closure checks found:\n\n- **First:** Recovery task and Other task are both not started; the required Definition of Done record is missing.\n- **Fixture:** First is unresolved, and the same unfinished tasks and missing DoD prevent closure.\n\nNo blocker records were found. I preserved pending closure intent and verified the deferred decision through the installed CLI. All canonical records remain unchanged; no children were completed or cancelled, and no evidence or blocker resolutions were invented."
+    },
+    {
+      "case": "closure-blocked",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:48:30.317Z",
+        "completedAt": "2026-10-07T02:49:20.344Z"
+      },
+      "final": "Both actual closure checks returned `allowed: false`.\n\n- **First:** “Release evidence approved” remains unchecked, and shared **Approval** remains open.\n- **Fixture:** **First** remains unresolved, its DoD remains unsatisfied, and shared **Approval** remains open.\n\nBoth tasks are completed, but task completion does not satisfy DoD or resolve Approval. Neither parent was closed. All existing records and unrelated data were preserved."
+    },
+    {
+      "case": "reopen-blocker",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:48:30.323Z",
+        "completedAt": "2026-10-07T02:49:54.797Z"
+      },
+      "final": "Reopened [Approval](<RETAINED_SYNTHETIC_ROOT>/reopen-blocker/planning-z38pLd/1-projects/2026.01.01-fixture/blockers/approval-needed.md) and recorded the explicit revocation decision.\n\nFirst and Fixture are now in progress. Both tasks remain completed. Validation passed; unrelated data was preserved."
+    },
+    {
+      "case": "reopen-dod",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:48:30.327Z",
+        "completedAt": "2026-10-07T02:50:23.974Z"
+      },
+      "final": "Unchecked “Release evidence approved” in the [DoD](<RETAINED_SYNTHETIC_ROOT>/reopen-dod/planning-dLAx6c/1-projects/2026.01.01-fixture/first/definition-of-done.md). Reopened milestone “First” and project “Fixture” as in progress.\n\nCompleted tasks and the resolved Approval blocker remain unchanged. Validation passed and the decision was logged."
+    },
+    {
+      "case": "reopen-task",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:48:30.334Z",
+        "completedAt": "2026-10-07T02:50:21.873Z"
+      },
+      "final": "[Recovery task](/<RETAINED_SYNTHETIC_ROOT>/reopen-task/planning-0fUfDi/1-projects/2026.01.01-fixture/first/recovery-task.md) is reopened to **not-started**. First and Fixture reopened to **in-progress**.\n\nOther remains **completed**. Views and reconciliation state are updated; the decision was logged and integrity checks passed. Unrelated data was preserved."
+    },
+    {
+      "case": "cancelled-dependency",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:48:30.338Z",
+        "completedAt": "2026-10-07T02:50:14.732Z"
+      },
+      "final": "Started [Recovery task](/<RETAINED_SYNTHETIC_ROOT>/cancelled-dependency/planning-jxKB8V/1-projects/2026.01.01-fixture/first/recovery-task.md) and recorded its start time.\n\nThe dependency remains linked and flagged “prerequisite cancelled.” Other task remains cancelled. Updated the project view and today’s plan, logged the decision, and preserved unrelated data."
+    }
+  ]
+}

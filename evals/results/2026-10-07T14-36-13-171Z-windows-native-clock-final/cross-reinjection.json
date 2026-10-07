@@ -1,0 +1,56 @@
+{
+  "injectedAt": "2026-10-07T14:52:00.158Z",
+  "source": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\.temp\\daily-tasks\\project-index.json",
+  "target": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\.temp\\daily-tasks\\project-index.json",
+  "priorHash": "547893429262c0df74062f5be91fa3f0de0daa9d4260df035ac07e8ffe9ec7ee",
+  "injectedHash": "f655ded2b079c88c62c39fb5669ff21a303e1a17ac4d1e692ecd17e73680c2da",
+  "canonicalBefore": {
+    "a": {
+      "2026.01.01-fixture/project-index.md": "9e608256d1237232438c0ca5301dff0d2d40b5246405583ef80ea1e4ef55fb77",
+      "2026.01.01-fixture/first/milestone.md": "7e3e49eb32b9ef5aa8fed359c17ffeee5dfef8524277ad8dfca28c2746c3d64f",
+      "2026.01.01-fixture/first/other-task.md": "1b1d3218a34d5f1de5e1e1b964bf23004db385c44e632d814af3d0bcb461cddf",
+      "2026.01.01-fixture/first/recovery-task.md": "e6a6f10ae70b5142820e5f7c32bc067b19d9355c57fa30e8866959f7dfa83ff2"
+    },
+    "b": {
+      "2026.01.01-fixture/project-index.md": "013db4985ca54feb0254916cfdbfff3709b989ab217b5bc56535947f4f0c45e1",
+      "2026.01.01-fixture/first/milestone.md": "1e08963f5ffa80c499bb2b4a25ecbde57371b770b1dc5370571cb803688db428",
+      "2026.01.01-fixture/first/other-task.md": "33b04356a754b7a458f0e56c2e57e81c40ff18dceecdc3ea9089f69fa8e69ac3",
+      "2026.01.01-fixture/first/recovery-task.md": "3129fdfcff37ff8268bf2da4a7c775633a8c84acf69de5d312582041cec997ee",
+      "2026.01.01-fixture/update-linkedin-and-resume/definition-of-done.md": "9f3a457648662bea1bbfa3f0ccf40f8bf7d11d60edcb47c3c1434f3d119db42f",
+      "2026.01.01-fixture/update-linkedin-and-resume/milestone.md": "e66475e3cf6219d908759377ba6883b548a3c5c5d68733b285f03af45f8b6f25"
+    }
+  },
+  "method": "Retained incomplete native attempt had already rebuilt B cache. Preserve its cache bytes, then re-inject A disposable inventory before the separately recorded retry so the retry actually exercises foreign-cache recovery. No canonical or durable state repair.",
+  "logBefore": {
+    "entries": [
+      {
+        "operation_id": "01a11440-410f-733b-8cea-3196abe37483",
+        "original_words": "Create accepted milestone M1: update LinkedIn and resume under this vault's Fixture project, no extra tasks.",
+        "action": "milestone.accepted",
+        "time_defaulted": true,
+        "actor": {
+          "id": "fixture@example.test",
+          "kind": "person"
+        },
+        "activity_at": "2026-10-07T02:45:17.477Z",
+        "record_ids": [
+          "01a11440-4059-7764-822f-82931e2f92d7",
+          "01a11440-4087-7742-9787-740c6ed88a91"
+        ],
+        "after": {
+          "title": "M1: update LinkedIn and resume",
+          "project_id": "01a1143c-e814-7549-8102-fd324e25239a",
+          "tasks_created": 0,
+          "acceptance_source": "Explicit user instruction",
+          "milestone-state": "not-started"
+        },
+        "id": "01a11440-413f-7a9f-82bf-979248e45196",
+        "recorded_at": "2026-10-07T02:45:17.477Z"
+      }
+    ],
+    "total": 1,
+    "offset": 0,
+    "limit": 1000,
+    "nextOffset": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "assignment-time",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "assignment-time",
+      "name": "Owner preserved, agent assignee separate, omitted other assignee remains owner",
+      "passed": true
+    },
+    {
+      "scenario": "assignment-time",
+      "name": "Vague start uses current GMT with original words",
+      "passed": true
+    },
+    {
+      "scenario": "assignment-time",
+      "name": "Local timezone shown explicitly",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "assignment-time",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:38:13.040Z"
+      },
+      "final": "[Recovery task](<SYNTHETIC_ROOT>/assignment-time/planning-FG1MWX/1-projects/2026.01.01-fixture/first/recovery-task.md) is assigned to Luna and marked in progress; you remain its owner.\n\nRecorded the start using now: **October 6, 2026, 8:37:28 PM CDT (America/Chicago)**. Retained your exact words, “I started it a while ago.”, and recorded that the time was defaulted.\n\nOther task remains unassigned, so **you perform it as owner**. No owners changed. Views and decision history were updated and verified."
+    }
+  ]
+}

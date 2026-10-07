@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-10-07T02:14:00.959Z",
+  "state": {
+    "schemaVersion": 1,
+    "lastFullReconcileAt": "2026-10-06T15:00:00.000Z",
+    "model": "gpt-6-luna",
+    "executionEvidence": {
+      "agent": "/root/maintenance",
+      "mode": "read-only",
+      "complete": true,
+      "canonicalRecords": 4,
+      "historicalPlansChecked": 2,
+      "diagnostics": [],
+      "parentVerifiedCarryOperation": "01a1141b-6e92-717c-a59c-b098efc84072"
+    }
+  },
+  "result": {
+    "fullReconcileDue": true,
+    "preferredModel": "gpt-6-luna",
+    "alwaysCheck": [
+      "current-plan-edits",
+      "previous-plan-edits",
+      "applicable-pending-operations"
+    ]
+  },
+  "status": 0
+}

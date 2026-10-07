@@ -1,0 +1,32 @@
+{
+  "id": "assignment-time",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "assignment-time",
+      "name": "Owner preserved, agent assignee separate, omitted other assignee remains owner",
+      "passed": true
+    },
+    {
+      "scenario": "assignment-time",
+      "name": "Vague start uses current GMT with original words",
+      "passed": true
+    },
+    {
+      "scenario": "assignment-time",
+      "name": "Local timezone shown explicitly",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "assignment-time",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:03:04.307Z"
+      },
+      "final": "[Recovery task](/<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/assignment-time/planning-4iApHF/1-projects/2026.01.01-fixture/first/recovery-task.md) is assigned to **Luna** and marked **in progress**. You remain owner.\n\nIts retrospective start uses now: **October 6, 2026, 9:02:09 PM CDT (America/Chicago)**. The log retains your exact words, “I started it a while ago.”, and marks the time as defaulted.\n\nOther task remains unassigned, so **you perform it as owner**. All owners and unrelated contents were preserved."
+    }
+  ]
+}

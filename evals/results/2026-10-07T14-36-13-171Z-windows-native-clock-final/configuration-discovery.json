@@ -1,0 +1,227 @@
+{
+  "id": "configuration-discovery",
+  "method": "Native skill actions through isolated registered installations; independent persisted-artifact assertions and actual execution intervals; retained current-candidate evidence reused with explicit provenance.",
+  "checks": [
+    {
+      "scenario": "configuration-discovery",
+      "name": "configuration-discovery creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-no-profile creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-legacy creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-explicit-legacy creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-shared-b creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "No-profile initializes conventional config with empty priorities",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Legacy profile retained without new profile migration",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Conflicting profile preserved awaiting decision",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Unknown scope asks for vault and no internal directory",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign numbered reply and checkpoint refused without canonical writes",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign inventory replaced with vault B identities",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "configuration-discovery: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "configuration-discovery: New canonical records use actual creation/update clock",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-no-profile: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-no-profile: New canonical records use actual creation/update clock",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-legacy: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-legacy: New canonical records use actual creation/update clock",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-explicit-legacy: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-explicit-legacy: New canonical records use actual creation/update clock",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-shared-a: Maintenance success uses actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign inventory retry preserves canonical bytes in both vaults",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Fresh retry actually starts with A inventory and rebuilds B identities",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "New decisions during foreign inventory retry use actual recording clock",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "configuration-discovery",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:39:48.619Z",
+        "completedAt": "2026-10-07T02:41:28.030Z"
+      },
+      "final": "Created [M1: update LinkedIn and resume](<RETAINED_SYNTHETIC_ROOT>/configuration-discovery/planning-DZqtP1/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in the existing Fixture project.\n\nStatus: not started. No tasks added. Project index updated, acceptance logged, and validation passed."
+    },
+    {
+      "case": "config-no-profile",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:43:30.373Z",
+        "completedAt": "2026-10-07T02:45:25.510Z"
+      },
+      "final": "Created [M1: update LinkedIn and resume](<RETAINED_SYNTHETIC_ROOT>/config-no-profile/planning-TAjjEi/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in Fixture, owned by fixture@example.test and not started. No tasks added.\n\nConfigured this vault only for Fixture, with America/Chicago timezone and empty priorities:\n\n- Configuration: `.nyssaai/daily-tasks`\n- Projects: `1-projects`\n- Daily plans: `2-areas/daily-plans`\n\nRecords, links and decision logs verified. Unrelated data preserved."
+    },
+    {
+      "case": "config-legacy",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:43:30.379Z",
+        "completedAt": "2026-10-07T02:48:30.160Z"
+      },
+      "final": "Created [M1: update LinkedIn and resume](/<RETAINED_SYNTHETIC_ROOT>/config-legacy/planning-u23k5C/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in Fixture and linked it from the project index.\n\nOne milestone only, no extra tasks. Acceptance logged and links validated. Existing settings reused without migration; unrelated data preserved."
+    },
+    {
+      "case": "config-explicit-legacy",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:41:38.673Z",
+        "completedAt": "2026-10-07T02:43:22.236Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "Created accepted [M1 — Update LinkedIn and resume](<RETAINED_SYNTHETIC_ROOT>/config-explicit-legacy/planning-VBZ3KM/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) under Fixture, with completion criteria and state **not started**.\n\nRecords, links, and acceptance log verified. No extra tasks created; legacy profile preserved."
+    },
+    {
+      "case": "config-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:41:38.685Z",
+        "completedAt": "2026-10-07T02:42:06.470Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "The existing [profile](<RETAINED_SYNTHETIC_ROOT>/config-conflict/planning-iNXhOC/.nyssaai/daily-tasks/profile.json) specifies **Fixture, fixture@example.test, America/Chicago**, which conflicts with your supplied identity and timezone.\n\nI preserved all files; M1 has not been created. Should I use **Different, different@example.test, Europe/London for this operation only**, leaving the profile unchanged?\n\nThe [Daily Tasks setup skill](<RETAINED_SYNTHETIC_ROOT>/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md) says: “Do not … overwrite conflicting values or merge different users’ state.” This requires resolving the identity conflict before creating the milestone."
+    },
+    {
+      "case": "config-unknown",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:41:38.689Z",
+        "completedAt": "2026-10-07T02:42:07.693Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "What is the intended vault’s absolute path, and should Daily Tasks be configured for **this vault only** or **all vaults you access**?\n\nThe [setup skill](<RETAINED_SYNTHETIC_ROOT>/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md) requires asking for the “intended vault/project” when scope is unknown. No existing personal profile was found, and nothing was written. M1, “update LinkedIn and resume,” is already accepted."
+    },
+    {
+      "case": "config-shared-a",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:43:22.237Z",
+        "completedAt": "2026-10-07T02:45:35.037Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "[October 6 plan](<RETAINED_SYNTHETIC_ROOT>/config-shared-a/planning-D8APVV/2-areas/daily-plans/2026.10.06-daily-plan.md) preserved. Numbered review mapping saved in this vault; maintenance passed. Shared settings remain unchanged.\n\n**2026.10.06 — America/Chicago**\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\n**Already selected**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | Recovery task | — |\n| 2 | [ ] | Fixture | Other task | — |\n\n**Available tasks:** None.\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled\n\nActions: `remove 1` · `show details for 2` · `keep selections`"
+    },
+    {
+      "case": "config-shared-b",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:43:22.242Z",
+        "completedAt": "2026-10-07T02:45:35.861Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "Created accepted [M1: update LinkedIn and resume](<RETAINED_SYNTHETIC_ROOT>/config-shared-b/planning-FLgctZ/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) under Fixture, with completion criteria and no extra tasks.\n\nValidated records and links and verified the acceptance log. Shared settings remain unchanged; project, plans, and operating state remain independent in this vault."
+    },
+    {
+      "case": "cross-vault-reply",
+      "result": {
+        "status": 0,
+        "startedAt": "2026-10-07T03:10:24.597Z",
+        "completedAt": "2026-10-07T03:11:04.565Z"
+      },
+      "final": "Item 1 was not changed: the saved numbered screen belongs to a different vault. The pending checkpoint also references that other vault, so recovery cannot run here.\n\nNo files were changed. Please identify the task by title or provide a numbered screen saved for this vault."
+    },
+    {
+      "case": "cross-vault-inventory-retry",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T15:04:31.650Z",
+        "completedAt": "2026-10-07T15:07:32.178Z"
+      },
+      "final": "[October 6 plan — America/Chicago](<RETAINED_SYNTHETIC_ROOT>/config-shared-b/planning-FLgctZ/2-areas/daily-plans/2026.10.06-daily-plan.md) is verified.\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\nAlready selected:\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | Recovery task | — |\n| 2 | [ ] | Fixture | Other task | — |\n\nNo additional eligible tasks.\n\nReply by row number and symbol or description.\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled\n\nThe fixture inventory was rebuilt and maintenance passed. Existing selections, notes, and canonical tasks were preserved."
+    }
+  ]
+}

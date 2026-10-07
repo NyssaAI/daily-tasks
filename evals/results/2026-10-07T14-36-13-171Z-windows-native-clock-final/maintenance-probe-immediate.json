@@ -1,0 +1,63 @@
+{
+  "checkedAt": "2026-10-07T14:45:21.981Z",
+  "state": {
+    "schemaVersion": 1,
+    "lastFullReconcileAt": "2026-10-07T14:45:07.066Z",
+    "model": "gpt-6-luna",
+    "executionEvidence": {
+      "tool": "collaboration.spawn_agent",
+      "taskName": "/root/maintenance",
+      "fork_turns": "none",
+      "model": "gpt-6-luna",
+      "readOnly": true
+    },
+    "verification": {
+      "records": 4,
+      "recordDiagnostics": [],
+      "linkDiagnostics": [],
+      "conflicts": [],
+      "pendingOperations": [],
+      "sourceHashes": [
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/milestone.md",
+          "sha256": "aac1b97d7a148d2013e04a1b0fb1b86f33a720b051d8dedd1c53ea1c5e6883f5"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/other-task.md",
+          "sha256": "99081ced7678e023664e84c26b40200e98ece521395e8bde09b0dc2a9acfa886"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/recovery-task.md",
+          "sha256": "cfdceb944bd33b9721c1d0d56233f9a5392e2d0b32bd6d4795c3224499cd6637"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/project-index.md",
+          "sha256": "8f16adef5c7c660330f68daad17d5595f742fd8f55fb80cccf90b5ebbb950148"
+        },
+        {
+          "anchor": "vaultRoot",
+          "path": "2-areas/daily-plans/2026.10.07-daily-plan.md",
+          "sha256": "67694e0edd39bbcce8a17511e484c509f0f5ff86007e20f62e34497f52272d98"
+        }
+      ],
+      "previousPlan": {
+        "path": "<FRESH_SYNTHETIC_ROOT>\\vaults\\maintenance\\planning-4saAy4\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+        "sha256": "4157f2b8f16266fbb9790c408482c68efca26d975ac89fb9536a96fb6e32d761"
+      }
+    }
+  },
+  "status": 0,
+  "result": {
+    "fullReconcileDue": false,
+    "preferredModel": "gpt-6-luna",
+    "alwaysCheck": [
+      "current-plan-edits",
+      "previous-plan-edits",
+      "applicable-pending-operations"
+    ]
+  }
+}

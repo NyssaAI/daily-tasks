@@ -1,0 +1,52 @@
+{
+  "id": "acceptance",
+  "method": "Native skill actions through isolated registered installations; independent persisted-artifact assertions and actual execution intervals; retained current-candidate evidence reused with explicit provenance.",
+  "checks": [
+    {
+      "scenario": "acceptance",
+      "name": "Ambiguous/manual candidate remained unaccepted until follow-up",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "Exactly one accepted task added with validated metadata/UUIDv7",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "Acceptance was logged once",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "acceptance: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "acceptance: New canonical records use actual creation/update clock",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "acceptance",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:39:48.614Z",
+        "completedAt": "2026-10-07T02:41:23.188Z"
+      },
+      "final": "One item needs acceptance: **Improve onboarding**, from the new checkbox in [the project index](/<RETAINED_SYNTHETIC_ROOT>/acceptance/planning-hwj8Sl/1-projects/2026.01.01-fixture/project-index.md).\n\nNo existing task duplicates it. Before creating it, clarify:\n\n- The onboarding change and what counts as done.\n- Its parent milestone; “First” exists but wasn’t specified.\n\nOwner would default to fixture@example.test, with no assignee or target date.\n\nSaved as one pending candidate. Nothing was accepted, and the project index remains unchanged."
+    },
+    {
+      "case": "acceptance-accepted-retry",
+      "result": {
+        "status": 0,
+        "startedAt": "2026-10-07T02:53:02.402Z",
+        "completedAt": "2026-10-07T02:54:43.471Z"
+      },
+      "final": "Created [Improve onboarding](<RETAINED_SYNTHETIC_ROOT>/acceptance/planning-hwj8Sl/1-projects/2026.01.01-fixture/first/improve-onboarding.md) under **First**, owned by you, and logged your acceptance.\n\nReplaced the candidate checkbox with one linked task row. No other tasks were created; unrelated data was preserved. Validation passed."
+    }
+  ]
+}

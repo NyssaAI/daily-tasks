@@ -1,0 +1,815 @@
+{
+  "fixtures": {
+    "config-explicit-legacy": {
+      "vaultRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM",
+      "projectsRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\1-projects",
+      "dailyPlansRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\2-areas\\daily-plans",
+      "stateRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\.nyssaai\\daily-tasks",
+      "timezone": "America/Chicago",
+      "now": "2026-10-07T02:41:38.292Z",
+      "userEmail": "fixture@example.test",
+      "today": "2026.10.06",
+      "nextDay": "2026.10.07",
+      "ids": {
+        "project": "01a1143c-e7f6-728e-bbc0-80d057a03509",
+        "milestone": "01a1143c-e7f6-7af3-940a-34c070297b24",
+        "task": "01a1143c-e7f6-71fb-81ff-82a82efc4bdf",
+        "other": "01a1143c-e7f6-73d8-95d5-d8151646c3f1",
+        "source": "01a1143c-e7f6-7c79-b471-982bf6ef4709",
+        "destination": "01a1143c-e7f6-7c18-b943-1574b42a3b47",
+        "operation": "01a1143c-e7f6-753a-b549-6e5212c46195",
+        "event": "01a1143c-e7f6-75da-9671-bbe8038dc3fa",
+        "rollover": "01a1143c-e7f6-761a-bcf0-c6cfcf9f3b0f",
+        "history": "01a1143c-e7f6-7bc7-916c-44c2bcc8a553"
+      },
+      "canonicalHashes": {
+        "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\1-projects\\2026.01.01-fixture\\project-index.md": "f091f9e8c396f1c3aed64105b739d43b223ee36da065bb4ffb630c3390406cdc",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\1-projects\\2026.01.01-fixture\\first\\milestone.md": "1ea6b16d70cbf6c00f4e6691139a395f6ef8e00c5d0246d1d4878802eeae8eb0",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md": "10d2b16bc13836411cc16e9e4b2b2f510658da62912ea57a999a8cdde05910fb",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\1-projects\\2026.01.01-fixture\\first\\other-task.md": "3029c914a717d4ce20039992134b3c1cd013c734df527d6f0209105411aec234"
+      },
+      "source": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+      "destination": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+      "sourceBefore": "---\nid: 01a1143c-e7f6-7c79-b471-982bf6ef4709\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.292Z\"\nupdated_at: \"2026-10-07T02:41:38.292Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e7f6-71fb-81ff-82a82efc4bdf -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e7f6-73d8-95d5-d8151646c3f1 -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "sourceAfter": "---\nid: 01a1143c-e7f6-7c79-b471-982bf6ef4709\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.292Z\"\nupdated_at: \"2026-10-07T02:41:38.292Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e7f6-73d8-95d5-d8151646c3f1 -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "destinationAfter": "---\nid: 01a1143c-e7f6-7c18-b943-1574b42a3b47\ntype: daily-plan\ntitle: \"Daily plan 2026.10.07\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.292Z\"\nupdated_at: \"2026-10-07T02:41:38.292Z\"\n---\n# Daily plan — 2026.10.07\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e7f6-71fb-81ff-82a82efc4bdf -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "historyPath": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\2-areas\\daily-plans\\2026.10.05-daily-plan.md",
+      "historyHash": "087d3de2d71572297e66b2d14fc984ad0e363fc1705ec68f4f135918f92baf58",
+      "baselinePath": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\.nyssaai\\daily-tasks\\reconciliation.json",
+      "baselineBefore": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e7f6-71fb-81ff-82a82efc4bdf\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-explicit-legacy\\\\planning-VBZ3KM\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"aecea134ba361c04e96814cf1ee4a1226acc132c72876a462cb29d7043526b08\"\n        }\n      }\n    }\n  }\n}\n",
+      "baselineAfter": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e7f6-71fb-81ff-82a82efc4bdf\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-explicit-legacy\\\\planning-VBZ3KM\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": false,\n          \"hash\": \"0ffcdcfd0e872d4394440e4bb734cfdc339dc6a0a2c44658b3f60d48d1db9ace\"\n        },\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-explicit-legacy\\\\planning-VBZ3KM\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"3a367c396b3e33a1ec0b093cc31fde665e80e480df421a01d7683956e46b1d8d\"\n        }\n      }\n    }\n  }\n}\n",
+      "sourceRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\.nyssaai\\daily-tasks\\rollover\\2026.10.06.json",
+      "destinationRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\.nyssaai\\daily-tasks\\rollover\\2026.10.07.json",
+      "sourceRolloverBefore": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e7f6-7c79-b471-982bf6ef4709",
+        "operationId": "01a1143c-e7f6-761a-bcf0-c6cfcf9f3b0f",
+        "completedAt": "2026-10-07T02:41:38.292Z",
+        "removedIds": []
+      },
+      "sourceRolloverAfter": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e7f6-7c79-b471-982bf6ef4709",
+        "operationId": "01a1143c-e7f6-761a-bcf0-c6cfcf9f3b0f",
+        "completedAt": "2026-10-07T02:41:38.292Z",
+        "removedIds": [
+          "01a1143c-e7f6-71fb-81ff-82a82efc4bdf"
+        ]
+      },
+      "destinationRollover": {
+        "schemaVersion": 1,
+        "date": "2026.10.07",
+        "planId": "01a1143c-e7f6-7c18-b943-1574b42a3b47",
+        "removedIds": []
+      },
+      "checkpointPath": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\.nyssaai\\daily-tasks\\operations\\01a1143c-e7f6-753a-b549-6e5212c46195.json",
+      "operation": {
+        "operation_id": "01a1143c-e7f6-753a-b549-6e5212c46195",
+        "contextBinding": "2ad0d682a89d5f0617bf4907d59b859d41e7fcfcba1e81aad19d2b74250d57b1",
+        "changes": [
+          {
+            "key": "destinationMember",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "sourceMember",
+            "before": {
+              "present": true,
+              "value": true
+            },
+            "after": {
+              "present": true,
+              "value": false
+            }
+          },
+          {
+            "key": "logRecorded",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "baselineHash",
+            "before": {
+              "present": true,
+              "value": "97d4cc09e6ab924b25589229b33627b7064c9cf06708746c07d5ab78fb3a5a08"
+            },
+            "after": {
+              "present": true,
+              "value": "9faf89fe2a8da3ba4ab824321e6c7fc807669e0d41682688f53e01b21326a973"
+            }
+          },
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "a3345a8346207441726a421df5f0b4cd62cd53e73385a99d0fe16e037737fd7b"
+            },
+            "after": {
+              "present": true,
+              "value": "fd863a0f76884864414f89e7f2b503c166e142b63f589ca028f384661c8cf1bc"
+            }
+          }
+        ],
+        "event": {
+          "id": "01a1143c-e7f6-75da-9671-bbe8038dc3fa",
+          "operation_id": "01a1143c-e7f6-753a-b549-6e5212c46195",
+          "action": "selection-move",
+          "record_ids": [
+            "01a1143c-e7f6-71fb-81ff-82a82efc4bdf"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:41:38.292Z",
+          "recorded_at": "2026-10-07T02:41:38.292Z",
+          "time_defaulted": false,
+          "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+          "before": {
+            "date": "2026.10.06"
+          },
+          "after": {
+            "date": "2026.10.07"
+          }
+        },
+        "files": [
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+            "before": "aecea134ba361c04e96814cf1ee4a1226acc132c72876a462cb29d7043526b08",
+            "after": "0ffcdcfd0e872d4394440e4bb734cfdc339dc6a0a2c44658b3f60d48d1db9ace"
+          },
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-explicit-legacy\\planning-VBZ3KM\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+            "before": null,
+            "after": "3a367c396b3e33a1ec0b093cc31fde665e80e480df421a01d7683956e46b1d8d"
+          }
+        ]
+      },
+      "stopAfter": 0
+    },
+    "config-conflict": {
+      "vaultRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC",
+      "projectsRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\1-projects",
+      "dailyPlansRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\2-areas\\daily-plans",
+      "stateRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\.nyssaai\\daily-tasks",
+      "timezone": "America/Chicago",
+      "now": "2026-10-07T02:41:38.310Z",
+      "userEmail": "fixture@example.test",
+      "today": "2026.10.06",
+      "nextDay": "2026.10.07",
+      "ids": {
+        "project": "01a1143c-e807-7d7e-a8f4-390fefc649a9",
+        "milestone": "01a1143c-e807-7ce9-b4de-5d7a939da3e9",
+        "task": "01a1143c-e807-7ac2-8b1f-31ebb8543389",
+        "other": "01a1143c-e807-76ab-aebe-2ae4f0040e9b",
+        "source": "01a1143c-e807-791c-bdfa-4bbef411ecd5",
+        "destination": "01a1143c-e807-710c-ad6c-9e061cd9536a",
+        "operation": "01a1143c-e807-7dd0-876a-5b01e369f119",
+        "event": "01a1143c-e807-7df0-aba6-37529ba023b8",
+        "rollover": "01a1143c-e807-7288-9820-1813f7995b4f",
+        "history": "01a1143c-e807-7b38-9901-ed9badd6f9de"
+      },
+      "canonicalHashes": {
+        "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\1-projects\\2026.01.01-fixture\\project-index.md": "9cf91af30bf2d31c938c2b62e5343c50a16e2bbeb109f1e956a116dd258372bb",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\1-projects\\2026.01.01-fixture\\first\\milestone.md": "6771239f1d946ef4abb56bcf7e75224eb886bd6c9ac88892db3a4283d6c9455f",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md": "dd0d39d823409f3e1ee879fa1746cd4b46a641027bc2d76e88aaf1c534223408",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\1-projects\\2026.01.01-fixture\\first\\other-task.md": "837a5e2fbd24b7037bf1eaf24ea57ec2bc6852803ef34b6b294925e5369e4351"
+      },
+      "source": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+      "destination": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+      "sourceBefore": "---\nid: 01a1143c-e807-791c-bdfa-4bbef411ecd5\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.310Z\"\nupdated_at: \"2026-10-07T02:41:38.310Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e807-7ac2-8b1f-31ebb8543389 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e807-76ab-aebe-2ae4f0040e9b -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "sourceAfter": "---\nid: 01a1143c-e807-791c-bdfa-4bbef411ecd5\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.310Z\"\nupdated_at: \"2026-10-07T02:41:38.310Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e807-76ab-aebe-2ae4f0040e9b -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "destinationAfter": "---\nid: 01a1143c-e807-710c-ad6c-9e061cd9536a\ntype: daily-plan\ntitle: \"Daily plan 2026.10.07\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.310Z\"\nupdated_at: \"2026-10-07T02:41:38.310Z\"\n---\n# Daily plan — 2026.10.07\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e807-7ac2-8b1f-31ebb8543389 -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "historyPath": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\2-areas\\daily-plans\\2026.10.05-daily-plan.md",
+      "historyHash": "1fe3e4639493aa105bf8823636e623c222ee9d73954dd13bafdfab68803dee65",
+      "baselinePath": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\.nyssaai\\daily-tasks\\reconciliation.json",
+      "baselineBefore": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e807-7ac2-8b1f-31ebb8543389\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-conflict\\\\planning-iNXhOC\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"52ed26d560d73ca42f4dd40081b9a38eccb5f502022ae03a7a79c1255364af02\"\n        }\n      }\n    }\n  }\n}\n",
+      "baselineAfter": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e807-7ac2-8b1f-31ebb8543389\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-conflict\\\\planning-iNXhOC\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": false,\n          \"hash\": \"8cab442c63e12ae687be549348bb45e4b78ca669facd9c938e266ba02bc44aca\"\n        },\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-conflict\\\\planning-iNXhOC\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"379a3bd306e5e7a34c94d262c96fa12609837fac2b60bc4e2bae7b1f8422e50f\"\n        }\n      }\n    }\n  }\n}\n",
+      "sourceRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\.nyssaai\\daily-tasks\\rollover\\2026.10.06.json",
+      "destinationRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\.nyssaai\\daily-tasks\\rollover\\2026.10.07.json",
+      "sourceRolloverBefore": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e807-791c-bdfa-4bbef411ecd5",
+        "operationId": "01a1143c-e807-7288-9820-1813f7995b4f",
+        "completedAt": "2026-10-07T02:41:38.310Z",
+        "removedIds": []
+      },
+      "sourceRolloverAfter": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e807-791c-bdfa-4bbef411ecd5",
+        "operationId": "01a1143c-e807-7288-9820-1813f7995b4f",
+        "completedAt": "2026-10-07T02:41:38.310Z",
+        "removedIds": [
+          "01a1143c-e807-7ac2-8b1f-31ebb8543389"
+        ]
+      },
+      "destinationRollover": {
+        "schemaVersion": 1,
+        "date": "2026.10.07",
+        "planId": "01a1143c-e807-710c-ad6c-9e061cd9536a",
+        "removedIds": []
+      },
+      "checkpointPath": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\.nyssaai\\daily-tasks\\operations\\01a1143c-e807-7dd0-876a-5b01e369f119.json",
+      "operation": {
+        "operation_id": "01a1143c-e807-7dd0-876a-5b01e369f119",
+        "contextBinding": "0b065150871f05599237bac7fa9d037af9fa38a4e0acaa786ea3568d7ac44374",
+        "changes": [
+          {
+            "key": "destinationMember",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "sourceMember",
+            "before": {
+              "present": true,
+              "value": true
+            },
+            "after": {
+              "present": true,
+              "value": false
+            }
+          },
+          {
+            "key": "logRecorded",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "baselineHash",
+            "before": {
+              "present": true,
+              "value": "b76b90909d7d6ded8c049e3ce3dc31e807d30150273cdbc1f0689fcebb65cfac"
+            },
+            "after": {
+              "present": true,
+              "value": "5cf1310068fea50f646f9e76faa72dc21148ae32c03737454f1332112a3a602b"
+            }
+          },
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "40fe18cfb12e0c84bd37c40a4d5cdfc3840e34d2f7cde9d2ee33f9bf8878a0f6"
+            },
+            "after": {
+              "present": true,
+              "value": "58f949d5f05e80eb5f3c9e09911688234bbf8ecf4739daa8bdc97fa18ec91479"
+            }
+          }
+        ],
+        "event": {
+          "id": "01a1143c-e807-7df0-aba6-37529ba023b8",
+          "operation_id": "01a1143c-e807-7dd0-876a-5b01e369f119",
+          "action": "selection-move",
+          "record_ids": [
+            "01a1143c-e807-7ac2-8b1f-31ebb8543389"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:41:38.310Z",
+          "recorded_at": "2026-10-07T02:41:38.310Z",
+          "time_defaulted": false,
+          "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+          "before": {
+            "date": "2026.10.06"
+          },
+          "after": {
+            "date": "2026.10.07"
+          }
+        },
+        "files": [
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+            "before": "52ed26d560d73ca42f4dd40081b9a38eccb5f502022ae03a7a79c1255364af02",
+            "after": "8cab442c63e12ae687be549348bb45e4b78ca669facd9c938e266ba02bc44aca"
+          },
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-conflict\\planning-iNXhOC\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+            "before": null,
+            "after": "379a3bd306e5e7a34c94d262c96fa12609837fac2b60bc4e2bae7b1f8422e50f"
+          }
+        ]
+      },
+      "stopAfter": 0
+    },
+    "config-unknown": {
+      "vaultRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H",
+      "projectsRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\1-projects",
+      "dailyPlansRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\2-areas\\daily-plans",
+      "stateRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\.nyssaai\\daily-tasks",
+      "timezone": "America/Chicago",
+      "now": "2026-10-07T02:41:38.314Z",
+      "userEmail": "fixture@example.test",
+      "today": "2026.10.06",
+      "nextDay": "2026.10.07",
+      "ids": {
+        "project": "01a1143c-e80b-70f5-b592-1558199133ad",
+        "milestone": "01a1143c-e80b-798c-8630-abdfba9d6af3",
+        "task": "01a1143c-e80b-781f-8204-cdb32e505bd5",
+        "other": "01a1143c-e80b-70cd-9fe1-e657a470b78d",
+        "source": "01a1143c-e80b-7abf-9540-60bae7139596",
+        "destination": "01a1143c-e80b-70dd-8989-d4b19b3fb6b9",
+        "operation": "01a1143c-e80b-733c-ac1e-8f5899d19e21",
+        "event": "01a1143c-e80b-771a-90c8-aecfcd9c9f83",
+        "rollover": "01a1143c-e80b-713a-991b-5a476e7e5bf5",
+        "history": "01a1143c-e80b-78ca-9b57-e3bd792b92a1"
+      },
+      "canonicalHashes": {
+        "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\1-projects\\2026.01.01-fixture\\project-index.md": "03b2c2144e18f65f6772675a42a6065c32b576251d1b2fbe32d286fa0ecb191c",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\1-projects\\2026.01.01-fixture\\first\\milestone.md": "963803fab379e68a21f59670320a7ebeafcb3b3bf4ad0b91bba21debf37572c3",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md": "6bf1a5f91a18798db00677c4bbf2db5033e930c6a8340a75aafc0324e2062812",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\1-projects\\2026.01.01-fixture\\first\\other-task.md": "face7085b0adb9ab72720b4865acdd737985763c34be6fd47c9f16860ee82010"
+      },
+      "source": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+      "destination": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+      "sourceBefore": "---\nid: 01a1143c-e80b-7abf-9540-60bae7139596\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.314Z\"\nupdated_at: \"2026-10-07T02:41:38.314Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e80b-781f-8204-cdb32e505bd5 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e80b-70cd-9fe1-e657a470b78d -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "sourceAfter": "---\nid: 01a1143c-e80b-7abf-9540-60bae7139596\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.314Z\"\nupdated_at: \"2026-10-07T02:41:38.314Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e80b-70cd-9fe1-e657a470b78d -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "destinationAfter": "---\nid: 01a1143c-e80b-70dd-8989-d4b19b3fb6b9\ntype: daily-plan\ntitle: \"Daily plan 2026.10.07\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.314Z\"\nupdated_at: \"2026-10-07T02:41:38.314Z\"\n---\n# Daily plan — 2026.10.07\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e80b-781f-8204-cdb32e505bd5 -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "historyPath": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\2-areas\\daily-plans\\2026.10.05-daily-plan.md",
+      "historyHash": "8c7316a4de28d16c5c67a371b450b713c5ca56cbc574a7ca4ec036099fd2f36d",
+      "baselinePath": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\.nyssaai\\daily-tasks\\reconciliation.json",
+      "baselineBefore": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e80b-781f-8204-cdb32e505bd5\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-unknown\\\\planning-fYOk3H\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"feab5b87485300b0dc36ca19c435a0b8d491c9568495fd2ba002e966a49a254c\"\n        }\n      }\n    }\n  }\n}\n",
+      "baselineAfter": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e80b-781f-8204-cdb32e505bd5\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-unknown\\\\planning-fYOk3H\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": false,\n          \"hash\": \"7adf8953eb7a6657c00e479fd82ab87edac822afd0516d3ec63d1277ab904232\"\n        },\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-unknown\\\\planning-fYOk3H\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"a063ff1a1a0762f49aac40505b33e30d8c7d46dbc2e74554bdcb80697252182d\"\n        }\n      }\n    }\n  }\n}\n",
+      "sourceRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\.nyssaai\\daily-tasks\\rollover\\2026.10.06.json",
+      "destinationRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\.nyssaai\\daily-tasks\\rollover\\2026.10.07.json",
+      "sourceRolloverBefore": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e80b-7abf-9540-60bae7139596",
+        "operationId": "01a1143c-e80b-713a-991b-5a476e7e5bf5",
+        "completedAt": "2026-10-07T02:41:38.314Z",
+        "removedIds": []
+      },
+      "sourceRolloverAfter": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e80b-7abf-9540-60bae7139596",
+        "operationId": "01a1143c-e80b-713a-991b-5a476e7e5bf5",
+        "completedAt": "2026-10-07T02:41:38.314Z",
+        "removedIds": [
+          "01a1143c-e80b-781f-8204-cdb32e505bd5"
+        ]
+      },
+      "destinationRollover": {
+        "schemaVersion": 1,
+        "date": "2026.10.07",
+        "planId": "01a1143c-e80b-70dd-8989-d4b19b3fb6b9",
+        "removedIds": []
+      },
+      "checkpointPath": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\.nyssaai\\daily-tasks\\operations\\01a1143c-e80b-733c-ac1e-8f5899d19e21.json",
+      "operation": {
+        "operation_id": "01a1143c-e80b-733c-ac1e-8f5899d19e21",
+        "contextBinding": "1f98df332afe9e162c7c7a4b1723c768470776326f1b992f7c45ddc44e973356",
+        "changes": [
+          {
+            "key": "destinationMember",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "sourceMember",
+            "before": {
+              "present": true,
+              "value": true
+            },
+            "after": {
+              "present": true,
+              "value": false
+            }
+          },
+          {
+            "key": "logRecorded",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "baselineHash",
+            "before": {
+              "present": true,
+              "value": "4b28c09c9304181c90ade6ec9e326e1389f4385dc3c3e4b85a34cb18b33eba40"
+            },
+            "after": {
+              "present": true,
+              "value": "8e5ef4efcf8dadee44aa6bbc12a7e22e9f007df8ad419226c861f933d7c283eb"
+            }
+          },
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "91a992e9718d147d0cad5ecbbfc79a5d7ccc768bf4fce1962db264f6c79e42dc"
+            },
+            "after": {
+              "present": true,
+              "value": "03a63a81d7cf0878e9e3f0b6784207069f64f1ed1f6c8b878fe68ef575fe6f50"
+            }
+          }
+        ],
+        "event": {
+          "id": "01a1143c-e80b-771a-90c8-aecfcd9c9f83",
+          "operation_id": "01a1143c-e80b-733c-ac1e-8f5899d19e21",
+          "action": "selection-move",
+          "record_ids": [
+            "01a1143c-e80b-781f-8204-cdb32e505bd5"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:41:38.314Z",
+          "recorded_at": "2026-10-07T02:41:38.314Z",
+          "time_defaulted": false,
+          "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+          "before": {
+            "date": "2026.10.06"
+          },
+          "after": {
+            "date": "2026.10.07"
+          }
+        },
+        "files": [
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+            "before": "feab5b87485300b0dc36ca19c435a0b8d491c9568495fd2ba002e966a49a254c",
+            "after": "7adf8953eb7a6657c00e479fd82ab87edac822afd0516d3ec63d1277ab904232"
+          },
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-unknown\\planning-fYOk3H\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+            "before": null,
+            "after": "a063ff1a1a0762f49aac40505b33e30d8c7d46dbc2e74554bdcb80697252182d"
+          }
+        ]
+      },
+      "stopAfter": 0
+    },
+    "config-shared-a": {
+      "vaultRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV",
+      "projectsRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\1-projects",
+      "dailyPlansRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\2-areas\\daily-plans",
+      "stateRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\.nyssaai\\daily-tasks",
+      "timezone": "America/Chicago",
+      "now": "2026-10-07T02:41:38.318Z",
+      "userEmail": "fixture@example.test",
+      "today": "2026.10.06",
+      "nextDay": "2026.10.07",
+      "ids": {
+        "project": "01a1143c-e810-7089-bba8-3caf92b2ccc3",
+        "milestone": "01a1143c-e810-724a-a915-3b23d59b160c",
+        "task": "01a1143c-e810-7423-9c65-1abe652a7492",
+        "other": "01a1143c-e810-7e95-a481-dc0a8e5b6b5b",
+        "source": "01a1143c-e810-7a32-a791-a68c967a8933",
+        "destination": "01a1143c-e810-774d-9f02-b82d6dd1fa94",
+        "operation": "01a1143c-e810-7aad-a98e-a2159a749136",
+        "event": "01a1143c-e810-7fb5-a7fa-6c51f55587cd",
+        "rollover": "01a1143c-e810-78c8-9a65-d0c97c32e84e",
+        "history": "01a1143c-e810-7bbb-b586-479083911316"
+      },
+      "canonicalHashes": {
+        "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\1-projects\\2026.01.01-fixture\\project-index.md": "9e608256d1237232438c0ca5301dff0d2d40b5246405583ef80ea1e4ef55fb77",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\1-projects\\2026.01.01-fixture\\first\\milestone.md": "7e3e49eb32b9ef5aa8fed359c17ffeee5dfef8524277ad8dfca28c2746c3d64f",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md": "e6a6f10ae70b5142820e5f7c32bc067b19d9355c57fa30e8866959f7dfa83ff2",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\1-projects\\2026.01.01-fixture\\first\\other-task.md": "1b1d3218a34d5f1de5e1e1b964bf23004db385c44e632d814af3d0bcb461cddf"
+      },
+      "source": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+      "destination": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+      "sourceBefore": "---\nid: 01a1143c-e810-7a32-a791-a68c967a8933\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.318Z\"\nupdated_at: \"2026-10-07T02:41:38.318Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e810-7423-9c65-1abe652a7492 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e810-7e95-a481-dc0a8e5b6b5b -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "sourceAfter": "---\nid: 01a1143c-e810-7a32-a791-a68c967a8933\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.318Z\"\nupdated_at: \"2026-10-07T02:41:38.318Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e810-7e95-a481-dc0a8e5b6b5b -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "destinationAfter": "---\nid: 01a1143c-e810-774d-9f02-b82d6dd1fa94\ntype: daily-plan\ntitle: \"Daily plan 2026.10.07\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.318Z\"\nupdated_at: \"2026-10-07T02:41:38.318Z\"\n---\n# Daily plan — 2026.10.07\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e810-7423-9c65-1abe652a7492 -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "historyPath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\2-areas\\daily-plans\\2026.10.05-daily-plan.md",
+      "historyHash": "52b1d39d171495d366b5c2115f4732267d8aa88719fddcd1d1c6a33c30af9821",
+      "baselinePath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\.nyssaai\\daily-tasks\\reconciliation.json",
+      "baselineBefore": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e810-7423-9c65-1abe652a7492\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-shared-a\\\\planning-D8APVV\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"c39ba6bf34ca7e8ba72382a93ed494bb88262cc7685e91103d408e15c55978fb\"\n        }\n      }\n    }\n  }\n}\n",
+      "baselineAfter": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e810-7423-9c65-1abe652a7492\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-shared-a\\\\planning-D8APVV\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": false,\n          \"hash\": \"e617641b60196481f3460a564707049b776d31bb7e74767cdbcdb26ad8a1da03\"\n        },\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-shared-a\\\\planning-D8APVV\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"a5f1dfb43174b6285bc6f08840bfc0b6b801a8740bb91a08619f6c8e7e78d70c\"\n        }\n      }\n    }\n  }\n}\n",
+      "sourceRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\.nyssaai\\daily-tasks\\rollover\\2026.10.06.json",
+      "destinationRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\.nyssaai\\daily-tasks\\rollover\\2026.10.07.json",
+      "sourceRolloverBefore": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e810-7a32-a791-a68c967a8933",
+        "operationId": "01a1143c-e810-78c8-9a65-d0c97c32e84e",
+        "completedAt": "2026-10-07T02:41:38.318Z",
+        "removedIds": []
+      },
+      "sourceRolloverAfter": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e810-7a32-a791-a68c967a8933",
+        "operationId": "01a1143c-e810-78c8-9a65-d0c97c32e84e",
+        "completedAt": "2026-10-07T02:41:38.318Z",
+        "removedIds": [
+          "01a1143c-e810-7423-9c65-1abe652a7492"
+        ]
+      },
+      "destinationRollover": {
+        "schemaVersion": 1,
+        "date": "2026.10.07",
+        "planId": "01a1143c-e810-774d-9f02-b82d6dd1fa94",
+        "removedIds": []
+      },
+      "checkpointPath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\.nyssaai\\daily-tasks\\operations\\01a1143c-e810-7aad-a98e-a2159a749136.json",
+      "operation": {
+        "operation_id": "01a1143c-e810-7aad-a98e-a2159a749136",
+        "contextBinding": "a944745f8f6cf6e7e23f63f0f427b5a2d938324de9c390b3ef52dac12eeea82e",
+        "changes": [
+          {
+            "key": "destinationMember",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "sourceMember",
+            "before": {
+              "present": true,
+              "value": true
+            },
+            "after": {
+              "present": true,
+              "value": false
+            }
+          },
+          {
+            "key": "logRecorded",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "baselineHash",
+            "before": {
+              "present": true,
+              "value": "1c427aecca8df1d069b2ffc7357ff5d5dc26b5ee4d8458cceffe733480a24738"
+            },
+            "after": {
+              "present": true,
+              "value": "f53f05fd8f6564ba237991a9e1d2e2d06b184bc74175db491ec01976c2b7376f"
+            }
+          },
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "949fe44a1688879f4c8fa54937549ec32ff7dfba367115070559042c0885f42b"
+            },
+            "after": {
+              "present": true,
+              "value": "c532217def4962357ac0afe62bc9d63972de45b5f2e3df196763cb13bbffdfc2"
+            }
+          }
+        ],
+        "event": {
+          "id": "01a1143c-e810-7fb5-a7fa-6c51f55587cd",
+          "operation_id": "01a1143c-e810-7aad-a98e-a2159a749136",
+          "action": "selection-move",
+          "record_ids": [
+            "01a1143c-e810-7423-9c65-1abe652a7492"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:41:38.318Z",
+          "recorded_at": "2026-10-07T02:41:38.318Z",
+          "time_defaulted": false,
+          "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+          "before": {
+            "date": "2026.10.06"
+          },
+          "after": {
+            "date": "2026.10.07"
+          }
+        },
+        "files": [
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+            "before": "c39ba6bf34ca7e8ba72382a93ed494bb88262cc7685e91103d408e15c55978fb",
+            "after": "e617641b60196481f3460a564707049b776d31bb7e74767cdbcdb26ad8a1da03"
+          },
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+            "before": null,
+            "after": "a5f1dfb43174b6285bc6f08840bfc0b6b801a8740bb91a08619f6c8e7e78d70c"
+          }
+        ]
+      },
+      "stopAfter": 0
+    },
+    "config-shared-b": {
+      "vaultRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ",
+      "projectsRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\1-projects",
+      "dailyPlansRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\2-areas\\daily-plans",
+      "stateRoot": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\.nyssaai\\daily-tasks",
+      "timezone": "America/Chicago",
+      "now": "2026-10-07T02:41:38.323Z",
+      "userEmail": "fixture@example.test",
+      "today": "2026.10.06",
+      "nextDay": "2026.10.07",
+      "ids": {
+        "project": "01a1143c-e814-7549-8102-fd324e25239a",
+        "milestone": "01a1143c-e814-792b-b9bd-2afd70f374d9",
+        "task": "01a1143c-e814-7e09-862c-856eec0f5929",
+        "other": "01a1143c-e814-7682-b0e0-b50205b08fa7",
+        "source": "01a1143c-e814-77e8-a04e-fa84b31815f7",
+        "destination": "01a1143c-e814-7c15-8865-b397ff9337d4",
+        "operation": "01a1143c-e814-79a8-ab3e-7382334d98c8",
+        "event": "01a1143c-e814-7e95-b6a9-76c946dfb8b8",
+        "rollover": "01a1143c-e814-7bb4-b109-1cf8a8193ae5",
+        "history": "01a1143c-e814-7621-b343-9e7cf428e0e5"
+      },
+      "canonicalHashes": {
+        "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\1-projects\\2026.01.01-fixture\\project-index.md": "16d527edc9a6063166afb8b62a4af670fe5b61136b30f38130b3e0b5cfb1140b",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\1-projects\\2026.01.01-fixture\\first\\milestone.md": "1e08963f5ffa80c499bb2b4a25ecbde57371b770b1dc5370571cb803688db428",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md": "3129fdfcff37ff8268bf2da4a7c775633a8c84acf69de5d312582041cec997ee",
+        "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\1-projects\\2026.01.01-fixture\\first\\other-task.md": "33b04356a754b7a458f0e56c2e57e81c40ff18dceecdc3ea9089f69fa8e69ac3"
+      },
+      "source": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+      "destination": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+      "sourceBefore": "---\nid: 01a1143c-e814-77e8-a04e-fa84b31815f7\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.323Z\"\nupdated_at: \"2026-10-07T02:41:38.323Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e814-7e09-862c-856eec0f5929 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e814-7682-b0e0-b50205b08fa7 -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "sourceAfter": "---\nid: 01a1143c-e814-77e8-a04e-fa84b31815f7\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.323Z\"\nupdated_at: \"2026-10-07T02:41:38.323Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1143c-e814-7682-b0e0-b50205b08fa7 -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "destinationAfter": "---\nid: 01a1143c-e814-7c15-8865-b397ff9337d4\ntype: daily-plan\ntitle: \"Daily plan 2026.10.07\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:41:38.323Z\"\nupdated_at: \"2026-10-07T02:41:38.323Z\"\n---\n# Daily plan — 2026.10.07\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1143c-e814-7e09-862c-856eec0f5929 -->\n\n## Notes\n\nPreserve this unrelated note.\n",
+      "historyPath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\2-areas\\daily-plans\\2026.10.05-daily-plan.md",
+      "historyHash": "d3e4b0457dcd6c90d6304970ed735bf9737d15b4fb6f3f17c654bf46af99be4c",
+      "baselinePath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\.nyssaai\\daily-tasks\\reconciliation.json",
+      "baselineBefore": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e814-7e09-862c-856eec0f5929\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-shared-b\\\\planning-FLgctZ\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"272d9bc62955430a19743e6b69d49174e5711f8e93fddd586209b65287070bf0\"\n        }\n      }\n    }\n  }\n}\n",
+      "baselineAfter": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1143c-e814-7e09-862c-856eec0f5929\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-shared-b\\\\planning-FLgctZ\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\n          \"selected\": false,\n          \"hash\": \"a2dbf6d7f9afa334eac2da62636ecf5a3a36d69b10a35cfea7d1a186ae839483\"\n        },\n        \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791340787660\\\\config-shared-b\\\\planning-FLgctZ\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"2dbc0a57fdcdb0b5009c56168967466d1be2fe1077e81300d2d0c54e13050c9a\"\n        }\n      }\n    }\n  }\n}\n",
+      "sourceRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\.nyssaai\\daily-tasks\\rollover\\2026.10.06.json",
+      "destinationRolloverPath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\.nyssaai\\daily-tasks\\rollover\\2026.10.07.json",
+      "sourceRolloverBefore": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e814-77e8-a04e-fa84b31815f7",
+        "operationId": "01a1143c-e814-7bb4-b109-1cf8a8193ae5",
+        "completedAt": "2026-10-07T02:41:38.323Z",
+        "removedIds": []
+      },
+      "sourceRolloverAfter": {
+        "schemaVersion": 1,
+        "date": "2026.10.06",
+        "planId": "01a1143c-e814-77e8-a04e-fa84b31815f7",
+        "operationId": "01a1143c-e814-7bb4-b109-1cf8a8193ae5",
+        "completedAt": "2026-10-07T02:41:38.323Z",
+        "removedIds": [
+          "01a1143c-e814-7e09-862c-856eec0f5929"
+        ]
+      },
+      "destinationRollover": {
+        "schemaVersion": 1,
+        "date": "2026.10.07",
+        "planId": "01a1143c-e814-7c15-8865-b397ff9337d4",
+        "removedIds": []
+      },
+      "checkpointPath": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\.nyssaai\\daily-tasks\\operations\\01a1143c-e814-79a8-ab3e-7382334d98c8.json",
+      "operation": {
+        "operation_id": "01a1143c-e814-79a8-ab3e-7382334d98c8",
+        "contextBinding": "e5ff790329bcab24ece6c6fd890c332f9cd3979ffd800821e5587790d23206bd",
+        "changes": [
+          {
+            "key": "destinationMember",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "sourceMember",
+            "before": {
+              "present": true,
+              "value": true
+            },
+            "after": {
+              "present": true,
+              "value": false
+            }
+          },
+          {
+            "key": "logRecorded",
+            "before": {
+              "present": true,
+              "value": false
+            },
+            "after": {
+              "present": true,
+              "value": true
+            }
+          },
+          {
+            "key": "baselineHash",
+            "before": {
+              "present": true,
+              "value": "ddd4c3e5be8cb68a0c8abb0924f9fc7acd1fef078eb3af82e51349062779a576"
+            },
+            "after": {
+              "present": true,
+              "value": "1c98e7b83c01ab97471b669152730fe3eb7493ecfad81044416877bd816556b2"
+            }
+          },
+          {
+            "key": "sourceRolloverHash",
+            "before": {
+              "present": true,
+              "value": "1ea382951f57c4d0c5be37bc2ba9498a1160bc59b4b12942772c58f808c2052b"
+            },
+            "after": {
+              "present": true,
+              "value": "0981d456809fadb32f0009851ed775fd5d30f02fde3d6c69f75d376d246270e5"
+            }
+          }
+        ],
+        "event": {
+          "id": "01a1143c-e814-7e95-b6a9-76c946dfb8b8",
+          "operation_id": "01a1143c-e814-79a8-ab3e-7382334d98c8",
+          "action": "selection-move",
+          "record_ids": [
+            "01a1143c-e814-7e09-862c-856eec0f5929"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:41:38.323Z",
+          "recorded_at": "2026-10-07T02:41:38.323Z",
+          "time_defaulted": false,
+          "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+          "before": {
+            "date": "2026.10.06"
+          },
+          "after": {
+            "date": "2026.10.07"
+          }
+        },
+        "files": [
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+            "before": "272d9bc62955430a19743e6b69d49174e5711f8e93fddd586209b65287070bf0",
+            "after": "a2dbf6d7f9afa334eac2da62636ecf5a3a36d69b10a35cfea7d1a186ae839483"
+          },
+          {
+            "path": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+            "before": null,
+            "after": "2dbc0a57fdcdb0b5009c56168967466d1be2fe1077e81300d2d0c54e13050c9a"
+          }
+        ]
+      },
+      "stopAfter": 0
+    }
+  },
+  "sharedProfile": "<RETAINED_SYNTHETIC_ROOT>\\shared-home\\.nyssaai\\daily-tasks\\profile.json"
+}

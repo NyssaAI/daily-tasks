@@ -1,0 +1,111 @@
+{
+  "id": "day-change",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "day-change",
+      "name": "Skipped day created only today and carried own/delegated",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Terminal and unselected open work excluded from carry",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Precreated Other retained, removed Recovery stays out on repeat",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Interrupted destination persisted recovery verified independently",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Explicit future removal persists after planning future date",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-file-conflict preserves pending operation and baseline",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-log-conflict preserves pending operation and baseline",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "day-change",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:37:34.303Z"
+      },
+      "final": "Completed the interrupted move to the [October 7 plan](/<SYNTHETIC_ROOT>/day-change/planning-h8Rrii/2-areas/daily-plans/2026.10.07-daily-plan.md).\n\nVerified exact expected bytes and hashes, the full original event payload, and one active selection date. Preserved historical plans, unrelated rows/prose, original IDs and timestamps. Removed the checkpoint after verification; no new planning session or rollover was started."
+    },
+    {
+      "case": "day-skipped",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:42:41.169Z"
+      },
+      "final": "Created [today’s plan](<SYNTHETIC_ROOT>/day-skipped/planning-6gxBjp/2-areas/daily-plans/2026.10.06-daily-plan.md), carrying both unfinished selections from October 4, including delegated work. Historical plans are preserved; no October 5 plan was created.\n\n**October 6, 2026 — America/Chicago**\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\nThis is your first review today. Status marks show progress; sections indicate selection for today.\n\n**Already selected — Fixture / First**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | ↺ Recovery task | — |\n| 2 | [ ] | Fixture | ↺ Other task | — |\n\n**Available tasks**\n\nNo additional eligible tasks.\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward\n\nActions: `keep selections` · `remove 1` · `show details for 2` · `1 >`"
+    },
+    {
+      "case": "day-terminals-retry",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:48:42.539Z"
+      },
+      "final": "Saved [October 6’s plan](<SYNTHETIC_ROOT>/day-terminals/planning-HGc5ZL/2-areas/daily-plans/2026.10.06-daily-plan.md) in **America/Chicago**. Only today was created. Historical plans, notes, completed rows and cancelled rows remain unchanged.\n\nOpen projects: **1** · Open tasks: **3** · Late tasks: **0**\n\n**Already selected — Fixture / First**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | ↺ Recovery task | — |\n| 2 | [ ] | Fixture | ↺ Other task | — |\n\n**Available, unselected — Fixture / First**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 3 | [ ] | Fixture | additional-not-started | — |\n\nReply by row number and symbol or description.\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward from October 4\n\nActions: `remove 1` · `show details for 3` · `keep selections`"
+    },
+    {
+      "case": "day-precreated-retry",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:47:03.799Z"
+      },
+      "final": "Saved [October 6 plan](2-areas/daily-plans/2026.10.06-daily-plan.md). Other and the unrelated note are preserved; Recovery carried from yesterday exactly once. Rollover and review are saved and verified.\n\n**October 6, 2026 · America/Chicago**\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\n**Already selected — Fixture / First**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | Other task | — |\n| 2 | [ ] | Fixture | ↺ Recovery task | — |\n\n**Available tasks:** None.\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward\n\nActions: `remove 1` · `show details for 2` · `keep selections`"
+    },
+    {
+      "case": "day-remove-repeat",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:49:52.987Z"
+      },
+      "final": "Saved [October 6’s plan](<SYNTHETIC_ROOT>/day-precreated/planning-A2t55O/2-areas/daily-plans/2026.10.06-daily-plan.md). Repeated planning verified Recovery stays deselected and Other stays selected. Recovery’s canonical state is unchanged; unrelated data was preserved.\n\n**October 6, 2026 — America/Chicago**\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\n**Already selected**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | Other task | — |\n\n**Available tasks**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 2 | [ ] | Fixture | Recovery task | — |\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled\n\nPlanning actions: `add 2` · `remove 1` · `keep selections`"
+    },
+    {
+      "case": "future-removal",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:52:03.634Z"
+      },
+      "final": "[October 7 plan](2-areas/daily-plans/2026.10.07-daily-plan.md) is prepared in America/Chicago.\n\nRecovery’s deselection is persisted and verified after rollover. Its canonical task remains open; earlier plans and unrelated data are unchanged. Only Other task carried forward. No work was invented or accepted."
+    },
+    {
+      "case": "recovery-file-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:43:51.684Z"
+      },
+      "final": "Conflict found in the [October 6 source plan](/<SYNTHETIC_ROOT>/recovery-file-conflict/planning-DWo8lo/2-areas/daily-plans/2026.10.06-daily-plan.md): its contents match neither expected checkpoint version.\n\nThe manual edit is preserved. “Recovery task” remains selected on both October 6 and 7. I saved the unresolved conflict and retained the interrupted checkpoint.\n\nNo interpretation was chosen, no move event was appended, and no completion receipt was created. Both plans, baselines, and unrelated data remain unchanged."
+    },
+    {
+      "case": "recovery-log-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:43:41.083Z"
+      },
+      "final": "Recovery is suspended: the full event payload queried through the log CLI specifies **October 9**, while the checkpoint specifies **October 7**.\n\nSaved the unresolved conflict and retained the pending checkpoint. Plans, unrelated data, baselines, and rollover receipts remain unchanged. No log event was appended or completion marked.\n\nAn explicit decision resolving the date conflict is needed before resuming."
+    }
+  ]
+}

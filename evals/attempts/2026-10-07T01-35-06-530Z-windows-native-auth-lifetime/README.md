@@ -1,0 +1,3 @@
+# Aborted authentication follow-up
+
+Candidate bd3ceee0e7040a7e33e1a59289daca041b6fbfe608b52d9b33e35b2a77ae3e3a. Native acceptance second-phase attempt at 2026-10-07T01:37:39Z ended exit 1 at 01:37:52Z, before model actions, with HTTP 401 Missing bearer or basic authentication. The temporary harness removed its isolated auth copy after the first concurrent batch before this follow-up started. This is an evaluator harness lifetime error, not a plugin failure. The next run recopied auth immediately before exec and removed it in finally; acceptance-accepted-retry completed. Original failed stdout/stderr remain in ignored .temp/windows-release/acceptance-accepted.* and their hashes are retained in the completed run raw-stream manifest. No secrets are exported.

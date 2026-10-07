@@ -1,0 +1,19 @@
+import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
+const s=import.meta.dirname,{base}=JSON.parse(fs.readFileSync(path.join(s,'location.json'),'utf8'));
+const current=JSON.parse(fs.readFileSync(path.join(s,'configs-location.json'),'utf8'));
+const digest=x=>createHash('sha256').update(x).digest('hex');
+fs.copyFileSync(path.join(s,'configs-location.json'),path.join(s,'configs-location-unused-reseed.json'));
+const recovered={},evidence=[];
+for(const id of Object.keys(current.fixtures)){
+ const raw=fs.readFileSync(path.join(s,id+'.jsonl'),'utf8'),run=JSON.parse(fs.readFileSync(path.join(s,id+'.result.json'),'utf8'));
+ const dirs=fs.readdirSync(path.join(base,id)).filter(n=>n.startsWith('planning-'));
+ const candidates=dirs.map(n=>{const file=path.join(base,id,n,'fixture.json'),bytes=fs.readFileSync(file),f=JSON.parse(bytes);return{n,file,f,createdAt:fs.statSync(file).birthtime.toISOString(),manifestHash:digest(bytes),observedPath:raw.includes(n),observedProjectId:raw.includes(f.ids.project)};});
+ const eligible=candidates.filter(c=>c.observedPath||(id==='config-unknown'&&Date.parse(c.createdAt)<Date.parse(run.startedAt)));
+ if(eligible.length!==1)throw Error('Ambiguous original fixture '+id);
+ const original=eligible[0];if(Date.parse(original.createdAt)>=Date.parse(run.startedAt))throw Error('Fixture created after invocation');
+ recovered[id]=original.f;
+ evidence.push({case:id,run,streamHash:digest(raw),threadId:JSON.parse(raw.split('\n')[0]).thread_id,restored:original,unused:candidates.filter(c=>c!==original),method:id==='config-unknown'?'Only fixture manifest existing before native invocation. Stream deliberately performs no vault read because scope is unknown; later unused fixture was created after completion.':'Native stream contains original vault basename and project UUID; original fixture manifest and content hashes match those identities.'});
+}
+fs.writeFileSync(path.join(s,'configs-location.json'),JSON.stringify({...current,fixtures:recovered},null,2));
+fs.writeFileSync(path.join(s,'runner-fault.json'),JSON.stringify({candidate:JSON.parse(fs.readFileSync(path.join(s,'candidate.json'))).hash,fault:'ENOENT copying config-shared-a review mapping before cross-vault-reply. Main batch loaded before the config seed skip edit, so it re-seeded five unused config vaults and overwrote only pointer JSON after separate native config cases had completed.',classification:'Scratch runner coordination/provenance fault; no candidate or tested fixture repair; 29 completed native cases preserved without retry.',failedCommand:'node .temp/windows-clock-eval/batch.mjs',exit:1,lastCompletedCase:'future-removal',unstartedCases:['cross-vault-reply','cross-vault-inventory'],observedAt:new Date().toISOString(),recovery:'Restore pointer JSON from original fixture manifests after native-stream/path/UUID/time verification; retain unused re-seed pointers and manifests; execute only two unstarted cases unchanged.',evidence},null,2));
+console.log(JSON.stringify(evidence.map(e=>({case:e.case,restored:e.restored.n,pathSeen:e.restored.observedPath,uuidSeen:e.restored.observedProjectId,createdAt:e.restored.createdAt,runStart:e.run.startedAt})),null,2));

@@ -1,0 +1,116 @@
+{
+  "id": "day-change",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "day-change",
+      "name": "Skipped day created only today and carried own/delegated",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Terminal and unselected open work excluded from carry",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Precreated Other retained, removed Recovery stays out on repeat",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Interrupted destination persisted recovery verified independently",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Explicit future removal persists after planning future date",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-file-conflict preserves pending operation and baseline",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-log-conflict preserves pending operation and baseline",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "New carry decision recorded_at uses actual run clock rather than an invented planning-date instant",
+      "passed": false
+    }
+  ],
+  "cases": [
+    {
+      "case": "day-change",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:01:35.932Z"
+      },
+      "final": "Completed the interrupted move to the [October 7 plan](/<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-change/planning-MnXDJv/2-areas/daily-plans/2026.10.07-daily-plan.md).\n\nVerified exact bytes, hashes, and the full original event payload. Preserved historical plans, canonical records, unrelated rows and prose. Updated the missing state effects and cleared the completed checkpoint. No new planning session or rollover was started."
+    },
+    {
+      "case": "day-skipped",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:06:46.772Z"
+      },
+      "final": "Saved [today’s plan](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-skipped/planning-HA5W85/2-areas/daily-plans/2026.10.06-daily-plan.md) for **October 6, 2026 — America/Chicago**. Carried both unfinished selections from October 4, including delegated work. Historical plans are preserved; October 5 remains absent.\n\nOpen projects: **1** · Open tasks: **2** · Late tasks: **0**\n\nThis is your first planning review today. Status marks show progress; section membership shows selection.\n\n**Already selected — Fixture / First**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | ↺ Recovery task | — |\n| 2 | [ ] | Fixture | ↺ Other task | — |\n\n**Available tasks**\n\nNo additional eligible tasks.\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward\n\nPlanning actions: `remove 1` · `show details for 2` · `keep selections`"
+    },
+    {
+      "case": "day-terminals-retry",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T02:21:53.802Z"
+      },
+      "final": "Created the [October 6 plan](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-terminals/planning-n3mr8S/2-areas/daily-plans/2026.10.06-daily-plan.md) in America/Chicago.\n\nCarried Recovery task and Other task from October 4. Excluded completed, cancelled, and unselected open tasks. Rollover is verified complete; historical records are unchanged, and no October 5 plan was created."
+    },
+    {
+      "case": "day-precreated-retry",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T02:17:45.624Z"
+      },
+      "final": "[October 6 plan — America/Chicago](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-precreated/planning-JPqAUf/2-areas/daily-plans/2026.10.06-daily-plan.md) now contains Other task and Recovery task.\n\nRecovery carried forward once. Unrelated prose, yesterday’s plan, history, and canonical tasks are preserved. Verified rollover complete with no pending operations."
+    },
+    {
+      "case": "day-remove-repeat",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T02:19:15.102Z"
+      },
+      "final": "Removed Recovery from the [October 6 plan](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-precreated/planning-JPqAUf/2-areas/daily-plans/2026.10.06-daily-plan.md).\n\nRepeated October 6 planning verified Recovery stays removed and Other remains selected. Canonical task files are unchanged; Recovery is still not-started. Unrelated notes were preserved."
+    },
+    {
+      "case": "future-removal",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T02:24:50.824Z"
+      },
+      "final": "[October 7 plan](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-change/planning-MnXDJv/2-areas/daily-plans/2026.10.07-daily-plan.md) is ready in America/Chicago.\n\nRecovery was explicitly removed and remains canonically open. Other task carried forward. Verified that rollover and repeated planning preserve Recovery’s removal, with unrelated data unchanged."
+    },
+    {
+      "case": "recovery-file-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:10:31.836Z"
+      },
+      "final": "Recovery is suspended: the [source plan](2-areas/daily-plans/2026.10.06-daily-plan.md) matches neither expected checkpoint version and contains “Unexpected manual edit to preserve.”\n\nRecovery task remains in both plans. I saved the unresolved conflict and retained the checkpoint. The manual edit and unrelated data are preserved; no completion event or receipt was created, and baselines remain unchanged."
+    },
+    {
+      "case": "recovery-log-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:10:39.589Z"
+      },
+      "final": "Recovery is blocked by a payload conflict: the full event queried through the log CLI records October 9, while the checkpoint specifies October 7.\n\nSaved the unresolved conflict and retained the pending checkpoint. Plans, records, log, baselines, and receipts remain unchanged; completion was not marked. Resolving the destination-date conflict is required before resuming."
+    }
+  ]
+}

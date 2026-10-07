@@ -1,0 +1,146 @@
+{
+  "id": "configuration-discovery",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "configuration-discovery",
+      "name": "configuration-discovery creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-no-profile creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-legacy creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-explicit-legacy creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-shared-b creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "No-profile initializes conventional config with empty priorities",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Legacy profile retained without new profile migration",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Conflicting profile preserved awaiting decision",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Unknown scope asks for vault and no internal directory",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign numbered reply and checkpoint refused without canonical writes",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign inventory replaced with vault B identities",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "configuration-discovery",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:37:25.493Z"
+      },
+      "final": "Created [M1: update LinkedIn and resume](<SYNTHETIC_ROOT>/configuration-discovery/planning-lfqQjz/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in the existing Fixture project.\n\nState: not-started. Acceptance logged and validation passed. No tasks added; unrelated contents preserved."
+    },
+    {
+      "case": "config-no-profile",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:42:17.617Z"
+      },
+      "final": "Created [M1: update LinkedIn and resume](1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in Fixture as not started. No extra tasks were created. Records and links passed validation.\n\nConfigured this vault only for Fixture (`fixture@example.test`), timezone America/Chicago, with empty priorities.\n\n- Configuration: `.nyssaai/daily-tasks`\n- Projects: `1-projects`\n- Daily plans: `2-areas/daily-plans`"
+    },
+    {
+      "case": "config-legacy",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:41:32.838Z"
+      },
+      "final": "Created [M1: update LinkedIn and resume](/<SYNTHETIC_ROOT>/config-legacy/planning-rSHUTh/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in Fixture as one accepted milestone, with no extra tasks.\n\nUpdated the project index, logged acceptance, and verified links. Existing settings and unrelated data were preserved."
+    },
+    {
+      "case": "config-explicit-legacy",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:47:50.549Z"
+      },
+      "final": "Created accepted [M1 — Update LinkedIn and resume](<SYNTHETIC_ROOT>/config-explicit-legacy/planning-nzhWB5/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in Fixture, with completion criteria and no extra tasks.\n\nValidated and logged acceptance. Preserved the legacy profile/state directory and unrelated data."
+    },
+    {
+      "case": "config-conflict",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:46:38.543Z"
+      },
+      "final": "The existing profile uses **Fixture**, **fixture@example.test**, and **America/Chicago**. No writes have been made; M1 remains pending.\n\nPlease choose whether to update this vault’s profile to your supplied values or preserve it and proceed with Fixture’s settings.\n\nThe [Daily Tasks setup skill](<SYNTHETIC_ROOT>/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md) requires: “Do not … overwrite conflicting values or merge different users’ state.” This conflict needs your explicit decision before creation."
+    },
+    {
+      "case": "config-unknown",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:46:58.780Z"
+      },
+      "final": "I need the intended vault or project location, plus your preference scope: **configure Daily Tasks for that vault only, or for all vaults you access?**\n\nI found no existing personal profile. I haven’t selected the staging workspace as your vault or created any records. You don’t need to choose an internal configuration directory."
+    },
+    {
+      "case": "config-shared-a",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:49:14.944Z"
+      },
+      "final": "[October 6 plan](<SYNTHETIC_ROOT>/config-shared-a/planning-doezbq/2-areas/daily-plans/2026.10.06-daily-plan.md) — America/Chicago\n\nPreserved both selections and the unrelated note. Saved stable row numbers in this vault’s state; shared preferences remain unchanged.\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\nAlready selected:\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | Recovery task | — |\n| 2 | [ ] | Fixture | Other task | — |\n\nNo available additions.\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled\n\nMaintenance found no current mismatches. Missing reconciliation baselines prevent marking broad maintenance complete."
+    },
+    {
+      "case": "config-shared-b",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:49:00.451Z"
+      },
+      "final": "Created [M1 — Update LinkedIn and resume](<SYNTHETIC_ROOT>/config-shared-b/planning-qGLA8o/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in Fixture, with completion criteria and no extra tasks.\n\nValidated and logged acceptance. Shared preferences and unrelated data were preserved."
+    },
+    {
+      "case": "cross-vault-reply",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:50:57.880Z"
+      },
+      "final": "Item 1 was not changed. The saved screen mapping does not match vault B’s binding, and the recovery checkpoint references vault A’s files.\n\nI preserved all evidence and made no writes. Please provide a valid numbered screen for vault B so I can mark the intended task in progress."
+    },
+    {
+      "case": "cross-vault-inventory",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:53:13.822Z"
+      },
+      "final": "[October 6 plan](<SYNTHETIC_ROOT>/config-shared-b/planning-qGLA8o/2-areas/daily-plans/2026.10.06-daily-plan.md) — America/Chicago\n\nFixture B inventory rebuilt and verified. Existing selections and unrelated notes preserved; rollover complete. Maintenance found no conflicts.\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | Recovery task | — |\n| 2 | [ ] | Fixture | Other task | — |\n\nBoth tasks remain selected. No additional tasks available.\n\nReply by row number and symbol or description.\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled"
+    }
+  ]
+}

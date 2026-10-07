@@ -1,0 +1,40 @@
+{
+  "id": "acceptance",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "acceptance",
+      "name": "Ambiguous/manual candidate remained unaccepted until follow-up",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "Exactly one accepted task added with validated metadata/UUIDv7",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "Acceptance was logged once",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "acceptance",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:00:11.906Z"
+      },
+      "final": "The new checkbox in [Fixture’s project index](/<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/acceptance/planning-7Mobqe/1-projects/2026.01.01-fixture/project-index.md) needs explicit acceptance: **“Improve onboarding.”**\n\nYour message and checkbox describe the same candidate, so I saved one unresolved proposal. Before task creation, its onboarding scope and parent milestone also need confirmation. The default owner is Fixture.\n\nNothing was accepted or created as canonical work. Existing Markdown remains unchanged."
+    },
+    {
+      "case": "acceptance-accepted-retry",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T02:14:12.562Z"
+      },
+      "final": "Created [Improve onboarding](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/acceptance/planning-7Mobqe/1-projects/2026.01.01-fixture/first/improve-onboarding.md) under **First**, owned by you (`fixture@example.test`), and verified the acceptance log.\n\nConverted the existing candidate checkbox into the task link without duplication. No other tasks were created; unrelated data was preserved."
+    }
+  ]
+}

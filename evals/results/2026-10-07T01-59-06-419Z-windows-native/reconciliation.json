@@ -1,0 +1,73 @@
+{
+  "id": "reconciliation",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "reconciliation",
+      "name": "Stale unchecked view did not reopen completed canonical",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Changed unchecked view reopens canonical without invented start",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Conflicting completion/cancellation preserved while unrelated assignment proceeds",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Recovery retry kept one exact event (before later explicit removal)",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Decision activity/recorded times were stored correctly on original append",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Original append needed no timestamp correction",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "reconciliation",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:04:05.573Z"
+      },
+      "final": "Check-in complete. [Today’s plan](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/reconciliation/planning-xkxk4y/2-areas/daily-plans/2026.10.06-daily-plan.md) now shows Recovery completed, preserving your canonical completion.\n\nOther task remains selected and unstarted. Unrelated contents and historical plans were preserved. No new tasks were accepted; verification found no pending conflicts."
+    },
+    {
+      "case": "reconcile-uncheck",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:12:08.976Z"
+      },
+      "final": "[Today’s plan](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/reconcile-uncheck/planning-etOn6t/2-areas/daily-plans/2026.10.06-daily-plan.md) is reconciled.\n\nRecovery task reopened as **not-started** against its saved completed baseline. Updated its canonical record, project checkbox, baselines and decision log. Parents were already open.\n\nValidation passed with no pending conflicts. Unrelated work and notes were preserved."
+    },
+    {
+      "case": "reconcile-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:11:16.870Z"
+      },
+      "final": "Assigned [Other task](1-projects/2026.01.01-fixture/first/other-task.md) to Luna, preserving its owner and not-started state. The assignment and log were verified.\n\nRecovery remains a saved pending conflict: canonical **completed** versus daily **cancelled**, with the original baseline preserved. Neither edit was refreshed away. Check-in remains resumable until you choose a winner."
+    },
+    {
+      "case": "recovery-repeat",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T02:15:25.997Z"
+      },
+      "final": "Retried the move using the original IDs, timestamps and exact payload. The CLI confirmed a duplicate retry; no event was appended.\n\nVerified every move effect, reconciliation baseline and rollover receipt. The decision exists exactly once, no checkpoint remains pending, and unrelated data is unchanged."
+    }
+  ]
+}

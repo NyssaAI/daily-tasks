@@ -1,0 +1,95 @@
+{
+  "operation_id": "01a11421-e911-7318-b1ac-a8e585a35867",
+  "contextBinding": "9c686303e5d3fd6eb92dfd5aaa37392b33a8bfe9dc3ad38ca102f770c9e9007f",
+  "changes": [
+    {
+      "key": "destinationMember",
+      "before": {
+        "present": true,
+        "value": false
+      },
+      "after": {
+        "present": true,
+        "value": true
+      }
+    },
+    {
+      "key": "sourceMember",
+      "before": {
+        "present": true,
+        "value": true
+      },
+      "after": {
+        "present": true,
+        "value": false
+      }
+    },
+    {
+      "key": "logRecorded",
+      "before": {
+        "present": true,
+        "value": false
+      },
+      "after": {
+        "present": true,
+        "value": true
+      }
+    },
+    {
+      "key": "baselineHash",
+      "before": {
+        "present": true,
+        "value": "3b308a0d98fb6f8be10848efe2a986307c1ee99fe423b7bb3835c26af9dfcb4d"
+      },
+      "after": {
+        "present": true,
+        "value": "3858ec8e2a92e25e988585aae18182ceff7dc7442afba14e818e3e2636dd6c84"
+      }
+    },
+    {
+      "key": "sourceRolloverHash",
+      "before": {
+        "present": true,
+        "value": "eff54bb40bc73a22aa9c9c2e0510ac250ab872ea58cad73528308d10cf7aec1f"
+      },
+      "after": {
+        "present": true,
+        "value": "f09ad196b9c8b46b07f1d529a87de04ec8dc043865e3f946c67f56f93de8ec68"
+      }
+    }
+  ],
+  "event": {
+    "id": "01a11421-e911-71a4-bb46-8a299c33a112",
+    "operation_id": "01a11421-e911-7318-b1ac-a8e585a35867",
+    "action": "selection-move",
+    "record_ids": [
+      "01a11421-e911-75de-b5c5-42b4f53cdc62"
+    ],
+    "actor": {
+      "kind": "person",
+      "id": "fixture@example.test"
+    },
+    "activity_at": "2026-10-07T02:12:09.104Z",
+    "recorded_at": "2026-10-07T02:12:09.104Z",
+    "time_defaulted": false,
+    "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+    "before": {
+      "date": "2026.10.06"
+    },
+    "after": {
+      "date": "2026.10.07"
+    }
+  },
+  "files": [
+    {
+      "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-a\\planning-PhG2j4\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+      "before": "c593450c3d1d2374146c0f00513def7919e5b6ce3a87c8b4f7a1566a0d7986f3",
+      "after": "0c792ba91e101b4ff1cf2bdc85e26a9919edbd248ef53e9167e7b29ea65d9dd5"
+    },
+    {
+      "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-a\\planning-PhG2j4\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+      "before": null,
+      "after": "68b62c0cbb0b7d9bf171d0e1b9ec5db3c79ffadcd866a6bc1221273cec5c8cb8"
+    }
+  ]
+}

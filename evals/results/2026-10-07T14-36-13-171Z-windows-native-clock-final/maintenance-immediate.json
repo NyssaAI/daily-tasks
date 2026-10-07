@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-10-07T14:40:43.859Z",
+  "state": {
+    "schemaVersion": 1,
+    "lastFullReconcileAt": "2026-10-07T14:40:06.278Z",
+    "model": "gpt-6-luna",
+    "executionEvidence": {
+      "worker": "/root/maintenance",
+      "mode": "read-only",
+      "contextBinding": "e41925a8d3f7c37f2a331761351f3b0297145c70f41ed3de43f4189a16a0a90c",
+      "sources": [
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/milestone.md",
+          "sha256": "c1cc7d99c0b04efb7aa2f8ade65a2dbc6c1ad7687c71614240fc8e260b338ad6"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/other-task.md",
+          "sha256": "0a4c91c3e8e42d6b4e481cd53d721351b574ea34aaa7acf9de857d9681632504"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/recovery-task.md",
+          "sha256": "9fd54338e61b6cec3344c51731717967ce6fd0473b36dd1b79e0cd331968a1a7"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/project-index.md",
+          "sha256": "a9304a0a9a38a8a87c64275cadea54ad779380a1a8425d8c70bb2c96c8ce1ce5"
+        },
+        {
+          "anchor": "vaultRoot",
+          "path": "2-areas/daily-plans/2026.10.07-daily-plan.md",
+          "sha256": "3a9a4a80da32ec949301edc0b2d4e68dbfeb8f073eb8f36c830b681926baaae0"
+        }
+      ],
+      "plansInspected": [
+        "2026.10.03",
+        "2026.10.04",
+        "2026.10.07"
+      ],
+      "diagnostics": [],
+      "conflicts": [],
+      "parentVerification": "Source hashes, plan memberships, exact log payload, rollover receipt and affected baselines verified; unenrolled historical views agree with canonical states."
+    }
+  },
+  "status": 0,
+  "result": {
+    "fullReconcileDue": false,
+    "preferredModel": "gpt-6-luna",
+    "alwaysCheck": [
+      "current-plan-edits",
+      "previous-plan-edits",
+      "applicable-pending-operations"
+    ]
+  }
+}

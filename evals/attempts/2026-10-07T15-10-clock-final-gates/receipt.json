@@ -1,0 +1,37 @@
+{
+  "runId": "2026-10-07T15-10-clock-final-gates",
+  "completed_at": "2026-10-07 15:12:27 UTC",
+  "independentVerification": {"sealedFiles": 33, "previousResultFilesPreserved": 120, "privacyCheck": "pass", "temporaryAuthCopiesAbsent": true, "candidateUnchanged": true},
+  "candidate": "970008f61e4f1f4eb304911f58e5722c361310ab03717885c610902df5ccb64c",
+  "nativeResult": "evals/results/2026-10-07T14-36-13-171Z-windows-native-clock-final/result.json",
+  "gates": [
+    {
+      "command": [
+        "node",
+        "evals/report.mjs",
+        "write"
+      ],
+      "exit": 0,
+      "stdout": "write: report and recorded evidence verified\n"
+    },
+    {
+      "command": [
+        "node",
+        "evals/report.mjs",
+        "check"
+      ],
+      "exit": 0,
+      "stdout": "check: report and recorded evidence verified\n"
+    },
+    {
+      "command": [
+        "node",
+        "evals/report.mjs",
+        "release"
+      ],
+      "exit": 0,
+      "stdout": "release: report and recorded evidence verified\n"
+    }
+  ],
+  "scope": "Windows x64 node-local and native Codex CLI. No merge or publication."
+}

@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "actor": {
+        "kind": "person",
+        "id": "fixture@example.test"
+      },
+      "record_ids": [
+        "01a11401-aa7d-7f22-921d-82a013b35809"
+      ],
+      "operation_id": "01a11402-d470-79e6-84cd-94668759da3d",
+      "recorded_at": "2026-10-07T06:38:57.000Z",
+      "after": {
+        "state": "completed",
+        "reason": "Canonical completion preserved; unchanged stale daily projection contributes no edit. Project projection refreshed under explicit user direction."
+      },
+      "action": "task.reconciled",
+      "time_defaulted": true,
+      "before": {
+        "state": "not-started"
+      },
+      "id": "01a11402-d49c-7229-aeb3-e2d26d3c9024",
+      "original_words": "I updated the canonical Recovery task definition to completed. The daily plan checkbox is an unchanged stale view from the stored per-view baseline; preserve my canonical completion and refresh the view.",
+      "activity_at": "2026-10-07T06:38:57.000Z"
+    }
+  ],
+  "total": 1,
+  "offset": 0,
+  "limit": 100,
+  "nextOffset": null
+}

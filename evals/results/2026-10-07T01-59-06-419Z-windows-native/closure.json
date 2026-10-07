@@ -1,0 +1,92 @@
+{
+  "id": "closure",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "closure",
+      "name": "Open children and missing DoD prevent parent closure",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Unchecked DoD and shared open blocker prevent closure",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-blocker reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-dod reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-task reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Cancelled prerequisite informational and relation retained",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "closure",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:03:22.654Z"
+      },
+      "final": "Neither parent can close:\n\n- [First](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/closure/planning-1lWPX7/1-projects/2026.01.01-fixture/first/milestone.md): Recovery task and Other task are both `not-started`. Its required Definition of Done record is missing.\n- [Fixture](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/closure/planning-1lWPX7/1-projects/2026.01.01-fixture/project-index.md): First remains unresolved; its closure check also reports those unfinished tasks and missing DoD.\n\nNo blocker records or links were found. Your closure intent and constraints are safely saved as pending, with a verified decision-log receipt. All canonical Markdown remains unchanged."
+    },
+    {
+      "case": "closure-blocked",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:07:45.157Z"
+      },
+      "final": "Closure checks denied both closures:\n\n- **First:** “Release evidence approved” remains unchecked, and the shared **Approval** blocker is open. Both tasks are completed.\n- **Fixture:** First remains unresolved, its DoD is unsatisfied, and Approval remains open.\n\nRecord validation and reciprocal link checks passed. All canonical records remain unchanged; no DoD satisfaction or blocker resolution was inferred."
+    },
+    {
+      "case": "reopen-blocker",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:08:36.791Z"
+      },
+      "final": "Reopened [Approval](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/reopen-blocker/planning-FjEz0u/1-projects/2026.01.01-fixture/blockers/approval-needed.md) and returned First and Fixture to in-progress.\n\nBoth tasks remain completed, with daily-plan checkboxes refreshed. Recorded your explicit decision and verified record integrity and links."
+    },
+    {
+      "case": "reopen-dod",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:09:23.653Z"
+      },
+      "final": "Unchecked “Release evidence approved” in [DoD](1-projects/2026.01.01-fixture/first/definition-of-done.md). Reopened [First](1-projects/2026.01.01-fixture/first/milestone.md) and [Fixture](1-projects/2026.01.01-fixture/project-index.md) to in-progress.\n\nCompleted tasks and the resolved Approval blocker remain unchanged. Validation and decision logging succeeded."
+    },
+    {
+      "case": "reopen-task",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:08:25.573Z"
+      },
+      "final": "Reopened [Recovery task](1-projects/2026.01.01-fixture/first/recovery-task.md) to not-started. First milestone and Fixture project reopened to in-progress. Other task remains completed.\n\nUpdated views and recorded the change. Unrelated data was preserved."
+    },
+    {
+      "case": "cancelled-dependency",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:08:54.447Z"
+      },
+      "final": "[Recovery task](</<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/cancelled-dependency/planning-Gdu6Q7/1-projects/2026.01.01-fixture/first/recovery-task.md>) is now in progress, with its start recorded.\n\nIts dependency remains linked and flagged “prerequisite cancelled.” Other task remains cancelled and unchanged. Project and daily-plan views were refreshed; unrelated content was preserved."
+    }
+  ]
+}

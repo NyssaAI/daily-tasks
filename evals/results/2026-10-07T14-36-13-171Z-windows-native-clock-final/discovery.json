@@ -1,0 +1,1067 @@
+{
+  "hostVersion": "Codex CLI 0.160.1",
+  "isolated": true,
+  "loadedSkills": [
+    "daily-tasks",
+    "daily-tasks-capture",
+    "daily-tasks-checkin",
+    "daily-tasks-plan",
+    "daily-tasks-records",
+    "daily-tasks-setup"
+  ],
+  "retainedInstall": {
+    "candidate": "970008f61e4f1f4eb304911f58e5722c361310ab03717885c610902df5ccb64c",
+    "after": "970008f61e4f1f4eb304911f58e5722c361310ab03717885c610902df5ccb64c",
+    "sourceUnchanged": true,
+    "portable": {
+      ".claude-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+      ".codex-plugin/plugin.json": "145d7f1ddb3d866dcaa1589294e0a7ec124a6f15d1efac1dfb7b0d039e3cd273",
+      ".cursor-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+      "LICENSE": "fd5f124e0fe03df2b368d36c81d417a811928a0d3fcdc5e5d5d60a2bcc54b5e6",
+      "assembly.json": "5e5f1ea272c5be6f240342610d558a1a08795b0ea96125e9ac9977228d78b1cd",
+      "bin/daily-tasks.mjs": "01b3584de3256379f0b832412619d4fc947cab5c2f283e54922dc1cab6df6d12",
+      "capabilities.json": "475d019873b8d9e6dbf8362eac14e83844fbb3fa7046c54cf95deb5fd8ddef95",
+      "lib/identity/identity.mjs": "c412178f8e2c9fc74f1fa15e00dfb5b8909ed54d4afd4b4096746a433d84e44d",
+      "lib/inventory/inventory.mjs": "81abf9912d57451ef6abb5066cb91aa2ead8562ebecc44d63e25b206b3791427",
+      "lib/log/decision-log.mjs": "21191f628f31b20bb56e5352b9ab866e18e84be5e8da784e6c551d11e3b1a833",
+      "lib/planning/planning.mjs": "9de974d2d3a2255e5942205d5fb133aa46aca608d0a117ac1fb35a6146cfe910",
+      "lib/planning/review.mjs": "dae78eccaf5663ed88210abfcc5a8fcc2ffccb74bf3f8845b6f2c609326d1cf6",
+      "lib/planning/session.mjs": "44a97b4cf110b18047f47a54743125793a6ca2596a7627d89e020f33813a3dcc",
+      "lib/profile/context.mjs": "d57dd4ae8593e91be3ae848fe6e6943f6e49ad0fb83279ff0a778da015889fb5",
+      "lib/profile/profile.mjs": "1b71a7bd6ef10b27345cb4312408ff1b863aeabfe685dc1449ae2ea634c9224d",
+      "lib/reconciliation/reconciliation.mjs": "ebb1cf5052c9b451f6012f64964d0f07c0febb6511b545ce1973939d3f935d2b",
+      "lib/records/closure.mjs": "61c67e7a05c0689883af91a288e819bfd6d3a45203e27acaea9d805d4f26329b",
+      "lib/records/links.mjs": "cd90458ab5a62b935dc9b7f4ee3bac940a4880197d5622d84095728a2b9b254f",
+      "lib/records/parse.mjs": "56494400c39712fb1084cbb0e4d2d0199245dd82114aa66324a7216a69a23c4f",
+      "lib/records/records.mjs": "b6a184218b6257a517d81b3a4c13a0d5e804f94ed7fe07a11a299e393fa33759",
+      "lib/records/validation.mjs": "869ad6f7ef2fc8411eb9d8fd8326046ddcbd514402e884ac3e5a32c30f0c35ea",
+      "lib/records/views.mjs": "946bfa705b6baabde92571963bc71231155887cb4145d649819d96534e24ab8a",
+      "lib/time/time.mjs": "686fa2ad0c57a11fdea92ba28bd47f4415c4aba9588a1b43e40216640fd5d873",
+      "package.json": "4b9c56ee6171063d47ede95c506a58b50d8a64246bf3999ed025da36221d68a7",
+      "plugin.json": "c4e0e11cfd1868019994605b0384436996e8b33748fa590db4f795849464a486",
+      "skills/daily-tasks-capture/SKILL.md": "06484a35ab6f5b01fc206711fdedb125763842eaab9b9a07106cc14f186bd892",
+      "skills/daily-tasks-checkin/SKILL.md": "2b0fdb95162ab5a6b32f9126272eed66b78e85da29744bc7620ea9a6b9dcc1ed",
+      "skills/daily-tasks-plan/SKILL.md": "e6cba6abc55396abb8b439c29bdc6a69ffa8ba58e991a311dc5355aa71f6ca73",
+      "skills/daily-tasks-records/SKILL.md": "952dad2ea337b8bd3d75d819dfde6266b07aeeee1c1fa58392d7a0d677ab5e93",
+      "skills/daily-tasks-setup/SKILL.md": "869e946ffc27471ef2dafc37bd03180a0b61ffa45e16fde5934a5f3e43d68f13",
+      "skills/daily-tasks/SKILL.md": "0d20937906bfa9958fe8a1bb8639bdb999dafd07b7a7a22a180ba845cf6572cc",
+      "skills/daily-tasks/assets/blocker.md": "36953cd0ea03dcae8bfa83e96deaad133083742a9b7fc235006081763b8bf949",
+      "skills/daily-tasks/assets/daily-plan.md": "32116f0f8add255c570ee3d2954f432af8c4e44d71824991d7aa96d3f199f72c",
+      "skills/daily-tasks/assets/definition-of-done.md": "7c5924dc12ae5da8784bae7352dd31768a702749f842cf6a524ef10764a3ddd1",
+      "skills/daily-tasks/assets/milestone.md": "304dc46c6b6c933fbc1e979153801358592fa1120ba571069156d96731d205e0",
+      "skills/daily-tasks/assets/plan-day-select-tasks-screen.md": "3e802ec27b7d52355e98b7f1b401671b0c0c4b73ae7ad7973502e3f7f2c73a0d",
+      "skills/daily-tasks/assets/project-index.md": "ee577eb8615563b087edadd7f078bea1564240e6c5ddd2e080514e943737b772",
+      "skills/daily-tasks/assets/task.md": "0e73b878b04785d148fe7304d4a7f968216c2436cd26ba07cdae6570fb9c3bed",
+      "skills/daily-tasks/references/cli.md": "8d6022e58ee1d9165e0b5e687fb38f3075455ce335fa0625fed5b2f7ae12bdaa",
+      "skills/daily-tasks/references/operations.md": "699aedf55d6cb35e86349bd5ee45dd7bfe9b8ef932d5fa4159a9b9c8bdd7a565",
+      "skills/daily-tasks/references/planning-flow.md": "9e9dcef1860b2bab88dd9adb98489b54c2826c97675d92852542db73af4d975e",
+      "skills/daily-tasks/references/records.md": "fc71f7ebb7da31e054ddd2d61b0f9b3e2e6fd6a13abc19c97941e4d03f195d3d",
+      "skills/daily-tasks/references/response-conventions.md": "5aee7cee04491c106197438a9a1256e306b95fc2561a38afcaa1ebd85915b631",
+      "skills/daily-tasks/references/templates.md": "3c5c2732fa0431f0e1d15414e236e142ae3b295ea33de3fc50768905b18a7eaa"
+    },
+    "installed": [
+      {
+        "home": "<RETAINED_SYNTHETIC_ROOT>\\codex-home",
+        "files": {
+          ".claude-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+          ".codex-plugin/plugin.json": "145d7f1ddb3d866dcaa1589294e0a7ec124a6f15d1efac1dfb7b0d039e3cd273",
+          ".cursor-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+          "LICENSE": "fd5f124e0fe03df2b368d36c81d417a811928a0d3fcdc5e5d5d60a2bcc54b5e6",
+          "assembly.json": "5e5f1ea272c5be6f240342610d558a1a08795b0ea96125e9ac9977228d78b1cd",
+          "bin/daily-tasks.mjs": "01b3584de3256379f0b832412619d4fc947cab5c2f283e54922dc1cab6df6d12",
+          "capabilities.json": "475d019873b8d9e6dbf8362eac14e83844fbb3fa7046c54cf95deb5fd8ddef95",
+          "lib/identity/identity.mjs": "c412178f8e2c9fc74f1fa15e00dfb5b8909ed54d4afd4b4096746a433d84e44d",
+          "lib/inventory/inventory.mjs": "81abf9912d57451ef6abb5066cb91aa2ead8562ebecc44d63e25b206b3791427",
+          "lib/log/decision-log.mjs": "21191f628f31b20bb56e5352b9ab866e18e84be5e8da784e6c551d11e3b1a833",
+          "lib/planning/planning.mjs": "9de974d2d3a2255e5942205d5fb133aa46aca608d0a117ac1fb35a6146cfe910",
+          "lib/planning/review.mjs": "dae78eccaf5663ed88210abfcc5a8fcc2ffccb74bf3f8845b6f2c609326d1cf6",
+          "lib/planning/session.mjs": "44a97b4cf110b18047f47a54743125793a6ca2596a7627d89e020f33813a3dcc",
+          "lib/profile/context.mjs": "d57dd4ae8593e91be3ae848fe6e6943f6e49ad0fb83279ff0a778da015889fb5",
+          "lib/profile/profile.mjs": "1b71a7bd6ef10b27345cb4312408ff1b863aeabfe685dc1449ae2ea634c9224d",
+          "lib/reconciliation/reconciliation.mjs": "ebb1cf5052c9b451f6012f64964d0f07c0febb6511b545ce1973939d3f935d2b",
+          "lib/records/closure.mjs": "61c67e7a05c0689883af91a288e819bfd6d3a45203e27acaea9d805d4f26329b",
+          "lib/records/links.mjs": "cd90458ab5a62b935dc9b7f4ee3bac940a4880197d5622d84095728a2b9b254f",
+          "lib/records/parse.mjs": "56494400c39712fb1084cbb0e4d2d0199245dd82114aa66324a7216a69a23c4f",
+          "lib/records/records.mjs": "b6a184218b6257a517d81b3a4c13a0d5e804f94ed7fe07a11a299e393fa33759",
+          "lib/records/validation.mjs": "869ad6f7ef2fc8411eb9d8fd8326046ddcbd514402e884ac3e5a32c30f0c35ea",
+          "lib/records/views.mjs": "946bfa705b6baabde92571963bc71231155887cb4145d649819d96534e24ab8a",
+          "lib/time/time.mjs": "686fa2ad0c57a11fdea92ba28bd47f4415c4aba9588a1b43e40216640fd5d873",
+          "package.json": "4b9c56ee6171063d47ede95c506a58b50d8a64246bf3999ed025da36221d68a7",
+          "plugin.json": "c4e0e11cfd1868019994605b0384436996e8b33748fa590db4f795849464a486",
+          "skills/daily-tasks-capture/SKILL.md": "06484a35ab6f5b01fc206711fdedb125763842eaab9b9a07106cc14f186bd892",
+          "skills/daily-tasks-checkin/SKILL.md": "2b0fdb95162ab5a6b32f9126272eed66b78e85da29744bc7620ea9a6b9dcc1ed",
+          "skills/daily-tasks-plan/SKILL.md": "e6cba6abc55396abb8b439c29bdc6a69ffa8ba58e991a311dc5355aa71f6ca73",
+          "skills/daily-tasks-records/SKILL.md": "952dad2ea337b8bd3d75d819dfde6266b07aeeee1c1fa58392d7a0d677ab5e93",
+          "skills/daily-tasks-setup/SKILL.md": "869e946ffc27471ef2dafc37bd03180a0b61ffa45e16fde5934a5f3e43d68f13",
+          "skills/daily-tasks/SKILL.md": "0d20937906bfa9958fe8a1bb8639bdb999dafd07b7a7a22a180ba845cf6572cc",
+          "skills/daily-tasks/assets/blocker.md": "36953cd0ea03dcae8bfa83e96deaad133083742a9b7fc235006081763b8bf949",
+          "skills/daily-tasks/assets/daily-plan.md": "32116f0f8add255c570ee3d2954f432af8c4e44d71824991d7aa96d3f199f72c",
+          "skills/daily-tasks/assets/definition-of-done.md": "7c5924dc12ae5da8784bae7352dd31768a702749f842cf6a524ef10764a3ddd1",
+          "skills/daily-tasks/assets/milestone.md": "304dc46c6b6c933fbc1e979153801358592fa1120ba571069156d96731d205e0",
+          "skills/daily-tasks/assets/plan-day-select-tasks-screen.md": "3e802ec27b7d52355e98b7f1b401671b0c0c4b73ae7ad7973502e3f7f2c73a0d",
+          "skills/daily-tasks/assets/project-index.md": "ee577eb8615563b087edadd7f078bea1564240e6c5ddd2e080514e943737b772",
+          "skills/daily-tasks/assets/task.md": "0e73b878b04785d148fe7304d4a7f968216c2436cd26ba07cdae6570fb9c3bed",
+          "skills/daily-tasks/references/cli.md": "8d6022e58ee1d9165e0b5e687fb38f3075455ce335fa0625fed5b2f7ae12bdaa",
+          "skills/daily-tasks/references/operations.md": "699aedf55d6cb35e86349bd5ee45dd7bfe9b8ef932d5fa4159a9b9c8bdd7a565",
+          "skills/daily-tasks/references/planning-flow.md": "9e9dcef1860b2bab88dd9adb98489b54c2826c97675d92852542db73af4d975e",
+          "skills/daily-tasks/references/records.md": "fc71f7ebb7da31e054ddd2d61b0f9b3e2e6fd6a13abc19c97941e4d03f195d3d",
+          "skills/daily-tasks/references/response-conventions.md": "5aee7cee04491c106197438a9a1256e306b95fc2561a38afcaa1ebd85915b631",
+          "skills/daily-tasks/references/templates.md": "3c5c2732fa0431f0e1d15414e236e142ae3b295ea33de3fc50768905b18a7eaa"
+        },
+        "matchesPortable": true,
+        "authCopyAbsent": true
+      },
+      {
+        "home": "<RETAINED_SYNTHETIC_ROOT>\\config-eval-home",
+        "files": {
+          ".claude-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+          ".codex-plugin/plugin.json": "145d7f1ddb3d866dcaa1589294e0a7ec124a6f15d1efac1dfb7b0d039e3cd273",
+          ".cursor-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+          "LICENSE": "fd5f124e0fe03df2b368d36c81d417a811928a0d3fcdc5e5d5d60a2bcc54b5e6",
+          "assembly.json": "5e5f1ea272c5be6f240342610d558a1a08795b0ea96125e9ac9977228d78b1cd",
+          "bin/daily-tasks.mjs": "01b3584de3256379f0b832412619d4fc947cab5c2f283e54922dc1cab6df6d12",
+          "capabilities.json": "475d019873b8d9e6dbf8362eac14e83844fbb3fa7046c54cf95deb5fd8ddef95",
+          "lib/identity/identity.mjs": "c412178f8e2c9fc74f1fa15e00dfb5b8909ed54d4afd4b4096746a433d84e44d",
+          "lib/inventory/inventory.mjs": "81abf9912d57451ef6abb5066cb91aa2ead8562ebecc44d63e25b206b3791427",
+          "lib/log/decision-log.mjs": "21191f628f31b20bb56e5352b9ab866e18e84be5e8da784e6c551d11e3b1a833",
+          "lib/planning/planning.mjs": "9de974d2d3a2255e5942205d5fb133aa46aca608d0a117ac1fb35a6146cfe910",
+          "lib/planning/review.mjs": "dae78eccaf5663ed88210abfcc5a8fcc2ffccb74bf3f8845b6f2c609326d1cf6",
+          "lib/planning/session.mjs": "44a97b4cf110b18047f47a54743125793a6ca2596a7627d89e020f33813a3dcc",
+          "lib/profile/context.mjs": "d57dd4ae8593e91be3ae848fe6e6943f6e49ad0fb83279ff0a778da015889fb5",
+          "lib/profile/profile.mjs": "1b71a7bd6ef10b27345cb4312408ff1b863aeabfe685dc1449ae2ea634c9224d",
+          "lib/reconciliation/reconciliation.mjs": "ebb1cf5052c9b451f6012f64964d0f07c0febb6511b545ce1973939d3f935d2b",
+          "lib/records/closure.mjs": "61c67e7a05c0689883af91a288e819bfd6d3a45203e27acaea9d805d4f26329b",
+          "lib/records/links.mjs": "cd90458ab5a62b935dc9b7f4ee3bac940a4880197d5622d84095728a2b9b254f",
+          "lib/records/parse.mjs": "56494400c39712fb1084cbb0e4d2d0199245dd82114aa66324a7216a69a23c4f",
+          "lib/records/records.mjs": "b6a184218b6257a517d81b3a4c13a0d5e804f94ed7fe07a11a299e393fa33759",
+          "lib/records/validation.mjs": "869ad6f7ef2fc8411eb9d8fd8326046ddcbd514402e884ac3e5a32c30f0c35ea",
+          "lib/records/views.mjs": "946bfa705b6baabde92571963bc71231155887cb4145d649819d96534e24ab8a",
+          "lib/time/time.mjs": "686fa2ad0c57a11fdea92ba28bd47f4415c4aba9588a1b43e40216640fd5d873",
+          "package.json": "4b9c56ee6171063d47ede95c506a58b50d8a64246bf3999ed025da36221d68a7",
+          "plugin.json": "c4e0e11cfd1868019994605b0384436996e8b33748fa590db4f795849464a486",
+          "skills/daily-tasks-capture/SKILL.md": "06484a35ab6f5b01fc206711fdedb125763842eaab9b9a07106cc14f186bd892",
+          "skills/daily-tasks-checkin/SKILL.md": "2b0fdb95162ab5a6b32f9126272eed66b78e85da29744bc7620ea9a6b9dcc1ed",
+          "skills/daily-tasks-plan/SKILL.md": "e6cba6abc55396abb8b439c29bdc6a69ffa8ba58e991a311dc5355aa71f6ca73",
+          "skills/daily-tasks-records/SKILL.md": "952dad2ea337b8bd3d75d819dfde6266b07aeeee1c1fa58392d7a0d677ab5e93",
+          "skills/daily-tasks-setup/SKILL.md": "869e946ffc27471ef2dafc37bd03180a0b61ffa45e16fde5934a5f3e43d68f13",
+          "skills/daily-tasks/SKILL.md": "0d20937906bfa9958fe8a1bb8639bdb999dafd07b7a7a22a180ba845cf6572cc",
+          "skills/daily-tasks/assets/blocker.md": "36953cd0ea03dcae8bfa83e96deaad133083742a9b7fc235006081763b8bf949",
+          "skills/daily-tasks/assets/daily-plan.md": "32116f0f8add255c570ee3d2954f432af8c4e44d71824991d7aa96d3f199f72c",
+          "skills/daily-tasks/assets/definition-of-done.md": "7c5924dc12ae5da8784bae7352dd31768a702749f842cf6a524ef10764a3ddd1",
+          "skills/daily-tasks/assets/milestone.md": "304dc46c6b6c933fbc1e979153801358592fa1120ba571069156d96731d205e0",
+          "skills/daily-tasks/assets/plan-day-select-tasks-screen.md": "3e802ec27b7d52355e98b7f1b401671b0c0c4b73ae7ad7973502e3f7f2c73a0d",
+          "skills/daily-tasks/assets/project-index.md": "ee577eb8615563b087edadd7f078bea1564240e6c5ddd2e080514e943737b772",
+          "skills/daily-tasks/assets/task.md": "0e73b878b04785d148fe7304d4a7f968216c2436cd26ba07cdae6570fb9c3bed",
+          "skills/daily-tasks/references/cli.md": "8d6022e58ee1d9165e0b5e687fb38f3075455ce335fa0625fed5b2f7ae12bdaa",
+          "skills/daily-tasks/references/operations.md": "699aedf55d6cb35e86349bd5ee45dd7bfe9b8ef932d5fa4159a9b9c8bdd7a565",
+          "skills/daily-tasks/references/planning-flow.md": "9e9dcef1860b2bab88dd9adb98489b54c2826c97675d92852542db73af4d975e",
+          "skills/daily-tasks/references/records.md": "fc71f7ebb7da31e054ddd2d61b0f9b3e2e6fd6a13abc19c97941e4d03f195d3d",
+          "skills/daily-tasks/references/response-conventions.md": "5aee7cee04491c106197438a9a1256e306b95fc2561a38afcaa1ebd85915b631",
+          "skills/daily-tasks/references/templates.md": "3c5c2732fa0431f0e1d15414e236e142ae3b295ea33de3fc50768905b18a7eaa"
+        },
+        "matchesPortable": true,
+        "authCopyAbsent": true
+      }
+    ]
+  },
+  "freshInstall": {
+    "candidate": {
+      ".claude-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+      ".codex-plugin/plugin.json": "145d7f1ddb3d866dcaa1589294e0a7ec124a6f15d1efac1dfb7b0d039e3cd273",
+      ".cursor-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+      "LICENSE": "fd5f124e0fe03df2b368d36c81d417a811928a0d3fcdc5e5d5d60a2bcc54b5e6",
+      "assembly.json": "5e5f1ea272c5be6f240342610d558a1a08795b0ea96125e9ac9977228d78b1cd",
+      "bin/daily-tasks.mjs": "01b3584de3256379f0b832412619d4fc947cab5c2f283e54922dc1cab6df6d12",
+      "capabilities.json": "475d019873b8d9e6dbf8362eac14e83844fbb3fa7046c54cf95deb5fd8ddef95",
+      "lib/identity/identity.mjs": "c412178f8e2c9fc74f1fa15e00dfb5b8909ed54d4afd4b4096746a433d84e44d",
+      "lib/inventory/inventory.mjs": "81abf9912d57451ef6abb5066cb91aa2ead8562ebecc44d63e25b206b3791427",
+      "lib/log/decision-log.mjs": "21191f628f31b20bb56e5352b9ab866e18e84be5e8da784e6c551d11e3b1a833",
+      "lib/planning/planning.mjs": "9de974d2d3a2255e5942205d5fb133aa46aca608d0a117ac1fb35a6146cfe910",
+      "lib/planning/review.mjs": "dae78eccaf5663ed88210abfcc5a8fcc2ffccb74bf3f8845b6f2c609326d1cf6",
+      "lib/planning/session.mjs": "44a97b4cf110b18047f47a54743125793a6ca2596a7627d89e020f33813a3dcc",
+      "lib/profile/context.mjs": "d57dd4ae8593e91be3ae848fe6e6943f6e49ad0fb83279ff0a778da015889fb5",
+      "lib/profile/profile.mjs": "1b71a7bd6ef10b27345cb4312408ff1b863aeabfe685dc1449ae2ea634c9224d",
+      "lib/reconciliation/reconciliation.mjs": "ebb1cf5052c9b451f6012f64964d0f07c0febb6511b545ce1973939d3f935d2b",
+      "lib/records/closure.mjs": "61c67e7a05c0689883af91a288e819bfd6d3a45203e27acaea9d805d4f26329b",
+      "lib/records/links.mjs": "cd90458ab5a62b935dc9b7f4ee3bac940a4880197d5622d84095728a2b9b254f",
+      "lib/records/parse.mjs": "56494400c39712fb1084cbb0e4d2d0199245dd82114aa66324a7216a69a23c4f",
+      "lib/records/records.mjs": "b6a184218b6257a517d81b3a4c13a0d5e804f94ed7fe07a11a299e393fa33759",
+      "lib/records/validation.mjs": "869ad6f7ef2fc8411eb9d8fd8326046ddcbd514402e884ac3e5a32c30f0c35ea",
+      "lib/records/views.mjs": "946bfa705b6baabde92571963bc71231155887cb4145d649819d96534e24ab8a",
+      "lib/time/time.mjs": "686fa2ad0c57a11fdea92ba28bd47f4415c4aba9588a1b43e40216640fd5d873",
+      "package.json": "4b9c56ee6171063d47ede95c506a58b50d8a64246bf3999ed025da36221d68a7",
+      "plugin.json": "c4e0e11cfd1868019994605b0384436996e8b33748fa590db4f795849464a486",
+      "skills/daily-tasks-capture/SKILL.md": "06484a35ab6f5b01fc206711fdedb125763842eaab9b9a07106cc14f186bd892",
+      "skills/daily-tasks-checkin/SKILL.md": "2b0fdb95162ab5a6b32f9126272eed66b78e85da29744bc7620ea9a6b9dcc1ed",
+      "skills/daily-tasks-plan/SKILL.md": "e6cba6abc55396abb8b439c29bdc6a69ffa8ba58e991a311dc5355aa71f6ca73",
+      "skills/daily-tasks-records/SKILL.md": "952dad2ea337b8bd3d75d819dfde6266b07aeeee1c1fa58392d7a0d677ab5e93",
+      "skills/daily-tasks-setup/SKILL.md": "869e946ffc27471ef2dafc37bd03180a0b61ffa45e16fde5934a5f3e43d68f13",
+      "skills/daily-tasks/SKILL.md": "0d20937906bfa9958fe8a1bb8639bdb999dafd07b7a7a22a180ba845cf6572cc",
+      "skills/daily-tasks/assets/blocker.md": "36953cd0ea03dcae8bfa83e96deaad133083742a9b7fc235006081763b8bf949",
+      "skills/daily-tasks/assets/daily-plan.md": "32116f0f8add255c570ee3d2954f432af8c4e44d71824991d7aa96d3f199f72c",
+      "skills/daily-tasks/assets/definition-of-done.md": "7c5924dc12ae5da8784bae7352dd31768a702749f842cf6a524ef10764a3ddd1",
+      "skills/daily-tasks/assets/milestone.md": "304dc46c6b6c933fbc1e979153801358592fa1120ba571069156d96731d205e0",
+      "skills/daily-tasks/assets/plan-day-select-tasks-screen.md": "3e802ec27b7d52355e98b7f1b401671b0c0c4b73ae7ad7973502e3f7f2c73a0d",
+      "skills/daily-tasks/assets/project-index.md": "ee577eb8615563b087edadd7f078bea1564240e6c5ddd2e080514e943737b772",
+      "skills/daily-tasks/assets/task.md": "0e73b878b04785d148fe7304d4a7f968216c2436cd26ba07cdae6570fb9c3bed",
+      "skills/daily-tasks/references/cli.md": "8d6022e58ee1d9165e0b5e687fb38f3075455ce335fa0625fed5b2f7ae12bdaa",
+      "skills/daily-tasks/references/operations.md": "699aedf55d6cb35e86349bd5ee45dd7bfe9b8ef932d5fa4159a9b9c8bdd7a565",
+      "skills/daily-tasks/references/planning-flow.md": "9e9dcef1860b2bab88dd9adb98489b54c2826c97675d92852542db73af4d975e",
+      "skills/daily-tasks/references/records.md": "fc71f7ebb7da31e054ddd2d61b0f9b3e2e6fd6a13abc19c97941e4d03f195d3d",
+      "skills/daily-tasks/references/response-conventions.md": "5aee7cee04491c106197438a9a1256e306b95fc2561a38afcaa1ebd85915b631",
+      "skills/daily-tasks/references/templates.md": "3c5c2732fa0431f0e1d15414e236e142ae3b295ea33de3fc50768905b18a7eaa"
+    },
+    "installed": {
+      ".claude-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+      ".codex-plugin/plugin.json": "145d7f1ddb3d866dcaa1589294e0a7ec124a6f15d1efac1dfb7b0d039e3cd273",
+      ".cursor-plugin/plugin.json": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+      "LICENSE": "fd5f124e0fe03df2b368d36c81d417a811928a0d3fcdc5e5d5d60a2bcc54b5e6",
+      "assembly.json": "5e5f1ea272c5be6f240342610d558a1a08795b0ea96125e9ac9977228d78b1cd",
+      "bin/daily-tasks.mjs": "01b3584de3256379f0b832412619d4fc947cab5c2f283e54922dc1cab6df6d12",
+      "capabilities.json": "475d019873b8d9e6dbf8362eac14e83844fbb3fa7046c54cf95deb5fd8ddef95",
+      "lib/identity/identity.mjs": "c412178f8e2c9fc74f1fa15e00dfb5b8909ed54d4afd4b4096746a433d84e44d",
+      "lib/inventory/inventory.mjs": "81abf9912d57451ef6abb5066cb91aa2ead8562ebecc44d63e25b206b3791427",
+      "lib/log/decision-log.mjs": "21191f628f31b20bb56e5352b9ab866e18e84be5e8da784e6c551d11e3b1a833",
+      "lib/planning/planning.mjs": "9de974d2d3a2255e5942205d5fb133aa46aca608d0a117ac1fb35a6146cfe910",
+      "lib/planning/review.mjs": "dae78eccaf5663ed88210abfcc5a8fcc2ffccb74bf3f8845b6f2c609326d1cf6",
+      "lib/planning/session.mjs": "44a97b4cf110b18047f47a54743125793a6ca2596a7627d89e020f33813a3dcc",
+      "lib/profile/context.mjs": "d57dd4ae8593e91be3ae848fe6e6943f6e49ad0fb83279ff0a778da015889fb5",
+      "lib/profile/profile.mjs": "1b71a7bd6ef10b27345cb4312408ff1b863aeabfe685dc1449ae2ea634c9224d",
+      "lib/reconciliation/reconciliation.mjs": "ebb1cf5052c9b451f6012f64964d0f07c0febb6511b545ce1973939d3f935d2b",
+      "lib/records/closure.mjs": "61c67e7a05c0689883af91a288e819bfd6d3a45203e27acaea9d805d4f26329b",
+      "lib/records/links.mjs": "cd90458ab5a62b935dc9b7f4ee3bac940a4880197d5622d84095728a2b9b254f",
+      "lib/records/parse.mjs": "56494400c39712fb1084cbb0e4d2d0199245dd82114aa66324a7216a69a23c4f",
+      "lib/records/records.mjs": "b6a184218b6257a517d81b3a4c13a0d5e804f94ed7fe07a11a299e393fa33759",
+      "lib/records/validation.mjs": "869ad6f7ef2fc8411eb9d8fd8326046ddcbd514402e884ac3e5a32c30f0c35ea",
+      "lib/records/views.mjs": "946bfa705b6baabde92571963bc71231155887cb4145d649819d96534e24ab8a",
+      "lib/time/time.mjs": "686fa2ad0c57a11fdea92ba28bd47f4415c4aba9588a1b43e40216640fd5d873",
+      "package.json": "4b9c56ee6171063d47ede95c506a58b50d8a64246bf3999ed025da36221d68a7",
+      "plugin.json": "c4e0e11cfd1868019994605b0384436996e8b33748fa590db4f795849464a486",
+      "skills/daily-tasks-capture/SKILL.md": "06484a35ab6f5b01fc206711fdedb125763842eaab9b9a07106cc14f186bd892",
+      "skills/daily-tasks-checkin/SKILL.md": "2b0fdb95162ab5a6b32f9126272eed66b78e85da29744bc7620ea9a6b9dcc1ed",
+      "skills/daily-tasks-plan/SKILL.md": "e6cba6abc55396abb8b439c29bdc6a69ffa8ba58e991a311dc5355aa71f6ca73",
+      "skills/daily-tasks-records/SKILL.md": "952dad2ea337b8bd3d75d819dfde6266b07aeeee1c1fa58392d7a0d677ab5e93",
+      "skills/daily-tasks-setup/SKILL.md": "869e946ffc27471ef2dafc37bd03180a0b61ffa45e16fde5934a5f3e43d68f13",
+      "skills/daily-tasks/SKILL.md": "0d20937906bfa9958fe8a1bb8639bdb999dafd07b7a7a22a180ba845cf6572cc",
+      "skills/daily-tasks/assets/blocker.md": "36953cd0ea03dcae8bfa83e96deaad133083742a9b7fc235006081763b8bf949",
+      "skills/daily-tasks/assets/daily-plan.md": "32116f0f8add255c570ee3d2954f432af8c4e44d71824991d7aa96d3f199f72c",
+      "skills/daily-tasks/assets/definition-of-done.md": "7c5924dc12ae5da8784bae7352dd31768a702749f842cf6a524ef10764a3ddd1",
+      "skills/daily-tasks/assets/milestone.md": "304dc46c6b6c933fbc1e979153801358592fa1120ba571069156d96731d205e0",
+      "skills/daily-tasks/assets/plan-day-select-tasks-screen.md": "3e802ec27b7d52355e98b7f1b401671b0c0c4b73ae7ad7973502e3f7f2c73a0d",
+      "skills/daily-tasks/assets/project-index.md": "ee577eb8615563b087edadd7f078bea1564240e6c5ddd2e080514e943737b772",
+      "skills/daily-tasks/assets/task.md": "0e73b878b04785d148fe7304d4a7f968216c2436cd26ba07cdae6570fb9c3bed",
+      "skills/daily-tasks/references/cli.md": "8d6022e58ee1d9165e0b5e687fb38f3075455ce335fa0625fed5b2f7ae12bdaa",
+      "skills/daily-tasks/references/operations.md": "699aedf55d6cb35e86349bd5ee45dd7bfe9b8ef932d5fa4159a9b9c8bdd7a565",
+      "skills/daily-tasks/references/planning-flow.md": "9e9dcef1860b2bab88dd9adb98489b54c2826c97675d92852542db73af4d975e",
+      "skills/daily-tasks/references/records.md": "fc71f7ebb7da31e054ddd2d61b0f9b3e2e6fd6a13abc19c97941e4d03f195d3d",
+      "skills/daily-tasks/references/response-conventions.md": "5aee7cee04491c106197438a9a1256e306b95fc2561a38afcaa1ebd85915b631",
+      "skills/daily-tasks/references/templates.md": "3c5c2732fa0431f0e1d15414e236e142ae3b295ea33de3fc50768905b18a7eaa"
+    },
+    "matches": true,
+    "checkedAt": "2026-10-07T14:36:13.138Z",
+    "rawBytes": [
+      {
+        "directory": "<FRESH_SYNTHETIC_ROOT>\\codex-home\\plugins\\cache\\clock-acceptance\\daily-tasks\\0.3.0",
+        "files": [
+          {
+            "file": "assembly.json",
+            "candidateRawSha256": "5e5f1ea272c5be6f240342610d558a1a08795b0ea96125e9ac9977228d78b1cd",
+            "installedRawSha256": "8b8ba0c5e47915bbe6ee1bb2d1b2fe142ffe0fac88ff4a0e1aa632487ab89b1d",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "capabilities.json",
+            "candidateRawSha256": "475d019873b8d9e6dbf8362eac14e83844fbb3fa7046c54cf95deb5fd8ddef95",
+            "installedRawSha256": "aa1f602ee1dc131c7acd29715cce28ae290d9ec603e64f553b4f8fea6b00626c",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "LICENSE",
+            "candidateRawSha256": "fd5f124e0fe03df2b368d36c81d417a811928a0d3fcdc5e5d5d60a2bcc54b5e6",
+            "installedRawSha256": "5798d718f6fad36654bab5e8d0ec252e8a2b56d733b8825e07bcfa722d96cf48",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "package.json",
+            "candidateRawSha256": "4b9c56ee6171063d47ede95c506a58b50d8a64246bf3999ed025da36221d68a7",
+            "installedRawSha256": "b991ac167012e00cd216d84f57c5d1a8ac5b3527f562ca10f08056c45baff7f1",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "plugin.json",
+            "candidateRawSha256": "c4e0e11cfd1868019994605b0384436996e8b33748fa590db4f795849464a486",
+            "installedRawSha256": "b6a369c87613ea2acffa2438098f7df93b7fc1eab3120a289d46ef90cae14a40",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": ".claude-plugin/plugin.json",
+            "candidateRawSha256": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+            "installedRawSha256": "574a9f2f3ec6d712f40fcf7270cd4766c5f889f520bf4f265d0b3878d1071624",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": ".codex-plugin/plugin.json",
+            "candidateRawSha256": "145d7f1ddb3d866dcaa1589294e0a7ec124a6f15d1efac1dfb7b0d039e3cd273",
+            "installedRawSha256": "619ce38366b0f0f7a807ab6f6013535e4a475d812ba0220a5de582ee24234c06",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": ".cursor-plugin/plugin.json",
+            "candidateRawSha256": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+            "installedRawSha256": "574a9f2f3ec6d712f40fcf7270cd4766c5f889f520bf4f265d0b3878d1071624",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "bin/daily-tasks.mjs",
+            "candidateRawSha256": "01b3584de3256379f0b832412619d4fc947cab5c2f283e54922dc1cab6df6d12",
+            "installedRawSha256": "0a82166a4551bfbcbc745dbe80e804ea60ef5feaee765143582288c87d9913c6",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/identity/identity.mjs",
+            "candidateRawSha256": "c412178f8e2c9fc74f1fa15e00dfb5b8909ed54d4afd4b4096746a433d84e44d",
+            "installedRawSha256": "ee60bdb943caa77c3644805309f87f532b192e7623d90548792f96de25d0ce61",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/inventory/inventory.mjs",
+            "candidateRawSha256": "81abf9912d57451ef6abb5066cb91aa2ead8562ebecc44d63e25b206b3791427",
+            "installedRawSha256": "18090669ef62c3db6d1ab960f3c77e73c1fb7cabfe3118cfd3c9e82815283478",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/log/decision-log.mjs",
+            "candidateRawSha256": "21191f628f31b20bb56e5352b9ab866e18e84be5e8da784e6c551d11e3b1a833",
+            "installedRawSha256": "93ec746bb5b51383e77b1f1a483d137d6c9a6ff9158c15b7071fb6832919ae68",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/planning/planning.mjs",
+            "candidateRawSha256": "9de974d2d3a2255e5942205d5fb133aa46aca608d0a117ac1fb35a6146cfe910",
+            "installedRawSha256": "5a25c1be4a6384ec3b1647e0a4fb9b4925c1172d9ab283dac5f1b2ec786a3d4b",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/planning/review.mjs",
+            "candidateRawSha256": "dae78eccaf5663ed88210abfcc5a8fcc2ffccb74bf3f8845b6f2c609326d1cf6",
+            "installedRawSha256": "196432f048feb201416be40b9aca3bbde4378c28774768bab797baee92e227d4",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/planning/session.mjs",
+            "candidateRawSha256": "44a97b4cf110b18047f47a54743125793a6ca2596a7627d89e020f33813a3dcc",
+            "installedRawSha256": "d8bb516c154b688cf4793cf63bf54339481f747bb391879839b3e20cad8e5c24",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/profile/context.mjs",
+            "candidateRawSha256": "d57dd4ae8593e91be3ae848fe6e6943f6e49ad0fb83279ff0a778da015889fb5",
+            "installedRawSha256": "d5aa3442bd31e69be3248152c61304738c837c043e0e36249573252f0a31afd9",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/profile/profile.mjs",
+            "candidateRawSha256": "1b71a7bd6ef10b27345cb4312408ff1b863aeabfe685dc1449ae2ea634c9224d",
+            "installedRawSha256": "0827de0eeefa520ee9ec3776bfb36ba0900b139020831d9e7ba98d40b7dce42e",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/reconciliation/reconciliation.mjs",
+            "candidateRawSha256": "ebb1cf5052c9b451f6012f64964d0f07c0febb6511b545ce1973939d3f935d2b",
+            "installedRawSha256": "9a6634ab344e0dde310d200e6907a2df3268726acbc74bdb036054233817b9ba",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/closure.mjs",
+            "candidateRawSha256": "61c67e7a05c0689883af91a288e819bfd6d3a45203e27acaea9d805d4f26329b",
+            "installedRawSha256": "81f5fcdad767f88b5cf0f3f52c645a0f1174543953a080b557995caab6922492",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/links.mjs",
+            "candidateRawSha256": "cd90458ab5a62b935dc9b7f4ee3bac940a4880197d5622d84095728a2b9b254f",
+            "installedRawSha256": "36d3a1487d23f39db3812bda993f4b8c31493103e18b912c5bd54622521cf04a",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/parse.mjs",
+            "candidateRawSha256": "56494400c39712fb1084cbb0e4d2d0199245dd82114aa66324a7216a69a23c4f",
+            "installedRawSha256": "72628a0b9aa11fac32afa85006d883f4ecc153978a6b7a5ea50ec872c374ee5c",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/records.mjs",
+            "candidateRawSha256": "b6a184218b6257a517d81b3a4c13a0d5e804f94ed7fe07a11a299e393fa33759",
+            "installedRawSha256": "c69270307ae9a8269b9ad6ca4957d2d77e731016fbaf947973e33c775082171a",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/validation.mjs",
+            "candidateRawSha256": "869ad6f7ef2fc8411eb9d8fd8326046ddcbd514402e884ac3e5a32c30f0c35ea",
+            "installedRawSha256": "6dc73903c8c1c30a4219ff9e8eb0a49a0557b88ceaab02357f7e63fc061a9bfe",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/views.mjs",
+            "candidateRawSha256": "946bfa705b6baabde92571963bc71231155887cb4145d649819d96534e24ab8a",
+            "installedRawSha256": "c831d1378ff0bd5e0b86c2018b2a22d6827bcedbd8df90ac8ca3c905195a446a",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/time/time.mjs",
+            "candidateRawSha256": "686fa2ad0c57a11fdea92ba28bd47f4415c4aba9588a1b43e40216640fd5d873",
+            "installedRawSha256": "ab0a341f33923f4c9c1e1c0a11c3533bc78ec8fef14e3618c8257357ffa422cc",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/SKILL.md",
+            "candidateRawSha256": "0d20937906bfa9958fe8a1bb8639bdb999dafd07b7a7a22a180ba845cf6572cc",
+            "installedRawSha256": "a26e9da0587bf41a9149468b463d9d375a4f6ca9340831022b23a166890117be",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-capture/SKILL.md",
+            "candidateRawSha256": "06484a35ab6f5b01fc206711fdedb125763842eaab9b9a07106cc14f186bd892",
+            "installedRawSha256": "88d1427cd1dd04996305c4c3baa4d33725ba935ec1167ac61faacb2db3446f49",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-checkin/SKILL.md",
+            "candidateRawSha256": "2b0fdb95162ab5a6b32f9126272eed66b78e85da29744bc7620ea9a6b9dcc1ed",
+            "installedRawSha256": "85793d488b01f2a139f3e10994683edc2a4aee6dc62ee58fc17f7bd0a0a78392",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-plan/SKILL.md",
+            "candidateRawSha256": "e6cba6abc55396abb8b439c29bdc6a69ffa8ba58e991a311dc5355aa71f6ca73",
+            "installedRawSha256": "7e4c1e49f2848c9965ce563b731968410e44aee8ffeab85e49fcedcf4e7ca912",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-records/SKILL.md",
+            "candidateRawSha256": "952dad2ea337b8bd3d75d819dfde6266b07aeeee1c1fa58392d7a0d677ab5e93",
+            "installedRawSha256": "035240001c29ba37a460757e9cb77b011f2dd2140badebc3e26c24e29776c58b",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-setup/SKILL.md",
+            "candidateRawSha256": "869e946ffc27471ef2dafc37bd03180a0b61ffa45e16fde5934a5f3e43d68f13",
+            "installedRawSha256": "2a2ed9a63f78db67f3f58e8da0c65088c8be7438444e170706313cd8ea9463f1",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/blocker.md",
+            "candidateRawSha256": "36953cd0ea03dcae8bfa83e96deaad133083742a9b7fc235006081763b8bf949",
+            "installedRawSha256": "d85fff80a048b082341a8109dacf63c6255b995d0be243e689b71482c00167ca",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/daily-plan.md",
+            "candidateRawSha256": "32116f0f8add255c570ee3d2954f432af8c4e44d71824991d7aa96d3f199f72c",
+            "installedRawSha256": "5a1c9f99b81d4903dde10a3872181780eb893d8e38759501f0faba5894279f0e",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/definition-of-done.md",
+            "candidateRawSha256": "7c5924dc12ae5da8784bae7352dd31768a702749f842cf6a524ef10764a3ddd1",
+            "installedRawSha256": "349974b3e26613c484dd3c2cb339bf3e7706807ec9c5df8fd9a58ee80af52555",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/milestone.md",
+            "candidateRawSha256": "304dc46c6b6c933fbc1e979153801358592fa1120ba571069156d96731d205e0",
+            "installedRawSha256": "3ac88954da01e04f2f9853d120b3a7ad4ee679b438a31cc87812c6a6236d8046",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/plan-day-select-tasks-screen.md",
+            "candidateRawSha256": "3e802ec27b7d52355e98b7f1b401671b0c0c4b73ae7ad7973502e3f7f2c73a0d",
+            "installedRawSha256": "f93314e05f21b413c298b022b6230a96a187c1301674019e608d90236ff1dd44",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/project-index.md",
+            "candidateRawSha256": "ee577eb8615563b087edadd7f078bea1564240e6c5ddd2e080514e943737b772",
+            "installedRawSha256": "0900209d0bedd94cbf392c3973a181d594593903aed5e9554f58a66d57a54d5d",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/task.md",
+            "candidateRawSha256": "0e73b878b04785d148fe7304d4a7f968216c2436cd26ba07cdae6570fb9c3bed",
+            "installedRawSha256": "9567a58e1eda18ab689f8b1eb232df6e6db0be11cb67102ba8dbacaa18fa06d6",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/cli.md",
+            "candidateRawSha256": "8d6022e58ee1d9165e0b5e687fb38f3075455ce335fa0625fed5b2f7ae12bdaa",
+            "installedRawSha256": "5d6119343eb458373b45265bbbedf9d3bb14e1e64e5702edebb90e2330463a32",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/operations.md",
+            "candidateRawSha256": "699aedf55d6cb35e86349bd5ee45dd7bfe9b8ef932d5fa4159a9b9c8bdd7a565",
+            "installedRawSha256": "eaa4d24fd326a8572e00c8577ede10262c44ffa60519c06b4771e54becd52494",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/planning-flow.md",
+            "candidateRawSha256": "9e9dcef1860b2bab88dd9adb98489b54c2826c97675d92852542db73af4d975e",
+            "installedRawSha256": "5d7f0229aee8843042003fbc2092c4e7b942a1c520af6d36f332760543154934",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/records.md",
+            "candidateRawSha256": "fc71f7ebb7da31e054ddd2d61b0f9b3e2e6fd6a13abc19c97941e4d03f195d3d",
+            "installedRawSha256": "b1885c8b92e95721de603c23428cdb7c0586ca5262027dc17973b788929d80df",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/response-conventions.md",
+            "candidateRawSha256": "5aee7cee04491c106197438a9a1256e306b95fc2561a38afcaa1ebd85915b631",
+            "installedRawSha256": "51735b8c515510fe83bdc2fac0ec8e7367944f1c5204115d9fb89dbd8a3341b6",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/templates.md",
+            "candidateRawSha256": "3c5c2732fa0431f0e1d15414e236e142ae3b295ea33de3fc50768905b18a7eaa",
+            "installedRawSha256": "ea8811ed99f59d716aab023e258807ddaf2cd795c771a9415ec988e28a3da154",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          }
+        ]
+      },
+      {
+        "directory": "<FRESH_SYNTHETIC_ROOT>\\maintenance-home\\plugins\\cache\\clock-acceptance\\daily-tasks\\0.3.0",
+        "files": [
+          {
+            "file": "assembly.json",
+            "candidateRawSha256": "5e5f1ea272c5be6f240342610d558a1a08795b0ea96125e9ac9977228d78b1cd",
+            "installedRawSha256": "8b8ba0c5e47915bbe6ee1bb2d1b2fe142ffe0fac88ff4a0e1aa632487ab89b1d",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "capabilities.json",
+            "candidateRawSha256": "475d019873b8d9e6dbf8362eac14e83844fbb3fa7046c54cf95deb5fd8ddef95",
+            "installedRawSha256": "aa1f602ee1dc131c7acd29715cce28ae290d9ec603e64f553b4f8fea6b00626c",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "LICENSE",
+            "candidateRawSha256": "fd5f124e0fe03df2b368d36c81d417a811928a0d3fcdc5e5d5d60a2bcc54b5e6",
+            "installedRawSha256": "5798d718f6fad36654bab5e8d0ec252e8a2b56d733b8825e07bcfa722d96cf48",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "package.json",
+            "candidateRawSha256": "4b9c56ee6171063d47ede95c506a58b50d8a64246bf3999ed025da36221d68a7",
+            "installedRawSha256": "b991ac167012e00cd216d84f57c5d1a8ac5b3527f562ca10f08056c45baff7f1",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "plugin.json",
+            "candidateRawSha256": "c4e0e11cfd1868019994605b0384436996e8b33748fa590db4f795849464a486",
+            "installedRawSha256": "b6a369c87613ea2acffa2438098f7df93b7fc1eab3120a289d46ef90cae14a40",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": ".claude-plugin/plugin.json",
+            "candidateRawSha256": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+            "installedRawSha256": "574a9f2f3ec6d712f40fcf7270cd4766c5f889f520bf4f265d0b3878d1071624",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": ".codex-plugin/plugin.json",
+            "candidateRawSha256": "145d7f1ddb3d866dcaa1589294e0a7ec124a6f15d1efac1dfb7b0d039e3cd273",
+            "installedRawSha256": "619ce38366b0f0f7a807ab6f6013535e4a475d812ba0220a5de582ee24234c06",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": ".cursor-plugin/plugin.json",
+            "candidateRawSha256": "232eb39a7a863a0c93f264c2c94847b47765a993a879d15360bc17617d782084",
+            "installedRawSha256": "574a9f2f3ec6d712f40fcf7270cd4766c5f889f520bf4f265d0b3878d1071624",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "bin/daily-tasks.mjs",
+            "candidateRawSha256": "01b3584de3256379f0b832412619d4fc947cab5c2f283e54922dc1cab6df6d12",
+            "installedRawSha256": "0a82166a4551bfbcbc745dbe80e804ea60ef5feaee765143582288c87d9913c6",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/identity/identity.mjs",
+            "candidateRawSha256": "c412178f8e2c9fc74f1fa15e00dfb5b8909ed54d4afd4b4096746a433d84e44d",
+            "installedRawSha256": "ee60bdb943caa77c3644805309f87f532b192e7623d90548792f96de25d0ce61",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/inventory/inventory.mjs",
+            "candidateRawSha256": "81abf9912d57451ef6abb5066cb91aa2ead8562ebecc44d63e25b206b3791427",
+            "installedRawSha256": "18090669ef62c3db6d1ab960f3c77e73c1fb7cabfe3118cfd3c9e82815283478",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/log/decision-log.mjs",
+            "candidateRawSha256": "21191f628f31b20bb56e5352b9ab866e18e84be5e8da784e6c551d11e3b1a833",
+            "installedRawSha256": "93ec746bb5b51383e77b1f1a483d137d6c9a6ff9158c15b7071fb6832919ae68",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/planning/planning.mjs",
+            "candidateRawSha256": "9de974d2d3a2255e5942205d5fb133aa46aca608d0a117ac1fb35a6146cfe910",
+            "installedRawSha256": "5a25c1be4a6384ec3b1647e0a4fb9b4925c1172d9ab283dac5f1b2ec786a3d4b",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/planning/review.mjs",
+            "candidateRawSha256": "dae78eccaf5663ed88210abfcc5a8fcc2ffccb74bf3f8845b6f2c609326d1cf6",
+            "installedRawSha256": "196432f048feb201416be40b9aca3bbde4378c28774768bab797baee92e227d4",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/planning/session.mjs",
+            "candidateRawSha256": "44a97b4cf110b18047f47a54743125793a6ca2596a7627d89e020f33813a3dcc",
+            "installedRawSha256": "d8bb516c154b688cf4793cf63bf54339481f747bb391879839b3e20cad8e5c24",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/profile/context.mjs",
+            "candidateRawSha256": "d57dd4ae8593e91be3ae848fe6e6943f6e49ad0fb83279ff0a778da015889fb5",
+            "installedRawSha256": "d5aa3442bd31e69be3248152c61304738c837c043e0e36249573252f0a31afd9",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/profile/profile.mjs",
+            "candidateRawSha256": "1b71a7bd6ef10b27345cb4312408ff1b863aeabfe685dc1449ae2ea634c9224d",
+            "installedRawSha256": "0827de0eeefa520ee9ec3776bfb36ba0900b139020831d9e7ba98d40b7dce42e",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/reconciliation/reconciliation.mjs",
+            "candidateRawSha256": "ebb1cf5052c9b451f6012f64964d0f07c0febb6511b545ce1973939d3f935d2b",
+            "installedRawSha256": "9a6634ab344e0dde310d200e6907a2df3268726acbc74bdb036054233817b9ba",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/closure.mjs",
+            "candidateRawSha256": "61c67e7a05c0689883af91a288e819bfd6d3a45203e27acaea9d805d4f26329b",
+            "installedRawSha256": "81f5fcdad767f88b5cf0f3f52c645a0f1174543953a080b557995caab6922492",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/links.mjs",
+            "candidateRawSha256": "cd90458ab5a62b935dc9b7f4ee3bac940a4880197d5622d84095728a2b9b254f",
+            "installedRawSha256": "36d3a1487d23f39db3812bda993f4b8c31493103e18b912c5bd54622521cf04a",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/parse.mjs",
+            "candidateRawSha256": "56494400c39712fb1084cbb0e4d2d0199245dd82114aa66324a7216a69a23c4f",
+            "installedRawSha256": "72628a0b9aa11fac32afa85006d883f4ecc153978a6b7a5ea50ec872c374ee5c",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/records.mjs",
+            "candidateRawSha256": "b6a184218b6257a517d81b3a4c13a0d5e804f94ed7fe07a11a299e393fa33759",
+            "installedRawSha256": "c69270307ae9a8269b9ad6ca4957d2d77e731016fbaf947973e33c775082171a",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/validation.mjs",
+            "candidateRawSha256": "869ad6f7ef2fc8411eb9d8fd8326046ddcbd514402e884ac3e5a32c30f0c35ea",
+            "installedRawSha256": "6dc73903c8c1c30a4219ff9e8eb0a49a0557b88ceaab02357f7e63fc061a9bfe",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/records/views.mjs",
+            "candidateRawSha256": "946bfa705b6baabde92571963bc71231155887cb4145d649819d96534e24ab8a",
+            "installedRawSha256": "c831d1378ff0bd5e0b86c2018b2a22d6827bcedbd8df90ac8ca3c905195a446a",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "lib/time/time.mjs",
+            "candidateRawSha256": "686fa2ad0c57a11fdea92ba28bd47f4415c4aba9588a1b43e40216640fd5d873",
+            "installedRawSha256": "ab0a341f33923f4c9c1e1c0a11c3533bc78ec8fef14e3618c8257357ffa422cc",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/SKILL.md",
+            "candidateRawSha256": "0d20937906bfa9958fe8a1bb8639bdb999dafd07b7a7a22a180ba845cf6572cc",
+            "installedRawSha256": "a26e9da0587bf41a9149468b463d9d375a4f6ca9340831022b23a166890117be",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-capture/SKILL.md",
+            "candidateRawSha256": "06484a35ab6f5b01fc206711fdedb125763842eaab9b9a07106cc14f186bd892",
+            "installedRawSha256": "88d1427cd1dd04996305c4c3baa4d33725ba935ec1167ac61faacb2db3446f49",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-checkin/SKILL.md",
+            "candidateRawSha256": "2b0fdb95162ab5a6b32f9126272eed66b78e85da29744bc7620ea9a6b9dcc1ed",
+            "installedRawSha256": "85793d488b01f2a139f3e10994683edc2a4aee6dc62ee58fc17f7bd0a0a78392",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-plan/SKILL.md",
+            "candidateRawSha256": "e6cba6abc55396abb8b439c29bdc6a69ffa8ba58e991a311dc5355aa71f6ca73",
+            "installedRawSha256": "7e4c1e49f2848c9965ce563b731968410e44aee8ffeab85e49fcedcf4e7ca912",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-records/SKILL.md",
+            "candidateRawSha256": "952dad2ea337b8bd3d75d819dfde6266b07aeeee1c1fa58392d7a0d677ab5e93",
+            "installedRawSha256": "035240001c29ba37a460757e9cb77b011f2dd2140badebc3e26c24e29776c58b",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks-setup/SKILL.md",
+            "candidateRawSha256": "869e946ffc27471ef2dafc37bd03180a0b61ffa45e16fde5934a5f3e43d68f13",
+            "installedRawSha256": "2a2ed9a63f78db67f3f58e8da0c65088c8be7438444e170706313cd8ea9463f1",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/blocker.md",
+            "candidateRawSha256": "36953cd0ea03dcae8bfa83e96deaad133083742a9b7fc235006081763b8bf949",
+            "installedRawSha256": "d85fff80a048b082341a8109dacf63c6255b995d0be243e689b71482c00167ca",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/daily-plan.md",
+            "candidateRawSha256": "32116f0f8add255c570ee3d2954f432af8c4e44d71824991d7aa96d3f199f72c",
+            "installedRawSha256": "5a1c9f99b81d4903dde10a3872181780eb893d8e38759501f0faba5894279f0e",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/definition-of-done.md",
+            "candidateRawSha256": "7c5924dc12ae5da8784bae7352dd31768a702749f842cf6a524ef10764a3ddd1",
+            "installedRawSha256": "349974b3e26613c484dd3c2cb339bf3e7706807ec9c5df8fd9a58ee80af52555",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/milestone.md",
+            "candidateRawSha256": "304dc46c6b6c933fbc1e979153801358592fa1120ba571069156d96731d205e0",
+            "installedRawSha256": "3ac88954da01e04f2f9853d120b3a7ad4ee679b438a31cc87812c6a6236d8046",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/plan-day-select-tasks-screen.md",
+            "candidateRawSha256": "3e802ec27b7d52355e98b7f1b401671b0c0c4b73ae7ad7973502e3f7f2c73a0d",
+            "installedRawSha256": "f93314e05f21b413c298b022b6230a96a187c1301674019e608d90236ff1dd44",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/project-index.md",
+            "candidateRawSha256": "ee577eb8615563b087edadd7f078bea1564240e6c5ddd2e080514e943737b772",
+            "installedRawSha256": "0900209d0bedd94cbf392c3973a181d594593903aed5e9554f58a66d57a54d5d",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/assets/task.md",
+            "candidateRawSha256": "0e73b878b04785d148fe7304d4a7f968216c2436cd26ba07cdae6570fb9c3bed",
+            "installedRawSha256": "9567a58e1eda18ab689f8b1eb232df6e6db0be11cb67102ba8dbacaa18fa06d6",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/cli.md",
+            "candidateRawSha256": "8d6022e58ee1d9165e0b5e687fb38f3075455ce335fa0625fed5b2f7ae12bdaa",
+            "installedRawSha256": "5d6119343eb458373b45265bbbedf9d3bb14e1e64e5702edebb90e2330463a32",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/operations.md",
+            "candidateRawSha256": "699aedf55d6cb35e86349bd5ee45dd7bfe9b8ef932d5fa4159a9b9c8bdd7a565",
+            "installedRawSha256": "eaa4d24fd326a8572e00c8577ede10262c44ffa60519c06b4771e54becd52494",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/planning-flow.md",
+            "candidateRawSha256": "9e9dcef1860b2bab88dd9adb98489b54c2826c97675d92852542db73af4d975e",
+            "installedRawSha256": "5d7f0229aee8843042003fbc2092c4e7b942a1c520af6d36f332760543154934",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/records.md",
+            "candidateRawSha256": "fc71f7ebb7da31e054ddd2d61b0f9b3e2e6fd6a13abc19c97941e4d03f195d3d",
+            "installedRawSha256": "b1885c8b92e95721de603c23428cdb7c0586ca5262027dc17973b788929d80df",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/response-conventions.md",
+            "candidateRawSha256": "5aee7cee04491c106197438a9a1256e306b95fc2561a38afcaa1ebd85915b631",
+            "installedRawSha256": "51735b8c515510fe83bdc2fac0ec8e7367944f1c5204115d9fb89dbd8a3341b6",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          },
+          {
+            "file": "skills/daily-tasks/references/templates.md",
+            "candidateRawSha256": "3c5c2732fa0431f0e1d15414e236e142ae3b295ea33de3fc50768905b18a7eaa",
+            "installedRawSha256": "ea8811ed99f59d716aab023e258807ddaf2cd795c771a9415ec988e28a3da154",
+            "rawIdentical": false,
+            "normalizedIdentical": true
+          }
+        ]
+      }
+    ],
+    "normalization": "Candidate inventory and assembly verifier normalize CRLF to LF. Git on Windows converted LF candidate files to CRLF in isolated checkouts; all 44 contents (including 19 skill/reference files) match exactly after that declared normalization. Raw hashes are retained separately."
+  },
+  "freshRegistration": "{\"args\":[\"init\"],\"status\":0,\"stdout\":\"Initialized empty Git repository in <FRESH_SYNTHETIC_ROOT>/plugin/.git/\\n\",\"stderr\":\"\"}\n{\"args\":[\"add\",\".\"],\"status\":0,\"stdout\":\"\",\"stderr\":\"warning: in the working copy of '.claude-plugin/plugin.json', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of '.codex-plugin/plugin.json', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of '.cursor-plugin/plugin.json', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'LICENSE', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'assembly.json', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'bin/daily-tasks.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'capabilities.json', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/identity/identity.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/inventory/inventory.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/log/decision-log.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/planning/planning.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/planning/review.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/planning/session.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/profile/context.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/profile/profile.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/reconciliation/reconciliation.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/records/closure.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/records/links.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/records/parse.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/records/records.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/records/validation.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/records/views.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'lib/time/time.mjs', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'plugin.json', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks-capture/SKILL.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks-checkin/SKILL.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks-plan/SKILL.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks-records/SKILL.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks-setup/SKILL.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/SKILL.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/assets/blocker.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/assets/daily-plan.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/assets/definition-of-done.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/assets/milestone.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/assets/plan-day-select-tasks-screen.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/assets/project-index.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/assets/task.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/references/cli.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/references/operations.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/references/planning-flow.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/references/records.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/references/response-conventions.md', LF will be replaced by CRLF the next time Git touches it\\nwarning: in the working copy of 'skills/daily-tasks/references/templates.md', LF will be replaced by CRLF the next time Git touches it\\n\"}\n{\"args\":[\"-c\",\"user.name=Fixture\",\"-c\",\"user.email=fixture@example.test\",\"commit\",\"-m\",\"Clock acceptance candidate\"],\"status\":0,\"stdout\":\"[master (root-commit) f3fec90] Clock acceptance candidate\\n 44 files changed, 4053 insertions(+)\\n create mode 100644 .claude-plugin/plugin.json\\n create mode 100644 .codex-plugin/plugin.json\\n create mode 100644 .cursor-plugin/plugin.json\\n create mode 100644 LICENSE\\n create mode 100644 assembly.json\\n create mode 100644 bin/daily-tasks.mjs\\n create mode 100644 capabilities.json\\n create mode 100644 lib/identity/identity.mjs\\n create mode 100644 lib/inventory/inventory.mjs\\n create mode 100644 lib/log/decision-log.mjs\\n create mode 100644 lib/planning/planning.mjs\\n create mode 100644 lib/planning/review.mjs\\n create mode 100644 lib/planning/session.mjs\\n create mode 100644 lib/profile/context.mjs\\n create mode 100644 lib/profile/profile.mjs\\n create mode 100644 lib/reconciliation/reconciliation.mjs\\n create mode 100644 lib/records/closure.mjs\\n create mode 100644 lib/records/links.mjs\\n create mode 100644 lib/records/parse.mjs\\n create mode 100644 lib/records/records.mjs\\n create mode 100644 lib/records/validation.mjs\\n create mode 100644 lib/records/views.mjs\\n create mode 100644 lib/time/time.mjs\\n create mode 100644 package.json\\n create mode 100644 plugin.json\\n create mode 100644 skills/daily-tasks-capture/SKILL.md\\n create mode 100644 skills/daily-tasks-checkin/SKILL.md\\n create mode 100644 skills/daily-tasks-plan/SKILL.md\\n create mode 100644 skills/daily-tasks-records/SKILL.md\\n create mode 100644 skills/daily-tasks-setup/SKILL.md\\n create mode 100644 skills/daily-tasks/SKILL.md\\n create mode 100644 skills/daily-tasks/assets/blocker.md\\n create mode 100644 skills/daily-tasks/assets/daily-plan.md\\n create mode 100644 skills/daily-tasks/assets/definition-of-done.md\\n create mode 100644 skills/daily-tasks/assets/milestone.md\\n create mode 100644 skills/daily-tasks/assets/plan-day-select-tasks-screen.md\\n create mode 100644 skills/daily-tasks/assets/project-index.md\\n create mode 100644 skills/daily-tasks/assets/task.md\\n create mode 100644 skills/daily-tasks/references/cli.md\\n create mode 100644 skills/daily-tasks/references/operations.md\\n create mode 100644 skills/daily-tasks/references/planning-flow.md\\n create mode 100644 skills/daily-tasks/references/records.md\\n create mode 100644 skills/daily-tasks/references/response-conventions.md\\n create mode 100644 skills/daily-tasks/references/templates.md\\n\",\"stderr\":\"\"}\n{\"args\":[\"<USER_HOME>/AppData/Roaming/npm/node_modules/@openai/codex/bin/codex.js\",\"--version\"],\"status\":0,\"stdout\":\"codex-cli 0.160.1\\n\",\"stderr\":\"\"}\n{\"args\":[\"<USER_HOME>/AppData/Roaming/npm/node_modules/@openai/codex/bin/codex.js\",\"plugin\",\"marketplace\",\"add\",\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\catalog\",\"--json\"],\"status\":0,\"stdout\":\"{\\n  \\\"marketplaceName\\\": \\\"clock-acceptance\\\",\\n  \\\"installedRoot\\\": \\\"D:\\\\\\\\repos\\\\\\\\NyssaAI\\\\\\\\daily-tasks\\\\\\\\.temp\\\\\\\\clock-acceptance-20261007\\\\\\\\catalog\\\",\\n  \\\"alreadyAdded\\\": false\\n}\\n\",\"stderr\":\"\"}\n{\"args\":[\"<USER_HOME>/AppData/Roaming/npm/node_modules/@openai/codex/bin/codex.js\",\"plugin\",\"add\",\"daily-tasks@clock-acceptance\",\"--json\"],\"status\":0,\"stdout\":\"{\\n  \\\"pluginId\\\": \\\"daily-tasks@clock-acceptance\\\",\\n  \\\"name\\\": \\\"daily-tasks\\\",\\n  \\\"marketplaceName\\\": \\\"clock-acceptance\\\",\\n  \\\"version\\\": \\\"0.3.0\\\",\\n  \\\"installedPath\\\": \\\"D:\\\\\\\\repos\\\\\\\\NyssaAI\\\\\\\\daily-tasks\\\\\\\\.temp\\\\\\\\clock-acceptance-20261007\\\\\\\\codex-home\\\\\\\\plugins\\\\\\\\cache\\\\\\\\clock-acceptance\\\\\\\\daily-tasks\\\\\\\\0.3.0\\\",\\n  \\\"authPolicy\\\": \\\"ON_INSTALL\\\"\\n}\\n\",\"stderr\":\"\"}\n{\"args\":[\"<USER_HOME>/AppData/Roaming/npm/node_modules/@openai/codex/bin/codex.js\",\"plugin\",\"list\",\"--marketplace\",\"clock-acceptance\",\"--available\",\"--json\"],\"status\":0,\"stdout\":\"{\\n  \\\"installed\\\": [\\n    {\\n      \\\"pluginId\\\": \\\"daily-tasks@clock-acceptance\\\",\\n      \\\"name\\\": \\\"daily-tasks\\\",\\n      \\\"marketplaceName\\\": \\\"clock-acceptance\\\",\\n      \\\"version\\\": \\\"0.3.0\\\",\\n      \\\"installed\\\": true,\\n      \\\"enabled\\\": true,\\n      \\\"source\\\": {\\n        \\\"source\\\": \\\"git\\\",\\n        \\\"url\\\": \\\"https://example.invalid/daily-tasks-clock.git\\\"\\n      },\\n      \\\"marketplaceSource\\\": {\\n        \\\"sourceType\\\": \\\"local\\\",\\n        \\\"source\\\": \\\"\\\\\\\\\\\\\\\\?\\\\\\\\D:\\\\\\\\repos\\\\\\\\NyssaAI\\\\\\\\daily-tasks\\\\\\\\.temp\\\\\\\\clock-acceptance-20261007\\\\\\\\catalog\\\"\\n      },\\n      \\\"installPolicy\\\": \\\"AVAILABLE\\\",\\n      \\\"authPolicy\\\": \\\"ON_INSTALL\\\"\\n    }\\n  ],\\n  \\\"available\\\": []\\n}\\n\",\"stderr\":\"\"}\n",
+  "worker": {
+    "parentModel": "gpt-6.1-sol",
+    "invocation": {
+      "timestamp": "2026-10-07T14:42:35.394Z",
+      "taskName": "maintenance",
+      "fork_turns": "none",
+      "model": "gpt-6-luna",
+      "call_id": "call_Zn7XDxKTLCc1G6jxJhqdnFGN",
+      "messageSha256": "101a9a5e44a36cf9fe901da7c872c8f7a964365083ac2a4c6daa78dabb189821",
+      "result": {
+        "task_name": "/root/maintenance"
+      }
+    },
+    "worker": {
+      "sessionId": "01a116d0-f50f-7713-8c64-f765da209e70",
+      "source": {
+        "subagent": {
+          "thread_spawn": {
+            "parent_thread_id": "01a116d0-0325-7633-9155-62b82a1be1d2",
+            "depth": 1,
+            "agent_path": "/root/maintenance",
+            "agent_nickname": "Bacon",
+            "agent_role": null
+          }
+        }
+      },
+      "models": [
+        "gpt-6-luna"
+      ],
+      "messages": [
+        {
+          "timestamp": "2026-10-07T14:42:36.812Z"
+        },
+        {
+          "timestamp": "2026-10-07T14:43:23.122Z"
+        }
+      ],
+      "finals": [],
+      "completed": [],
+      "taskComplete": [
+        {
+          "timestamp": "2026-10-07T14:44:25.986Z",
+          "lastAgentMessage": "Maintenance inspection is complete. The canonical graph validates cleanly: one project, one milestone, two tasks, no blockers, parse errors, or link diagnostics. Today’s rollover receipt is complete, with no pending operations. No canonical Markdown, log, baseline, or operating state was changed.\n\nThe 2026.10.07 plan matches its stored hash and Recovery task selection baseline. Other task has no view baseline, and neither task has a stored 2026.10.06 view baseline. The prior plan’s unchecked Recovery row therefore cannot be treated as a reconciled edit. I sent the parent the source hashes, CLI evidence, and safe enrollment proposal."
+        }
+      ],
+      "commands": [
+        {
+          "timestamp": "2026-10-07T14:42:39.875Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"Get-Location; Get-ChildItem -Force\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:2000});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:42:47.460Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"$pkg='D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\maintenance-home\\\\plugins\\\\cache\\\\clock-acceptance\\\\daily-tasks\\\\0.3.0'; Get-Content \\\"$pkg\\\\skills\\\\daily-tasks\\\\references\\\\operations.md\\\"; Get-Content \\\"$pkg\\\\skills\\\\daily-tasks\\\\references\\\\records.md\\\"; Get-Content \\\"$pkg\\\\skills\\\\daily-tasks\\\\references\\\\planning-flow.md\\\"; Get-Content \\\"$pkg\\\\skills\\\\daily-tasks\\\\references\\\\cli.md\\\"; Get-ChildItem -Recurse -File | Select-Object -ExpandProperty FullName\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:12000});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:42:55.543Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"$pkg='D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\maintenance-home\\\\plugins\\\\cache\\\\clock-acceptance\\\\daily-tasks\\\\0.3.0'; Get-Content .temp\\\\prepare-input.json; Get-Content .nyssaai\\\\daily-tasks\\\\profile.json; Get-Content .nyssaai\\\\daily-tasks\\\\reconciliation.json; Get-Content .nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json; Get-Content .nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.08.json; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" --help\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:8000});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:43:03.946Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"$pkg='D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\maintenance-home\\\\plugins\\\\cache\\\\clock-acceptance\\\\daily-tasks\\\\0.3.0'; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" planning-prepare --input \\\"$PWD\\\\.temp\\\\prepare-input.json\\\"\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:5000});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:43:14.711Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"$pkg='D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\maintenance-home\\\\plugins\\\\cache\\\\clock-acceptance\\\\daily-tasks\\\\0.3.0'; Get-Content '2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md'; Get-Content '2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md'; Get-Content '.temp\\\\daily-tasks\\\\project-index.json'; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" inspect-records --input \\\"$PWD\\\\.temp\\\\prepare-input.json\\\"\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:8000});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:43:28.708Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"$pkg='D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\maintenance-home\\\\plugins\\\\cache\\\\clock-acceptance\\\\daily-tasks\\\\0.3.0'; $inputPath=Join-Path $PWD '.temp\\\\inspect-input.json'; @{projectsRoot=(Join-Path $PWD '1-projects')} | ConvertTo-Json | Set-Content -Encoding utf8 $inputPath; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" inspect-records --input $inputPath\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:5000});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:43:41.317Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"$pkg='D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\maintenance-home\\\\plugins\\\\cache\\\\clock-acceptance\\\\daily-tasks\\\\0.3.0'; $inputPath=Join-Path $PWD '.temp\\\\inspect-input.json'; $recordsPath=Join-Path $PWD '.temp\\\\records-input.json'; $inspect=Join-Path $PWD '.temp\\\\inspect-output.json'; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" inspect-records --input $inputPath | Set-Content -Encoding utf8 $inspect; node -e \\\"const fs=require('fs');const x=JSON.parse(fs.readFileSync(process.argv[1],'utf8'));fs.writeFileSync(process.argv[2],JSON.stringify({records:x.records}))\\\" $inspect $recordsPath; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" validate-records --input $recordsPath; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" check-links --input $recordsPath\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:4000});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:43:49.746Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"$pkg='D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\maintenance-home\\\\plugins\\\\cache\\\\clock-acceptance\\\\daily-tasks\\\\0.3.0'; $recordsPath=Join-Path $PWD '.temp\\\\records-input.json'; $inspect=Join-Path $PWD '.temp\\\\inspect-output.json'; node -e \\\"const fs=require('fs');const s=fs.readFileSync(process.argv[1],'utf8').replace(/^\\\\uFEFF/,'');const x=JSON.parse(s);fs.writeFileSync(process.argv[2],JSON.stringify({records:x.records}))\\\" $inspect $recordsPath; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" validate-records --input $recordsPath; node \\\"$pkg\\\\bin\\\\daily-tasks.mjs\\\" check-links --input $recordsPath\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:2000});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:44:01.435Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"Get-FileHash -Algorithm SHA256 '1-projects\\\\2026.01.01-fixture\\\\project-index.md','1-projects\\\\2026.01.01-fixture\\\\first\\\\milestone.md','1-projects\\\\2026.01.01-fixture\\\\first\\\\other-task.md','1-projects\\\\2026.01.01-fixture\\\\first\\\\recovery-task.md','2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md','2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md' | Select-Object Path,Hash; Get-Content .nyssaai\\\\daily-tasks\\\\reconciliation.json\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:2500});\ntext(r.output);\n"
+        },
+        {
+          "timestamp": "2026-10-07T14:44:09.817Z",
+          "name": "exec",
+          "input": "const r = await tools.exec_command({cmd: \"Get-FileHash -Algorithm SHA256 '1-projects\\\\2026.01.01-fixture\\\\project-index.md','1-projects\\\\2026.01.01-fixture\\\\first\\\\milestone.md','1-projects\\\\2026.01.01-fixture\\\\first\\\\other-task.md','1-projects\\\\2026.01.01-fixture\\\\first\\\\recovery-task.md','2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md','2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md' | ForEach-Object { \\\"$($_.Hash) $($_.Path.Substring($PWD.Path.Length+1))\\\" }\", shell:\"powershell\", workdir:\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\maintenance\\\\planning-4saAy4\", max_output_tokens:1000});\ntext(r.output);\n"
+        }
+      ]
+    },
+    "sessionFiles": [
+      {
+        "file": "2026\\10\\07\\rollout-2026-10-07T09-41-33-01a116d0-0325-7633-9155-62b82a1be1d2.jsonl",
+        "sha256": "cf62ed2e717c93f203c8bd54ec4154122195acfc5bdf5e266734d530e37d9b0b"
+      },
+      {
+        "file": "2026\\10\\07\\rollout-2026-10-07T09-42-35-01a116d0-f50f-7713-8c64-f765da209e70.jsonl",
+        "sha256": "880efb6904015cadb7257c092b61d9e1fc0a8657a0eb07f9271a4ba551980e83"
+      }
+    ],
+    "completion": {
+      "checkedAt": "2026-10-07T14:45:21.981Z",
+      "state": {
+        "schemaVersion": 1,
+        "lastFullReconcileAt": "2026-10-07T14:45:07.066Z",
+        "model": "gpt-6-luna",
+        "executionEvidence": {
+          "tool": "collaboration.spawn_agent",
+          "taskName": "/root/maintenance",
+          "fork_turns": "none",
+          "model": "gpt-6-luna",
+          "readOnly": true
+        },
+        "verification": {
+          "records": 4,
+          "recordDiagnostics": [],
+          "linkDiagnostics": [],
+          "conflicts": [],
+          "pendingOperations": [],
+          "sourceHashes": [
+            {
+              "anchor": "projectsRoot",
+              "path": "2026.01.01-fixture/first/milestone.md",
+              "sha256": "aac1b97d7a148d2013e04a1b0fb1b86f33a720b051d8dedd1c53ea1c5e6883f5"
+            },
+            {
+              "anchor": "projectsRoot",
+              "path": "2026.01.01-fixture/first/other-task.md",
+              "sha256": "99081ced7678e023664e84c26b40200e98ece521395e8bde09b0dc2a9acfa886"
+            },
+            {
+              "anchor": "projectsRoot",
+              "path": "2026.01.01-fixture/first/recovery-task.md",
+              "sha256": "cfdceb944bd33b9721c1d0d56233f9a5392e2d0b32bd6d4795c3224499cd6637"
+            },
+            {
+              "anchor": "projectsRoot",
+              "path": "2026.01.01-fixture/project-index.md",
+              "sha256": "8f16adef5c7c660330f68daad17d5595f742fd8f55fb80cccf90b5ebbb950148"
+            },
+            {
+              "anchor": "vaultRoot",
+              "path": "2-areas/daily-plans/2026.10.07-daily-plan.md",
+              "sha256": "67694e0edd39bbcce8a17511e484c509f0f5ff86007e20f62e34497f52272d98"
+            }
+          ],
+          "previousPlan": {
+            "path": "<FRESH_SYNTHETIC_ROOT>\\vaults\\maintenance\\planning-4saAy4\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+            "sha256": "4157f2b8f16266fbb9790c408482c68efca26d975ac89fb9536a96fb6e32d761"
+          }
+        }
+      },
+      "status": 0,
+      "result": {
+        "fullReconcileDue": false,
+        "preferredModel": "gpt-6-luna",
+        "alwaysCheck": [
+          "current-plan-edits",
+          "previous-plan-edits",
+          "applicable-pending-operations"
+        ]
+      }
+    },
+    "verified": true
+  },
+  "limits": "Native CLI acceptance on Windows x64. Windows desktop activation and phone device continuity were not exercised. Retained parent model not exposed; fresh persistent session identifies its actual model."
+}
