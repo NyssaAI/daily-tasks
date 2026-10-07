@@ -23,10 +23,10 @@ for (const runId of runs) {
   if (!prior || Date.parse(result.completed_at) > Date.parse(prior.completed_at)) latest.set(target.id,result);
 }
 let text = '# Latest evaluation\n\nDirect code and package checks are separate from native-host activation.\n\n';
-text += '| Target / suite | Platform / configuration | Result | Evidence / next check |\n| --- | --- | --- | --- |\n';
+text += '| Target / suite | Required | Platform / configuration | Result | Evidence / next check |\n| --- | --- | --- | --- | --- |\n';
 for (const target of matrix.targets) {
   const value = latest.get(target.id);
-  text += `| ${target.id} / ${target.suite} | ${target.platform} / ${target.configuration} | ${value ? `${value.status}; ${value.candidate.hash === candidate.hash ? 'current' : 'STALE'}` : 'Not run / unverified'} | ${value ? `[${value.runId}](results/${value.runId}/result.json)` : target.next} |\n`;
+  text += `| ${target.id} / ${target.suite} | ${target.required ? 'Yes' : 'No'} | ${target.platform} / ${target.configuration} | ${value ? `${value.status}; ${value.candidate.hash === candidate.hash ? 'current' : 'STALE'}` : 'Not run / unverified'} | ${value ? `[${value.runId}](results/${value.runId}/result.json)` : target.next} |\n`;
 }
 const ready = releaseReady(matrix.targets,latest,candidate.hash);
 text += `\nRelease acceptance: **${ready ? 'Pass' : 'Incomplete'}**. Every required matrix row needs current, verified passing evidence.\n`;

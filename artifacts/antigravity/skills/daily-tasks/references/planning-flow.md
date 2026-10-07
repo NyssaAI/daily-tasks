@@ -15,6 +15,12 @@ complete inventory graph; selected-record fragments are not a validation univers
 Inspect pending/reconciliation issues before applying the proposals. A prepared packet
 does not mean rollover, reconciliation or check-in has completed.
 
+Omit `now` on initial preparation so the host resolves its actual clock and local
+day. Use the returned localDate even when the UTC calendar date differs. A requested
+planning date is not a clock override; future selections use `plan-selection`'s
+date input. Follow the [CLI clock rules](cli.md) for new event/receipt timestamps
+and for preserving original timestamps during recovery.
+
 Capture the host's initial workspace/vault binding once at the start of the request.
 For a vault-root workspace, pass that absolute path as `initialCwd` to
 `resolve-context`; an already resolved vaultRoot takes precedence. Never use a
@@ -78,7 +84,8 @@ Do not spawn another worker solely for indexing. If model selection/subagents ar
 unavailable, report that exact limitation and perform the same checks directly.
 
 The parent reconciles/apply-verifies authorized safe effects; user conflicts remain
-in their separate queue. Save lastFullReconcileAt in durable stateRoot/maintenance.json
+in their separate queue. Save the actual GMT completion time as lastFullReconcileAt
+in durable stateRoot/maintenance.json
 only after a complete successful broad pass and verification, recording actual model
 and execution evidence. A pending conflict/failure does not advance that timestamp.
 Inventory generatedAt is independent; deleting `.temp` cannot erase success evidence.

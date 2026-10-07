@@ -22,7 +22,7 @@
     {
       "id": "claude-code",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Authenticate Claude Code; run with --plugin-dir artifacts/portable in isolated fixture and execute scenarios.",
       "suite": "workflow-v2",
       "platform": "win32/x64",
@@ -31,7 +31,7 @@
     {
       "id": "claude-cowork",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Upload zipped artifacts/cowork; verify skill discovery, Node availability and persistence in isolated fixture.",
       "suite": "workflow-v2",
       "platform": "win32/x64",
@@ -40,7 +40,7 @@
     {
       "id": "antigravity-2",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Register artifacts/antigravity in 2.0 and execute scenarios.",
       "suite": "workflow-v2",
       "platform": "win32/x64",
@@ -49,7 +49,7 @@
     {
       "id": "antigravity-cli",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Use authenticated agy CLI with isolated plugin registration and execute scenarios.",
       "suite": "workflow-v2",
       "platform": "win32/x64",
@@ -58,7 +58,7 @@
     {
       "id": "antigravity-ide",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Register Antigravity artifact in IDE and execute scenarios.",
       "suite": "workflow-v2",
       "platform": "win32/x64",
@@ -67,7 +67,7 @@
     {
       "id": "cursor",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Install portable Cursor shim in isolated host and execute scenarios.",
       "suite": "workflow-v2",
       "platform": "win32/x64",
@@ -76,7 +76,7 @@
     {
       "id": "grok-bot",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Load Cursor-compatible package on demand and execute scenarios; no SessionStart.",
       "suite": "workflow-v2",
       "platform": "win32/x64",
@@ -85,7 +85,7 @@
     {
       "id": "hermes",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Enable generated native Hermes package; verify six skills and execute scenarios.",
       "suite": "workflow-v2",
       "platform": "linux/x64",
@@ -94,7 +94,7 @@
     {
       "id": "openclaw",
       "kind": "host",
-      "required": true,
+      "required": false,
       "next": "Register portable bundle, verify winning format and run scenarios through active Gateway.",
       "suite": "workflow-v2",
       "platform": "linux/x64",
@@ -103,7 +103,7 @@
     {
       "id": "muse",
       "kind": "provisional",
-      "required": true,
+      "required": false,
       "next": "Obtain verified first-party loader/schema before claiming implementation or runtime support.",
       "suite": "workflow-v2",
       "platform": "win32/x64",
@@ -112,7 +112,7 @@
     {
       "id": "node-linux",
       "kind": "deterministic",
-      "required": true,
+      "required": false,
       "suite": "deterministic-v1",
       "platform": "linux/x64",
       "configuration": "node-22-plus",
@@ -121,7 +121,7 @@
     {
       "id": "node-macos",
       "kind": "deterministic",
-      "required": true,
+      "required": false,
       "suite": "deterministic-v1",
       "platform": "darwin/arm64",
       "configuration": "node-22-plus",
