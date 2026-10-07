@@ -21,7 +21,13 @@ No credentials/environment variables needed. Mutations accept `--dry-run` and wr
 | activity-time | reported?, now? | activity_at, recorded_at, time_defaulted |
 | local-day | time GMT ISO, timezone | local YYYY.MM.DD |
 | format-time | time GMT ISO, timezone | Local display with explicit zone |
-| validate-profile | profile object | valid/errors; no save |
+| validate-profile | profile object | valid/errors/resolvedTimezone; no save |
+| resolve-context | absolute vaultRoot or captured initialCwd; homeRoot?, profilePath?, configRoot?, stateRoot?, now? | Resolved absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
+| project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
+| invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
+| planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | Owner-focused counts, selected/available rows, stable mapping, diagnostics; max 15 addition rows |
+| plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
+| maintenance-status | now?, lastFullReconcileAt? | Four-hour reconciliation gate; no worker launch/write |
 | parse-record | markdown, path? | Structured record; no write |
 | parse-checklist | markdown | Rows with ref IDs or candidate indication |
 | inspect-records | projectsRoot absolute | Canonical records and integrity diagnostics; ignores dot folders, rejects symlinks |
@@ -31,7 +37,8 @@ No credentials/environment variables needed. Mutations accept `--dry-run` and wr
 | reconcile-record | base, current, views | Proposed record, conflicts and changes; no write |
 | reopen-ancestors | records, changedIds | Proposed records and changedIds; no write |
 | recover-operation | operation:{changes:[{key,before,after}]}, actual:{key:value} | pending/already-applied/conflict |
-| carry-forward | rows, records, userEmail | own/delegated/unresolved selection, excludes terminal states |
+| carry-forward | rows, records, userEmail; inventory? with today | own/delegated/unresolved selection, excludes terminal/future-selected work |
+| plan-rollover | today, planId, userEmail; currentRows?, state?, previousDate?, previousRows?, records?, inventory?, removedIds? | due/complete/conflict and merged selected rows with carry provenance; no writes |
 | log-append | projectsRoot, entry, dryRun? | Append decision, identical operation retry deduplicated |
 | log-query | projectsRoot, recordId?, action?, since?, until?, limit?, offset? | Matching entries across active/archive files |
 | log-archive | projectsRoot, dryRun? | Preserve current file in archives; next append starts new dated segment |
@@ -49,6 +56,33 @@ Archive rotation preserves old file bytes and ID reservation. Query includes arc
 limit defaults 100 and max 1000; filters since/until on recorded_at. Reads scan history
 linearly in v1; archive avoids rewriting all past history on every active-file append.
 No automatic retention deletion. Explicit `log-archive` is the supported performance knob.
+
+Timezone inputs accept an explicit IANA zone or `"system"`. The latter resolves
+the executing host's runtime default zone. New profiles use `"system"`; validation
+returns the detected zone as `resolvedTimezone` without changing the profile.
+Date/time rendering uses the actual zone name. Detection failures are errors,
+requiring an explicit override rather than an assumed UTC zone.
+
+Planning CLI calls (`planning-review`, `plan-selection`, `carry-forward`,
+`plan-rollover`) require vaultRoot/projectsRoot/dailyPlansRoot and contextBinding
+from resolve-context's planningBinding. With inventory also pass inventoryBinding
+from project-index's planningBinding. With a nonempty numbered mapping pass its
+mappingBinding, returned by planning-review. Roots are one fixed vault context;
+wrong roots, another inventory or another numbered screen are errors before effects.
+Pure library derivations can run without routing tokens; they do not constitute a
+host planning session or authority to write Markdown.
+
+Inventory shape is schemaVersion/generatedAt/scope/projects/milestones/tasks/
+blockers/sources/diagnostics. Each open task's planned array has zero or one active
+{date,source} entry. Conflicting dates remain in diagnostics, never arbitrarily
+collapsed. Scope/source paths are portable; full instructions remain in records.
+An independent external projects root uses the logical `@projectsRoot` scope anchor.
+Resolve it only from the current context. The result's planningBinding is runtime
+routing evidence outside the agreed inventory file shape; actual root compatibility
+remains fingerprinted in its disposable freshness sidecar.
+Counts, lateness, eligibility and first incomplete milestone are computed on read.
+Refresh hashes on rebuild; reuse checks source membership/metadata. The sidecar
+is derived freshness evidence, not authoritative state. See [planning flow](planning-flow.md).
 
 Concurrency uses a lock. A stale lock is surfaced with its path; confirm the recorded
 process is stopped before removing only that lock directory through deliberate recovery.

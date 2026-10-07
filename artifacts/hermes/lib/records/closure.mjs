@@ -69,7 +69,7 @@ export function checkClosure(recordId, records) {
   // relationship or record must fail closed, rather than manufacture success.
   for (const issue of diagnostics) {
     if (!scope.has(issue.recordId)) continue;
-    if (issue.code === 'unaccepted-candidate') continue;
+    if (['unaccepted-candidate','noncanonical-filename'].includes(issue.code)) continue;
     if (['missing-reference','invalid-reference','invalid-relation'].includes(issue.code) && /^(depends_on|required_by)\b/.test(issue.message)) continue;
     addReason(`${issue.code}: ${issue.message}`);
   }

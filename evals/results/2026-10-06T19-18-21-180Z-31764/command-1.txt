@@ -1,0 +1,72 @@
+stdout:
+✔ portable profile validates and resolves vault profile before home without subprocess cwd (26.0969ms)
+✔ invalid portable traversal, TTL and malformed discovered profile are diagnosed (3.851ms)
+✔ Windows vault bindings tolerate case differences and state containment stays safe (4.0054ms)
+✔ evidence accepts complete host execution and rejects missing, corrupt and falsely passing results (11.0579ms)
+✔ assembled packages and source hashes are identical for LF and CRLF source files (93.0026ms)
+✔ UUIDv7 carries timestamp/version/variant without conflating identities (3.4896ms)
+✔ carry-forward retains selected own/delegated work but not terminal or removed work (0.6577ms)
+✔ profile validates explicit identity timezone and safe independently chosen roots (7.3118ms)
+✔ published templates become valid related records and gate milestone closure (4.3291ms)
+✔ CLI logs explicit acceptance, retries once, queries archive, rejects invalid input and previews without writes (345.8923ms)
+✔ assembled portable and Cowork CLI surfaces preserve operation behavior (86.9947ms)
+✔ packaged planning CLI resolves portable scope independently of cwd and reuses inventory (539.1817ms)
+✔ inspect-records scans nested records, skips hidden directories and rejects symlinks (86.6992ms)
+✔ inventory uses agreed shape, table order and one planned source, then reuses and invalidates (51.8672ms)
+✔ conflicting active dates are diagnosed, historical selections do not conflict, move is a proposal (11.9259ms)
+✔ review pages keep stable handles, preserve later selections, owner filtering and day calculations (13.5025ms)
+✔ project order uses dates then names and failed refresh preserves prior cache (16.9927ms)
+✔ local midnight expires date-sensitive allocations even within the TTL (13.2609ms)
+✔ invalidation, corrupt cache and failed sidecar read preserve truthful freshness (26.7704ms)
+✔ selected rows retain allocation, terminal work and out-of-view responsibility (9.0991ms)
+✔ manual future status edits remain affected work until reconciled, notes are not allocations (18.3985ms)
+✔ append, identical retry, conflicting retry, correction and archive preserve history (136.514ms)
+✔ dry runs never create storage or modify existing bytes (31.5744ms)
+✔ corrupt history and invalid input fail without rewriting history (32.5566ms)
+✔ person actors require email identity while named agents remain valid (13.9565ms)
+✔ separate processes serialize appends without losing entries (270.62ms)
+✔ same-day rotations choose fresh names and query filters include archives (82.0589ms)
+✔ creation date is retained across days; archived IDs remain reserved (34.3925ms)
+✔ failed archive setup preserves original bytes and history (20.8992ms)
+✔ stale locks are reported without mutation or automatic breaking (2.8029ms)
+✔ symlinked storage cannot redirect log operations (2.1799ms)
+✔ stale checkbox never reopens changed task; independent edits merge (1.0908ms)
+✔ conflicts preserve current facts and do not block independent changes (0.248ms)
+✔ unchecking completed task restores start-aware state and records are not mutated (0.1415ms)
+✔ DoD and blockers reopen parents while preserving completed tasks (0.3092ms)
+✔ recovery compares expected values and never infers ambiguous intent (0.2181ms)
+✔ reopening isolates unrelated copied IDs and rejects ambiguity in affected records (0.2898ms)
+✔ invalid metadata and blocker checkbox states are handled by record type (0.1353ms)
+✔ reopening clears present resolution timestamp, retaining baseline history (0.0903ms)
+✔ recovery snapshots survive JSON for absent fields and timestamp removal (0.8385ms)
+✔ explicit null removes optional assignment and target while preserving owner (0.1764ms)
+✔ parsed explicit status edits override checkbox reopening inference (0.5693ms)
+✔ parse scalar frontmatter, hidden identity, relations and criterion IDs (3.3832ms)
+✔ invalid states, dates, metadata, duplicate IDs and unsupported YAML are surfaced (0.4008ms)
+✔ milestone closure needs DoD, resolved tasks and no open blocker; dependencies are informational (0.6855ms)
+✔ missing or invalid closure relationships cannot falsely permit closure (0.2499ms)
+✔ link checks propose path repairs by identity and expose missing backlinks (0.4903ms)
+✔ malformed collections diagnose rather than crash and missing index refs gate closure (0.1727ms)
+✔ DoD identity collisions and parent mismatch cannot pass closure (0.1282ms)
+✔ project criterion projections use ref IDs without requiring another wiki link (0.1703ms)
+✔ code examples do not create spurious identities or relations (0.1141ms)
+✔ frontmatter identity and table projections retain separate link identities and status (0.5393ms)
+✔ separate table status cells and Markdown examples are parsed without accepting prose (0.3458ms)
+✔ literal HTML comments inside a fence cannot swallow following real rows (0.2116ms)
+✔ statusless reference tables preserve links without requesting work-state edits (1.4343ms)
+✔ system timezone resolves to the host zone and displays the actual zone (12.3353ms)
+✔ reported activity and recording time remain separate; vague time defaults (0.5881ms)
+✔ invalid precise dates and implicit local timestamps fail instead of defaulting (0.1268ms)
+✔ local day and display use explicit zone across midnight and DST (0.847ms)
+ℹ tests 59
+ℹ suites 0
+ℹ pass 59
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1282.5903
+
+stderr:
+
+error:

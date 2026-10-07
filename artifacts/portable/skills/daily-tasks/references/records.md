@@ -2,9 +2,21 @@
 
 ## Scope and paths
 
-Setup selects absolute configRoot (the `.nyssa/daily-tasks` directory), vaultRoot,
-and projectsRoot. Keep all settings and reconciliation/check-in state outside the
-installed plugin. Default daily plans: `vaultRoot/2-areas/daily-plans/YYYY.MM.DD-daily-plan.md`.
+Setup resolves absolute configRoot from an existing settings pointer, an established
+`.nyssaai` common state root, or the known vault convention, in that order. It reuses
+known vaultRoot and projectsRoot rather than asking for them again; see
+[setup discovery](../../daily-tasks-setup/SKILL.md#resolve-configuration-and-scope).
+configRoot holds `profile.json` and optional copied templates. stateRoot holds
+reconciliation baselines, pending operations, candidates and check-in progress.
+`resolve-context` defaults stateRoot to the selected vault's `.nyssaai/daily-tasks`;
+reuse an established explicit legacy stateRoot. Keep these outside the
+installed plugin. Daily plans and accepted task documents are user output and must stay
+outside configRoot, including legacy `.nyssa/daily-tasks` state directories.
+Daily plans resolve from the profile's `vaultRoot` and `dailyPlansRelative`, never from
+the profile file's parent directory. Resolve missing output settings through setup's
+accepted conventions and defaults; clarify only unresolved scope or invalid destinations.
+Never fall back into configuration storage. Default daily plans:
+`vaultRoot/2-areas/daily-plans/YYYY.MM.DD-daily-plan.md`.
 The prefix is the user's local day, not UTC. Configuration may override that convention.
 Log is projectsRoot/.daily-tasks/YYYY.MM.DD-decisions.json, named at creation, with
 rotation suffixes as needed. One logical history, archives included by the log CLI.
@@ -24,10 +36,26 @@ project/
     approval-needed.md
 ```
 
+Every planning/records request uses one vault's fixed resolved context. Its configured
+projectsRoot can be external storage explicitly assigned to that vault. Do not look
+up missing IDs in other vaults, combine project roots, or apply numbered replies to
+another vault. Preserve unresolved cross-vault pointers for clarification and use
+a separate planning session for other vault work. Shared home preferences do not
+make records, plans, checkpoints or screen mappings shared.
+
 `project-index.md` owns project metadata and renders subordinate records. `milestone.md`
 owns milestone metadata. Individual task/blocker files own their facts. DoD file owns
 the milestone criteria. Daily/project checklists are editable views, not other copies
 of those task definitions. Do not silently rename existing files to match defaults.
+New managed filenames use lowercase letters, lowercase `.md`, and descriptive
+kebab-case words. Name a task for its work, for example `prepare-budget.md` or
+`update-linkedin-profile.md`, rather than `task.md` or a bare UUID. Keep its stable
+UUID in frontmatter; a title change does not require a filename change. Use a
+descriptive qualifier for collisions and avoid Windows reserved device names.
+Fixed document names and dated daily-plan filenames keep their established forms.
+Legacy uppercase Markdown is still discovered and receives `noncanonical-filename`
+advice with a proposed name. It remains usable; rename only through the move protocol,
+checking collisions and updating links without changing identity or lifecycle.
 The explicit project-index.md product convention takes precedence over PARA's dated
 index default. PARA is optional; never import its installed paths or require its loader.
 
@@ -37,7 +65,14 @@ Use the [task](../assets/task.md), [milestone](../assets/milestone.md),
 [DoD](../assets/definition-of-done.md), [blocker](../assets/blocker.md),
 [project](../assets/project-index.md) and [daily plan](../assets/daily-plan.md) templates.
 Replace placeholders before writing. Generate IDs with CLI `new-id`, never fabricate them.
-Each tracked record/criterion has one `<!-- id: UUIDv7 -->`. Projections and links use
+For project indexes, daily plans, milestones and tasks, configured user examples take precedence over
+bundled visible formatting; follow [custom templates](templates.md). The metadata,
+identity and editable-reference contract below still applies.
+Each tracked document has one scalar frontmatter `id: UUIDv7`. Legacy document
+`<!-- id: UUIDv7 -->` comments remain readable; if both exist they must agree.
+Preserve existing IDs and move their representation only during an authorized
+document update/migration. DoD criteria retain `<!-- id: UUIDv7 -->` comments.
+Projections and links use
 `<!-- ref: UUIDv7 -->`. UUIDs must not appear in the readable body. Raw source comments
 are necessarily visible to a source editor. Preserve IDs through rename, reorder, move.
 
@@ -46,6 +81,14 @@ Only `tags` may use a JSON array of strings. No nested YAML, anchors, multiline
 scalars or other YAML arrays in managed metadata v1.
 Keep arbitrary rich text below frontmatter. Relations live in body sections, not lists
 inside YAML. Unsupported metadata is reported, never discarded or silently rewritten.
+Validation handles invalid structured text uniformly: retain the offending source,
+report its path/field and do not invent an accepted value. An invalid task is excluded
+from additions; an invalid project/milestone prevents establishing additions for that
+project, including later milestones. Preserve existing selections and unresolved
+references, continue unrelated projects, and restore eligibility after correction
+and refreshed validation. Ordinary free-text prose is not restricted to state values.
+Filename advice is separate from invalid record facts and does not block planning
+or closure.
 
 Required: `type`, `title`, `owner` (email), `created_at`, `updated_at`, plus the named
 state field for project/milestone/task/blocker. Optional `assignee`, `started_at`,
@@ -55,8 +98,24 @@ When PARA conventions apply, retain its `created` date and `document-maturity` a
 separate note metadata; never interpret legacy `status` as execution state.
 
 Projects/milestones/tasks: `not-started`, `in-progress`, `completed`, `cancelled`.
-Blockers: `open`, `resolved`. No paused state, deadline or review_on. Task display:
-`[x]` completed; `[ ]` not-started/in-progress; `[ ] ~~Title~~ — Cancelled` cancelled.
+Blockers: `open`, `resolved`. No paused state, deadline or review_on.
+For blocker responses/display, completed (`[x]`) means resolved, and open (`[ ]`)
+means unresolved. Persist `blocker-state: resolved` for completion; do not introduce
+a separate blocker completed state or complete blocked tasks implicitly.
+
+Task display: `[x]` completed, `[ ]` not-started, `[>]` in-progress, `[-]` cancelled.
+Legacy unchecked in-progress rows and struck-through cancelled rows remain readable.
+List and table cells retain adjacent UUID refs; escape wiki label pipes in tables.
+For list rows, a hidden ref may be on the row or on the immediately following
+comment-only line. Both locations must agree if supplied together. Blank lines,
+headings, ordinary comments and fenced examples break that adjacency. Conflicting
+refs are identity errors requiring resolution, not candidates for new task creation;
+never pick an ID or create replacement work. Table refs stay in their own linked cell.
+The shared association rule applies to project views, plans and inventory allocations.
+Legacy unchecked struck-through Cancelled rows parse as state cancelled with checked
+false; reconcile them through their baseline before changing canonical work. Explicit
+`[x]` still means completed, even when an old cancellation caption has not been refreshed.
+The projection parser also accepts a separate Status cell on a task table row.
 Unchecking completed task -> in-progress if started_at exists, otherwise not-started.
 Distinguish source row removal (deselect daily work) from file deletion (missing record).
 

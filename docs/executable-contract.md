@@ -28,10 +28,16 @@ Record object `{id,type,path,title,owner,assignee?,state,created_at,updated_at,
 started_at?,resolved_at?,target_date?,project_id?,milestone_id?,depends_on:[],
 blocks:[],blocked_by:[],criteria:[],refs:[]}`; types project/milestone/task/blocker/dod.
 Frontmatter key for state `${type}-state` except DoD criteria booleans from checkboxes.
-ID comes from `<!-- id: UUID -->`; record relations supplied by wiki link + hidden ref
+ID comes from scalar frontmatter `id`; legacy `<!-- id: UUID -->` remains readable
+and must agree if both are present. Record relations supplied by wiki link + hidden ref
 in named sections; YAML metadata uses scalar fields (JSON-quoted strings supported),
 links outside metadata. Criteria each `{id,text,checked}`. Missing UUID never synthesized.
 Validator returns diagnostic array `{code,recordId?,path?,message}`; does not mutate.
+`noncanonical-filename` recommends lowercase descriptive names and `.md` without
+silently renaming or invalidating records. Both scans discover legacy `.MD` files.
+The shared `recordIssueIsInvalid` classifier treats malformed structured facts
+uniformly. Inventory retains invalid ancestor scope as `invalid-planning-scope`
+diagnostics, so filtering an invalid milestone cannot expose later work.
 Closure returns `{allowed,reasons}`. Dependencies never gate task start. Invalid or
 missing relationships affecting closure must prevent affirmative closure.
 
@@ -58,3 +64,43 @@ Time module `lib/time/time.mjs`: `activityTime(reported, now?)` ->
 missing/ambiguous natural language falls back to now (caller preserves words).
 `localDay(iso,timezone)` -> YYYY.MM.DD, `displayTime(iso,timezone)` always names zone.
 Parse GMT via strict ISO UTC validation; no implicit local parsing.
+
+`resolve-context` resolves portable ./ and ~/ settings against explicit vault/home
+bindings and returns absolute roots, timezone and local day. It never reads subprocess
+cwd. Vault profiles precede home profiles; explicit pointers win. Operational state
+is separate from home preferences.
+It returns `planningBinding`, a fingerprint of the single vault, assigned projects
+and daily-plan roots. `planningBinding(input)` and `assertPlanningScope(input)`
+are exported from the context module. The fingerprint detects accidental scope
+mixing; it is not a filesystem permission or authentication boundary.
+
+`project-index` rebuilds/reuses derived JSON at vaultRoot/.temp/daily-tasks/project-index.json.
+`invalidate-project-index` invalidates its separate freshness sidecar. Both support
+dry-run and never write Markdown. Metadata/membership checks run before reuse;
+hashes refresh during rebuild. Cache JSON is written atomically.
+An external assigned projects root uses `@projectsRoot` in portable cache scope.
+Operation results carry `planningBinding` separately from inventory JSON.
+
+`planning-review` computes owner-focused counts/options and stable pages of at most
+15 additions. `plan-selection` returns explicit add/move/remove effects; the skill
+creates dated plans and applies transfers through checkpoints/logging.
+CLI `planning-review`, `plan-selection`, `carry-forward` and `plan-rollover` require
+the resolved vaultRoot/projectsRoot/dailyPlansRoot and `contextBinding`. With an
+inventory, supply its result binding as `inventoryBinding`; with an existing
+nonempty numbered mapping, supply `mappingBinding`. Root or binding mismatches
+fail before planning. Review results retain the mapping binding. Pure
+library helpers do not establish host sessions or authorize Markdown writes.
+`maintenance-status` computes the four-hour gate; the skill executes the actual
+supported lightweight worker and saves verified success independently of cache age.
+
+`plan-rollover` is pure: input today, planId, userEmail, optional currentRows/state,
+previousDate/previousRows/records/inventory and explicit removedIds. It returns
+due/complete/conflict, selected (merged rows), own/delegated carry additions and
+unresolved rows. It never writes a plan or completion receipt. The skill owns the
+dated stateRoot/rollover receipt and checkpointed Markdown/log/baseline effects.
+
+Checklist and canonical-view parsers share reference association and cancellation
+semantics: immediately adjacent comment-only references are accepted, conflicting
+IDs are invalid, and legacy unchecked strikethrough Cancelled rows carry explicit
+cancelled state. Reconciliation compares that state to the stored baseline; it
+does not blindly reapply an unchanged stale cancellation over a reopened task.

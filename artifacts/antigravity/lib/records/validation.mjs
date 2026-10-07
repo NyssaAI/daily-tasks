@@ -8,6 +8,28 @@ const relationTypes = {depends_on:['task'],required_by:['task'],blocks:['project
 export const diagnostic = (record, code, message, extra = {}) =>
   ({code, recordId:record?.id, path:record?.path, message, ...extra});
 
+/** Invalid source facts block their planning scope; naming advice does not hide work. */
+export const recordIssueIsInvalid = issue => issue.code.startsWith('invalid-') ||
+  ['duplicate-id','missing-title'].includes(issue.code) ||
+  (issue.code === 'missing-reference' && /^(project_id|milestone_id)\b/.test(issue.message));
+
+function filenameIssue(record) {
+  if (typeof record.path !== 'string') return null;
+  const filename = record.path.split(/[\\/]/).at(-1);
+  const stem = filename.replace(/\.md$/i,'');
+  const descriptiveTask = record.type !== 'task' ||
+    (/\p{L}/u.test(stem) && !['task','untitled','new-task'].includes(stem.toLowerCase()));
+  const reserved = value => /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(value);
+  if (filename === filename.toLowerCase() && filename.endsWith('.md') &&
+      /^[\p{L}\p{N}]+(?:[.-][\p{L}\p{N}]+)*\.md$/u.test(filename) && descriptiveTask && !reserved(stem)) return null;
+  const taskSlug = typeof record.title === 'string' ? record.title.normalize('NFKC').toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu,'-').replace(/^-|-$/g,'') : '';
+  const recordKind = types.has(record.type) ? record.type : 'record';
+  const suggestedStem = (record.type === 'task' && taskSlug ? taskSlug : stem.toLowerCase().replace(/[^\p{L}\p{N}.-]+/gu,'-')) || recordKind;
+  return diagnostic(record,'noncanonical-filename','Use a lowercase descriptive filename and .md extension; rename only through the record move protocol',
+    {suggestedFilename:`${reserved(suggestedStem) ? `${recordKind}-` : ''}${suggestedStem}.md`});
+}
+
 /** Metadata checks describe consistency, not proof of human authorization. */
 export function validateRecords(records) {
   if (!Array.isArray(records)) throw new TypeError('Records must be an array');
@@ -26,7 +48,9 @@ export function validateRecords(records) {
   for (const record of records) {
     if (!record || typeof record !== 'object') { emit(record,'invalid-record','Expected a record object'); continue; }
     addIdentity(record.id,record,'Record');
-    index.set(record.id,record);
+    if (isUuid7(record.id)) index.set(record.id,record);
+    const naming = filenameIssue(record);
+    if (naming) diagnostics.push(naming);
     if (!types.has(record.type)) emit(record,'invalid-type','Unknown record type');
     if (typeof record.title !== 'string' || !record.title.trim()) emit(record,'missing-title','Title is required');
     if (typeof record.owner !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(record.owner)) emit(record,'invalid-owner','Owner must be a human email address');
@@ -78,7 +102,7 @@ export function validateRecords(records) {
       if (!parent) emit(record,'missing-reference',`${field} points to a missing parent`);
       else if (parent.type !== type) emit(record,'invalid-parent',`${field} points to the wrong record type`);
     }
-    const milestone = index.get(record.milestone_id);
+    const milestone = isUuid7(record.milestone_id) ? index.get(record.milestone_id) : undefined;
     if (milestone && record.project_id !== milestone.project_id) emit(record,'invalid-parent','Task/DoD project does not match its milestone');
   }
   return diagnostics;

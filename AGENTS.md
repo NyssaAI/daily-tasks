@@ -13,4 +13,5 @@ Do not claim host activation from packaging or direct CLI tests.
 
 The log is script-only. Other Markdown writes belong to skills; integrity code
 validates, compares and proposes changes without owning the full workflow.
-Keep explicitly selected config, vault and projects roots independent of cwd.
+Keep resolved config, vault and projects roots independent of cwd. Reuse existing
+settings and the established `.nyssaai` state convention before asking for missing scope.

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-06T14:00:00.000Z",
+  "scope": {
+    "projectsRoot": "./1-projects",
+    "dailyPlansRoot": "./2-areas/daily-plans"
+  },
+  "projects": [
+    {
+      "id": "PROJECT_UUID",
+      "path": "daily-tasks/project-index.md",
+      "title": "Daily Tasks",
+      "state": "in-progress",
+      "owner": "user@example.com"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "MILESTONE_UUID",
+      "projectId": "PROJECT_UUID",
+      "path": "daily-tasks/inventory/milestone.md",
+      "title": "Project inventory",
+      "state": "in-progress"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "TASK_UUID",
+      "projectId": "PROJECT_UUID",
+      "milestoneId": "MILESTONE_UUID",
+      "path": "daily-tasks/inventory/build-indexer.md",
+      "title": "Build project indexer",
+      "state": "not-started",
+      "owner": "user@example.com",
+      "assignee": null,
+      "targetDate": "2026-10-09T05:00:00.000Z",
+      "dependsOn": [],
+      "blockedBy": [],
+      "planned": [
+        {
+          "date": "2026.10.07",
+          "source": "2-areas/daily-plans/2026.10.07-daily-plan.md"
+        }
+      ]
+    }
+  ],
+  "blockers": [],
+  "sources": [
+    {
+      "anchor": "projectsRoot",
+      "path": "daily-tasks/project-index.md",
+      "sha256": "PROJECT_CONTENT_HASH"
+    },
+    {
+      "anchor": "projectsRoot",
+      "path": "daily-tasks/inventory/milestone.md",
+      "sha256": "MILESTONE_CONTENT_HASH"
+    },
+    {
+      "anchor": "projectsRoot",
+      "path": "daily-tasks/inventory/build-indexer.md",
+      "sha256": "TASK_CONTENT_HASH"
+    },
+    {
+      "anchor": "vaultRoot",
+      "path": "2-areas/daily-plans/2026.10.07-daily-plan.md",
+      "sha256": "PLAN_CONTENT_HASH"
+    }
+  ],
+  "diagnostics": []
+}

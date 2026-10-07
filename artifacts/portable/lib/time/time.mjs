@@ -20,9 +20,16 @@ export function activityTime(reported, now = new Date().toISOString()) {
     recorded_at, time_defaulted: !precise};
 }
 
+export function resolveTimezone(timezone) {
+  if (typeof timezone !== 'string' || !timezone.trim()) throw new TypeError('IANA timezone or system is required');
+  const resolved = timezone === 'system' ? Intl.DateTimeFormat().resolvedOptions().timeZone : timezone;
+  if (typeof resolved !== 'string' || !resolved.trim()) throw new Error('System timezone detection failed; specify an IANA timezone');
+  new Intl.DateTimeFormat('en-US', {timeZone: resolved});
+  return resolved;
+}
+
 function formatter(timezone, options) {
-  if (typeof timezone !== 'string' || !timezone.trim()) throw new TypeError('Explicit IANA timezone is required');
-  return new Intl.DateTimeFormat('en-US', {timeZone: timezone, ...options});
+  return new Intl.DateTimeFormat('en-US', {timeZone: resolveTimezone(timezone), ...options});
 }
 
 export function localDay(iso, timezone) {
@@ -33,6 +40,7 @@ export function localDay(iso, timezone) {
 }
 
 export function displayTime(iso, timezone) {
+  timezone = resolveTimezone(timezone);
   const text = formatter(timezone, {year:'numeric', month:'short', day:'numeric',
     hour:'numeric', minute:'2-digit', second:'2-digit', timeZoneName:'short'})
     .format(new Date(utcTimestamp(iso)));

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { reconcileRecord, reopenAncestors, recoverOperation } from '../lib/reconciliation/reconciliation.mjs';
+import { parseChecklist } from '../lib/planning/planning.mjs';
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12, '0')}`;
 
 test('stale checkbox never reopens changed task; independent edits merge', () => {
@@ -98,4 +99,32 @@ test('explicit null removes optional assignment and target while preserving owne
   assert.equal(Object.hasOwn(result.record,'assignee'),false);
   assert.equal(Object.hasOwn(result.record,'target_date'),false);
   assert.equal(result.record.owner,base.owner);
+});
+
+test('parsed explicit status edits override checkbox reopening inference', () => {
+  const base = {id:id(1),type:'task',state:'completed'};
+  for (const [mark,state] of [['-','cancelled'],['>','in-progress']]) {
+    const [row] = parseChecklist(`- [${mark}] [[task|Work]] <!-- ref: ${id(1)} -->`);
+    const result = reconcileRecord(base,base,[{id:row.id,checked:row.checked,state:row.state}]);
+    assert.deepEqual(result.conflicts,[]);
+    assert.equal(result.record.state,state);
+  }
+  assert.throws(() => reconcileRecord(base,base,[{id:id(1),checked:true,state:'cancelled'}]),/disagree/);
+  const blocker = {id:id(2),type:'blocker',state:'open'};
+  assert.equal(reconcileRecord(blocker,blocker,[{id:id(2),checked:true,state:'resolved'}]).record.state,'resolved');
+});
+
+test('legacy cancellation reconciles as a state edit and never overrides changed canonical facts', () => {
+  const base = {id:id(1),type:'task',state:'not-started'};
+  const [row] = parseChecklist(`- [ ] ~~[[task|Work]]~~ Cancelled\n  <!-- ref: ${id(1)} -->`);
+  const view = {id:row.id,state:row.state,checked:row.checked};
+  const changed = reconcileRecord(base,base,[view]);
+  assert.equal(changed.record.state,'cancelled');
+  assert.deepEqual(changed.conflicts,[]);
+  const conflict = reconcileRecord(base,{...base,state:'completed'},[view]);
+  assert.equal(conflict.record.state,'completed');
+  assert.ok(conflict.conflicts.some(issue => issue.field === 'state'));
+  const stale = reconcileRecord({...base,state:'cancelled'},base,[view]);
+  assert.equal(stale.record.state,'not-started');
+  assert.deepEqual(stale.changes,[]);
 });

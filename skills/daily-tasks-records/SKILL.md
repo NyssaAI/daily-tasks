@@ -6,7 +6,10 @@ description: Create accepted projects, milestones and tasks; update progress, ow
 # Manage records
 
 Read [records](../daily-tasks/references/records.md), [operation protocol](../daily-tasks/references/operations.md)
-and the needed [CLI operation](../daily-tasks/references/cli.md). Require setup and explicit scope.
+and the needed [CLI operation](../daily-tasks/references/cli.md). Resolve profile and
+scope through [setup](../daily-tasks-setup/SKILL.md); reuse established settings and
+conventional state paths without a separate setup approval. Continue the record request
+once required values are available.
 
 1. Identify existing work by UUID. New projects/milestones/tasks require recorded explicit
    user acceptance via [capture](../daily-tasks-capture/SKILL.md), not implied approval.
@@ -14,7 +17,18 @@ and the needed [CLI operation](../daily-tasks/references/cli.md). Require setup 
    blockers have human email owner (default current user) and optional assignee. The user
    chooses owner; agent may execute that direction but never change it autonomously.
    Either person/agent can change assignee. No assignee means owner is doing the work.
+   Use the profile's matching `templates.projectIndex`, `templates.milestone` or
+   `templates.task` when supplied, following
+   [custom templates](../daily-tasks/references/templates.md). Load only the template
+   for the record being authored. An omitted preference uses its bundled template.
+   Blocker and DoD templates remain unchanged. A provisional task template can be
+   trialled when requested without promoting its maturity. Fill its input paths,
+   references, required skills, output destination, verification and delivery mode
+   from accepted task details; ask only for missing information needed to execute.
 3. Keep task instructions, context and desired output in its file. DoD is only milestone-level.
+   Choose a lowercase descriptive task filename with `.md` from the accepted title,
+   such as `prepare-budget.md`; resolve collisions with a meaningful qualifier.
+   Keep the UUID in frontmatter and use the record naming/move rules for existing files.
    A delegation packet links assigned task, milestone DoD and relevant dependencies/blockers;
    do not clone task authority or tie assignee to an ephemeral session. Delegation isn't start.
 4. External blocker records state impediment and what resolves it, with optional evidence.
@@ -36,6 +50,13 @@ and the needed [CLI operation](../daily-tasks/references/cli.md). Require setup 
 9. Apply via operation protocol: checkpoint, Markdown changes, validation, log, refresh views,
    baselines. Return exact changed links and remaining conflicts. Keep cancelled rows visible
    with strike-through. Missing or duplicated files are conflicts, not new task creation.
+   For task status replies, verify canonical tasks, required parent effects and project
+   views before updating daily-plan views. A failed earlier effect retains the checkpoint.
+
+After a committed batch changes canonical records or project/daily-plan projections,
+call `invalidate-project-index` with the resolved vaultRoot immediately, including
+when a later effect fails. The next planning request rebuilds before using that cache.
+Rebuild now only when the current workflow needs inventory; no background refresh.
 
 Expose proposed changes when unable to write/execute. Do not claim a complete operation
 if the log failed; retain recovery checkpoint and explain what already changed.

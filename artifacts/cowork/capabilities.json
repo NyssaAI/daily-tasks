@@ -93,6 +93,128 @@
       "invocation": "node scripts/daily-tasks.mjs validate-profile --input ABSOLUTE_JSON_FILE"
     },
     {
+      "name": "resolve-context",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "resolve context; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs resolve-context --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "project-index",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "project index; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "vaultRoot",
+          "projectsRoot",
+          "dailyPlansRoot",
+          "timezone"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "derived-cache",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node scripts/daily-tasks.mjs project-index --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "invalidate-project-index",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "invalidate project index; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "vaultRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "derived-cache",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node scripts/daily-tasks.mjs invalidate-project-index --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "planning-review",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "planning review; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "inventory",
+          "userEmail",
+          "timezone",
+          "contextBinding",
+          "inventoryBinding",
+          "vaultRoot",
+          "projectsRoot",
+          "dailyPlansRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs planning-review --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "plan-selection",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "plan selection; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "inventory",
+          "taskIds",
+          "action",
+          "today",
+          "dailyPlansRoot",
+          "contextBinding",
+          "inventoryBinding",
+          "vaultRoot",
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs plan-selection --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "maintenance-status",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "maintenance status; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs maintenance-status --input ABSOLUTE_JSON_FILE"
+    },
+    {
       "name": "parse-record",
       "path": "scripts/daily-tasks.mjs",
       "purpose": "parse record; see skills/daily-tasks/references/cli.md",
@@ -268,7 +390,11 @@
         "required": [
           "rows",
           "records",
-          "userEmail"
+          "userEmail",
+          "contextBinding",
+          "vaultRoot",
+          "projectsRoot",
+          "dailyPlansRoot"
         ]
       },
       "outputSchema": {
@@ -278,6 +404,30 @@
       "requiredEnvironment": [],
       "dryRun": false,
       "invocation": "node scripts/daily-tasks.mjs carry-forward --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "plan-rollover",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "plan rollover; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "today",
+          "planId",
+          "userEmail",
+          "contextBinding",
+          "vaultRoot",
+          "projectsRoot",
+          "dailyPlansRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs plan-rollover --input ABSOLUTE_JSON_FILE"
     },
     {
       "name": "log-append",

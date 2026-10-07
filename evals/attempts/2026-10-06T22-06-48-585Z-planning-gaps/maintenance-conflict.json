@@ -1,0 +1,188 @@
+{
+  "status": "needs-reconciliation",
+  "fixture": ".temp/host-gap-check/failure-fixture.json",
+  "commands": [
+    "node <installed>/bin/daily-tasks.mjs project-index --input project-index.input.json",
+    "node <installed>/bin/daily-tasks.mjs inspect-records --input inspect-records.input.json",
+    "node <installed>/bin/daily-tasks.mjs reconcile-record --input reconcile-record.input.json"
+  ],
+  "projectIndex": {
+    "status": "rebuilt",
+    "path": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\failure\\planning-uSHHBX\\.temp\\daily-tasks\\project-index.json",
+    "planningBinding": "cb5105d6744e6d034996da0d443561702a8be6fa391b396c62d48a2ba9bca781",
+    "inventory": {
+      "schemaVersion": 1,
+      "generatedAt": "2026-10-06T22:02:10.482Z",
+      "scope": {
+        "projectsRoot": "./1-projects",
+        "dailyPlansRoot": "./2-areas/daily-plans"
+      },
+      "projects": [
+        {
+          "id": "01a1133d-0cb4-7827-8bae-c002de1dd87f",
+          "path": "2026.01.01-fixture/project-index.md",
+          "title": "Fixture",
+          "state": "not-started",
+          "owner": "fixture@example.test"
+        }
+      ],
+      "milestones": [
+        {
+          "id": "01a1133d-0cb4-7452-9caa-4f001719ca4a",
+          "path": "2026.01.01-fixture/first/milestone.md",
+          "title": "First",
+          "state": "not-started",
+          "projectId": "01a1133d-0cb4-7827-8bae-c002de1dd87f"
+        }
+      ],
+      "tasks": [
+        {
+          "id": "01a1133d-0cb4-76ad-8575-d0adf64c07a0",
+          "projectId": "01a1133d-0cb4-7827-8bae-c002de1dd87f",
+          "milestoneId": "01a1133d-0cb4-7452-9caa-4f001719ca4a",
+          "path": "2026.01.01-fixture/first/recovery-task.md",
+          "title": "Recovery task",
+          "state": "not-started",
+          "owner": "fixture@example.test",
+          "assignee": null,
+          "targetDate": null,
+          "dependsOn": [],
+          "blockedBy": [],
+          "planned": []
+        },
+        {
+          "id": "01a1133d-0cb4-73c2-bdc2-794de4a5eb61",
+          "projectId": "01a1133d-0cb4-7827-8bae-c002de1dd87f",
+          "milestoneId": "01a1133d-0cb4-7452-9caa-4f001719ca4a",
+          "path": "2026.01.01-fixture/first/other-task.md",
+          "title": "Other task",
+          "state": "not-started",
+          "owner": "fixture@example.test",
+          "assignee": null,
+          "targetDate": null,
+          "dependsOn": [],
+          "blockedBy": [],
+          "planned": [
+            {
+              "date": "2026.10.06",
+              "source": "2-areas/daily-plans/2026.10.06-daily-plan.md"
+            }
+          ]
+        }
+      ],
+      "blockers": [],
+      "sources": [
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/milestone.md",
+          "sha256": "51b37c8f0e552506d812bbe6b58ef4562da319dc61737da603062c20d6b0da23"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/other-task.md",
+          "sha256": "8895dfdada9a65a0784ca39e640c01fb6c33670ae28ad090ff1fe75d498ec2b9"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/first/recovery-task.md",
+          "sha256": "ba45295f73625cd136b2d0e9617ab978352cbf2f2f31b0cf28ebcf8444b5ad25"
+        },
+        {
+          "anchor": "projectsRoot",
+          "path": "2026.01.01-fixture/project-index.md",
+          "sha256": "ba71022eebb521968426e952174f215a6f2697ccf24fa1453d635ce8d902809e"
+        },
+        {
+          "anchor": "vaultRoot",
+          "path": "2-areas/daily-plans/2026.10.06-daily-plan.md",
+          "sha256": "092e09cda29627ebb557e0f30f970d061129197c2ac4ac1e9d43a4fa48eb0856"
+        }
+      ],
+      "diagnostics": [
+        {
+          "code": "view-state-difference",
+          "recordId": "01a1133d-0cb4-76ad-8575-d0adf64c07a0",
+          "path": "2-areas/daily-plans/2026.10.06-daily-plan.md",
+          "message": "Reconcile this editable plan against its baseline before planning affected work"
+        }
+      ]
+    },
+    "metrics": {
+      "sourceReads": 5,
+      "metadataFiles": 6
+    }
+  },
+  "taskRecord": {
+    "id": "01a1133d-0cb4-76ad-8575-d0adf64c07a0",
+    "type": "task",
+    "path": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\failure\\planning-uSHHBX\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+    "title": "Recovery task",
+    "owner": "fixture@example.test",
+    "state": "not-started",
+    "depends_on": [],
+    "required_by": [],
+    "blocks": [],
+    "blocked_by": [],
+    "criteria": [],
+    "refs": [],
+    "projections": [],
+    "parse_errors": [],
+    "created_at": "2026-10-06T22:02:10.482Z",
+    "updated_at": "2026-10-06T22:02:10.482Z",
+    "project_id": "01a1133d-0cb4-7827-8bae-c002de1dd87f",
+    "milestone_id": "01a1133d-0cb4-7452-9caa-4f001719ca4a"
+  },
+  "discrepancy": {
+    "diagnostic": {
+      "code": "view-state-difference",
+      "recordId": "01a1133d-0cb4-76ad-8575-d0adf64c07a0",
+      "path": "2-areas/daily-plans/2026.10.06-daily-plan.md",
+      "message": "Reconcile this editable plan against its baseline before planning affected work"
+    },
+    "path": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\failure\\planning-uSHHBX\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+    "baselineViewSelected": true,
+    "canonicalState": "not-started",
+    "baselineCanonicalState": "not-started",
+    "planChecked": true,
+    "baselineViewHash": "acc9e01bcf2a27ff50c245d6cafdbbbb30fc6781065fa2d81199efbdf21ce95d",
+    "actualPlanHash": "092e09cda29627ebb557e0f30f970d061129197c2ac4ac1e9d43a4fa48eb0856",
+    "interpretation": "The current view hash differs from its stored baseline; the checked row translates to completed against baseline/canonical not-started."
+  },
+  "proposal": {
+    "record": {
+      "id": "01a1133d-0cb4-76ad-8575-d0adf64c07a0",
+      "state": "completed",
+      "type": "task"
+    },
+    "conflicts": [],
+    "changes": [
+      {
+        "field": "state",
+        "before": {
+          "present": true,
+          "value": "not-started"
+        },
+        "after": {
+          "present": true,
+          "value": "completed"
+        }
+      }
+    ]
+  },
+  "pendingOperationFiles": 0,
+  "manifestOperationExists": false,
+  "hashes": {
+    "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\failure\\planning-uSHHBX\\2-areas\\daily-plans\\2026.10.06-daily-plan.md": "092e09cda29627ebb557e0f30f970d061129197c2ac4ac1e9d43a4fa48eb0856",
+    "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\failure\\planning-uSHHBX\\.nyssaai\\daily-tasks\\reconciliation.json": "54eaf477404785c4490ac3e720c33bf37ddb7b65076c78775d2cc919b0154bae",
+    "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\failure\\planning-uSHHBX\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md": "ba45295f73625cd136b2d0e9617ab978352cbf2f2f31b0cf28ebcf8444b5ad25",
+    "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\host-gap-check\\failure\\planning-uSHHBX\\.nyssaai\\daily-tasks\\operations\\01a1133d-0cb4-7224-a95d-6967743df278.json": null
+  },
+  "evidence": [
+    "project-index.input.json",
+    "project-index.evidence.txt",
+    "inspect-records.input.json",
+    "inspect-records.evidence.txt",
+    "reconcile-record.input.json",
+    "reconcile-record.evidence.txt"
+  ]
+}

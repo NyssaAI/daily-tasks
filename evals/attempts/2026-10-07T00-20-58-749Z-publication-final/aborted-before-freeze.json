@@ -1,0 +1,16 @@
+{
+  "runId": "2026-10-07T00-20-47-655Z-publication-final",
+  "started_at": "2026-10-07T00:20:47.655Z",
+  "completed_at": "2026-10-07T00:20:47.655Z",
+  "kind": "aborted-sandbox-write",
+  "candidateHash": "c67d9f6d6f8ebae4f6a109d4e8253f530cd545d6876e865b4f0b09249920cc9b",
+  "candidateIdentitySource": "lead-supplied expected candidate; inventory had not yet been captured in this aborted attempt",
+  "lastCompletedStage": "none; attempt directory creation failed before freeze and runner",
+  "command": ["node", ".temp/shipping/eval/evaluate.mjs"],
+  "exit": 1,
+  "error": "EPERM: operation not permitted, mkdir evals/attempts/2026-10-07T00-20-47-655Z-publication-final",
+  "omittedOutput": "Node stack repeats the workspace path and mkdir call; no cases or synthetic artifacts were created",
+  "retentionLocation": "Saved alongside follow-up because original sandbox mkdir failed",
+  "nextCheck": "Rerun declared evaluator with workspace-write escalation; completed follow-up is attempt.json in this directory",
+  "score": null
+}

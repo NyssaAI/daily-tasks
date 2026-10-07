@@ -3,11 +3,14 @@ import { readFile, readdir, lstat, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import { uuid7 } from '../lib/identity/identity.mjs';
 import { appendDecision, queryDecisions, archiveDecisions } from '../lib/log/decision-log.mjs';
-import { parseRecord, validateRecords, checkClosure, checkLinks } from '../lib/records/records.mjs';
+import { parseRecord, validateRecords, checkClosure, checkLinks, recordMarkdownIsManaged } from '../lib/records/records.mjs';
 import { reconcileRecord, reopenAncestors, recoverOperation } from '../lib/reconciliation/reconciliation.mjs';
 import { activityTime, localDay, displayTime } from '../lib/time/time.mjs';
-import { carryForward, parseChecklist } from '../lib/planning/planning.mjs';
+import { carryForward, parseChecklist, planRollover } from '../lib/planning/planning.mjs';
 import { validateProfile } from '../lib/profile/profile.mjs';
+import { resolveContext, assertPlanningScope } from '../lib/profile/context.mjs';
+import { projectInventory, invalidateInventory } from '../lib/inventory/inventory.mjs';
+import { planningReview, planSelection, maintenanceStatus } from '../lib/planning/review.mjs';
 
 const operations = {
   'new-id': () => ({ id: uuid7() }),
@@ -15,6 +18,12 @@ const operations = {
   'local-day': input => ({ day: localDay(input.time || new Date().toISOString(), input.timezone) }),
   'format-time': input => ({ display: displayTime(input.time, input.timezone) }),
   'validate-profile': validateProfile,
+  'resolve-context': resolveContext,
+  'project-index': projectInventory,
+  'invalidate-project-index': invalidateInventory,
+  'planning-review': planningReview,
+  'plan-selection': planSelection,
+  'maintenance-status': maintenanceStatus,
   'parse-record': input => parseRecord(input.markdown, input.path),
   'parse-checklist': input => ({ rows: parseChecklist(input.markdown) }),
   'validate-records': input => ({ diagnostics: validateRecords(input.records) }),
@@ -23,7 +32,8 @@ const operations = {
   'reconcile-record': input => reconcileRecord(input.base, input.current, input.views),
   'reopen-ancestors': input => reopenAncestors(input.records, input.changedIds),
   'recover-operation': input => recoverOperation(input.operation, input.actual),
-  'carry-forward': input => carryForward(input.rows, input.records, input.userEmail),
+  'carry-forward': input => carryForward(input.rows, input.records, input.userEmail, {inventory:input.inventory,today:input.today}),
+  'plan-rollover': planRollover,
   'inspect-records': inspectRecords,
   'log-append': appendDecision,
   'log-query': queryDecisions,
@@ -41,9 +51,9 @@ async function inspectRecords(input) {
       const filename = path.join(directory, entry.name);
       if (entry.isSymbolicLink()) throw new Error(`Symbolic link excluded: ${filename}`);
       if (entry.isDirectory()) await visit(filename);
-      else if (entry.isFile() && entry.name.endsWith('.md')) {
+      else if (entry.isFile() && /\.md$/i.test(entry.name)) {
         const text = await readFile(filename, 'utf8');
-        if (/^type:\s*["']?(project|milestone|task|blocker|dod)["']?\s*$/m.test(text)) records.push(parseRecord(text, filename));
+        if (recordMarkdownIsManaged(text,filename)) records.push(parseRecord(text, filename));
       }
     }
   }
@@ -55,7 +65,7 @@ async function main() {
   const args = process.argv.slice(2);
   if (args.length === 0 || args.includes('--help')) {
     console.log(JSON.stringify({ name: 'daily-tasks', version: '0.1.0', usage: 'node <installed-entry-path> OPERATION --input ABSOLUTE_JSON_FILE [--dry-run]', operations: Object.keys(operations),
-      effects: 'Only log-append and log-archive mutate; all other operations inspect or propose. Log-query uses a temporary concurrency lock.',
+      effects: 'Log operations mutate logs/locks; project-index and invalidate-project-index mutate disposable JSON cache. Markdown operations only inspect or propose.',
       scope: 'Explicit absolute projectsRoot for log/scan; explicit timezone for local displays. No environment variables or credentials.',
       exits: '0: JSON result (inspect diagnostics before applying). 1: JSON error on stderr.' }));
     return;
@@ -74,6 +84,7 @@ async function main() {
   const input = inputPath ? JSON.parse(await readFile(inputPath, 'utf8')) : {};
   if (!input || Array.isArray(input) || typeof input !== 'object') throw new Error('Input must be a JSON object');
   if (dryRun) input.dryRun = true;
+  if (['planning-review','plan-selection','carry-forward','plan-rollover'].includes(operation)) assertPlanningScope(input);
   const result = await operations[operation](input);
   console.log(JSON.stringify(result));
 }
