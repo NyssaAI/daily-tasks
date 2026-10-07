@@ -23,6 +23,8 @@ No credentials/environment variables needed. Mutations accept `--dry-run` and wr
 | format-time | time GMT ISO, timezone | Local display with explicit zone |
 | validate-profile | profile object | valid/errors/resolvedTimezone; no save |
 | resolve-context | absolute vaultRoot or captured initialCwd; homeRoot?, profilePath?, configRoot?, stateRoot?, now? | Resolved absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
+| planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
+| planning-state | context inputs; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent); page?, allMilestones?, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
 | planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | Owner-focused counts, selected/available rows, stable mapping, diagnostics; max 15 addition rows |

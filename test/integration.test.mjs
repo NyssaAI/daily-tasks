@@ -22,6 +22,13 @@ function callFrom(cwd, entry, operation, inputPath, ...flags) {
   return {status:result.status,output:result.stdout.trim() ? JSON.parse(result.stdout) : null,error:result.stderr.trim() ? JSON.parse(result.stderr) : null};
 }
 const call = (entry,operation,inputPath,...flags) => callFrom(root,entry,operation,inputPath,...flags);
+test('CLI accepts Windows UTF-8 BOM input and reports the package version', async () => {
+  const directory = await workspace(), input = path.join(directory,'input.json');
+  await writeFile(input,'\uFEFF' + JSON.stringify({time,timezone:'America/Chicago'}));
+  const entry = path.join(root,'bin/daily-tasks.mjs');
+  assert.equal(call(entry,'local-day',input).status,0);
+  assert.equal(call(entry,'--help').output.version,JSON.parse(await readFile(path.join(root,'package.json'),'utf8')).version);
+});
 test('assembled packages and source hashes are identical for LF and CRLF source files', async () => {
   const directory = await workspace();
   for (const name of ['skills','lib','bin','plugin.json','LICENSE','package.json','capabilities.json']) {

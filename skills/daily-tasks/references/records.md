@@ -76,6 +76,11 @@ Projections and links use
 `<!-- ref: UUIDv7 -->`. UUIDs must not appear in the readable body. Raw source comments
 are necessarily visible to a source editor. Preserve IDs through rename, reorder, move.
 
+Only managed references require UUIDs: an explicit ref comment, a checkbox projection,
+or a link inside a typed relationship section. Ordinary contextual wiki links to notes,
+research or attachments are navigation and may share a line without task identities.
+Missing or malformed managed IDs remain errors; they never join other missing IDs.
+
 Frontmatter uses one scalar per line: strings, JSON-quoted strings, booleans or null.
 Only `tags` may use a JSON array of strings. No nested YAML, anchors, multiline
 scalars or other YAML arrays in managed metadata v1.

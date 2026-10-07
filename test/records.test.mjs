@@ -13,6 +13,32 @@ const graph = () => [record(1, 'project'), record(2, 'milestone', { project_id: 
   record(4, 'dod', { project_id: id(1), milestone_id: id(2), state: undefined,
     criteria: [{id: id(5), text: 'Installation verified', checked: true}] })];
 
+test('context links remain navigation while explicit and relationship links remain managed', () => {
+  const parsed = parseRecord(`---\ntype: project\n---\n# Context\nRead [[research]] and [[brief.pdf]].\n| Resource |\n| --- |\n| [[notes]] |\n- [[milestone]]\n  <!-- ref: ${id(2)} -->\n## Depends on\n- [[missing-identity]]\n`, '/project/project-index.md');
+  assert.equal(parsed.parse_errors.length,0);
+  assert.deepEqual(parsed.refs.map(r => r.target),['milestone','missing-identity']);
+  assert.equal(parsed.refs[0].id,id(2));
+  assert.ok(validateRecords([parsed]).some(d => d.code === 'invalid-reference'));
+});
+
+test('missing record and reference identities never join through undefined', () => {
+  const diagnostics = checkLinks([record(1,'project',{id:undefined}),record(2,'project',{id:undefined}),
+    record(3,'project',{refs:[{target:'research'}]})]);
+  assert.deepEqual(diagnostics,[]);
+});
+
+test('explicit empty or malformed refs never become ordinary navigation', () => {
+  for (const value of ['', '  ', 'two identities']) for (const body of [
+    `- [[milestone]] <!-- ref: ${value} -->`,
+    `- [[milestone]]\n  <!-- ref: ${value} -->`,
+    `| [[milestone]] <!-- ref: ${value} --> |`,
+  ]) {
+    const parsed = parseRecord(`---\ntype: project\n---\n${body}`, '/project/project-index.md');
+    assert.equal(parsed.refs.length,1,body);
+    assert.ok(validateRecords([parsed]).some(issue => issue.code === 'invalid-reference'),body);
+  }
+});
+
 test('parse scalar frontmatter, hidden identity, relations and criterion IDs', () => {
   const text = `---\ntype: dod\nowner: "owner@example.test"\ncreated_at: 2026-10-05T12:00:00Z\nupdated_at: 2026-10-05T12:00:00Z\nproject_id: ${id(1)}\nmilestone_id: ${id(2)}\n---\n<!-- id: ${id(4)} -->\n# Definition of Done\n- [x] Installation verified\n  <!-- id: ${id(5)} -->\n## Blocked by\n- [[../../blockers/access|Access approval]]\n  <!-- ref: ${id(6)} -->\n`;
   const parsed = parseRecord(text, '/project/milestone/definition-of-done.md');

@@ -34,7 +34,7 @@ export async function resolveContext(input) {
   let profile, profilePath;
   for (const filename of candidates) {
     if (!path.isAbsolute(filename)) throw new TypeError('profilePath/configRoot must be absolute');
-    try { profile = JSON.parse(await readFile(filename,'utf8')); profilePath = filename; break; }
+    try { profile = JSON.parse((await readFile(filename,'utf8')).replace(/^\uFEFF/,'')); profilePath = filename; break; }
     catch (error) { if (error.code !== 'ENOENT') throw error; }
   }
   if (!profile) return {configured:false,candidates,vaultRoot:boundVault,homeRoot};

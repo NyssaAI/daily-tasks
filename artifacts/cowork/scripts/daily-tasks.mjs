@@ -11,6 +11,7 @@ import { validateProfile } from '../lib/profile/profile.mjs';
 import { resolveContext, assertPlanningScope } from '../lib/profile/context.mjs';
 import { projectInventory, invalidateInventory } from '../lib/inventory/inventory.mjs';
 import { planningReview, planSelection, maintenanceStatus } from '../lib/planning/review.mjs';
+import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
 
 const operations = {
   'new-id': () => ({ id: uuid7() }),
@@ -24,6 +25,8 @@ const operations = {
   'planning-review': planningReview,
   'plan-selection': planSelection,
   'maintenance-status': maintenanceStatus,
+  'planning-prepare': preparePlanning,
+  'planning-state': savePlanningState,
   'parse-record': input => parseRecord(input.markdown, input.path),
   'parse-checklist': input => ({ rows: parseChecklist(input.markdown) }),
   'validate-records': input => ({ diagnostics: validateRecords(input.records) }),
@@ -64,8 +67,9 @@ async function inspectRecords(input) {
 async function main() {
   const args = process.argv.slice(2);
   if (args.length === 0 || args.includes('--help')) {
-    console.log(JSON.stringify({ name: 'daily-tasks', version: '0.1.0', usage: 'node <installed-entry-path> OPERATION --input ABSOLUTE_JSON_FILE [--dry-run]', operations: Object.keys(operations),
-      effects: 'Log operations mutate logs/locks; project-index and invalidate-project-index mutate disposable JSON cache. Markdown operations only inspect or propose.',
+    const {version} = JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'));
+    console.log(JSON.stringify({ name: 'daily-tasks', version, usage: 'node <installed-entry-path> OPERATION --input ABSOLUTE_JSON_FILE [--dry-run]', operations: Object.keys(operations),
+      effects: 'Log operations mutate logs/locks; inventory/preparation mutate disposable JSON cache; planning-state saves validated review/rollover JSON. Markdown operations only inspect or propose.',
       scope: 'Explicit absolute projectsRoot for log/scan; explicit timezone for local displays. No environment variables or credentials.',
       exits: '0: JSON result (inspect diagnostics before applying). 1: JSON error on stderr.' }));
     return;
@@ -81,7 +85,7 @@ async function main() {
     else throw new Error(`Unknown or duplicate argument: ${flag}`);
   }
   if (operation !== 'new-id' && (!inputPath || !path.isAbsolute(inputPath))) throw new Error('--input requires an absolute JSON file');
-  const input = inputPath ? JSON.parse(await readFile(inputPath, 'utf8')) : {};
+  const input = inputPath ? JSON.parse((await readFile(inputPath, 'utf8')).replace(/^\uFEFF/,'')) : {};
   if (!input || Array.isArray(input) || typeof input !== 'object') throw new Error('Input must be a JSON object');
   if (dryRun) input.dryRun = true;
   if (['planning-review','plan-selection','carry-forward','plan-rollover'].includes(operation)) assertPlanningScope(input);

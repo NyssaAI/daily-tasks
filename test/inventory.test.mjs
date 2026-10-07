@@ -6,6 +6,7 @@ import { projectInventory, invalidateInventory } from '../lib/inventory/inventor
 import { planningReview, planSelection, maintenanceStatus } from '../lib/planning/review.mjs';
 import { carryForward } from '../lib/planning/planning.mjs';
 import { resolveContext, planningBinding } from '../lib/profile/context.mjs';
+import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
 
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12,'0')}`;
 const now = '2026-10-06T14:00:00.000Z';
@@ -27,6 +28,80 @@ async function fixture() {
   await writeFile(future,`---\nid: ${id(20)}\ntype: daily-plan\n---\n## My work\n- [ ] [[../../1-projects/2026.01.01-alpha/first/b|B]] <!-- ref: ${id(4)} -->\n`);
   return {vaultRoot,projectsRoot,dailyPlansRoot,project,future,timezone:'America/Chicago',now};
 }
+
+test('context navigation and unidentified legacy projects cannot erase unrelated managed work', async () => {
+  const input = await fixture();
+  const index = path.join(input.project,'project-index.md');
+  await writeFile(index,(await readFile(index,'utf8')) + '\n## References\nRead [[research]] and [[brief.pdf]].\n');
+  for (const name of ['legacy-a','legacy-b']) {
+    await mkdir(path.join(input.projectsRoot,name));
+    await writeFile(path.join(input.projectsRoot,name,'project-index.md'),'# Legacy project\n[[notes]]\n');
+  }
+  const {inventory} = await projectInventory(input);
+  assert.deepEqual(inventory.tasks.map(t => t.id),[id(3),id(4),id(6)]);
+  assert.ok(!inventory.diagnostics.some(d => d.code === 'invalid-planning-scope' && d.projectId === id(1)));
+  assert.deepEqual(planningReview({inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(3)]);
+});
+
+test('maintained preparation binds actual plan identity and state writes reject stale or task-shaped inputs', async () => {
+  const input = await fixture();
+  await mkdir(path.join(input.vaultRoot,'.nyssaai/daily-tasks'),{recursive:true});
+  await writeFile(path.join(input.vaultRoot,'.nyssaai/daily-tasks/profile.json'),'\uFEFF'+JSON.stringify({schema_version:1,
+    user:{name:'Owner',email:owner},timezone:input.timezone,priorities:[],vaultRoot:'./',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
+  const plan = path.join(input.dailyPlansRoot,'2026.10.06-daily-plan.md');
+  await writeFile(plan,`---\nid: ${id(21)}\ntype: daily-plan\n---\n- [ ] [[../../1-projects/2026.01.01-alpha/first/a|A]] <!-- ref: ${id(3)} -->\n`);
+  const prepared = await preparePlanning(input);
+  assert.equal(prepared.status,'prepared');
+  await writeFile(path.join(input.vaultRoot,'.nyssaai/daily-tasks/planning-review.json'),JSON.stringify({date:prepared.context.localDate,
+    mappingBinding:prepared.context.planningBinding,mapping:{[id(3)]:7}}));
+  const legacy = await preparePlanning(input);
+  assert.equal(legacy.review.selected[0].number,7);
+  const savedReview = await savePlanningState({...input,action:'save-review',expectedPlanHash:legacy.current.sha256,
+    expectedPreviousHash:null,expectedStateHash:legacy.state.review.sha256,expectedInventoryHash:legacy.inventoryHash,expectedReviewHash:legacy.reviewHash});
+  const reopenedReview = JSON.parse(await readFile(savedReview.path,'utf8'));
+  assert.equal(reopenedReview.planId,id(21));
+  assert.equal(reopenedReview.mapping[id(3)],7);
+  assert.equal((await preparePlanning(input)).review.selected[0].number,7);
+  assert.equal(prepared.current.id,id(21));
+  assert.equal(prepared.rollover.unresolved.length,0);
+  assert.equal(prepared.review.selected[0].id,id(3));
+  const stateInput = {...input,action:'complete-rollover',expectedPlanHash:prepared.current.sha256,expectedPreviousHash:null,expectedStateHash:null,expectedInventoryHash:prepared.inventoryHash};
+  const saved = await savePlanningState(stateInput);
+  assert.equal(saved.value.planId,id(21));
+  assert.equal((await preparePlanning(input)).rollover.status,'complete');
+  await assert.rejects(savePlanningState(stateInput),/state changed/);
+  await writeFile(plan,(await readFile(plan,'utf8')).replace('type: daily-plan','type: task'));
+  await assert.rejects(preparePlanning(input),/Invalid daily-plan identity/);
+});
+
+test('preparation cannot complete pending carry or unresolved current rows', async () => {
+  const input = await fixture();
+  const config = path.join(input.vaultRoot,'.nyssaai/daily-tasks');
+  await mkdir(config,{recursive:true});
+  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:1,user:{name:'Owner',email:owner},
+    timezone:input.timezone,priorities:[],vaultRoot:'./',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
+  await writeFile(path.join(input.dailyPlansRoot,'2026.10.05-daily-plan.md'),`---\nid: ${id(22)}\ntype: daily-plan\n---\n- [ ] [[../../1-projects/2026.01.01-alpha/first/a|A]] <!-- ref: ${id(3)} -->\n`);
+  const today = path.join(input.dailyPlansRoot,'2026.10.06-daily-plan.md');
+  await writeFile(today,`---\nid: ${id(21)}\ntype: daily-plan\n---\n`);
+  const prepared = await preparePlanning(input);
+  assert.equal(prepared.rollover.own.length,1);
+  await assert.rejects(savePlanningState({...input,action:'complete-rollover',expectedPlanHash:prepared.current.sha256,
+    expectedPreviousHash:prepared.previous.sha256,expectedStateHash:null,expectedInventoryHash:prepared.inventoryHash}),/pending membership/);
+  await writeFile(today,(await readFile(today,'utf8'))+'- [ ] candidate\n');
+  const candidate = await preparePlanning(input);
+  await assert.rejects(savePlanningState({...input,action:'save-review',expectedPlanHash:candidate.current.sha256,
+    expectedPreviousHash:candidate.previous.sha256,expectedStateHash:null,expectedInventoryHash:candidate.inventoryHash,expectedReviewHash:candidate.reviewHash}),/missing or duplicate/);
+});
+
+test('valid tasks and future allocations survive an invalid ancestor, while additions stay blocked', async () => {
+  const input = await fixture();
+  const index = path.join(input.project,'project-index.md');
+  await writeFile(index,(await readFile(index,'utf8')).replace('project-state: not-started','project-state: paused'));
+  const {inventory} = await projectInventory(input);
+  assert.equal(inventory.tasks.length,3);
+  assert.equal(inventory.tasks.find(t => t.id === id(4)).planned[0].date,'2026.10.07');
+  assert.equal(planningReview({inventory,userEmail:owner,timezone:input.timezone,now}).available.length,0);
+});
 
 test('inventory uses agreed shape, table order and one planned source, then reuses and invalidates', async () => {
   const input = await fixture();

@@ -21,7 +21,9 @@ breaking ties alphabetically by name; undated directories follow alphabetically
 by name. Preserve each project's task order from its index.
 Offer only the first incomplete milestone per project unless the user asks
 for all milestones; skip terminal milestones and preserve existing selections.
-Resolve an unknown milestone/task sequence rather than inventing priority or UUID ordering.
+Resolve unknown milestone sequence before deciding which milestone is first.
+Unlisted valid tasks follow indexed tasks by filename for stable presentation only;
+missing task links do not turn accepted work into ineligible work.
 Paginate available additions at 15 rows maximum, with stable response handles and
 Show more. Exclude explicit future-day selections from today's addition options;
 a future target_date alone is not future selection. Keep counts for the full scoped
@@ -31,6 +33,17 @@ project views first, then daily-plan projection. Clarify ambiguous commands befo
 affected writes and preserve pending recovery when any required effect fails.
 
 ## Keep routine planning scoped
+
+Start with `planning-prepare`, passing the known absolute vault binding (and explicit
+profilePath when already established). It resolves the profile, reads actual dated
+plan files, checks their type and UUID, prepares inventory/rollover/review, and returns
+pending-operation names, maintenance status and enrollment diagnostics. Use this
+packet rather than writing temporary JavaScript orchestration or assembling parse
+results by hand. Full-graph validation belongs to inventory; never validate selected
+tasks alone as though their omitted parents were absent from disk.
+Use `planning-state` to persist review handles or verify a no-change rollover receipt,
+with the packet's source/state hashes. Pending carry still requires the Markdown
+operation protocol. These commands do not reconcile edits or complete check-in for you.
 
 Resolve and read the existing profile first; do not restart setup for a configured
 user. Reuse guidance already loaded in this session. Read today's plan and its

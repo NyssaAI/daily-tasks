@@ -1,0 +1,9 @@
+{
+  "stage": "Persist final evaluation receipts after completed deterministic run",
+  "command": ["node", ".temp/final-repair-eval.mjs"],
+  "initialExit": 1,
+  "diagnostic": "Sandbox EPERM creating the evaluation attempt directory; no candidate mutation or additional behavior execution occurred.",
+  "recovery": "Same evidence-only command succeeded with approved workspace-write escalation.",
+  "finalExit": 0,
+  "omittedOutput": "Stack paths omitted; exact safe error classification retained."
+}
