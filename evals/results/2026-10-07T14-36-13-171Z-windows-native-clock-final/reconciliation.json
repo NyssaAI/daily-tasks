@@ -1,0 +1,107 @@
+{
+  "id": "reconciliation",
+  "method": "Native skill actions through isolated registered installations; independent persisted-artifact assertions and actual execution intervals; retained current-candidate evidence reused with explicit provenance.",
+  "checks": [
+    {
+      "scenario": "reconciliation",
+      "name": "Stale unchecked view did not reopen completed canonical",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Changed unchecked view reopens canonical without invented start",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Conflicting completion/cancellation preserved while unrelated assignment proceeds",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Recovery retry kept one exact event (before later explicit removal)",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Decision activity/recorded times were stored correctly on original append",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Original append needed no timestamp correction",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "reconcile-conflict: Unresolved conflict did not create maintenance-success receipt",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "reconciliation: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "reconciliation: Maintenance success uses actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "reconcile-uncheck: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "reconcile-uncheck: Maintenance success uses actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "reconcile-conflict: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "reconciliation",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:41:29.141Z",
+        "completedAt": "2026-10-07T02:43:30.304Z"
+      },
+      "final": "Check-in complete. [Today’s plan](<RETAINED_SYNTHETIC_ROOT>/reconciliation/planning-Q5qXBd/2-areas/daily-plans/2026.10.06-daily-plan.md) now shows Recovery completed.\n\nPreserved canonical completion, refreshed the project view and baselines, and left Other task selected and not started. Unrelated notes and historical content remain unchanged. No new tasks were accepted; validation passed with no pending conflicts."
+    },
+    {
+      "case": "reconcile-uncheck",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:50:24.061Z",
+        "completedAt": "2026-10-07T02:53:02.131Z"
+      },
+      "final": "Check-in complete. [Recovery task](<RETAINED_SYNTHETIC_ROOT>/reconcile-uncheck/planning-RFCrhN/1-projects/2026.01.01-fixture/first/recovery-task.md) reopened to **not-started** because it has no `started_at`.\n\nReconciled today’s unchecked box against its saved completed baseline, updated the canonical record and project checkbox, and verified the log and refreshed baselines. Parents were already open. Unrelated work, notes, and historical plan were preserved. No pending conflicts."
+    },
+    {
+      "case": "reconcile-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:50:24.066Z",
+        "completedAt": "2026-10-07T02:52:48.649Z"
+      },
+      "final": "[Today’s plan](<RETAINED_SYNTHETIC_ROOT>/reconcile-conflict/planning-xjg8iB/2-areas/daily-plans/2026.10.06-daily-plan.md) is saved.\n\n- Recovery remains a pending conflict: canonical **completed**, daily **cancelled**. Both edits and the original baseline are preserved.\n- Other task is assigned to **Luna**, with its owner unchanged. The assignment is verified and logged.\n- Check-in remains resumable pending your choice of a winner."
+    },
+    {
+      "case": "recovery-repeat",
+      "result": {
+        "status": 0,
+        "startedAt": "2026-10-07T02:54:43.504Z",
+        "completedAt": "2026-10-07T02:55:48.897Z"
+      },
+      "final": "Retried the original move: **already applied**, with no pending effects or conflicts.\n\nVerified every effect, including plans, baselines and rollover state. The decision exists exactly once with the original IDs, timestamps and exact payload. Unrelated data remains unchanged. No event was appended."
+    }
+  ]
+}

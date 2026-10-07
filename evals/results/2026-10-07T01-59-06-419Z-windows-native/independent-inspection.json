@@ -1,0 +1,2067 @@
+{
+  "acceptance": {
+    "records": [
+      {
+        "id": "01a11415-fb55-761f-b458-1d1ec611d451",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\acceptance\\planning-7Mobqe\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11422-8f90-743b-882a-04475226893d",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\acceptance\\planning-7Mobqe\\1-projects\\2026.01.01-fixture\\first\\improve-onboarding.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb55-71af-a5c5-10081a8c993d",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\acceptance\\planning-7Mobqe\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb55-78e8-b39a-062d39da0635",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\acceptance\\planning-7Mobqe\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb55-70a7-aea9-d8f9494d37b6",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\acceptance\\planning-7Mobqe\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "action": "task.accepted",
+          "record_ids": [
+            "01a11422-8f90-743b-882a-04475226893d"
+          ],
+          "id": "01a11422-8fe8-7fed-9294-de9e8e67ec0f",
+          "time_defaulted": true,
+          "recorded_at": "2026-10-07T02:13:11.319Z",
+          "activity_at": "2026-10-07T02:13:11.319Z",
+          "operation_id": "01a11422-8fbc-7f44-b252-6d7fdeb85a29",
+          "original_words": "I explicitly accept the proposed Improve onboarding task. Create it under the existing First milestone with me as owner and log this acceptance.",
+          "after": {
+            "task-state": "not-started",
+            "sourceKey": "1-projects/2026.01.01-fixture/project-index.md::checkbox::Maybe improve onboarding",
+            "milestone_id": "01a11415-fb55-71af-a5c5-10081a8c993d",
+            "owner": "fixture@example.test",
+            "title": "Improve onboarding"
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11415-fb55-75d9-bf42-fb92551862f4\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T01:59:07.347Z\"\nupdated_at: \"2026-10-07T01:59:07.347Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11415-fb55-70a7-aea9-d8f9494d37b6 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11415-fb55-7453-bd78-6b95c72606e6\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T01:59:07.347Z\"\nupdated_at: \"2026-10-07T01:59:07.347Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11415-fb55-70a7-aea9-d8f9494d37b6 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11415-fb55-78e8-b39a-062d39da0635 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "configuration-discovery": {
+    "records": [
+      {
+        "id": "01a11415-fb5f-7f63-a333-15ff2eddcee0",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\configuration-discovery\\planning-KhWS1U\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb5f-7777-84f1-6a2b6e4c52d9",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\configuration-discovery\\planning-KhWS1U\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb5f-7871-8e13-35c2887d70e8",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\configuration-discovery\\planning-KhWS1U\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb5f-704c-90d5-c660c70ffdd7",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\configuration-discovery\\planning-KhWS1U\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11416-7dda-721d-95f1-2c44ffdd4b60",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\configuration-discovery\\planning-KhWS1U\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "actor": {
+            "id": "fixture@example.test",
+            "kind": "person"
+          },
+          "record_ids": [
+            "01a11416-7dda-721d-95f1-2c44ffdd4b60"
+          ],
+          "operation_id": "01a11416-ef38-7c04-b2e9-ef84e29ed570",
+          "original_words": "In the existing Fixture project, create M1: update LinkedIn and resume in this project.",
+          "time_defaulted": true,
+          "after": {
+            "acceptance_source": "explicit user request",
+            "milestone-state": "not-started",
+            "title": "M1: update LinkedIn and resume",
+            "owner": "fixture@example.test",
+            "project_id": "01a11415-fb5f-7f63-a333-15ff2eddcee0"
+          },
+          "activity_at": "2026-10-07T01:59:48.271Z",
+          "id": "01a11416-ef64-773d-b160-d3f0e662ca43",
+          "action": "milestone.accepted",
+          "recorded_at": "2026-10-07T01:59:48.271Z"
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11415-fb5f-746c-a205-d4ef308b53f5\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T01:59:07.358Z\"\nupdated_at: \"2026-10-07T01:59:07.358Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11415-fb5f-704c-90d5-c660c70ffdd7 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11415-fb5f-7058-8afc-9b33b62783fa\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T01:59:07.358Z\"\nupdated_at: \"2026-10-07T01:59:07.358Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11415-fb5f-704c-90d5-c660c70ffdd7 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11415-fb5f-7871-8e13-35c2887d70e8 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "day-change": {
+    "records": [
+      {
+        "id": "01a11415-fb63-7168-a6d7-03cc4f1f7adb",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-change\\planning-MnXDJv\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb63-75e2-ad5f-dc3df60d20d9",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-change\\planning-MnXDJv\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb63-770d-ba68-efcd9ea82271",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-change\\planning-MnXDJv\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11415-fb63-7ca9-913e-c9d2d050046f",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-change\\planning-MnXDJv\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "id": "01a11415-fb63-7dbd-aeda-1fe4a5491703",
+          "operation_id": "01a11415-fb63-7b96-9d10-e1f7f9800cec",
+          "action": "selection-move",
+          "record_ids": [
+            "01a11415-fb63-7ca9-913e-c9d2d050046f"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T01:59:07.362Z",
+          "recorded_at": "2026-10-07T01:59:07.362Z",
+          "time_defaulted": false,
+          "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+          "before": {
+            "date": "2026.10.06"
+          },
+          "after": {
+            "date": "2026.10.07"
+          }
+        },
+        {
+          "after": {
+            "selected": false,
+            "date": "2026.10.07"
+          },
+          "action": "selection-remove",
+          "activity_at": "2026-10-07T01:59:07.362Z",
+          "operation_id": "01a1142c-5b1d-7754-8465-96b8d2227ca9",
+          "original_words": "Explicitly remove Recovery task from the future October 7 daily plan, preserving its canonical open state.",
+          "id": "01a1142c-5b48-7656-a96c-e217c708075f",
+          "before": {
+            "selected": true,
+            "date": "2026.10.07"
+          },
+          "actor": {
+            "id": "fixture@example.test",
+            "kind": "person"
+          },
+          "time_defaulted": true,
+          "recorded_at": "2026-10-07T01:59:07.362Z",
+          "record_ids": [
+            "01a11415-fb63-7ca9-913e-c9d2d050046f"
+          ]
+        },
+        {
+          "record_ids": [
+            "01a11415-fb63-770d-ba68-efcd9ea82271"
+          ],
+          "activity_at": "2026-10-07T15:00:00.000Z",
+          "id": "01a1142c-fc08-76e1-a56c-3a97d49b8785",
+          "after": {
+            "date": "2026.10.07",
+            "carriedFrom": "2026.10.06"
+          },
+          "operation_id": "01a1142c-fbdd-7936-bebb-7399eaa0c6ad",
+          "actor": {
+            "id": "codex",
+            "kind": "agent"
+          },
+          "time_defaulted": true,
+          "recorded_at": "2026-10-07T15:00:00.000Z",
+          "action": "selection-carry-forward",
+          "before": {
+            "date": "2026.10.06"
+          }
+        }
+      ],
+      "total": 3,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11415-fb63-7b3b-8709-c0a3277e8e4b\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T01:59:07.362Z\"\nupdated_at: \"2026-10-07T01:59:07.362Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11415-fb63-7ca9-913e-c9d2d050046f -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11415-fb63-7e82-b158-c51f008a5662\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T01:59:07.362Z\"\nupdated_at: \"2026-10-07T01:59:07.362Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11415-fb63-770d-ba68-efcd9ea82271 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.07-daily-plan.md",
+        "text": "---\nid: 01a11415-fb63-7866-aab0-fe24782808dd\ntype: daily-plan\ntitle: \"Daily plan 2026.10.07\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T01:59:07.362Z\"\nupdated_at: \"2026-10-07T15:00:00.000Z\"\n---\n# Daily plan — 2026.10.07\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11415-fb63-770d-ba68-efcd9ea82271 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "assignment-time": {
+    "records": [
+      {
+        "id": "01a11418-4382-7d89-bc09-4bac075846cf",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\assignment-time\\planning-4iApHF\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4382-7787-9d07-77878d17ea9e",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\assignment-time\\planning-4iApHF\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4382-71de-a2e4-a7f7f62696ff",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\assignment-time\\planning-4iApHF\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4382-73b2-a526-964b011e680d",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\assignment-time\\planning-4iApHF\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "assignee": "Luna",
+        "state": "in-progress",
+        "started_at": "2026-10-07T02:02:09.605Z"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "recorded_at": "2026-10-07T02:02:09.605Z",
+          "original_words": "I started it a while ago.",
+          "operation_id": "01a11418-c370-79ee-9a01-1afc5387fc7c",
+          "time_defaulted": true,
+          "after": {
+            "reason": "User requested Luna assignment; vague retrospective start uses now.",
+            "owner": "fixture@example.test",
+            "started_at": "2026-10-07T02:02:09.605Z",
+            "task-state": "in-progress",
+            "assignee": "Luna"
+          },
+          "action": "task.assigned-and-started",
+          "activity_at": "2026-10-07T02:02:09.605Z",
+          "id": "01a11418-c39a-790b-8a74-e594b4408038",
+          "record_ids": [
+            "01a11418-4382-73b2-a526-964b011e680d"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "before": {
+            "owner": "fixture@example.test",
+            "started_at": null,
+            "task-state": "not-started",
+            "assignee": null
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11418-4382-7e7e-9f68-b56c2ca23b72\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:01:36.896Z\"\nupdated_at: \"2026-10-07T02:01:36.896Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11418-4382-73b2-a526-964b011e680d -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11418-4382-78f0-a211-65e20770364d\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:01:36.896Z\"\nupdated_at: \"2026-10-07T02:01:36.896Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [>] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11418-4382-73b2-a526-964b011e680d -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11418-4382-71de-a2e4-a7f7f62696ff -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "reconciliation": {
+    "records": [
+      {
+        "id": "01a11418-4391-78f1-b633-83d4e4a67d21",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconciliation\\planning-xkxk4y\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4391-7387-be3b-aa62b278a337",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconciliation\\planning-xkxk4y\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4391-7eff-8b3e-8a22fdd86298",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconciliation\\planning-xkxk4y\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4391-776c-85c0-1977e44f878c",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconciliation\\planning-xkxk4y\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "id": "01a11419-0576-7896-9f92-64e49c2d1494",
+          "operation_id": "01a11419-054b-722b-b067-049d242bb27c",
+          "action": "task.completed",
+          "record_ids": [
+            "01a11418-4391-776c-85c0-1977e44f878c"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:01:36.912Z",
+          "recorded_at": "2026-10-07T02:01:36.912Z",
+          "time_defaulted": false,
+          "original_words": "I updated the canonical Recovery task definition to completed. Preserve my canonical completion and refresh the view.",
+          "before": {
+            "state": "not-started"
+          },
+          "after": {
+            "state": "completed",
+            "reason": "Unchanged stale daily view contributes no edit; canonical completion explicitly authorized."
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11418-4391-705a-bfa9-9da419202a86\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:01:36.912Z\"\nupdated_at: \"2026-10-07T02:01:36.912Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11418-4391-776c-85c0-1977e44f878c -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11418-4391-72bf-9787-af3b8d50a814\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:01:36.912Z\"\nupdated_at: \"2026-10-07T02:01:36.912Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [x] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11418-4391-776c-85c0-1977e44f878c -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11418-4391-7eff-8b3e-8a22fdd86298 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "closure": {
+    "records": [
+      {
+        "id": "01a11418-4395-763d-8b85-53dcc9aa119e",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure\\planning-1lWPX7\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4395-7477-9a87-7e681d97635a",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure\\planning-1lWPX7\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4395-70a7-b439-8ab4cbd98271",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure\\planning-1lWPX7\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11418-4395-70c7-8106-525371b11fa8",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure\\planning-1lWPX7\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "id": "01a11419-2ce5-7062-9f33-3bf43a69550e",
+          "operation_id": "01a11419-2cb8-7b28-bc11-8f3194f434b6",
+          "action": "closure.requested",
+          "record_ids": [
+            "01a11418-4395-763d-8b85-53dcc9aa119e",
+            "01a11418-4395-7477-9a87-7e681d97635a"
+          ],
+          "actor": {
+            "id": "fixture@example.test",
+            "kind": "person"
+          },
+          "activity_at": "2026-10-07T02:02:36.556Z",
+          "recorded_at": "2026-10-07T02:02:36.556Z",
+          "time_defaulted": true,
+          "original_words": "Close the existing Fixture project and First milestone if their actual closure conditions permit it. Do not complete or cancel any child on my behalf, do not invent DoD evidence, and do not resolve blockers implicitly.",
+          "before": {
+            "milestone_state": "not-started",
+            "project_state": "not-started"
+          },
+          "after": {
+            "applied": false,
+            "reasons": [
+              "Recovery task is not-started",
+              "Other task is not-started",
+              "First needs exactly one Definition of Done record; none exists",
+              "Fixture has unresolved milestone First"
+            ],
+            "constraints": [
+              "No implicit child completion or cancellation",
+              "No invented DoD evidence",
+              "No implicit blocker resolution"
+            ],
+            "closure_intent": "pending",
+            "requested_state": "completed"
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11418-4395-7fb3-83fd-8556113a3a6a\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:01:36.916Z\"\nupdated_at: \"2026-10-07T02:01:36.916Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11418-4395-70c7-8106-525371b11fa8 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11418-4395-7627-aba0-2a32b4e25f04\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:01:36.916Z\"\nupdated_at: \"2026-10-07T02:01:36.916Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11418-4395-70c7-8106-525371b11fa8 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11418-4395-70a7-b439-8ab4cbd98271 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "config-no-profile": {
+    "records": [
+      {
+        "id": "01a1141a-8870-7907-aebd-9bc441002533",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-no-profile\\planning-mTIhrw\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-8870-70b7-a8a9-f76a21690ec3",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-no-profile\\planning-mTIhrw\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-8870-7131-be86-179f52ea1c2c",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-no-profile\\planning-mTIhrw\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-8870-75fd-aaf7-7679a67f7e50",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-no-profile\\planning-mTIhrw\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141b-7694-720e-a5ab-cf9afc7f0f33",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-no-profile\\planning-mTIhrw\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a1141b-7669-71e7-9723-3acc22e1c6c4",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-no-profile\\planning-mTIhrw\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "activity_at": "2026-10-07T02:05:06.480Z",
+          "time_defaulted": true,
+          "record_ids": [],
+          "id": "01a1141b-7749-7776-b5db-eac4a3dfd034",
+          "action": "profile.configured",
+          "operation_id": "01a1141b-7749-7776-b5db-eac4a3dfd034",
+          "after": {
+            "schema_version": 1,
+            "user": {
+              "name": "Fixture",
+              "email": "fixture@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          },
+          "actor": {
+            "id": "fixture@example.test",
+            "kind": "person"
+          },
+          "recorded_at": "2026-10-07T02:05:06.480Z",
+          "original_words": "This vault only is the accepted configuration scope. My name is Fixture and email fixture@example.test, timezone America/Chicago. Empty priorities are fine."
+        },
+        {
+          "after": {
+            "owner": "fixture@example.test",
+            "acceptance_source": "Explicit user instruction",
+            "title": "M1: update LinkedIn and resume",
+            "milestone-state": "not-started"
+          },
+          "record_ids": [
+            "01a1141b-7669-71e7-9723-3acc22e1c6c4"
+          ],
+          "original_words": "In the existing Fixture project, create M1: update LinkedIn and resume. This explicitly accepts that milestone only.",
+          "action": "milestone.accepted",
+          "operation_id": "01a1141b-76f2-7541-9390-74f8220282f4",
+          "recorded_at": "2026-10-07T02:05:06.480Z",
+          "id": "01a1141b-7720-72c4-bb5e-c076842e6b54",
+          "actor": {
+            "id": "fixture@example.test",
+            "kind": "person"
+          },
+          "activity_at": "2026-10-07T02:05:06.480Z",
+          "time_defaulted": true
+        }
+      ],
+      "total": 2,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141a-8870-7226-9ba6-d8d9e2044d2c\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:04:05.614Z\"\nupdated_at: \"2026-10-07T02:04:05.614Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141a-8870-75fd-aaf7-7679a67f7e50 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141a-8870-7892-8e7f-4b0190e0bf43\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:04:05.614Z\"\nupdated_at: \"2026-10-07T02:04:05.614Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141a-8870-75fd-aaf7-7679a67f7e50 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141a-8870-7131-be86-179f52ea1c2c -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "config-legacy": {
+    "records": [
+      {
+        "id": "01a1141a-887f-7efc-a36a-81ab5c55eb69",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-legacy\\planning-hvQDwX\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-887f-72b1-9b66-076918162028",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-legacy\\planning-hvQDwX\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-887f-7da7-9730-dfd2da4212bd",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-legacy\\planning-hvQDwX\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-887f-7812-9884-5fded74d8e8b",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-legacy\\planning-hvQDwX\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141b-3b59-74e9-a104-1ed842d85ad8",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-legacy\\planning-hvQDwX\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a1141b-3b2b-7a51-a873-d6ab5940e5cd",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-legacy\\planning-hvQDwX\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "time_defaulted": true,
+          "original_words": "In the existing Fixture project, create M1: update LinkedIn and resume. This is accepted as one milestone only, no extra tasks.",
+          "activity_at": "2026-10-07T02:04:59.932Z",
+          "recorded_at": "2026-10-07T02:04:59.932Z",
+          "id": "01a1141b-3be5-7388-9a1d-ee9c92ea9f41",
+          "action": "milestone.accepted",
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "after": {
+            "tasks_created": 0,
+            "title": "update LinkedIn and resume",
+            "milestone-state": "not-started",
+            "project_id": "01a1141a-887f-7efc-a36a-81ab5c55eb69"
+          },
+          "record_ids": [
+            "01a1141b-3b2b-7a51-a873-d6ab5940e5cd",
+            "01a1141b-3b59-74e9-a104-1ed842d85ad8"
+          ],
+          "operation_id": "01a1141b-3bb7-72cb-bd40-3e5eb21d1604"
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141a-887f-7507-8d81-87a835680c59\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:04:05.630Z\"\nupdated_at: \"2026-10-07T02:04:05.630Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141a-887f-7812-9884-5fded74d8e8b -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141a-887f-7328-8b0c-24a94cafea69\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:04:05.630Z\"\nupdated_at: \"2026-10-07T02:04:05.630Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141a-887f-7812-9884-5fded74d8e8b -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141a-887f-7da7-9730-dfd2da4212bd -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "day-skipped": {
+    "records": [
+      {
+        "id": "01a1141a-8884-7c76-be60-72e29f528e56",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-skipped\\planning-HA5W85\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-8884-7440-b889-42b761b8839a",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-skipped\\planning-HA5W85\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-8884-7ed0-ad8c-4d71806b5072",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-skipped\\planning-HA5W85\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "assignee": "Luna",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141a-8884-7a62-93f4-8c202a4d8b64",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-skipped\\planning-HA5W85\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "id": "01a1141b-6ec2-7632-afe5-eecd5bbfac3e",
+          "operation_id": "01a1141b-6e92-717c-a59c-b098efc84072",
+          "action": "selection-carry-forward",
+          "record_ids": [
+            "01a1141a-8884-7a62-93f4-8c202a4d8b64",
+            "01a1141a-8884-7ed0-ad8c-4d71806b5072"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-06T15:00:00.000Z",
+          "recorded_at": "2026-10-06T15:00:00.000Z",
+          "time_defaulted": true,
+          "original_words": "Carry unfinished selected work from the latest previous plan, including my delegated work.",
+          "before": {
+            "date": "2026.10.04"
+          },
+          "after": {
+            "date": "2026.10.06"
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.03-daily-plan.md",
+        "text": "---\nid: 01a1141a-8884-74ec-8229-9dfe190b84cd\ntype: daily-plan\ntitle: \"Daily plan 2026.10.03\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-04T15:00:00.000Z\"\nupdated_at: \"2026-10-04T15:00:00.000Z\"\n---\n# Daily plan — 2026.10.03\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141a-8884-7a62-93f4-8c202a4d8b64 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.04-daily-plan.md",
+        "text": "---\nid: 01a1141a-8884-7cac-aa51-c075842ecccc\ntype: daily-plan\ntitle: \"Daily plan 2026.10.04\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-04T15:00:00.000Z\"\nupdated_at: \"2026-10-04T15:00:00.000Z\"\n---\n# Daily plan — 2026.10.04\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141a-8884-7a62-93f4-8c202a4d8b64 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141a-8884-7ed0-ad8c-4d71806b5072 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141b-6e62-77bd-96c5-ddf2902b6570\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-06T15:00:00.000Z\"\nupdated_at: \"2026-10-06T15:00:00.000Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141a-8884-7a62-93f4-8c202a4d8b64 -->\n  Project: Fixture. Carried forward from October 4.\n\n## Delegated work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141a-8884-7ed0-ad8c-4d71806b5072 -->\n  Project: Fixture. Assigned to: Luna. Carried forward from October 4.\n"
+      }
+    ]
+  },
+  "closure-blocked": {
+    "records": [
+      {
+        "id": "01a1141c-fe1f-7b98-a36b-26581dcde3ce",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure-blocked\\planning-O4fkTi\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141c-fe2d-7516-878e-1d510d34dec4",
+        "type": "blocker",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure-blocked\\planning-O4fkTi\\1-projects\\2026.01.01-fixture\\blockers\\approval-needed.md",
+        "owner": "fixture@example.test",
+        "state": "open"
+      },
+      {
+        "id": "01a1141c-fe2d-76e9-b8db-5806cae67a29",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure-blocked\\planning-O4fkTi\\1-projects\\2026.01.01-fixture\\first\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a1141c-fe1f-7c7d-9151-939cc3f8c9b2",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure-blocked\\planning-O4fkTi\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141c-fe1f-747e-9f98-f82c14a25fbc",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure-blocked\\planning-O4fkTi\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      },
+      {
+        "id": "01a1141c-fe1f-7bec-ab55-c321ef9297b0",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\closure-blocked\\planning-O4fkTi\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [],
+      "total": 0,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe1f-70d4-834f-b9e0bf7ee6ea\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.813Z\"\nupdated_at: \"2026-10-07T02:06:46.813Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe1f-7bec-ab55-c321ef9297b0 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe1f-796a-8114-91181d207b93\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.813Z\"\nupdated_at: \"2026-10-07T02:06:46.813Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe1f-7bec-ab55-c321ef9297b0 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141c-fe1f-747e-9f98-f82c14a25fbc -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "reopen-blocker": {
+    "records": [
+      {
+        "id": "01a1141c-fe2e-7d94-918a-eaedeb6a4185",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-blocker\\planning-FjEz0u\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "in-progress"
+      },
+      {
+        "id": "01a1141c-fe3e-7988-8aa2-b416ef4af387",
+        "type": "blocker",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-blocker\\planning-FjEz0u\\1-projects\\2026.01.01-fixture\\blockers\\approval-needed.md",
+        "owner": "fixture@example.test",
+        "state": "open"
+      },
+      {
+        "id": "01a1141c-fe3e-7c1e-adc5-c9dfad9281a2",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-blocker\\planning-FjEz0u\\1-projects\\2026.01.01-fixture\\first\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a1141c-fe2e-7e02-9b84-79dac9ee0083",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-blocker\\planning-FjEz0u\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "in-progress"
+      },
+      {
+        "id": "01a1141c-fe2e-7eed-b6fb-6b0d7f54ab79",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-blocker\\planning-FjEz0u\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      },
+      {
+        "id": "01a1141c-fe2e-702e-ad7b-202081e57b49",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-blocker\\planning-FjEz0u\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "actor": {
+            "id": "fixture@example.test",
+            "kind": "person"
+          },
+          "record_ids": [
+            "01a1141c-fe3e-7988-8aa2-b416ef4af387",
+            "01a1141c-fe2e-7e02-9b84-79dac9ee0083",
+            "01a1141c-fe2e-7d94-918a-eaedeb6a4185"
+          ],
+          "before": {
+            "project_state": "completed",
+            "milestone_state": "completed",
+            "blocker_state": "resolved"
+          },
+          "time_defaulted": true,
+          "id": "01a1141d-c96a-7289-bdd6-67922711b555",
+          "after": {
+            "preserved_completed_tasks": [
+              "Recovery task",
+              "Other task"
+            ],
+            "project_state": "in-progress",
+            "milestone_state": "in-progress",
+            "reason": "Previously resolved approval was revoked; explicitly reopen affected completed parents and preserve completed tasks.",
+            "blocker_state": "open"
+          },
+          "activity_at": "2026-10-07T02:07:45.697Z",
+          "recorded_at": "2026-10-07T02:07:45.697Z",
+          "operation_id": "01a1141d-c940-7fb1-8889-33d1593c122c",
+          "action": "blocker.reopened",
+          "original_words": "Reopen Approval: the previously resolved approval was revoked. Preserve completed tasks. Reopen affected completed milestone/project as required and record this explicit decision."
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe2f-7b38-834e-c231878c8c52\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.830Z\"\nupdated_at: \"2026-10-07T02:07:45.697Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [x] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe2e-702e-ad7b-202081e57b49 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe2e-7180-ac1a-099dbca5db3c\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.830Z\"\nupdated_at: \"2026-10-07T02:07:45.697Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [x] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe2e-702e-ad7b-202081e57b49 -->\n- [x] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141c-fe2e-7eed-b6fb-6b0d7f54ab79 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "reopen-dod": {
+    "records": [
+      {
+        "id": "01a1141c-fe42-7584-ad4d-45b759e4a386",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-dod\\planning-2kHvJ8\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "in-progress"
+      },
+      {
+        "id": "01a1141c-fe46-7185-aa33-38d2e874820b",
+        "type": "blocker",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-dod\\planning-2kHvJ8\\1-projects\\2026.01.01-fixture\\blockers\\approval-needed.md",
+        "owner": "fixture@example.test",
+        "state": "resolved"
+      },
+      {
+        "id": "01a1141c-fe46-7d0d-b98f-e9d1200f4e4a",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-dod\\planning-2kHvJ8\\1-projects\\2026.01.01-fixture\\first\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a1141c-fe42-7ffc-bc07-5bf8305b24a9",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-dod\\planning-2kHvJ8\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "in-progress"
+      },
+      {
+        "id": "01a1141c-fe42-7304-89aa-26db2f492077",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-dod\\planning-2kHvJ8\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      },
+      {
+        "id": "01a1141c-fe42-7e44-a357-4e0d0c8de6d4",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-dod\\planning-2kHvJ8\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "id": "01a1141d-ff4c-795a-85a0-5a13be003306",
+          "operation_id": "01a1141d-ff1f-7499-846f-a3ad38b82909",
+          "action": "dod.unsatisfied",
+          "record_ids": [
+            "01a1141c-fe46-7d0d-b98f-e9d1200f4e4a",
+            "01a1141c-fe42-7ffc-bc07-5bf8305b24a9",
+            "01a1141c-fe42-7584-ad4d-45b759e4a386"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:07:50.127Z",
+          "recorded_at": "2026-10-07T02:07:50.127Z",
+          "time_defaulted": true,
+          "original_words": "The Release evidence approved DoD criterion is no longer satisfied. Uncheck it and reopen affected completed milestone/project as required. Preserve completed tasks and the independently resolved Approval blocker.",
+          "before": {
+            "criterion": {
+              "id": "01a1141c-fe46-7423-a761-fb5ef9c0b62d",
+              "checked": true
+            },
+            "milestone_state": "completed",
+            "project_state": "completed"
+          },
+          "after": {
+            "criterion_checked": false,
+            "milestone_state": "in-progress",
+            "project_state": "in-progress",
+            "reason": "Release evidence approved criterion is no longer satisfied"
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe42-7a9e-8b09-0ff756c37558\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.849Z\"\nupdated_at: \"2026-10-07T02:06:46.849Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe42-7e44-a357-4e0d0c8de6d4 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe42-7058-ae8f-c742f4d1a94e\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.849Z\"\nupdated_at: \"2026-10-07T02:06:46.849Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe42-7e44-a357-4e0d0c8de6d4 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141c-fe42-7304-89aa-26db2f492077 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "reopen-task": {
+    "records": [
+      {
+        "id": "01a1141c-fe47-7473-bd45-7282e01e2575",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-task\\planning-HN9dSJ\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "in-progress"
+      },
+      {
+        "id": "01a1141c-fe4a-7862-bfe5-067f86cb5da9",
+        "type": "blocker",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-task\\planning-HN9dSJ\\1-projects\\2026.01.01-fixture\\blockers\\approval-needed.md",
+        "owner": "fixture@example.test",
+        "state": "resolved"
+      },
+      {
+        "id": "01a1141c-fe4a-741e-99f0-62a979a23432",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-task\\planning-HN9dSJ\\1-projects\\2026.01.01-fixture\\first\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a1141c-fe47-7bac-ae6f-2d8b82c0b980",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-task\\planning-HN9dSJ\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "in-progress"
+      },
+      {
+        "id": "01a1141c-fe47-7307-859f-8629ac8c62a6",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-task\\planning-HN9dSJ\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      },
+      {
+        "id": "01a1141c-fe47-715b-a83a-8ecf087622d2",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reopen-task\\planning-HN9dSJ\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "before": {
+            "states": {
+              "01a1141c-fe47-715b-a83a-8ecf087622d2": "completed",
+              "01a1141c-fe47-7473-bd45-7282e01e2575": "completed",
+              "01a1141c-fe47-7bac-ae6f-2d8b82c0b980": "completed"
+            }
+          },
+          "operation_id": "01a1141d-d6b4-76fb-a8af-438ee0944ec7",
+          "record_ids": [
+            "01a1141c-fe47-715b-a83a-8ecf087622d2",
+            "01a1141c-fe47-7bac-ae6f-2d8b82c0b980",
+            "01a1141c-fe47-7473-bd45-7282e01e2575"
+          ],
+          "actor": {
+            "id": "codex",
+            "kind": "agent"
+          },
+          "action": "task.reopened",
+          "after": {
+            "states": {
+              "01a1141c-fe47-715b-a83a-8ecf087622d2": "not-started",
+              "01a1141c-fe47-7473-bd45-7282e01e2575": "in-progress",
+              "01a1141c-fe47-7bac-ae6f-2d8b82c0b980": "in-progress"
+            },
+            "reason": "Accepted work needs doing again"
+          },
+          "id": "01a1141d-d6dd-7324-8235-c312a515d704",
+          "recorded_at": "2026-10-07T02:08:05.898Z",
+          "activity_at": "2026-10-07T02:08:05.898Z",
+          "time_defaulted": true,
+          "original_words": "Reopen Recovery task to not-started; its accepted work needs doing again. Apply required completed parent reopening; leave Other task completed."
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe47-7268-95b6-8bba7086bdba\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.854Z\"\nupdated_at: \"2026-10-07T02:06:46.854Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe47-715b-a83a-8ecf087622d2 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe47-76c7-b561-d1cd39a1c7fb\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.854Z\"\nupdated_at: \"2026-10-07T02:06:46.854Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe47-715b-a83a-8ecf087622d2 -->\n- [x] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141c-fe47-7307-859f-8629ac8c62a6 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "cancelled-dependency": {
+    "records": [
+      {
+        "id": "01a1141c-fe4b-7ac8-8c81-074ca64ddc0f",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\cancelled-dependency\\planning-Gdu6Q7\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141c-fe4e-76ef-8b63-a5ceb6c8ead0",
+        "type": "blocker",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\cancelled-dependency\\planning-Gdu6Q7\\1-projects\\2026.01.01-fixture\\blockers\\approval-needed.md",
+        "owner": "fixture@example.test",
+        "state": "open"
+      },
+      {
+        "id": "01a1141c-fe4e-797f-abce-d527c400115d",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\cancelled-dependency\\planning-Gdu6Q7\\1-projects\\2026.01.01-fixture\\first\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a1141c-fe4b-7973-9d77-9aa8439e869d",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\cancelled-dependency\\planning-Gdu6Q7\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141c-fe4b-73a1-9f7e-27cc2cd69c45",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\cancelled-dependency\\planning-Gdu6Q7\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "cancelled"
+      },
+      {
+        "id": "01a1141c-fe4b-7d62-948a-e460fbd1535b",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\cancelled-dependency\\planning-Gdu6Q7\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "in-progress",
+        "started_at": "2026-10-07T02:07:30.720Z"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "id": "01a1141d-b627-7b26-87f4-320c11aecd3a",
+          "operation_id": "01a1141d-b5fc-7c46-bf7c-713c9466fbbb",
+          "action": "task.started",
+          "record_ids": [
+            "01a1141c-fe4b-7d62-948a-e460fbd1535b"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:07:30.720Z",
+          "recorded_at": "2026-10-07T02:07:30.720Z",
+          "time_defaulted": true,
+          "original_words": "Start Recovery task now despite its cancelled Other task prerequisite. Dependencies are informational; keep the relationship and flag prerequisite cancelled. Do not reopen or remove Other task.",
+          "before": {
+            "task-state": "not-started"
+          },
+          "after": {
+            "task-state": "in-progress",
+            "started_at": "2026-10-07T02:07:30.720Z",
+            "prerequisite": "cancelled",
+            "dependency_retained": true
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe4b-7f57-bd02-d0b1a7291a76\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.859Z\"\nupdated_at: \"2026-10-07T02:06:46.859Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe4b-7d62-948a-e460fbd1535b -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141c-fe4b-7689-97fa-3e9157980953\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:06:46.859Z\"\nupdated_at: \"2026-10-07T02:06:46.859Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [>] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141c-fe4b-7d62-948a-e460fbd1535b -->\n- [-] ~~[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]~~ <!-- ref: 01a1141c-fe4b-73a1-9f7e-27cc2cd69c45 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "reconcile-uncheck": {
+    "records": [
+      {
+        "id": "01a1141f-62ef-712d-8ff6-902c28e7c0aa",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconcile-uncheck\\planning-etOn6t\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-62ef-7128-abe8-9053008c0263",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconcile-uncheck\\planning-etOn6t\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-62ef-7a0e-9168-e4cbf5548c5e",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconcile-uncheck\\planning-etOn6t\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-62ef-7080-87ec-59040493ace5",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconcile-uncheck\\planning-etOn6t\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "after": {
+            "reason": "Changed today checkbox compared with its stored per-view completed baseline; no started_at.",
+            "state": "not-started"
+          },
+          "activity_at": "2026-10-07T02:10:49.174Z",
+          "id": "01a11420-8e16-7f23-a983-3139234a05e7",
+          "operation_id": "01a11420-8deb-7098-9a35-ea27b61274a4",
+          "before": {
+            "state": "completed"
+          },
+          "action": "task.reopened",
+          "time_defaulted": true,
+          "record_ids": [
+            "01a1141f-62ef-7080-87ec-59040493ace5"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "recorded_at": "2026-10-07T02:10:49.174Z",
+          "original_words": "I deliberately unchecked Recovery task in today's plan after its completed state had been rendered there."
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141f-62ef-794f-9c17-35829705b1fb\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.693Z\"\nupdated_at: \"2026-10-07T02:09:23.693Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-62ef-7080-87ec-59040493ace5 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141f-62ef-79b4-b85e-88f4375fc0c6\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.693Z\"\nupdated_at: \"2026-10-07T02:09:23.693Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-62ef-7080-87ec-59040493ace5 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141f-62ef-7a0e-9168-e4cbf5548c5e -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "reconcile-conflict": {
+    "records": [
+      {
+        "id": "01a1141f-62fe-7e09-a666-106f879a6323",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconcile-conflict\\planning-xiGMtf\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-62fe-74d1-a1d7-a5776f348e88",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconcile-conflict\\planning-xiGMtf\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-62fe-7090-9690-44e173248aec",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconcile-conflict\\planning-xiGMtf\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "assignee": "Luna",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-62fe-7ec4-bbab-e80fb3619cc0",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\reconcile-conflict\\planning-xiGMtf\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "activity_at": "2026-10-07T02:09:23.709Z",
+          "id": "01a11420-2717-72e8-b05d-566ff9638c47",
+          "action": "task.assigned",
+          "before": {
+            "owner": "fixture@example.test"
+          },
+          "operation_id": "01a11420-26ee-7a6e-b271-0223e7fa5f61",
+          "after": {
+            "assignee": "Luna",
+            "owner": "fixture@example.test"
+          },
+          "original_words": "Assign Other task to Luna, leaving its owner unchanged.",
+          "time_defaulted": true,
+          "recorded_at": "2026-10-07T02:09:23.709Z",
+          "record_ids": [
+            "01a1141f-62fe-7090-9690-44e173248aec"
+          ],
+          "actor": {
+            "id": "fixture@example.test",
+            "kind": "person"
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141f-62fe-7b20-8268-8ff031940d29\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.709Z\"\nupdated_at: \"2026-10-07T02:09:23.709Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-62fe-7ec4-bbab-e80fb3619cc0 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141f-62fe-70f7-afb7-f9354f76287d\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.709Z\"\nupdated_at: \"2026-10-07T02:09:23.709Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [-] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-62fe-7ec4-bbab-e80fb3619cc0 -->\n\n## Delegated work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141f-62fe-7090-9690-44e173248aec --> — Assignee: Luna\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "recovery-file-conflict": {
+    "records": [
+      {
+        "id": "01a1141f-6302-7a44-8171-036764fd02e9",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\recovery-file-conflict\\planning-Gy8LLI\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-6302-73a3-8138-e2a9813881c5",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\recovery-file-conflict\\planning-Gy8LLI\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-6302-7125-a26b-a5aed4bf29f2",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\recovery-file-conflict\\planning-Gy8LLI\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-6302-72be-9755-51ccd9159d50",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\recovery-file-conflict\\planning-Gy8LLI\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [],
+      "total": 0,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141f-6302-7381-942e-4a958d06396a\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.713Z\"\nupdated_at: \"2026-10-07T02:09:23.713Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-6302-72be-9755-51ccd9159d50 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141f-6302-7df1-a897-67b5d39538f4\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.713Z\"\nupdated_at: \"2026-10-07T02:09:23.713Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-6302-72be-9755-51ccd9159d50 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141f-6302-7125-a26b-a5aed4bf29f2 -->\n\n## Notes\n\nPreserve this unrelated note.\n\nUnexpected manual edit to preserve.\n"
+      },
+      {
+        "path": "2026.10.07-daily-plan.md",
+        "text": "---\nid: 01a1141f-6302-7512-8f57-8a348f544a86\ntype: daily-plan\ntitle: \"Daily plan 2026.10.07\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.713Z\"\nupdated_at: \"2026-10-07T02:09:23.713Z\"\n---\n# Daily plan — 2026.10.07\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-6302-72be-9755-51ccd9159d50 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "recovery-log-conflict": {
+    "records": [
+      {
+        "id": "01a1141f-6306-7f73-ada9-bfe401a738e1",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\recovery-log-conflict\\planning-tq7uco\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-6306-7669-95ae-c8dd9ff00cd9",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\recovery-log-conflict\\planning-tq7uco\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-6306-7a0d-9dd7-b30a1fd191ec",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\recovery-log-conflict\\planning-tq7uco\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a1141f-6306-7bdb-8790-8940df05c57e",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\recovery-log-conflict\\planning-tq7uco\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "id": "01a1141f-6306-710a-b0e5-4da50584d3c8",
+          "operation_id": "01a1141f-6306-74a8-a7af-6d39e3d89e7c",
+          "action": "selection-move",
+          "record_ids": [
+            "01a1141f-6306-7bdb-8790-8940df05c57e"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:09:23.718Z",
+          "recorded_at": "2026-10-07T02:09:23.718Z",
+          "time_defaulted": false,
+          "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+          "before": {
+            "date": "2026.10.06"
+          },
+          "after": {
+            "date": "2026.10.09"
+          }
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a1141f-6306-7efc-b40f-6abd1fb77947\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.718Z\"\nupdated_at: \"2026-10-07T02:09:23.718Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-6306-7bdb-8790-8940df05c57e -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a1141f-6306-7bfa-96f0-058b145fdce1\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.718Z\"\nupdated_at: \"2026-10-07T02:09:23.718Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-6306-7bdb-8790-8940df05c57e -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141f-6306-7a0d-9dd7-b30a1fd191ec -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.07-daily-plan.md",
+        "text": "---\nid: 01a1141f-6306-7ecc-ad72-6415a8853941\ntype: daily-plan\ntitle: \"Daily plan 2026.10.07\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:09:23.718Z\"\nupdated_at: \"2026-10-07T02:09:23.718Z\"\n---\n# Daily plan — 2026.10.07\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1141f-6306-7bdb-8790-8940df05c57e -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "day-precreated": {
+    "records": [
+      {
+        "id": "01a11421-e8ba-7d40-8e94-57eee3425812",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-precreated\\planning-JPqAUf\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8ba-7114-aead-809fdb4f7dd6",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-precreated\\planning-JPqAUf\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8ba-7c36-8cc5-ff7e9f3f98ba",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-precreated\\planning-JPqAUf\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8ba-73ba-95b8-4f0d35476f9e",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-precreated\\planning-JPqAUf\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "original_words": "Carry unfinished Recovery from yesterday once while preserving Other, unrelated prose and history.",
+          "operation_id": "01a11425-dc7c-7439-881e-6030f261341f",
+          "after": {
+            "carriedFrom": "2026.10.05",
+            "date": "2026.10.06"
+          },
+          "record_ids": [
+            "01a11421-e8ba-73ba-95b8-4f0d35476f9e"
+          ],
+          "time_defaulted": true,
+          "id": "01a11425-dca6-7776-9744-5023570b3cc3",
+          "before": {
+            "date": "2026.10.05"
+          },
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "recorded_at": "2026-10-06T20:00:00.000Z",
+          "activity_at": "2026-10-06T20:00:00.000Z",
+          "action": "selection-carried-forward"
+        },
+        {
+          "id": "01a11427-ab48-796f-ac32-bcb8450d2475",
+          "operation_id": "01a11427-ab1b-71d1-a585-eef82155fd9b",
+          "action": "selection-remove",
+          "record_ids": [
+            "01a11421-e8ba-73ba-95b8-4f0d35476f9e"
+          ],
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "activity_at": "2026-10-07T02:18:32.669Z",
+          "recorded_at": "2026-10-07T02:18:32.669Z",
+          "time_defaulted": true,
+          "original_words": "Remove Recovery task from October 6 selections, leaving canonical task state unchanged.",
+          "before": {
+            "date": "2026.10.06",
+            "selected": true
+          },
+          "after": {
+            "date": "2026.10.06",
+            "selected": false
+          }
+        }
+      ],
+      "total": 2,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.04-daily-plan.md",
+        "text": "---\nid: 01a11421-e8ba-785c-8183-57a3112803df\ntype: daily-plan\ntitle: \"Daily plan 2026.10.04\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-05T15:00:00.000Z\"\nupdated_at: \"2026-10-05T15:00:00.000Z\"\n---\n# Daily plan — 2026.10.04\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e8ba-73ba-95b8-4f0d35476f9e -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11421-e8ba-7e56-b21c-1c9c6b40383b\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-05T15:00:00.000Z\"\nupdated_at: \"2026-10-05T15:00:00.000Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e8ba-73ba-95b8-4f0d35476f9e -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11421-e8ba-7642-a135-836fbc5ef9f6\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-05T15:00:00.000Z\"\nupdated_at: \"2026-10-06T20:00:00.000Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e8ba-7c36-8cc5-ff7e9f3f98ba -->\n\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "day-terminals": {
+    "records": [
+      {
+        "id": "01a11421-e8ca-7914-bc1a-9b1590fe506f",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-terminals\\planning-n3mr8S\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8ce-7ed6-92ba-10b2499d4f84",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-terminals\\planning-n3mr8S\\1-projects\\2026.01.01-fixture\\first\\additional-cancelled.md",
+        "owner": "fixture@example.test",
+        "state": "cancelled"
+      },
+      {
+        "id": "01a11421-e8ce-7644-8fd3-17d1deb358e3",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-terminals\\planning-n3mr8S\\1-projects\\2026.01.01-fixture\\first\\additional-completed.md",
+        "owner": "fixture@example.test",
+        "state": "completed"
+      },
+      {
+        "id": "01a11421-e8cf-78fc-a62d-9ba5a9a467b5",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-terminals\\planning-n3mr8S\\1-projects\\2026.01.01-fixture\\first\\additional-not-started.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8ca-785d-9858-23a658f5a4d7",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-terminals\\planning-n3mr8S\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8ca-7548-be68-469af190c4c5",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-terminals\\planning-n3mr8S\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8ca-7c24-9178-9337d90c386c",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\day-terminals\\planning-n3mr8S\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "after": {
+            "selectedIds": [
+              "01a11421-e8ca-7c24-9178-9337d90c386c",
+              "01a11421-e8ca-7548-be68-469af190c4c5"
+            ],
+            "date": "2026.10.06",
+            "carriedFrom": "2026.10.04"
+          },
+          "recorded_at": "2026-10-06T20:00:00.000Z",
+          "original_words": "Plan October 6, 2026 in America/Chicago after skipped days. Carry only unfinished selected work from latest previous plan; exclude completed, cancelled, and unselected open tasks. Create only today and preserve historical records.",
+          "before": {
+            "date": "2026.10.06",
+            "selectedIds": []
+          },
+          "actor": {
+            "id": "fixture@example.test",
+            "kind": "person"
+          },
+          "activity_at": "2026-10-06T20:00:00.000Z",
+          "record_ids": [
+            "01a11421-e8ca-7c24-9178-9337d90c386c",
+            "01a11421-e8ca-7548-be68-469af190c4c5"
+          ],
+          "action": "selection-carry-forward",
+          "operation_id": "01a11429-d2f7-7653-8ea3-b8b4f96b5b10",
+          "time_defaulted": true,
+          "id": "01a11429-d330-7650-af3c-39e1864abb72"
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.03-daily-plan.md",
+        "text": "---\nid: 01a11421-e8ca-7afc-a183-74bf58aa1d0e\ntype: daily-plan\ntitle: \"Daily plan 2026.10.03\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-04T15:00:00.000Z\"\nupdated_at: \"2026-10-04T15:00:00.000Z\"\n---\n# Daily plan — 2026.10.03\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e8ca-7c24-9178-9337d90c386c -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.04-daily-plan.md",
+        "text": "---\nid: 01a11421-e8ca-72ab-ac5a-7a7a97f2a404\ntype: daily-plan\ntitle: \"Daily plan 2026.10.04\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-04T15:00:00.000Z\"\nupdated_at: \"2026-10-04T15:00:00.000Z\"\n---\n# Daily plan — 2026.10.04\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e8ca-7c24-9178-9337d90c386c -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e8ca-7548-be68-469af190c4c5 -->\n\n## Notes\n\nPreserve this unrelated note.\n\n- [x] [[../../1-projects/2026.01.01-fixture/first/additional-completed|additional-completed]] <!-- ref: 01a11421-e8ce-7644-8fd3-17d1deb358e3 -->\n\n- [-] [[../../1-projects/2026.01.01-fixture/first/additional-cancelled|additional-cancelled]] <!-- ref: 01a11421-e8ce-7ed6-92ba-10b2499d4f84 -->\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11429-314c-709c-a00e-8a2e7bf89855\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-06T20:00:00.000Z\"\nupdated_at: \"2026-10-06T20:00:00.000Z\"\n---\n# Daily plan — 2026.10.06 (America/Chicago)\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e8ca-7c24-9178-9337d90c386c -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e8ca-7548-be68-469af190c4c5 -->\n\n## Delegated work\n\nNo delegated work selected.\n\n## Notes\n\nCarried unfinished selected work from October 4, 2026.\n"
+      }
+    ]
+  },
+  "config-explicit-legacy": {
+    "records": [
+      {
+        "id": "01a11421-e8f9-75ee-b22c-f62b968d2856",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-explicit-legacy\\planning-HEGoUz\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8f9-7748-b048-713fb8c5e45c",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-explicit-legacy\\planning-HEGoUz\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8f9-7af3-8970-f4986ba1cb5a",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-explicit-legacy\\planning-HEGoUz\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e8f9-7199-b49f-a943eb75f65c",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-explicit-legacy\\planning-HEGoUz\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11424-d1eb-7634-a720-e778d88a8246",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-explicit-legacy\\planning-HEGoUz\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a11424-d1bf-7a73-9bb1-499f5fe8e2cf",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-explicit-legacy\\planning-HEGoUz\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "activity_at": "2026-10-07T02:15:20.003Z",
+          "recorded_at": "2026-10-07T02:15:20.003Z",
+          "id": "01a11424-d297-7ece-9d70-4be497199d52",
+          "original_words": "Create accepted milestone M1: update LinkedIn and resume under the existing Fixture project; no extra tasks, no profile migration.",
+          "time_defaulted": true,
+          "record_ids": [
+            "01a11424-d1bf-7a73-9bb1-499f5fe8e2cf",
+            "01a11424-d1eb-7634-a720-e778d88a8246"
+          ],
+          "after": {
+            "acceptance_source": "Explicit user instruction",
+            "milestone-state": "not-started",
+            "project_id": "01a11421-e8f9-75ee-b22c-f62b968d2856",
+            "title": "M1: update LinkedIn and resume"
+          },
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "operation_id": "01a11424-d26c-7d37-8a7d-78bb4a60486e",
+          "action": "milestone.accepted"
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11421-e8f9-7cb2-ba71-32b2a8bb22f7\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.079Z\"\nupdated_at: \"2026-10-07T02:12:09.079Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e8f9-7199-b49f-a943eb75f65c -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11421-e8f9-75a9-9b9e-7a0ba12e22ef\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.079Z\"\nupdated_at: \"2026-10-07T02:12:09.079Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e8f9-7199-b49f-a943eb75f65c -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e8f9-7af3-8970-f4986ba1cb5a -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "config-conflict": {
+    "records": [
+      {
+        "id": "01a11421-e909-7b04-9516-fbf44921224a",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-conflict\\planning-Ne5ge4\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e909-78f2-b0a2-0fc549c035d8",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-conflict\\planning-Ne5ge4\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e909-7c70-b69b-ca784bede372",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-conflict\\planning-Ne5ge4\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e909-7181-b731-b235d2f66c3b",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-conflict\\planning-Ne5ge4\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [],
+      "total": 0,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11421-e909-7020-b0a5-19efe05209d8\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.096Z\"\nupdated_at: \"2026-10-07T02:12:09.096Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e909-7181-b731-b235d2f66c3b -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11421-e909-7887-814b-79cc1b74a88c\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.096Z\"\nupdated_at: \"2026-10-07T02:12:09.096Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e909-7181-b731-b235d2f66c3b -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e909-7c70-b69b-ca784bede372 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "config-unknown": {
+    "records": [
+      {
+        "id": "01a11421-e90d-78f6-a2d6-5e9a363870c2",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-unknown\\planning-hoz8mm\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e90d-775f-a014-b8cfc7442049",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-unknown\\planning-hoz8mm\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e90d-7be6-bb86-82dbcce5196c",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-unknown\\planning-hoz8mm\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e90d-72a3-9c28-3e992d15c1ff",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-unknown\\planning-hoz8mm\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [],
+      "total": 0,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11421-e90d-7168-ae26-259919441938\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.100Z\"\nupdated_at: \"2026-10-07T02:12:09.100Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e90d-72a3-9c28-3e992d15c1ff -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11421-e90d-70d6-8560-f522d44f477a\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.100Z\"\nupdated_at: \"2026-10-07T02:12:09.100Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e90d-72a3-9c28-3e992d15c1ff -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e90d-7be6-bb86-82dbcce5196c -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "config-shared-a": {
+    "records": [
+      {
+        "id": "01a11421-e911-7624-b555-efd45bbc99fc",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-a\\planning-PhG2j4\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e911-7333-8206-0527f6ee9c61",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-a\\planning-PhG2j4\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e911-7e1c-9613-572408ef5ad7",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-a\\planning-PhG2j4\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e911-75de-b5c5-42b4f53cdc62",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-a\\planning-PhG2j4\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [],
+      "total": 0,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11421-e911-7a17-a274-2d5674cdb192\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.104Z\"\nupdated_at: \"2026-10-07T02:12:09.104Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e911-75de-b5c5-42b4f53cdc62 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11421-e911-7993-a537-de029167a865\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.104Z\"\nupdated_at: \"2026-10-07T02:12:09.104Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e911-75de-b5c5-42b4f53cdc62 -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e911-7e1c-9613-572408ef5ad7 -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  },
+  "config-shared-b": {
+    "records": [
+      {
+        "id": "01a11421-e915-72d7-9d80-21c7a62f39ce",
+        "type": "project",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-b\\planning-ZtedEc\\1-projects\\2026.01.01-fixture\\project-index.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e915-77b1-8883-1b0f5656c7a9",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-b\\planning-ZtedEc\\1-projects\\2026.01.01-fixture\\first\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e915-75e3-b88f-e4a6269493db",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-b\\planning-ZtedEc\\1-projects\\2026.01.01-fixture\\first\\other-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11421-e915-78e7-b137-8bed6db9796a",
+        "type": "task",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-b\\planning-ZtedEc\\1-projects\\2026.01.01-fixture\\first\\recovery-task.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      },
+      {
+        "id": "01a11425-e059-7e22-94e2-85e13139d91b",
+        "type": "dod",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-b\\planning-ZtedEc\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\definition-of-done.md",
+        "owner": "fixture@example.test"
+      },
+      {
+        "id": "01a11425-e02e-7f48-926e-061374e0837e",
+        "type": "milestone",
+        "path": "<USER_HOME>\\AppData\\Local\\Temp\\.temp\\windows-release-1791338346419\\config-shared-b\\planning-ZtedEc\\1-projects\\2026.01.01-fixture\\update-linkedin-and-resume\\milestone.md",
+        "owner": "fixture@example.test",
+        "state": "not-started"
+      }
+    ],
+    "diagnostics": [],
+    "log": {
+      "entries": [
+        {
+          "recorded_at": "2026-10-07T02:16:29.235Z",
+          "after": {
+            "title": "Update LinkedIn and resume",
+            "milestone-state": "not-started",
+            "tasks_created": 0,
+            "acceptance_source": "explicit user instruction",
+            "project_id": "01a11421-e915-72d7-9d80-21c7a62f39ce"
+          },
+          "record_ids": [
+            "01a11425-e02e-7f48-926e-061374e0837e",
+            "01a11425-e059-7e22-94e2-85e13139d91b"
+          ],
+          "original_words": "Create accepted milestone M1: update LinkedIn and resume under this vault's Fixture project, no extra tasks.",
+          "activity_at": "2026-10-07T02:16:29.235Z",
+          "time_defaulted": true,
+          "action": "milestone.accepted",
+          "id": "01a11425-e106-7b86-9504-f80ca84c52ab",
+          "actor": {
+            "kind": "person",
+            "id": "fixture@example.test"
+          },
+          "operation_id": "01a11425-e0dc-739f-ba28-27b898f28472"
+        }
+      ],
+      "total": 1,
+      "offset": 0,
+      "limit": 1000,
+      "nextOffset": null
+    },
+    "plans": [
+      {
+        "path": "2026.10.05-daily-plan.md",
+        "text": "---\nid: 01a11421-e915-7297-9e6b-497e85777f0e\ntype: daily-plan\ntitle: \"Daily plan 2026.10.05\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.108Z\"\nupdated_at: \"2026-10-07T02:12:09.108Z\"\n---\n# Daily plan — 2026.10.05\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e915-78e7-b137-8bed6db9796a -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      },
+      {
+        "path": "2026.10.06-daily-plan.md",
+        "text": "---\nid: 01a11421-e915-7d86-aa6f-7dcc2f50f61d\ntype: daily-plan\ntitle: \"Daily plan 2026.10.06\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-07T02:12:09.108Z\"\nupdated_at: \"2026-10-07T02:12:09.108Z\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a11421-e915-78e7-b137-8bed6db9796a -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e915-75e3-b88f-e4a6269493db -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+      }
+    ]
+  }
+}

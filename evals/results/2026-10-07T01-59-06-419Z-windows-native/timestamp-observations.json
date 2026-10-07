@@ -1,0 +1,584 @@
+[
+  {
+    "case": "acceptance-accepted-retry.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/records.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md'; rg --files --hidden .\"",
+        "outputSha256": "5febdef2b083112b3deb03aa5cdb8cec4ddcb38b77c98ca7d16c5a4a5bde4d23",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' resolve-context --input .temp/daily-tasks-context.json; node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' inspect-records --input .temp/daily-tasks-inspect.json; node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' new-id; node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' new-id; node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' new-id; node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time\"",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Set-Content -LiteralPath .temp/acceptance-time.json -Value '{}' -Encoding utf8\nnode '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time --input (Join-Path \"'$PWD '\"'.temp/acceptance-time.json')\"",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:13:11.319Z",
+            "recorded_at": "2026-10-07T02:13:11.319Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "acceptance.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$base='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills'; Get-Content \\\"\"'$base/daily-tasks-capture/SKILL.md\"; Get-Content \"$base/daily-tasks-checkin/SKILL.md\"; Get-Content \"$base/daily-tasks-setup/SKILL.md\"; Get-Content \"$base/daily-tasks/references/cli.md\"'",
+        "outputSha256": "a787c291e523eae689cfc379aac702772e133e82ccaccf02cb629802bb587a6a",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "assignment-time.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-records/SKILL.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "9d3a81b16c783eac74a220bc49b7122959a7785e28f087b501e16e4860857eef",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"New-Item -ItemType Directory -Force .temp | Out-Null\nSet-Content .temp/context.json -Value '{\\\"initialCwd\\\":\\\"<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/assignment-time/planning-4iApHF\\\"}'\nSet-Content .temp/time.json -Value '{\\\"reported\\\":\\\"I started it a while ago.\\\"}'\nnode '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' resolve-context --input \\\"\"'$PWD/.temp/context.json\"\nnode '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time --input \\\"\"'$PWD/.temp/time.json\"\nnode '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' new-id\nnode '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' new-id\"",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:02:09.605Z",
+            "recorded_at": "2026-10-07T02:02:09.605Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "cancelled-dependency.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-records/SKILL.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "9d3a81b16c783eac74a220bc49b7122959a7785e28f087b501e16e4860857eef",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time --input '<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\cancelled-dependency\\\\planning-Gdu6Q7\\\\.temp\\\\time.json'\"",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:07:30.720Z",
+            "recorded_at": "2026-10-07T02:07:30.720Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "closure-blocked.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-records/SKILL.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'\"",
+        "outputSha256": "a2c79552829acf4ae3edceaae7c44438ce47290ddfd0beff13d3d88b4cc2d5de",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "closure.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-records/SKILL.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "9d3a81b16c783eac74a220bc49b7122959a7785e28f087b501e16e4860857eef",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cliPath = '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$scanJson = node $cliPath inspect-records --input ((Get-Location).Path + '\"'/.temp/closure-inspect.json'); foreach (\"'$recordId in @('\"'01a11418-4395-7477-9a87-7e681d97635a','01a11418-4395-763d-8b85-53dcc9aa119e')) { \"'$inputPath = (Get-Location).Path + '\"'/.temp/closure-' + \"'$recordId + '\"'.json'; ('{\\\"recordId\\\":\\\"' + \"'$recordId + '\"'\\\",\\\"records\\\":' + (\"'$scanJson.Substring($scanJson.IndexOf('\"'['), \"'$scanJson.LastIndexOf('\"',\\\"diagnostics\\\"') - \"'$scanJson.IndexOf('\"'['))) + '}') | Set-Content -LiteralPath \"'$inputPath -Encoding utf8; node $cliPath check-closure --input $inputPath }; '\"'{}' | Set-Content .temp/closure-time.json -Encoding utf8; node \"'$cliPath activity-time --input ((Get-Location).Path + '\"'/.temp/closure-time.json'); node \"'$cliPath new-id; node $cliPath new-id'",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:02:36.556Z",
+            "recorded_at": "2026-10-07T02:02:36.556Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "config-conflict.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-records/SKILL.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/records.md'\"",
+        "outputSha256": "c39190b5191f0285c457b4488c897122b5e20adec37f6a4cf99d569692447a8c",
+        "timestampGuardObserved": true
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '.nyssaai/daily-tasks/profile.json'; node --version; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "35da8b74d3421f40da0ccc01b655fe8bcf39b7a15ae63155e9be77037e3d3ab1",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "config-explicit-legacy.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/references/records.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-capture/SKILL.md'; rg --files -g '*.md' -g '*.json'\"",
+        "outputSha256": "67b127e1b09e3463f9cbaeb9ffcc72865d51273ddafac744814d0b5ff8031d77",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$vault=(Get-Location).Path; $ctx=node $cli resolve-context --input (Join-Path $vault '\"'.temp/context-input.json') | ConvertFrom-Json -DateKind String; \"'$scanInput=Join-Path $vault '\"'.temp/inspect.json'; @{projectsRoot=\"'$ctx.projectsRoot}|ConvertTo-Json|Set-Content -LiteralPath $scanInput; node $cli inspect-records --input $scanInput; '\"'{}'|Set-Content -LiteralPath '.temp/time.json'; node \"'$cli activity-time --input (Join-Path $vault '\"'.temp/time.json')\"",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:14:26.929Z",
+            "recorded_at": "2026-10-07T02:14:26.929Z",
+            "time_defaulted": true
+          }
+        ]
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$ErrorActionPreference='\"'Stop'; \"'$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$vault=(Get-Location).Path; $ctx=node $cli resolve-context --input (Join-Path $vault '\"'.temp/context-input.json')|ConvertFrom-Json -DateKind String; \"'$mid=(node $cli new-id|ConvertFrom-Json).id; $did=(node $cli new-id|ConvertFrom-Json).id; $c1=(node $cli new-id|ConvertFrom-Json).id; $c2=(node $cli new-id|ConvertFrom-Json).id; $op=(node $cli new-id|ConvertFrom-Json).id; $eid=(node $cli new-id|ConvertFrom-Json).id; if(!$mid -or !$op){throw '\"'Missing generated IDs'}; \"'$time=node $cli activity-time --input (Join-Path $vault '\"'.temp/time.json')|ConvertFrom-Json -DateKind String; \"'$ts=$time.recorded_at; $pid='\"'01a11421-e8f9-75ee-b22c-f62b968d2856'; \"'$dir=Join-Path $ctx.projectsRoot '\"'2026.01.01-fixture/update-linkedin-and-resume'; \"'$mp=Join-Path $dir '\"'milestone.md'; \"'$dp=Join-Path $dir '\"'definition-of-done.md'; \"'$pp=Join-Path $ctx.projectsRoot '\"'2026.01.01-fixture/project-index.md'; if(Test-Path \"'$dir){throw '\"'Destination exists'}; \"'$before=[IO.File]::ReadAllText($pp); $milestone=@\"\n---\nid: $mid\ntype: milestone\ntitle: \"M1: update LinkedIn and resume\"\ndocument-maturity: reviewed\nmilestone-state: not-started\nowner: \"fixture@example.test\"\nproject_id: \"$pid\"\ncreated_at: \"$ts\"\nupdated_at: \"$ts\"\n---\n# M1 — update LinkedIn and resume\n\n**Project:** [[../project-index|Fixture]] <!-- ref: $pid -->\n\n## Outcome\n\nUpdate LinkedIn and the resume.\n\n## Definition of Done\n\n[[definition-of-done|Full acceptance criteria]] <!-- ref: $did -->\n\"@; $dod=@\"\n---\nid: $did\ntype: dod\ntitle: \"Update LinkedIn and resume Definition of Done\"\nowner: \"fixture@example.test\"\nproject_id: \"$pid\"\nmilestone_id: \"$mid\"\ncreated_at: \"$ts\"\nupdated_at: \"$ts\"\n---\n# Definition of Done\n\n- [ ] LinkedIn is updated. <!-- id: $c1 -->\n- [ ] The resume is updated. <!-- id: $c2 -->\n\n## Milestone\n- [[milestone|M1: update LinkedIn and resume]] <!-- ref: $mid -->\n\"@; $after=$before.Replace('\"'updated_at: 2026-10-07T02:12:09.079Z',\\\"updated_at: \"'$ts\").TrimEnd()+\"`n| [ ] [[update-linkedin-and-resume/milestone'\"\\\\|M1: update LinkedIn and resume]] <\"'!-- ref: $mid --> | |`n\"; $entry=@{id=$eid;operation_id=$op;action='\"'milestone.accepted';record_ids=@(\"'$mid,$did);actor=@{kind='\"'person';id='fixture@example.test'};activity_at=\"'$time.activity_at;recorded_at=$time.recorded_at;time_defaulted=$time.time_defaulted;original_words='\"'Create accepted milestone M1: update LinkedIn and resume under the existing Fixture project; no extra tasks, no profile migration.';after=@{title='M1: update LinkedIn and resume';project_id=\"'$pid;'\"'milestone-state'='not-started';acceptance_source='Explicit user instruction'}}; \"'$hash={param($s) [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($s))).ToLowerInvariant()}; $changes=@(@{key=$mp;before=@{present=$false};after=@{present=$true;value=$milestone};beforeHash=$null;afterHash=(&$hash $milestone)},@{key=$dp;before=@{present=$false};after=@{present=$true;value=$dod};beforeHash=$null;afterHash=(&$hash $dod)},@{key=$pp;before=@{present=$true;value=$before};after=@{present=$true;value=$after};beforeHash=(&$hash $before);afterHash=(&$hash $after)}); $od=Join-Path $ctx.stateRoot '\"'operations'; New-Item -ItemType Directory -Force -Path \"'$od|Out-Null; $checkpoint=Join-Path $od \"$op.json\"; @{operation_id=$op;planningBinding=$ctx.planningBinding;changes=$changes;entry=$entry}|ConvertTo-Json -Depth 15|Set-Content -LiteralPath $checkpoint; if([IO.File]::ReadAllText($pp) -cne $before){throw '\"'Project changed'}; New-Item -ItemType Directory -Path \"'$dir|Out-Null; [IO.File]::WriteAllText($mp,$milestone); [IO.File]::WriteAllText($dp,$dod); $scan=node $cli inspect-records --input (Join-Path $vault '\"'.temp/inspect.json')|ConvertFrom-Json -DateKind String; if(\"'$LASTEXITCODE -ne 0 -or $scan.diagnostics.Count){throw '\"'Record inspection failed'}; @{records=\"'$scan.records}|ConvertTo-Json -Depth 20|Set-Content -LiteralPath '\"'.temp/validate.json'; node \"'$cli validate-records --input (Join-Path $vault '\"'.temp/validate.json'); if(\"'$LASTEXITCODE -ne 0){throw '\"'Validation failed'}; @{projectsRoot=\"'$ctx.projectsRoot;entry=$entry}|ConvertTo-Json -Depth 15|Set-Content -LiteralPath '\"'.temp/log-input.json'; node \"'$cli log-append --input (Join-Path $vault '\"'.temp/log-input.json'); if(\"'$LASTEXITCODE -ne 0){throw '\"'Log failed'}; if([IO.File]::ReadAllText(\"'$pp) -cne $before){throw '\"'Project changed'}; [IO.File]::WriteAllText(\"'$pp,$after); @{vaultRoot=$vault}|ConvertTo-Json|Set-Content -LiteralPath '\"'.temp/invalidate.json'; node \"'$cli invalidate-project-index --input (Join-Path $vault '\"'.temp/invalidate.json'); @{projectsRoot=\"'$ctx.projectsRoot;recordId=$mid;action='\"'milestone.accepted'}|ConvertTo-Json|Set-Content -LiteralPath '.temp/query.json'; \"'$query=node $cli log-query --input (Join-Path $vault '\"'.temp/query.json'); \"'$query; @{schemaVersion=1;records=@{$mid=@{canonical=@{state='\"'not-started';title='M1: update LinkedIn and resume';owner='fixture@example.test'};canonicalPath=\"'$mp;canonicalHash=(&$hash $milestone);views=@{$pp=@{state='\"'not-started';title='M1: update LinkedIn and resume';hash=(&\"'$hash $after)}}}}}|ConvertTo-Json -Depth 15|Set-Content -LiteralPath (Join-Path $ctx.stateRoot '\"'reconciliation.json'); node \"'$cli inspect-records --input (Join-Path $vault '\"'.temp/inspect.json')|Set-Content -LiteralPath '.temp/final-records.json'; \"'$final=Get-Content -Raw '\"'.temp/final-records.json'|ConvertFrom-Json -DateKind String; @{records=\"'$final.records}|ConvertTo-Json -Depth 20|Set-Content -LiteralPath '\"'.temp/validate.json'; node \"'$cli check-links --input (Join-Path $vault '\"'.temp/validate.json'); Write-Output \\\"Milestone: \"'$mp\"; Write-Output \"Checkpoint: $checkpoint\"'",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$ErrorActionPreference='\"'Stop'; \"'$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$v=(Get-Location).Path; $ctx=node $cli resolve-context --input \"$v/.temp/context-input.json\"|ConvertFrom-Json -DateKind String; $ids=@(1..6|ForEach-Object{(node $cli new-id|ConvertFrom-Json).id}); $m,$d,$a,$b,$o,$e=$ids; $t=node $cli activity-time --input \"$v/.temp/time.json\"|ConvertFrom-Json -DateKind String; $s=$t.recorded_at; $projectId='\"'01a11421-e8f9-75ee-b22c-f62b968d2856'; \"'$p=\"$v/1-projects/2026.01.01-fixture/project-index.md\"; $dir=\"$v/1-projects/2026.01.01-fixture/update-linkedin-and-resume\"; if(Test-Path $dir){throw '\"'Collision'}; \"'$old=[IO.File]::ReadAllText($p); $mc=\"---`nid: $m`ntype: milestone`ntitle: M1: update LinkedIn and resume`ndocument-maturity: reviewed`nmilestone-state: not-started`nowner: fixture@example.test`nproject_id: $projectId`ncreated_at: $s`nupdated_at: $s`n---`n# M1 — update LinkedIn and resume`n`n**Project:** [[../project-index|Fixture]] <!-- ref: $projectId -->`n`n## Outcome`n`nUpdate LinkedIn and the resume.`n`n## Definition of Done`n`n[[definition-of-done|Full acceptance criteria]] <!-- ref: $d -->`n\"; $dc=\"---`nid: $d`ntype: dod`ntitle: Update LinkedIn and resume Definition of Done`nowner: fixture@example.test`nproject_id: $projectId`nmilestone_id: $m`ncreated_at: $s`nupdated_at: $s`n---`n# Definition of Done`n`n- [ ] LinkedIn is updated. <!-- id: $a -->`n- [ ] The resume is updated. <!-- id: $b -->`n`n## Milestone`n- [[milestone|M1: update LinkedIn and resume]] <!-- ref: $m -->`n\"; $new=$old.Replace('\"'updated_at: 2026-10-07T02:12:09.079Z',\\\"updated_at: \"'$s\").TrimEnd()+\"`n| [ ] [[update-linkedin-and-resume/milestone'\"\\\\|M1: update LinkedIn and resume]] <\"'!-- ref: $m --> | |`n\"; $entry=@{id=$e;operation_id=$o;action='\"'milestone.accepted';record_ids=@(\"'$m,$d);actor=@{kind='\"'person';id='fixture@example.test'};activity_at=\"'$t.activity_at;recorded_at=$t.recorded_at;time_defaulted=$t.time_defaulted;original_words='\"'Create accepted milestone M1: update LinkedIn and resume under the existing Fixture project; no extra tasks, no profile migration.';after=@{title='M1: update LinkedIn and resume';project_id=\"'$projectId;'\"'milestone-state'='not-started';acceptance_source='Explicit user instruction'}}; \"'$h={param($x)[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($x))).ToLowerInvariant()}; $files=@(@{path=\"$dir/milestone.md\";before=$null;after=$mc},@{path=\"$dir/definition-of-done.md\";before=$null;after=$dc},@{path=$p;before=$old;after=$new}); $changes=@($files|ForEach-Object{@{key=$_.path;before=@{present=($null -ne $_.before);value=$_.before};after=@{present=$true;value=$_.after};beforeHash=$(if($null -ne $_.before){&$h $_.before}else{$null});afterHash=(&$h $_.after)}}); $od=Join-Path $ctx.stateRoot '\"'operations'; New-Item -ItemType Directory -Force \"'$od|Out-Null; $cp=Join-Path $od \"$o.json\"; @{operation_id=$o;planningBinding=$ctx.planningBinding;changes=$changes;entry=$entry}|ConvertTo-Json -Depth 20|Set-Content $cp; if([IO.File]::ReadAllText($p) -cne $old){throw '\"'Changed source'}; New-Item -ItemType Directory \"'$dir|Out-Null; [IO.File]::WriteAllText(\"$dir/milestone.md\",$mc); [IO.File]::WriteAllText(\"$dir/definition-of-done.md\",$dc); $r=node $cli inspect-records --input \"$v/.temp/inspect.json\"|ConvertFrom-Json -DateKind String; if($r.diagnostics.Count){throw '\"'Diagnostics'}; @{records=\"'$r.records}|ConvertTo-Json -Depth 25|Set-Content '\"'.temp/validate.json'; node \"'$cli validate-records --input \"$v/.temp/validate.json\"; if($LASTEXITCODE){throw '\"'Validation failed'}; @{projectsRoot=\"'$ctx.projectsRoot;entry=$entry}|ConvertTo-Json -Depth 15|Set-Content '\"'.temp/log-input.json'; node \"'$cli log-append --input \"$v/.temp/log-input.json\"; if($LASTEXITCODE){throw '\"'Log failed'}; if([IO.File]::ReadAllText(\"'$p) -cne $old){throw '\"'Changed view'}; [IO.File]::WriteAllText(\"'$p,$new); @{vaultRoot=$v}|ConvertTo-Json|Set-Content '\"'.temp/invalidate.json'; node \"'$cli invalidate-project-index --input \"$v/.temp/invalidate.json\"; @{projectsRoot=$ctx.projectsRoot;recordId=$m}|ConvertTo-Json|Set-Content '\"'.temp/query.json'; node \"'$cli log-query --input \"$v/.temp/query.json\"; @{schemaVersion=1;records=@{$m=@{canonical=@{state='\"'not-started';title='M1: update LinkedIn and resume';owner='fixture@example.test'};canonicalPath=\\\"\"'$dir/milestone.md\";canonicalHash=(&$h $mc);views=@{$p=@{state='\"'not-started';title='M1: update LinkedIn and resume';hash=(&\"'$h $new)}}}}}|ConvertTo-Json -Depth 15|Set-Content (Join-Path $ctx.stateRoot '\"'reconciliation.json'); Write-Output \\\"Checkpoint: \"'$cp\"'",
+        "values": []
+      }
+    ]
+  },
+  {
+    "case": "config-legacy.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/records.md'\"",
+        "outputSha256": "7210bd2beee5bbc8a7f26cd44e3f34daeefd5d2490d169cc85c140175ba7f2fe",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n'{}' | Set-Content .temp/time-input.json\nnode \"'$cli activity-time --input \"$PWD/.temp/time-input.json\" | Set-Content .temp/time.json\nGet-Content .temp/time.json\n@{projectsRoot=\"$PWD/1-projects\"} | ConvertTo-Json | Set-Content .temp/inspect.json\nnode $cli inspect-records --input \"$PWD/.temp/inspect.json\"'",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:04:59.932Z",
+            "recorded_at": "2026-10-07T02:04:59.932Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "config-no-profile.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/records.md'\"",
+        "outputSha256": "17d7f2f092def4d21f80acead7b62f0605a202aca937fe4ce942e72d96105212",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli = '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\nNew-Item -ItemType Directory -Force '.temp' | Out-Null\n@'\n{\\\"schema_version\\\":1,\\\"user\\\":{\\\"name\\\":\\\"Fixture\\\",\\\"email\\\":\\\"fixture@example.test\\\"},\\\"timezone\\\":\\\"America/Chicago\\\",\\\"priorities\\\":[],\\\"vaultRoot\\\":\\\".\\\",\\\"projectsRoot\\\":\\\"./1-projects\\\",\\\"dailyPlansRelative\\\":\\\"2-areas/daily-plans\\\",\\\"projectIndex\\\":{\\\"ttlSeconds\\\":14400}}\n'@ | Set-Content '.temp/profile-input.json'\nnode \"'$cli validate-profile --input \"$pwd/.temp/profile-input.json\"\n@{initialCwd=\"$pwd\";configRoot=\"$pwd/.nyssaai/daily-tasks\"} | ConvertTo-Json | Set-Content '\"'.temp/context-input.json'\nnode \"'$cli resolve-context --input \"$pwd/.temp/context-input.json\"\n@{projectsRoot=\"$pwd/1-projects\"} | ConvertTo-Json | Set-Content '\"'.temp/inspect-input.json'\nnode \"'$cli inspect-records --input \"$pwd/.temp/inspect-input.json\"\nnode $cli activity-time --input \"$pwd/.temp/empty.json\"'",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli = '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\nCopy-Item '.temp/profile-input.json' '.nyssaai/daily-tasks/profile.json'\n'{}' | Set-Content '.temp/empty.json'\nnode \"'$cli resolve-context --input \"$pwd/.temp/context-input.json\" | Set-Content '\"'.temp/context.json'\nnode \"'$cli activity-time --input \"$pwd/.temp/empty.json\" | Set-Content '\"'.temp/time.json'\nGet-Content '.temp/context.json'; Get-Content '.temp/time.json'\n1..6 | ForEach-Object { node \"'$cli new-id }'",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:05:06.480Z",
+            "recorded_at": "2026-10-07T02:05:06.480Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "config-shared-a.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/planning-flow.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/shared-home/.nyssaai/daily-tasks/profile.json'\"",
+        "outputSha256": "636def6a2d762613ede40cd4f926a28cff3132237b8d4b798ee7c5e0a47e40b7",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "config-shared-b.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/records.md'\"",
+        "outputSha256": "17d7f2f092def4d21f80acead7b62f0605a202aca937fe4ce942e72d96105212",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$c=Get-Content '\"'.temp/context.json' -Raw | ConvertFrom-Json -DateKind String\n@{projectsRoot=\"'$c.projectsRoot} | ConvertTo-Json | Set-Content '\"'.temp/inspect-input.json'\nnode \"'$cli inspect-records --input \"$pwd/.temp/inspect-input.json\" | Tee-Object -FilePath '\"'.temp/before-records.json'\nnode \"'$cli new-id\nnode $cli new-id\nnode $cli new-id\nnode $cli new-id\nnode $cli new-id\nnode $cli new-id\n'\"'{}' | Set-Content '.temp/time-input.json'\nnode \"'$cli activity-time --input \"$pwd/.temp/time-input.json\" | Tee-Object -FilePath '\"'.temp/activity-time.json'\"",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:16:29.235Z",
+            "recorded_at": "2026-10-07T02:16:29.235Z",
+            "time_defaulted": true
+          }
+        ]
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$c=Get-Content '\"'.temp/context.json' -Raw | ConvertFrom-Json -DateKind String\n\"'$t=Get-Content '\"'.temp/activity-time.json' -Raw | ConvertFrom-Json -DateKind String\n\"'$mid='\"'01a11425-e02e-7f48-926e-061374e0837e'; \"'$did='\"'01a11425-e059-7e22-94e2-85e13139d91b'; \"'$op='\"'01a11425-e0dc-739f-ba28-27b898f28472'\n\"'$mp=Join-Path $pwd '\"'1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md'\n\"'$dp=Join-Path $pwd '\"'1-projects/2026.01.01-fixture/update-linkedin-and-resume/definition-of-done.md'\n\"'$pp=Join-Path $pwd '\"'1-projects/2026.01.01-fixture/project-index.md'\n\"'$before=[IO.File]::ReadAllText($pp)\n$milestone=@\"\n---\nid: $mid\ntype: milestone\ntitle: \"Update LinkedIn and resume\"\ndocument-maturity: reviewed\nmilestone-state: not-started\nowner: \"fixture@example.test\"\nproject_id: \"01a11421-e915-72d7-9d80-21c7a62f39ce\"\ncreated_at: \"$($t.activity_at)\"\nupdated_at: \"$($t.recorded_at)\"\n---\n# M1 — Update LinkedIn and resume\n\n**Project:** [[../project-index|Fixture]] <!-- ref: 01a11421-e915-72d7-9d80-21c7a62f39ce -->\n\n## Outcome\n\nUpdate LinkedIn and the resume.\n\n## Definition of Done\n\n[[definition-of-done|Full acceptance criteria]] <!-- ref: $did -->\n\"@\n$dod=@\"\n---\nid: $did\ntype: dod\ntitle: \"Update LinkedIn and resume Definition of Done\"\nowner: \"fixture@example.test\"\nproject_id: \"01a11421-e915-72d7-9d80-21c7a62f39ce\"\nmilestone_id: \"$mid\"\ncreated_at: \"$($t.activity_at)\"\nupdated_at: \"$($t.recorded_at)\"\n---\n# Definition of Done\n\n- [ ] LinkedIn is updated. <!-- id: 01a11425-e085-76fd-9886-67c1e652fead -->\n- [ ] Resume is updated. <!-- id: 01a11425-e0b2-7848-bd2d-21279e8a1514 -->\n\n## Milestone\n\n- [[milestone|Update LinkedIn and resume]] <!-- ref: $mid -->\n\"@\n$after=$before.Replace('\"'updated_at: 2026-10-07T02:12:09.108Z',\\\"updated_at: \"'$($t.recorded_at)\").TrimEnd()+\"`r`n| [ ] [[update-linkedin-and-resume/milestone'\"\\\\|M1 — Update LinkedIn and resume]] <\"'!-- ref: $mid --> | |`r`n\"\n$entry=@{id='\"'01a11425-e106-7b86-9504-f80ca84c52ab';operation_id=\"'$op;action='\"'milestone.accepted';record_ids=@(\"'$mid,$did);actor=@{kind='\"'person';id='fixture@example.test'};activity_at=\"'$t.activity_at;recorded_at=$t.recorded_at;time_defaulted=$t.time_defaulted;original_words=\"Create accepted milestone M1: update LinkedIn and resume under this vault'\"'s Fixture project, no extra tasks.\\\";after=@{title='Update LinkedIn and resume';'milestone-state'='not-started';project_id='01a11421-e915-72d7-9d80-21c7a62f39ce';acceptance_source='explicit user instruction';tasks_created=0}}\n\"'$files=@(@{path=$mp;before=$null;after=$milestone},@{path=$dp;before=$null;after=$dod},@{path=$pp;before=$before;after=$after})\n$effects=@($files | ForEach-Object { @{key=$_.path;before=@{present=($null -ne $_.before);value=$_.before};after=@{present=$true;value=$_.after};before_hash=$(if($null -ne $_.before){[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($_.before))).ToLower()});after_hash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($_.after))).ToLower()} })\n$checkpoint=@{operation_id=$op;planningBinding=$c.planningBinding;vaultRoot=$c.vaultRoot;projectsRoot=$c.projectsRoot;dailyPlansRoot=$c.dailyPlansRoot;stateRoot=$c.stateRoot;changes=$effects;entry=$entry;files=$files;status='\"'pending'}\nNew-Item -ItemType Directory -Path '.nyssaai/daily-tasks/operations' -Force | Out-Null\n\"'$checkpoint | ConvertTo-Json -Depth 12 | Set-Content \".nyssaai/daily-tasks/operations/$op.json\"\n@{projectsRoot=$c.projectsRoot;entry=$entry} | ConvertTo-Json -Depth 10 | Set-Content '\"'.temp/log-input.json'\nforeach(\"'$f in $files){if($null -eq $f.before){if(Test-Path -LiteralPath $f.path){throw '\"'Destination exists'}}elseif([IO.File]::ReadAllText(\"'$f.path) -cne $f.before){throw '\"'Source changed'}}\nNew-Item -ItemType Directory -Path (Split-Path \"'$mp) | Out-Null\n[IO.File]::WriteAllText($mp,$milestone)\n[IO.File]::WriteAllText($dp,$dod)\n'\"'Checkpoint and canonical milestone/DoD saved.'\"",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\nnode \"'$cli inspect-records --input \"$pwd/.temp/inspect-input.json\" | Set-Content '\"'.temp/after-records.json'\n\"'$r=Get-Content '\"'.temp/after-records.json' -Raw | ConvertFrom-Json -DateKind String\n@{records=\"'$r.records} | ConvertTo-Json -Depth 30 | Set-Content '\"'.temp/validate-input.json'\nnode \"'$cli validate-records --input \"$pwd/.temp/validate-input.json\"\nnode $cli check-links --input \"$pwd/.temp/validate-input.json\"\n$e=(Get-Content '\"'.temp/log-input.json' -Raw | ConvertFrom-Json -DateKind String).entry\n\"'$t=Get-Content '\"'.temp/activity-time.json' -Raw | ConvertFrom-Json -DateKind String\nif(\"'$e.activity_at -cne $t.activity_at -or $e.recorded_at -cne $t.recorded_at){throw '\"'Timing mismatch'}\nnode \"'$cli log-append --input \"$pwd/.temp/log-input.json\"'",
+        "values": []
+      }
+    ]
+  },
+  {
+    "case": "config-unknown.jsonl",
+    "reads": [],
+    "times": []
+  },
+  {
+    "case": "configuration-discovery.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/references/records.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-capture/SKILL.md'; rg --files --hidden .\"",
+        "outputSha256": "1f42e1069dfebfc1cb6fb40898baafc9dcd7e2c7f69f2da01a1939dff4c957a5",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$vault = (Get-Location).Path\n$cli = '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\nNew-Item -ItemType Directory -Force -Path .temp | Out-Null\n@{initialCwd=\"'$vault} | ConvertTo-Json | Set-Content .temp/context-input.json\nnode $cli resolve-context --input \"$vault/.temp/context-input.json\" | Set-Content .temp/context.json\nGet-Content .temp/context.json\n@{} | ConvertTo-Json | Set-Content .temp/time-input.json\nnode $cli activity-time --input \"$vault/.temp/time-input.json\" | Set-Content .temp/time.json\nGet-Content .temp/time.json\n@{projectsRoot=\"$vault/1-projects\"} | ConvertTo-Json | Set-Content .temp/inspect-input.json\nnode $cli inspect-records --input \"$vault/.temp/inspect-input.json\" | Set-Content .temp/records-before.json\nGet-Content .temp/records-before.json'",
+        "values": [
+          {
+            "activity_at": "2026-10-07T01:59:48.271Z",
+            "recorded_at": "2026-10-07T01:59:48.271Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "cross-vault-inventory.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "4d5500ef3d19ee8e9cc300a367baec23e7fbd624c8c13f52ef2987230feee5df",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "cross-vault-reply.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-records/SKILL.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/shared-home/.nyssaai/daily-tasks/profile.json'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "84c8c2638e982a6d12ca455df3c99bbb44dc0605016f9417d9995505b229bb81",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "day-change.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-plan/SKILL.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "36e8fb9647b85577c043f3248767ee669ae6d37e6ec9b54ed3311e3af558399e",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "day-precreated-retry.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "4d5500ef3d19ee8e9cc300a367baec23e7fbd624c8c13f52ef2987230feee5df",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "day-remove-repeat.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/planning-flow.md'\"",
+        "outputSha256": "73b4e0f9190ea9672a1f6e52177b694e08b95e3c8ba182b18e8e80fc9c467de1",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli = '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\nnode \"'$cli new-id\nnode $cli new-id\nnode $cli activity-time'",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Set-Content -LiteralPath .temp/deselect-time.json -Value '{}' -NoNewline\nnode '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time --input '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-precreated/planning-JPqAUf/.temp/deselect-time.json'\"",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:18:32.669Z",
+            "recorded_at": "2026-10-07T02:18:32.669Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "day-skipped.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/planning-flow.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'\"",
+        "outputSha256": "00444734cea9bc47de77e607ac25f080688f39a0e5372dfa3c58479004ee15d9",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$dtEntry = '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\nSet-Content .temp/time-input.json '{\\\"now\\\":\\\"2026-10-06T15:00:00.000Z\\\"}'\nnode \"'$dtEntry activity-time --input \"$PWD/.temp/time-input.json\" | Set-Content .temp/activity-time.json\nGet-Content .temp/activity-time.json\n$planText = @'\"'\n---\nid: 01a1141b-6e62-77bd-96c5-ddf2902b6570\ntype: daily-plan\ntitle: \\\"Daily plan 2026.10.06\\\"\ndocument-maturity: reviewed\ntimezone: \\\"America/Chicago\\\"\ncreated_at: \\\"2026-10-06T15:00:00.000Z\\\"\nupdated_at: \\\"2026-10-06T15:00:00.000Z\\\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <\"'!-- ref: 01a1141a-8884-7a62-93f4-8c202a4d8b64 -->\n  Project: Fixture. Carried forward from October 4.\n\n## Delegated work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141a-8884-7ed0-ad8c-4d71806b5072 -->\n  Project: Fixture. Assigned to: Luna. Carried forward from October 4.\n'\"'@\n[System.IO.File]::WriteAllText(\\\"\"'$PWD/.temp/today-proposed.md\", $planText + \"`n\", [System.Text.UTF8Encoding]::new($false))\n$afterHash = (Get-FileHash .temp/today-proposed.md -Algorithm SHA256).Hash.ToLower()\n$eventText = @'\"'\n{\\\"id\\\":\\\"01a1141b-6ec2-7632-afe5-eecd5bbfac3e\\\",\\\"operation_id\\\":\\\"01a1141b-6e92-717c-a59c-b098efc84072\\\",\\\"action\\\":\\\"selection-carry-forward\\\",\\\"record_ids\\\":[\\\"01a1141a-8884-7a62-93f4-8c202a4d8b64\\\",\\\"01a1141a-8884-7ed0-ad8c-4d71806b5072\\\"],\\\"actor\\\":{\\\"kind\\\":\\\"person\\\",\\\"id\\\":\\\"fixture@example.test\\\"},\\\"activity_at\\\":\\\"2026-10-06T15:00:00.000Z\\\",\\\"recorded_at\\\":\\\"2026-10-06T15:00:00.000Z\\\",\\\"time_defaulted\\\":true,\\\"original_words\\\":\\\"Carry unfinished selected work from the latest previous plan, including my delegated work.\\\",\\\"before\\\":{\\\"date\\\":\\\"2026.10.04\\\"},\\\"after\\\":{\\\"date\\\":\\\"2026.10.06\\\"}}\n'@\nSet-Content .temp/event.json \"'$eventText\n$event = $eventText | ConvertFrom-Json\n$op = @{operation_id=$event.operation_id;contextBinding='\"'b2ec557398243128319425ae022a171757479bb259d16b020b66c5e2ce7d3c57';event=\"'$event;source=@{path=\"$PWD/2-areas/daily-plans/2026.10.04-daily-plan.md\";sha256='\"'a37403df5408f668aa6eaaad05f176052076dfc3be9c7fd0c18da44cf36ba244'};files=@(@{path=\\\"\"'$PWD/2-areas/daily-plans/2026.10.06-daily-plan.md\";before=$null;after=$afterHash});beforeMembership=@();afterMembership=$event.record_ids;removedIds=@();carriedFrom='\"'2026.10.04';planId='01a1141b-6e62-77bd-96c5-ddf2902b6570'}\nNew-Item -ItemType Directory -Force .nyssaai/daily-tasks/operations | Out-Null\n\"'$op | ConvertTo-Json -Depth 20 | Set-Content .nyssaai/daily-tasks/operations/01a1141b-6e92-717c-a59c-b098efc84072.json\nif ((Get-FileHash 2-areas/daily-plans/2026.10.04-daily-plan.md).Hash.ToLower() -ne $op.source.sha256) { throw '\"'Source changed' }\nif (Test-Path 2-areas/daily-plans/2026.10.06-daily-plan.md) { throw 'Destination exists' }\nCopy-Item .temp/today-proposed.md 2-areas/daily-plans/2026.10.06-daily-plan.md\nSet-Content .temp/invalidate.json ('{\\\"vaultRoot\\\":\\\"' + \\\"\"'$PWD\".Replace('\"'\\\\','/') + '\\\"}')\nnode \"'$dtEntry invalidate-project-index --input \"$PWD/.temp/invalidate.json\"'",
+        "values": [
+          {
+            "activity_at": "2026-10-06T15:00:00.000Z",
+            "recorded_at": "2026-10-06T15:00:00.000Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "day-terminals-retry.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/planning-flow.md'\nGet-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\nGet-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'\nGet-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/records.md'\"",
+        "outputSha256": "ef223c0fd6e0f0c1a8f8dd373382670445ebba2bb5f555b8a3fe7449c3031928",
+        "timestampGuardObserved": true
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content .nyssaai/daily-tasks/profile.json\nGet-Content 2-areas/daily-plans/2026.10.04-daily-plan.md\nGet-Content .nyssaai/daily-tasks/reconciliation.json\nGet-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'\nGet-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "c72b2f7d1b84dd24d54331fef119873c025a5f11ff97a185c2bc63c23fd37407",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$packet=Get-Content .temp/prepare.json -Raw | ConvertFrom-Json -DateKind String\n@{now=$packet.context.now} | ConvertTo-Json | Set-Content .temp/time-input.json\nnode $cli activity-time --input \"$PWD/.temp/time-input.json\" | Set-Content .temp/activity-time.json\nnode $cli new-id | Set-Content .temp/operation-id.json\nnode $cli new-id | Set-Content .temp/event-id.json\n$time=Get-Content .temp/activity-time.json -Raw | ConvertFrom-Json -DateKind String\n$op=(Get-Content .temp/operation-id.json -Raw | ConvertFrom-Json).id\n$event=(Get-Content .temp/event-id.json -Raw | ConvertFrom-Json).id\n$content=@'\"'\n---\nid: 01a11429-314c-709c-a00e-8a2e7bf89855\ntype: daily-plan\ntitle: \\\"Daily plan 2026.10.06\\\"\ndocument-maturity: reviewed\ntimezone: \\\"America/Chicago\\\"\ncreated_at: \\\"2026-10-06T20:00:00.000Z\\\"\nupdated_at: \\\"2026-10-06T20:00:00.000Z\\\"\n---\n# Daily plan — 2026.10.06 (America/Chicago)\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <\"'!-- ref: 01a11421-e8ca-7c24-9178-9337d90c386c -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e8ca-7548-be68-469af190c4c5 -->\n\n## Delegated work\n\nNo delegated work selected.\n\n## Notes\n\nCarried unfinished selected work from October 4, 2026.\n'\"'@\n\"'$content=$content.Replace(\"`r`n\",\"`n\")+\"`n\"\n[IO.File]::WriteAllText(\"$PWD/.temp/today-proposed.md\",$content,[Text.UTF8Encoding]::new($false))\n$hash=(Get-FileHash .temp/today-proposed.md -Algorithm SHA256).Hash.ToLower()\n$ids=@('\"'01a11421-e8ca-7c24-9178-9337d90c386c','01a11421-e8ca-7548-be68-469af190c4c5')\n\"'$entry=@{id=$event;operation_id=$op;action='\"'selection-carry-forward';record_ids=\"'$ids;actor=@{kind='\"'person';id=\"'$packet.context.profile.user.email};activity_at=$time.activity_at;recorded_at=$time.recorded_at;time_defaulted=$time.time_defaulted;original_words='\"'Plan October 6, 2026 in America/Chicago after skipped days. Carry only unfinished selected work from latest previous plan; exclude completed, cancelled, and unselected open tasks. Create only today and preserve historical records.';before=@{date='2026.10.06';selectedIds=@()};after=@{date='2026.10.06';selectedIds=\"'$ids;carriedFrom='\"'2026.10.04'}}\n\"'$checkpoint=@{operation_id=$op;contextBinding=$packet.context.planningBinding;event=$entry;files=@(@{path=$packet.current.path;before=$null;after=$hash},@{path=$packet.previous.path;before=$packet.previous.sha256;after=$packet.previous.sha256});changes=@(@{key='\"'selectedIds';before=@{present=\"'$true;value=@()};after=@{present=$true;value=$ids}});planId='\"'01a11429-314c-709c-a00e-8a2e7bf89855';date='2026.10.06';removedIds=@();proposedContent=\"'$content;sourceRows=$packet.previous.rows;expectedRolloverHash=$null;phase='\"'prepared'}\n\"'$checkpoint | ConvertTo-Json -Depth 30 | Set-Content \".nyssaai/daily-tasks/operations/$op.json\"\n@{projectsRoot=$packet.context.projectsRoot;entry=$entry} | ConvertTo-Json -Depth 30 | Set-Content .temp/log-input.json\nWrite-Output \"Checkpoint saved; proposed membership: Recovery task, Other task.\"'",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$packet=Get-Content .temp/prepare.json -Raw | ConvertFrom-Json -DateKind String\n$op=(Get-Content .temp/operation-id.json -Raw | ConvertFrom-Json).id\n$check=Get-Content \".nyssaai/daily-tasks/operations/$op.json\" -Raw | ConvertFrom-Json -DateKind String\nif(Test-Path $packet.current.path){throw '\"'Destination unexpectedly exists'}\nif((Get-FileHash \"'$packet.previous.path -Algorithm SHA256).Hash.ToLower() -ne $packet.previous.sha256){throw '\"'Source changed'}\n[IO.File]::WriteAllText(\"'$packet.current.path,$check.proposedContent,[Text.UTF8Encoding]::new($false))\nif((Get-FileHash $packet.current.path -Algorithm SHA256).Hash.ToLower() -ne $check.files[0].after){throw '\"'Destination hash mismatch'}\n@{vaultRoot=\"'$packet.context.vaultRoot} | ConvertTo-Json | Set-Content .temp/invalidate-input.json\nnode $cli invalidate-project-index --input \"$PWD/.temp/invalidate-input.json\"\n$time=Get-Content .temp/activity-time.json -Raw | ConvertFrom-Json -DateKind String\nif($check.event.activity_at -cne $time.activity_at -or $check.event.recorded_at -cne $time.recorded_at){throw '\"'Timestamp mismatch'}\nnode \"'$cli log-append --input \"$PWD/.temp/log-input.json\"\n@{projectsRoot=$packet.context.projectsRoot;action='\"'selection-carry-forward'} | ConvertTo-Json | Set-Content .temp/query-input.json\nnode \"'$cli log-query --input \"$PWD/.temp/query-input.json\" | Tee-Object -FilePath .temp/query-result.json\nnode $cli planning-prepare --input \"$PWD/.temp/prepare-input.json\" | Set-Content .temp/after-prepare.json\nGet-Content .temp/query-result.json'",
+        "values": []
+      }
+    ]
+  },
+  {
+    "case": "future-removal.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/planning-flow.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'\"",
+        "outputSha256": "00444734cea9bc47de77e607ac25f080688f39a0e5372dfa3c58479004ee15d9",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$p=Get-Content .temp/prepare.json -Raw | ConvertFrom-Json -DateKind String; $op=node $cli new-id | ConvertFrom-Json; $op | ConvertTo-Json; node $cli activity-time'",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$p=Get-Content .temp/prepare.json -Raw | ConvertFrom-Json -DateKind String; @{now=$p.context.now} | ConvertTo-Json | Set-Content .temp/time-input.json; node $cli activity-time --input (Join-Path $PWD '\"'.temp/time-input.json') | Set-Content .temp/time.json; \"'$t=Get-Content .temp/time.json -Raw | ConvertFrom-Json -DateKind String; $op=(node $cli new-id | ConvertFrom-Json).id; $eventId=(node $cli new-id | ConvertFrom-Json).id; $path=Join-Path $PWD '\"'2-areas/daily-plans/2026.10.07-daily-plan.md'; \"'$before=[IO.File]::ReadAllText($path); $after=$before -replace '\"'(?m)\"'^- '\"\\\\[ \\\\] .*Recovery task.*\\\\r?\\\\n',''; \"'$after=$after -replace '\"'(## My work\\\\r?\\\\n\\\\r?\\\\n)',\\\"\"'`$1No work selected.`n\"; $statePath=Join-Path $PWD '\"'.nyssaai/daily-tasks/rollover/2026.10.07.json'; \"'$s=Get-Content $statePath -Raw | ConvertFrom-Json -DateKind String; $s.removedIds=@('\"'01a11415-fb63-7ca9-913e-c9d2d050046f'); \"'$hashBefore=(Get-FileHash $path -Algorithm SHA256).Hash.ToLower(); $hashAfter=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($after))).ToLower(); $event=@{id=$eventId;operation_id=$op;action='\"'selection-remove';record_ids=@('01a11415-fb63-7ca9-913e-c9d2d050046f');actor=@{kind='person';id='fixture@example.test'};activity_at=\"'$t.activity_at;recorded_at=$t.recorded_at;time_defaulted=$t.time_defaulted;original_words='\"'Explicitly remove Recovery task from the future October 7 daily plan, preserving its canonical open state.';before=@{date='2026.10.07';selected=\"'$true};after=@{date='\"'2026.10.07';selected=\"'$false}}; $checkpoint=@{operation_id=$op;contextBinding=$p.context.planningBinding;event=$event;files=@(@{path=$path;before=$hashBefore;after=$hashAfter});membershipBefore=@('\"'01a11415-fb63-7ca9-913e-c9d2d050046f');membershipAfter=@();removedIds=\"'$s.removedIds;rolloverPath=$statePath;rolloverBeforeHash=(Get-FileHash $statePath).Hash.ToLower();rolloverAfter=$s}; New-Item -ItemType Directory -Force .nyssaai/daily-tasks/operations | Out-Null; $checkpoint | ConvertTo-Json -Depth 30 | Set-Content \".nyssaai/daily-tasks/operations/$op.json\"; $checkpoint | ConvertTo-Json -Depth 30 | Set-Content .temp/removal-operation.json; if((Get-FileHash $path).Hash.ToLower() -ne $hashBefore){throw '\"'Plan changed'}; [IO.File]::WriteAllText(\"'$path,$after); $s | ConvertTo-Json -Depth 20 | Set-Content $statePath; @{vaultRoot=$p.context.vaultRoot} | ConvertTo-Json | Set-Content .temp/invalidate.json; node $cli invalidate-project-index --input (Join-Path $PWD '\"'.temp/invalidate.json'); @{projectsRoot=\"'$p.context.projectsRoot;entry=$event} | ConvertTo-Json -Depth 30 | Set-Content .temp/removal-log.json; node $cli log-append --input (Join-Path $PWD '\"'.temp/removal-log.json')\"",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$p=Get-Content .temp/oct7-prepare.json -Raw | ConvertFrom-Json -DateKind String; $op=(node $cli new-id | ConvertFrom-Json).id; $eid=(node $cli new-id | ConvertFrom-Json).id; @{now=$p.context.now} | ConvertTo-Json | Set-Content .temp/rollover-time-input.json; node $cli activity-time --input (Join-Path $PWD '\"'.temp/rollover-time-input.json') | Set-Content .temp/rollover-time.json; \"'$t=Get-Content .temp/rollover-time.json -Raw | ConvertFrom-Json -DateKind String; $path=$p.current.path; $before=[IO.File]::ReadAllText($path); $row='\"'- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <\"'!-- ref: 01a11415-fb63-770d-ba68-efcd9ea82271 -->'\"'; \"'$after=$before.Replace('\"'No work selected.',\"'$row).Replace('\"'updated_at: \\\"2026-10-07T01:59:07.362Z\\\"','updated_at: \\\"2026-10-07T15:00:00.000Z\\\"'); \"'$hash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($after))).ToLower(); $event=@{id=$eid;operation_id=$op;action='\"'selection-carry-forward';record_ids=@('01a11415-fb63-770d-ba68-efcd9ea82271');actor=@{kind='agent';id='codex'};activity_at=\"'$t.activity_at;recorded_at=$t.recorded_at;time_defaulted=$t.time_defaulted;before=@{date='\"'2026.10.06'};after=@{date='2026.10.07';carriedFrom='2026.10.06'}}; \"'$receipt=$p.state.rollover.value; $receipt | Add-Member operationId $op; $receipt | Add-Member completedAt $t.recorded_at; $o=@{operation_id=$op;contextBinding=$p.context.planningBinding;event=$event;files=@(@{path=$path;before=$p.current.sha256;after=$hash});previousPath=$p.previous.path;previousHash=$p.previous.sha256;membershipBefore=@();membershipAfter=@('\"'01a11415-fb63-770d-ba68-efcd9ea82271');removedIds=\"'$receipt.removedIds;rolloverPath=$p.state.rollover.path;rolloverBeforeHash=$p.state.rollover.sha256;receipt=$receipt}; $o | ConvertTo-Json -Depth 30 | Set-Content \".nyssaai/daily-tasks/operations/$op.json\"; $o | ConvertTo-Json -Depth 30 | Set-Content .temp/rollover-operation.json; if((Get-FileHash $path).Hash.ToLower() -ne $p.current.sha256){throw '\"'Plan changed'}; if((Get-FileHash \"'$p.previous.path).Hash.ToLower() -ne $p.previous.sha256){throw '\"'Previous changed'}; [IO.File]::WriteAllText(\"'$path,$after); node $cli invalidate-project-index --input (Join-Path $PWD '\"'.temp/invalidate.json'); if((Get-FileHash \"'$path).Hash.ToLower() -ne $hash){throw '\"'Carry verification failed'}; @{projectsRoot=\"'$p.context.projectsRoot;entry=$event} | ConvertTo-Json -Depth 20 | Set-Content .temp/carry-log.json; node $cli log-append --input (Join-Path $PWD '\"'.temp/carry-log.json')\"",
+        "values": []
+      }
+    ]
+  },
+  {
+    "case": "reconcile-conflict.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/planning-flow.md'\"",
+        "outputSha256": "a1a6a5232840ac64c66504c12967f257178acafdb70c3492121344136b354a82",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; '{\\\"base\\\":{\\\"state\\\":\\\"not-started\\\"},\\\"current\\\":{\\\"state\\\":\\\"completed\\\"},\\\"views\\\":[{\\\"state\\\":\\\"cancelled\\\"}]}' | Set-Content .temp/reconcile.json; node \"'$cli reconcile-record --input \"$PWD/.temp/reconcile.json\"; node $cli new-id; node $cli new-id; '\"'{\\\"now\\\":\\\"2026-10-07T02:09:23.709Z\\\"}' | Set-Content .temp/time.json; node \"'$cli activity-time --input \"$PWD/.temp/time.json\"; @{projectsRoot=\"$PWD/1-projects\"} | ConvertTo-Json | Set-Content .temp/inspect.json; node $cli inspect-records --input \"$PWD/.temp/inspect.json\"'",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:09:23.709Z",
+            "recorded_at": "2026-10-07T02:09:23.709Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "reconcile-uncheck.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/planning-flow.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "901d0dec0e12e7e3a5f22d55ad802ebbe45df1a416228b4b0f0b896264952452",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$records=(Get-Content .temp/inspected.json -Raw | ConvertFrom-Json -DateKind String).records\n$task=$records | Where-Object title -eq '\"'Recovery task'\n@{base=\"'$task;current=$task;views=@(@{id=$task.id;checked=$false})} | ConvertTo-Json -Depth 20 | Set-Content .temp/reconcile-input.json\nnode $cli reconcile-record --input \"$PWD/.temp/reconcile-input.json\" | Tee-Object -FilePath .temp/reconcile-result.json\n$r=Get-Content .temp/reconcile-result.json -Raw | ConvertFrom-Json -DateKind String\n$records | Where-Object id -eq $task.id | ForEach-Object { $_.state=$r.proposed.state }\n@{records=$records;changedIds=@($task.id)} | ConvertTo-Json -Depth 20 | Set-Content .temp/reopen-input.json\nnode $cli reopen-ancestors --input \"$PWD/.temp/reopen-input.json\"\n@{records=$records} | ConvertTo-Json -Depth 20 | Set-Content .temp/validate-input.json\nnode $cli validate-records --input \"$PWD/.temp/validate-input.json\"\nnode $cli check-links --input \"$PWD/.temp/validate-input.json\"\nnode $cli activity-time | Set-Content .temp/time.json\nnode $cli new-id\nnode $cli new-id'",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$records=(Get-Content .temp/inspected.json -Raw | ConvertFrom-Json -DateKind String).records\n$r=Get-Content .temp/reconcile-result.json -Raw | ConvertFrom-Json -DateKind String\n($records | Where-Object title -eq '\"'Recovery task').state=\"'$r.record.state\n@{records=$records;changedIds=@($r.record.id)} | ConvertTo-Json -Depth 20 | Set-Content .temp/reopen-input.json\nnode $cli reopen-ancestors --input \"$PWD/.temp/reopen-input.json\" | Set-Content .temp/reopen-result.json\n@{records=$records} | ConvertTo-Json -Depth 20 | Set-Content .temp/validate-input.json\nnode $cli validate-records --input \"$PWD/.temp/validate-input.json\"\n'\"'{}' | Set-Content .temp/time-input.json\nnode \"'$cli activity-time --input \"$PWD/.temp/time-input.json\" | Set-Content .temp/time.json\nGet-Content .temp/time.json'",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:10:49.174Z",
+            "recorded_at": "2026-10-07T02:10:49.174Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "reconciliation.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/planning-flow.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md','<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md'\"",
+        "outputSha256": "ab4cd77e9f37cf354b7b7b5dfc3b2dec6d65af9a8db8d28731b3373a22c2079b",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "recovery-file-conflict.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-checkin/SKILL.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; rg --files --hidden -g '\"'!node_modules'\"' -g '\"'!.git'\"'\"",
+        "outputSha256": "445c3e5c96c46de99f16e201869857d654ffc4e6670511fb483f5480ad1467e2",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "recovery-log-conflict.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-checkin/SKILL.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "95d98c07b17d76296d2b93b68bc2302e1d84ffc66611a99aa9632ce096c59ce2",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "recovery-repeat.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-plan/SKILL.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "36e8fb9647b85577c043f3248767ee669ae6d37e6ec9b54ed3311e3af558399e",
+        "timestampGuardObserved": true
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md' | Select-Object -Last 65; Get-ChildItem '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0'\"",
+        "outputSha256": "265d97258e120e4270f72e5224ec9e6648540eabdede8812b2a305d57d6700d6",
+        "timestampGuardObserved": false
+      }
+    ],
+    "times": []
+  },
+  {
+    "case": "reopen-blocker.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "92830ae5ad903aa86881c7b05664edb1c40071ff798207addd6b127a567f0a23",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$scan=Get-Content .temp/inspect.json -Raw | ConvertFrom-Json -DateKind String\n($scan.records | Where-Object type -eq blocker).state='\"'open'\n@{records=\"'$scan.records;changedIds=@('\"'01a1141c-fe3e-7988-8aa2-b416ef4af387')} | ConvertTo-Json -Depth 30 | Set-Content .temp/reopen-input.json\nnode \"'$cli reopen-ancestors --input \"$($PWD.Path)/.temp/reopen-input.json\" | Set-Content .temp/reopen.json\nnode $cli activity-time | Set-Content .temp/time.json\nnode $cli new-id\nnode $cli new-id\nGet-Content .temp/time.json\n(Get-Content .temp/reopen.json -Raw | ConvertFrom-Json -DateKind String).records | Select-Object title,state'",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n'{}' | Set-Content .temp/time-input.json\nnode \"'$cli activity-time --input \"$($PWD.Path)/.temp/time-input.json\" | Set-Content .temp/time.json\nGet-Content .temp/time.json\nGet-ChildItem .nyssaai/daily-tasks -Recurse -File | Select-Object -ExpandProperty FullName'",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:07:45.697Z",
+            "recorded_at": "2026-10-07T02:07:45.697Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "reopen-dod.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'; Get-Content -LiteralPath '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/records.md'\"",
+        "outputSha256": "f482bcbfb1c99c5036da4c5897c49eb4218bbe8750879f46513e2130fbf47644",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time --input '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/reopen-dod/planning-2kHvJ8/.temp/time.json'\"",
+        "values": [
+          {
+            "activity_at": "2026-10-07T02:07:50.127Z",
+            "recorded_at": "2026-10-07T02:07:50.127Z",
+            "time_defaulted": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "case": "reopen-task.jsonl",
+    "reads": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-records/SKILL.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/operations.md'; Get-Content '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks/references/cli.md'\"",
+        "outputSha256": "9d3a81b16c783eac74a220bc49b7122959a7785e28f087b501e16e4860857eef",
+        "timestampGuardObserved": true
+      }
+    ],
+    "times": [
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$r=Get-Content .temp/records.json -Raw | ConvertFrom-Json -DateKind String\n($r.records | Where-Object title -eq '\"'Recovery task').state='not-started'\n@{records=\"'$r.records;changedIds=@('\"'01a1141c-fe47-715b-a83a-8ecf087622d2')} | ConvertTo-Json -Depth 30 | Set-Content .temp/reopen.json\nnode \"'$cli reopen-ancestors --input \"$((Get-Location).Path)/.temp/reopen.json\" | Set-Content .temp/reopened.json\nnode $cli activity-time | Set-Content .temp/time.json\nnode $cli new-id; node $cli new-id\nGet-Content .temp/reopened.json; Get-Content .temp/time.json'",
+        "values": []
+      },
+      {
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$ErrorActionPreference='\"'Stop'\n\"'$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$root=(Get-Location).Path\n'\"'{}' | Set-Content .temp/time-input.json\nnode \"'$cli activity-time --input \"$root/.temp/time-input.json\" | Set-Content .temp/time.json\n$t=Get-Content .temp/time.json -Raw | ConvertFrom-Json -DateKind String\n$c=Get-Content .temp/context-result.json -Raw | ConvertFrom-Json -DateKind String\n$r=Get-Content .temp/reopened.json -Raw | ConvertFrom-Json -DateKind String\n$ids=@('\"'01a1141c-fe47-715b-a83a-8ecf087622d2')+\"'$r.changedIds\n$effects=@(); $files=@()\nforeach($rec in $r.records | Where-Object id -in $ids){\n$before=[IO.File]::ReadAllText($rec.path)\n$after=$before -replace \"$($rec.type)-state: completed\", \"$($rec.type)-state: $($rec.state)\"\n$after=$after -replace '\"'(?m)\"'^updated_at:.*$'\"', \\\"updated_at: \"'$($t.recorded_at)\"\nif($rec.type -eq '\"'project'){\"'$after=$after.Replace('\"'[x] [[first/milestone','[>] [[first/milestone').Replace('[x] [[first/recovery-task','[ ] [[first/recovery-task')}\n\"'$files+=@{path=$rec.path;before=$before;after=$after;before_hash=(Get-FileHash -LiteralPath $rec.path -Algorithm SHA256).Hash.ToLower();after_hash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($after))).ToLower()}\n$effects+=@{key=\"$($rec.id):state\";before=@{present=$true;value='\"'completed'};after=@{present=\"'$true;value=$rec.state}}\n}\n$plan=\"$root/2-areas/daily-plans/2026.10.06-daily-plan.md\"\n$before=[IO.File]::ReadAllText($plan); $after=$before.Replace('\"'- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task','- [x] [[../../1-projects/2026.01.01-fixture/first/other-task')\n\"'$files+=@{path=$plan;before=$before;after=$after;before_hash=(Get-FileHash $plan -Algorithm SHA256).Hash.ToLower();after_hash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($after))).ToLower()}\n$event=@{id='\"'01a1141d-d6dd-7324-8235-c312a515d704';operation_id='01a1141d-d6b4-76fb-a8af-438ee0944ec7';action='task.reopened';record_ids=\"'$ids;actor=@{kind='\"'agent';id='codex'};activity_at=\"'$t.activity_at;recorded_at=$t.recorded_at;time_defaulted=$t.time_defaulted;original_words='\"'Reopen Recovery task to not-started; its accepted work needs doing again. Apply required completed parent reopening; leave Other task completed.';before=@{states=@{} };after=@{states=@{};reason='Accepted work needs doing again'}}\nforeach(\"'$rec in $r.records | Where-Object id -in $ids){$event.before.states[$rec.id]='\"'completed';\"'$event.after.states[$rec.id]=$rec.state}\n$op=@{operation_id=$event.operation_id;planningBinding=$c.planningBinding;vaultRoot=$c.vaultRoot;projectsRoot=$c.projectsRoot;dailyPlansRoot=$c.dailyPlansRoot;stateRoot=$c.stateRoot;changes=$effects;files=$files;event=$event;phase='\"'pending'}\nNew-Item -ItemType Directory -Force \\\"\"'$($c.stateRoot)/operations\" | Out-Null\n$checkpoint=\"$($c.stateRoot)/operations/$($event.operation_id).json\"\n$op | ConvertTo-Json -Depth 40 | Set-Content $checkpoint\nforeach($f in $files){if([IO.File]::ReadAllText($f.path) -cne $f.before){throw '\"'Concurrent file change'};[IO.File]::WriteAllText(\"'$f.path,$f.after)}\n@{vaultRoot=$root} | ConvertTo-Json | Set-Content .temp/invalidate.json\nnode $cli invalidate-project-index --input \"$root/.temp/invalidate.json\"\nnode $cli inspect-records --input \"$root/.temp/inspect.json\" | Set-Content .temp/verified.json\n$v=Get-Content .temp/verified.json -Raw | ConvertFrom-Json -DateKind String\nif($v.diagnostics.Count){throw ($v.diagnostics | ConvertTo-Json -Depth 10)}\n@{records=$v.records} | ConvertTo-Json -Depth 30 | Set-Content .temp/links.json\nnode $cli check-links --input \"$root/.temp/links.json\"\n@{projectsRoot=$c.projectsRoot;entry=$event} | ConvertTo-Json -Depth 40 | Set-Content .temp/log.json\nnode $cli log-append --input \"$root/.temp/log.json\"\nif($LASTEXITCODE){throw '\"'Log append failed'}\n@{projectsRoot=\"'$c.projectsRoot;action='\"'task.reopened'} | ConvertTo-Json | Set-Content .temp/query.json\nnode \"'$cli log-query --input \"$root/.temp/query.json\" | Set-Content .temp/log-verification.json\nGet-Content .temp/log-verification.json'",
+        "values": []
+      }
+    ]
+  }
+]

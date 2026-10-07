@@ -1,0 +1,40 @@
+{
+  "id": "acceptance",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "acceptance",
+      "name": "Ambiguous/manual candidate remained unaccepted until follow-up",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "Exactly one accepted task added with validated metadata/UUIDv7",
+      "passed": true
+    },
+    {
+      "scenario": "acceptance",
+      "name": "Acceptance was logged once",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "acceptance",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:36:59.874Z"
+      },
+      "final": "One item in the [project index](/<SYNTHETIC_ROOT>/acceptance/planning-QLRAeo/1-projects/2026.01.01-fixture/project-index.md) needs acceptance: **Improve onboarding**.\n\n- Proposed placement: **Fixture → First**, owned by you.\n- Still unclear: what onboarding should improve and what “done” means.\n- Your message and manual checkbox represent one candidate.\n\nSaved as pending. Nothing was accepted or created as tracked work; the Markdown remains unchanged."
+    },
+    {
+      "case": "acceptance-accepted-retry",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:40:57.671Z"
+      },
+      "final": "Created [Improve onboarding](<SYNTHETIC_ROOT>/acceptance/planning-QLRAeo/1-projects/2026.01.01-fixture/first/improve-onboarding.md) in Fixture / First using the task template and a generated UUIDv7.\n\nRecorded your acceptance and specified the local-only review, three recommendations, and `onboarding-review.md` output. Metadata and links validate. The task is not started; no additional work was created. Pending candidates: 0."
+    }
+  ]
+}

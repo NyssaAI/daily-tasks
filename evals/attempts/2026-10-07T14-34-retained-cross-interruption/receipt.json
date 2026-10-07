@@ -1,0 +1,23 @@
+{
+  "runId": "2026-10-07T14-34-retained-cross-interruption",
+  "candidate": "970008f61e4f1f4eb304911f58e5722c361310ab03717885c610902df5ccb64c",
+  "classification": "Interrupted native attempt without completion or grading receipt; never promoted to pass",
+  "stream": {
+    "file": ".temp/windows-clock-eval/cross-vault-inventory.jsonl",
+    "sha256": "fbaaded3718831d7da7772d3ad94070688de93c38cc4ce1f163713348e430f8a",
+    "bytes": 114783
+  },
+  "lastStage": {
+    "type": "item.started",
+    "item": {
+      "id": "item_17",
+      "type": "command_execution",
+      "command": "\"C:\\\\Users\\\\PUBLIC_TEST_USER\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content -LiteralPath '1-projects/2026.01.01-fixture/project-index.md','1-projects/2026.01.01-fixture/first/milestone.md','1-projects/2026.01.01-fixture/first/other-task.md','1-projects/2026.01.01-fixture/first/recovery-task.md','1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md','1-projects/2026.01.01-fixture/update-linkedin-and-resume/definition-of-done.md'\"",
+      "aggregated_output": "",
+      "exit_code": null,
+      "status": "in_progress"
+    }
+  },
+  "observedAt": "2026-10-07T14:38:55.076Z",
+  "nextCheck": "Fresh isolated native retry recorded separately under .temp/clock-acceptance-20261007; inspect vault inventory identities and canonical hashes."
+}

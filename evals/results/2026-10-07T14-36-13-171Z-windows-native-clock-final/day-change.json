@@ -1,0 +1,513 @@
+{
+  "id": "day-change",
+  "method": "Native skill actions through isolated registered installations; independent persisted-artifact assertions and actual execution intervals; retained current-candidate evidence reused with explicit provenance.",
+  "checks": [
+    {
+      "scenario": "day-change",
+      "name": "Skipped day created only today and carried own/delegated",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Terminal and unselected open work excluded from carry",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Precreated Other retained, removed Recovery stays out on repeat",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Interrupted destination persisted recovery verified independently",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Explicit future removal persists after planning future date",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-file-conflict preserves pending operation and baseline",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-log-conflict preserves pending operation and baseline",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "New carry decision recorded_at uses actual run clock rather than an invented planning-date instant",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-change: Original recovery event payload remains exact after later new operations",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-file-conflict: Unresolved conflict did not create maintenance-success receipt",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery-log-conflict: Unresolved conflict did not create maintenance-success receipt",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-change: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-change: Maintenance success uses actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-skipped: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-skipped: Maintenance success uses actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-precreated: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-precreated: Maintenance success uses actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-terminals: New decision uses actual recording interval and exact activity-time output",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-terminals: Maintenance success uses actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-skipped: Current plan update and rollover timestamps use actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-precreated: Current plan update and rollover timestamps use actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-terminals: Current plan update and rollover timestamps use actual invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "day-change: Future removal updates plan using new invocation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Retained immediate maintenance TTL uses actual clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: date-only request initial preparation supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: new activity-time call supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: date-only request initial preparation supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: new activity-time call supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "new-future-move: date-only request initial preparation supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "new-future-move: new activity-time call supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "new-future-remove: date-only request initial preparation supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "new-future-remove: new activity-time call supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: fresh decision recording times fall within actual native execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: fresh decision times match exact activity-time results",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: history bytes survive",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: unrelated prose survives",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: maintenance completion falls within actual execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: fresh decision recording times fall within actual native execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: fresh decision times match exact activity-time results",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: history bytes survive",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: unrelated prose survives",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: maintenance completion falls within actual execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: fresh decision recording times fall within actual native execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: fresh decision times match exact activity-time results",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: history bytes survive",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: unrelated prose survives",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: original event remains byte-for-byte equivalent",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: exact recovery oracle passes",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: new operations have distinct identities and fresh clocks",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: maintenance completion falls within actual execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: only requested current plan created across skipped days",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: own and delegated selections carried exactly once",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: existing Other and carried Recovery appear exactly once",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: explicit removal stays out after repeat",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: plan update and rollover use actual clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: new plan creation uses actual clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: plan update and rollover use actual clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "future: new selection writes target date with real creation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "future: explicit removal persists and canonical state remains open",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "future: removal writes a fresh plan update",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "future: removal leaves future rollover pending and records removal intent",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: subsequent current rollover completion uses actual execution clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "maintenance: just-completed pass is not due",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "maintenance: second request preserves success timestamp",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "isolation: source candidate unchanged and temporary auth absent",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Persisted maintenance probe completion uses real execution clock and immediately is not due",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Native maintenance worker invocation, explicit model and worker output retained",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "Persistent repeat session skips broad worker while verifying plans and pending operations within four hours",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "day-change",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:39:48.623Z",
+        "completedAt": "2026-10-07T02:41:18.784Z"
+      },
+      "final": "Completed the interrupted move to the [October 7 plan](2-areas/daily-plans/2026.10.07-daily-plan.md).\n\nVerified exact bytes and hashes, the full original event payload, IDs, and timestamps. Finished the missing baseline and receipt effects and removed the completed checkpoint. Historical plans, canonical records, and unrelated rows and prose remain unchanged."
+    },
+    {
+      "case": "day-skipped",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:43:30.383Z",
+        "completedAt": "2026-10-07T02:46:11.061Z"
+      },
+      "final": "Created [your October 6 plan](<RETAINED_SYNTHETIC_ROOT>/day-skipped/planning-XA1auT/2-areas/daily-plans/2026.10.06-daily-plan.md), carrying both unfinished selections from October 4, including delegated work. Historical plans are unchanged; October 5 was not created.\n\n**October 6, 2026 — America/Chicago**\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\nThis is your first check-in today. Review the carried work below. Status marks show progress; section membership shows selection.\n\n**Already selected — Fixture / First**\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | ↺ Recovery task | — |\n| 2 | [ ] | Fixture | ↺ Other task | — |\n\n**Available tasks**\n\nNo additional tasks available.\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward\n\nActions: `remove 1` · `show details for 2` · `keep selections`"
+    },
+    {
+      "case": "day-terminals-retry",
+      "result": {
+        "status": 0,
+        "startedAt": "2026-10-07T02:59:57.203Z",
+        "completedAt": "2026-10-07T03:02:56.633Z"
+      },
+      "final": "Created [October 6’s plan](<RETAINED_SYNTHETIC_ROOT>/day-terminals/planning-Q7QcHs/2-areas/daily-plans/2026.10.06-daily-plan.md) in America/Chicago with Recovery task and Other task carried from October 4.\n\nCompleted, cancelled, and unselected open tasks were excluded. Historical records remain unchanged; no skipped-day plans were created. Rollover is verified complete."
+    },
+    {
+      "case": "day-precreated-retry",
+      "result": {
+        "status": 0,
+        "startedAt": "2026-10-07T02:55:48.929Z",
+        "completedAt": "2026-10-07T02:58:01.931Z"
+      },
+      "final": "[October 6 plan](<RETAINED_SYNTHETIC_ROOT>/day-precreated/planning-1DTW0W/2-areas/daily-plans/2026.10.06-daily-plan.md) is ready for America/Chicago.\n\nPreserved Other and carried unfinished Recovery from yesterday exactly once. Unrelated prose and historical plans remain unchanged. Rollover completion is recorded and verified."
+    },
+    {
+      "case": "day-remove-repeat",
+      "result": {
+        "status": 0,
+        "startedAt": "2026-10-07T02:58:01.990Z",
+        "completedAt": "2026-10-07T02:59:57.147Z"
+      },
+      "final": "Removed Recovery from the [October 6 plan](<RETAINED_SYNTHETIC_ROOT>/day-precreated/planning-1DTW0W/2-areas/daily-plans/2026.10.06-daily-plan.md).\n\nRepeated planning verified that Recovery stays removed and Other remains selected. Canonical task records and unrelated notes are unchanged."
+    },
+    {
+      "case": "future-removal",
+      "result": {
+        "status": 0,
+        "startedAt": "2026-10-07T03:02:56.680Z",
+        "completedAt": "2026-10-07T03:05:52.688Z"
+      },
+      "final": "[October 7 plan](<RETAINED_SYNTHETIC_ROOT>/day-change/planning-9C1qKN/2-areas/daily-plans/2026.10.07-daily-plan.md) is saved for America/Chicago.\n\nRecovery task is removed and remains canonically open. Rollover carried only Other task; verification confirmed Recovery stays excluded. Unrelated records, prior plans, and notes were preserved."
+    },
+    {
+      "case": "recovery-file-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:50:24.070Z",
+        "completedAt": "2026-10-07T02:51:36.224Z"
+      },
+      "final": "Recovery is suspended on a confirmed conflict: the [source plan](<RETAINED_SYNTHETIC_ROOT>/recovery-file-conflict/planning-x1zzdE/2-areas/daily-plans/2026.10.06-daily-plan.md) matches neither expected checkpoint hash and contains “Unexpected manual edit to preserve.”\n\n“Recovery task” remains selected in both plans. I preserved the manual edit and unrelated data, recorded the conflict in the existing checkpoint, and left baselines and rollover state unchanged. No decision-log entry or completion receipt was created, and no interpretation was chosen."
+    },
+    {
+      "case": "recovery-log-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T02:50:24.074Z",
+        "completedAt": "2026-10-07T02:51:39.523Z"
+      },
+      "final": "Recovery is pending due to a conflict: the full event queried through the log CLI records October 9; the checkpoint specifies October 7.\n\nPreserved both payloads and saved the conflict for later resolution. Plans, canonical records, baselines, receipts, and log remain unchanged. The move was not marked complete."
+    },
+    {
+      "case": "skipped",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T14:36:13.171Z",
+        "completedAt": "2026-10-07T14:40:43.787Z"
+      },
+      "final": "Saved [October 7’s plan](2-areas/daily-plans/2026.10.07-daily-plan.md), carrying both unfinished selections from October 4. Skipped days and history are preserved. Due maintenance is complete.\n\n## October 7, 2026 — America/Chicago\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\nThis is your first review today. Review the carried work; status marks show progress, while sections show selection.\n\n### Already selected — Fixture / First\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | ↺ Recovery task | — |\n| 2 | [ ] | Fixture | ↺ Other task | — |\n\n### Available tasks\n\nNo additional eligible tasks.\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward\n\nActions: `remove 1` · `show details for 2` · `keep selections`"
+    },
+    {
+      "case": "maintenance-repeat",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T14:40:43.862Z",
+        "completedAt": "2026-10-07T14:42:06.974Z"
+      },
+      "final": "[October 7 plan](<FRESH_SYNTHETIC_ROOT>/vaults/skipped/planning-2r3M4k/2-areas/daily-plans/2026.10.07-daily-plan.md): check-in complete for America/Chicago.\n\nCurrent and October 4 plans match saved baselines. No pending operations or conflicts. Retained Recovery task and Other task (delegated to Luna). Saved check-in progress; Markdown and unrelated content remain unchanged."
+    },
+    {
+      "case": "precreated",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T14:42:06.981Z",
+        "completedAt": "2026-10-07T14:46:59.723Z"
+      },
+      "final": "Updated your [October 7 plan](<FRESH_SYNTHETIC_ROOT>/vaults/precreated/planning-HXfuKL/2-areas/daily-plans/2026.10.07-daily-plan.md) for America/Chicago.\n\n- Preserved Other task.\n- Carried unfinished Recovery task from yesterday exactly once.\n- Preserved unrelated prose and historical plans.\n\nVerified rollover is complete with two selections and no pending operations."
+    },
+    {
+      "case": "precreated-remove-repeat",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T14:46:59.729Z",
+        "completedAt": "2026-10-07T14:49:34.663Z"
+      },
+      "final": "Removed Recovery task from the [October 7 plan](<FRESH_SYNTHETIC_ROOT>/vaults/precreated/planning-HXfuKL/2-areas/daily-plans/2026.10.07-daily-plan.md) using the installed Daily Tasks workflow.\n\nRepeated planning for October 7 (America/Chicago): Recovery stayed removed and Other remained selected. Recovery’s canonical record is unchanged, and the unrelated note is preserved."
+    },
+    {
+      "case": "recovery",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T14:49:34.676Z",
+        "completedAt": "2026-10-07T14:54:52.851Z"
+      },
+      "final": "Completed the interrupted move to the [October 7 plan](/<FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/2-areas/daily-plans/2026.10.07-daily-plan.md).\n\nVerified every expected effect, preserving original IDs, timestamps, and exact event payload. Unrelated rows, prose, canonical records, and history remain unchanged. Removed only this operation’s completed checkpoint."
+    },
+    {
+      "case": "new-future-move",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T14:54:52.887Z",
+        "completedAt": "2026-10-07T14:59:25.030Z"
+      },
+      "final": "Moved Recovery task from October 7 to the [October 8 plan](<FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/2-areas/daily-plans/2026.10.08-daily-plan.md) in America/Chicago.\n\nVerified one active selection on October 8. The canonical task remains open and not started, unrelated content is preserved, and the move was logged as a new decision."
+    },
+    {
+      "case": "new-future-remove",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T14:59:25.036Z",
+        "completedAt": "2026-10-07T15:04:31.645Z"
+      },
+      "final": "[October 7 plan](<FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/2-areas/daily-plans/2026.10.07-daily-plan.md) is saved for America/Chicago with Other task carried forward.\n\nRecovery task was removed from October 8 and remains `not-started`. Its durable removal survived repeat preparation and a rollover probe. The removal event was recorded exactly once; retry added no duplicate. Unrelated content was preserved."
+    },
+    {
+      "case": "maintenance-probe",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "startedAt": "2026-10-07T14:41:33.269Z",
+        "completedAt": "2026-10-07T14:45:21.909Z"
+      },
+      "final": "[October 7 plan](<FRESH_SYNTHETIC_ROOT>/vaults/maintenance/planning-4saAy4/2-areas/daily-plans/2026.10.07-daily-plan.md): check-in complete in America/Chicago. Both selections and unrelated content were preserved.\n\nMaintenance completed using native `spawn_agent` with explicit `gpt-6-luna`. Record and link validation passed; baselines and completion receipts were saved and verified. The installed CLI confirms maintenance is no longer due, with no pending conflicts or operations."
+    },
+    {
+      "case": "maintenance-probe-repeat",
+      "result": {
+        "status": 0,
+        "startedAt": "2026-10-07T15:02:49.239Z",
+        "completedAt": "2026-10-07T15:06:02.250Z"
+      },
+      "final": "[October 7 plan](<FRESH_SYNTHETIC_ROOT>/vaults/maintenance/planning-4saAy4/2-areas/daily-plans/2026.10.07-daily-plan.md) checked in for America/Chicago.\n\nBoth selections retained. Current and previous plans match their baselines; no pending operations, conflicts, or candidates remain. Maintenance was not due. Completion state saved; unrelated content preserved."
+    }
+  ]
+}

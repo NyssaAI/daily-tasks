@@ -1,0 +1,111 @@
+{
+  "base": "C:\\Users\\PUBLIC_TEST_USER\\AppData\\Local\\Temp\\daily-upgrade-fgx8OI",
+  "before": {
+    "pluginId": "daily-tasks@upgrade-probe",
+    "name": "daily-tasks",
+    "marketplaceName": "upgrade-probe",
+    "version": "0.2.0",
+    "installed": true,
+    "enabled": true,
+    "source": {
+      "source": "git",
+      "url": "https://example.invalid/daily-tasks.git"
+    },
+    "marketplaceSource": {
+      "sourceType": "local",
+      "source": "\\\\?\\C:\\Users\\PUBLIC_TEST_USER\\AppData\\Local\\Temp\\daily-upgrade-fgx8OI\\catalog"
+    },
+    "installPolicy": "AVAILABLE",
+    "authPolicy": "ON_INSTALL"
+  },
+  "after": {
+    "pluginId": "daily-tasks@upgrade-probe",
+    "name": "daily-tasks",
+    "marketplaceName": "upgrade-probe",
+    "version": "0.3.0",
+    "installed": true,
+    "enabled": true,
+    "source": {
+      "source": "git",
+      "url": "https://example.invalid/daily-tasks.git"
+    },
+    "marketplaceSource": {
+      "sourceType": "local",
+      "source": "\\\\?\\C:\\Users\\PUBLIC_TEST_USER\\AppData\\Local\\Temp\\daily-upgrade-fgx8OI\\catalog"
+    },
+    "installPolicy": "AVAILABLE",
+    "authPolicy": "ON_INSTALL"
+  },
+  "repeated": [
+    {
+      "pluginId": "daily-tasks@upgrade-probe",
+      "name": "daily-tasks",
+      "marketplaceName": "upgrade-probe",
+      "version": "0.3.0",
+      "installed": true,
+      "enabled": true,
+      "source": {
+        "source": "git",
+        "url": "https://example.invalid/daily-tasks.git"
+      },
+      "marketplaceSource": {
+        "sourceType": "local",
+        "source": "\\\\?\\C:\\Users\\PUBLIC_TEST_USER\\AppData\\Local\\Temp\\daily-upgrade-fgx8OI\\catalog"
+      },
+      "installPolicy": "AVAILABLE",
+      "authPolicy": "ON_INSTALL"
+    }
+  ],
+  "files": 44,
+  "mismatches": [],
+  "preferencesUnchanged": true,
+  "passed": true,
+  "rawByteMismatches": [
+    ".claude-plugin\\plugin.json",
+    ".codex-plugin\\plugin.json",
+    ".cursor-plugin\\plugin.json",
+    "assembly.json",
+    "bin\\daily-tasks.mjs",
+    "capabilities.json",
+    "lib\\identity\\identity.mjs",
+    "lib\\inventory\\inventory.mjs",
+    "lib\\log\\decision-log.mjs",
+    "lib\\planning\\planning.mjs",
+    "lib\\planning\\review.mjs",
+    "lib\\planning\\session.mjs",
+    "lib\\profile\\context.mjs",
+    "lib\\profile\\profile.mjs",
+    "lib\\reconciliation\\reconciliation.mjs",
+    "lib\\records\\closure.mjs",
+    "lib\\records\\links.mjs",
+    "lib\\records\\parse.mjs",
+    "lib\\records\\records.mjs",
+    "lib\\records\\validation.mjs",
+    "lib\\records\\views.mjs",
+    "lib\\time\\time.mjs",
+    "LICENSE",
+    "package.json",
+    "plugin.json",
+    "skills\\daily-tasks\\assets\\blocker.md",
+    "skills\\daily-tasks\\assets\\daily-plan.md",
+    "skills\\daily-tasks\\assets\\definition-of-done.md",
+    "skills\\daily-tasks\\assets\\milestone.md",
+    "skills\\daily-tasks\\assets\\plan-day-select-tasks-screen.md",
+    "skills\\daily-tasks\\assets\\project-index.md",
+    "skills\\daily-tasks\\assets\\task.md",
+    "skills\\daily-tasks\\references\\cli.md",
+    "skills\\daily-tasks\\references\\operations.md",
+    "skills\\daily-tasks\\references\\planning-flow.md",
+    "skills\\daily-tasks\\references\\records.md",
+    "skills\\daily-tasks\\references\\response-conventions.md",
+    "skills\\daily-tasks\\references\\templates.md",
+    "skills\\daily-tasks\\SKILL.md",
+    "skills\\daily-tasks-capture\\SKILL.md",
+    "skills\\daily-tasks-checkin\\SKILL.md",
+    "skills\\daily-tasks-plan\\SKILL.md",
+    "skills\\daily-tasks-records\\SKILL.md",
+    "skills\\daily-tasks-setup\\SKILL.md"
+  ],
+  "comparison": "UTF-8 normalized CRLF to LF, matching source inventory contract",
+  "payloadVersion": "0.3.0"
+}

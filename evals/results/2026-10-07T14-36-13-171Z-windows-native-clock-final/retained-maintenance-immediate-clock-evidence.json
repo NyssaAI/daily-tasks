@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-07T02:46:40.398Z",
+  "state": {
+    "executionEvidence": {
+      "result": "Complete bounded graph and baseline audit; no conflicts",
+      "worker": "/root/maintenance",
+      "readOnly": true,
+      "sourceHashes": {
+        "milestone": "5ed7f97562c17d1435df74b21315bfedeaad5181786970ac44eaefade53244e5",
+        "project": "a15e96a215ec5ae0b5429cfcd10c6d7bf5bcdbba38fb5cdf2c951984f707f9ff",
+        "recovery": "044e01ec951a7de77aceac5b9c8294a9a1ae83d4dd887c6d1df0601e491d628f",
+        "other": "d7a8a45d58ca20cfa9f7b8f9f274b05e8eb1a11974cbc135b793c0660169709e"
+      }
+    },
+    "lastFullReconcileAt": "2026-10-07T02:46:04.273Z",
+    "model": "gpt-6-luna",
+    "schemaVersion": 1
+  },
+  "result": {
+    "fullReconcileDue": false,
+    "preferredModel": "gpt-6-luna",
+    "alwaysCheck": [
+      "current-plan-edits",
+      "previous-plan-edits",
+      "applicable-pending-operations"
+    ]
+  },
+  "status": 0
+}

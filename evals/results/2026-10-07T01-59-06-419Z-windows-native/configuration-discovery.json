@@ -1,0 +1,156 @@
+{
+  "id": "configuration-discovery",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "configuration-discovery",
+      "name": "configuration-discovery creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-no-profile creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-legacy creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-explicit-legacy creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "config-shared-b creates one milestone without extra tasks",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "No-profile initializes conventional config with empty priorities",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Legacy profile retained without new profile migration",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Conflicting profile preserved awaiting decision",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Unknown scope asks for vault and no internal directory",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign numbered reply and checkpoint refused without canonical writes",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign inventory replaced with vault B identities",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "configuration-discovery",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:00:37.960Z"
+      },
+      "final": "Created [M1: update LinkedIn and resume](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/configuration-discovery/planning-KhWS1U/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in the existing Fixture project.\n\nStatus: not-started. Project link and acceptance log verified. No additional tasks created."
+    },
+    {
+      "case": "config-no-profile",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:06:09.399Z"
+      },
+      "final": "Created [M1: update LinkedIn and resume](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-no-profile/planning-mTIhrw/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in Fixture, with its definition of done. No additional tasks created.\n\nConfigured this vault for Fixture (`fixture@example.test`), America/Chicago, with empty priorities. Locations relative to this vault:\n\n- Configuration: `.nyssaai/daily-tasks`\n- Projects: `1-projects`\n- Daily plans: `2-areas/daily-plans`\n\nValidation passed; decisions were logged and verified."
+    },
+    {
+      "case": "config-legacy",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:06:15.648Z"
+      },
+      "final": "Created [M1 — update LinkedIn and resume](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-legacy/planning-hvQDwX/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) in Fixture as one milestone, with no extra tasks.\n\nUpdated the project index and verified the records and acceptance log. Preserved existing settings and unrelated data."
+    },
+    {
+      "case": "config-explicit-legacy",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:15:36.073Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "Created accepted [M1: update LinkedIn and resume](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-explicit-legacy/planning-HEGoUz/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) under Fixture, with completion criteria and recorded acceptance.\n\nNo extra tasks created; the legacy profile is unchanged. Records and links validated successfully."
+    },
+    {
+      "case": "config-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:14:10.314Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "The existing [profile](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-conflict/planning-Ne5ge4/.nyssaai/daily-tasks/profile.json) specifies **Fixture, fixture@example.test, America/Chicago**, conflicting with the identity and timezone you supplied. I preserved it and made no writes.\n\nShould I create **M1: update LinkedIn and resume** under **Fixture**, owned by **different@example.test**, using **Europe/London** for this request only?\n\nThe [setup skill](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md) says, “Do not replace malformed profiles, overwrite conflicting values or merge different users’ state,” so this conflict needs clarification before creation."
+    },
+    {
+      "case": "config-unknown",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:14:02.660Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "Which vault should contain **M1: update LinkedIn and resume**? Please provide its absolute path.\n\nThe [Daily Tasks setup skill](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-eval-home/plugins/cache/windows-release/daily-tasks/0.3.0/skills/daily-tasks-setup/SKILL.md) requires: “If required scope is still unknown, ask for the intended vault/project.”\n\nM1 is accepted. No records or configuration have been created."
+    },
+    {
+      "case": "config-shared-a",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:17:15.178Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "[October 6 plan](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-shared-a/planning-PhG2j4/2-areas/daily-plans/2026.10.06-daily-plan.md) preserved for America/Chicago. The numbered review mapping is saved in this vault; shared settings remain unchanged.\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\nAlready selected — Fixture / First:\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | Recovery task | — |\n| 2 | [ ] | Fixture | Other task | — |\n\nNo available additions.\n\nReply by row number and symbol or description:\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled\n\nActions: `remove 1` · `show details for 2` · `keep selections`\n\nMaintenance found incomplete baseline coverage, so full reconciliation was not marked complete."
+    },
+    {
+      "case": "config-shared-b",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T02:17:30.286Z",
+        "isolation": "separate authenticated home cloned from exact installed candidate"
+      },
+      "final": "Created accepted [M1 — Update LinkedIn and resume](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-shared-b/planning-ZtedEc/1-projects/2026.01.01-fixture/update-linkedin-and-resume/milestone.md) under Fixture, with two completion criteria and no extra tasks.\n\nValidated records and links, logged acceptance, and updated the project view. Shared settings stayed unchanged; project, plan, and operating state remain independent of other vaults."
+    },
+    {
+      "case": "cross-vault-reply",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T02:25:31.018Z"
+      },
+      "final": "No changes made. The saved numbered screen belongs to a different vault, so item 1 cannot safely identify a task here. The recovery checkpoint also targets that other vault and was left untouched.\n\nPlease provide the task title or a numbered screen for this vault."
+    },
+    {
+      "case": "cross-vault-inventory",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T02:27:49.986Z"
+      },
+      "final": "[October 6 plan](<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/config-shared-b/planning-ZtedEc/2-areas/daily-plans/2026.10.06-daily-plan.md) is ready for review in America/Chicago. Inventory was rebuilt for this vault, rollover verified, and unrelated data preserved. No canonical tasks in another vault were modified.\n\nOpen projects: 1 · Open tasks: 2 · Late tasks: 0\n\nAlready selected:\n\n| # | Status | Project | Task | Due Date |\n| --- | --- | --- | --- | --- |\n| 1 | [ ] | Fixture | Recovery task | — |\n| 2 | [ ] | Fixture | Other task | — |\n\nNo additional eligible tasks are available.\n\nReply by row number and symbol or description.\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled\n\nActions: `remove 1` · `show details for 2` · `keep selections`"
+    }
+  ]
+}

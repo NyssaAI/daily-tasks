@@ -1,0 +1,95 @@
+{
+  "operation_id": "01a11409-f3cf-740e-bb04-83d65c76c170",
+  "contextBinding": "bc066a8792a32568fffc2afc00f085dccf2c2231c18e73960a1c1aaaba469625",
+  "changes": [
+    {
+      "key": "destinationMember",
+      "before": {
+        "present": true,
+        "value": false
+      },
+      "after": {
+        "present": true,
+        "value": true
+      }
+    },
+    {
+      "key": "sourceMember",
+      "before": {
+        "present": true,
+        "value": true
+      },
+      "after": {
+        "present": true,
+        "value": false
+      }
+    },
+    {
+      "key": "logRecorded",
+      "before": {
+        "present": true,
+        "value": false
+      },
+      "after": {
+        "present": true,
+        "value": true
+      }
+    },
+    {
+      "key": "baselineHash",
+      "before": {
+        "present": true,
+        "value": "bd6e182c7d91552cc1167af89f7140fd62088fa356705f3e932e71fbbf951c82"
+      },
+      "after": {
+        "present": true,
+        "value": "7ad9ad59e76c84517a77bf1fb1448a1b59d9b8331762661190b318404fe59f71"
+      }
+    },
+    {
+      "key": "sourceRolloverHash",
+      "before": {
+        "present": true,
+        "value": "85c9e8bb34d65260622c1d7b48bebd4c92b262f86fa9670693a22dec0b76942d"
+      },
+      "after": {
+        "present": true,
+        "value": "b8bbde382fcf7935cd36cd5e89f2b677a1724988d6765040592ea89170d398ec"
+      }
+    }
+  ],
+  "event": {
+    "id": "01a11409-f3cf-78d7-91ee-06c84dd721d6",
+    "operation_id": "01a11409-f3cf-740e-bb04-83d65c76c170",
+    "action": "selection-move",
+    "record_ids": [
+      "01a11409-f3cf-77d1-b3f4-31e2210ad394"
+    ],
+    "actor": {
+      "kind": "person",
+      "id": "fixture@example.test"
+    },
+    "activity_at": "2026-10-07T01:45:58.99Z",
+    "recorded_at": "2026-10-07T01:45:58.99Z",
+    "time_defaulted": false,
+    "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+    "before": {
+      "date": "2026.10.06"
+    },
+    "after": {
+      "date": "2026.10.07"
+    }
+  },
+  "files": [
+    {
+      "path": "<SYNTHETIC_ROOT>\\config-shared-a\\planning-doezbq\\2-areas\\daily-plans\\2026.10.06-daily-plan.md",
+      "before": "05a13570a95eb7f5171c8229ead830211d114121f3683f8f5e6c5e48fed3bc7d",
+      "after": "4f91ee337ddbbdfaadeabe1a940aa3348659cce3399a323a12211f2fef744a9e"
+    },
+    {
+      "path": "<SYNTHETIC_ROOT>\\config-shared-a\\planning-doezbq\\2-areas\\daily-plans\\2026.10.07-daily-plan.md",
+      "before": null,
+      "after": "2f8c610d5c9fb85720f7897fdadbc87f707a1afbc2c15dbe50b46148c21860b2"
+    }
+  ]
+}

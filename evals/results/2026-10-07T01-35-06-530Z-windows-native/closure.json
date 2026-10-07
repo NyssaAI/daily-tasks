@@ -1,0 +1,92 @@
+{
+  "id": "closure",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "closure",
+      "name": "Open children and missing DoD prevent parent closure",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Unchecked DoD and shared open blocker prevent closure",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-blocker reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-dod reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "reopen-task reopens parents preserving unrelated completed tasks",
+      "passed": true
+    },
+    {
+      "scenario": "closure",
+      "name": "Cancelled prerequisite informational and relation retained",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "closure",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:38:30.220Z"
+      },
+      "final": "Neither [Fixture](<SYNTHETIC_ROOT>/closure/planning-qkHYVs/1-projects/2026.01.01-fixture/project-index.md) nor [First](<SYNTHETIC_ROOT>/closure/planning-qkHYVs/1-projects/2026.01.01-fixture/first/milestone.md) can close.\n\n- **First:** Recovery task and Other task remain `not-started`. Its required single Definition of Done record is missing.\n- **Fixture:** First remains unfinished, with those same unmet conditions.\n- No open preventing blockers were found.\n\nYour conditional closure intent is safely retained in a guarded pending checkpoint and verified decision-log entry. All canonical Markdown remains unchanged; no children were completed or cancelled, and no evidence or blocker resolution was inferred."
+    },
+    {
+      "case": "closure-blocked",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:41:56.600Z"
+      },
+      "final": "Closure checks denied both closures:\n\n- **First:** “Release evidence approved” remains unchecked, and the shared Approval blocker is open. All child tasks are completed.\n- **Fixture:** First remains unresolved; its DoD is unsatisfied, and Approval also directly blocks Fixture.\n\nRecord validation and link checks passed. All existing records and unrelated data were preserved; no lifecycle states changed. Closure requires explicit DoD satisfaction and blocker resolution, followed by successful closure checks."
+    },
+    {
+      "case": "reopen-blocker",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:42:54.255Z"
+      },
+      "final": "Reopened [Approval](1-projects/2026.01.01-fixture/blockers/approval-needed.md) and recorded your explicit revocation decision.\n\nFirst and Fixture are now in progress. Both tasks remain completed, and unrelated data was preserved. Record and link validation passed."
+    },
+    {
+      "case": "reopen-dod",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:43:23.129Z"
+      },
+      "final": "Unchecked “Release evidence approved” in [Definition of Done](<SYNTHETIC_ROOT>/reopen-dod/planning-zuNSHP/1-projects/2026.01.01-fixture/first/definition-of-done.md). Reopened First and Fixture to `in-progress` and updated the milestone checkbox.\n\nBoth tasks remain completed. Approval remains resolved. Validation passed, and the change was logged."
+    },
+    {
+      "case": "reopen-task",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:43:06.973Z"
+      },
+      "final": "Reopened [Recovery task](/<SYNTHETIC_ROOT>/reopen-task/planning-Fcxlmd/1-projects/2026.01.01-fixture/first/recovery-task.md) to **not-started**.\n\nFirst milestone and Fixture project are now **in-progress**. Other task remains **completed**. Views and history were updated; unrelated data was preserved."
+    },
+    {
+      "case": "cancelled-dependency",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:42:48.930Z"
+      },
+      "final": "Started [Recovery task](<SYNTHETIC_ROOT>/cancelled-dependency/planning-cu6HFB/1-projects/2026.01.01-fixture/first/recovery-task.md); it is now in progress.\n\nIts dependency on Other remains linked and flagged “prerequisite cancelled.” Other remains cancelled. Updated the project view and today’s plan, logged the start, and preserved unrelated data."
+    }
+  ]
+}

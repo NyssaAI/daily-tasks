@@ -1,0 +1,1098 @@
+{
+  "checks": [
+    {
+      "scenario": "day-change",
+      "name": "skipped: date-only request initial preparation supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: new activity-time call supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: date-only request initial preparation supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: new activity-time call supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "new-future-move: date-only request initial preparation supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "new-future-move: new activity-time call supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "new-future-remove: date-only request initial preparation supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "new-future-remove: new activity-time call supplies no recording clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: fresh decision recording times fall within actual native execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: fresh decision times match exact activity-time results",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: history bytes survive",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: unrelated prose survives",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: maintenance completion falls within actual execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: fresh decision recording times fall within actual native execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: fresh decision times match exact activity-time results",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: history bytes survive",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: unrelated prose survives",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: maintenance completion falls within actual execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: fresh decision recording times fall within actual native execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: fresh decision times match exact activity-time results",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: history bytes survive",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: unrelated prose survives",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: original event remains byte-for-byte equivalent",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: exact recovery oracle passes",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: new operations have distinct identities and fresh clocks",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: maintenance completion falls within actual execution",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: only requested current plan created across skipped days",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: own and delegated selections carried exactly once",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: existing Other and carried Recovery appear exactly once",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: explicit removal stays out after repeat",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: plan update and rollover use actual clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "skipped: new plan creation uses actual clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "precreated: plan update and rollover use actual clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "future: new selection writes target date with real creation clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "future: explicit removal persists and canonical state remains open",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "future: removal writes a fresh plan update",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "future: removal leaves future rollover pending and records removal intent",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "recovery: subsequent current rollover completion uses actual execution clock",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "maintenance: just-completed pass is not due",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "maintenance: second request preserves success timestamp",
+      "passed": true
+    },
+    {
+      "scenario": "day-change",
+      "name": "isolation: source candidate unchanged and temporary auth absent",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Foreign inventory retry preserves canonical bytes in both vaults",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "Fresh retry actually starts with A inventory and rebuilds B identities",
+      "passed": true
+    },
+    {
+      "scenario": "configuration-discovery",
+      "name": "New decisions during foreign inventory retry use actual recording clock",
+      "passed": true
+    }
+  ],
+  "details": {
+    "inputAudit": [
+      {
+        "label": "skipped",
+        "prepare": ".temp/prepare.json",
+        "initialInput": {
+          "vaultRoot": "<FRESH_SYNTHETIC_ROOT>/vaults/skipped/planning-2r3M4k"
+        },
+        "time": ".temp/empty.json",
+        "activityInput": {},
+        "method": "Native command observations retained in the export refer to these same persisted input files. State-save context.now is audited separately and remains the declared preparation-packet exception."
+      },
+      {
+        "label": "precreated",
+        "prepare": ".temp/prepare-input.json",
+        "initialInput": {
+          "vaultRoot": "<FRESH_SYNTHETIC_ROOT>\\vaults\\precreated\\planning-HXfuKL"
+        },
+        "time": ".temp/time-input.json",
+        "activityInput": {},
+        "method": "Native command observations retained in the export refer to these same persisted input files. State-save context.now is audited separately and remains the declared preparation-packet exception."
+      },
+      {
+        "label": "new-future-move",
+        "prepare": ".temp/move-oct8/prepare.json",
+        "initialInput": {
+          "vaultRoot": "<FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF"
+        },
+        "time": ".temp/move-oct8/time-input.json",
+        "activityInput": {},
+        "method": "Native command observations retained in the export refer to these same persisted input files. State-save context.now is audited separately and remains the declared preparation-packet exception."
+      },
+      {
+        "label": "new-future-remove",
+        "prepare": ".temp/prepare.json",
+        "initialInput": {
+          "vaultRoot": "<FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF"
+        },
+        "time": ".temp/empty.json",
+        "activityInput": {},
+        "method": "Native command observations retained in the export refer to these same persisted input files. State-save context.now is audited separately and remains the declared preparation-packet exception."
+      }
+    ],
+    "skipped": {
+      "log": {
+        "entries": [
+          {
+            "id": "01a116cc-603a-7752-8d4b-9adc0c08ea42",
+            "operation_id": "01a116cc-5ffe-77cd-ad4e-7e08385d003c",
+            "action": "plan.selection",
+            "record_ids": [
+              "01a116cb-1fda-74cf-8b18-348a22729ace",
+              "01a116cb-1fda-78e4-bfca-9dfd679a0d92"
+            ],
+            "actor": {
+              "kind": "person",
+              "id": "fixture@example.test"
+            },
+            "activity_at": "2026-10-07T14:37:35.048Z",
+            "recorded_at": "2026-10-07T14:37:35.048Z",
+            "time_defaulted": true,
+            "after": {
+              "date": "2026.10.07",
+              "selectedIds": [
+                "01a116cb-1fda-74cf-8b18-348a22729ace",
+                "01a116cb-1fda-78e4-bfca-9dfd679a0d92"
+              ],
+              "carriedFrom": "2026.10.04"
+            },
+            "original_words": "Carry my unfinished selected own and delegated work from the latest earlier plan."
+          }
+        ],
+        "total": 1,
+        "offset": 0,
+        "limit": 1000,
+        "nextOffset": null
+      },
+      "times": [
+        {
+          "id": "01a116cc-603a-7752-8d4b-9adc0c08ea42",
+          "activity_at": "2026-10-07T14:37:35.048Z",
+          "recorded_at": "2026-10-07T14:37:35.048Z",
+          "withinInvocation": true,
+          "matchesClockResult": true
+        }
+      ],
+      "clockResults": [
+        {
+          "activity_at": "2026-10-07T14:37:35.048Z",
+          "recorded_at": "2026-10-07T14:37:35.048Z",
+          "time_defaulted": true
+        }
+      ],
+      "savedTimeResults": [
+        {
+          "activity_at": "2026-10-07T14:39:12.924Z",
+          "recorded_at": "2026-10-07T14:39:12.924Z",
+          "time_defaulted": true
+        },
+        {
+          "activity_at": "2026-10-07T14:40:06.278Z",
+          "recorded_at": "2026-10-07T14:40:06.278Z",
+          "time_defaulted": true
+        }
+      ],
+      "commands": [
+        {
+          "id": "item_5",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"New-Item -ItemType Directory -Force .temp | Out-Null; Set-Content .temp/prepare.json '{\\\"vaultRoot\\\":\\\"<FRESH_SYNTHETIC_ROOT>/vaults/skipped/planning-2r3M4k\\\"}'; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input \\\"\"'$PWD/.temp/prepare.json\"'",
+          "aggregated_output": "{\"status\":\"create-plan\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"e41925a8d3f7c37f2a331761351f3b0297145c70f41ed3de43f4189a16a0a90c\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:37:00.260Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":null,\"id\":null,\"rows\":[]},\"previous\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\2-areas\\\\daily-plans\\\\2026.10.04-daily-plan.md\",\"date\":\"2026.10.04\",\"sha256\":\"40b510edfd5f8e59a15a2a398376a2efe9a0f501e3e5a9afb96d287e40773cca\",\"id\":\"01a116cb-1fda-713f-b52e-f012fc72d827\",\"rows\":[{\"id\":\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"rollover\":{\"status\":\"missing-plan\",\"selected\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[],\"available\":[{\"id\":\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"milestoneId\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"number\":1,\"dueDate\":null},{\"id\":\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"milestoneId\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":\"Luna\",\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"number\":2,\"dueDate\":null}],\"hasMore\":false,\"mapping\":{\"01a116cb-1fda-74cf-8b18-348a22729ace\":1,\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"e41925a8d3f7c37f2a331761351f3b0297145c70f41ed3de43f4189a16a0a90c\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:37:00.260Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\"}],\"tasks\":[{\"id\":\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"milestoneId\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]},{\"id\":\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"milestoneId\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":\"Luna\",\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"c1cc7d99c0b04efb7aa2f8ade65a2dbc6c1ad7687c71614240fc8e260b338ad6\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"0a4c91c3e8e42d6b4e481cd53d721351b574ea34aaa7acf9de857d9681632504\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"9fd54338e61b6cec3344c51731717967ce6fd0473b36dd1b79e0cd331968a1a7\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"a9304a0a9a38a8a87c64275cadea54ad779380a1a8425d8c70bb2c96c8ce1ce5\"}],\"diagnostics\":[]},\"inventoryStatus\":\"rebuilt\",\"metrics\":{\"sourceReads\":4,\"metadataFiles\":6},\"enrollment\":[],\"inventoryHash\":\"fe1eedbf979db1e4e05979ed39ccf051ff72f4d30725298cca055d3de5ebc220\",\"reviewHash\":\"bd2346df55d3c8c2b760bc0119eb15d36ac3cb27ce1f2b84683ec6a2c42bf356\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":null,\"value\":null},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_6",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"Get-Content 2-areas/daily-plans/*.md; Get-Content .nyssaai/daily-tasks/reconciliation.json; Get-Content 1-projects/2026.01.01-fixture/first/*task.md; Get-Content .nyssaai/daily-tasks/rollover/*.json; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' new-id; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time\"",
+          "aggregated_output": "---\r\nid: 01a116cb-1fda-7890-afdd-52476d7a059c\r\ntype: daily-plan\r\ntitle: \"Daily plan 2026.10.03\"\r\ndocument-maturity: reviewed\r\ntimezone: \"America/Chicago\"\r\ncreated_at: \"2026-10-04T15:00:00.000Z\"\r\nupdated_at: \"2026-10-04T15:00:00.000Z\"\r\n---\r\n# Daily plan â€” 2026.10.03\r\n\r\n**Timezone:** America/Chicago\r\n\r\n## My work\r\n\r\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a116cb-1fda-74cf-8b18-348a22729ace -->\r\n\r\n## Notes\r\n\r\nPreserve this unrelated note.\r\n---\r\nid: 01a116cb-1fda-713f-b52e-f012fc72d827\r\ntype: daily-plan\r\ntitle: \"Daily plan 2026.10.04\"\r\ndocument-maturity: reviewed\r\ntimezone: \"America/Chicago\"\r\ncreated_at: \"2026-10-04T15:00:00.000Z\"\r\nupdated_at: \"2026-10-04T15:00:00.000Z\"\r\n---\r\n# Daily plan â€” 2026.10.04\r\n\r\n**Timezone:** America/Chicago\r\n\r\n## My work\r\n\r\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a116cb-1fda-74cf-8b18-348a22729ace -->\r\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a116cb-1fda-78e4-bfca-9dfd679a0d92 -->\r\n\r\n## Notes\r\n\r\nPreserve this unrelated note.\r\n{\r\n  \"schemaVersion\": 1,\r\n  \"records\": {\r\n    \"01a116cb-1fda-74cf-8b18-348a22729ace\": {\r\n      \"canonical\": {\r\n        \"state\": \"not-started\"\r\n      },\r\n      \"views\": {\r\n        \"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\2-areas\\\\daily-plans\\\\2026.10.04-daily-plan.md\": {\r\n          \"selected\": true,\r\n          \"hash\": \"40b510edfd5f8e59a15a2a398376a2efe9a0f501e3e5a9afb96d287e40773cca\"\r\n        }\r\n      }\r\n    }\r\n  }\r\n}\r\n---\r\nid: 01a116cb-1fda-78e4-bfca-9dfd679a0d92\r\ntype: task\r\ntitle: \"Other task\"\r\nowner: fixture@example.test\r\ntask-state: not-started\r\nassignee: Luna\r\ncreated_at: 2026-10-04T15:00:00.000Z\r\nupdated_at: 2026-10-04T15:00:00.000Z\r\nproject_id: 01a116cb-1fd9-77f0-b116-41c157fdc6e3\r\nmilestone_id: 01a116cb-1fda-7a6c-b699-0d9271728786\r\n---\r\n# Other task\r\n\r\n---\r\nid: 01a116cb-1fda-74cf-8b18-348a22729ace\r\ntype: task\r\ntitle: \"Recovery task\"\r\nowner: fixture@example.test\r\ntask-state: not-started\r\ncreated_at: 2026-10-04T15:00:00.000Z\r\nupdated_at: 2026-10-04T15:00:00.000Z\r\nproject_id: 01a116cb-1fd9-77f0-b116-41c157fdc6e3\r\nmilestone_id: 01a116cb-1fda-7a6c-b699-0d9271728786\r\n---\r\n# Recovery task\r\n\r\n{\r\n  \"schemaVersion\": 1,\r\n  \"date\": \"2026.10.04\",\r\n  \"planId\": \"01a116cb-1fda-713f-b52e-f012fc72d827\",\r\n  \"operationId\": \"01a116cb-1fda-75a6-a1c9-4369b722f061\",\r\n  \"completedAt\": \"2026-10-04T15:00:00.000Z\",\r\n  \"removedIds\": []\r\n}\r\n{\r\n  \"schemaVersion\": 1,\r\n  \"date\": \"2026.10.05\",\r\n  \"planId\": \"01a116cb-1fda-718c-9b61-ece6da71df20\",\r\n  \"removedIds\": []\r\n}\r\n{\"id\":\"01a116cc-2150-7e6d-bda0-d0f2868fa085\"}\n{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n",
+          "exit_code": 1,
+          "status": "failed"
+        },
+        {
+          "id": "item_8",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"Set-Content .temp/empty.json '{}'; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time --input \\\"\"'$PWD/.temp/empty.json\"; node '\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' new-id; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' new-id\"",
+          "aggregated_output": "{\"activity_at\":\"2026-10-07T14:37:35.048Z\",\"recorded_at\":\"2026-10-07T14:37:35.048Z\",\"time_defaulted\":true}\n{\"id\":\"01a116cc-5ffe-77cd-ad4e-7e08385d003c\"}\n{\"id\":\"01a116cc-603a-7752-8d4b-9adc0c08ea42\"}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_9",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input \\\"\"'$PWD/.temp/prepare.json\" | Set-Content .temp/packet.json; node -e '\"'const fs=require(\\\"fs\\\"); const p=JSON.parse(fs.readFileSync(\\\".temp/packet.json\\\",\\\"utf8\\\")); fs.writeFileSync(\\\".temp/rollover-input.json\\\",JSON.stringify({...p.context,contextBinding:p.context.planningBinding,inventoryBinding:p.context.planningBinding,today:p.context.localDate,planId:\\\"01a116cc-2150-7e6d-bda0-d0f2868fa085\\\",currentRows:[],previousDate:p.previous.date,previousRows:p.previous.rows,records:p.inventory.tasks,inventory:p.inventory}));'; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' plan-rollover --input \\\"\"'$PWD/.temp/rollover-input.json\"'",
+          "aggregated_output": "[eval]:1\r\nconst fs=require(fs); const p=JSON.parse(fs.readFileSync(.temp/packet.json,utf8)); fs.writeFileSync(.temp/rollover-input.json,JSON.stringify({...p.context,contextBinding:p.context.planningBinding,inventoryBinding:p.context.planningBinding,today:p.context.localDate,planId:01a116cc-2150-7e6d-bda0-d0f2868fa085,currentRows:[],previousDate:p.previous.date,previousRows:p.previous.rows,records:p.inventory.tasks,inventory:p.inventory}));\r\n                                                         ^\r\nExpression expected\r\n\r\nSyntaxError: Unexpected token '.'\r\n    at makeContextifyScript (node:internal/vm:194:14)\r\n    at compileScript (node:internal/process/execution:388:10)\r\n    at evalTypeScript (node:internal/process/execution:260:22)\r\n    at node:internal/main/eval_string:71:3\r\n\r\nNode.js v24.19.0\r\n{\"error\":\"ENOENT: no such file or directory, open 'D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.temp\\\\rollover-input.json'\",\"code\":\"ENOENT\"}\n",
+          "exit_code": 1,
+          "status": "failed"
+        },
+        {
+          "id": "item_13",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"Set-Content .temp/query.json '{\\\"projectsRoot\\\":\\\"<FRESH_SYNTHETIC_ROOT>/vaults/skipped/planning-2r3M4k/1-projects\\\",\\\"action\\\":\\\"plan.selection\\\"}'; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' log-query --input \\\"\"'$PWD/.temp/query.json\" | Set-Content .temp/log-result.json; node '\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input \\\"\"'$PWD/.temp/prepare.json\" | Set-Content .temp/post.json; Get-Content .temp/log-result.json'",
+          "aggregated_output": "{\"entries\":[{\"id\":\"01a116cc-603a-7752-8d4b-9adc0c08ea42\",\"operation_id\":\"01a116cc-5ffe-77cd-ad4e-7e08385d003c\",\"action\":\"plan.selection\",\"record_ids\":[\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\"],\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"activity_at\":\"2026-10-07T14:37:35.048Z\",\"recorded_at\":\"2026-10-07T14:37:35.048Z\",\"time_defaulted\":true,\"after\":{\"date\":\"2026.10.07\",\"selectedIds\":[\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\"],\"carriedFrom\":\"2026.10.04\"},\"original_words\":\"Carry my unfinished selected own and delegated work from the latest earlier plan.\"}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}\r\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_15",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time --input \\\"\"'$PWD/.temp/empty.json\" | Set-Content .temp/completion-time.json; @'\"'\nconst fs=require('fs'),crypto=require('crypto');const read=f=>JSON.parse(fs.readFileSync(f,'utf8').replace(/\"'^'\"\\\\uFEFF/,''));const opPath='.nyssaai/daily-tasks/operations/01a116cc-5ffe-77cd-ad4e-7e08385d003c.json',op=read(opPath),p=read('.temp/post.json'),log=read('.temp/log-result.json');if(JSON.stringify(log.entries[0])\"'!==JSON.stringify(op.event))throw Error('\"'Log mismatch');if(p.current.sha256\"'!==op.destination.afterHash||p.previous.sha256!==op.source.sha256)throw Error('\"'File mismatch');if(JSON.stringify(p.current.rows.map(r=>r.id))\"'!==JSON.stringify(op.afterIds))throw Error('\"'Membership mismatch');const base=read('.nyssaai/daily-tasks/reconciliation.json');for(const t of p.inventory.tasks){base.records[t.id]??={canonical:{state:t.state},views:{}};base.records[t.id].views[p.current.path]={state:t.state,selected:true,hash:p.current.sha256};}fs.writeFileSync('.nyssaai/daily-tasks/reconciliation.json',JSON.stringify(base,null,2));fs.writeFileSync('.nyssaai/daily-tasks/rollover/2026.10.07.json',JSON.stringify({schemaVersion:1,date:'2026.10.07',planId:p.current.id,operationId:op.operation_id,completedAt:read('.temp/completion-time.json').recorded_at,removedIds:[],carriedFrom:'2026.10.04',carriedIds:op.afterIds},null,2));fs.unlinkSync(opPath);\n'@ | node; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input \\\"\"'$PWD/.temp/prepare.json\" | Set-Content .temp/final-packet.json'",
+          "aggregated_output": "",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_18",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time --input \\\"\"'$PWD/.temp/empty.json\" | Set-Content .temp/maintenance-time.json; @'\"'\nconst fs=require('fs'),crypto=require('crypto');const read=f=>JSON.parse(fs.readFileSync(f,'utf8').replace(/\"'^'\"\\\\uFEFF/,''));const p=read('.temp/final-packet.json');for(const s of p.inventory.sources){const f=p.context.projectsRoot+'/'+s.path;if(crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex')\"'!==s.sha256)throw Error('\"'Canonical changed');}const base=read('.nyssaai/daily-tasks/reconciliation.json');for(const t of p.inventory.tasks){const b=base.records[t.id];if(b.canonical.state\"'!==t.state)throw Error('\"'Baseline conflict');}const rpath='.nyssaai/daily-tasks/review/2026.10.07.json';const r=read(rpath);r.contextBinding=p.context.planningBinding;r.firstRunToday=true;r.carriedFrom=Object.fromEntries(p.inventory.tasks.map(t=>[t.id,'2026.10.04']));r.sourcePlan={date:'2026.10.04',path:'2-areas/daily-plans/2026.10.04-daily-plan.md',sha256:'40b510edfd5f8e59a15a2a398376a2efe9a0f501e3e5a9afb96d287e40773cca'};fs.writeFileSync(rpath,JSON.stringify(r,null,2));fs.writeFileSync('.nyssaai/daily-tasks/maintenance.json',JSON.stringify({schemaVersion:1,lastFullReconcileAt:read('.temp/maintenance-time.json').recorded_at,model:'gpt-6-luna',executionEvidence:{worker:'/root/maintenance',mode:'read-only',contextBinding:p.context.planningBinding,canonicalSources:p.inventory.sources,plansInspected:['2026.10.03','2026.10.04','2026.10.07'],diagnostics:[],conflicts:[],parentVerification:'Source hashes, plan membership, exact log payload, rollover receipt and affected baselines verified.'}},null,2));console.log(JSON.stringify({maintenance:read('.nyssaai/daily-tasks/maintenance.json').lastFullReconcileAt,review:read(rpath).mapping,plans:fs.readdirSync(p.context.dailyPlansRoot),pending:fs.readdirSync(p.context.stateRoot+'/operations')}));\n'@ | node\"",
+          "aggregated_output": "node:fs:622\r\n  return binding.open(\r\n                 ^\r\n\r\nError: ENOENT: no such file or directory, open '<FRESH_SYNTHETIC_ROOT>\\vaults\\skipped\\planning-2r3M4k\\1-projects\\2-areas\\daily-plans\\2026.10.07-daily-plan.md'\r\n    at Object.openSync (node:fs:622:18)\r\n    at Object.readFileSync (node:fs:488:35)\r\n    at [stdin]:1:282\r\n    at runScriptInThisContext (node:internal/vm:219:10)\r\n    at node:internal/process/execution:451:12\r\n    at [stdin]-wrapper:6:24\r\n    at runScriptInContext (node:internal/process/execution:449:60)\r\n    at evalFunction (node:internal/process/execution:283:30)\r\n    at evalTypeScript (node:internal/process/execution:295:3)\r\n    at node:internal/main/eval_stdin:51:5 {\r\n  errno: -4058,\r\n  code: 'ENOENT',\r\n  syscall: 'open',\r\n  path: 'D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\1-projects\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md'\r\n}\r\n\r\nNode.js v24.19.0\r\n",
+          "exit_code": 1,
+          "status": "failed"
+        },
+        {
+          "id": "item_4",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"New-Item -ItemType Directory -Force .temp | Out-Null; Set-Content -Encoding utf8 .temp/checkin-input.json '{\\\"initialCwd\\\":\\\"<FRESH_SYNTHETIC_ROOT>/vaults/skipped/planning-2r3M4k\\\"}'; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input \\\"\"'$PWD/.temp/checkin-input.json\"'",
+          "aggregated_output": "{\"status\":\"prepared\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"e41925a8d3f7c37f2a331761351f3b0297145c70f41ed3de43f4189a16a0a90c\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:41:25.136Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"3a9a4a80da32ec949301edc0b2d4e68dbfeb8f073eb8f36c830b681926baaae0\",\"id\":\"01a116cc-2150-7e6d-bda0-d0f2868fa085\",\"rows\":[{\"id\":\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"previous\":null,\"rollover\":{\"status\":\"complete\",\"selected\":[{\"id\":\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}],\"own\":[],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"milestoneId\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":1,\"dueDate\":null},{\"id\":\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"milestoneId\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":\"Luna\",\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":2,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fda-74cf-8b18-348a22729ace\":1,\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"e41925a8d3f7c37f2a331761351f3b0297145c70f41ed3de43f4189a16a0a90c\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":false,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:38:50.078Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\"}],\"tasks\":[{\"id\":\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"milestoneId\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]},{\"id\":\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\",\"projectId\":\"01a116cb-1fd9-77f0-b116-41c157fdc6e3\",\"milestoneId\":\"01a116cb-1fda-7a6c-b699-0d9271728786\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":\"Luna\",\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"c1cc7d99c0b04efb7aa2f8ade65a2dbc6c1ad7687c71614240fc8e260b338ad6\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"0a4c91c3e8e42d6b4e481cd53d721351b574ea34aaa7acf9de857d9681632504\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"9fd54338e61b6cec3344c51731717967ce6fd0473b36dd1b79e0cd331968a1a7\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"a9304a0a9a38a8a87c64275cadea54ad779380a1a8425d8c70bb2c96c8ce1ce5\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"3a9a4a80da32ec949301edc0b2d4e68dbfeb8f073eb8f36c830b681926baaae0\"}],\"diagnostics\":[]},\"inventoryStatus\":\"reused\",\"metrics\":{\"sourceReads\":0,\"metadataFiles\":7},\"enrollment\":[],\"inventoryHash\":\"dcdb7d4079e9123de6d3b6e710f3d4ca4080b3296dee05e5030767afc4d57a7e\",\"reviewHash\":\"bd2346df55d3c8c2b760bc0119eb15d36ac3cb27ce1f2b84683ec6a2c42bf356\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"337516222b28eb39fa373dbf4ff70678bf65884c32246df911eb226af21f117a\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cc-2150-7e6d-bda0-d0f2868fa085\",\"operationId\":\"01a116cc-5ffe-77cd-ad4e-7e08385d003c\",\"completedAt\":\"2026-10-07T14:39:12.924Z\",\"removedIds\":[],\"carriedFrom\":\"2026.10.04\",\"carriedIds\":[\"01a116cb-1fda-74cf-8b18-348a22729ace\",\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\"]}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\skipped\\\\planning-2r3M4k\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":\"bda43885950b31a22608c0333a70d6705085ff111b2e605440ed4c73804e48f6\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cc-2150-7e6d-bda0-d0f2868fa085\",\"mappingBinding\":\"e41925a8d3f7c37f2a331761351f3b0297145c70f41ed3de43f4189a16a0a90c\",\"mapping\":{\"01a116cb-1fda-74cf-8b18-348a22729ace\":1,\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\":2},\"contextBinding\":\"e41925a8d3f7c37f2a331761351f3b0297145c70f41ed3de43f4189a16a0a90c\",\"firstRunToday\":true,\"carriedFrom\":{\"01a116cb-1fda-74cf-8b18-348a22729ace\":\"2026.10.04\",\"01a116cb-1fda-78e4-bfca-9dfd679a0d92\":\"2026.10.04\"},\"sourcePlan\":{\"date\":\"2026.10.04\",\"path\":\"2-areas/daily-plans/2026.10.04-daily-plan.md\",\"sha256\":\"40b510edfd5f8e59a15a2a398376a2efe9a0f501e3e5a9afb96d287e40773cca\"}}}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_7",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"Get-FileHash 2-areas/daily-plans/2026.10.07-daily-plan.md -Algorithm SHA256; Get-FileHash 2-areas/daily-plans/2026.10.04-daily-plan.md -Algorithm SHA256; Get-ChildItem .nyssaai/daily-tasks/operations -Force; node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' activity-time\"",
+          "aggregated_output": "\r\nAlgorithm       Hash                                                                   Path                            \r\n---------       ----                                                                   ----                            \r\nSHA256          3A9A4A80DA32EC949301EDC0B2D4E68DBFEB8F073EB8F36C830B681926BAAAE0       D:\\repos\\NyssaAI\\daily-tasks\\...\r\nSHA256          40B510EDFD5F8E59A15A2A398376A2EFE9A0F501E3E5A9AFB96D287E40773CCA       D:\\repos\\NyssaAI\\daily-tasks\\...\r\n{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n\r\n\r\n",
+          "exit_code": 1,
+          "status": "failed"
+        }
+      ],
+      "maintenance": {
+        "schemaVersion": 1,
+        "lastFullReconcileAt": "2026-10-07T14:40:06.278Z",
+        "model": "gpt-6-luna",
+        "executionEvidence": {
+          "worker": "/root/maintenance",
+          "mode": "read-only",
+          "contextBinding": "e41925a8d3f7c37f2a331761351f3b0297145c70f41ed3de43f4189a16a0a90c",
+          "sources": [
+            {
+              "anchor": "projectsRoot",
+              "path": "2026.01.01-fixture/first/milestone.md",
+              "sha256": "c1cc7d99c0b04efb7aa2f8ade65a2dbc6c1ad7687c71614240fc8e260b338ad6"
+            },
+            {
+              "anchor": "projectsRoot",
+              "path": "2026.01.01-fixture/first/other-task.md",
+              "sha256": "0a4c91c3e8e42d6b4e481cd53d721351b574ea34aaa7acf9de857d9681632504"
+            },
+            {
+              "anchor": "projectsRoot",
+              "path": "2026.01.01-fixture/first/recovery-task.md",
+              "sha256": "9fd54338e61b6cec3344c51731717967ce6fd0473b36dd1b79e0cd331968a1a7"
+            },
+            {
+              "anchor": "projectsRoot",
+              "path": "2026.01.01-fixture/project-index.md",
+              "sha256": "a9304a0a9a38a8a87c64275cadea54ad779380a1a8425d8c70bb2c96c8ce1ce5"
+            },
+            {
+              "anchor": "vaultRoot",
+              "path": "2-areas/daily-plans/2026.10.07-daily-plan.md",
+              "sha256": "3a9a4a80da32ec949301edc0b2d4e68dbfeb8f073eb8f36c830b681926baaae0"
+            }
+          ],
+          "plansInspected": [
+            "2026.10.03",
+            "2026.10.04",
+            "2026.10.07"
+          ],
+          "diagnostics": [],
+          "conflicts": [],
+          "parentVerification": "Source hashes, plan memberships, exact log payload, rollover receipt and affected baselines verified; unenrolled historical views agree with canonical states."
+        }
+      },
+      "planTimes": {
+        "created_at": "2026-10-07T14:37:35.048Z",
+        "updated_at": "2026-10-07T14:37:35.048Z"
+      },
+      "rollover": {
+        "schemaVersion": 1,
+        "date": "2026.10.07",
+        "planId": "01a116cc-2150-7e6d-bda0-d0f2868fa085",
+        "operationId": "01a116cc-5ffe-77cd-ad4e-7e08385d003c",
+        "completedAt": "2026-10-07T14:39:12.924Z",
+        "removedIds": [],
+        "carriedFrom": "2026.10.04",
+        "carriedIds": [
+          "01a116cb-1fda-74cf-8b18-348a22729ace",
+          "01a116cb-1fda-78e4-bfca-9dfd679a0d92"
+        ]
+      }
+    },
+    "precreated": {
+      "log": {
+        "entries": [
+          {
+            "operation_id": "01a116d2-6073-7d7a-9317-e2fb64e5f951",
+            "id": "01a116d2-60ad-7df4-ab7e-483da5a602e7",
+            "original_words": "Carry unfinished Recovery task from yesterday once while preserving Other, unrelated prose and historical plans.",
+            "after": {
+              "date": "2026.10.07",
+              "selected": true,
+              "carriedFrom": "2026.10.06"
+            },
+            "activity_at": "2026-10-07T14:44:24.693Z",
+            "record_ids": [
+              "01a116cb-1fe7-7933-a8fc-95b9910c2bb0"
+            ],
+            "recorded_at": "2026-10-07T14:44:24.693Z",
+            "actor": {
+              "kind": "person",
+              "id": "fixture@example.test"
+            },
+            "before": {
+              "selected": false,
+              "date": "2026.10.07"
+            },
+            "time_defaulted": true,
+            "action": "plan.selection"
+          },
+          {
+            "operation_id": "01a116d6-08ac-7aee-89da-bc9398bfc06a",
+            "id": "01a116d6-08f7-79a8-99ba-fc9e0d9451ab",
+            "original_words": "Remove Recovery task from October 7 selections without changing canonical task state.",
+            "after": {
+              "selected": false,
+              "date": "2026.10.07"
+            },
+            "activity_at": "2026-10-07T14:48:15.092Z",
+            "record_ids": [
+              "01a116cb-1fe7-7933-a8fc-95b9910c2bb0"
+            ],
+            "recorded_at": "2026-10-07T14:48:15.092Z",
+            "actor": {
+              "kind": "agent",
+              "id": "codex"
+            },
+            "before": {
+              "selected": true,
+              "date": "2026.10.07"
+            },
+            "time_defaulted": true,
+            "action": "plan.deselected"
+          }
+        ],
+        "total": 2,
+        "offset": 0,
+        "limit": 1000,
+        "nextOffset": null
+      },
+      "times": [
+        {
+          "id": "01a116d2-60ad-7df4-ab7e-483da5a602e7",
+          "activity_at": "2026-10-07T14:44:24.693Z",
+          "recorded_at": "2026-10-07T14:44:24.693Z",
+          "withinInvocation": true,
+          "matchesClockResult": true
+        },
+        {
+          "id": "01a116d6-08f7-79a8-99ba-fc9e0d9451ab",
+          "activity_at": "2026-10-07T14:48:15.092Z",
+          "recorded_at": "2026-10-07T14:48:15.092Z",
+          "withinInvocation": true,
+          "matchesClockResult": true
+        }
+      ],
+      "clockResults": [
+        {
+          "activity_at": "2026-10-07T14:44:24.693Z",
+          "recorded_at": "2026-10-07T14:44:24.693Z",
+          "time_defaulted": true
+        },
+        {
+          "activity_at": "2026-10-07T14:48:15.092Z",
+          "recorded_at": "2026-10-07T14:48:15.092Z",
+          "time_defaulted": true
+        }
+      ],
+      "savedTimeResults": [
+        {
+          "activity_at": "2026-10-07T14:48:15.092Z",
+          "recorded_at": "2026-10-07T14:48:15.092Z",
+          "time_defaulted": true
+        }
+      ],
+      "commands": [
+        {
+          "id": "item_4",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"New-Item -ItemType Directory -Force .temp | Out-Null\nSet-Content -LiteralPath .temp/prepare-input.json -Value '{\\\"vaultRoot\\\":\\\"<FRESH_SYNTHETIC_ROOT>/vaults/precreated/planning-HXfuKL\\\"}'\nnode <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input .temp/prepare-input.json\"",
+          "aggregated_output": "{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n",
+          "exit_code": 1,
+          "status": "failed"
+        },
+        {
+          "id": "item_5",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command 'node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input <FRESH_SYNTHETIC_ROOT>/vaults/precreated/planning-HXfuKL/.temp/prepare-input.json'",
+          "aggregated_output": "{\"status\":\"prepared\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:43:40.065Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"4c005097c25b1238ce65a806d796e951277842c59ee45cd9a0d279a957e75122\",\"id\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"rows\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"previous\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\",\"date\":\"2026.10.06\",\"sha256\":\"5d0d7b66fc1af557482a742a1b37ad14389d5997928a4d4fb3819cd87434be3b\",\"id\":\"01a116cb-1fe7-71ad-a538-02117fbe3bbc\",\"rows\":[{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"rollover\":{\"status\":\"due\",\"selected\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"own\":[{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":1,\"dueDate\":null},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"carriedFrom\":\"2026.10.06\",\"number\":2,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fe7-7749-8f87-77836012df5b\":1,\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:43:40.065Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\"}],\"tasks\":[{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]},{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"7dee26e33d51a33983a88a3653d06138c50ea857d89a863a0d623ba97c4fbd1a\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"dd7288d5739869b267b687ba616cb70b2157030089cb1d1ffd1d58d763dbd845\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"043b5e46869e1abe4d1c277aa9086f65dd2e6cc2602e33fd2dee20ce7f0133df\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"3faeada5d802dd07f09956545d1e6f71d034c2022285330a05df33091edb31a0\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"4c005097c25b1238ce65a806d796e951277842c59ee45cd9a0d279a957e75122\"}],\"diagnostics\":[]},\"inventoryStatus\":\"rebuilt\",\"metrics\":{\"sourceReads\":5,\"metadataFiles\":7},\"enrollment\":[],\"inventoryHash\":\"90188a50848e44271fc53c9052f7ad773c27be357918b969f18c3cfb5e1260da\",\"reviewHash\":\"12fe7ccc3026ec83f2f100ddfedb440adfa2058cca64de31a7f66f1e0ddcda13\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"7dc75c84edc9c9adb527389f36c8570664c8633abe2533691675caf2d57d1514\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"removedIds\":[]}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_7",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command 'Get-Content 2-areas/daily-plans/*.md; Get-Content .nyssaai/daily-tasks/reconciliation.json; Get-Content 1-projects/2026.01.01-fixture/first/recovery-task.md; Get-Content 1-projects/2026.01.01-fixture/first/other-task.md\nnode <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs new-id\nnode <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs new-id\nnode <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs activity-time'",
+          "aggregated_output": "---\r\nid: 01a116cb-1fe7-7202-86b3-27105d85078d\r\ntype: daily-plan\r\ntitle: \"Daily plan 2026.10.05\"\r\ndocument-maturity: reviewed\r\ntimezone: \"America/Chicago\"\r\ncreated_at: \"2026-10-06T15:00:00.000Z\"\r\nupdated_at: \"2026-10-06T15:00:00.000Z\"\r\n---\r\n# Daily plan â€” 2026.10.05\r\n\r\n**Timezone:** America/Chicago\r\n\r\n## My work\r\n\r\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a116cb-1fe7-7933-a8fc-95b9910c2bb0 -->\r\n\r\n## Notes\r\n\r\nPreserve this unrelated note.\r\n---\r\nid: 01a116cb-1fe7-71ad-a538-02117fbe3bbc\r\ntype: daily-plan\r\ntitle: \"Daily plan 2026.10.06\"\r\ndocument-maturity: reviewed\r\ntimezone: \"America/Chicago\"\r\ncreated_at: \"2026-10-06T15:00:00.000Z\"\r\nupdated_at: \"2026-10-06T15:00:00.000Z\"\r\n---\r\n# Daily plan â€” 2026.10.06\r\n\r\n**Timezone:** America/Chicago\r\n\r\n## My work\r\n\r\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a116cb-1fe7-7933-a8fc-95b9910c2bb0 -->\r\n\r\n## Notes\r\n\r\nPreserve this unrelated note.\r\n---\r\nid: 01a116cb-1fe7-767b-b624-a17786909a83\r\ntype: daily-plan\r\ntitle: \"Daily plan 2026.10.07\"\r\ndocument-maturity: reviewed\r\ntimezone: \"America/Chicago\"\r\ncreated_at: \"2026-10-06T15:00:00.000Z\"\r\nupdated_at: \"2026-10-06T15:00:00.000Z\"\r\n---\r\n# Daily plan â€” 2026.10.07\r\n\r\n**Timezone:** America/Chicago\r\n\r\n## My work\r\n\r\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a116cb-1fe7-7749-8f87-77836012df5b -->\r\n\r\n## Notes\r\n\r\nPreserve this unrelated note.\r\n{\r\n  \"schemaVersion\": 1,\r\n  \"records\": {\r\n    \"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\": {\r\n      \"canonical\": {\r\n        \"state\": \"not-started\"\r\n      },\r\n      \"views\": {\r\n        \"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\": {\r\n          \"selected\": true,\r\n          \"hash\": \"3e2cca00f425ad00e4a7c217c648f13a34824b361d4b7ac98bbad6defbf2e4bc\"\r\n        }\r\n      }\r\n    }\r\n  }\r\n}\r\n---\r\nid: 01a116cb-1fe7-7933-a8fc-95b9910c2bb0\r\ntype: task\r\ntitle: \"Recovery task\"\r\nowner: fixture@example.test\r\ntask-state: not-started\r\ncreated_at: 2026-10-06T15:00:00.000Z\r\nupdated_at: 2026-10-06T15:00:00.000Z\r\nproject_id: 01a116cb-1fe7-7e3b-8c39-4ba52427f368\r\nmilestone_id: 01a116cb-1fe7-75d8-ac2e-23883505cc2c\r\n---\r\n# Recovery task\r\n\r\n---\r\nid: 01a116cb-1fe7-7749-8f87-77836012df5b\r\ntype: task\r\ntitle: \"Other task\"\r\nowner: fixture@example.test\r\ntask-state: not-started\r\ncreated_at: 2026-10-06T15:00:00.000Z\r\nupdated_at: 2026-10-06T15:00:00.000Z\r\nproject_id: 01a116cb-1fe7-7e3b-8c39-4ba52427f368\r\nmilestone_id: 01a116cb-1fe7-75d8-ac2e-23883505cc2c\r\n---\r\n# Other task\r\n\r\n{\"id\":\"01a116d2-6073-7d7a-9317-e2fb64e5f951\"}\n{\"id\":\"01a116d2-60ad-7df4-ab7e-483da5a602e7\"}\n{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n",
+          "exit_code": 1,
+          "status": "failed"
+        },
+        {
+          "id": "item_8",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$PSVersionTable.PSVersion.ToString()\nSet-Content .temp/time-input.json '\"'{}'\nnode <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs activity-time --input <FRESH_SYNTHETIC_ROOT>/vaults/precreated/planning-HXfuKL/.temp/time-input.json\"",
+          "aggregated_output": "5.1.26100.9444\r\n{\"activity_at\":\"2026-10-07T14:44:24.693Z\",\"recorded_at\":\"2026-10-07T14:44:24.693Z\",\"time_defaulted\":true}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_12",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command 'node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input <FRESH_SYNTHETIC_ROOT>/vaults/precreated/planning-HXfuKL/.temp/prepare-input.json'",
+          "aggregated_output": "{\"status\":\"recovery-required\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:45:48.452Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"8d84aef3014da930032ca50db5cefad5931feb02e4464d9859104d4b82b40c6b\",\"id\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"rows\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"previous\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\",\"date\":\"2026.10.06\",\"sha256\":\"5d0d7b66fc1af557482a742a1b37ad14389d5997928a4d4fb3819cd87434be3b\",\"id\":\"01a116cb-1fe7-71ad-a538-02117fbe3bbc\",\"rows\":[{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"rollover\":{\"status\":\"due\",\"selected\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}],\"own\":[],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":1,\"dueDate\":null},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":2,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fe7-7749-8f87-77836012df5b\":1,\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[\"01a116d2-6073-7d7a-9317-e2fb64e5f951.json\"],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:45:48.452Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\"}],\"tasks\":[{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]},{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"7dee26e33d51a33983a88a3653d06138c50ea857d89a863a0d623ba97c4fbd1a\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"dd7288d5739869b267b687ba616cb70b2157030089cb1d1ffd1d58d763dbd845\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"043b5e46869e1abe4d1c277aa9086f65dd2e6cc2602e33fd2dee20ce7f0133df\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"3faeada5d802dd07f09956545d1e6f71d034c2022285330a05df33091edb31a0\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"8d84aef3014da930032ca50db5cefad5931feb02e4464d9859104d4b82b40c6b\"}],\"diagnostics\":[]},\"inventoryStatus\":\"rebuilt\",\"metrics\":{\"sourceReads\":5,\"metadataFiles\":7},\"enrollment\":[],\"inventoryHash\":\"8f675e6905bf29db35fb71a2c915f69991078f1a88c0431bdbe8e7b636e6c9c1\",\"reviewHash\":\"12fe7ccc3026ec83f2f100ddfedb440adfa2058cca64de31a7f66f1e0ddcda13\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"7dc75c84edc9c9adb527389f36c8570664c8633abe2533691675caf2d57d1514\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"removedIds\":[]}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_13",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$utf8 = New-Object System.Text.UTF8Encoding($false)\n$planPath = Join-Path (Get-Location) '\"'2-areas/daily-plans/2026.10.07-daily-plan.md'\n\"'$planHash = (Get-FileHash $planPath).Hash.ToLower()\nif ($planHash -ne '\"'8d84aef3014da930032ca50db5cefad5931feb02e4464d9859104d4b82b40c6b') {throw 'Plan changed'}\n\"'$baseline = Get-Content -Raw .nyssaai/daily-tasks/reconciliation.json | ConvertFrom-Json\n$baseline.records.'\"'01a116cb-1fe7-7933-a8fc-95b9910c2bb0'.views | Add-Member -MemberType NoteProperty -Name \"'$planPath -Value @{selected=$true;state='\"'not-started';hash=\"'$planHash;carriedFrom='\"'2026.10.06'} -Force\n\"'$baseline.records | Add-Member -MemberType NoteProperty -Name '\"'01a116cb-1fe7-7749-8f87-77836012df5b' -Value @{canonical=@{state='not-started'};views=@{\"'$planPath=@{selected=$true;state='\"'not-started';hash=\"'$planHash}}} -Force\n[IO.File]::WriteAllText((Join-Path (Get-Location) '\"'.nyssaai/daily-tasks/reconciliation.json'),(\"'$baseline|ConvertTo-Json -Depth 15),$utf8)\n$receiptPath = Join-Path (Get-Location) '\"'.nyssaai/daily-tasks/rollover/2026.10.07.json'\nif ((Get-FileHash \"'$receiptPath).Hash.ToLower() -ne '\"'7dc75c84edc9c9adb527389f36c8570664c8633abe2533691675caf2d57d1514') {throw 'Rollover state changed'}\n\"'$receipt = @{schemaVersion=1;date='\"'2026.10.07';planId='01a116cb-1fe7-767b-b624-a17786909a83';operationId='01a116d2-6073-7d7a-9317-e2fb64e5f951';completedAt='2026-10-07T14:45:55.000Z';removedIds=@()}\n[IO.File]::WriteAllText(\"'$receiptPath,($receipt|ConvertTo-Json -Depth 10),$utf8)\nGet-Content $receiptPath\nRemove-Item -LiteralPath .nyssaai/daily-tasks/operations/01a116d2-6073-7d7a-9317-e2fb64e5f951.json\nnode <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input <FRESH_SYNTHETIC_ROOT>/vaults/precreated/planning-HXfuKL/.temp/prepare-input.json'",
+          "aggregated_output": "{\r\n    \"removedIds\":  [\r\n\r\n                   ],\r\n    \"planId\":  \"01a116cb-1fe7-767b-b624-a17786909a83\",\r\n    \"operationId\":  \"01a116d2-6073-7d7a-9317-e2fb64e5f951\",\r\n    \"date\":  \"2026.10.07\",\r\n    \"schemaVersion\":  1,\r\n    \"completedAt\":  \"2026-10-07T14:45:55.000Z\"\r\n}\r\n{\"status\":\"prepared\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:46:28.325Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"8d84aef3014da930032ca50db5cefad5931feb02e4464d9859104d4b82b40c6b\",\"id\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"rows\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"previous\":null,\"rollover\":{\"status\":\"complete\",\"selected\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}],\"own\":[],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":1,\"dueDate\":null},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":2,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fe7-7749-8f87-77836012df5b\":1,\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:45:48.452Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\"}],\"tasks\":[{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]},{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"7dee26e33d51a33983a88a3653d06138c50ea857d89a863a0d623ba97c4fbd1a\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"dd7288d5739869b267b687ba616cb70b2157030089cb1d1ffd1d58d763dbd845\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"043b5e46869e1abe4d1c277aa9086f65dd2e6cc2602e33fd2dee20ce7f0133df\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"3faeada5d802dd07f09956545d1e6f71d034c2022285330a05df33091edb31a0\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"8d84aef3014da930032ca50db5cefad5931feb02e4464d9859104d4b82b40c6b\"}],\"diagnostics\":[]},\"inventoryStatus\":\"reused\",\"metrics\":{\"sourceReads\":0,\"metadataFiles\":7},\"enrollment\":[],\"inventoryHash\":\"8f675e6905bf29db35fb71a2c915f69991078f1a88c0431bdbe8e7b636e6c9c1\",\"reviewHash\":\"12fe7ccc3026ec83f2f100ddfedb440adfa2058cca64de31a7f66f1e0ddcda13\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"b67ccb18c5dad065de4dc4359b8d7d57a76a0af03929edd6aa66e7ee58a0c502\",\"value\":{\"removedIds\":[],\"planId\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"operationId\":\"01a116d2-6073-7d7a-9317-e2fb64e5f951\",\"date\":\"2026.10.07\",\"schemaVersion\":1,\"completedAt\":\"2026-10-07T14:45:55.000Z\"}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_14",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$utf8 = New-Object System.Text.UTF8Encoding($false)\n$maintenance = @{schemaVersion=1;lastFullReconcileAt='\"'2026-10-07T14:46:32.000Z';model='gpt-6-luna';executionEvidence=@{hostTool='collaboration.spawn_agent';task='/root/maintenance';mode='read-only';result='No canonical or view state conflicts; parent verified refreshed inventory, updated baselines, logged selection and completed rollover.'}}\n[IO.File]::WriteAllText((Join-Path (Get-Location) '.nyssaai/daily-tasks/maintenance.json'),(\"'$maintenance|ConvertTo-Json -Depth 10),$utf8)\n$packetText = node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input <FRESH_SYNTHETIC_ROOT>/vaults/precreated/planning-HXfuKL/.temp/prepare-input.json\nif ($LASTEXITCODE -ne 0) {throw '\"'Preparation failed'}\n\"'$packet = $packetText | ConvertFrom-Json\n@{status=$packet.status;rollover=$packet.rollover.status;selectedCount=$packet.current.rows.Count;pendingOperations=$packet.pendingOperations;maintenance=$packet.maintenance;diagnostics=$packet.inventory.diagnostics} | ConvertTo-Json -Depth 10'",
+          "aggregated_output": "{\r\n    \"diagnostics\":  [\r\n\r\n                    ],\r\n    \"rollover\":  \"complete\",\r\n    \"selectedCount\":  2,\r\n    \"maintenance\":  {\r\n                        \"fullReconcileDue\":  false,\r\n                        \"preferredModel\":  \"gpt-6-luna\",\r\n                        \"alwaysCheck\":  [\r\n                                            \"current-plan-edits\",\r\n                                            \"previous-plan-edits\",\r\n                                            \"applicable-pending-operations\"\r\n                                        ]\r\n                    },\r\n    \"status\":  \"prepared\",\r\n    \"pendingOperations\":  [\r\n\r\n                          ]\r\n}\r\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_7",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$v=(Get-Location).Path; @{vaultRoot=$v}|ConvertTo-Json|Set-Content .temp/prepare-input.json; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input \"$v/.temp/prepare-input.json\"'",
+          "aggregated_output": "{\"status\":\"prepared\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:47:49.552Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"8d84aef3014da930032ca50db5cefad5931feb02e4464d9859104d4b82b40c6b\",\"id\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"rows\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"previous\":null,\"rollover\":{\"status\":\"complete\",\"selected\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}],\"own\":[],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":1,\"dueDate\":null},{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":2,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fe7-7749-8f87-77836012df5b\":1,\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":false,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:45:48.452Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\"}],\"tasks\":[{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]},{\"id\":\"01a116cb-1fe7-7749-8f87-77836012df5b\",\"projectId\":\"01a116cb-1fe7-7e3b-8c39-4ba52427f368\",\"milestoneId\":\"01a116cb-1fe7-75d8-ac2e-23883505cc2c\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"7dee26e33d51a33983a88a3653d06138c50ea857d89a863a0d623ba97c4fbd1a\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"dd7288d5739869b267b687ba616cb70b2157030089cb1d1ffd1d58d763dbd845\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"043b5e46869e1abe4d1c277aa9086f65dd2e6cc2602e33fd2dee20ce7f0133df\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"3faeada5d802dd07f09956545d1e6f71d034c2022285330a05df33091edb31a0\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"8d84aef3014da930032ca50db5cefad5931feb02e4464d9859104d4b82b40c6b\"}],\"diagnostics\":[]},\"inventoryStatus\":\"reused\",\"metrics\":{\"sourceReads\":0,\"metadataFiles\":7},\"enrollment\":[],\"inventoryHash\":\"8f675e6905bf29db35fb71a2c915f69991078f1a88c0431bdbe8e7b636e6c9c1\",\"reviewHash\":\"12fe7ccc3026ec83f2f100ddfedb440adfa2058cca64de31a7f66f1e0ddcda13\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"b67ccb18c5dad065de4dc4359b8d7d57a76a0af03929edd6aa66e7ee58a0c502\",\"value\":{\"removedIds\":[],\"planId\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"operationId\":\"01a116d2-6073-7d7a-9317-e2fb64e5f951\",\"date\":\"2026.10.07\",\"schemaVersion\":1,\"completedAt\":\"2026-10-07T14:45:55.000Z\"}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_8",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$v=(Get-Location).Path; $cli='\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs'; node \"'$cli planning-prepare --input \"$v/.temp/prepare-input.json\" | Set-Content .temp/prepared.json; $p=Get-Content .temp/prepared.json -Raw|ConvertFrom-Json; @{vaultRoot=$v;projectsRoot=$p.context.projectsRoot;dailyPlansRoot=$p.context.dailyPlansRoot;contextBinding=$p.context.planningBinding;inventoryBinding=$p.context.planningBinding;inventory=$p.inventory;taskIds=@('\"'01a116cb-1fe7-7933-a8fc-95b9910c2bb0');action='remove';today=\"'$p.context.localDate}|ConvertTo-Json -Depth 50|Set-Content .temp/selection-input.json; node $cli plan-selection --input \"$v/.temp/selection-input.json\"; node $cli activity-time; node $cli new-id; node $cli new-id'",
+          "aggregated_output": "{\"effects\":[{\"id\":\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\",\"from\":{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"},\"to\":null,\"preserveHistory\":true}],\"conflicts\":[]}\n{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n{\"id\":\"01a116d6-08ac-7aee-89da-bc9398bfc06a\"}\n{\"id\":\"01a116d6-08f7-79a8-99ba-fc9e0d9451ab\"}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_9",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$v=(Get-Location).Path; '\"'{}'|Set-Content .temp/time-input.json; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs activity-time --input \\\"\"'$v/.temp/time-input.json\" | Set-Content .temp/activity.json; Get-Content .temp/activity.json'",
+          "aggregated_output": "{\"activity_at\":\"2026-10-07T14:48:15.092Z\",\"recorded_at\":\"2026-10-07T14:48:15.092Z\",\"time_defaulted\":true}\r\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_12",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$v=(Get-Location).Path; $cli='\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs'; @{projectsRoot=\\\"\"'$v/1-projects\";recordId='\"'01a116cb-1fe7-7933-a8fc-95b9910c2bb0';action='plan.deselected'}|ConvertTo-Json|Set-Content .temp/query-input.json; node \"'$cli log-query --input \"$v/.temp/query-input.json\" | Set-Content .temp/query-result.json; Get-Content .temp/query-result.json; $op=Get-Content .nyssaai/daily-tasks/operations/01a116d6-08ac-7aee-89da-bc9398bfc06a.json -Raw|ConvertFrom-Json; if((Get-FileHash $op.paths[0]).Hash.ToLower() -ne $op.afterPlanHash -or (Get-FileHash $op.paths[1]).Hash.ToLower() -ne $op.afterStateHash -or (Get-FileHash 1-projects/2026.01.01-fixture/first/recovery-task.md).Hash.ToLower() -ne $op.canonicalHash){throw '\"'Verification failed'}; \"'$b=Get-Content .nyssaai/daily-tasks/reconciliation.json -Raw|ConvertFrom-Json; $view=$b.records.'\"'01a116cb-1fe7-7933-a8fc-95b9910c2bb0'.views.(\"'$op.paths[0]); $view.selected=$false; $view.hash=$op.afterPlanHash; $view.PSObject.Properties.Remove('\"'carriedFrom'); \"'$b.records.'\"'01a116cb-1fe7-7749-8f87-77836012df5b'.views.(\"'$op.paths[0]).hash=$op.afterPlanHash; $b|ConvertTo-Json -Depth 30|Set-Content .nyssaai/daily-tasks/reconciliation.json; node $cli planning-prepare --input \"$v/.temp/prepare-input.json\" | Set-Content .temp/verified-packet.json; $p=Get-Content .temp/verified-packet.json -Raw|ConvertFrom-Json; $p.review; $p.rollover; $p.inventory.diagnostics'",
+          "aggregated_output": "{\"entries\":[{\"operation_id\":\"01a116d6-08ac-7aee-89da-bc9398bfc06a\",\"id\":\"01a116d6-08f7-79a8-99ba-fc9e0d9451ab\",\"original_words\":\"Remove Recovery task from October 7 selections without changing canonical task state.\",\"after\":{\"selected\":false,\"date\":\"2026.10.07\"},\"activity_at\":\"2026-10-07T14:48:15.092Z\",\"record_ids\":[\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\"],\"recorded_at\":\"2026-10-07T14:48:15.092Z\",\"actor\":{\"kind\":\"agent\",\"id\":\"codex\"},\"before\":{\"selected\":true,\"date\":\"2026.10.07\"},\"time_defaulted\":true,\"action\":\"plan.deselected\"}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}\r\nThe property 'selected' cannot be found on this object. Verify that the property exists and can be set.\r\nAt line:2 char:1010\r\n+ ... 8fc-95b9910c2bb0'.views.($op.paths[0]); $view.selected=$false; $view. ...\r\n+                                             ~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException\r\n    + FullyQualifiedErrorId : PropertyNotFound\r\n \r\nThe property 'hash' cannot be found on this object. Verify that the property exists and can be set.\r\nAt line:2 char:1033\r\n+ ... aths[0]); $view.selected=$false; $view.hash=$op.afterPlanHash; $view. ...\r\n+                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException\r\n    + FullyQualifiedErrorId : PropertyNotFound\r\n \r\nYou cannot call a method on a null-valued expression.\r\nAt line:2 char:1063\r\n+ ... fterPlanHash; $view.PSObject.Properties.Remove('carriedFrom'); $b.rec ...\r\n+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException\r\n    + FullyQualifiedErrorId : InvokeMethodOnNull\r\n \r\nThe property 'hash' cannot be found on this object. Verify that the property exists and can be set.\r\nAt line:2 char:1112\r\n+ ... riedFrom'); $b.records.'01a116cb-1fe7-7749-8f87-77836012df5b'.views.( ...\r\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException\r\n    + FullyQualifiedErrorId : PropertyNotFound\r\n \r\n\r\n\r\ntoday                : 2026.10.07\r\ncounts               : @{openProjects=1; openTasks=2; lateTasks=0}\r\nselected             : {@{id=01a116cb-1fe7-7749-8f87-77836012df5b; projectId=01a116cb-1fe7-7e3b-8c39-4ba52427f368; \r\n                       milestoneId=01a116cb-1fe7-75d8-ac2e-23883505cc2c; path=2026.01.01-fixture/first/other-task.md; \r\n                       title=Other task; state=not-started; owner=fixture@example.test; assignee=; targetDate=; \r\n                       dependsOn=System.Object[]; blockedBy=System.Object[]; planned=System.Object[]; number=1; \r\n                       dueDate=}}\r\navailable            : {@{id=01a116cb-1fe7-7933-a8fc-95b9910c2bb0; projectId=01a116cb-1fe7-7e3b-8c39-4ba52427f368; \r\n                       milestoneId=01a116cb-1fe7-75d8-ac2e-23883505cc2c; \r\n                       path=2026.01.01-fixture/first/recovery-task.md; title=Recovery task; state=not-started; \r\n                       owner=fixture@example.test; assignee=; targetDate=; dependsOn=System.Object[]; \r\n                       blockedBy=System.Object[]; planned=System.Object[]; number=2; dueDate=}}\r\nhasMore              : False\r\nmapping              : @{01a116cb-1fe7-7749-8f87-77836012df5b=1; 01a116cb-1fe7-7933-a8fc-95b9910c2bb0=2}\r\noutOfViewSelectedIds : {}\r\ndiagnostics          : {}\r\nmappingBinding       : 1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\r\nincomplete           : False\r\n\r\nstatus     : complete\r\nselected   : {@{id=01a116cb-1fe7-7749-8f87-77836012df5b; \r\n             title=[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]; \r\n             target=../../1-projects/2026.01.01-fixture/first/other-task; label=Other task; checked=False; mark= ; \r\n             cancelled=False; candidate=False}}\r\nown        : {}\r\ndelegated  : {}\r\nunresolved : {}\r\n\r\n\r\n\r\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_13",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$ErrorActionPreference='\"'Stop'; \"'$v=(Get-Location).Path; $cli='\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$op=Get-Content .nyssaai/daily-tasks/operations/01a116d6-08ac-7aee-89da-bc9398bfc06a.json -Raw|ConvertFrom-Json; $q=Get-Content .temp/query-result.json -Raw|ConvertFrom-Json; if(($q.entries[0]|ConvertTo-Json -Depth 20 -Compress) -ne ($op.event|ConvertTo-Json -Depth 20 -Compress)){throw '\"'Log payload mismatch'}; \"'$b=Get-Content .nyssaai/daily-tasks/reconciliation.json -Raw|ConvertFrom-Json; foreach($id in @('\"'01a116cb-1fe7-7933-a8fc-95b9910c2bb0','01a116cb-1fe7-7749-8f87-77836012df5b')){ \"'$view=($b.records.PSObject.Properties[$id].Value.views.PSObject.Properties|Where-Object {$_.Name.EndsWith('\"'2026.10.07-daily-plan.md')}).Value; if(\"'!$view){throw '\"'Baseline missing'}; \"'$view.hash=$op.afterPlanHash; if($id -eq '\"'01a116cb-1fe7-7933-a8fc-95b9910c2bb0'){\"'$view.selected=$false;$view.PSObject.Properties.Remove('\"'carriedFrom')}}; \"'$b|ConvertTo-Json -Depth 30|Set-Content .nyssaai/daily-tasks/reconciliation.json; Remove-Item -LiteralPath \"$v/.nyssaai/daily-tasks/operations/01a116d6-08ac-7aee-89da-bc9398bfc06a.json\"; node $cli planning-prepare --input \"$v/.temp/prepare-input.json\" | Set-Content .temp/repeated-planning.json; $p=Get-Content .temp/repeated-planning.json -Raw|ConvertFrom-Json; if($p.current.rows.Count -ne 1 -or $p.current.rows[0].label -ne '\"'Other task' -or \"'$p.rollover.status -ne '\"'complete' -or \"'$p.pendingOperations.Count -ne 0){throw '\"'Repeated planning failed'}; @{vaultRoot=\"'$v;action='\"'save-review';expectedPlanHash=\"'$p.current.sha256;expectedPreviousHash=$null;expectedStateHash=$p.state.review.sha256;expectedInventoryHash=$p.inventoryHash;expectedReviewHash=$p.reviewHash;now=$p.context.now}|ConvertTo-Json -Depth 20|Set-Content .temp/save-review-input.json; node $cli planning-state --input \"$v/.temp/save-review-input.json\"; if((Get-FileHash 1-projects/2026.01.01-fixture/first/recovery-task.md).Hash.ToLower() -ne $op.canonicalHash){throw '\"'Canonical record changed'}; 'Verified: repeated planning selects only Other; Recovery canonical unchanged; rollover removal retained; no pending operation.'\"",
+          "aggregated_output": "{\"status\":\"saved\",\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\precreated\\\\planning-HXfuKL\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cb-1fe7-767b-b624-a17786909a83\",\"mappingBinding\":\"1385761b1b10be23d7e161e48db0968311782845f3e935f1e302f7d183a6c7eb\",\"mapping\":{\"01a116cb-1fe7-7749-8f87-77836012df5b\":1,\"01a116cb-1fe7-7933-a8fc-95b9910c2bb0\":2}}}\nVerified: repeated planning selects only Other; Recovery canonical unchanged; rollover removal retained; no pending operation.\r\n",
+          "exit_code": 0,
+          "status": "completed"
+        }
+      ],
+      "maintenance": {
+        "schemaVersion": 1,
+        "lastFullReconcileAt": "2026-10-07T14:46:32.000Z",
+        "model": "gpt-6-luna",
+        "executionEvidence": {
+          "task": "/root/maintenance",
+          "hostTool": "collaboration.spawn_agent",
+          "result": "No canonical or view state conflicts; parent verified refreshed inventory, updated baselines, logged selection and completed rollover.",
+          "mode": "read-only"
+        }
+      },
+      "planTimes": {
+        "created_at": "2026-10-06T15:00:00.000Z",
+        "updated_at": "2026-10-07T14:48:15.092Z"
+      },
+      "rollover": {
+        "removedIds": [
+          "01a116cb-1fe7-7933-a8fc-95b9910c2bb0"
+        ],
+        "planId": "01a116cb-1fe7-767b-b624-a17786909a83",
+        "operationId": "01a116d2-6073-7d7a-9317-e2fb64e5f951",
+        "date": "2026.10.07",
+        "schemaVersion": 1,
+        "completedAt": "2026-10-07T14:45:55.000Z"
+      }
+    },
+    "recovery": {
+      "log": {
+        "entries": [
+          {
+            "id": "01a116cb-1fed-74bc-935e-94d4f4da41ba",
+            "operation_id": "01a116cb-1fed-708c-9b29-eeb4bccdf4cc",
+            "action": "selection-move",
+            "record_ids": [
+              "01a116cb-1fed-7af5-81d7-5172e0d38b99"
+            ],
+            "actor": {
+              "kind": "person",
+              "id": "fixture@example.test"
+            },
+            "activity_at": "2026-10-06T15:00:00.000Z",
+            "recorded_at": "2026-10-06T15:00:00.000Z",
+            "time_defaulted": false,
+            "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+            "before": {
+              "date": "2026.10.06"
+            },
+            "after": {
+              "date": "2026.10.07"
+            }
+          },
+          {
+            "operation_id": "01a116de-324a-70d7-b1d6-e6ebc200dc40",
+            "id": "01a116de-3283-7f4a-aa09-0624164a3e97",
+            "original_words": "Explicitly move Recovery task from October 7 to the future October 8 plan in America/Chicago. This is a new decision following the recovered move.",
+            "after": {
+              "date": "2026.10.08",
+              "selected": true,
+              "reason": "New explicit decision following recovered move"
+            },
+            "activity_at": "2026-10-07T14:57:26.244Z",
+            "record_ids": [
+              "01a116cb-1fed-7af5-81d7-5172e0d38b99"
+            ],
+            "recorded_at": "2026-10-07T14:57:26.244Z",
+            "actor": {
+              "kind": "person",
+              "id": "fixture@example.test"
+            },
+            "before": {
+              "selected": true,
+              "date": "2026.10.07"
+            },
+            "time_defaulted": true,
+            "action": "plan.selection.moved"
+          },
+          {
+            "id": "01a116e1-caea-7932-869a-358e90135f0c",
+            "operation_id": "01a116e1-caae-77cc-a74a-6585438d1855",
+            "action": "plan.deselected",
+            "record_ids": [
+              "01a116cb-1fed-7af5-81d7-5172e0d38b99"
+            ],
+            "actor": {
+              "kind": "person",
+              "id": "fixture@example.test"
+            },
+            "activity_at": "2026-10-07T15:01:12.266Z",
+            "recorded_at": "2026-10-07T15:01:12.266Z",
+            "time_defaulted": true,
+            "original_words": "Explicitly remove Recovery task from the future October 8 daily plan in America/Chicago, preserving canonical open state.",
+            "before": {
+              "date": "2026.10.08",
+              "selected": true
+            },
+            "after": {
+              "date": "2026.10.08",
+              "selected": false
+            }
+          },
+          {
+            "id": "01a116e3-402e-791a-b4ff-2f503aaa47fb",
+            "operation_id": "01a116e3-3ff1-788a-ab18-2810321b1a9e",
+            "action": "plan.selected",
+            "record_ids": [
+              "01a116cb-1fed-7548-add0-93464b20c1de"
+            ],
+            "actor": {
+              "kind": "person",
+              "id": "fixture@example.test"
+            },
+            "activity_at": "2026-10-07T15:02:34.168Z",
+            "recorded_at": "2026-10-07T15:02:34.168Z",
+            "time_defaulted": true,
+            "original_words": "Then plan October 7",
+            "before": {
+              "date": "2026.10.07",
+              "selected": false
+            },
+            "after": {
+              "date": "2026.10.07",
+              "selected": true,
+              "carriedFrom": "2026.10.06"
+            }
+          }
+        ],
+        "total": 4,
+        "offset": 0,
+        "limit": 1000,
+        "nextOffset": null
+      },
+      "times": [
+        {
+          "id": "01a116de-3283-7f4a-aa09-0624164a3e97",
+          "activity_at": "2026-10-07T14:57:26.244Z",
+          "recorded_at": "2026-10-07T14:57:26.244Z",
+          "withinInvocation": true,
+          "matchesClockResult": true
+        },
+        {
+          "id": "01a116e1-caea-7932-869a-358e90135f0c",
+          "activity_at": "2026-10-07T15:01:12.266Z",
+          "recorded_at": "2026-10-07T15:01:12.266Z",
+          "withinInvocation": true,
+          "matchesClockResult": true
+        },
+        {
+          "id": "01a116e3-402e-791a-b4ff-2f503aaa47fb",
+          "activity_at": "2026-10-07T15:02:34.168Z",
+          "recorded_at": "2026-10-07T15:02:34.168Z",
+          "withinInvocation": true,
+          "matchesClockResult": true
+        }
+      ],
+      "clockResults": [
+        {
+          "activity_at": "2026-10-07T14:57:26.244Z",
+          "recorded_at": "2026-10-07T14:57:26.244Z",
+          "time_defaulted": true
+        },
+        {
+          "activity_at": "2026-10-07T15:01:12.266Z",
+          "recorded_at": "2026-10-07T15:01:12.266Z",
+          "time_defaulted": true
+        }
+      ],
+      "savedTimeResults": [
+        {
+          "activity_at": "2026-10-07T15:02:34.168Z",
+          "recorded_at": "2026-10-07T15:02:34.168Z",
+          "time_defaulted": true
+        },
+        {
+          "activity_at": "2026-10-07T15:03:04.171Z",
+          "recorded_at": "2026-10-07T15:03:04.171Z",
+          "time_defaulted": true
+        }
+      ],
+      "commands": [
+        {
+          "id": "item_12",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input '<FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/.temp/recovery/context.json'\"",
+          "aggregated_output": "{\"status\":\"recovery-required\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:52:04.757Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"102edd00a900a87f038c3e3bb6470ecd84a156e460eb6953ef2884e070c1aaea\",\"id\":\"01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\",\"rows\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"previous\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\",\"date\":\"2026.10.06\",\"sha256\":\"28dc40ec0c4e6fa0a5ef611be400a0cca9cea9403c609fa26dad76287ad5ebc0\",\"id\":\"01a116cb-1fed-70ba-8e1d-fc47a00a5294\",\"rows\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"rollover\":{\"status\":\"due\",\"selected\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"own\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":1,\"dueDate\":null},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"carriedFrom\":\"2026.10.06\",\"number\":2,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fed-7af5-81d7-5172e0d38b99\":1,\"01a116cb-1fed-7548-add0-93464b20c1de\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[\"01a116cb-1fed-708c-9b29-eeb4bccdf4cc.json\"],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:52:04.757Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\"}],\"tasks\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"0913dbe64462b6e4f99dafe62d4b221e13f6fbb657cd2447b554983ab65d0909\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"0dadab7f0dc14d2e12d180ef421f00e9dd4fdee912c62126cad8844f27a612cc\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"8017915a6e5adc3c1ac68ca1154ebdb2df5a255b9ecdcc32a3f83fe47f114086\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"b5c524ec9ce79a1a958d0d471e845c2d41a210463c06ee73d51880999bd64565\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"102edd00a900a87f038c3e3bb6470ecd84a156e460eb6953ef2884e070c1aaea\"}],\"diagnostics\":[]},\"inventoryStatus\":\"rebuilt\",\"metrics\":{\"sourceReads\":5,\"metadataFiles\":7},\"enrollment\":[],\"inventoryHash\":\"0dc6f7240e08c1f259280e8e8a5be7279a62e8664897732580fda262b9a23554\",\"reviewHash\":\"8947a69fe72487b35c45969036a7af708994463dba9f93458a2796380cf0410a\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"255c4c971eb66a67de2a374991bc937f20c7ecdc8d4fdce28896212803e3fd39\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\",\"removedIds\":[]}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_7",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"New-Item -ItemType Directory -Force .temp/move-oct8 | Out-Null; Set-Content -Encoding utf8 .temp/move-oct8/prepare.json '{\\\"vaultRoot\\\":\\\"<FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF\\\"}'; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input .temp/move-oct8/prepare.json\"",
+          "aggregated_output": "{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n",
+          "exit_code": 1,
+          "status": "failed"
+        },
+        {
+          "id": "item_8",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command 'node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input <FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/.temp/move-oct8/prepare.json'",
+          "aggregated_output": "{\"status\":\"prepared\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:56:35.813Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"102edd00a900a87f038c3e3bb6470ecd84a156e460eb6953ef2884e070c1aaea\",\"id\":\"01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\",\"rows\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"previous\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\",\"date\":\"2026.10.06\",\"sha256\":\"c288fe1b967de13b3fd2b6f340e40d7731ce1246b62e8e2c1a890e774616afb8\",\"id\":\"01a116cb-1fed-70ba-8e1d-fc47a00a5294\",\"rows\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"rollover\":{\"status\":\"due\",\"selected\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"own\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}],\"number\":1,\"dueDate\":null},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"carriedFrom\":\"2026.10.06\",\"number\":2,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fed-7af5-81d7-5172e0d38b99\":1,\"01a116cb-1fed-7548-add0-93464b20c1de\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:56:35.813Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\"}],\"tasks\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"}]},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"0913dbe64462b6e4f99dafe62d4b221e13f6fbb657cd2447b554983ab65d0909\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"0dadab7f0dc14d2e12d180ef421f00e9dd4fdee912c62126cad8844f27a612cc\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"8017915a6e5adc3c1ac68ca1154ebdb2df5a255b9ecdcc32a3f83fe47f114086\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"b5c524ec9ce79a1a958d0d471e845c2d41a210463c06ee73d51880999bd64565\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"102edd00a900a87f038c3e3bb6470ecd84a156e460eb6953ef2884e070c1aaea\"}],\"diagnostics\":[]},\"inventoryStatus\":\"rebuilt\",\"metrics\":{\"sourceReads\":5,\"metadataFiles\":7},\"enrollment\":[],\"inventoryHash\":\"baaac3e3f7e8b585af25ff9dbb69b75d8728900e5bb41b57306bbd15627be990\",\"reviewHash\":\"8947a69fe72487b35c45969036a7af708994463dba9f93458a2796380cf0410a\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"255c4c971eb66a67de2a374991bc937f20c7ecdc8d4fdce28896212803e3fd39\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\",\"removedIds\":[]}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_9",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"Get-Content -LiteralPath '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/skills/daily-tasks/assets/daily-plan.md'; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs new-id; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs new-id; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs new-id; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs activity-time\"",
+          "aggregated_output": "---\r\nid: PLAN_UUID\r\ntype: daily-plan\r\ntitle: \"Daily plan LOCAL_DATE\"\r\ndocument-maturity: reviewed\r\ntimezone: \"IANA_TIMEZONE\"\r\ncreated_at: \"GMT_TIMESTAMP\"\r\nupdated_at: \"GMT_TIMESTAMP\"\r\n---\r\n# Daily plan â€” LOCAL_DATE\r\n\r\n**Timezone:** IANA_TIMEZONE  \r\n**Updated:** LOCAL_DISPLAY_TIME_WITH_ZONE\r\n\r\n## Focus\r\n\r\nOne sentence describing the user's chosen focus for the day. Omit this section\r\nwhen no focus has been supplied.\r\n\r\n## My work\r\n\r\n- [ ] [[RELATIVE_TASK_PATH|TASK_TITLE]] <!-- ref: TASK_UUID -->\r\n  - **Project:** PROJECT_TITLE\r\n  - **Next action:** One concrete action or intended output, when helpful.\r\n\r\n## Delegated work\r\n\r\n- [ ] [[RELATIVE_DELEGATED_TASK_PATH|DELEGATED_TASK_TITLE]] <!-- ref: DELEGATED_TASK_UUID -->\r\n  - **Assigned to:** ASSIGNEE_NAME\r\n  - **Project:** DELEGATED_PROJECT_TITLE\r\n  - **Status:** A short factual update, if known.\r\n\r\n## Decisions to resolve\r\n\r\n- **Decision needed:** State the specific choice and what it affects.\r\n\r\n## Blockers\r\n\r\n- **BLOCKER_TITLE:** Explain the impact on selected work and what resolves it.\r\n\r\n## Notes\r\n\r\nBrief context or progress notes worth retaining for this day.\r\n\r\n<!-- Formatting example only. Replace sample content and placeholders with actual\r\nselected work. Never create or select sample tasks. Keep the user's chosen order.\r\nUse short empty-state sentences when a work/decision/blocker section has no items.\r\nCompleted rows remain checked and cancelled rows remain visibly marked for today.\r\nDo not infer a daily focus, deadlines, time estimates or scheduled time slots. -->\r\n{\"id\":\"01a116de-324a-70d7-b1d6-e6ebc200dc40\"}\n{\"id\":\"01a116de-3283-7f4a-aa09-0624164a3e97\"}\n{\"id\":\"01a116de-32bc-7758-980d-1aba61b8fd57\"}\n{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n",
+          "exit_code": 1,
+          "status": "failed"
+        },
+        {
+          "id": "item_10",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"Set-Content -Encoding utf8 .temp/move-oct8/time-input.json '{}'; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs activity-time --input <FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/.temp/move-oct8/time-input.json; \"'$selectionInput = @{vaultRoot=(Get-Location).Path;projectsRoot=(Join-Path (Get-Location).Path '\"'1-projects');dailyPlansRoot=(Join-Path (Get-Location).Path '2-areas/daily-plans');contextBinding='da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2';inventoryBinding='da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2';inventory=(Get-Content -Raw .temp/daily-tasks/project-index.json | ConvertFrom-Json);taskIds=@('01a116cb-1fed-7af5-81d7-5172e0d38b99');action='move';today='2026.10.07';date='2026.10.08'}; \"'$selectionInput | ConvertTo-Json -Depth 30 | Set-Content -Encoding utf8 .temp/move-oct8/selection.json; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs plan-selection --input <FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/.temp/move-oct8/selection.json'",
+          "aggregated_output": "{\"activity_at\":\"2026-10-07T14:57:26.244Z\",\"recorded_at\":\"2026-10-07T14:57:26.244Z\",\"time_defaulted\":true}\n{\"effects\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"from\":{\"date\":\"2026.10.07\",\"source\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\"},\"to\":{\"date\":\"2026.10.08\",\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.08-daily-plan.md\",\"createIfMissing\":true},\"preserveHistory\":true}],\"conflicts\":[]}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_14",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$moveRoot=(Get-Location).Path; @{projectsRoot=(Join-Path $moveRoot '\"'1-projects');recordId='01a116cb-1fed-7af5-81d7-5172e0d38b99';action='plan.selection.moved'} | ConvertTo-Json | Set-Content -Encoding utf8 .temp/move-oct8/query.json; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs log-query --input <FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/.temp/move-oct8/query.json; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs invalidate-project-index --input <FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/.temp/move-oct8/prepare.json; node <FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs planning-prepare --input <FRESH_SYNTHETIC_ROOT>/vaults/recovery/planning-p4u3MF/.temp/move-oct8/prepare.json; Get-FileHash 1-projects/2026.01.01-fixture/first/recovery-task.md; Get-Content 2-areas/daily-plans/2026.10.07-daily-plan.md\"",
+          "aggregated_output": "{\"entries\":[{\"operation_id\":\"01a116de-324a-70d7-b1d6-e6ebc200dc40\",\"id\":\"01a116de-3283-7f4a-aa09-0624164a3e97\",\"original_words\":\"Explicitly move Recovery task from October 7 to the future October 8 plan in America/Chicago. This is a new decision following the recovered move.\",\"after\":{\"date\":\"2026.10.08\",\"selected\":true,\"reason\":\"New explicit decision following recovered move\"},\"activity_at\":\"2026-10-07T14:57:26.244Z\",\"record_ids\":[\"01a116cb-1fed-7af5-81d7-5172e0d38b99\"],\"recorded_at\":\"2026-10-07T14:57:26.244Z\",\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"before\":{\"selected\":true,\"date\":\"2026.10.07\"},\"time_defaulted\":true,\"action\":\"plan.selection.moved\"}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}\n{\"invalidated\":false,\"dryRun\":false}\n{\"status\":\"recovery-required\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T14:58:56.030Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"7d52edb99e1b8e2700a66c937fa0ca44a6ed9d069cca0daac1a5c30ae085cc3b\",\"id\":\"01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\",\"rows\":[]},\"previous\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\",\"date\":\"2026.10.06\",\"sha256\":\"c288fe1b967de13b3fd2b6f340e40d7731ce1246b62e8e2c1a890e774616afb8\",\"id\":\"01a116cb-1fed-70ba-8e1d-fc47a00a5294\",\"rows\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"rollover\":{\"status\":\"due\",\"selected\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"own\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"carriedFrom\":\"2026.10.06\",\"number\":1,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fed-7548-add0-93464b20c1de\":1},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[\"01a116de-324a-70d7-b1d6-e6ebc200dc40.json\"],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:58:56.030Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\"}],\"tasks\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.08\",\"source\":\"2-areas/daily-plans/2026.10.08-daily-plan.md\"}]},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"0913dbe64462b6e4f99dafe62d4b221e13f6fbb657cd2447b554983ab65d0909\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"0dadab7f0dc14d2e12d180ef421f00e9dd4fdee912c62126cad8844f27a612cc\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"8017915a6e5adc3c1ac68ca1154ebdb2df5a255b9ecdcc32a3f83fe47f114086\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"b5c524ec9ce79a1a958d0d471e845c2d41a210463c06ee73d51880999bd64565\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"7d52edb99e1b8e2700a66c937fa0ca44a6ed9d069cca0daac1a5c30ae085cc3b\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.08-daily-plan.md\",\"sha256\":\"650f21e9e9535dbf0c69757641f4a5db161b7b69ac62152f73daf2322ca1d7a3\"}],\"diagnostics\":[]},\"inventoryStatus\":\"rebuilt\",\"metrics\":{\"sourceReads\":6,\"metadataFiles\":8},\"enrollment\":[],\"inventoryHash\":\"3387100bcfdc61061aa3f976b989a00b7309478127b91fbcba0e7d74f5730a6e\",\"reviewHash\":\"bfa322ad59d12852d8315517f769e9fddbd8ead7ff6737ef090537e49f767a4e\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"ff25d42cbfb1b9a0ab7eb1ddda9f1f387c3cce3528736d98dfef3adad93ef805\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\",\"removedIds\":[\"01a116cb-1fed-7af5-81d7-5172e0d38b99\"]}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n\r\nAlgorithm       Hash                                                                   Path                            \r\n---------       ----                                                                   ----                            \r\nSHA256          8017915A6E5ADC3C1AC68CA1154EBDB2DF5A255B9ECDCC32A3F83FE47F114086       D:\\repos\\NyssaAI\\daily-tasks\\...\r\n---\r\nid: 01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\r\ntype: daily-plan\r\ntitle: \"Daily plan 2026.10.07\"\r\ndocument-maturity: reviewed\r\ntimezone: \"America/Chicago\"\r\ncreated_at: \"2026-10-06T15:00:00.000Z\"\r\nupdated_at: \"2026-10-07T14:57:26.244Z\"\r\n---\r\n# Daily plan â€” 2026.10.07\r\n\r\n**Timezone:** America/Chicago\r\n\r\n## My work\r\n\r\nNo work selected.\r\n## Notes\r\n\r\nPreserve this unrelated note.\r\n\r\n\r\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_6",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$v=(Get-Location).Path; $inputPath=Join-Path $v '\"'.temp/prepare.json'; [IO.File]::WriteAllText(\"'$inputPath, ('\"'{\\\"vaultRoot\\\":\\\"'+\"'$v.Replace('\"'\\\\','/')+'\\\"}')); node '<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input \"'$inputPath'",
+          "aggregated_output": "{\"status\":\"prepared\",\"context\":{\"configured\":true,\"profilePath\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\1-projects\",\"dailyPlansRoot\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.07\",\"now\":\"2026-10-07T15:00:18.974Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.07-daily-plan.md\",\"date\":\"2026.10.07\",\"sha256\":\"7d52edb99e1b8e2700a66c937fa0ca44a6ed9d069cca0daac1a5c30ae085cc3b\",\"id\":\"01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\",\"rows\":[]},\"previous\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\",\"date\":\"2026.10.06\",\"sha256\":\"c288fe1b967de13b3fd2b6f340e40d7731ce1246b62e8e2c1a890e774616afb8\",\"id\":\"01a116cb-1fed-70ba-8e1d-fc47a00a5294\",\"rows\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"rollover\":{\"status\":\"due\",\"selected\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"own\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"carriedFrom\":\"2026.10.06\",\"number\":1,\"dueDate\":null}],\"available\":[],\"hasMore\":false,\"mapping\":{\"01a116cb-1fed-7548-add0-93464b20c1de\":1},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-07T14:58:56.030Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\"}],\"tasks\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[{\"date\":\"2026.10.08\",\"source\":\"2-areas/daily-plans/2026.10.08-daily-plan.md\"}]},{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"0913dbe64462b6e4f99dafe62d4b221e13f6fbb657cd2447b554983ab65d0909\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"0dadab7f0dc14d2e12d180ef421f00e9dd4fdee912c62126cad8844f27a612cc\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"8017915a6e5adc3c1ac68ca1154ebdb2df5a255b9ecdcc32a3f83fe47f114086\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"b5c524ec9ce79a1a958d0d471e845c2d41a210463c06ee73d51880999bd64565\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.07-daily-plan.md\",\"sha256\":\"7d52edb99e1b8e2700a66c937fa0ca44a6ed9d069cca0daac1a5c30ae085cc3b\"},{\"anchor\":\"vaultRoot\",\"path\":\"2-areas/daily-plans/2026.10.08-daily-plan.md\",\"sha256\":\"650f21e9e9535dbf0c69757641f4a5db161b7b69ac62152f73daf2322ca1d7a3\"}],\"diagnostics\":[]},\"inventoryStatus\":\"reused\",\"metrics\":{\"sourceReads\":0,\"metadataFiles\":8},\"enrollment\":[],\"inventoryHash\":\"3387100bcfdc61061aa3f976b989a00b7309478127b91fbcba0e7d74f5730a6e\",\"reviewHash\":\"bfa322ad59d12852d8315517f769e9fddbd8ead7ff6737ef090537e49f767a4e\",\"state\":{\"rollover\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\"sha256\":\"ff25d42cbfb1b9a0ab7eb1ddda9f1f387c3cce3528736d98dfef3adad93ef805\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.07\",\"planId\":\"01a116cb-1fed-78d2-b3a3-6f6d4e4fc511\",\"removedIds\":[\"01a116cb-1fed-7af5-81d7-5172e0d38b99\"]}},\"review\":{\"path\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.07.json\",\"sha256\":null,\"value\":null}}}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_7",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$cli='\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$out=node $cli planning-prepare --input .temp/prepare.json; [IO.File]::WriteAllText((Join-Path (Get-Location) '\"'.temp/packet.json'),(\"'$out -join \"`n\")); node $cli activity-time; node $cli new-id; node $cli new-id; node -e '\"'const fs=require(\\\"fs\\\");const p=JSON.parse(fs.readFileSync(\\\".temp/packet.json\\\"));fs.writeFileSync(\\\".temp/selection.json\\\",JSON.stringify({...p.context,contextBinding:p.context.planningBinding,inventoryBinding:p.context.planningBinding,inventory:p.inventory,taskIds:[p.inventory.tasks.find(t=>t.title===\\\"Recovery task\\\").id],action:\\\"remove\\\",today:p.context.localDate,date:\\\"2026.10.08\\\"}));'; node \"'$cli plan-selection --input .temp/selection.json'",
+          "aggregated_output": "{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n{\"id\":\"01a116e1-caae-77cc-a74a-6585438d1855\"}\n{\"id\":\"01a116e1-caea-7932-869a-358e90135f0c\"}\n[eval]:1\r\nconst fs=require(fs);const p=JSON.parse(fs.readFileSync(.temp/packet.json));fs.writeFileSync(.temp/selection.json,JSON.stringify({...p.context,contextBinding:p.context.planningBinding,inventoryBinding:p.context.planningBinding,inventory:p.inventory,taskIds:[p.inventory.tasks.find(t=>t.title===Recovery\r\n                                                        ^\r\nExpression expected\r\n\r\nSyntaxError: Unexpected token '.'\r\n    at makeContextifyScript (node:internal/vm:194:14)\r\n    at compileScript (node:internal/process/execution:388:10)\r\n    at evalTypeScript (node:internal/process/execution:260:22)\r\n    at node:internal/main/eval_string:71:3\r\n\r\nNode.js v24.19.0\r\n{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n",
+          "exit_code": 1,
+          "status": "failed"
+        },
+        {
+          "id": "item_8",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$cli='\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$v=(Get-Location).Path; $out=node $cli planning-prepare --input \"$v/.temp/prepare.json\"; [IO.File]::WriteAllText(\"$v/.temp/packet.json\",($out -join \"`n\")); [IO.File]::WriteAllText(\"$v/.temp/empty.json\",'\"'{}'); node \"'$cli activity-time --input \"$v/.temp/empty.json\"; @'\"'\nconst fs=require('fs');const p=JSON.parse(fs.readFileSync('.temp/packet.json'));fs.writeFileSync('.temp/selection.json',JSON.stringify({...p.context,contextBinding:p.context.planningBinding,inventoryBinding:p.context.planningBinding,inventory:p.inventory,taskIds:[p.inventory.tasks.find(t=>t.title==='Recovery task').id],action:'remove',today:p.context.localDate,date:'2026.10.08'}));\n'@ | node; node \"'$cli plan-selection --input \"$v/.temp/selection.json\"'",
+          "aggregated_output": "{\"activity_at\":\"2026-10-07T15:01:12.266Z\",\"recorded_at\":\"2026-10-07T15:01:12.266Z\",\"time_defaulted\":true}\n{\"effects\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"from\":{\"date\":\"2026.10.08\",\"source\":\"2-areas/daily-plans/2026.10.08-daily-plan.md\"},\"to\":null,\"preserveHistory\":true}],\"conflicts\":[]}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_12",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command '$cli='\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$v=(Get-Location).Path; $out=node $cli log-query --input \"$v/.temp/query.json\"; [IO.File]::WriteAllText(\"$v/.temp/query-result.json\",($out -join \"`n\")); $out=node $cli planning-prepare --input \"$v/.temp/prepare.json\"; [IO.File]::WriteAllText(\"$v/.temp/packet-after-remove.json\",($out -join \"`n\")); @'\"'\nconst fs=require('fs'),crypto=require('crypto'),path=require('path');const read=f=>JSON.parse(fs.readFileSync(f,'utf8').replace(/\"'^'\"\\\\uFEFF/,''));const p=read('.temp/packet-after-remove.json'),c=p.context,opPath=path.join(c.stateRoot,'operations/01a116e1-caae-77cc-a74a-6585438d1855.json'),op=read(opPath),q=read('.temp/query-result.json');const matches=q.entries.filter(e=>e.operation_id===op.operation_id);if(matches.length\"'!==1||JSON.stringify(matches[0])!==JSON.stringify(op.event))throw Error('\"'Log payload mismatch');if(p.inventory.tasks.find(t=>t.title==='Recovery task').planned.length)throw Error('Removal not persisted');const bfile=path.join(c.stateRoot,'reconciliation.json'),b=read(bfile),f=op.files[0];b.records[op.event.record_ids[0]].views[f.path]={selected:false,hash:f.afterHash};fs.writeFileSync(bfile,JSON.stringify(b,null,2)+'\\\\n');fs.unlinkSync(opPath);console.log(JSON.stringify({removalVerified:true,logEvents:matches.length,rollover:p.rollover,review:p.review}));\n'@ | node\n\"'$out=node $cli activity-time --input \"$v/.temp/empty.json\"; [IO.File]::WriteAllText(\"$v/.temp/carry-time.json\",($out -join \"`n\")); node $cli new-id; node $cli new-id'",
+          "aggregated_output": "{\"removalVerified\":true,\"logEvents\":1,\"rollover\":{\"status\":\"due\",\"selected\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"own\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false,\"selected\":true,\"carriedFrom\":\"2026.10.06\"}],\"delegated\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.07\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[{\"id\":\"01a116cb-1fed-7548-add0-93464b20c1de\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"carriedFrom\":\"2026.10.06\",\"number\":1,\"dueDate\":null}],\"available\":[{\"id\":\"01a116cb-1fed-7af5-81d7-5172e0d38b99\",\"projectId\":\"01a116cb-1fed-734e-ae50-944b52ea7d91\",\"milestoneId\":\"01a116cb-1fed-777e-8d72-c9af674b1487\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"number\":2,\"dueDate\":null}],\"hasMore\":false,\"mapping\":{\"01a116cb-1fed-7548-add0-93464b20c1de\":1,\"01a116cb-1fed-7af5-81d7-5172e0d38b99\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"da78f87158fdde3c91900658db50127282350b03e9b6b69251929b9dca7760b2\",\"incomplete\":false}}\n{\"id\":\"01a116e3-3ff1-788a-ab18-2810321b1a9e\"}\n{\"id\":\"01a116e3-402e-791a-b4ff-2f503aaa47fb\"}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_13",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"@'\nconst fs=require('fs'),crypto=require('crypto'),path=require('path');const read=f=>JSON.parse(fs.readFileSync(f,'utf8').replace(/\"'^'\"\\\\uFEFF/,''));const p=read('.temp/packet-after-remove.json'),c=p.context,t=read('.temp/carry-time.json');const row=p.rollover.selected[0];if(p.rollover.status\"'!=='\"'due'||p.rollover.selected.length\"'!==1||row.label!=='\"'Other task')throw Error('Unexpected rollover');const file=p.current.path,before=fs.readFileSync(file,'utf8');const after=before.replace('No work selected.',\"'`- [ ] [[${row.target}|Other task]] <!-- ref: ${row.id} -->'\"\\\\n  Carried forward from October 6 (America/Chicago).\"'`).replace(/updated_at: .*'\"\\\\r?\\\\n/,\"'`updated_at: \"${t.recorded_at}\"'\"\\\\n\"'`);const hash=x=>crypto.createHash('\"'sha256').update(x).digest('hex');const entry={id:'01a116e3-402e-791a-b4ff-2f503aaa47fb',operation_id:'01a116e3-3ff1-788a-ab18-2810321b1a9e',action:'plan.selected',record_ids:[row.id],actor:{kind:'person',id:c.profile.user.email},...t,original_words:'Then plan October 7',before:{date:c.localDate,selected:false},after:{date:c.localDate,selected:true,carriedFrom:p.previous.date}};const op={operation_id:entry.operation_id,contextBinding:c.planningBinding,event:entry,files:[{path:file,beforeHash:hash(before),afterHash:hash(after),beforeMembership:[],afterMembership:[row.id]},{path:p.previous.path,beforeHash:p.previous.sha256,afterHash:p.previous.sha256}],rollover:{path:p.state.rollover.path,beforeHash:p.state.rollover.sha256,planId:p.current.id,removedIds:p.state.rollover.value.removedIds,date:c.localDate},baselineRequired:true};fs.writeFileSync(path.join(c.stateRoot,'operations',entry.operation_id+'.json'),JSON.stringify(op,null,2));fs.writeFileSync('.temp/today.md',after);fs.writeFileSync('.temp/carry-log.json',JSON.stringify({projectsRoot:c.projectsRoot,entry}));fs.writeFileSync('.temp/carry-query.json',JSON.stringify({projectsRoot:c.projectsRoot,recordId:row.id}));\n'@ | node\n\"'$v=(Get-Location).Path; $op=Get-Content -Raw .nyssaai/daily-tasks/operations/01a116e3-3ff1-788a-ab18-2810321b1a9e.json | ConvertFrom-Json; foreach($f in $op.files){if((Get-FileHash -LiteralPath $f.path -Algorithm SHA256).Hash.ToLower() -ne $f.beforeHash){throw '\"'Source changed'}}; Copy-Item -LiteralPath .temp/today.md -Destination 2-areas/daily-plans/2026.10.07-daily-plan.md; \"'$cli='\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs'; node \"'$cli invalidate-project-index --input \"$v/.temp/prepare.json\"; foreach($f in $op.files){if((Get-FileHash -LiteralPath $f.path -Algorithm SHA256).Hash.ToLower() -ne $f.afterHash){throw '\"'Verification failed'}}; node \"'$cli log-append --input \"$v/.temp/carry-log.json\"; $out=node $cli log-query --input \"$v/.temp/carry-query.json\"; [IO.File]::WriteAllText(\"$v/.temp/carry-query-result.json\",($out -join \"`n\")); $out=node $cli planning-prepare --input \"$v/.temp/prepare.json\"; [IO.File]::WriteAllText(\"$v/.temp/packet-after-carry.json\",($out -join \"`n\")); $out=node $cli activity-time --input \"$v/.temp/empty.json\"; [IO.File]::WriteAllText(\"$v/.temp/completion-time.json\",($out -join \"`n\"));'",
+          "aggregated_output": "{\"invalidated\":true,\"dryRun\":false}\n{\"entry\":{\"id\":\"01a116e3-402e-791a-b4ff-2f503aaa47fb\",\"operation_id\":\"01a116e3-3ff1-788a-ab18-2810321b1a9e\",\"action\":\"plan.selected\",\"record_ids\":[\"01a116cb-1fed-7548-add0-93464b20c1de\"],\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"activity_at\":\"2026-10-07T15:02:34.168Z\",\"recorded_at\":\"2026-10-07T15:02:34.168Z\",\"time_defaulted\":true,\"original_words\":\"Then plan October 7\",\"before\":{\"date\":\"2026.10.07\",\"selected\":false},\"after\":{\"date\":\"2026.10.07\",\"selected\":true,\"carriedFrom\":\"2026.10.06\"}},\"duplicate\":false,\"file\":\"D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\1-projects\\\\.daily-tasks\\\\2026.10.07-decisions.json\",\"dryRun\":false}\n",
+          "exit_code": 0,
+          "status": "completed"
+        },
+        {
+          "id": "item_14",
+          "type": "command_execution",
+          "command": "\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\" -Command \"@'\nconst fs=require('fs'),crypto=require('crypto'),path=require('path');const read=f=>JSON.parse(fs.readFileSync(f,'utf8').replace(/\"'^'\"\\\\uFEFF/,''));const p=read('.temp/packet-after-carry.json'),c=p.context,opPath=path.join(c.stateRoot,'operations/01a116e3-3ff1-788a-ab18-2810321b1a9e.json'),op=read(opPath),q=read('.temp/carry-query-result.json'),time=read('.temp/completion-time.json').recorded_at;const matches=q.entries.filter(e=>e.operation_id===op.operation_id);if(matches.length\"'!==1||JSON.stringify(matches[0])!==JSON.stringify(op.event))throw Error('\"'Log mismatch');if(p.current.rows.length\"'!==1||p.current.rows[0].id!==op.event.record_ids[0]||p.inventory.diagnostics.length)throw Error('\"'Plan verification failed');const hash=x=>crypto.createHash('sha256').update(x).digest('hex');for(const f of op.files)if(hash(fs.readFileSync(f.path))\"'!==f.afterHash)throw Error('\"'Source changed');if(hash(fs.readFileSync(op.rollover.path))\"'!==op.rollover.beforeHash)throw Error('\"'Rollover state changed');const state=read(op.rollover.path);Object.assign(state,{operationId:op.operation_id,completedAt:time});fs.writeFileSync(op.rollover.path,JSON.stringify(state,null,2)+'\\\\n');const bf=path.join(c.stateRoot,'reconciliation.json'),b=read(bf),id=op.event.record_ids[0];b.records[id]={canonical:{state:'not-started'},views:{[p.previous.path]:{selected:true,state:'not-started',hash:p.previous.sha256},[p.current.path]:{selected:true,state:'not-started',hash:p.current.sha256,carriedFrom:p.previous.date}}};fs.writeFileSync(bf,JSON.stringify(b,null,2)+'\\\\n');if(read(op.rollover.path).operationId\"'!==op.operation_id)throw Error('\"'Receipt failed');fs.unlinkSync(opPath);fs.writeFileSync(path.join(c.stateRoot,'maintenance.json'),JSON.stringify({schemaVersion:1,lastFullReconcileAt:time,model:'gpt-6-luna',executionEvidence:{tool:'collaboration.spawn_agent',task:'/root/maintenance',readOnly:true,result:'complete broad pass; no conflicts; authorized parent effects verified'}},null,2)+'\\\\n');console.log(JSON.stringify({rolloverReceiptVerified:true,canonicalRecoveryHash:hash(fs.readFileSync(path.join(c.projectsRoot,'2026.01.01-fixture/first/recovery-task.md'))),removedFutureState:read(path.join(c.stateRoot,'rollover/2026.10.08.json'))}));\n'@ | node\n\"'$cli='\"'<FRESH_SYNTHETIC_ROOT>/codex-home/plugins/cache/clock-acceptance/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$v=(Get-Location).Path; $out=node $cli planning-prepare --input \"$v/.temp/prepare.json\"; [IO.File]::WriteAllText(\"$v/.temp/final-packet.json\",($out -join \"`n\")); @'\"'\nconst fs=require('fs');const p=JSON.parse(fs.readFileSync('.temp/final-packet.json'));fs.writeFileSync('.temp/review-state.json',JSON.stringify({vaultRoot:p.context.vaultRoot,action:'save-review',now:p.context.now,expectedPlanHash:p.current.sha256,expectedPreviousHash:p.previous.sha256,expectedStateHash:p.state.review.sha256,expectedInventoryHash:p.inventoryHash,expectedReviewHash:p.reviewHash}));console.log(JSON.stringify({rollover:p.rollover,review:p.review,maintenance:p.maintenance,pending:p.pendingOperations}));\n'@ | node\nnode \"'$cli planning-state --input \"$v/.temp/review-state.json\"; node $cli log-append --input \"$v/.temp/remove-log.json\"; node $cli log-query --input \"$v/.temp/query.json\"'",
+          "aggregated_output": "{\"rolloverReceiptVerified\":true,\"canonicalRecoveryHash\":\"8017915a6e5adc3c1ac68ca1154ebdb2df5a255b9ecdcc32a3f83fe47f114086\",\"removedFutureState\":{\"date\":\"2026.10.08\",\"schemaVersion\":1,\"removedIds\":[\"01a116cb-1fed-7af5-81d7-5172e0d38b99\"],\"planId\":\"01a116de-32bc-7758-980d-1aba61b8fd57\"}}\n[stdin]:1\r\nconst fs=require('fs');const p=JSON.parse(fs.readFileSync('.temp/final-packet.json'));fs.writeFileSync('.temp/review-state.json',JSON.stringify({vaultRoot:p.context.vaultRoot,action:'save-review',now:p.context.now,expectedPlanHash:p.current.sha256,expectedPreviousHash:p.previous.sha256,expectedStateHash:p.state.review.sha256,expectedInventoryHash:p.inventoryHash,expectedReviewHash:p.reviewHash}));console.log(JSON.stringify({rollover:p.rollover,review:p.review,maintenance:p.maintenance,pending:p.pendingOperations}));\r\n                                                                                                                                                                                                                                                                                        ^\r\n\r\nTypeError: Cannot read properties of null (reading 'sha256')\r\n    at [stdin]:1:281\r\n    at runScriptInThisContext (node:internal/vm:219:10)\r\n    at node:internal/process/execution:451:12\r\n    at [stdin]-wrapper:6:24\r\n    at runScriptInContext (node:internal/process/execution:449:60)\r\n    at evalFunction (node:internal/process/execution:283:30)\r\n    at evalTypeScript (node:internal/process/execution:295:3)\r\n    at node:internal/main/eval_stdin:51:5\r\n    at Socket.<anonymous> (node:internal/process/execution:205:5)\r\n    at Socket.emit (node:events:521:24)\r\n\r\nNode.js v24.19.0\r\n{\"error\":\"ENOENT: no such file or directory, open 'D:\\\\repos\\\\NyssaAI\\\\daily-tasks\\\\.temp\\\\clock-acceptance-20261007\\\\vaults\\\\recovery\\\\planning-p4u3MF\\\\.temp\\\\review-state.json'\",\"code\":\"ENOENT\"}\n{\"entry\":{\"id\":\"01a116e1-caea-7932-869a-358e90135f0c\",\"operation_id\":\"01a116e1-caae-77cc-a74a-6585438d1855\",\"action\":\"plan.deselected\",\"record_ids\":[\"01a116cb-1fed-7af5-81d7-5172e0d38b99\"],\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"activity_at\":\"2026-10-07T15:01:12.266Z\",\"recorded_at\":\"2026-10-07T15:01:12.266Z\",\"time_defaulted\":true,\"original_words\":\"Explicitly remove Recovery task from the future October 8 daily plan in America/Chicago, preserving canonical open state.\",\"before\":{\"date\":\"2026.10.08\",\"selected\":true},\"after\":{\"date\":\"2026.10.08\",\"selected\":false}},\"duplicate\":true,\"dryRun\":false}\n{\"entries\":[{\"id\":\"01a116cb-1fed-74bc-935e-94d4f4da41ba\",\"operation_id\":\"01a116cb-1fed-708c-9b29-eeb4bccdf4cc\",\"action\":\"selection-move\",\"record_ids\":[\"01a116cb-1fed-7af5-81d7-5172e0d38b99\"],\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"activity_at\":\"2026-10-06T15:00:00.000Z\",\"recorded_at\":\"2026-10-06T15:00:00.000Z\",\"time_defaulted\":false,\"original_words\":\"Move Recovery task to tomorrow (synthetic acceptance test).\",\"before\":{\"date\":\"2026.10.06\"},\"after\":{\"date\":\"2026.10.07\"}},{\"operation_id\":\"01a116de-324a-70d7-b1d6-e6ebc200dc40\",\"id\":\"01a116de-3283-7f4a-aa09-0624164a3e97\",\"original_words\":\"Explicitly move Recovery task from October 7 to the future October 8 plan in America/Chicago. This is a new decision following the recovered move.\",\"after\":{\"date\":\"2026.10.08\",\"selected\":true,\"reason\":\"New explicit decision following recovered move\"},\"activity_at\":\"2026-10-07T14:57:26.244Z\",\"record_ids\":[\"01a116cb-1fed-7af5-81d7-5172e0d38b99\"],\"recorded_at\":\"2026-10-07T14:57:26.244Z\",\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"before\":{\"selected\":true,\"date\":\"2026.10.07\"},\"time_defaulted\":true,\"action\":\"plan.selection.moved\"},{\"id\":\"01a116e1-caea-7932-869a-358e90135f0c\",\"operation_id\":\"01a116e1-caae-77cc-a74a-6585438d1855\",\"action\":\"plan.deselected\",\"record_ids\":[\"01a116cb-1fed-7af5-81d7-5172e0d38b99\"],\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"activity_at\":\"2026-10-07T15:01:12.266Z\",\"recorded_at\":\"2026-10-07T15:01:12.266Z\",\"time_defaulted\":true,\"original_words\":\"Explicitly remove Recovery task from the future October 8 daily plan in America/Chicago, preserving canonical open state.\",\"before\":{\"date\":\"2026.10.08\",\"selected\":true},\"after\":{\"date\":\"2026.10.08\",\"selected\":false}}],\"total\":3,\"offset\":0,\"limit\":100,\"nextOffset\":null}\n",
+          "exit_code": 0,
+          "status": "completed"
+        }
+      ],
+      "maintenance": {
+        "schemaVersion": 1,
+        "lastFullReconcileAt": "2026-10-07T15:03:04.171Z",
+        "model": "gpt-6-luna",
+        "executionEvidence": {
+          "tool": "collaboration.spawn_agent",
+          "task": "/root/maintenance",
+          "readOnly": true,
+          "result": "complete broad pass; no conflicts; authorized parent effects verified"
+        }
+      }
+    },
+    "cross": {
+      "injection": {
+        "injectedAt": "2026-10-07T14:52:00.158Z",
+        "source": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-a\\planning-D8APVV\\.temp\\daily-tasks\\project-index.json",
+        "target": "<RETAINED_SYNTHETIC_ROOT>\\config-shared-b\\planning-FLgctZ\\.temp\\daily-tasks\\project-index.json",
+        "priorHash": "547893429262c0df74062f5be91fa3f0de0daa9d4260df035ac07e8ffe9ec7ee",
+        "injectedHash": "f655ded2b079c88c62c39fb5669ff21a303e1a17ac4d1e692ecd17e73680c2da",
+        "canonicalBefore": {
+          "a": {
+            "2026.01.01-fixture/project-index.md": "9e608256d1237232438c0ca5301dff0d2d40b5246405583ef80ea1e4ef55fb77",
+            "2026.01.01-fixture/first/milestone.md": "7e3e49eb32b9ef5aa8fed359c17ffeee5dfef8524277ad8dfca28c2746c3d64f",
+            "2026.01.01-fixture/first/other-task.md": "1b1d3218a34d5f1de5e1e1b964bf23004db385c44e632d814af3d0bcb461cddf",
+            "2026.01.01-fixture/first/recovery-task.md": "e6a6f10ae70b5142820e5f7c32bc067b19d9355c57fa30e8866959f7dfa83ff2"
+          },
+          "b": {
+            "2026.01.01-fixture/project-index.md": "013db4985ca54feb0254916cfdbfff3709b989ab217b5bc56535947f4f0c45e1",
+            "2026.01.01-fixture/first/milestone.md": "1e08963f5ffa80c499bb2b4a25ecbde57371b770b1dc5370571cb803688db428",
+            "2026.01.01-fixture/first/other-task.md": "33b04356a754b7a458f0e56c2e57e81c40ff18dceecdc3ea9089f69fa8e69ac3",
+            "2026.01.01-fixture/first/recovery-task.md": "3129fdfcff37ff8268bf2da4a7c775633a8c84acf69de5d312582041cec997ee",
+            "2026.01.01-fixture/update-linkedin-and-resume/definition-of-done.md": "9f3a457648662bea1bbfa3f0ccf40f8bf7d11d60edcb47c3c1434f3d119db42f",
+            "2026.01.01-fixture/update-linkedin-and-resume/milestone.md": "e66475e3cf6219d908759377ba6883b548a3c5c5d68733b285f03af45f8b6f25"
+          }
+        },
+        "method": "Retained incomplete native attempt had already rebuilt B cache. Preserve its cache bytes, then re-inject A disposable inventory before the separately recorded retry so the retry actually exercises foreign-cache recovery. No canonical or durable state repair.",
+        "logBefore": {
+          "entries": [
+            {
+              "operation_id": "01a11440-410f-733b-8cea-3196abe37483",
+              "original_words": "Create accepted milestone M1: update LinkedIn and resume under this vault's Fixture project, no extra tasks.",
+              "action": "milestone.accepted",
+              "time_defaulted": true,
+              "actor": {
+                "id": "fixture@example.test",
+                "kind": "person"
+              },
+              "activity_at": "2026-10-07T02:45:17.477Z",
+              "record_ids": [
+                "01a11440-4059-7764-822f-82931e2f92d7",
+                "01a11440-4087-7742-9787-740c6ed88a91"
+              ],
+              "after": {
+                "title": "M1: update LinkedIn and resume",
+                "project_id": "01a1143c-e814-7549-8102-fd324e25239a",
+                "tasks_created": 0,
+                "acceptance_source": "Explicit user instruction",
+                "milestone-state": "not-started"
+              },
+              "id": "01a11440-413f-7a9f-82bf-979248e45196",
+              "recorded_at": "2026-10-07T02:45:17.477Z"
+            }
+          ],
+          "total": 1,
+          "offset": 0,
+          "limit": 1000,
+          "nextOffset": null
+        }
+      },
+      "log": {
+        "entries": [
+          {
+            "operation_id": "01a11440-410f-733b-8cea-3196abe37483",
+            "original_words": "Create accepted milestone M1: update LinkedIn and resume under this vault's Fixture project, no extra tasks.",
+            "action": "milestone.accepted",
+            "time_defaulted": true,
+            "actor": {
+              "id": "fixture@example.test",
+              "kind": "person"
+            },
+            "activity_at": "2026-10-07T02:45:17.477Z",
+            "record_ids": [
+              "01a11440-4059-7764-822f-82931e2f92d7",
+              "01a11440-4087-7742-9787-740c6ed88a91"
+            ],
+            "after": {
+              "title": "M1: update LinkedIn and resume",
+              "project_id": "01a1143c-e814-7549-8102-fd324e25239a",
+              "tasks_created": 0,
+              "acceptance_source": "Explicit user instruction",
+              "milestone-state": "not-started"
+            },
+            "id": "01a11440-413f-7a9f-82bf-979248e45196",
+            "recorded_at": "2026-10-07T02:45:17.477Z"
+          }
+        ],
+        "total": 1,
+        "offset": 0,
+        "limit": 1000,
+        "nextOffset": null
+      },
+      "fresh": []
+    }
+  },
+  "runs": {
+    "cross-vault-inventory-retry": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T15:04:31.650Z",
+      "completedAt": "2026-10-07T15:07:32.178Z"
+    },
+    "maintenance-probe-repeat": {
+      "status": 0,
+      "startedAt": "2026-10-07T15:02:49.239Z",
+      "completedAt": "2026-10-07T15:06:02.250Z"
+    },
+    "maintenance-probe": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T14:41:33.269Z",
+      "completedAt": "2026-10-07T14:45:21.909Z"
+    },
+    "maintenance-repeat": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T14:40:43.862Z",
+      "completedAt": "2026-10-07T14:42:06.974Z"
+    },
+    "new-future-move": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T14:54:52.887Z",
+      "completedAt": "2026-10-07T14:59:25.030Z"
+    },
+    "new-future-remove": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T14:59:25.036Z",
+      "completedAt": "2026-10-07T15:04:31.645Z"
+    },
+    "precreated-remove-repeat": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T14:46:59.729Z",
+      "completedAt": "2026-10-07T14:49:34.663Z"
+    },
+    "precreated": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T14:42:06.981Z",
+      "completedAt": "2026-10-07T14:46:59.723Z"
+    },
+    "recovery": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T14:49:34.676Z",
+      "completedAt": "2026-10-07T14:54:52.851Z"
+    },
+    "skipped": {
+      "status": 0,
+      "signal": null,
+      "startedAt": "2026-10-07T14:36:13.171Z",
+      "completedAt": "2026-10-07T14:40:43.787Z"
+    }
+  }
+}

@@ -1,0 +1,293 @@
+[
+  {
+    "fixture": "day-change",
+    "label": "future-removal",
+    "started": "2026-10-07T02:21:53.835Z",
+    "events": [
+      {
+        "id": "01a11415-fb63-7dbd-aeda-1fe4a5491703",
+        "operation_id": "01a11415-fb63-7b96-9d10-e1f7f9800cec",
+        "action": "selection-move",
+        "record_ids": [
+          "01a11415-fb63-7ca9-913e-c9d2d050046f"
+        ],
+        "actor": {
+          "kind": "person",
+          "id": "fixture@example.test"
+        },
+        "activity_at": "2026-10-07T01:59:07.362Z",
+        "recorded_at": "2026-10-07T01:59:07.362Z",
+        "time_defaulted": false,
+        "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+        "before": {
+          "date": "2026.10.06"
+        },
+        "after": {
+          "date": "2026.10.07"
+        }
+      },
+      {
+        "after": {
+          "selected": false,
+          "date": "2026.10.07"
+        },
+        "action": "selection-remove",
+        "activity_at": "2026-10-07T01:59:07.362Z",
+        "operation_id": "01a1142c-5b1d-7754-8465-96b8d2227ca9",
+        "original_words": "Explicitly remove Recovery task from the future October 7 daily plan, preserving its canonical open state.",
+        "id": "01a1142c-5b48-7656-a96c-e217c708075f",
+        "before": {
+          "selected": true,
+          "date": "2026.10.07"
+        },
+        "actor": {
+          "id": "fixture@example.test",
+          "kind": "person"
+        },
+        "time_defaulted": true,
+        "recorded_at": "2026-10-07T01:59:07.362Z",
+        "record_ids": [
+          "01a11415-fb63-7ca9-913e-c9d2d050046f"
+        ]
+      },
+      {
+        "record_ids": [
+          "01a11415-fb63-770d-ba68-efcd9ea82271"
+        ],
+        "activity_at": "2026-10-07T15:00:00.000Z",
+        "id": "01a1142c-fc08-76e1-a56c-3a97d49b8785",
+        "after": {
+          "date": "2026.10.07",
+          "carriedFrom": "2026.10.06"
+        },
+        "operation_id": "01a1142c-fbdd-7936-bebb-7399eaa0c6ad",
+        "actor": {
+          "id": "codex",
+          "kind": "agent"
+        },
+        "time_defaulted": true,
+        "recorded_at": "2026-10-07T15:00:00.000Z",
+        "action": "selection-carry-forward",
+        "before": {
+          "date": "2026.10.06"
+        }
+      }
+    ],
+    "clockCommands": [
+      {
+        "id": "item_12",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$p=Get-Content .temp/prepare.json -Raw | ConvertFrom-Json -DateKind String; $op=node $cli new-id | ConvertFrom-Json; $op | ConvertTo-Json; node $cli activity-time'",
+        "aggregated_output": "{\r\n  \"id\": \"01a1142c-0b46-776b-a4ea-50f1995a66ed\"\r\n}\r\n{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n",
+        "exit_code": 1,
+        "status": "failed"
+      },
+      {
+        "id": "item_13",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$p=Get-Content .temp/prepare.json -Raw | ConvertFrom-Json -DateKind String; @{now=$p.context.now} | ConvertTo-Json | Set-Content .temp/time-input.json; node $cli activity-time --input (Join-Path $PWD '\"'.temp/time-input.json') | Set-Content .temp/time.json; \"'$t=Get-Content .temp/time.json -Raw | ConvertFrom-Json -DateKind String; $op=(node $cli new-id | ConvertFrom-Json).id; $eventId=(node $cli new-id | ConvertFrom-Json).id; $path=Join-Path $PWD '\"'2-areas/daily-plans/2026.10.07-daily-plan.md'; \"'$before=[IO.File]::ReadAllText($path); $after=$before -replace '\"'(?m)\"'^- '\"\\\\[ \\\\] .*Recovery task.*\\\\r?\\\\n',''; \"'$after=$after -replace '\"'(## My work\\\\r?\\\\n\\\\r?\\\\n)',\\\"\"'`$1No work selected.`n\"; $statePath=Join-Path $PWD '\"'.nyssaai/daily-tasks/rollover/2026.10.07.json'; \"'$s=Get-Content $statePath -Raw | ConvertFrom-Json -DateKind String; $s.removedIds=@('\"'01a11415-fb63-7ca9-913e-c9d2d050046f'); \"'$hashBefore=(Get-FileHash $path -Algorithm SHA256).Hash.ToLower(); $hashAfter=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($after))).ToLower(); $event=@{id=$eventId;operation_id=$op;action='\"'selection-remove';record_ids=@('01a11415-fb63-7ca9-913e-c9d2d050046f');actor=@{kind='person';id='fixture@example.test'};activity_at=\"'$t.activity_at;recorded_at=$t.recorded_at;time_defaulted=$t.time_defaulted;original_words='\"'Explicitly remove Recovery task from the future October 7 daily plan, preserving its canonical open state.';before=@{date='2026.10.07';selected=\"'$true};after=@{date='\"'2026.10.07';selected=\"'$false}}; $checkpoint=@{operation_id=$op;contextBinding=$p.context.planningBinding;event=$event;files=@(@{path=$path;before=$hashBefore;after=$hashAfter});membershipBefore=@('\"'01a11415-fb63-7ca9-913e-c9d2d050046f');membershipAfter=@();removedIds=\"'$s.removedIds;rolloverPath=$statePath;rolloverBeforeHash=(Get-FileHash $statePath).Hash.ToLower();rolloverAfter=$s}; New-Item -ItemType Directory -Force .nyssaai/daily-tasks/operations | Out-Null; $checkpoint | ConvertTo-Json -Depth 30 | Set-Content \".nyssaai/daily-tasks/operations/$op.json\"; $checkpoint | ConvertTo-Json -Depth 30 | Set-Content .temp/removal-operation.json; if((Get-FileHash $path).Hash.ToLower() -ne $hashBefore){throw '\"'Plan changed'}; [IO.File]::WriteAllText(\"'$path,$after); $s | ConvertTo-Json -Depth 20 | Set-Content $statePath; @{vaultRoot=$p.context.vaultRoot} | ConvertTo-Json | Set-Content .temp/invalidate.json; node $cli invalidate-project-index --input (Join-Path $PWD '\"'.temp/invalidate.json'); @{projectsRoot=\"'$p.context.projectsRoot;entry=$event} | ConvertTo-Json -Depth 30 | Set-Content .temp/removal-log.json; node $cli log-append --input (Join-Path $PWD '\"'.temp/removal-log.json')\"",
+        "aggregated_output": "{\"invalidated\":true,\"dryRun\":false}\n{\"entry\":{\"after\":{\"selected\":false,\"date\":\"2026.10.07\"},\"action\":\"selection-remove\",\"activity_at\":\"2026-10-07T01:59:07.362Z\",\"operation_id\":\"01a1142c-5b1d-7754-8465-96b8d2227ca9\",\"original_words\":\"Explicitly remove Recovery task from the future October 7 daily plan, preserving its canonical open state.\",\"id\":\"01a1142c-5b48-7656-a96c-e217c708075f\",\"before\":{\"selected\":true,\"date\":\"2026.10.07\"},\"actor\":{\"id\":\"fixture@example.test\",\"kind\":\"person\"},\"time_defaulted\":true,\"recorded_at\":\"2026-10-07T01:59:07.362Z\",\"record_ids\":[\"01a11415-fb63-7ca9-913e-c9d2d050046f\"]},\"duplicate\":false,\"file\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-change\\\\planning-MnXDJv\\\\1-projects\\\\.daily-tasks\\\\2026.10.07-decisions.json\",\"dryRun\":false}\n",
+        "exit_code": 0,
+        "status": "completed"
+      },
+      {
+        "id": "item_15",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$o=Get-Content .temp/removal-operation.json -Raw | ConvertFrom-Json -DateKind String; $path=$o.files[0].path; if((Get-FileHash $path).Hash.ToLower() -ne $o.files[0].after){throw '\"'Removal verification failed'}; \"'$b=Get-Content .nyssaai/daily-tasks/reconciliation.json -Raw | ConvertFrom-Json -DateKind String; $b.records.'\"'01a11415-fb63-7ca9-913e-c9d2d050046f'.views.\"'$path.selected=$false; $b.records.'\"'01a11415-fb63-7ca9-913e-c9d2d050046f'.views.\"'$path.hash=$o.files[0].after; $b | ConvertTo-Json -Depth 30 | Set-Content .nyssaai/daily-tasks/reconciliation.json; node $cli planning-prepare --input (Join-Path $PWD '\"'.temp/recovery/context.json') | Set-Content .temp/removal-verified.json; \"'$p=Get-Content .temp/removal-verified.json -Raw | ConvertFrom-Json -DateKind String; if($p.inventory.tasks[0].planned.Count -ne 0){throw '\"'Task still planned'}; Remove-Item -LiteralPath (Join-Path \"'$PWD \".nyssaai/daily-tasks/operations/$($o.operation_id).json\"); @{vaultRoot=$p.context.vaultRoot;profilePath=$p.context.profilePath;now='\"'2026-10-07T15:00:00.000Z'} | ConvertTo-Json | Set-Content .temp/oct7-context.json; node \"'$cli planning-prepare --input (Join-Path $PWD '\"'.temp/oct7-context.json') | Set-Content .temp/oct7-prepare.json; \"'$next=Get-Content .temp/oct7-prepare.json -Raw | ConvertFrom-Json -DateKind String; $next.rollover | ConvertTo-Json -Depth 15; $next.state.rollover | ConvertTo-Json -Depth 10'",
+        "aggregated_output": "{\r\n  \"status\": \"due\",\r\n  \"selected\": [\r\n    {\r\n      \"id\": \"01a11415-fb63-770d-ba68-efcd9ea82271\",\r\n      \"title\": \"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\r\n      \"target\": \"../../1-projects/2026.01.01-fixture/first/other-task\",\r\n      \"label\": \"Other task\",\r\n      \"checked\": false,\r\n      \"mark\": \" \",\r\n      \"cancelled\": false,\r\n      \"candidate\": false,\r\n      \"selected\": true,\r\n      \"carriedFrom\": \"2026.10.06\"\r\n    }\r\n  ],\r\n  \"own\": [\r\n    {\r\n      \"id\": \"01a11415-fb63-770d-ba68-efcd9ea82271\",\r\n      \"title\": \"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\r\n      \"target\": \"../../1-projects/2026.01.01-fixture/first/other-task\",\r\n      \"label\": \"Other task\",\r\n      \"checked\": false,\r\n      \"mark\": \" \",\r\n      \"cancelled\": false,\r\n      \"candidate\": false,\r\n      \"selected\": true,\r\n      \"carriedFrom\": \"2026.10.06\"\r\n    }\r\n  ],\r\n  \"delegated\": [],\r\n  \"unresolved\": []\r\n}\r\n{\r\n  \"path\": \"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-change\\\\planning-MnXDJv\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.07.json\",\r\n  \"sha256\": \"0954cbd6f58490017503c93e6ed3182750e64bd11b9d2afdfcf1551cf47f8bd0\",\r\n  \"value\": {\r\n    \"schemaVersion\": 1,\r\n    \"date\": \"2026.10.07\",\r\n    \"planId\": \"01a11415-fb63-7866-aab0-fe24782808dd\",\r\n    \"removedIds\": [\r\n      \"01a11415-fb63-7ca9-913e-c9d2d050046f\"\r\n    ]\r\n  }\r\n}\r\n",
+        "exit_code": 0,
+        "status": "completed"
+      },
+      {
+        "id": "item_17",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'; \"'$p=Get-Content .temp/oct7-prepare.json -Raw | ConvertFrom-Json -DateKind String; $op=(node $cli new-id | ConvertFrom-Json).id; $eid=(node $cli new-id | ConvertFrom-Json).id; @{now=$p.context.now} | ConvertTo-Json | Set-Content .temp/rollover-time-input.json; node $cli activity-time --input (Join-Path $PWD '\"'.temp/rollover-time-input.json') | Set-Content .temp/rollover-time.json; \"'$t=Get-Content .temp/rollover-time.json -Raw | ConvertFrom-Json -DateKind String; $path=$p.current.path; $before=[IO.File]::ReadAllText($path); $row='\"'- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <\"'!-- ref: 01a11415-fb63-770d-ba68-efcd9ea82271 -->'\"'; \"'$after=$before.Replace('\"'No work selected.',\"'$row).Replace('\"'updated_at: \\\"2026-10-07T01:59:07.362Z\\\"','updated_at: \\\"2026-10-07T15:00:00.000Z\\\"'); \"'$hash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($after))).ToLower(); $event=@{id=$eid;operation_id=$op;action='\"'selection-carry-forward';record_ids=@('01a11415-fb63-770d-ba68-efcd9ea82271');actor=@{kind='agent';id='codex'};activity_at=\"'$t.activity_at;recorded_at=$t.recorded_at;time_defaulted=$t.time_defaulted;before=@{date='\"'2026.10.06'};after=@{date='2026.10.07';carriedFrom='2026.10.06'}}; \"'$receipt=$p.state.rollover.value; $receipt | Add-Member operationId $op; $receipt | Add-Member completedAt $t.recorded_at; $o=@{operation_id=$op;contextBinding=$p.context.planningBinding;event=$event;files=@(@{path=$path;before=$p.current.sha256;after=$hash});previousPath=$p.previous.path;previousHash=$p.previous.sha256;membershipBefore=@();membershipAfter=@('\"'01a11415-fb63-770d-ba68-efcd9ea82271');removedIds=\"'$receipt.removedIds;rolloverPath=$p.state.rollover.path;rolloverBeforeHash=$p.state.rollover.sha256;receipt=$receipt}; $o | ConvertTo-Json -Depth 30 | Set-Content \".nyssaai/daily-tasks/operations/$op.json\"; $o | ConvertTo-Json -Depth 30 | Set-Content .temp/rollover-operation.json; if((Get-FileHash $path).Hash.ToLower() -ne $p.current.sha256){throw '\"'Plan changed'}; if((Get-FileHash \"'$p.previous.path).Hash.ToLower() -ne $p.previous.sha256){throw '\"'Previous changed'}; [IO.File]::WriteAllText(\"'$path,$after); node $cli invalidate-project-index --input (Join-Path $PWD '\"'.temp/invalidate.json'); if((Get-FileHash \"'$path).Hash.ToLower() -ne $hash){throw '\"'Carry verification failed'}; @{projectsRoot=\"'$p.context.projectsRoot;entry=$event} | ConvertTo-Json -Depth 20 | Set-Content .temp/carry-log.json; node $cli log-append --input (Join-Path $PWD '\"'.temp/carry-log.json')\"",
+        "aggregated_output": "{\"invalidated\":true,\"dryRun\":false}\n{\"entry\":{\"record_ids\":[\"01a11415-fb63-770d-ba68-efcd9ea82271\"],\"activity_at\":\"2026-10-07T15:00:00.000Z\",\"id\":\"01a1142c-fc08-76e1-a56c-3a97d49b8785\",\"after\":{\"date\":\"2026.10.07\",\"carriedFrom\":\"2026.10.06\"},\"operation_id\":\"01a1142c-fbdd-7936-bebb-7399eaa0c6ad\",\"actor\":{\"id\":\"codex\",\"kind\":\"agent\"},\"time_defaulted\":true,\"recorded_at\":\"2026-10-07T15:00:00.000Z\",\"action\":\"selection-carry-forward\",\"before\":{\"date\":\"2026.10.06\"}},\"duplicate\":false,\"file\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-change\\\\planning-MnXDJv\\\\1-projects\\\\.daily-tasks\\\\2026.10.07-decisions.json\",\"dryRun\":false}\n",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    ]
+  },
+  {
+    "fixture": "day-skipped",
+    "label": "day-skipped",
+    "started": "2026-10-07T02:04:05.649Z",
+    "events": [
+      {
+        "id": "01a1141b-6ec2-7632-afe5-eecd5bbfac3e",
+        "operation_id": "01a1141b-6e92-717c-a59c-b098efc84072",
+        "action": "selection-carry-forward",
+        "record_ids": [
+          "01a1141a-8884-7a62-93f4-8c202a4d8b64",
+          "01a1141a-8884-7ed0-ad8c-4d71806b5072"
+        ],
+        "actor": {
+          "kind": "person",
+          "id": "fixture@example.test"
+        },
+        "activity_at": "2026-10-06T15:00:00.000Z",
+        "recorded_at": "2026-10-06T15:00:00.000Z",
+        "time_defaulted": true,
+        "original_words": "Carry unfinished selected work from the latest previous plan, including my delegated work.",
+        "before": {
+          "date": "2026.10.04"
+        },
+        "after": {
+          "date": "2026.10.06"
+        }
+      }
+    ],
+    "clockCommands": [
+      {
+        "id": "item_6",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"New-Item -ItemType Directory -Force .temp | Out-Null\nSet-Content -LiteralPath .temp/prepare-input.json -Value '{\\\"initialCwd\\\":\\\"<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-skipped/planning-HA5W85\\\",\\\"now\\\":\\\"2026-10-06T15:00:00.000Z\\\"}'\nnode '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input \\\"\"'$PWD/.temp/prepare-input.json\"'",
+        "aggregated_output": "{\"status\":\"create-plan\",\"context\":{\"configured\":true,\"profilePath\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\1-projects\",\"dailyPlansRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"b2ec557398243128319425ae022a171757479bb259d16b020b66c5e2ce7d3c57\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.06\",\"now\":\"2026-10-06T15:00:00.000Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\",\"date\":\"2026.10.06\",\"sha256\":null,\"id\":null,\"rows\":[]},\"previous\":{\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\2-areas\\\\daily-plans\\\\2026.10.04-daily-plan.md\",\"date\":\"2026.10.04\",\"sha256\":\"a37403df5408f668aa6eaaad05f176052076dfc3be9c7fd0c18da44cf36ba244\",\"id\":\"01a1141a-8884-7cac-aa51-c075842ecccc\",\"rows\":[{\"id\":\"01a1141a-8884-7a62-93f4-8c202a4d8b64\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a1141a-8884-7ed0-ad8c-4d71806b5072\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false}]},\"rollover\":{\"status\":\"missing-plan\",\"selected\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.06\",\"counts\":{\"openProjects\":1,\"openTasks\":2,\"lateTasks\":0},\"selected\":[],\"available\":[{\"id\":\"01a1141a-8884-7a62-93f4-8c202a4d8b64\",\"projectId\":\"01a1141a-8884-7c76-be60-72e29f528e56\",\"milestoneId\":\"01a1141a-8884-7440-b889-42b761b8839a\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"number\":1,\"dueDate\":null},{\"id\":\"01a1141a-8884-7ed0-ad8c-4d71806b5072\",\"projectId\":\"01a1141a-8884-7c76-be60-72e29f528e56\",\"milestoneId\":\"01a1141a-8884-7440-b889-42b761b8839a\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":\"Luna\",\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"number\":2,\"dueDate\":null}],\"hasMore\":false,\"mapping\":{\"01a1141a-8884-7a62-93f4-8c202a4d8b64\":1,\"01a1141a-8884-7ed0-ad8c-4d71806b5072\":2},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"b2ec557398243128319425ae022a171757479bb259d16b020b66c5e2ce7d3c57\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-06T15:00:00.000Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a1141a-8884-7c76-be60-72e29f528e56\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a1141a-8884-7440-b889-42b761b8839a\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a1141a-8884-7c76-be60-72e29f528e56\"}],\"tasks\":[{\"id\":\"01a1141a-8884-7a62-93f4-8c202a4d8b64\",\"projectId\":\"01a1141a-8884-7c76-be60-72e29f528e56\",\"milestoneId\":\"01a1141a-8884-7440-b889-42b761b8839a\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]},{\"id\":\"01a1141a-8884-7ed0-ad8c-4d71806b5072\",\"projectId\":\"01a1141a-8884-7c76-be60-72e29f528e56\",\"milestoneId\":\"01a1141a-8884-7440-b889-42b761b8839a\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":\"Luna\",\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"32f5f2b8f0d9cb89da62aba38e2608e51d6148fdf1648c0983f822062c366dee\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"fa38bdcefac8455395a41128a4334988ab14bd3bd42243208e4d4c16957c1357\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"9b6cedf90e362573fa92cf6f5f35b9e4cbe67fec8f8257a8d456df72d120d914\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"1fb10a155eddbe8c419e9d00ee964dc2590e7d6d5261f8750371783e0d462f36\"}],\"diagnostics\":[]},\"inventoryStatus\":\"rebuilt\",\"metrics\":{\"sourceReads\":4,\"metadataFiles\":6},\"enrollment\":[],\"inventoryHash\":\"5bcd7ef154789683c9022fb39b6fb1f2fb9d07a45a6bf76a66bff8117c7eaf81\",\"reviewHash\":\"8472b3aabfa4f4e3afaebb49aa494c4e51037c5f2187724a620eca4306dad506\",\"state\":{\"rollover\":{\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.06.json\",\"sha256\":null,\"value\":null},\"review\":{\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.06.json\",\"sha256\":null,\"value\":null}}}\n",
+        "exit_code": 0,
+        "status": "completed"
+      },
+      {
+        "id": "item_10",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$dtEntry = '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\nSet-Content .temp/time-input.json '{\\\"now\\\":\\\"2026-10-06T15:00:00.000Z\\\"}'\nnode \"'$dtEntry activity-time --input \"$PWD/.temp/time-input.json\" | Set-Content .temp/activity-time.json\nGet-Content .temp/activity-time.json\n$planText = @'\"'\n---\nid: 01a1141b-6e62-77bd-96c5-ddf2902b6570\ntype: daily-plan\ntitle: \\\"Daily plan 2026.10.06\\\"\ndocument-maturity: reviewed\ntimezone: \\\"America/Chicago\\\"\ncreated_at: \\\"2026-10-06T15:00:00.000Z\\\"\nupdated_at: \\\"2026-10-06T15:00:00.000Z\\\"\n---\n# Daily plan — 2026.10.06\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <\"'!-- ref: 01a1141a-8884-7a62-93f4-8c202a4d8b64 -->\n  Project: Fixture. Carried forward from October 4.\n\n## Delegated work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1141a-8884-7ed0-ad8c-4d71806b5072 -->\n  Project: Fixture. Assigned to: Luna. Carried forward from October 4.\n'\"'@\n[System.IO.File]::WriteAllText(\\\"\"'$PWD/.temp/today-proposed.md\", $planText + \"`n\", [System.Text.UTF8Encoding]::new($false))\n$afterHash = (Get-FileHash .temp/today-proposed.md -Algorithm SHA256).Hash.ToLower()\n$eventText = @'\"'\n{\\\"id\\\":\\\"01a1141b-6ec2-7632-afe5-eecd5bbfac3e\\\",\\\"operation_id\\\":\\\"01a1141b-6e92-717c-a59c-b098efc84072\\\",\\\"action\\\":\\\"selection-carry-forward\\\",\\\"record_ids\\\":[\\\"01a1141a-8884-7a62-93f4-8c202a4d8b64\\\",\\\"01a1141a-8884-7ed0-ad8c-4d71806b5072\\\"],\\\"actor\\\":{\\\"kind\\\":\\\"person\\\",\\\"id\\\":\\\"fixture@example.test\\\"},\\\"activity_at\\\":\\\"2026-10-06T15:00:00.000Z\\\",\\\"recorded_at\\\":\\\"2026-10-06T15:00:00.000Z\\\",\\\"time_defaulted\\\":true,\\\"original_words\\\":\\\"Carry unfinished selected work from the latest previous plan, including my delegated work.\\\",\\\"before\\\":{\\\"date\\\":\\\"2026.10.04\\\"},\\\"after\\\":{\\\"date\\\":\\\"2026.10.06\\\"}}\n'@\nSet-Content .temp/event.json \"'$eventText\n$event = $eventText | ConvertFrom-Json\n$op = @{operation_id=$event.operation_id;contextBinding='\"'b2ec557398243128319425ae022a171757479bb259d16b020b66c5e2ce7d3c57';event=\"'$event;source=@{path=\"$PWD/2-areas/daily-plans/2026.10.04-daily-plan.md\";sha256='\"'a37403df5408f668aa6eaaad05f176052076dfc3be9c7fd0c18da44cf36ba244'};files=@(@{path=\\\"\"'$PWD/2-areas/daily-plans/2026.10.06-daily-plan.md\";before=$null;after=$afterHash});beforeMembership=@();afterMembership=$event.record_ids;removedIds=@();carriedFrom='\"'2026.10.04';planId='01a1141b-6e62-77bd-96c5-ddf2902b6570'}\nNew-Item -ItemType Directory -Force .nyssaai/daily-tasks/operations | Out-Null\n\"'$op | ConvertTo-Json -Depth 20 | Set-Content .nyssaai/daily-tasks/operations/01a1141b-6e92-717c-a59c-b098efc84072.json\nif ((Get-FileHash 2-areas/daily-plans/2026.10.04-daily-plan.md).Hash.ToLower() -ne $op.source.sha256) { throw '\"'Source changed' }\nif (Test-Path 2-areas/daily-plans/2026.10.06-daily-plan.md) { throw 'Destination exists' }\nCopy-Item .temp/today-proposed.md 2-areas/daily-plans/2026.10.06-daily-plan.md\nSet-Content .temp/invalidate.json ('{\\\"vaultRoot\\\":\\\"' + \\\"\"'$PWD\".Replace('\"'\\\\','/') + '\\\"}')\nnode \"'$dtEntry invalidate-project-index --input \"$PWD/.temp/invalidate.json\"'",
+        "aggregated_output": "{\"activity_at\":\"2026-10-06T15:00:00.000Z\",\"recorded_at\":\"2026-10-06T15:00:00.000Z\",\"time_defaulted\":true}\r\n{\"invalidated\":true,\"dryRun\":false}\n",
+        "exit_code": 0,
+        "status": "completed"
+      },
+      {
+        "id": "item_15",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$dtEntry = '\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$packet = Get-Content .temp/after-packet.json -Raw | ConvertFrom-Json\n$base = Get-Content .nyssaai/daily-tasks/reconciliation.json -Raw | ConvertFrom-Json\nforeach ($row in $packet.current.rows) {\n  $rec = $base.records.PSObject.Properties[$row.id]\n  if ($null -eq $rec) { $base.records | Add-Member -NotePropertyName $row.id -NotePropertyValue ([pscustomobject]@{canonical=[pscustomobject]@{state='\"'not-started'};views=[pscustomobject]@{}}) }\n  \"'$base.records.PSObject.Properties[$row.id].Value.views | Add-Member -NotePropertyName $packet.current.path -NotePropertyValue ([pscustomobject]@{selected=$true;state='\"'not-started';hash=\"'$packet.current.sha256}) -Force\n}\n$base | ConvertTo-Json -Depth 20 | Set-Content .nyssaai/daily-tasks/reconciliation.json\nNew-Item -ItemType Directory -Force .nyssaai/daily-tasks/rollover | Out-Null\nif (Test-Path .nyssaai/daily-tasks/rollover/2026.10.06.json) { throw '\"'Receipt unexpectedly exists' }\nSet-Content .nyssaai/daily-tasks/rollover/2026.10.06.json '{\\\"schemaVersion\\\":1,\\\"date\\\":\\\"2026.10.06\\\",\\\"planId\\\":\\\"01a1141b-6e62-77bd-96c5-ddf2902b6570\\\",\\\"operationId\\\":\\\"01a1141b-6e92-717c-a59c-b098efc84072\\\",\\\"completedAt\\\":\\\"2026-10-06T15:00:00.000Z\\\",\\\"removedIds\\\":[],\\\"carriedFrom\\\":\\\"2026.10.04\\\",\\\"carriedIds\\\":[\\\"01a1141a-8884-7a62-93f4-8c202a4d8b64\\\",\\\"01a1141a-8884-7ed0-ad8c-4d71806b5072\\\"]}'\nif ((Get-FileHash \"'$packet.current.path).Hash.ToLower() -ne $packet.current.sha256) { throw '\"'Plan changed' }\nRemove-Item -LiteralPath .nyssaai/daily-tasks/operations/01a1141b-6e92-717c-a59c-b098efc84072.json\nnode \"'$dtEntry planning-prepare --input \"$PWD/.temp/prepare-input.json\" | Set-Content .temp/final-packet.json\n$packet = Get-Content .temp/final-packet.json -Raw | ConvertFrom-Json\n$save = @{initialCwd=\"$PWD\";now='\"'2026-10-06T15:00:00.000Z';action='save-review';expectedPlanHash=\"'$packet.current.sha256;expectedPreviousHash=$null;expectedStateHash=$null;expectedInventoryHash=$packet.inventoryHash;expectedReviewHash=$packet.reviewHash}\n$save | ConvertTo-Json -Depth 10 | Set-Content .temp/save-review.json\nnode $dtEntry planning-state --input \"$PWD/.temp/save-review.json\"\n$review = Get-Content .nyssaai/daily-tasks/review/2026.10.06.json -Raw | ConvertFrom-Json\n$review | Add-Member -NotePropertyName carriedFrom -NotePropertyValue '\"'2026.10.04'\n\"'$review | Add-Member -NotePropertyName carriedIds -NotePropertyValue @('\"'01a1141a-8884-7a62-93f4-8c202a4d8b64','01a1141a-8884-7ed0-ad8c-4d71806b5072')\n\"'$review | Add-Member -NotePropertyName firstRunToday -NotePropertyValue $false\n$review | ConvertTo-Json -Depth 10 | Set-Content .nyssaai/daily-tasks/review/2026.10.06.json\nGet-ChildItem 2-areas/daily-plans -Name'",
+        "aggregated_output": "{\"status\":\"saved\",\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-skipped\\\\planning-HA5W85\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.06.json\",\"value\":{\"schemaVersion\":1,\"date\":\"2026.10.06\",\"planId\":\"01a1141b-6e62-77bd-96c5-ddf2902b6570\",\"mappingBinding\":\"b2ec557398243128319425ae022a171757479bb259d16b020b66c5e2ce7d3c57\",\"mapping\":{\"01a1141a-8884-7a62-93f4-8c202a4d8b64\":1,\"01a1141a-8884-7ed0-ad8c-4d71806b5072\":2}}}\n2026.10.03-daily-plan.md\r\n2026.10.04-daily-plan.md\r\n2026.10.06-daily-plan.md\r\n",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    ]
+  },
+  {
+    "fixture": "day-precreated",
+    "label": "day-precreated-retry",
+    "started": "2026-10-07T02:15:26.034Z",
+    "events": [
+      {
+        "original_words": "Carry unfinished Recovery from yesterday once while preserving Other, unrelated prose and history.",
+        "operation_id": "01a11425-dc7c-7439-881e-6030f261341f",
+        "after": {
+          "carriedFrom": "2026.10.05",
+          "date": "2026.10.06"
+        },
+        "record_ids": [
+          "01a11421-e8ba-73ba-95b8-4f0d35476f9e"
+        ],
+        "time_defaulted": true,
+        "id": "01a11425-dca6-7776-9744-5023570b3cc3",
+        "before": {
+          "date": "2026.10.05"
+        },
+        "actor": {
+          "kind": "person",
+          "id": "fixture@example.test"
+        },
+        "recorded_at": "2026-10-06T20:00:00.000Z",
+        "activity_at": "2026-10-06T20:00:00.000Z",
+        "action": "selection-carried-forward"
+      },
+      {
+        "id": "01a11427-ab48-796f-ac32-bcb8450d2475",
+        "operation_id": "01a11427-ab1b-71d1-a585-eef82155fd9b",
+        "action": "selection-remove",
+        "record_ids": [
+          "01a11421-e8ba-73ba-95b8-4f0d35476f9e"
+        ],
+        "actor": {
+          "kind": "person",
+          "id": "fixture@example.test"
+        },
+        "activity_at": "2026-10-07T02:18:32.669Z",
+        "recorded_at": "2026-10-07T02:18:32.669Z",
+        "time_defaulted": true,
+        "original_words": "Remove Recovery task from October 6 selections, leaving canonical task state unchanged.",
+        "before": {
+          "date": "2026.10.06",
+          "selected": true
+        },
+        "after": {
+          "date": "2026.10.06",
+          "selected": false
+        }
+      }
+    ],
+    "clockCommands": [
+      {
+        "id": "item_8",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"New-Item -ItemType Directory -Force .temp | Out-Null; Set-Content .temp/prepare.json '{\\\"initialCwd\\\":\\\"<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-precreated/planning-JPqAUf\\\",\\\"now\\\":\\\"2026-10-06T20:00:00.000Z\\\"}'; node '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input .temp/prepare.json\"",
+        "aggregated_output": "{\"error\":\"--input requires an absolute JSON file\",\"code\":\"INVALID_OPERATION\"}\n",
+        "exit_code": 1,
+        "status": "failed"
+      }
+    ]
+  },
+  {
+    "fixture": "day-terminals",
+    "label": "day-terminals-retry",
+    "started": "2026-10-07T02:19:15.136Z",
+    "events": [
+      {
+        "after": {
+          "selectedIds": [
+            "01a11421-e8ca-7c24-9178-9337d90c386c",
+            "01a11421-e8ca-7548-be68-469af190c4c5"
+          ],
+          "date": "2026.10.06",
+          "carriedFrom": "2026.10.04"
+        },
+        "recorded_at": "2026-10-06T20:00:00.000Z",
+        "original_words": "Plan October 6, 2026 in America/Chicago after skipped days. Carry only unfinished selected work from latest previous plan; exclude completed, cancelled, and unselected open tasks. Create only today and preserve historical records.",
+        "before": {
+          "date": "2026.10.06",
+          "selectedIds": []
+        },
+        "actor": {
+          "id": "fixture@example.test",
+          "kind": "person"
+        },
+        "activity_at": "2026-10-06T20:00:00.000Z",
+        "record_ids": [
+          "01a11421-e8ca-7c24-9178-9337d90c386c",
+          "01a11421-e8ca-7548-be68-469af190c4c5"
+        ],
+        "action": "selection-carry-forward",
+        "operation_id": "01a11429-d2f7-7653-8ea3-b8b4f96b5b10",
+        "time_defaulted": true,
+        "id": "01a11429-d330-7650-af3c-39e1864abb72"
+      }
+    ],
+    "clockCommands": [
+      {
+        "id": "item_8",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"New-Item -ItemType Directory -Force .temp | Out-Null\n@'\n{\\\"initialCwd\\\":\\\"<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/day-terminals/planning-n3mr8S\\\",\\\"now\\\":\\\"2026-10-06T20:00:00.000Z\\\"}\n'@ | Set-Content .temp/prepare-input.json\nnode '<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs' planning-prepare --input \\\"\"'$PWD/.temp/prepare-input.json\" | Tee-Object -FilePath .temp/prepare.json'",
+        "aggregated_output": "{\"status\":\"create-plan\",\"context\":{\"configured\":true,\"profilePath\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\.nyssaai\\\\daily-tasks\\\\profile.json\",\"profile\":{\"schema_version\":1,\"user\":{\"name\":\"Fixture\",\"email\":\"fixture@example.test\"},\"timezone\":\"America/Chicago\",\"priorities\":[],\"vaultRoot\":\".\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\",\"projectIndex\":{\"ttlSeconds\":14400}},\"configRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\.nyssaai\\\\daily-tasks\",\"stateRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\.nyssaai\\\\daily-tasks\",\"vaultRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\",\"homeRoot\":\"<USER_HOME>\",\"projectsRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\1-projects\",\"dailyPlansRoot\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\2-areas\\\\daily-plans\",\"planningBinding\":\"758834c00b5a3bf416a9687f284ff5d42bbe834935f861a89b45fd68704468ec\",\"timezone\":\"America/Chicago\",\"localDate\":\"2026.10.06\",\"now\":\"2026-10-06T20:00:00.000Z\",\"templates\":{},\"ttlSeconds\":14400},\"current\":{\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\2-areas\\\\daily-plans\\\\2026.10.06-daily-plan.md\",\"date\":\"2026.10.06\",\"sha256\":null,\"id\":null,\"rows\":[]},\"previous\":{\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\2-areas\\\\daily-plans\\\\2026.10.04-daily-plan.md\",\"date\":\"2026.10.04\",\"sha256\":\"77d9de534d00da805fde59a13767f73f2a9d29baa20420982a5300eeb5e5c4c8\",\"id\":\"01a11421-e8ca-72ab-ac5a-7a7a97f2a404\",\"rows\":[{\"id\":\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/recovery-task\",\"label\":\"Recovery task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a11421-e8ca-7548-be68-469af190c4c5\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/other-task|Other task]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/other-task\",\"label\":\"Other task\",\"checked\":false,\"mark\":\" \",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a11421-e8ce-7644-8fd3-17d1deb358e3\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/additional-completed|additional-completed]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/additional-completed\",\"label\":\"additional-completed\",\"checked\":true,\"mark\":\"x\",\"cancelled\":false,\"candidate\":false},{\"id\":\"01a11421-e8ce-7ed6-92ba-10b2499d4f84\",\"title\":\"[[../../1-projects/2026.01.01-fixture/first/additional-cancelled|additional-cancelled]]\",\"target\":\"../../1-projects/2026.01.01-fixture/first/additional-cancelled\",\"label\":\"additional-cancelled\",\"checked\":false,\"mark\":\"-\",\"cancelled\":true,\"state\":\"cancelled\",\"candidate\":false}]},\"rollover\":{\"status\":\"missing-plan\",\"selected\":[],\"unresolved\":[]},\"review\":{\"today\":\"2026.10.06\",\"counts\":{\"openProjects\":1,\"openTasks\":3,\"lateTasks\":0},\"selected\":[],\"available\":[{\"id\":\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"projectId\":\"01a11421-e8ca-7914-bc1a-9b1590fe506f\",\"milestoneId\":\"01a11421-e8ca-785d-9858-23a658f5a4d7\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"number\":1,\"dueDate\":null},{\"id\":\"01a11421-e8ca-7548-be68-469af190c4c5\",\"projectId\":\"01a11421-e8ca-7914-bc1a-9b1590fe506f\",\"milestoneId\":\"01a11421-e8ca-785d-9858-23a658f5a4d7\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"number\":2,\"dueDate\":null},{\"id\":\"01a11421-e8cf-78fc-a62d-9ba5a9a467b5\",\"projectId\":\"01a11421-e8ca-7914-bc1a-9b1590fe506f\",\"milestoneId\":\"01a11421-e8ca-785d-9858-23a658f5a4d7\",\"path\":\"2026.01.01-fixture/first/additional-not-started.md\",\"title\":\"additional-not-started\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[],\"number\":3,\"dueDate\":null}],\"hasMore\":false,\"mapping\":{\"01a11421-e8ca-7c24-9178-9337d90c386c\":1,\"01a11421-e8ca-7548-be68-469af190c4c5\":2,\"01a11421-e8cf-78fc-a62d-9ba5a9a467b5\":3},\"outOfViewSelectedIds\":[],\"diagnostics\":[],\"mappingBinding\":\"758834c00b5a3bf416a9687f284ff5d42bbe834935f861a89b45fd68704468ec\",\"incomplete\":false},\"maintenance\":{\"fullReconcileDue\":true,\"preferredModel\":\"gpt-6-luna\",\"alwaysCheck\":[\"current-plan-edits\",\"previous-plan-edits\",\"applicable-pending-operations\"]},\"pendingOperations\":[],\"inventory\":{\"schemaVersion\":1,\"generatedAt\":\"2026-10-06T20:00:00.000Z\",\"scope\":{\"projectsRoot\":\"./1-projects\",\"dailyPlansRoot\":\"./2-areas/daily-plans\"},\"projects\":[{\"id\":\"01a11421-e8ca-7914-bc1a-9b1590fe506f\",\"path\":\"2026.01.01-fixture/project-index.md\",\"title\":\"Fixture\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\"}],\"milestones\":[{\"id\":\"01a11421-e8ca-785d-9858-23a658f5a4d7\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"title\":\"First\",\"state\":\"not-started\",\"projectId\":\"01a11421-e8ca-7914-bc1a-9b1590fe506f\"}],\"tasks\":[{\"id\":\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"projectId\":\"01a11421-e8ca-7914-bc1a-9b1590fe506f\",\"milestoneId\":\"01a11421-e8ca-785d-9858-23a658f5a4d7\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"title\":\"Recovery task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]},{\"id\":\"01a11421-e8ca-7548-be68-469af190c4c5\",\"projectId\":\"01a11421-e8ca-7914-bc1a-9b1590fe506f\",\"milestoneId\":\"01a11421-e8ca-785d-9858-23a658f5a4d7\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"title\":\"Other task\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]},{\"id\":\"01a11421-e8cf-78fc-a62d-9ba5a9a467b5\",\"projectId\":\"01a11421-e8ca-7914-bc1a-9b1590fe506f\",\"milestoneId\":\"01a11421-e8ca-785d-9858-23a658f5a4d7\",\"path\":\"2026.01.01-fixture/first/additional-not-started.md\",\"title\":\"additional-not-started\",\"state\":\"not-started\",\"owner\":\"fixture@example.test\",\"assignee\":null,\"targetDate\":null,\"dependsOn\":[],\"blockedBy\":[],\"planned\":[]}],\"blockers\":[],\"sources\":[{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/additional-cancelled.md\",\"sha256\":\"c53c1e51a286f1a6864cc7f4a54466ac23aaa4322d22a67d790dbb53402bb134\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/additional-completed.md\",\"sha256\":\"626b5813335b29f4ad4005500c6638e25d342ec4f6cf2ed6aee20084873bc86a\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/additional-not-started.md\",\"sha256\":\"6a1377db88dd0246fd0a8b4b71ede2efdbc48d9cd4f3cbccc9d3a4c3ee2a15f8\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/milestone.md\",\"sha256\":\"cf0104b9e1b3f23e22a23886ebff5f191c65ff32cf8284e1e0670cb4863e9fc1\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/other-task.md\",\"sha256\":\"aaf6c73cbeb80be3a43317293127de8d1e9f28ef4a9b4cb1ea8fdd79c0cb3baf\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/first/recovery-task.md\",\"sha256\":\"a435b645c39356363a18f5ff8545412bb4aefc8b05f2d73568bfe3ab98cba746\"},{\"anchor\":\"projectsRoot\",\"path\":\"2026.01.01-fixture/project-index.md\",\"sha256\":\"9b23c21eeb06f8ce53014488e1e492792839e3766689cab567f1a1c2eaca2059\"}],\"diagnostics\":[]},\"inventoryStatus\":\"rebuilt\",\"metrics\":{\"sourceReads\":7,\"metadataFiles\":9},\"enrollment\":[],\"inventoryHash\":\"c6ddd8efc86daa15e72563321475b314bf32e19188d5895f8aca081abe6aa8d2\",\"reviewHash\":\"da6db82b68d5914a6a2b638bd657fac622ce174945824368a1ce87ae6c766d58\",\"state\":{\"rollover\":{\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\.nyssaai\\\\daily-tasks\\\\rollover\\\\2026.10.06.json\",\"sha256\":null,\"value\":null},\"review\":{\"path\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\.nyssaai\\\\daily-tasks\\\\review\\\\2026.10.06.json\",\"sha256\":null,\"value\":null}}}\r\n",
+        "exit_code": 0,
+        "status": "completed"
+      },
+      {
+        "id": "item_13",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$packet=Get-Content .temp/prepare.json -Raw | ConvertFrom-Json -DateKind String\n@{now=$packet.context.now} | ConvertTo-Json | Set-Content .temp/time-input.json\nnode $cli activity-time --input \"$PWD/.temp/time-input.json\" | Set-Content .temp/activity-time.json\nnode $cli new-id | Set-Content .temp/operation-id.json\nnode $cli new-id | Set-Content .temp/event-id.json\n$time=Get-Content .temp/activity-time.json -Raw | ConvertFrom-Json -DateKind String\n$op=(Get-Content .temp/operation-id.json -Raw | ConvertFrom-Json).id\n$event=(Get-Content .temp/event-id.json -Raw | ConvertFrom-Json).id\n$content=@'\"'\n---\nid: 01a11429-314c-709c-a00e-8a2e7bf89855\ntype: daily-plan\ntitle: \\\"Daily plan 2026.10.06\\\"\ndocument-maturity: reviewed\ntimezone: \\\"America/Chicago\\\"\ncreated_at: \\\"2026-10-06T20:00:00.000Z\\\"\nupdated_at: \\\"2026-10-06T20:00:00.000Z\\\"\n---\n# Daily plan — 2026.10.06 (America/Chicago)\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <\"'!-- ref: 01a11421-e8ca-7c24-9178-9337d90c386c -->\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a11421-e8ca-7548-be68-469af190c4c5 -->\n\n## Delegated work\n\nNo delegated work selected.\n\n## Notes\n\nCarried unfinished selected work from October 4, 2026.\n'\"'@\n\"'$content=$content.Replace(\"`r`n\",\"`n\")+\"`n\"\n[IO.File]::WriteAllText(\"$PWD/.temp/today-proposed.md\",$content,[Text.UTF8Encoding]::new($false))\n$hash=(Get-FileHash .temp/today-proposed.md -Algorithm SHA256).Hash.ToLower()\n$ids=@('\"'01a11421-e8ca-7c24-9178-9337d90c386c','01a11421-e8ca-7548-be68-469af190c4c5')\n\"'$entry=@{id=$event;operation_id=$op;action='\"'selection-carry-forward';record_ids=\"'$ids;actor=@{kind='\"'person';id=\"'$packet.context.profile.user.email};activity_at=$time.activity_at;recorded_at=$time.recorded_at;time_defaulted=$time.time_defaulted;original_words='\"'Plan October 6, 2026 in America/Chicago after skipped days. Carry only unfinished selected work from latest previous plan; exclude completed, cancelled, and unselected open tasks. Create only today and preserve historical records.';before=@{date='2026.10.06';selectedIds=@()};after=@{date='2026.10.06';selectedIds=\"'$ids;carriedFrom='\"'2026.10.04'}}\n\"'$checkpoint=@{operation_id=$op;contextBinding=$packet.context.planningBinding;event=$entry;files=@(@{path=$packet.current.path;before=$null;after=$hash},@{path=$packet.previous.path;before=$packet.previous.sha256;after=$packet.previous.sha256});changes=@(@{key='\"'selectedIds';before=@{present=\"'$true;value=@()};after=@{present=$true;value=$ids}});planId='\"'01a11429-314c-709c-a00e-8a2e7bf89855';date='2026.10.06';removedIds=@();proposedContent=\"'$content;sourceRows=$packet.previous.rows;expectedRolloverHash=$null;phase='\"'prepared'}\n\"'$checkpoint | ConvertTo-Json -Depth 30 | Set-Content \".nyssaai/daily-tasks/operations/$op.json\"\n@{projectsRoot=$packet.context.projectsRoot;entry=$entry} | ConvertTo-Json -Depth 30 | Set-Content .temp/log-input.json\nWrite-Output \"Checkpoint saved; proposed membership: Recovery task, Other task.\"'",
+        "aggregated_output": "Checkpoint saved; proposed membership: Recovery task, Other task.\r\n",
+        "exit_code": 0,
+        "status": "completed"
+      },
+      {
+        "id": "item_14",
+        "type": "command_execution",
+        "command": "\"<USER_HOME>\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command '$cli='\"'<USER_HOME>/AppData/Local/Temp/.temp/windows-release-1791338346419/codex-home/plugins/cache/windows-release/daily-tasks/0.3.0/bin/daily-tasks.mjs'\n\"'$packet=Get-Content .temp/prepare.json -Raw | ConvertFrom-Json -DateKind String\n$op=(Get-Content .temp/operation-id.json -Raw | ConvertFrom-Json).id\n$check=Get-Content \".nyssaai/daily-tasks/operations/$op.json\" -Raw | ConvertFrom-Json -DateKind String\nif(Test-Path $packet.current.path){throw '\"'Destination unexpectedly exists'}\nif((Get-FileHash \"'$packet.previous.path -Algorithm SHA256).Hash.ToLower() -ne $packet.previous.sha256){throw '\"'Source changed'}\n[IO.File]::WriteAllText(\"'$packet.current.path,$check.proposedContent,[Text.UTF8Encoding]::new($false))\nif((Get-FileHash $packet.current.path -Algorithm SHA256).Hash.ToLower() -ne $check.files[0].after){throw '\"'Destination hash mismatch'}\n@{vaultRoot=\"'$packet.context.vaultRoot} | ConvertTo-Json | Set-Content .temp/invalidate-input.json\nnode $cli invalidate-project-index --input \"$PWD/.temp/invalidate-input.json\"\n$time=Get-Content .temp/activity-time.json -Raw | ConvertFrom-Json -DateKind String\nif($check.event.activity_at -cne $time.activity_at -or $check.event.recorded_at -cne $time.recorded_at){throw '\"'Timestamp mismatch'}\nnode \"'$cli log-append --input \"$PWD/.temp/log-input.json\"\n@{projectsRoot=$packet.context.projectsRoot;action='\"'selection-carry-forward'} | ConvertTo-Json | Set-Content .temp/query-input.json\nnode \"'$cli log-query --input \"$PWD/.temp/query-input.json\" | Tee-Object -FilePath .temp/query-result.json\nnode $cli planning-prepare --input \"$PWD/.temp/prepare-input.json\" | Set-Content .temp/after-prepare.json\nGet-Content .temp/query-result.json'",
+        "aggregated_output": "{\"invalidated\":true,\"dryRun\":false}\n{\"entry\":{\"after\":{\"selectedIds\":[\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"01a11421-e8ca-7548-be68-469af190c4c5\"],\"date\":\"2026.10.06\",\"carriedFrom\":\"2026.10.04\"},\"recorded_at\":\"2026-10-06T20:00:00.000Z\",\"original_words\":\"Plan October 6, 2026 in America/Chicago after skipped days. Carry only unfinished selected work from latest previous plan; exclude completed, cancelled, and unselected open tasks. Create only today and preserve historical records.\",\"before\":{\"date\":\"2026.10.06\",\"selectedIds\":[]},\"actor\":{\"id\":\"fixture@example.test\",\"kind\":\"person\"},\"activity_at\":\"2026-10-06T20:00:00.000Z\",\"record_ids\":[\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"01a11421-e8ca-7548-be68-469af190c4c5\"],\"action\":\"selection-carry-forward\",\"operation_id\":\"01a11429-d2f7-7653-8ea3-b8b4f96b5b10\",\"time_defaulted\":true,\"id\":\"01a11429-d330-7650-af3c-39e1864abb72\"},\"duplicate\":false,\"file\":\"<USER_HOME>\\\\AppData\\\\Local\\\\Temp\\\\.temp\\\\windows-release-1791338346419\\\\day-terminals\\\\planning-n3mr8S\\\\1-projects\\\\.daily-tasks\\\\2026.10.07-decisions.json\",\"dryRun\":false}\n{\"entries\":[{\"after\":{\"selectedIds\":[\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"01a11421-e8ca-7548-be68-469af190c4c5\"],\"date\":\"2026.10.06\",\"carriedFrom\":\"2026.10.04\"},\"recorded_at\":\"2026-10-06T20:00:00.000Z\",\"original_words\":\"Plan October 6, 2026 in America/Chicago after skipped days. Carry only unfinished selected work from latest previous plan; exclude completed, cancelled, and unselected open tasks. Create only today and preserve historical records.\",\"before\":{\"date\":\"2026.10.06\",\"selectedIds\":[]},\"actor\":{\"id\":\"fixture@example.test\",\"kind\":\"person\"},\"activity_at\":\"2026-10-06T20:00:00.000Z\",\"record_ids\":[\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"01a11421-e8ca-7548-be68-469af190c4c5\"],\"action\":\"selection-carry-forward\",\"operation_id\":\"01a11429-d2f7-7653-8ea3-b8b4f96b5b10\",\"time_defaulted\":true,\"id\":\"01a11429-d330-7650-af3c-39e1864abb72\"}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}\r\n{\"entries\":[{\"after\":{\"selectedIds\":[\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"01a11421-e8ca-7548-be68-469af190c4c5\"],\"date\":\"2026.10.06\",\"carriedFrom\":\"2026.10.04\"},\"recorded_at\":\"2026-10-06T20:00:00.000Z\",\"original_words\":\"Plan October 6, 2026 in America/Chicago after skipped days. Carry only unfinished selected work from latest previous plan; exclude completed, cancelled, and unselected open tasks. Create only today and preserve historical records.\",\"before\":{\"date\":\"2026.10.06\",\"selectedIds\":[]},\"actor\":{\"id\":\"fixture@example.test\",\"kind\":\"person\"},\"activity_at\":\"2026-10-06T20:00:00.000Z\",\"record_ids\":[\"01a11421-e8ca-7c24-9178-9337d90c386c\",\"01a11421-e8ca-7548-be68-469af190c4c5\"],\"action\":\"selection-carry-forward\",\"operation_id\":\"01a11429-d2f7-7653-8ea3-b8b4f96b5b10\",\"time_defaulted\":true,\"id\":\"01a11429-d330-7650-af3c-39e1864abb72\"}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}\r\n",
+        "exit_code": 0,
+        "status": "completed"
+      }
+    ]
+  }
+]

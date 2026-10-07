@@ -1,0 +1,73 @@
+{
+  "id": "reconciliation",
+  "method": "Independent artifact assertions plus retained native command observations; no direct-CLI substitution for native actions.",
+  "checks": [
+    {
+      "scenario": "reconciliation",
+      "name": "Stale unchecked view did not reopen completed canonical",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Changed unchecked view reopens canonical without invented start",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Conflicting completion/cancellation preserved while unrelated assignment proceeds",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Recovery retry kept one exact event (before later explicit removal)",
+      "passed": true
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Decision activity/recorded times were stored correctly on original append",
+      "passed": false
+    },
+    {
+      "scenario": "reconciliation",
+      "name": "Append-only correction retained exact original reference",
+      "passed": true
+    }
+  ],
+  "cases": [
+    {
+      "case": "reconciliation",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:40:56.297Z"
+      },
+      "final": "[Today’s plan](<SYNTHETIC_ROOT>/reconciliation/planning-Bn55rV/2-areas/daily-plans/2026.10.06-daily-plan.md) is reconciled.\n\nRecovery remains completed; its stale daily and project views are refreshed. Other task, historical content, and unrelated notes are preserved. Validation passed with no pending conflicts or candidates. No new tasks were accepted or created."
+    },
+    {
+      "case": "reconcile-uncheck",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:45:24.656Z"
+      },
+      "final": "Check-in complete. Recovery task reopened to **not-started** against its stored per-view baseline. Its canonical record, project checkbox, and baselines now agree.\n\nUnrelated work and historical plans are preserved. No pending conflicts.\n\n[Today’s plan](<SYNTHETIC_ROOT>/reconcile-uncheck/planning-9N75K9/2-areas/daily-plans/2026.10.06-daily-plan.md)"
+    },
+    {
+      "case": "reconcile-conflict",
+      "result": {
+        "status": 0,
+        "signal": null,
+        "completedAt": "2026-10-07T01:44:52.054Z"
+      },
+      "final": "Assigned [Other task](1-projects/2026.01.01-fixture/first/other-task.md) to Luna; its owner and not-started status remain unchanged. The assignment is saved, logged, and validated.\n\nRecovery remains a durable pending conflict: canonical **completed** versus daily **cancelled**. Both edits and the original baseline are preserved. Check-in remains resumable pending your decision."
+    },
+    {
+      "case": "recovery-repeat",
+      "result": {
+        "status": 0,
+        "completedAt": "2026-10-07T01:48:44.448Z"
+      },
+      "final": "Retry confirmed `already-applied`, with no pending effects or conflicts.\n\n- The original event exists exactly once and matches its full saved payload.\n- All expected plan, baseline, and rollover effects are applied.\n- Recovery task has one active selection date: October 7, 2026.\n- Unrelated records, notes, and history are preserved.\n\nNo event was appended and no effects were repeated."
+    }
+  ]
+}
