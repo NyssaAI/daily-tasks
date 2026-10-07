@@ -7,6 +7,20 @@ Desktop and phone activation require actual host testing, not package checks.
 
 ## Resolve once
 
+For routine entry use `planning-prepare` with the captured vault binding and known
+profilePath, instead of composing temporary orchestration scripts. Its packet includes
+context, current/previous plan identities and hashes, inventory, rollover, review,
+pending operations, maintenance gate and explicit enrollment issues. It validates the
+complete inventory graph; selected-record fragments are not a validation universe.
+Inspect pending/reconciliation issues before applying the proposals. A prepared packet
+does not mean rollover, reconciliation or check-in has completed.
+
+Omit `now` on initial preparation so the host resolves its actual clock and local
+day. Use the returned localDate even when the UTC calendar date differs. A requested
+planning date is not a clock override; future selections use `plan-selection`'s
+date input. Follow the [CLI clock rules](cli.md) for new event/receipt timestamps
+and for preserving original timestamps during recovery.
+
 Capture the host's initial workspace/vault binding once at the start of the request.
 For a vault-root workspace, pass that absolute path as `initialCwd` to
 `resolve-context`; an already resolved vaultRoot takes precedence. Never use a
@@ -70,7 +84,8 @@ Do not spawn another worker solely for indexing. If model selection/subagents ar
 unavailable, report that exact limitation and perform the same checks directly.
 
 The parent reconciles/apply-verifies authorized safe effects; user conflicts remain
-in their separate queue. Save lastFullReconcileAt in durable stateRoot/maintenance.json
+in their separate queue. Save the actual GMT completion time as lastFullReconcileAt
+in durable stateRoot/maintenance.json
 only after a complete successful broad pass and verification, recording actual model
 and execution evidence. A pending conflict/failure does not advance that timestamp.
 Inventory generatedAt is independent; deleting `.temp` cannot erase success evidence.
@@ -84,8 +99,12 @@ Legacy unchecked struck-through Cancelled rows normalize to explicit cancelled s
 not completed. Compare that edit with its baseline; never cancel the canonical task
 merely because a stale unchanged view still has the old cancellation caption.
 Refresh inventory after reconciled writes. Never hide an edit by regenerating its
-view before reconciliation. Missing ordering/identities require resolution rather
-than invented priority, UUID or filesystem ordering.
+view before reconciliation. Missing milestone ordering/identities require resolution.
+Valid tasks omitted from an index follow its listed tasks by filename for stable
+presentation; this is not an execution order and does not block accepted tasks.
+Navigation-only links do not need managed IDs. Report unidentified legacy records
+as enrollment work, with their paths and missing metadata. Do not assign identities,
+owners or states, or accept their checklist candidates without the user's decision.
 
 ## Build and review
 
@@ -99,6 +118,13 @@ It returns selected/available rows, counts, hasMore, diagnostics and an updated 
 Persist the mapping together with mappingBinding from the result and the local date
 in stateRoot before waiting. Pass mappingBinding when reusing a nonempty mapping;
 a different binding invalidates the numbered screen, never reinterprets its numbers.
+With a preparation packet, use `planning-state` action `save-review` and its current
+plan hash, previous-plan hash (null if absent), and state.review.sha256. This rereads
+and verifies the actual files and saves the mapping in stateRoot/review/DATE.json.
+An existing same-day planning-review.json is reused without discarding its numbers.
+Also pass inventoryHash as expectedInventoryHash and reviewHash as expectedReviewHash,
+and reuse context.now plus the same page/allMilestones options. A changed inventory or
+numbering requires a fresh screen; never silently save different numbers from those shown.
 Show more increments page and reuses
 that mapping. All-milestones requests set allMilestones without lifting the 15-row cap.
 Pending future selections pass pendingFutureIds to suppress repeat suggestions.
@@ -153,6 +179,14 @@ or unresolved carried reference leaves completion pending; persist exact attempt
 membership so a later removal is not overwritten during recovery. Re-read and
 optimistically compare the state before writing it. Retain the checkpoint until
 the completion receipt and all required effects are verified.
+
+For a no-change rollover, `planning-state` action `complete-rollover` generates the
+receipt using the actual current plan's UUID, never a caller-supplied parsed record.
+Pass expectedPlanHash, expectedPreviousHash and state.rollover.sha256 as
+expectedStateHash from preparation. It refuses outstanding operations or membership
+deltas; changed-rollover operations still follow the checkpoint/log protocol above.
+Use --dry-run to preview either state action. Do not label a failed state write complete.
+Pass inventoryHash as expectedInventoryHash and context.now in this action too.
 
 On later same-day calls, preserve manual removals and completed/cancelled visibility;
 do not merge yesterday a second time. Recreating a deleted plan with a new ID cannot

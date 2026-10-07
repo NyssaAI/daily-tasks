@@ -1,5 +1,9 @@
 # Package and execution coverage
 
+The 0.3.0 release acceptance scope is Codex on Windows x64. Native workflow
+acceptance and phone continuation remain pending until their evidence is recorded.
+Other host packages are retained for evaluation and are not verified release targets.
+
 Source authored once under skills/, executable once under lib/ and bin/. No startup
 foundation or autonomous agent. Node >=22 and filesystem/process access are required
 for durable operations; unavailable runtimes can only discuss proposals.

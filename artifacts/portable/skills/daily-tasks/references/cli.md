@@ -15,6 +15,34 @@ shell JSON. Parse JSON stdout and exit status; stderr is one JSON error on failu
 Exit zero means execution succeeded, not that diagnostics are empty or closure is allowed.
 No credentials/environment variables needed. Mutations accept `--dry-run` and write nothing.
 
+For a new request, omit `now` from initial `planning-prepare` / `resolve-context`
+and from `activity-time`: their defaults read the actual host clock. Use the
+returned localDate; its calendar date can differ from the UTC date. Never invent
+an instant from a requested planning day, or copy a clock from records, caches,
+examples or fixture files. An override must be a freshly captured host instant or
+an explicitly declared full GMT simulation clock for that run, not a date-only
+request. Future selections use `plan-selection`'s `date`, with the real `today`;
+they do not move the clock forward.
+Reuse a preparation packet's context.now only for that packet's state save;
+the next request reads the clock again. New decisions use fresh `activity-time`
+results for their event and record timestamps. A reported historical activity
+belongs in `reported`, not `now`; recorded_at remains the actual recording time.
+After verified maintenance, read the actual GMT completion time for
+lastFullReconcileAt. Only recovery of an existing operation preserves its original
+event timestamps. A new operation must not inherit that recovery event's clock.
+
+On Windows, preserve JSON timestamps as strings. PowerShell's default
+`ConvertFrom-Json` can turn ISO strings into `DateTime` objects; later interpolation
+or reparsing can shift GMT timestamps or produce culture-specific text. When its
+`DateKind` parameter is available, use `ConvertFrom-Json -DateKind String` for CLI
+results, checkpoints and record JSON. Otherwise use Node's `JSON.parse` to preserve
+strings; do not round-trip this data through PowerShell's default date conversion.
+Keep the exact `activity_at` and `recorded_at` strings returned by `activity-time`
+in records, checkpoints and log inputs, including retries. Do not reparse them with
+`[DateTime]::Parse` or convert them to local time for persistence. Use `format-time`
+only for display. Before `log-append`, compare both timestamp strings with the
+saved activity-time result; syntactically valid GMT text alone cannot detect a shift.
+
 | Operation | Input | Result/effect |
 | --- | --- | --- |
 | new-id | none | New UUIDv7; no write |
@@ -23,6 +51,8 @@ No credentials/environment variables needed. Mutations accept `--dry-run` and wr
 | format-time | time GMT ISO, timezone | Local display with explicit zone |
 | validate-profile | profile object | valid/errors/resolvedTimezone; no save |
 | resolve-context | absolute vaultRoot or captured initialCwd; homeRoot?, profilePath?, configRoot?, stateRoot?, now? | Resolved absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
+| planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
+| planning-state | context inputs; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent); page?, allMilestones?, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
 | planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | Owner-focused counts, selected/available rows, stable mapping, diagnostics; max 15 addition rows |

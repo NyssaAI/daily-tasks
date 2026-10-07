@@ -130,6 +130,44 @@
       "invocation": "node bin/daily-tasks.mjs project-index --input ABSOLUTE_JSON_FILE"
     },
     {
+      "name": "planning-prepare",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "planning prepare; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "derived-cache",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs planning-prepare --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "planning-state",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "planning state; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "action",
+          "expectedPlanHash",
+          "expectedPreviousHash",
+          "expectedStateHash",
+          "expectedInventoryHash"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "planning-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs planning-state --input ABSOLUTE_JSON_FILE"
+    },
+    {
       "name": "invalidate-project-index",
       "path": "bin/daily-tasks.mjs",
       "purpose": "invalidate project index; see skills/daily-tasks/references/cli.md",

@@ -7,7 +7,9 @@ binary criterion; report actual test counts, not a fabricated general agent scor
 
 `node evals/report.mjs write` generates LATEST.md; `check` validates evidence hashes,
 candidate freshness and exact report contents without changing it. `release` additionally
-requires every matrix target verified; this intentionally fails while hosts are unverified.
+requires every required matrix target verified. The 0.3.0 release is scoped to
+Codex on Windows x64: `node-local` and `codex` are required. Other targets remain
+in the matrix as optional, unverified coverage; packaging does not establish support.
 Results preserve failures, not only passes. Source files and generated runtime artifacts
 are frozen before evaluation; results/attempts/LATEST and dated review receipts are excluded.
 

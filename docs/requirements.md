@@ -173,7 +173,10 @@ options within their review but do not count as persisted allocation evidence.
 Use the agreed [inventory JSON shape](features/f-001/inventory.example.json).
 Sort projects by directory date, oldest first, breaking ties alphabetically by name;
 undated directories follow alphabetically by name. Preserve milestone/task order
-from project indexes in arrays, without position fields. Calculate counts, lateness, future-date eligibility and the lowest
+from project indexes in arrays, without position fields. Valid unlisted tasks follow
+listed tasks by filename for stable display, without implying execution priority or
+blocking them. Milestone sequence still requires authoritative index references.
+Calculate counts, lateness, future-date eligibility and the lowest
 incomplete milestone when consuming the inventory, using current identity and the
 effective timezone/local day; do not persist these convenience fields.
 Include source fingerprints, schema version, UTC `generatedAt` timestamp and integrity
@@ -257,7 +260,7 @@ Clarify ambiguous commands before their affected writes. Addition options follow
 project directory date/name order and task order within each project, using only the first
 incomplete milestone in its authoritative sequence unless all milestones are
 explicitly requested. Skip completed/cancelled milestones; retain already selected
-later-milestone work. Unknown source ordering must be resolved, not replaced with
+later-milestone work. Unknown milestone ordering must be resolved, not replaced with
 priority or UUID sorting. Limit each page to 15 addition options, exposing remaining
 eligible work via Show more without renumbering existing items. Counts remain full
 inventory totals. Exclude explicit future-day selections from addition options on

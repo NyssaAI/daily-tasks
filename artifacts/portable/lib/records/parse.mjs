@@ -3,7 +3,7 @@ import { parseViewRows, associateViewReferences, viewReferenceLine } from './vie
 const relations = new Map([['depends on','depends_on'], ['required by','required_by'],
   ['blocks','blocks'], ['blocked by','blocked_by']]);
 const idComment = /<!--\s*id:\s*([^\s>]+)\s*-->/g;
-const refComment = /<!--\s*ref:\s*([^\s>]+)\s*-->/g;
+const refComment = /<!--\s*ref:\s*([^>]*?)\s*-->/g;
 
 /** Recognize managed records even when a type field is mistyped; ordinary project notes stay out. */
 export function recordMarkdownIsManaged(markdown, filename = '') {
@@ -74,6 +74,8 @@ export function parseRecord(markdown, path) {
   let fence;
   let legacyIdSeen = false;
   let comment = false;
+  const managedLinks = new WeakSet();
+  const linkCounts = new WeakMap();
   for (const line of lines.slice(start)) {
     if (comment) { if (line.includes('-->')) comment = false; continue; }
     const fenceMatch = /^\s{0,3}(`{3,}|~{3,})/.exec(line);
@@ -94,7 +96,11 @@ export function parseRecord(markdown, path) {
         if (row.referenceError) errors.push(row.referenceError);
         if (row.mark !== undefined) record.projections.push({id:row.referenceError ? null : row.id ?? undefined,text:row.title,checked:row.checked,
           ...(row.state ? {state:row.state} : {})});
-        if (row.target) record.refs.push({id:row.referenceError ? null : row.id ?? undefined,target:row.target,label:row.label,relation});
+        if (row.target && (row.id || row.referenceError || row.mark !== undefined || relation)) {
+          const reference = {id:row.referenceError ? null : row.id ?? undefined,target:row.target,label:row.label,relation};
+          record.refs.push(reference);
+          managedLinks.add(reference);
+        }
         if (relation && row.id) record[relation].push(row.id);
       }
       pendingCriterion = pendingLink = pendingProjection = undefined;
@@ -136,18 +142,20 @@ export function parseRecord(markdown, path) {
       } else errors.push('Unassociated or duplicate record ID');
     }
     const links = [...line.matchAll(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g)];
-    if (links.length > 1) errors.push('Use one referenced wiki link per line');
     if (links.length) {
       if (!checklist) pendingProjection = undefined;
       pendingCriterion = undefined;
       pendingLink = {id:undefined, target:links[0][1], label:links[0][2] || links[0][1], relation};
       record.refs.push(pendingLink);
+      linkCounts.set(pendingLink,links.length);
+      if (relation || checklist) managedLinks.add(pendingLink);
     }
     const references = [...line.matchAll(refComment)].map(match => match[1]);
     const adjacent = viewReferenceLine(line);
     if (!checklist && !links.length && !adjacent) pendingLink = pendingProjection = undefined;
     if (references.length) {
       if ((checklist || links.length || adjacent) && (pendingLink || pendingProjection)) {
+        if (pendingLink) managedLinks.add(pendingLink);
         const previousLinkId = pendingLink?.id;
         for (const row of [pendingLink,pendingProjection].filter(Boolean)) {
           associateViewReferences(row,references);
@@ -168,5 +176,9 @@ export function parseRecord(markdown, path) {
       pendingProjection = undefined;
     }
   }
+  // Context/navigation links have no task identity. Classify after adjacent ref comments
+  // have been associated, so malformed managed links still reach strict validation.
+  record.refs = record.refs.filter(reference => managedLinks.has(reference));
+  if (record.refs.some(reference => linkCounts.get(reference) > 1)) errors.push('Use one referenced wiki link per line');
   return record;
 }

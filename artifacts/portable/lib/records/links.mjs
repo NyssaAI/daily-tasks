@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { diagnostic } from './validation.mjs';
+import { isUuid7 } from '../identity/identity.mjs';
 
 const style = value => /^[a-z]:[\\/]/i.test(value || '') ? path.win32 : path.posix;
 const comparable = value => style(value) === path.win32 ? value.toLowerCase().replaceAll('\\','/') : value;
@@ -8,10 +9,11 @@ const comparable = value => style(value) === path.win32 ? value.toLowerCase().re
 export function checkLinks(records) {
   const diagnostics = [];
   const index = new Map();
-  for (const record of records) index.set(record.id,[...(index.get(record.id) || []),record]);
+  for (const record of records) if (isUuid7(record.id)) index.set(record.id,[...(index.get(record.id) || []),record]);
   const inverse = {blocked_by:'blocks',blocks:'blocked_by',depends_on:'required_by',required_by:'depends_on'};
   for (const record of records) {
     for (const reference of record.refs || []) {
+      if (!isUuid7(reference?.id)) continue; // Identity validation owns this diagnostic.
       const targets = index.get(reference.id) || [];
       if (targets.length !== 1) {
         diagnostics.push(diagnostic(record,targets.length ? 'duplicate-reference' : 'missing-reference',`Cannot resolve reference ${reference.id}`));
@@ -33,6 +35,7 @@ export function checkLinks(records) {
     }
     for (const [relation,backlink] of Object.entries(inverse)) {
       for (const targetId of record[relation] || []) {
+        if (!isUuid7(targetId)) continue;
         const targets = index.get(targetId) || [];
         if (targets.length !== 1) {
           diagnostics.push(diagnostic(record,targets.length ? 'duplicate-reference' : 'missing-reference',`Cannot resolve ${relation} ${targetId}`));

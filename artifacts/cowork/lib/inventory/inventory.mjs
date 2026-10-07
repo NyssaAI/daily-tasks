@@ -13,7 +13,7 @@ const slash = value => value.split(path.sep).join('/');
 const relative = (root,file) => slash(path.relative(root,file));
 const compareName = (a,b) => a.toLowerCase().localeCompare(b.toLowerCase(),'en') || a.localeCompare(b,'en');
 const open = state => ['not-started','in-progress'].includes(state);
-const inventoryRulesVersion = 3;
+const inventoryRulesVersion = 4;
 export function taskSummary(task) {
   return {id:task.id,projectId:task.project_id,milestoneId:task.milestone_id,path:task.path,title:task.title,state:task.state,
     owner:task.owner,assignee:task.assignee ?? null,targetDate:task.target_date ?? null,
@@ -151,7 +151,7 @@ export async function projectInventory(input) {
     }
   }
   const diagnostics = [...validateRecords(records),...checkLinks(records.map(record => ({...record,path:path.join(projectsRoot,record.path)})))].map(d => ({...d,path:path.isAbsolute(d.path ?? '') ? relative(projectsRoot,d.path) : d.path}));
-  const canonical = new Map(records.map(r => [r.id,r]));
+  const canonical = new Map(records.filter(r => isUuid7(r.id)).map(r => [r.id,r]));
   for (const record of records) for (const projection of record.projections) {
     const target = canonical.get(projection.id);
     if (!target) continue;
@@ -164,11 +164,12 @@ export async function projectInventory(input) {
   // Preserve invalid ancestors as explicit barriers after filtering their summaries.
   const referencedProjects = new Map(), childProjects = new Map();
   for (const record of records) {
-    if (record.type === 'project') for (const ref of record.refs) {
+    if (record.type === 'project' && isUuid7(record.id)) for (const ref of record.refs) {
+      if (!isUuid7(ref.id)) continue;
       if (!referencedProjects.has(ref.id)) referencedProjects.set(ref.id,new Set());
       referencedProjects.get(ref.id).add(record.id);
     }
-    if (record.milestone_id) {
+    if (isUuid7(record.milestone_id) && isUuid7(record.project_id)) {
       if (!childProjects.has(record.milestone_id)) childProjects.set(record.milestone_id,new Set());
       childProjects.get(record.milestone_id).add(record.project_id);
     }
@@ -200,8 +201,8 @@ export async function projectInventory(input) {
     if (!group.has(key)) group.set(key,[]);
     group.get(key).push(record);
   }
-  const order = (sequence,items) => {
-    for (const item of items) if (!sequence.has(item.id)) diagnostics.push({code:'missing-order',recordId:item.id,path:item.path,message:'Project index must reference this record to establish order'});
+  const order = (sequence,items,requireSequence = true) => {
+    for (const item of items) if (requireSequence && !sequence.has(item.id)) diagnostics.push({code:'missing-order',recordId:item.id,path:item.path,message:'Project index must reference this milestone to establish order'});
     return items.sort((a,b) => {
       return (sequence.get(a.id) ?? Infinity) - (sequence.get(b.id) ?? Infinity) || compareName(a.path,b.path);
     });
@@ -212,10 +213,18 @@ export async function projectInventory(input) {
     inventory.projects.push({...summary(project),owner:project.owner});
     for (const milestone of order(sequence,milestonesByProject.get(project.id) ?? [])) {
       inventory.milestones.push({...summary(milestone),projectId:project.id});
-      for (const task of order(sequence,(tasksByMilestone.get(milestone.id) ?? []).filter(r => r.project_id === project.id))) {
+      for (const task of order(sequence,(tasksByMilestone.get(milestone.id) ?? []).filter(r => r.project_id === project.id),false)) {
         inventory.tasks.push(taskSummary(task));
       }
     }
+  }
+  // Inventory is evidence of discovered work, including valid children of an invalid
+  // ancestor. Scope diagnostics gate additions; they must not erase existing selections.
+  const emittedMilestones = new Set(inventory.milestones.map(record => record.id));
+  const emittedTasks = new Set(inventory.tasks.map(record => record.id));
+  for (const record of valid) {
+    if (record.type === 'milestone' && !emittedMilestones.has(record.id)) inventory.milestones.push({...summary(record),projectId:record.project_id});
+    if (record.type === 'task' && open(record.state) && !emittedTasks.has(record.id)) inventory.tasks.push(taskSummary(record));
   }
   for (const blocker of valid.filter(r => r.type === 'blocker')) inventory.blockers.push({...summary(blocker),owner:blocker.owner,blocks:blocker.blocks});
   const byId = new Map(inventory.tasks.map(t => [t.id,t]));

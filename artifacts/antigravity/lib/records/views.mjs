@@ -1,14 +1,17 @@
-const refComment = /<!--\s*ref:\s*([^\s>]+)\s*-->/g;
+const refComment = /<!--\s*ref:\s*([^>]*?)\s*-->/g;
 
 /** A following-line reference consists only of hidden ref comments. */
 export function viewReferenceLine(line) {
-  if (!/^\s*(?:<!--\s*ref:\s*[^\s>]+\s*-->\s*)+$/.test(line)) return null;
+  if (!/^\s*(?:<!--\s*ref:\s*[^>]*?\s*-->\s*)+$/.test(line)) return null;
   return [...line.matchAll(refComment)].map(match => match[1]);
 }
 
 /** Agreeing references retain identity; conflicting references never choose a winner. */
 export function associateViewReferences(row, references) {
   if (row.referenceError) return;
+  if (references.some(reference => !reference || /\s/.test(reference))) {
+    row.id = null; row.referenceError = 'Missing or malformed reference ID'; return;
+  }
   const identities = new Set([...(row.id ? [row.id] : []),...references]);
   if (identities.size > 1) { row.id = null; row.referenceError = 'Conflicting reference IDs'; }
   else row.id = [...identities][0] ?? null;
