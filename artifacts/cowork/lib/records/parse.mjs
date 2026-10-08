@@ -5,10 +5,17 @@ const relations = new Map([['depends on','depends_on'], ['required by','required
 const idComment = /<!--\s*id:\s*([^\s>]+)\s*-->/g;
 const refComment = /<!--\s*ref:\s*([^>]*?)\s*-->/g;
 
+/** Only holding directories below a project/milestone are excluded from scans. */
+export function recordDirectoryIsHoldingArea(relativePath) {
+  const parts = relativePath.split(/[\\/]/);
+  return parts.length >= 3 && /^(inputs|outputs)$/i.test(parts.at(-1));
+}
+
 /** Recognize managed records even when a type field is mistyped; ordinary project notes stay out. */
 export function recordMarkdownIsManaged(markdown, filename = '') {
   const metadata = /^\uFEFF?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(markdown)?.[1] ?? '';
-  const conventional = ['project-index.md','milestone.md','definition-of-done.md'].includes(filename.split(/[\\/]/).at(-1).toLowerCase());
+  const basename = filename.split(/[\\/]/).at(-1).toLowerCase();
+  const conventional = ['project-index.md','milestone.md','definition-of-done.md'].includes(basename) || /^[mt][1-9]\d*-.+\.md$/.test(basename);
   return conventional || /^type:\s*["']?(project|milestone|task|blocker|dod)["']?\s*$/m.test(metadata) ||
     /^(project_id|milestone_id):/m.test(metadata);
 }
@@ -61,12 +68,13 @@ export function parseRecord(markdown, path) {
   const record = {id: metadata.id, type:metadata.type, path, title:metadata.title,
     owner:metadata.owner, state:metadata[`${metadata.type}-state`], depends_on:[], required_by:[],
     blocks:[], blocked_by:[], criteria:[], refs:[], projections:[], parse_errors:errors};
-  for (const key of ['assignee','created_at','updated_at','started_at','resolved_at','target_date','project_id','milestone_id']) {
+  for (const key of ['record_version','assignee','created_at','updated_at','started_at','resolved_at','target_date','project_id','milestone_id']) {
     if (Object.hasOwn(metadata,key)) record[key] = metadata[key];
   }
   if (metadata['document-maturity']) record['document-maturity'] = metadata['document-maturity'];
   if (metadata.status || metadata.state) errors.push('Use document-maturity and the type-specific state key');
   let relation;
+  let dodDepth;
   let pendingCriterion;
   let pendingProjection;
   let pendingLink;
@@ -92,6 +100,7 @@ export function parseRecord(markdown, path) {
       continue;
     }
     if (/^\s*\|/.test(line)) {
+      if (dodDepth && /\[[ xX>\-]\]/.test(line)) errors.push('DoD criteria must use list checkboxes, not table cells');
       for (const row of parseViewRows(line)) {
         if (row.referenceError) errors.push(row.referenceError);
         if (row.mark !== undefined) record.projections.push({id:row.referenceError ? null : row.id ?? undefined,text:row.title,checked:row.checked,
@@ -110,6 +119,12 @@ export function parseRecord(markdown, path) {
     if (heading) {
       if (heading[1] === '#' && !record.title) record.title = heading[2];
       relation = relations.get(heading[2].trim().toLowerCase());
+      if (dodDepth && heading[1].length <= dodDepth) dodDepth = undefined;
+      if (['task','milestone'].includes(record.type) && heading[2].trim().toLowerCase() === 'definition of done') {
+        if (record.dod_section) errors.push('Use exactly one Definition of Done section');
+        record.dod_section = true;
+        dodDepth = heading[1].length;
+      }
       pendingCriterion = undefined;
       pendingProjection = undefined;
       pendingLink = undefined;
@@ -120,7 +135,7 @@ export function parseRecord(markdown, path) {
       pendingCriterion = undefined;
       pendingProjection = undefined;
       pendingLink = undefined;
-      if (record.type === 'dod' && !relation) {
+      if ((record.type === 'dod' || dodDepth) && !relation) {
         if (![' ','x','X'].includes(checklist[1])) errors.push('DoD criteria require an open or completed checkbox');
         pendingCriterion = {id:undefined, text:checklist[2].replace(/<!--.*?-->/g, '').trim(), checked:checklist[1].toLowerCase() === 'x'};
         record.criteria.push(pendingCriterion);
@@ -140,6 +155,12 @@ export function parseRecord(markdown, path) {
         if (record.id && record.id !== match[1]) errors.push('Frontmatter and legacy record identity disagree');
         else record.id = match[1];
       } else errors.push('Unassociated or duplicate record ID');
+    }
+    // Evidence links inside criteria are navigation, not task projections. Keep a
+    // criterion pending for its adjacent ID even when its text contains wiki links.
+    if (pendingCriterion && (checklist || /^\s*<!--\s*id:/.test(line))) {
+      if (/<!--\s*ref:\s*([^>]*?)\s*-->/.test(line)) errors.push('DoD criteria use id comments, not ref comments');
+      continue;
     }
     const links = [...line.matchAll(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g)];
     if (links.length) {

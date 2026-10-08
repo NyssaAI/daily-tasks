@@ -27,13 +27,22 @@ hidden Markdown comments. Wiki links carry human labels
 and adjacent hidden `ref` IDs. Renames/moves preserve identity; maintain backlinks.
 Missing/duplicate IDs affect only involved records; never guess or silently re-ID.
 
-R5. Each milestone folder directly contains task files and `definition-of-done.md`.
-The project has `project-index.md`, milestone folders and a sibling `blockers/`.
-DoD is milestone-level only. Editable project tables group tasks under milestones;
-blockers form a separate simpler table. No displayed UUIDs. HTML is deferred.
-New managed filenames and extensions are lowercase, with descriptive kebab-case
-task names such as `prepare-budget.md`. Task UUIDs remain in frontmatter. Legacy
-uppercase names are discovered and diagnosed, not silently renamed or omitted.
+R5. Each `m{number}-{milestone-name}/` folder directly contains a matching milestone
+Markdown file, `t{number}-{task-name}.md` files, and flat `inputs/` and `outputs/`
+holding folders. The milestone file explains the milestone and owns milestone DoD.
+Each task file owns its requirements and task DoD. The project has `project-index.md`
+and a sibling `blockers/`. Navigation follows project -> milestone -> task -> files;
+no task subfolders or indexes within the holding folders. Keep local project work
+inside the project; scratch uses its `.temp/`. Link shared inputs and consumed outputs
+at their existing home. Preserve sources and resolve file collisions without loss.
+Number milestones within projects and tasks within milestones; labels do not change
+on reorder and UUIDs remain the identity. Names are lowercase descriptive kebab-case.
+Use the next number above existing/retired labels, never reuse retired numbers.
+The required depth overrides optional PARA flattening advice. Editable project tables
+may retain task summaries; blockers form a separate table. No displayed UUIDs.
+New tasks/milestones use record_version: 2. Legacy names and separate DoD files stay
+readable until authorized migration, which preserves identities, criteria and history.
+Missing legacy task criteria require accepted facts, never inference from completed state.
 
 R6. PARA and file-management are optional changeable conventions, not imports or
 runtime dependencies. `document-maturity` is independent of project-state,
@@ -60,7 +69,8 @@ prerequisites remain linked and visibly flagged, never treated as fulfilled.
 Shared blockers have one record, resolution condition and reciprocal references;
 resolve only when the condition is met, not when one affected project closes.
 
-R10. Milestone closure requires satisfied DoD, no open preventing blockers, and all
+R10. New task completion requires satisfied task DoD and no open preventing blockers.
+Milestone closure requires satisfied milestone DoD, no open preventing blockers, and all
 tasks completed, moved or cancelled. Project closure requires all milestones completed
 or cancelled and no preventing blockers. Checkboxes request validation, never silently
 complete children. Parent cancellation requires explicit child dispositions, batch allowed.
@@ -68,7 +78,8 @@ Task cancellation uses `[-]` with strikethrough plus Cancelled; `[x]` means comp
 
 R11. Reopened tasks automatically reopen completed parent milestone/project; manually
 unchecking a task restores in-progress with recorded start, else not-started. Reopening
-blockers/DoD reopens completed affected parents but leaves completed tasks unchanged.
+blockers/milestone DoD reopens completed affected parents but leaves completed tasks
+unchanged. Unchecking task DoD reopens that task and its completed parents.
 Task moves across projects preserve IDs/state/history/relationships/ownership, refresh
 links and reopen completed destinations for unresolved tasks. Closed parents are not
 automatically reclosed. Reopening cancelled work requires an explicit disposition.

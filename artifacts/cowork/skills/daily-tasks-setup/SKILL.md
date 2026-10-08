@@ -86,7 +86,7 @@ Treat configuration and operating state separately from user output:
 | `configRoot` | Selected `profile.json` and optionally copied templates |
 | `stateRoot` | Vault-specific baselines, pending operations, candidates and check-in progress |
 | `<vaultRoot>/<dailyPlansRelative>` | User-facing daily Markdown plans |
-| `projectsRoot` | Project, milestone, task, blocker and definition-of-done documents |
+| `projectsRoot` | Project and milestone workspaces, task/blocker records, flat input/output holding folders and legacy DoD documents |
 
 Save the profile at `<configRoot>/profile.json`. Resolve the daily-plan output directory
 from `vaultRoot` and `dailyPlansRelative`; never use configRoot as an output default or

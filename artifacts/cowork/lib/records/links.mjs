@@ -9,7 +9,11 @@ const comparable = value => style(value) === path.win32 ? value.toLowerCase().re
 export function checkLinks(records) {
   const diagnostics = [];
   const index = new Map();
-  for (const record of records) if (isUuid7(record.id)) index.set(record.id,[...(index.get(record.id) || []),record]);
+  for (const record of records) {
+    for (const id of [record.id,...(Array.isArray(record.criteria) ? record.criteria.map(criterion => criterion?.id) : [])]) {
+      if (isUuid7(id)) index.set(id,[...(index.get(id) || []),record]);
+    }
+  }
   const inverse = {blocked_by:'blocks',blocks:'blocked_by',depends_on:'required_by',required_by:'depends_on'};
   for (const record of records) {
     for (const reference of record.refs || []) {
@@ -29,7 +33,8 @@ export function checkLinks(records) {
       const linkWithExtension = /\.md$/i.test(linkedFile) ? linkedFile : `${linkedFile}.md`;
       const resolved = paths.resolve(paths.dirname(record.path),linkWithExtension);
       if (comparable(resolved) !== comparable(paths.resolve(target.path))) {
-        const proposedTarget = paths.relative(paths.dirname(record.path),target.path).replaceAll('\\','/').replace(/\.md$/i,'');
+        const fragment = reference.target.slice(linkedFile.length);
+        const proposedTarget = paths.relative(paths.dirname(record.path),target.path).replaceAll('\\','/').replace(/\.md$/i,'') + fragment;
         diagnostics.push(diagnostic(record,'path-mismatch',`Wiki link does not match UUID ${reference.id}`, {referenceId:reference.id,proposedTarget}));
       }
     }

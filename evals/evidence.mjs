@@ -2,7 +2,8 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 
-export const scenarioIds = ['acceptance','assignment-time','reconciliation','day-change','closure','configuration-discovery'];
+const legacyScenarioIds = ['acceptance','assignment-time','reconciliation','day-change','closure','configuration-discovery'];
+export const scenarioIds = [...legacyScenarioIds,'milestone-workspace','workspace-migration'];
 export const deterministicCommands = [['node','--test'],['node','scripts/assemble.mjs','check'],['node','scripts/validate.mjs']];
 export async function verifyResult(result, directory, target) {
   if (!target || result.target !== target.id || result.kind !== target.kind || result.platform !== target.platform || result.configuration !== target.configuration || result.suite !== target.suite || !['pass','fail'].includes(result.status) || !/^[a-zA-Z0-9-]+$/.test(result.runId) || !Number.isFinite(Date.parse(result.completed_at)) || !/^[a-f0-9]{64}$/.test(result.candidate?.hash || '')) throw new Error('Invalid result identity or matrix coordinates');
@@ -19,12 +20,13 @@ export async function verifyResult(result, directory, target) {
     }
     if (result.status === 'pass' && result.commands.some(command => command.exit !== 0)) throw new Error('False command pass');
   } else if (target.kind === 'host') {
+    const requiredScenarios = target.suite === 'workflow-v2' ? legacyScenarioIds : scenarioIds;
     if (typeof result.hostVersion !== 'string' || !result.hostVersion || typeof result.model !== 'string' || !result.model) throw new Error('Host version and model receipt required');
     if (result.discovery?.isolated !== true || !Array.isArray(result.discovery.loadedSkills) || !result.discovery.loadedSkills.length) throw new Error('Isolated discovery evidence required');
     await evidence(result.discovery);
-    if (!Array.isArray(result.scenarios) || result.scenarios.length !== scenarioIds.length || new Set(result.scenarios.map(s => s.id)).size !== scenarioIds.length) throw new Error('Incomplete scenario inventory');
+    if (!Array.isArray(result.scenarios) || result.scenarios.length !== requiredScenarios.length || new Set(result.scenarios.map(s => s.id)).size !== requiredScenarios.length) throw new Error('Incomplete scenario inventory');
     for (const scenario of result.scenarios) {
-      if (!scenarioIds.includes(scenario.id) || !['pass','fail'].includes(scenario.status)) throw new Error('Invalid scenario');
+      if (!requiredScenarios.includes(scenario.id) || !['pass','fail'].includes(scenario.status)) throw new Error('Invalid scenario');
       await evidence(scenario);
     }
     if (result.status === 'pass' && result.scenarios.some(scenario => scenario.status !== 'pass')) throw new Error('False host pass');

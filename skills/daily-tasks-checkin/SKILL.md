@@ -42,7 +42,8 @@ identity or disposition of unresolved decisions.
    appends, then save baselines. Report plan link, changes applied, and any pending
    conflicts/candidates. A check-in with unresolved items is resumable, not falsely complete.
 
-Task uncheck reopens task and closed parents; unchecking DoD/reopening blocker reopens
-closed parents but leaves completed tasks. Invalid parent close requests explain unmet
+Task uncheck or task-DoD uncheck reopens that task and closed parents; unchecking
+milestone DoD/reopening blocker reopens closed parents but leaves completed tasks.
+Invalid task or parent close requests explain unmet
 conditions. Lost time precision uses now and retains reported wording. Completed and
 cancelled items remain visible today and don't carry; removed open items stay deselected.

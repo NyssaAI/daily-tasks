@@ -60,7 +60,10 @@ dailyPlan is the saved document template. They are independent preferences.
 Retain required scalar frontmatter, actual UUID frontmatter identity, checkbox/ref
 syntax, valid relative wiki links and reciprocal relationship sections from
 [record conventions](records.md). The project index retains milestone,
-task and blocker projections when present; DoD stays in milestone documents.
+task and blocker projections when present; DoD stays in its owning milestone or task.
+New task/milestone output retains `record_version: 2` and the recognized
+`Definition of Done` heading with criterion IDs, even when adapting an older example.
+This heading is a parsing boundary; other presentation headings can follow the example.
 The daily plan must distinguish personal
 and delegated work, display its local date/timezone, and preserve terminal rows and
 unresolved decisions/references. Map these roles to the example's headings instead

@@ -14,6 +14,10 @@ export function checkClosure(recordId, records) {
   const byId = new Map(records.map(item => [item.id,item]));
   const scope = new Set([recordId]);
   const addReason = text => { if (!reasons.includes(text)) reasons.push(text); };
+  const criteria = item => {
+    if (!item.criteria.length || item.criteria.some(criterion => criterion.checked !== true)) addReason(`Unsatisfied Definition of Done ${item.id}`);
+  };
+  const embedded = item => item.record_version === '2' || item.dod_section === true || item.criteria.length > 0;
   const blockers = target => {
     for (const blockerId of target.blocked_by || []) {
       const blocker = byId.get(blockerId);
@@ -35,14 +39,20 @@ export function checkClosure(recordId, records) {
     for (const task of tasks) {
       scope.add(task.id);
       if (!terminal.has(task.state)) addReason(`Unresolved task ${task.id}`);
-      if (task.state !== 'cancelled' && !cancelled) blockers(task);
+      if (task.state !== 'cancelled' && !cancelled) {
+        if (embedded(task)) criteria(task);
+        blockers(task);
+      }
     }
     if (!cancelled) {
       const dods = children.filter(child => child.type === 'dod');
-      if (dods.length !== 1) addReason(`Milestone ${item.id} needs exactly one Definition of Done record`);
+      if (embedded(item)) {
+        criteria(item);
+        if (dods.length) addReason(`Milestone ${item.id} has both embedded and standalone Definition of Done sources`);
+      } else if (dods.length !== 1) addReason(`Milestone ${item.id} needs exactly one Definition of Done record`);
       for (const dod of dods) {
         scope.add(dod.id);
-        if (!dod.criteria.length || dod.criteria.some(criterion => criterion.checked !== true)) addReason(`Unsatisfied Definition of Done ${dod.id}`);
+        criteria(dod);
         blockers(dod);
       }
       blockers(item);
@@ -58,7 +68,10 @@ export function checkClosure(recordId, records) {
     for (const child of records.filter(item => item.project_id === record.id)) scope.add(child.id);
     blockers(record);
   } else if (record.type === 'milestone') milestone(record);
-  else if (record.type === 'task') blockers(record);
+  else if (record.type === 'task') {
+    if (embedded(record)) criteria(record);
+    blockers(record);
+  }
   else if (record.type === 'dod') {
     if (!record.criteria?.length || record.criteria.some(item => item.checked !== true)) addReason('Definition of Done criteria are not all satisfied');
     blockers(record);

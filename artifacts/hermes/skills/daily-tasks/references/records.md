@@ -23,15 +23,18 @@ rotation suffixes as needed. One logical history, archives included by the log C
 Never read or edit those JSON logs directly from a skill.
 
 Project content belongs below the chosen projectsRoot. For a PARA vault follow its
-accepted project naming conventions, with this flat layout:
+accepted project naming conventions, with this required milestone workspace layout.
+Its depth takes precedence over PARA suggestions to flatten projects:
 
 ```text
 project/
   project-index.md
-  milestone-name/
-    milestone.md
-    definition-of-done.md
-    task-name.md
+  m1-milestone-name/
+    m1-milestone-name.md
+    t1-task-name.md
+    t2-task-name.md
+    inputs/
+    outputs/
   blockers/
     approval-needed.md
 ```
@@ -43,13 +46,19 @@ another vault. Preserve unresolved cross-vault pointers for clarification and us
 a separate planning session for other vault work. Shared home preferences do not
 make records, plans, checkpoints or screen mappings shared.
 
-`project-index.md` owns project metadata and renders subordinate records. `milestone.md`
-owns milestone metadata. Individual task/blocker files own their facts. DoD file owns
-the milestone criteria. Daily/project checklists are editable views, not other copies
-of those task definitions. Do not silently rename existing files to match defaults.
+`project-index.md` owns project metadata and links milestones. Each milestone file
+owns its explanation, milestone DoD and task navigation. Each task file owns its
+requirements, task DoD, input links and output links. Daily/project/milestone task
+checklists are editable views, not copies of task definitions. Individual blocker
+files own their facts. Do not silently rename existing files to match defaults.
 New managed filenames use lowercase letters, lowercase `.md`, and descriptive
-kebab-case words. Name a task for its work, for example `prepare-budget.md` or
-`update-linkedin-profile.md`, rather than `task.md` or a bare UUID. Keep its stable
+kebab-case words: `m1-launch-readiness.md`, `t1-prepare-budget.md`. Match the milestone
+folder and file stems. Allocate milestone numbers within a project and task numbers
+within a milestone. Use the next unused positive integer above existing and recorded
+retired numbers; check files and history through `log-query`, never read log JSON.
+Never reuse a cancelled/deleted record's number, renumber for sorting, or treat numbers
+as schedule/priority. A move keeps its number unless it collides in the destination;
+then allocate a destination-local number and log the old/new mapping. Keep its stable
 UUID in frontmatter; a title change does not require a filename change. Use a
 descriptive qualifier for collisions and avoid Windows reserved device names.
 Fixed document names and dated daily-plan filenames keep their established forms.
@@ -59,10 +68,37 @@ checking collisions and updating links without changing identity or lifecycle.
 The explicit project-index.md product convention takes precedence over PARA's dated
 index default. PARA is optional; never import its installed paths or require its loader.
 
+### Files and navigation
+
+Create `inputs/` and `outputs/` directly beside the milestone/task files, even when
+empty. They are flat holding areas: no task subfolders, shared/ folders, or extra
+index files inside them. All local project work stays in the project; disposable
+scratch belongs in its `.temp/`. Requirements and DoD stay in task/milestone files.
+Put supplied files directly in inputs/, preserving native formats and source details
+in the consuming task's Inputs section. Use descriptive filenames; when names collide,
+compare identity/content and use a meaningful qualifier for distinct files. Never
+overwrite an unrelated file or duplicate a shared working input for each task.
+Put deliverables directly in outputs/ and link them from the producing task's Result
+and Output sections. When another task consumes that output, link its existing home
+from that task's Inputs section. Replacing a deliverable requires explicit task scope;
+otherwise preserve the earlier version with a meaningful version qualifier.
+External source links retain provenance; imported working copies live in inputs/.
+External delivery requires its own authority and a receipt linked in the task.
+
+The navigation chain is project index -> milestone -> task -> relevant files.
+Maintain it during ordinary work: add accepted tasks to their milestone and project
+views, update task input/output links as files arrive, and repair affected incoming
+and outgoing links on moves. Use relative links resolved from the containing note.
+File links are ordinary navigation, without managed UUID refs. Before removing a
+source after a move, verify target content, task links, milestone/project navigation,
+and affected daily-plan links. Preserve historical references with clear provenance.
+Holding areas are excluded from managed-record discovery even if an attachment looks
+like a task document; they cannot create phantom tasks or duplicate live identities.
+
 ## Metadata and Markdown contract
 
 Use the [task](../assets/task.md), [milestone](../assets/milestone.md),
-[DoD](../assets/definition-of-done.md), [blocker](../assets/blocker.md),
+[legacy DoD](../assets/definition-of-done.md), [blocker](../assets/blocker.md),
 [project](../assets/project-index.md) and [daily plan](../assets/daily-plan.md) templates.
 Replace placeholders before writing. Generate IDs with CLI `new-id`, never fabricate them.
 For project indexes, daily plans, milestones and tasks, configured user examples take precedence over
@@ -98,7 +134,15 @@ or closure.
 Required: `type`, `title`, `owner` (email), `created_at`, `updated_at`, plus the named
 state field for project/milestone/task/blocker. Optional `assignee`, `started_at`,
 `resolved_at`, `target_date`, `document-maturity`. Parent IDs `project_id`, `milestone_id`
-are metadata, hidden in rendered frontmatter. DoD uses type `dod`, parent IDs and criteria.
+are metadata, hidden in rendered frontmatter. New tasks and milestones use scalar
+`record_version: 2` and exactly one `## Definition of Done` section in their own file.
+Use list criteria with `[ ]` or `[x]` and a unique `<!-- id: UUIDv7 -->` on the same
+or immediately following comment-only line. Subheadings may group criteria; a heading
+at the DoD level or above ends the section. Criteria may link evidence files. Criteria
+use `id`, task projections use `ref`; do not use table checkboxes for DoD criteria.
+Standalone type `dod` and unversioned tasks remain readable for existing work only;
+see [workspace migration](workspace-migration.md). Never create a separate DoD file
+for a new milestone or infer missing legacy task criteria from its completion state.
 When PARA conventions apply, retain its `created` date and `document-maturity` as
 separate note metadata; never interpret legacy `status` as execution state.
 
@@ -144,7 +188,9 @@ Dependencies are visible context only. Cancelled prerequisite stays linked and f
 
 ## Closure and reopening
 
-Milestone closes only with every DoD criterion satisfied, all children explicitly
+Task completion requires its own nonempty DoD to be satisfied and no open preventing
+blocker. A new task with missing criteria stays incomplete; obtain its accepted criteria.
+Milestone closes only with every milestone DoD criterion satisfied, all children explicitly
 completed/moved/cancelled, and no open preventing blocker. Project closes only when
 all milestones are completed/cancelled and no open preventing blocker. Use `check-closure`.
 DoD satisfaction is a supplied decision with evidence where available, not an inference
@@ -152,8 +198,11 @@ from completed tasks. A checked parent with unmet conditions is a closure reques
 leave it open, explain reasons. Parent cancellation likewise requires explicit child
 dispositions; offer batch cancellation, never silently cascade cancellation.
 
-Reopening a task reopens completed parents. Unchecking DoD or reopening a preventing
-blocker also reopens completed affected parents, while completed tasks stay completed.
+Reopening a task reopens completed parents. Unchecking its task DoD reopens that task
+(in-progress if it has started_at, otherwise not-started) and completed parents.
+Unchecking milestone DoD reopens that milestone and project, leaving completed tasks
+alone. Reopening a preventing blocker reopens completed affected parents, while
+completed tasks stay completed. Cancelled work requires an explicit reopening decision.
 Use `reopen-ancestors` to calculate changes, then the operation protocol to apply.
 Do not erase old completion history. Clear current resolved_at on reopening; the old
 value remains in history. Reopening cancelled work requires an explicit desired state.

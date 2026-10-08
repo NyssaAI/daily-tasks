@@ -2,7 +2,7 @@ import { readFile, writeFile, readdir, lstat, realpath, mkdir, rename, unlink } 
 import { createHash, randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { homedir } from 'node:os';
-import { parseRecord, validateRecords, checkLinks, recordIssueIsInvalid, recordMarkdownIsManaged } from '../records/records.mjs';
+import { parseRecord, validateRecords, checkLinks, recordIssueIsInvalid, recordMarkdownIsManaged, recordDirectoryIsHoldingArea } from '../records/records.mjs';
 import { parseViewRows } from '../records/views.mjs';
 import { isUuid7 } from '../identity/identity.mjs';
 import { localDay, utcTimestamp } from '../time/time.mjs';
@@ -13,7 +13,7 @@ const slash = value => value.split(path.sep).join('/');
 const relative = (root,file) => slash(path.relative(root,file));
 const compareName = (a,b) => a.toLowerCase().localeCompare(b.toLowerCase(),'en') || a.localeCompare(b,'en');
 const open = state => ['not-started','in-progress'].includes(state);
-const inventoryRulesVersion = 4;
+const inventoryRulesVersion = 5;
 export function taskSummary(task) {
   return {id:task.id,projectId:task.project_id,milestoneId:task.milestone_id,path:task.path,title:task.title,state:task.state,
     owner:task.owner,assignee:task.assignee ?? null,targetDate:task.target_date ?? null,
@@ -58,7 +58,10 @@ async function collectFiles(projectsRoot,dailyPlansRoot) {
       return {entry,filename,stats:await ordinary(filename)};
     });
     for (const {entry,filename,stats} of metadata) {
-      if (stats.isDirectory()) await visit(filename,anchor,root);
+      if (stats.isDirectory()) {
+        if (recordDirectoryIsHoldingArea(relative(root,filename))) continue;
+        await visit(filename,anchor,root);
+      }
       else if (stats.isFile() && /\.md$/i.test(entry.name)) files.push({anchor,path:relative(root,filename),filename,size:stats.size,mtimeMs:stats.mtimeMs,ctimeMs:stats.ctimeMs});
     }
   }

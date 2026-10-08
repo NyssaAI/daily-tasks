@@ -1,6 +1,7 @@
 ---
 id: TASK_UUID
 type: task
+record_version: 2
 title: "TASK_TITLE"
 document-maturity: draft
 task-state: not-started
@@ -14,13 +15,21 @@ updated_at: "GMT_TIMESTAMP"
 
 > Provisional template — evaluate on a real task before accepting this format.
 
-**Milestone:** [[milestone|MILESTONE_TITLE]] <!-- ref: MILESTONE_UUID -->  
+**Milestone:** [[MILESTONE_SLUG|MILESTONE_TITLE]] <!-- ref: MILESTONE_UUID -->
+
 **Project:** [[../project-index|PROJECT_TITLE]] <!-- ref: PROJECT_UUID -->
 
-## Assignment
+## Requirements
 
 Describe the work to complete and the concrete result to deliver. Explain why
 it matters and any context the agent cannot discover from the supplied inputs.
+
+## Definition of Done
+
+- [ ] State an observable task acceptance criterion. <!-- id: TASK_CRITERION_UUID -->
+
+These criteria belong to this task. Record satisfaction and evidence explicitly;
+producing a file alone does not establish that the task is complete.
 
 ## Scope and constraints
 
@@ -41,6 +50,8 @@ it matters and any context the agent cannot discover from the supplied inputs.
 Specify the repository/workspace root for relative paths, the relevant branch or
 revision when required, and how to distinguish the authoritative input from older
 copies. Identify required account access without placing credentials in this file.
+Local input files live directly in the milestone's inputs/ folder. Link each actual
+file here using its relative path, purpose and source. Do not create subfolders.
 
 ## References
 
@@ -78,11 +89,17 @@ it may resolve independently, and decisions it must bring back to the owner.
 
 - **Delivery mode:** Local artifact / repository change / pull request. Select the
   applicable mode and remove unused instructions.
-- **Destination:** Exact output file/folder, application location, or repository URL.
+- **Destination:** Exact files directly in the milestone's outputs/ folder.
 - **Format:** File type, naming convention, required structure and template to use.
 - **Existing output:** Specify whether to create, update or replace; preserve unrelated work.
 - **Handoff:** Provide clickable output links, a concise account of changes, validation
   results, and any unresolved issues.
+
+Keep working material within the project; disposable scratch belongs in its .temp/.
+Inputs and outputs are flat holding areas, with no task subfolders or folder indexes.
+Use descriptive filenames and resolve collisions without overwriting unrelated files.
+An explicitly authorized external delivery has a link and receipt in this task;
+keep the local deliverables in outputs/.
 
 ### Pull request delivery
 
@@ -99,9 +116,9 @@ a local diff alone is incomplete; report any precise publication blocker.
 
 ## Verification
 
-Link the milestone's [[definition-of-done|Definition of Done]] <!-- ref: DOD_UUID -->.
-The following checks explain how to verify this task's output; they do not create
-a separate task-level Definition of Done.
+Explain how to verify this task's Definition of Done above. Link supporting evidence
+from outputs/ and the relevant milestone outcome when helpful. Task and milestone
+criteria remain independently owned; never copy milestone criteria as task criteria.
 
 - Expected observable result, with a concrete example when useful.
 - Exact command or inspection method and what a passing result means.
@@ -131,7 +148,7 @@ Complete after execution: link the delivered artifact or PR, summarize verificat
 and record remaining limitations or blockers. Do not mark the task complete when
 required delivery or checks remain unfinished.
 
-<!-- Formatting example for <project>/<milestone>/<task-slug>.md.
+<!-- Formatting example for <project>/m1-milestone-name/t1-task-name.md.
 The draft maturity and provisional notice describe this template. When creating
 an actual task, omit the template notice and choose its document maturity from
 the actual review/acceptance of that task's instructions, not this template's state.
