@@ -25,9 +25,9 @@ on the result, with enough detail to recognize success.
 
 | Milestone | Task | Description | Owner | Due Date |
 | --- | --- | --- | --- | --- |
-| [ ] [[MILESTONE_SLUG/milestone\|M1 — MILESTONE_TITLE]] <!-- ref: MILESTONE_UUID --> | | The concrete outcome this milestone will deliver. | MILESTONE_OWNER_NAME | MILESTONE_TARGET_DATE |
+| [ ] [[MILESTONE_SLUG/MILESTONE_SLUG\|M1 — MILESTONE_TITLE]] <!-- ref: MILESTONE_UUID --> | | The concrete outcome this milestone will deliver. | MILESTONE_OWNER_NAME | MILESTONE_TARGET_DATE |
 | | [ ] [[MILESTONE_SLUG/TASK_SLUG\|M1-T1 — TASK_TITLE]] <!-- ref: TASK_UUID --> | The action to take and its intended output. | TASK_OWNER_NAME | TASK_TARGET_DATE |
-| [ ] [[MILESTONE_2_SLUG/milestone\|M2 — MILESTONE_2_TITLE]] <!-- ref: MILESTONE_2_UUID --> | | The concrete outcome of the second milestone. | MILESTONE_2_OWNER_NAME | MILESTONE_2_TARGET_DATE |
+| [ ] [[MILESTONE_2_SLUG/MILESTONE_2_SLUG\|M2 — MILESTONE_2_TITLE]] <!-- ref: MILESTONE_2_UUID --> | | The concrete outcome of the second milestone. | MILESTONE_2_OWNER_NAME | MILESTONE_2_TARGET_DATE |
 | | [ ] [[MILESTONE_2_SLUG/TASK_2_SLUG\|M2-T1 — TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | The action to take and its intended output. | TASK_2_OWNER_NAME | TASK_2_TARGET_DATE |
 
 ## Blocked by
@@ -48,7 +48,7 @@ instead of duplicating their full instructions.
 
 <!-- Formatting example only. Replace sample content and placeholders with actual
 accepted records. Repeat milestone/task rows as needed. Definitions of done remain
-in milestone files and their linked acceptance-criteria documents, not this index.
+in their owning milestone and task files, not this index.
 M1 and M1-T1 are readable labels, not record identities; retain UUID refs
 and actual relative links. Escape wiki-link label pipes inside table cells.
 Due Date displays an explicitly supplied target_date; use an em dash when absent.

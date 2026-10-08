@@ -3,7 +3,7 @@ import { readFile, readdir, lstat, realpath } from 'node:fs/promises';
 import path from 'node:path';
 import { uuid7 } from '../lib/identity/identity.mjs';
 import { appendDecision, queryDecisions, archiveDecisions } from '../lib/log/decision-log.mjs';
-import { parseRecord, validateRecords, checkClosure, checkLinks, recordMarkdownIsManaged } from '../lib/records/records.mjs';
+import { parseRecord, validateRecords, checkClosure, checkLinks, recordMarkdownIsManaged, recordDirectoryIsHoldingArea } from '../lib/records/records.mjs';
 import { reconcileRecord, reopenAncestors, recoverOperation } from '../lib/reconciliation/reconciliation.mjs';
 import { activityTime, localDay, displayTime } from '../lib/time/time.mjs';
 import { carryForward, parseChecklist, planRollover } from '../lib/planning/planning.mjs';
@@ -53,7 +53,10 @@ async function inspectRecords(input) {
       if (entry.name.startsWith('.')) continue;
       const filename = path.join(directory, entry.name);
       if (entry.isSymbolicLink()) throw new Error(`Symbolic link excluded: ${filename}`);
-      if (entry.isDirectory()) await visit(filename);
+      if (entry.isDirectory()) {
+        if (recordDirectoryIsHoldingArea(path.relative(root,filename))) continue;
+        await visit(filename);
+      }
       else if (entry.isFile() && /\.md$/i.test(entry.name)) {
         const text = await readFile(filename, 'utf8');
         if (recordMarkdownIsManaged(text,filename)) records.push(parseRecord(text, filename));

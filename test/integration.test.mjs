@@ -96,8 +96,8 @@ test('profile validates explicit identity timezone and safe independently chosen
 });
 test('published templates become valid related records and gate milestone closure', async () => {
   const directory = await workspace();
-  const replacements = {PROJECT_UUID:uuid7(),MILESTONE_UUID:uuid7(),TASK_UUID:uuid7(),DOD_UUID:uuid7(),CRITERION_UUID:uuid7(),BLOCKER_UUID:uuid7(),OWNER_EMAIL:owner,GMT_TIMESTAMP:time,PROJECT_TITLE:'Publish',MILESTONE_TITLE:'Release',TASK_TITLE:'Package',BLOCKER_TITLE:'Approval',MILESTONE_SLUG:'release',TASK_SLUG:'package',BLOCKER_SLUG:'approval'};
-  const mapping = [['project-index.md','project-index.md'],['milestone.md','release/milestone.md'],['task.md','release/package.md'],['definition-of-done.md','release/definition-of-done.md'],['blocker.md','blockers/approval.md']];
+  const replacements = {PROJECT_UUID:uuid7(),MILESTONE_UUID:uuid7(),TASK_UUID:uuid7(),MILESTONE_CRITERION_UUID:uuid7(),TASK_CRITERION_UUID:uuid7(),BLOCKER_UUID:uuid7(),OWNER_EMAIL:owner,GMT_TIMESTAMP:time,PROJECT_TITLE:'Publish',MILESTONE_TITLE:'Release',TASK_TITLE:'Package',BLOCKER_TITLE:'Approval',MILESTONE_SLUG:'m1-release',TASK_SLUG:'t1-package',BLOCKER_SLUG:'approval'};
+  const mapping = [['project-index.md','project-index.md'],['milestone.md','m1-release/m1-release.md'],['task.md','m1-release/t1-package.md'],['blocker.md','blockers/approval.md']];
   const records = [];
   for (const [template,relative] of mapping) {
     let markdown = await readFile(path.join(root,'skills/daily-tasks/assets',template),'utf8');
@@ -114,7 +114,7 @@ test('published templates become valid related records and gate milestone closur
   assert.deepEqual(diagnostics,[]);
   assert.equal(checkClosure(replacements.MILESTONE_UUID,records).allowed,false);
   records.find(r => r.type === 'task').state = 'completed';
-  records.find(r => r.type === 'dod').criteria[0].checked = true;
+  for (const record of records.filter(r => ['milestone','task'].includes(r.type))) record.criteria[0].checked = true;
   records.find(r => r.type === 'blocker').state = 'resolved';
   const closure = checkClosure(replacements.MILESTONE_UUID,records);
   assert.equal(closure.allowed,true,JSON.stringify(closure.reasons));

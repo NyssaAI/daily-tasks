@@ -28,6 +28,18 @@ Record object `{id,type,path,title,owner,assignee?,state,created_at,updated_at,
 started_at?,resolved_at?,target_date?,project_id?,milestone_id?,depends_on:[],
 blocks:[],blocked_by:[],criteria:[],refs:[]}`; types project/milestone/task/blocker/dod.
 Frontmatter key for state `${type}-state` except DoD criteria booleans from checkboxes.
+New task/milestone records use scalar `record_version: 2` (parsed as string `"2"`).
+Their own `Definition of Done` section supplies `criteria`; `dod_section: true` is
+derived by parsing. Criteria are list checkboxes with hidden unique ID comments;
+subheadings remain within the section until a same/higher-level heading ends it.
+Criterion evidence links are navigation, not managed task refs. Standalone `dod`
+records remain readable for migration. Mixed embedded/standalone milestone DoD blocks
+closure. Missing/empty version-2 DoD cannot pass closure. Legacy tasks without DoD
+retain old completion semantics until converted. Unknown record versions are invalid.
+Number collisions within a parent are identity-independent `invalid-number` diagnostics.
+New numbered filenames also allow detection when record metadata is malformed.
+Both inventory and inspect-records exclude milestone inputs/outputs holding directories,
+including task-shaped attachments; these files are not live task records.
 ID comes from scalar frontmatter `id`; legacy `<!-- id: UUID -->` remains readable
 and must agree if both are present. Record relations supplied by wiki link + hidden ref
 in named sections; YAML metadata uses scalar fields (JSON-quoted strings supported),
@@ -48,7 +60,9 @@ Only explicit changed values compared against baseline; stale unchanged views do
 override current; independent field changes merge, incompatible same-field edits conflict.
 Duplicate/missing identity surfaced by validator before reconcile. Pure
 `reopenAncestors(records, changedIds)` -> updated cloned records and changed IDs; preserve
-completed task facts, reopen relevant completed parents for unresolved tasks/DoD/blockers.
+completed task facts when milestone DoD/blockers reopen parents. Unsatisfied task DoD
+reopens its owning completed task with start-aware state and clears current resolution,
+then reopens completed parents. Cancelled records require explicit reopening decisions.
 Do not write documents. Operation recovery plans rely on expected before/after values:
 `recoverOperation(operation, actual)` -> report safe pending/already-applied/conflict,
 never infer missing user intent.

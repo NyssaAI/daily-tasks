@@ -35,8 +35,13 @@ carries unfinished selected work forward and reconciles manual checkbox edits.
 - Decision log: `{projects root}/.daily-tasks/yyyy.mm.dd-decisions.json`; date means
   file creation. Append-only logical history, script-only access, explicit rotation.
 - Daily plans: `{vault root}/2-areas/daily-plans/yyyy.mm.dd-daily-plan.md` by default.
-- Project index plus milestone directories containing task and DoD files; project-wide
-  `blockers/`. Definitions own facts; project/day checklists are editable views.
+- Project index plus `m1-name/m1-name.md` milestones and sibling `t1-name.md` tasks.
+  Each milestone and task owns its own Definition of Done; tasks also own requirements.
+  Flat milestone `inputs/` and `outputs/` hold files linked by tasks. Navigation follows
+  project -> milestone -> task -> files. Project-wide blockers stay in `blockers/`.
+  All local work stays in the project, including `.temp/` scratch. Existing records
+  remain readable; [migration](skills/daily-tasks/references/workspace-migration.md)
+  converts them on request while preserving identity and history.
 - UUIDv7 document IDs use frontmatter `id`; legacy hidden IDs remain readable.
   DoD criterion IDs and projection `ref` IDs use hidden comments. Wiki links use readable labels.
 - Store GMT, present configured local time with timezone. Human email owner; optional

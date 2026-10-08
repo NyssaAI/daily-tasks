@@ -85,7 +85,7 @@ export function reconcileRecord(base, current, views) {
   return {record,conflicts,changes};
 }
 
-/** Return ancestor reopening proposals. Already-completed task facts are untouched. */
+/** Return reopening proposals; only a task's own unsatisfied criteria reopen that task. */
 export function reopenAncestors(records, changedIds) {
   const cloned = structuredClone(records);
   const byId = new Map();
@@ -115,6 +115,14 @@ export function reopenAncestors(records, changedIds) {
     if (record.type === 'blocker' && record.state === 'open') {
       const targets = new Set([...(record.blocks || []),...cloned.filter(item => item.blocked_by?.includes(id)).map(item => item.id)]);
       for (const target of targets) reopen(target);
+    } else if (['task','milestone'].includes(record.type) && record.state !== 'cancelled' &&
+      ((record.record_version === '2' || record.dod_section === true) && !record.criteria?.length || record.criteria?.some(item => !item.checked))) {
+      if (record.type === 'task' && record.state === 'completed') {
+        record.state = record.started_at ? 'in-progress' : 'not-started';
+        delete record.resolved_at;
+        changed.add(record.id);
+      }
+      reopen(record.id);
     } else if ((record.type === 'dod' && record.criteria?.some(item => !item.checked)) ||
       (['task','milestone'].includes(record.type) && !['completed','cancelled'].includes(record.state))) {
       if (record.milestone_id) reopen(record.milestone_id);

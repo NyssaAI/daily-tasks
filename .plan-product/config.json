@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "paths": {
+    "repoRoot": ".",
+    "features": "docs/features.md",
+    "featureDocs": "docs/features",
+    "roadmap": "docs/roadmap.md",
+    "templates": ".plan-product/templates",
+    "featuresTemplate": ".plan-product/templates/features.md",
+    "featureTemplate": ".plan-product/templates/feature.md"
+  },
+  "structure": {
+    "features": {
+      "inventory": "docs/features.md",
+      "root": "docs/features",
+      "idPattern": "F-Nxx",
+      "folderPattern": "f-nxx",
+      "featureFile": "feature.md",
+      "featurePathPattern": "docs/features/f-nxx/feature.md",
+      "useCaseIdPattern": "UC-nnn",
+      "useCaseFilePattern": "uc-nnn-short-slug.md",
+      "useCasePathPattern": "docs/features/f-nxx/uc-nnn-short-slug.md"
+    }
+  }
+}

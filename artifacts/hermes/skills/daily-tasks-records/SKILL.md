@@ -21,15 +21,20 @@ once required values are available.
    `templates.task` when supplied, following
    [custom templates](../daily-tasks/references/templates.md). Load only the template
    for the record being authored. An omitted preference uses its bundled template.
-   Blocker and DoD templates remain unchanged. A provisional task template can be
+   Blocker templates remain unchanged; standalone DoD templates are legacy-only.
+   A provisional task template can be
    trialled when requested without promoting its maturity. Fill its input paths,
    references, required skills, output destination, verification and delivery mode
    from accepted task details; ask only for missing information needed to execute.
-3. Keep task instructions, context and desired output in its file. DoD is only milestone-level.
-   Choose a lowercase descriptive task filename with `.md` from the accepted title,
-   such as `prepare-budget.md`; resolve collisions with a meaningful qualifier.
+3. Keep requirements and task DoD in each task file; milestone explanation and milestone
+   DoD belong in the milestone file. New records use `record_version: 2`.
+   Create `m{number}-{name}/m{number}-{name}.md` with sibling `t{number}-{name}.md`
+   task files and flat `inputs/` and `outputs/` directories. Follow the parent-local
+   numbering, file placement and navigation rules in records; never subdivide holding
+   folders. Link relevant files from tasks and tasks from milestone/project views.
    Keep the UUID in frontmatter and use the record naming/move rules for existing files.
-   A delegation packet links assigned task, milestone DoD and relevant dependencies/blockers;
+   A delegation packet links assigned task (including its requirements, DoD, input/output
+   paths), milestone and relevant dependencies/blockers;
    do not clone task authority or tie assignee to an ephemeral session. Delegation isn't start.
 4. External blocker records state impediment and what resolves it, with optional evidence.
    Link `Blocks` / `Blocked by` reciprocally. Shared blocker remains independent of each
@@ -52,6 +57,10 @@ once required values are available.
    with strike-through. Missing or duplicated files are conflicts, not new task creation.
    For task status replies, verify canonical tasks, required parent effects and project
    views before updating daily-plan views. A failed earlier effect retains the checkpoint.
+
+For an authorized conversion of existing work, follow
+[workspace migration](../daily-tasks/references/workspace-migration.md). An ordinary
+record update does not authorize bulk migration or inventing task criteria.
 
 After a committed batch changes canonical records or project/daily-plan projections,
 call `invalidate-project-index` with the resolved vaultRoot immediately, including

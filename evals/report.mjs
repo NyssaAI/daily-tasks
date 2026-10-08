@@ -18,7 +18,11 @@ for (const runId of runs) {
   // Earlier development receipts lack coordinates; retain without promoting them.
   if (!result.target) continue;
   const target = matrix.targets.find(item => item.id === result.target);
-  await verifyResult(result,directory,target);
+  // Validate retained v2 receipts against their original six-scenario contract,
+  // without promoting them to acceptance of the workspace changes in v3.
+  const historical = target?.kind === 'host' && target.suite === 'workflow-v3' && result.suite === 'workflow-v2';
+  await verifyResult(result,directory,historical ? {...target,suite:'workflow-v2'} : target);
+  if (historical) continue;
   const prior = latest.get(target.id);
   if (!prior || Date.parse(result.completed_at) > Date.parse(prior.completed_at)) latest.set(target.id,result);
 }
