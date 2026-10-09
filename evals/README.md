@@ -108,6 +108,9 @@ passed. Do not use a loaded project AGENTS.md as proof of plugin discovery.
    Import a task-shaped Markdown attachment with a copied ID into inputs/: it must
    not enter inspect-records or planning inventory. Reorder tasks, cancel one and add
    another: existing labels remain stable and the retired number is not reused.
+   Add two external blockers in project/blockers/b1-name.md and b2-name.md. Resolve
+   one, add another and require b3-name.md without reusing or renumbering labels.
+   Link one blocker to both tasks reciprocally without duplicating its record.
    Rename an output and verify all affected task links, preserving unrelated prose.
 8. **Workspace migration:** seed a legacy milestone.md, definition-of-done.md and
    unnumbered tasks, with criterion UUIDs, evidence, blockers, inbound task/daily-plan

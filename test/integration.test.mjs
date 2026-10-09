@@ -96,8 +96,8 @@ test('profile validates explicit identity timezone and safe independently chosen
 });
 test('published templates become valid related records and gate milestone closure', async () => {
   const directory = await workspace();
-  const replacements = {PROJECT_UUID:uuid7(),MILESTONE_UUID:uuid7(),TASK_UUID:uuid7(),MILESTONE_CRITERION_UUID:uuid7(),TASK_CRITERION_UUID:uuid7(),BLOCKER_UUID:uuid7(),OWNER_EMAIL:owner,GMT_TIMESTAMP:time,PROJECT_TITLE:'Publish',MILESTONE_TITLE:'Release',TASK_TITLE:'Package',BLOCKER_TITLE:'Approval',MILESTONE_SLUG:'m1-release',TASK_SLUG:'t1-package',BLOCKER_SLUG:'approval'};
-  const mapping = [['project-index.md','project-index.md'],['milestone.md','m1-release/m1-release.md'],['task.md','m1-release/t1-package.md'],['blocker.md','blockers/approval.md']];
+  const replacements = {PROJECT_UUID:uuid7(),MILESTONE_UUID:uuid7(),TASK_UUID:uuid7(),MILESTONE_CRITERION_UUID:uuid7(),TASK_CRITERION_UUID:uuid7(),BLOCKER_UUID:uuid7(),OWNER_EMAIL:owner,GMT_TIMESTAMP:time,PROJECT_TITLE:'Publish',MILESTONE_TITLE:'Release',TASK_TITLE:'Package',BLOCKER_TITLE:'Approval',MILESTONE_SLUG:'m1-release',TASK_SLUG:'t1-package',BLOCKER_SLUG:'approval',BLOCKER_NUMBER:'1'};
+  const mapping = [['project-index.md','project-index.md'],['milestone.md','m1-release/m1-release.md'],['task.md','m1-release/t1-package.md'],['blocker.md','blockers/b1-approval.md']];
   const records = [];
   for (const [template,relative] of mapping) {
     let markdown = await readFile(path.join(root,'skills/daily-tasks/assets',template),'utf8');

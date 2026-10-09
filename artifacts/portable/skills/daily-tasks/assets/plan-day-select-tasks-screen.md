@@ -14,17 +14,17 @@ whether work is selected for today. [x] means completed, never merely selected.
 
 ## Already selected
 
-| #  | Status | Project | Task | Due Date |
-| --- | --- | --- | --- | --- |
-| 1  | [ ] | PROJECT_TITLE | ↺ [[RELATIVE_SELECTED_TASK_PATH\|TASK_TITLE]] <!-- ref: SELECTED_TASK_UUID --> | TARGET_DATE_OR_DASH |
+| #  | Status | Project | Milestone | Task | Due Date |
+| --- | --- | --- | --- | --- | --- |
+| 1  | [ ] | PROJECT_TITLE | MILESTONE_TITLE | ↺ [[RELATIVE_SELECTED_TASK_PATH\|TASK_TITLE]] <!-- ref: SELECTED_TASK_UUID --> | TARGET_DATE_OR_DASH |
 
 ## Available tasks
 
-| # | Status | Project | Task | Due Date |
-| --- | --- | --- | --- | --- |
-| 2 | [ ] | PROJECT_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | TARGET_DATE_OR_DASH |
-| 3 | [ ] | PROJECT_2_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | TARGET_2_DATE_OR_DASH |
-| 4 | [ ] | PROJECT_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | TARGET_3_DATE_OR_DASH |
+| # | Status | Project | Milestone | Task | Due Date |
+| --- | --- | --- | --- | --- | --- |
+| 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | TARGET_DATE_OR_DASH |
+| 3 | [ ] | PROJECT_2_TITLE | MILESTONE_2_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | TARGET_2_DATE_OR_DASH |
+| 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | TARGET_3_DATE_OR_DASH |
 
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward
 
@@ -102,7 +102,7 @@ Show at most 15 available addition rows per screen/page. This cap does not limit
 already-selected rows or change the inventory counts. Offer Show more when further
 eligible rows remain; preserve stable item numbers and decisions across pages.
 Remove example rows and render concise empty-state text for empty sections.
-Use only #, Status, Project, Task and Due Date columns. Group rows under project/milestone
+Use only #, Status, Project, Milestone, Task and Due Date columns. Group rows under project/milestone
 headings. Render explicit due dates as yyyy.mm.dd (for example 2026.11.12), or an
 em dash when absent. Keep the Due Date column compact, sized for ten date characters
 when the host allows width control. Preserve canonical target_date storage format;
@@ -117,7 +117,7 @@ daily plan, not a task merely retained during another check-in on the same day.
 Persist its source plan/date in review state so the marker survives follow-up
 renders. Do not mark newly selected tasks as carried forward. The marker describes
 selection provenance, not task status, priority or execution assignment.
-After a response batch, recap with the same #, Status, Project, Task and Due Date
+After a response batch, recap with the same #, Status, Project, Milestone, Task and Due Date
 columns and original row numbers. In the daily view show today's selected work
 and available unselected work only. Do not render tomorrow or other future-day
 tables unless the user explicitly requests the week view. Tasks explicitly moved
@@ -141,3 +141,7 @@ all-milestones request without lifting the per-page cap. No automatic shortlist.
 On later same-day requests preserve the plan and follow the requested edit/check-in
 route; do not force this first-check-in selection screen again.
 This draft's maturity describes the template, not resulting plans. -->
+
+<!-- Show each task?s owning milestone in the Milestone column, even under grouped
+headings. Use plain milestone text; task links and hidden refs identify task rows.
+Do not create a separate task selection or status row for the milestone cell. -->

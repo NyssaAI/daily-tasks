@@ -36,7 +36,7 @@ project/
     inputs/
     outputs/
   blockers/
-    approval-needed.md
+    b1-approval-needed.md
 ```
 
 Every planning/records request uses one vault's fixed resolved context. Its configured
@@ -52,9 +52,13 @@ requirements, task DoD, input links and output links. Daily/project/milestone ta
 checklists are editable views, not copies of task definitions. Individual blocker
 files own their facts. Do not silently rename existing files to match defaults.
 New managed filenames use lowercase letters, lowercase `.md`, and descriptive
-kebab-case words: `m1-launch-readiness.md`, `t1-prepare-budget.md`. Match the milestone
+kebab-case words: `m1-launch-readiness.md`, `t1-prepare-budget.md`, `b1-approval-needed.md`. Match the milestone
 folder and file stems. Allocate milestone numbers within a project and task numbers
-within a milestone. Use the next unused positive integer above existing and recorded
+within a milestone. Allocate blocker numbers within their owning project, storing new
+blockers as `blockers/b{number}-{name}.md`. A shared blocker has one owning project
+and may link work in other projects; do not copy it or allocate a new number per link.
+Legacy unnumbered blockers remain readable; rename only when explicitly requested.
+Use the next unused positive integer above existing and recorded
 retired numbers; check files and history through `log-query`, never read log JSON.
 Never reuse a cancelled/deleted record's number, renumber for sorting, or treat numbers
 as schedule/priority. A move keeps its number unless it collides in the destination;
@@ -98,8 +102,11 @@ like a task document; they cannot create phantom tasks or duplicate live identit
 ## Metadata and Markdown contract
 
 Use the [task](../assets/task.md), [milestone](../assets/milestone.md),
-[legacy DoD](../assets/definition-of-done.md), [blocker](../assets/blocker.md),
+[blocker](../assets/blocker.md),
 [project](../assets/project-index.md) and [daily plan](../assets/daily-plan.md) templates.
+Definitions of done must be embedded in their milestone or task file only. Never
+create a standalone DoD file or template. Existing standalone records are readable
+solely for explicit legacy migration; they are not an authoring option.
 Replace placeholders before writing. Generate IDs with CLI `new-id`, never fabricate them.
 For project indexes, daily plans, milestones and tasks, configured user examples take precedence over
 bundled visible formatting; follow [custom templates](templates.md). The metadata,
@@ -175,7 +182,7 @@ Distinguish source row removal (deselect daily work) from file deletion (missing
 - [[other-task|Other task]] <!-- ref: UUIDv7 -->
 
 ## Blocked by
-- [[../blockers/approval-needed|Approval needed]] <!-- ref: UUIDv7 -->
+- [[../blockers/b1-approval-needed|Approval needed]] <!-- ref: UUIDv7 -->
 ```
 
 Dependency counterparts use `## Required by`; blocker counterpart `## Blocks`.

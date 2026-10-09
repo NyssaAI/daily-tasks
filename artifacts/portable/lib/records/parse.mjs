@@ -15,7 +15,7 @@ export function recordDirectoryIsHoldingArea(relativePath) {
 export function recordMarkdownIsManaged(markdown, filename = '') {
   const metadata = /^\uFEFF?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(markdown)?.[1] ?? '';
   const basename = filename.split(/[\\/]/).at(-1).toLowerCase();
-  const conventional = ['project-index.md','milestone.md','definition-of-done.md'].includes(basename) || /^[mt][1-9]\d*-.+\.md$/.test(basename);
+  const conventional = ['project-index.md','milestone.md','definition-of-done.md'].includes(basename) || /^[mtb][1-9]\d*-.+\.md$/.test(basename);
   return conventional || /^type:\s*["']?(project|milestone|task|blocker|dod)["']?\s*$/m.test(metadata) ||
     /^(project_id|milestone_id):/m.test(metadata);
 }

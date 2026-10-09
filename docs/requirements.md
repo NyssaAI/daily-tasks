@@ -31,7 +31,9 @@ R5. Each `m{number}-{milestone-name}/` folder directly contains a matching miles
 Markdown file, `t{number}-{task-name}.md` files, and flat `inputs/` and `outputs/`
 holding folders. The milestone file explains the milestone and owns milestone DoD.
 Each task file owns its requirements and task DoD. The project has `project-index.md`
-and a sibling `blockers/`. Navigation follows project -> milestone -> task -> files;
+and a sibling `blockers/` containing `b{number}-{name}.md` records. Blocker
+numbers are project-local, stable and never reused; legacy unnumbered blockers remain
+readable until an explicitly requested rename. Navigation follows project -> milestone -> task -> files;
 no task subfolders or indexes within the holding folders. Keep local project work
 inside the project; scratch uses its `.temp/`. Link shared inputs and consumed outputs
 at their existing home. Preserve sources and resolve file collisions without loss.
@@ -259,7 +261,7 @@ tables require an explicit week-view request. Preserve original item numbering a
 the screen's table layout in recaps. Mark unresolved selections carried from the
 most recent earlier plan with ↺ in the task cell and explain it in the legend;
 carry-forward provenance is distinct from canonical state and day selection.
-Selection-screen and recap columns are #, Status, Project, Task and Due Date.
+Selection-screen and recap columns are #, Status, Project, Milestone, Task and Due Date.
 Status symbols reflect canonical progress; selected/available sections indicate
 day membership. `[x]` never means selected. Adding work does not mark it started
 or completed, and carried-forward work retains its actual canonical status.

@@ -20,9 +20,9 @@ function filenameIssue(record) {
   const descriptiveTask = record.type !== 'task' ||
     (/\p{L}/u.test(stem) && !['task','untitled','new-task'].includes(stem.toLowerCase()));
   const reserved = value => /^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(value);
-  if (record.record_version === '2' && ['milestone','task'].includes(record.type) &&
-      !(record.type === 'milestone' ? /^m[1-9]\d*-[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)*\.md$/u : /^t[1-9]\d*-[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)*\.md$/u).test(filename)) {
-    return diagnostic(record,'noncanonical-filename','Use m{number}-{name}.md for milestones and t{number}-{name}.md for tasks; allocate an unused parent-local number through the move protocol');
+  if (record.record_version === '2' && ['milestone','task','blocker'].includes(record.type) &&
+      !(record.type === 'blocker' ? /^b[1-9]\d*-[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)*\.md$/u : record.type === 'milestone' ? /^m[1-9]\d*-[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)*\.md$/u : /^t[1-9]\d*-[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)*\.md$/u).test(filename)) {
+    return diagnostic(record,'noncanonical-filename','Use m{number}-{name}.md for milestones, t{number}-{name}.md for tasks and b{number}-{name}.md for blockers; allocate an unused parent-local number through the move protocol');
   }
   if (filename === filename.toLowerCase() && filename.endsWith('.md') &&
       /^[\p{L}\p{N}]+(?:[.-][\p{L}\p{N}]+)*\.md$/u.test(filename) && descriptiveTask && !reserved(stem)) return null;
@@ -58,10 +58,10 @@ export function validateRecords(records) {
     if (naming) diagnostics.push(naming);
     if (!types.has(record.type)) emit(record,'invalid-type','Unknown record type');
     if (record.record_version !== undefined && record.record_version !== '2') emit(record,'invalid-version','Unsupported record_version; expected scalar 2');
-    if (['milestone','task'].includes(record.type)) {
-      const label = /^(m|t)([1-9]\d*)-/i.exec(record.path?.split(/[\\/]/).at(-1) ?? '');
-      if (label && label[1].toLowerCase() === (record.type === 'task' ? 't' : 'm')) {
-        const key = `${record.type}:${record.milestone_id ?? record.project_id}:${label[2]}`;
+    if (['milestone','task','blocker'].includes(record.type)) {
+      const label = /^(m|t|b)([1-9]\d*)-/i.exec(record.path?.split(/[\\/]/).at(-1) ?? '');
+      if (label && label[1].toLowerCase() === (record.type === 'blocker' ? 'b' : record.type === 'task' ? 't' : 'm')) {
+        const key = `${record.type}:${record.type === 'task' ? record.milestone_id : record.project_id}:${label[2]}`;
         const previous = numbers.get(key);
         if (previous) { emit(record,'invalid-number','Duplicate number within parent'); emit(previous,'invalid-number','Duplicate number within parent'); }
         else numbers.set(key,record);

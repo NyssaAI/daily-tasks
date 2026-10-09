@@ -21,7 +21,8 @@ once required values are available.
    `templates.task` when supplied, following
    [custom templates](../daily-tasks/references/templates.md). Load only the template
    for the record being authored. An omitted preference uses its bundled template.
-   Blocker templates remain unchanged; standalone DoD templates are legacy-only.
+   Use the bundled blocker template. DoD belongs only in milestone/task files;
+   never create a standalone DoD file or template.
    A provisional task template can be
    trialled when requested without promoting its maturity. Fill its input paths,
    references, required skills, output destination, verification and delivery mode
@@ -36,7 +37,9 @@ once required values are available.
    A delegation packet links assigned task (including its requirements, DoD, input/output
    paths), milestone and relevant dependencies/blockers;
    do not clone task authority or tie assignee to an ephemeral session. Delegation isn't start.
-4. External blocker records state impediment and what resolves it, with optional evidence.
+4. Create blockers in their owning project as `blockers/b{number}-{name}.md`,
+   using project-local numbers and the same stable-number rules as milestones/tasks.
+   External blocker records state impediment and what resolves it, with optional evidence.
    Link `Blocks` / `Blocked by` reciprocally. Shared blocker remains independent of each
    project's lifecycle. Completing "request approval" does not resolve "approval pending".
 5. Task dependencies use `Depends on` / `Required by`. They never prohibit starting work
