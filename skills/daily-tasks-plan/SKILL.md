@@ -5,116 +5,133 @@ description: Create or edit the user's local-day Markdown plan across personal a
 
 # Plan the day
 
-Bind this session to one resolved vault, its assigned projects root and daily-plan
-root. Shared user preferences do not combine vaults. Carry the context binding with
-inventory, numbered screens and recovery state; reject another vault's binding.
+Follow these checkpoints in order. A directly activated Plan uses the same contracts
+as router-led planning; no earlier router load is required.
 
-Apply [response conventions](../daily-tasks/references/response-conventions.md)
-when rendering review screens and interpreting numbered replies.
-Use the [inventory and planning flow](../daily-tasks/references/planning-flow.md)
-for context, cache, maintenance, selection screens and future-day writes. Load the
-configured `templates.planDayReview` or the bundled
-[review screen](../daily-tasks/assets/plan-day-select-tasks-screen.md) when displaying
-the ownership-focused review or recap. The saved daily plan uses its own template.
-In task-addition screens sort projects by their directory dates, oldest first,
-breaking ties alphabetically by name; undated directories follow alphabetically
-by name. Preserve each project's task order from its index.
-Offer only the first incomplete milestone per project unless the user asks
-for all milestones; skip terminal milestones and preserve existing selections.
-Resolve unknown milestone sequence before deciding which milestone is first.
-Unlisted valid tasks follow indexed tasks by filename for stable presentation only;
-missing task links do not turn accepted work into ineligible work.
-Paginate available additions at 15 rows maximum, with stable response handles and
-Show more. Exclude explicit future-day selections from today's addition options;
-a future target_date alone is not future selection. Keep counts for the full scoped
-inventory. Canonical task-state replies do not implicitly add work to today.
-Apply status replies via records: canonical tasks/required parent changes and
-project views first, then daily-plan projection. Clarify ambiguous commands before
-affected writes and preserve pending recovery when any required effect fails.
+## 1. Resolve and prepare
 
-## Keep routine planning scoped
+Load [context and planning flow](../daily-tasks/references/planning-flow.md#resolve-once)
+when binding the request and preparing inventory. Reuse the configured profile and
+already-loaded guidance. Use [Setup](../daily-tasks-setup/SKILL.md) only for unresolved
+settings or an explicit configuration change; do not restart setup for a configured user.
+Bind one vault, its assigned projectsRoot and dailyPlansRoot throughout this session,
+numbered replies and recovery. Shared preferences never combine vaults.
 
-Start with `planning-prepare`, passing the known absolute vault binding (and explicit
-profilePath when already established). It resolves the profile, reads actual dated
-plan files, checks their type and UUID, prepares inventory/rollover/review, and returns
-pending-operation names, maintenance status and enrollment diagnostics. Use this
-packet rather than writing temporary JavaScript orchestration or assembling parse
-results by hand. Full-graph validation belongs to inventory; never validate selected
-tasks alone as though their omitted parents were absent from disk.
-Use `planning-state` to persist review handles or verify a no-change rollover receipt,
-with the packet's source/state hashes. Pending carry still requires the Markdown
-operation protocol. These commands do not reconcile edits or complete check-in for you.
+Start with `planning-prepare`, passing the captured absolute vault binding and known
+explicit profilePath. It resolves actual dated plan identities/hashes, full-graph
+inventory, rollover/review proposals, pending operations, maintenance and enrollment
+issues. Use this packet instead of temporary orchestration or hand-assembled parse
+results. Selected records alone are not the validation universe. Preparation does
+not reconcile edits, complete rollover or finish check-in.
 
-Resolve and read the existing profile first; do not restart setup for a configured
-user. Reuse guidance already loaded in this session. Read today's plan and its
-dated rollover state. If rollover is not verified complete, list the daily-plan
-directory to find the most recent earlier plan even when today's file exists.
-Read the selected rows' referenced records and the baselines needed to reconcile
-them. Inspect parent records, blockers and dependencies only when needed to verify
-a change or explain a suggestion. Use `project-index` to obtain available project
-work as well as selected work; reuse its verified cache instead of repeating agent
-file exploration. A cold/stale cache scans deterministically. Do not run a full
-decision-history query merely to open/carry a daily plan. Preserve unresolved
-references rather than guessing their identity.
-Recover applicable pending operations before applying affected changes. Unchanged
-reads need no checkpoint, log event or rewritten baseline. Batch independent reads
-and checks when supported; keep dependent writes and log appends ordered. This
-scope rule preserves validation and reconciliation for every affected change.
+Use the packet's localDate and actual resolved timezone. Load the [CLI](../daily-tasks/references/cli.md)
+when invoking operations, `local-day` or `format-time`; identify the actual local zone
+in the heading and rendered times, never the profile value `"system"`.
+Daily output is `<vaultRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md`, normally
+`2-areas/daily-plans`, resolved from the profile. Never use configRoot, operating
+state or a later cwd as output. Setup resolves its known-vault default; ask only if
+scope remains unknown or points into configuration/state storage.
 
-Read configured profile and [records](../daily-tasks/references/records.md),
-[operation protocol](../daily-tasks/references/operations.md). Reconcile edits before
-refreshing any existing plan. Use `local-day` for today's date and `format-time` for
-display; ALWAYS identify local timezone in the heading and all rendered times.
-When the profile uses `"system"`, resolve the host's actual timezone via
-`validate-profile`'s `resolvedTimezone` and use that zone consistently for this
-planning run. Render the actual zone name, never the word "system".
+## 2. Recover and reconcile
 
-Use `<vaultRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md` (default
-`2-areas/daily-plans`). This is user output. Load the path settings from
-`<configRoot>/profile.json`; the profile's directory is not the daily-plan directory.
-Never save a daily plan in configRoot or `.nyssaai/daily-tasks/`. Resolve missing output
-settings using [setup](../daily-tasks-setup/SKILL.md), including its known-vault default.
-Ask only if output scope remains unknown or points into configuration/state storage;
-do not fall back to configRoot or cwd.
-Open today's plan if present; create it only if missing, with
-UUIDv7 identity and created/updated GMT timestamps. Do not backfill skipped days.
-Explicit future selections create that date's missing plan through planning-flow.
-Use the once-per-day rollover protocol in planning-flow regardless of plan-file
-existence. Reconcile the most recent prior plan, then merge its unfinished selections
-by UUID into today's existing selections, preserving both. Completed/cancelled items
-remain historical. Honor explicit removals and other future allocations; never
-repopulate from all open tasks. Missing records remain visible unresolved references.
-Only verified rollover completion skips this merge on later same-day requests;
-recover an interrupted checkpoint before reconsidering its effects.
+Load [operations](../daily-tasks/references/operations.md) before recovery,
+reconciliation or consequential writes, and [record conventions](../daily-tasks/references/records.md)
+when validating affected records/links. Inspect current-plan edits and per-view
+baselines; recover applicable pending operations before applying affected changes.
+Read selected canonical records and needed parents, blockers/dependencies without
+repeating a full history query merely to open/carry a plan. Preserve unresolved
+references instead of guessing identity. A fresh cache never skips these checks.
 
-Separate **My work** (effective assignee current user's email) and **Delegated work**
-(owner current user, effective assignee another human/agent). Optional assignee falls
-back to owner; no unassigned category. Include work assigned to user even if owned by
-another person. Delegated completion belongs to its doer; suggested follow-up is a new
-candidate, not a silently created obligation. Ownership alone doesn't authorize external
-messages or taking over delegated execution.
+Apply the [requested-use maintenance gate](../daily-tasks/references/planning-flow.md#load-and-maintain).
+Compare edits before regenerating any view; suspend only conflicting items and
+continue independent changes. Manual status edits update canonical records through
+[Records](../daily-tasks-records/SKILL.md); unidentified new checkboxes go to
+[Capture](../daily-tasks-capture/SKILL.md) as candidates. Unchanged reads need no
+checkpoint, event or rewritten baseline. Batch independent reads/checks; keep
+writes and log appends ordered.
 
-Use the profile's `templates.dailyPlan` when supplied, following
-[custom templates](../daily-tasks/references/templates.md); otherwise use the
-[daily-plan template](../daily-tasks/assets/daily-plan.md). Each row references one
-task ID and relative wiki link. Preserve stable display order and existing edits;
-list position does not prescribe execution order. Present available work for user
-selection without ranking it or asking for an ordering decision. Execution order
-belongs to the person. Never calculate time budgets, schedule slots, change targets, or try to
-fit work into a timeframe. Carry-forward is already authorized and requires no new
-acceptance; adding previously unselected work requires a supplied planning decision.
+After reconciled writes, invalidate/refresh affected inventory and run
+`planning-prepare` again. Any write changing the packet's source or state hashes
+requires a fresh packet before a dependent state action or review is saved.
 
-Keep the saved plan readable: one checkbox per task, a descriptive link label and
-hidden ref comment. When a title needs context, add one indented plain-text line
-with the project, assignee for delegated work, or concrete blocker. Do not expose
-IDs or repeat full task metadata. Do not silently reorder selections. Under an empty
-section write a short sentence such as "No delegated work selected." rather than
-leaving an unexplained blank heading. Omit blank placeholder rows. In chat, link
-the saved plan first, then summarize changes and outstanding decisions without
-reprinting the whole plan unless the user asks to see it.
+## 3. Verify rollover
 
-Removing row = deselect, task remains open and stops future carry-forward until selected.
-Log deselection and selection once when changed. Manual checkbox edits
-update the canonical task on reconciliation; a new text-only checkbox becomes candidate.
-Do not record unchanged check-ins/reads. On repeated same-day calls preserve valid edits,
-completed/cancelled visibility and plan identity; don't rebuild a second plan.
+Load [once-per-day rollover](../daily-tasks/references/planning-flow.md#once-per-day-rollover)
+before opening/creating or merging today's plan. Preserve an existing plan's UUID,
+selections, prose and valid edits; create only a missing plan with UUIDv7 and GMT
+creation/update timestamps. Never backfill skipped days. A pre-created future plan
+still needs verified rollover for today. Find and reconcile the most recent earlier
+plan when dated rollover is incomplete, even if today's file already exists.
+
+Merge only unfinished prior selections by UUID into existing selections. Honor
+explicit removals/future allocations; never populate from all open tasks. Terminal
+rows remain historical and missing records remain unresolved. Carry-forward is
+already authorized; it needs no new acceptance. Recover interrupted checkpoints
+before reconsidering effects, and carry only once after verified dated completion.
+
+Changed rollover uses the Markdown checkpoint, optimistic checks, script-only log,
+view/baseline and completion protocol in planning-flow. Retain its checkpoint until
+all required effects are verified. An eligible no-change rollover instead uses
+`planning-state` action `complete-rollover` with fresh packet hashes and context.now; it
+creates a receipt, no log event. Outstanding effects/unresolved carry are not eligible.
+Reprepare after changed Markdown or state writes before preparing the review.
+
+## 4. Render and save the review mapping
+
+Load [review scope](../daily-tasks/references/planning-flow.md#review-scope),
+[durable mapping](../daily-tasks/references/planning-flow.md#build-and-review)
+and [response conventions](../daily-tasks/references/response-conventions.md) before
+rendering or waiting for numbered replies. Use the prepared owner-focused review,
+its full scoped counts, stable ordering, first incomplete milestones, future
+exclusions and pages of at most 15 additions. Existing out-of-view selections survive.
+Persist the displayed UUID/number mapping, binding and local date with `planning-state`
+action `save-review` before waiting. Load the [CLI inputs](../daily-tasks/references/cli.md)
+for the packet's complete hashes and matching page/allMilestones options. A changed
+inventory/mapping requires a fresh screen; never reinterpret old numbers. Reprepare
+using saved mappings, preserving unchanged identities' numbers across writes, pages
+and follow-ups.
+
+When authoring either document, load [custom templates](../daily-tasks/references/templates.md)
+if configured/supplied. `templates.planDayReview` controls chat; `templates.dailyPlan`
+controls saved output independently. Otherwise load the bundled [review screen](../daily-tasks/assets/plan-day-select-tasks-screen.md)
+or [daily-plan template](../daily-tasks/assets/daily-plan.md) for that document's visible
+layout. Use the [saved-plan contract](../daily-tasks/references/planning-flow.md#saved-daily-plan)
+for personal/delegated responsibility and retaining only selected work. Existing
+layout/prose survives ordinary updates. Template registration does not authorize
+rewriting records or accepting sample work.
+
+## 5. Apply explicit decisions
+
+Resolve replies against the saved screen using response conventions. A bare number
+needs an action; clarify only affected items, retain clear batch decisions and save
+progress before waiting. Silence and omitted rows never supply acceptance.
+Adding previously unselected work requires a supplied planning decision. Removing
+a row deselects it, leaves its task open and stops future carry until selected.
+Log changed selection/deselection once; never log unchanged reads/check-ins.
+
+Status/ownership/closure changes go through [Records](../daily-tasks-records/SKILL.md):
+canonical tasks, required parents and project views first, daily projection second.
+Status reports do not select work. Preserve owner authority and explicit acceptance;
+a user's explicit request to create named work can be acceptance, while quoted
+requests, inferred promises and new text-only checkboxes remain Capture candidates.
+A failure retains the pending checkpoint and the exact incomplete effects.
+For explicit future dates use the [future-selection transaction](../daily-tasks/references/planning-flow.md#future-selection-transaction),
+creating only that missing date's plan and preserving one active date per task.
+Reprepare after writes invalidate packet hashes before another review/state action.
+
+Never rank selections, request an execution-order decision, calculate time budgets,
+schedule slots, change targets or fit work into a timeframe. Execution order belongs
+to the person; planning never authorizes external messages or delegated execution.
+
+## 6. Verify and report
+
+Verify affected records, parent/closure effects, project/daily views, script-only log
+results and baselines under operations before completing checkpoints. Preserve
+completed/cancelled visibility, explicit removals and today's plan identity on repeated
+calls. Failed receipts, unfinished operations or conflicts remain pending and resumable.
+Verify rollover completion separately from first review and successful check-in.
+
+Link the saved plan first; summarize applied changes, outstanding decisions and exact
+failed effects without reprinting the entire plan unless requested. Use the review's
+same layout/numbers for today's recap. Future tables require an explicit week-view
+request. A preview or fictional example cannot claim saved output.

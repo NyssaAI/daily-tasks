@@ -12,8 +12,11 @@ profilePath, instead of composing temporary orchestration scripts. Its packet in
 context, current/previous plan identities and hashes, inventory, rollover, review,
 pending operations, maintenance gate and explicit enrollment issues. It validates the
 complete inventory graph; selected-record fragments are not a validation universe.
-Inspect pending/reconciliation issues before applying the proposals. A prepared packet
-does not mean rollover, reconciliation or check-in has completed.
+Inspect pending/reconciliation issues before applying the proposals. After recovery,
+reconciliation, plan or state writes change packet hashes, run planning-prepare again
+before a dependent state action or review save; never reuse stale fingerprints.
+Preserve saved mapping numbers for unchanged identities when preparing again.
+A prepared packet does not mean rollover, reconciliation or check-in has completed.
 
 Omit `now` on initial preparation so the host resolves its actual clock and local
 day. Use the returned localDate even when the UTC calendar date differs. A requested
@@ -36,7 +39,10 @@ the profile and resolved paths in this request's runtime context. User preferenc
 may be home-scoped, but stateRoot defaults to the vault's `.nyssaai/daily-tasks` so
 different vaults do not share pending operations, baselines or check-in progress.
 Use stateRoot for operational state and configRoot for the selected profile/templates.
-Setup asks only scope and missing identity routinely and reports the detected timezone.
+When configuration is missing/conflicting or explicitly changed, load
+[Setup](../../daily-tasks-setup/SKILL.md) for authoritative discovery precedence,
+first-use questions and output defaults. Reuse configured scope without restarting
+setup; Setup reports the actual detected timezone.
 
 A planning session has exactly one bound vault and one projectsRoot assigned to it.
 Home-level preferences can be reused in separate vault sessions; they never widen
@@ -131,7 +137,8 @@ Pending future selections pass pendingFutureIds to suppress repeat suggestions.
 Out-of-view selections are preserved in the daily plan, not displayed in this owner view.
 
 Apply templates.planDayReview or the bundled screen. Match its count line, conditional,
-five columns, legends, carry marker and today-only recap. If incomplete is true, add a
+six columns (#, Status, Project, Milestone, Task, Due Date), legends, carry marker
+and today-only recap. If incomplete is true, add a
 short factual note that counts/options are incomplete and route affected diagnostics
 to reconciliation; do not add blockers or a Needs clarification section to this screen.
 The conditional first_run_today describes the first review run, not plan-file existence
@@ -141,6 +148,67 @@ Commands must include an action and stable numbers. Resolve ambiguous commands b
 affected writes; process independent clear items. Status reports update canonical tasks,
 parent effects and project views first, daily plan second. They do not select work.
 No execution ordering, scheduling/time fitting, implicit acceptance or automatic shortlist.
+
+## Review scope
+
+Load this contract before deriving review rows or inventory counts. The review is
+owner-only: canonical owner must match the current user's email, regardless of
+assignee. Do not split delegated rows or show assignees, blockers, blocker counts
+or a Needs clarification section. Preserve affected selections while reconciliation
+handles uncertain facts separately. This filter never removes out-of-view selections
+from the saved plan. Ownership permits planning/delegation decisions, not execution.
+
+Counts describe the full user-owned scoped inventory at the recorded update time:
+unique open projects/tasks are not-started or in-progress; late tasks are open tasks
+with an explicit target_date before the configured local day. Due today is not late.
+Never infer dates/counts; identify stale/incomplete inventory rather than claiming
+verified exact totals. The addition-page cap does not limit selected rows or counts.
+
+Order projects by directory date, oldest first, with alphabetical name tie-breaking;
+undated directories follow alphabetically. Preserve indexed task order, then place
+valid unlisted tasks by filename. Missing index links do not make accepted work
+ineligible. This is stable presentation, never priority/due-date ranking or execution
+order. Show only the first incomplete milestone in authoritative sequence, skipping
+completed/cancelled milestones, unless all milestones are explicitly requested.
+An empty first incomplete milestone does not advance eligibility to the next.
+Resolve unknown sequence before relying on "first"; never use UUID ordering.
+Preserve existing selections from later milestones.
+
+Keep selected tasks out of available rows. Exclude explicit future-day selections,
+including durable allocations and pending review decisions; a future due date alone
+does not exclude a task. Work moved to another day does not return on later pages or
+today's recap. Offer at most 15 available additions per page with Show more for the
+remainder; all-milestones requests keep this cap. Never make an automatic shortlist.
+First review introduction, plan-file existence, rollover completion and successful
+check-in are separate states. On resumed/same-day requests preserve the plan and
+follow the requested route rather than forcing the first-check-in screen again.
+
+## Saved daily plan
+
+Load this contract when authoring saved output, independently of the owner-only
+review. Separate **My work** (effective assignee is current user's email, including
+work owned by someone else) from **Delegated work** (owner is current user, effective
+assignee is another human/agent). Missing assignee falls back to owner; there is no
+unassigned category. Delegated completion belongs to its doer. Suggested follow-up
+is a Capture candidate, never a silently created obligation; ownership does not
+authorize external messages or taking over execution.
+
+Only selected work belongs in the saved plan; available options/prompts stay on the
+review screen. Preserve selections outside its ownership filter, stable display
+order, existing prose and terminal/unresolved rows. Do not silently reorder work.
+Use the configured dailyPlan template; when supplied, load [custom templates](templates.md)
+for authoritative precedence, registration and adaptation. Otherwise use the
+[daily-plan asset](../assets/daily-plan.md) for visible layout/placeholders. The
+review independently uses planDayReview or its [screen asset](../assets/plan-day-select-tasks-screen.md).
+Template examples supply no work acceptance or execution authority.
+
+Use readable task links with hidden UUID refs and one status mark per task (a table
+Status cell or the custom template's supported checkbox form). Never expose raw IDs
+or repeat full task metadata. When needed, add concise project, delegated assignee
+or concrete blocker context. Omit sample/blank rows and unsupplied Focus; use short
+empty-state sentences. Blockers are informational, without task checkbox/ref rows.
+Completed rows remain checked and cancelled rows visibly marked for today. Do not
+infer focus, deadlines, estimates or slots; no scheduling/timeframe fitting.
 
 ## Once-per-day rollover
 
