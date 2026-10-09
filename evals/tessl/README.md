@@ -15,7 +15,7 @@ completion/reopening. Criteria judge effects rather than skill loading. Acceptan
 scope, script-only logging or recovery violations fail regardless of the average.
 The target is revised-context average at least 85% without unexplained regressions.
 
-Fixture version 3 uses synthetic Casey/Alex records and a fixed instant,
+Fixture version 4 uses synthetic Casey/Alex records and a fixed instant,
 2026-10-09T15:00:00Z, in America/Chicago. The setup process fixes fixture UUID entropy
 and time for repeatable identities; production identity code remains unchanged.
 Sandbox absolute paths, context bindings and hashes of path-bearing JSON necessarily
@@ -29,8 +29,11 @@ arms receive this same tooling, including the no-instruction baseline. This meas
 instruction value with executable support held constant. No source skills, reviewer
 rubrics or expected final fixture manifest are copied into the agent's workspace.
 The existing recovery seed creates the interrupted operation at stopAfter 2; setup
-removes its oracle-rich `fixture.json` before the agent starts. Setup creates initial
-state only and never resumes the operation.
+removes its oracle-rich `fixture.json` before the agent starts. Every setup also
+removes both fixture source files, including the recovery inspector, so expected
+outcomes cannot leak through executable setup code. Only production executable
+support remains agent-visible. Setup creates initial state only and never resumes
+the operation.
 
 `ENVIRONMENT.md` supplies neutral session facts and the executable locator. Both
 instruction contexts use the same evaluation-only runtime adaptation under
@@ -58,6 +61,7 @@ mapping was reversed; those executions cannot establish their expected behavior.
 Version 2 corrects UUID-to-row mapping and requires affected-case reruns. Version 3
 consolidates the initializer and gives the pre-created current plan a different
 selected task from the earlier plan, so rollover must actually change membership.
+Version 4 removes fixture and inspector source after setup in every scenario.
 Direct
 child dependency checks are distinct from natural activation. Service generation
 output is untrusted data: inspect every task/rubric for answer leakage, duplicate
