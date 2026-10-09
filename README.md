@@ -9,7 +9,8 @@ without becoming an autonomous assistant persona or fitting work into a timefram
 
 Ask to set up Daily Tasks, capture possible work, update a task, plan the day, or check in.
 The router loads only the selected procedure. New projects, milestones and tasks need
-explicit acceptance. A check-in can happen anytime; it creates today's missing plan,
+explicit acceptance; your instruction to create named work supplies that acceptance.
+Quoted requests and inferred promises remain candidates. A check-in can happen anytime; it creates today's missing plan,
 carries unfinished selected work forward and reconciles manual checkbox edits.
 
 | Skill | Purpose |
@@ -20,6 +21,12 @@ carries unfinished selected work forward and reconciles manual checkbox edits.
 | daily-tasks-records | Accepted work, delegation, progress, DoD and blockers |
 | daily-tasks-plan | Daily selections, ownership review and explicit future planning |
 | daily-tasks-checkin | Reconciliation, progress reports and resumable decisions |
+
+These six skills form the minimal composition: the router selects or combines sibling
+workflows, and each child can also activate directly. Shared references, templates and
+the Node CLI support those skills. The CLI is executable support, not a command
+component. No additional rules, commands, lifecycle hooks or MCP server are needed;
+maintenance runs during requested workflows.
 
 ## Storage and authority
 

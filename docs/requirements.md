@@ -13,8 +13,12 @@ Priority suggestions explain their basis; the user selects work. Existing select
 unfinished items carry forward automatically. Changing priorities needs user acceptance.
 
 R2. Explicit acceptance (including batch acceptance) is required to create projects,
-milestones and tasks through the skill. Manual new checklist rows are candidates,
-not accepted tasks. Suggestions, requests, promises and silence do not count as acceptance.
+milestones and tasks through the skill. A user's explicit instruction to create named
+work, including a named batch, supplies acceptance; do not ask for acceptance again.
+It accepts only the named work, not additional agent suggestions. Quoted third-party
+requests, requests or promises found in source material, inferred promises, research,
+suggestions, silence and manual new checklist rows do not supply acceptance; possible
+new work from them remains candidates, not accepted tasks.
 
 R3. Exactly one authoritative definition per record. Project index and daily plan
 are editable Markdown views. Reconcile user edits into authoritative records before

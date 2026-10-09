@@ -1,6 +1,6 @@
 ---
 name: daily-tasks-checkin
-description: Run or resume an anytime personal check-in, reconcile Markdown edits and reported progress, resolve conflicts and candidates, and open or create today's local-day plan with automatic carry-forward.
+description: Run or resume an anytime personal check-in, reconcile Markdown edits and reported progress, resolve conflicts and candidates, and open or create today's local-day plan with carry-forward. Use when asked to check in, resume an interrupted check-in, reconcile manual edits, or review progress across work; apply accepted record changes through Records and daily selections through Plan.
 ---
 
 # Anytime check-in
