@@ -269,6 +269,12 @@ successful check-in completion are separate states.
 Resolve and echo an explicit requested future calendar date in the effective zone.
 Use plan-selection with inventory, taskIds, action add/move/remove, date when applicable,
 today and dailyPlansRoot. It returns effects and conflicts and writes no Markdown.
+Inspect both fields before creating a checkpoint or writing. A successful process
+exit does not authorize a change: suspend each conflicted task, preserve its plans
+and state, and report the unresolved identity or decision. Apply only returned
+unconflicted effects; never reconstruct an effect from the request or a visible row.
+An empty effects list authorizes no plan/state write or selection event. Refresh
+inventory and resolve the conflict before requesting a new proposal for that task.
 Each task has one active planning date; historical rows remain historical. An add
 that conflicts with another active date requires clarification; an explicit move
 transfers that selection. Removing a selection defaults to today, not another day.

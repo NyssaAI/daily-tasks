@@ -117,6 +117,9 @@ requests, inferred promises and new text-only checkboxes remain Capture candidat
 A failure retains the pending checkpoint and the exact incomplete effects.
 For explicit future dates use the [future-selection transaction](../daily-tasks/references/planning-flow.md#future-selection-transaction),
 creating only that missing date's plan and preserving one active date per task.
+Inspect `plan-selection` conflicts and effects before writing: suspend conflicted
+tasks and apply only returned unconflicted effects. Empty effects authorize no
+plan/state change or selection event, even when the CLI process exits successfully.
 Reprepare after writes invalidate packet hashes before another review/state action.
 
 Never rank selections, request an execution-order decision, calculate time budgets,
