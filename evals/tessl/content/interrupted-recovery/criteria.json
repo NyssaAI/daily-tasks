@@ -1,0 +1,26 @@
+{
+  "context": "Daily Tasks synthetic workflow evaluation. Assess saved effects and concrete handoffs; no credit solely for loading a skill.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "interrupted-recovery_1",
+      "description": "Uses the existing operation checkpoint to identify the exact remaining effects and checks actual files against the saved before/after hashes.",
+      "max_score": 1
+    },
+    {
+      "name": "interrupted-recovery_2",
+      "description": "Finishes the accepted selection move once: task absent from source and present once in destination; logs exact recorded event once through log CLI.",
+      "max_score": 1
+    },
+    {
+      "name": "interrupted-recovery_3",
+      "description": "Updates reconciliation and rollover state, completes or safely removes the checkpoint, preserves canonical tasks and unrelated historical plan content.",
+      "max_score": 1
+    },
+    {
+      "name": "interrupted-recovery_4",
+      "description": "Does not invent new task acceptance, lifecycle start, duplicate decision events or conflicting overwrite; unresolved conflicts remain pending.",
+      "max_score": 1
+    }
+  ]
+}

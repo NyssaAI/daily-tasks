@@ -1,0 +1,26 @@
+{
+  "context": "Daily Tasks synthetic workflow evaluation. Assess saved effects and concrete handoffs; no credit solely for loading a skill.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "candidate-deduplication_1",
+      "description": "Presents one deduplicated candidate for the announcement, preserving provenance from the quoted request and promise.",
+      "max_score": 1
+    },
+    {
+      "name": "candidate-deduplication_2",
+      "description": "Compares against existing accepted work and candidate state instead of treating repeated mentions as distinct accepted tasks.",
+      "max_score": 1
+    },
+    {
+      "name": "candidate-deduplication_3",
+      "description": "Seeks affirmative acceptance before creating any canonical announcement task.",
+      "max_score": 1
+    },
+    {
+      "name": "candidate-deduplication_4",
+      "description": "No accepted task, daily selection or assignment is inferred solely from third-party speech or the source promise.",
+      "max_score": 1
+    }
+  ]
+}

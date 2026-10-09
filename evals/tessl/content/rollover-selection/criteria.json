@@ -1,0 +1,26 @@
+{
+  "context": "Daily Tasks synthetic workflow evaluation. Assess saved effects and concrete handoffs; no credit solely for loading a skill.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "rollover-selection_1",
+      "description": "Reuses configuration and inspects the earlier plan plus the pre-created current plan; establishes verified rollover rather than inferring it from file existence.",
+      "max_score": 1
+    },
+    {
+      "name": "rollover-selection_2",
+      "description": "Carries eligible unfinished earlier selections exactly once and keeps canonical task state, ownership and earlier plan history intact.",
+      "max_score": 1
+    },
+    {
+      "name": "rollover-selection_3",
+      "description": "Saves a stable same-date same-vault numbered mapping using current preparation hashes and displays the six-column screen with status legend.",
+      "max_score": 1
+    },
+    {
+      "name": "rollover-selection_4",
+      "description": "Offers explicit day choices without starting work, fitting time or silently selecting additional available tasks.",
+      "max_score": 1
+    }
+  ]
+}

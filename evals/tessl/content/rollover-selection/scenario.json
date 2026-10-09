@@ -1,0 +1,20 @@
+{
+  "description": "rollover-selection synthetic fixture v3",
+  "fixtures": {
+    "support": {
+      "type": "directory",
+      "path": "../../../..",
+      "installPath": "support",
+      "include": [
+        "lib/**",
+        "bin/**",
+        "package.json",
+        "evals/planning-fixture.mjs",
+        "evals/tessl/fixture.mjs"
+      ]
+    }
+  },
+  "setup": [
+    "./setup.sh"
+  ]
+}

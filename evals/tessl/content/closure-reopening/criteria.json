@@ -1,0 +1,26 @@
+{
+  "context": "Daily Tasks synthetic workflow evaluation. Assess saved effects and concrete handoffs; no credit solely for loading a skill.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "closure-reopening_1",
+      "description": "Validates the Review task’s embedded satisfied DoD and blockers before applying completion, preserving original start and actual activity timing.",
+      "max_score": 1
+    },
+    {
+      "name": "closure-reopening_2",
+      "description": "Checks milestone/project closure independently; does not complete Launch while its landing-copy criterion remains unsatisfied.",
+      "max_score": 1
+    },
+    {
+      "name": "closure-reopening_3",
+      "description": "Applies the explicit reopening request consistently through parent/project/daily projections, preserving human ownership and task identities.",
+      "max_score": 1
+    },
+    {
+      "name": "closure-reopening_4",
+      "description": "Uses script-only log appends, verifies authorized effects and retains any failed checkpoint; no today selection or execution start is inferred.",
+      "max_score": 1
+    }
+  ]
+}
