@@ -60,7 +60,12 @@ scope, resolved roots and existing identities; never discover personal data else
    check cannot prove the chronological order of earlier actions.
    Validate final
    records, closure/reopening effects and navigation; append and query the exact
-   migration event via log CLI, refresh views/baselines, invalidate inventory, then
+   `workspace.migration` event via log CLI, passing the same resolved profile/vault
+   scope, `projectsRoot` and `operationPath` used by `migration-retirement`.
+   `log-append` rejects a new migration event until actual retirement, preserved
+   criteria/content, live references and all declared effects match the checkpoint.
+   A refusal keeps the event unrecorded and the checkpoint pending; do not blindly
+   append on retry. Refresh views/baselines, invalidate inventory, then
    finish the checkpoint. Keep unchanged history and unrelated prose intact.
 8. On retry, compare each checkpoint effect to its actual before/after value and skip
    applied effects. Reuse the event IDs and payload, checking through log-query so

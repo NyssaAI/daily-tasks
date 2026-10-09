@@ -77,7 +77,7 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | recover-operation | operation:{changes:[{key,before,after}]}, actual:{key:value} | pending/already-applied/conflict |
 | carry-forward | rows, records, userEmail; inventory? with today | own/delegated/unresolved selection, excludes terminal/future-selected work |
 | plan-rollover | today, planId, userEmail; currentRows?, state?, previousDate?, previousRows?, records?, inventory?, removedIds? | due/complete/conflict and merged selected rows with carry provenance; no writes |
-| log-append | projectsRoot, entry, dryRun? | Append decision, identical operation retry deduplicated |
+| log-append | projectsRoot, entry, dryRun?; new workspace.migration also requires vaultRoot (or captured initialCwd), profile scope and operationPath | Append decision; migration checks actual retirement against bound checkpoint; identical operation retry deduplicated |
 | log-query | projectsRoot, recordId?, action?, since?, until?, limit?, offset? | Matching entries across active/archive files |
 | log-archive | projectsRoot, dryRun? | Preserve current file in archives; next append starts new dated segment |
 

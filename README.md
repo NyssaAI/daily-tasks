@@ -107,6 +107,7 @@ npm run eval:check
 ```
 
 [Requirements](docs/requirements.md) preserve the accepted behavior.
-[Evaluation](evals/LATEST.md) separates deterministic checks from unverified host use.
-This initial candidate is available for review; native-host release acceptance is
-incomplete until the documented scenarios are verified.
+[Evaluation](evals/LATEST.md) records deterministic checks and native-host evidence
+for each frozen candidate. Release acceptance requires current passing evidence
+for Node and Codex on Windows x64. Other hosts and phone continuation remain
+unverified.

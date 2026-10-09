@@ -1,0 +1,2748 @@
+{
+  "id": "workspace-migration",
+  "status": "pass",
+  "candidateHash": "5ecc2c25458837374b8619209d96ad0f90f548c14c7a02d98479712fecf00233",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "source_unchanged": true,
+  "archive": "evidence.zip",
+  "report": "evidence/workspace-migration/.temp/report.md",
+  "transcripts": [
+    "transcripts/workspace-migration.jsonl"
+  ],
+  "assessment": "All39 evidence checks pass including three independent interrupted migration recoveries and exact-event retries. Bound workspace.migration append verifies operation effects; refused retirement attempts remain pending without premature event. Actual main migration completed, identities/history/criteria/navigation preserved; unexpected bytes/case collision retained pending. No rawlog access.",
+  "evidenceFiles": [
+    {
+      "path": "evidence/workspace-migration/.temp/assertions.json",
+      "sha256": "b5244962ae5ee049a5846790334e340b8b4105cf785fd63c883e3e602b2f7aad"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/actions.jsonl",
+      "sha256": "593508a6b7cf381fa1f44dd0601483f0eab8b4d28e0161b0d23903eea9f6cc57"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Daily/2026-10-09.md",
+      "sha256": "85fd1a752d894e4f3dabfd23f3ac794a83bffe1db8f835a1c2fb2f5e99d5f015"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "d1645e023eae53efac1c10593682100658f3bc3074cee21dc105e990d1fbd888"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "b6651a57674433286709517cb408be99857a26562855c34f296a555d0f99f9a3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "15793678bc89ee2c0000ef56629db3f592f20fa78ab1548c0a4f953e2da386ef"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "0e8f5d5bd282a45e831c9d6e4cf6393ceb4b1531d6c92d2c987b01e9a66e95f1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "8cd0223acb24a63433770924cb8767dc55a20bbd40161bdee8b82631002fbc46"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "b669fda184bc4a07517c14fe374a1876fd074b5bd18dd00da7c975a04d48f724"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "7af2109346ed2eb92bf08f7dbdbea6186e2483e85fc39a23b3494fdd5e09fc32"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after/Projects/legacy-review/project-index.md",
+      "sha256": "16c7d27c88fa1c8cfa25a51c04c6ede89da283470d35dd098353752dea8789dc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/after-inspection.json",
+      "sha256": "9450007396e6bdb8ffba23a3d42b410e4e503cc0a6b59d06f0956db4474af8ce"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before/Daily/2026-10-09.md",
+      "sha256": "85fd1a752d894e4f3dabfd23f3ac794a83bffe1db8f835a1c2fb2f5e99d5f015"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "d1645e023eae53efac1c10593682100658f3bc3074cee21dc105e990d1fbd888"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "b6651a57674433286709517cb408be99857a26562855c34f296a555d0f99f9a3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "15793678bc89ee2c0000ef56629db3f592f20fa78ab1548c0a4f953e2da386ef"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "0e8f5d5bd282a45e831c9d6e4cf6393ceb4b1531d6c92d2c987b01e9a66e95f1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "8cd0223acb24a63433770924cb8767dc55a20bbd40161bdee8b82631002fbc46"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "b669fda184bc4a07517c14fe374a1876fd074b5bd18dd00da7c975a04d48f724"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before/Projects/legacy-review/project-index.md",
+      "sha256": "16c7d27c88fa1c8cfa25a51c04c6ede89da283470d35dd098353752dea8789dc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/before-inspection.json",
+      "sha256": "25ea8a986d65394b667ef6b3cfd6447b9f79fb3e0d11d28455463e455efcd41b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/completion.json",
+      "sha256": "0d344490933344feaac5a73a6752c4586e04d3279a1753f8abee05a8420e8e56"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/invocation-dest-1791571672051.json",
+      "sha256": "ce0865416124428d1950c727e08da546f53d099f0b6e2bead14ca5fd42406ae9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/invocation-inspect-1791571672342.json",
+      "sha256": "0a9a9aa99c9a6496a5e821f78123a1179880da87284b5602dd9e4bf5e4793c26"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/invocation-query-1791571672139.json",
+      "sha256": "500fcc28069ddea1e705256d8d11f5a9fe2339671f5771cd72f2d598052b7dd8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/links.json",
+      "sha256": "6a433a9fa8b2f0e1086630be475634181285c41b0357b9bf34cbe0dcbe62a881"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/log-query.json",
+      "sha256": "05bc7f948323e0c1ceac97f647eca0c0be24bfe27ecf152488db3d30b047a537"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/navigation.json",
+      "sha256": "b3c0a4f343ce0b7ea52aa84dbdcce826dc1991caa3c6ad395745a84d8218292b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/saved-operation.json",
+      "sha256": "59b4c35aa4908fe9dda510ccb2e0e56c4908e19f8b74e91e4d6e1685d31c8a83"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/.nyssaai/daily-tasks/operations/01a121fd-4346-73c8-afba-5df5f77133d8.json",
+      "sha256": "59b4c35aa4908fe9dda510ccb2e0e56c4908e19f8b74e91e4d6e1685d31c8a83"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Daily/2026-10-09.md",
+      "sha256": "85fd1a752d894e4f3dabfd23f3ac794a83bffe1db8f835a1c2fb2f5e99d5f015"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "5aff209b6a6fad922477f17af21d53b57e35c8e761e1d44c29156e6ea66e32dd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "d1645e023eae53efac1c10593682100658f3bc3074cee21dc105e990d1fbd888"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "b6651a57674433286709517cb408be99857a26562855c34f296a555d0f99f9a3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "15793678bc89ee2c0000ef56629db3f592f20fa78ab1548c0a4f953e2da386ef"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/legacy/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "0e8f5d5bd282a45e831c9d6e4cf6393ceb4b1531d6c92d2c987b01e9a66e95f1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "8cd0223acb24a63433770924cb8767dc55a20bbd40161bdee8b82631002fbc46"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "b669fda184bc4a07517c14fe374a1876fd074b5bd18dd00da7c975a04d48f724"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/m1-review/M1-REVIEW.MD",
+      "sha256": "7af2109346ed2eb92bf08f7dbdbea6186e2483e85fc39a23b3494fdd5e09fc32"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/vault/Projects/legacy-review/project-index.md",
+      "sha256": "16c7d27c88fa1c8cfa25a51c04c6ede89da283470d35dd098353752dea8789dc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/case-collision/workflow.json",
+      "sha256": "c870d62c9231dcb880b251cd7178e39011197cedb1ae4061500ec26217853e24"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0001-resolve-context.input.json",
+      "sha256": "d000e36b43900dd4e3fb8078a94a0d0d7f6ab8314e824e8531d0decb7984bff1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0001-resolve-context.result.json",
+      "sha256": "685673a51f88660ee4bc4d1280270449cc5dd1e6f04947bc31f3fd264df694eb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0002-new-id.result.json",
+      "sha256": "9e8a40d2394d461332a7beda582e944e7f4ac3fc00901895642b43345225cb70"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0003-new-id.result.json",
+      "sha256": "0877d1b4221a8d5f46b91fc998b42d43738c36bb0b792781f2e016395313532a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0004-new-id.result.json",
+      "sha256": "135f89ce5b5e5cf0be0796fb1d03b1b5a58766f8f85694712cdc8388b0b3e508"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0005-new-id.result.json",
+      "sha256": "b08f7d4eac6a71ff12991154581172acbf8af8cc6c57a418c419e02a3f197f69"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0006-new-id.result.json",
+      "sha256": "c2526d499946e4ace363143f0dad6a41330ba998586b3ee74a9f383acf6669ac"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0007-new-id.result.json",
+      "sha256": "f4757919a1013d6e20074c8fa6eb81235f4d4c8347f39590238b4a09566db00b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0008-new-id.result.json",
+      "sha256": "ac3a31a030bc6bf74fa2f1bcbcfc7e8499669dbc4d02f6267ad257ec602ab2a5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0009-new-id.result.json",
+      "sha256": "6f4dda45a44bdcbb407994121bcf1f2805ce5328221705c9b917a76cfdc8d3ca"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0010-new-id.result.json",
+      "sha256": "cd20b1157336a1c417f12bf9659114cfb63c439a33a3542855b232c7895ae3bd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0011-new-id.result.json",
+      "sha256": "71db3864d0bac0622314cde5043b9bd2eae4df8c17724b85065c034333f337a7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0012-new-id.result.json",
+      "sha256": "2de2e31810b8ea6c1ec9817c50518dbf24f4f55c39fef7f4568325b610963243"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0013-new-id.result.json",
+      "sha256": "c5ad02e4d2b32a813f2c787d5f870644b84d44c354d9699c14702eb01435c880"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0014-log-append.input.json",
+      "sha256": "c512b740bec3a672d784c40f36d67c73b41501e5999787169c5a6a5ff12a384f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0014-log-append.result.json",
+      "sha256": "8cf96334189b3a538130d3682900da29b345250eaab7854fb8e6b6b4ac371bd4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0015-inspect-records.input.json",
+      "sha256": "44105040211591c9530f9ef7a608bcf9be9b7ef1724c46462e36296b3147fd78"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0015-inspect-records.result.json",
+      "sha256": "f31db09c4b9c2539526582f04bbc76e33f1612f2f0a9f2669f7f20652b7cb711"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0016-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0016-activity-time.result.json",
+      "sha256": "5833022572aafbc8deaef0600ff828d01d733c81b3da2f353290fc074f5d6d66"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0017-new-id.result.json",
+      "sha256": "54e93ea50ea4077abbbbab6d6434d84d14137f52192f7a27e1b89e8bd93ab710"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0018-new-id.result.json",
+      "sha256": "ff5ff9515ce9bcbe45211e7206ebe579aec9bc658a1336c297ae96a136d93920"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0019-migration-retirement.input.json",
+      "sha256": "87af90dd0704493190235c4a6616f7a2ec21c1c730ec797fc32fb5f7562efd3c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0019-migration-retirement.result.json",
+      "sha256": "3c541d173d30ad0c3c5638aade54a6fa9c633fbe6fc7a5bd9abcb5725c443754"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0020-migration-retirement.input.json",
+      "sha256": "87af90dd0704493190235c4a6616f7a2ec21c1c730ec797fc32fb5f7562efd3c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0020-migration-retirement.result.json",
+      "sha256": "c6355715b0801572345f268c20340cff76e75e27b930bf354971e02fd95b9135"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0021-resolve-context.input.json",
+      "sha256": "7618adbb42962908ec1dee84fe8ab4782fb8b0f6fec36f822842157adc5a2ae1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0021-resolve-context.result.json",
+      "sha256": "ffd8af19f8d43e7dfc3a820473627c0714eda9f9cae2dadaf61d51ffb4037aaf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0022-new-id.result.json",
+      "sha256": "b0972cac9676630d802c1c7d486ff98851003f42e8e0c574358a2f654d07ae51"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0023-new-id.result.json",
+      "sha256": "789fb843294775b260ee046edd311169038fb804288c62f0bbf510b0b0bfed1f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0024-new-id.result.json",
+      "sha256": "26f97e8b2e8672f041388d9eafe15d2e75df4ddeee51758ae1715f465e1f793d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0025-new-id.result.json",
+      "sha256": "d725d2d83da84d7cd6d093818c930deff920cb4142972e49f111c2ecfa487df6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0026-new-id.result.json",
+      "sha256": "57973f5803144b61533fff6c3c931f085bd2e40159cfe858a6b428c685b10a23"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0027-new-id.result.json",
+      "sha256": "e7674f969447f80b9525210d95341e01abd825fc8fc18548128f6d48ae4feaba"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0028-new-id.result.json",
+      "sha256": "723a8c3dcfde3b2b7fde5eab8a67ad0512b8279d723df7eb3acfc36fbd24158e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0029-new-id.result.json",
+      "sha256": "21e243e7431fbf21685a6b01be82573415818cfe305b98818465fa3b939826a3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0030-new-id.result.json",
+      "sha256": "194452bf334e30a551c4738040729a52b615e6633392e6eaf8cf0d4edeeac84f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0031-new-id.result.json",
+      "sha256": "b338186710427db9e797a99c06ef6f7bb9d637cfbdb5df8fd8968d122212efe1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0032-new-id.result.json",
+      "sha256": "bcca1c6d702ac0a51b66787411d72a8023ade19ce3d362d41ad12a6c13799bda"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0033-new-id.result.json",
+      "sha256": "ddc3ea724be88b9debb093dd67770a0e3146504e910ca8fd69574ca8e6ccc5b2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0034-log-append.input.json",
+      "sha256": "1337fcd9091187c0ccc14f614f9609a7e4c002314ba27eaf869e2d43a93b6e54"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0034-log-append.result.json",
+      "sha256": "8f57ca5202dd454facd2cd72f61c06f2578fd9a74f34d1c9a325fea8e6f4ff8c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0035-inspect-records.input.json",
+      "sha256": "a0d514f15659fece4f5a407db9a23b76ac06ea9d761a33d65467e4ecb67ff6b3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0035-inspect-records.result.json",
+      "sha256": "1a2c033e045bbc5f683e4ac64a58c64555cc952f4bb108030bb097620889c64e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0036-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0036-activity-time.result.json",
+      "sha256": "e2d32c337d2a1e0dd6a62671914e1d4c159f5560e75af1f1138a58bf9172b329"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0037-new-id.result.json",
+      "sha256": "68d7e52df449eea0cba6fb2798a9ed8e19e0c00fd91471988decfa6d8651d12e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0038-new-id.result.json",
+      "sha256": "7fcce3c2b2746fd8a6cece5b1db16fe3dd1effc611e807f636fc8bad80ba8639"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0039-migration-retirement.input.json",
+      "sha256": "4deda7909dce60bb1fbe9a03e5e9f9b017f7cc8ed1e2d88ca24390fc1fbedc85"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0039-migration-retirement.result.json",
+      "sha256": "475535973f010b499022ad7cdeb22ed4a5030342452305f8603fa773b912aeb1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0040-resolve-context.input.json",
+      "sha256": "6720d3dad897fe4aba4b51c3e693c42f6cd08001ac38985be4a30696453387e4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0040-resolve-context.result.json",
+      "sha256": "f57f7467cf29291f06a96b9e2f23ce4c6b82d8bb4701165e5a25bc0f6176a3f7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0041-new-id.result.json",
+      "sha256": "e8d2231c9c2b336146a09b6e369417f9d0b4b2591c46d48ec5317de65f43baed"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0042-new-id.result.json",
+      "sha256": "054253423f2e5dc115b1e60d7687825c7a0fcc2ad1cb53bcd8a306de8265a69b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0043-new-id.result.json",
+      "sha256": "0f6bb3546d6292572b17098cb08c5cb68e0fcc1a97637ead8d2a7100077c443b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0044-new-id.result.json",
+      "sha256": "0a90fa44519f0f79948df4e9493ad97cb98ee14d2dde9cc3524ecbb0e1ab0f7e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0045-new-id.result.json",
+      "sha256": "fbeda1858abc21eb034ef9eb4754e783b00167d12f9d4bef1581b02e7376bfd7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0046-new-id.result.json",
+      "sha256": "0858f7673f48c2a80c1b99044d80af950a0ecd0267c0fcd5e971d1460d274ad6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0047-new-id.result.json",
+      "sha256": "3a4d13e2f54862fad7091b6ce0a667060d4af80f8bf583cd89623bd1868ac0b6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0048-new-id.result.json",
+      "sha256": "64b0f9dffb6fb4faf58112ee648a5295abb4dfd00e688d9c29511b2c8759127d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0049-new-id.result.json",
+      "sha256": "c6bc926760f61d4e78b71df1aff0d21d446390c71d6de34c400823c930dae67b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0050-new-id.result.json",
+      "sha256": "492e3e6cfb7fb91166b15f9140d9fc59e6479a06bd9ee1a141a0d5f04a24b1b5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0051-new-id.result.json",
+      "sha256": "369beb18b268bb482216f4c7bb861c04c918f8299e1ba7b60ee1431deaa41179"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0052-new-id.result.json",
+      "sha256": "a91a8aea79ec0fd2c07ab6e78197f0dda32023da89b3009c1f97074afe07f4fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0053-log-append.input.json",
+      "sha256": "bc3f6956800755193bd8709cac26b29ec2b1c504f54cd896ab5ca28b0a18eb71"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0053-log-append.result.json",
+      "sha256": "3af78b5cdfe25949b931a5904ab365d66bede5e12bacf048de06ba4b5ff549c8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0054-inspect-records.input.json",
+      "sha256": "3597666336dc6aaf6215b3f2acdb3e5b3bfeb98d5b9670912f82670137fd1463"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0054-inspect-records.result.json",
+      "sha256": "2fa625770c87f8c545df37315c52792f49f66313039d5234bed2ccbd3a6fd4de"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0055-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0055-activity-time.result.json",
+      "sha256": "b0933052ddad58a1c2e2acf99473778cf2be95af4b915a90bcafd4acf208de1c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0056-new-id.result.json",
+      "sha256": "123cb4a7fc1fae3cd167759e5d3e07a63a3f58bbfeab318c78571718ceb2a584"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0057-new-id.result.json",
+      "sha256": "c464525dc6e8678464147ea992efeca39f3960d4c6b6438694b2454dabbc147f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0058-migration-retirement.input.json",
+      "sha256": "14472aa2519f930357b82094472f15744f0437001712c255b418ede17bb70b29"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0058-migration-retirement.result.json",
+      "sha256": "6ee626ac1be556536698300caec4ab1fcbca37efa421e61682e754d5cb865869"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0059-log-append.input.json",
+      "sha256": "a0e7abff03888123485981e4a427be4c38e33ebdfad397e2a6c0c38018923f59"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0059-log-append.result.json",
+      "sha256": "b1eb66513a8b263ed5cf95f2fdaa11b7b886b315eb09626293352fe30810521d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0060-migration-complete.input.json",
+      "sha256": "14472aa2519f930357b82094472f15744f0437001712c255b418ede17bb70b29"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0060-migration-complete.result.json",
+      "sha256": "ee73d5e27b1aa8d2a69fdbdb3d37e7915168b04df8aadc229e6883e80563af13"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0061-inspect-records.input.json",
+      "sha256": "3597666336dc6aaf6215b3f2acdb3e5b3bfeb98d5b9670912f82670137fd1463"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0061-inspect-records.result.json",
+      "sha256": "f351de369a6a188e0c96f5bdeda22b497f358ad2e93579b12a0f05d64e60584a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0062-inspect-navigation.input.json",
+      "sha256": "266330c014f9027189412c1cb14cf91a4a70e64ccb1b55d63f15d44e9964a168"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0062-inspect-navigation.result.json",
+      "sha256": "15d40e1c0c6e318c699eccd839c368c787c8923d3799e69b8c5afb9b095ab2e6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0063-resolve-context.input.json",
+      "sha256": "e8067fa7f1e5c098b9d3773db943769463179cac942827758e22c8208f0b6e76"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0063-resolve-context.result.json",
+      "sha256": "9b8e438dc28c2c0b272b5bbe1c761bb72e4651a6176c5d94c2d615d950408817"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0064-new-id.result.json",
+      "sha256": "d6552f271569a5fa86e9ece315eb1edd3cc4fe16aa6324870bed9dd4f6246cd1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0065-new-id.result.json",
+      "sha256": "36420e0338fc1a41e1e9b10dbecd8287ae09c02a4f1dc010f4c2553a232e4c02"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0066-new-id.result.json",
+      "sha256": "cf57a2ed0daf5df1c62e378ae6714871b418672ecb352fd096ff64181bad0c35"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0067-new-id.result.json",
+      "sha256": "07683f49c90d5b31edc3badb8801eef91c264a23c16058ca95443855f1190d9c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0068-new-id.result.json",
+      "sha256": "92f9e4de4ce8eba84502644615f1e3453f8086b1ed7f4f330bcb53cd9603ced7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0069-new-id.result.json",
+      "sha256": "092dbabef79aa636f08fb7f13f8bc2c6b25b64c3c68bde8876a2714db87bb00d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0070-new-id.result.json",
+      "sha256": "3ecfcd65367266a9ef7fd3571ea72d0666bd4039101cf605fcc4cb76929f9e62"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0071-new-id.result.json",
+      "sha256": "59f82c6221fd33a7d0bcfff110dabf1be5d74d46ee075938364e31dd120ffa19"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0072-new-id.result.json",
+      "sha256": "7b297c8b73bb280dc89323d7879ea7ed7b78bfd9d6bcb656da177d52f8fc2b24"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0073-new-id.result.json",
+      "sha256": "11fa4a90ce5103fabfa2ec5c2c6f3f7a7914876410e6dd774ebb2a656bc5389b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0074-new-id.result.json",
+      "sha256": "ea12f7c6a7685c04def5495dcff071a7b5ce7dda40eba54991fb486b097d76b2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0075-new-id.result.json",
+      "sha256": "d6548ed77655fb1ebfa2cb57e0f02c6ae96d6dd775bbcf67da24beb19cb3e75a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0076-log-append.input.json",
+      "sha256": "8a0ecc2ec3227d9a1d0ca5ac4237cc224593b7e6559b84ef87a59ca87f04634c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0076-log-append.result.json",
+      "sha256": "ea3050531c1e98c4088e338fad93c558112dd0f8735dd00fabf2f45d02f620ee"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0077-inspect-records.input.json",
+      "sha256": "77056de32005cd276798c98f53838dd02cd275313dcf27390382bb24a4e709bc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0077-inspect-records.result.json",
+      "sha256": "c008c94e717fb110488a49955042736675dcc4d286e4cb44adf667aef498bdfe"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0078-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0078-activity-time.result.json",
+      "sha256": "903a94e5c2e079ad38638106b24359ee821a9a8de3f76268d4ac5b314cfb3745"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0079-new-id.result.json",
+      "sha256": "51987336f221173bea9a502f3739b6546409650c556a52bcca168a853e0a595a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0080-new-id.result.json",
+      "sha256": "7e7c24cc96599fadfd0e7c60440a916d5789d6777643078b9fbf4e517ca7bcb4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0081-inspect-navigation.input.json",
+      "sha256": "f9558842a5af62b909a2e35e78a85c2bb1510ec7ad364dd397aef7f0a24ba904"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0081-inspect-navigation.result.json",
+      "sha256": "ae704a4e9a33254700e390613848fc647f18324e1aa03c4298ee76d2f0aacf85"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0082-migration-retirement.input.json",
+      "sha256": "4c9ce39821dd8a2b9c15e748100ad9936bda7f5a1496ed46329fac24c15e1bf5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0082-migration-retirement.result.json",
+      "sha256": "6ef06b1456e445f1115f3dc58fec0bad66b8e3f60fb368388f04141cde6b7552"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0083-log-append.input.json",
+      "sha256": "1e3cf180732e6c798faf524dff60ac61a277f23dbebe36ea7199e36f52a260a5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0083-log-append.result.json",
+      "sha256": "a0736ff0dec05bfe2dba4a81b3ebe6d47e6cb640d9d121c0106d2c04a4a9a124"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0084-invalidate-project-index.input.json",
+      "sha256": "e8067fa7f1e5c098b9d3773db943769463179cac942827758e22c8208f0b6e76"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0084-invalidate-project-index.result.json",
+      "sha256": "ac8e54d23915770f260e602c9ff0ebede3cfe96eb163bc205ffefd0995f92248"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0085-migration-complete.input.json",
+      "sha256": "4c9ce39821dd8a2b9c15e748100ad9936bda7f5a1496ed46329fac24c15e1bf5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0085-migration-complete.result.json",
+      "sha256": "c18f39f5dc191e040fcaa0ab50a2b2b51da10f587970ed82dc00d46c99496b31"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0086-resolve-context.input.json",
+      "sha256": "e7217f1f4181ff8df53440be954d1f9b4d651ca163be8d5d4844a5181375f72d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0086-resolve-context.result.json",
+      "sha256": "4460a520c300dc2e9704f0f8ce4ff76c3493440643542708a28e8689d5647318"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0087-new-id.result.json",
+      "sha256": "883c59608f1949a94db433091f1a45b594cb13748c2d98d0fafa1271ac3beef4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0088-new-id.result.json",
+      "sha256": "98078aaa11bd0f01246a10bee96cb69f299e6e900fe67df3d0a4bc25986f432c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0089-new-id.result.json",
+      "sha256": "ad3cabd470a8356010fd411353930cb2beb592b7c78451b00b22ad1e94686ae2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0090-new-id.result.json",
+      "sha256": "b4d5ee594a97d4209715ebf21db1dd27b14521a58288155c8393c1bde7e645b5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0091-new-id.result.json",
+      "sha256": "801e510521cb0af6b7c9449cb98e6258d1ddc68f89e04d2fa82b098d40ac1096"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0092-new-id.result.json",
+      "sha256": "60b1cc022836ad5d6f23e03d67dcf1aeb5c2da16e7ea1874364867e20c35519b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0093-new-id.result.json",
+      "sha256": "1cd6078a6ebbdf80c60505bb3778d511bb97f45a0772a3bc38fa801248053fac"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0094-new-id.result.json",
+      "sha256": "5b2c36c60668a6fc198d86722713bf1a3d85db9c40b6ccc4c20714df6fdf9d30"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0095-new-id.result.json",
+      "sha256": "ecf78277c32084ae58befaa99a80a410e13c87e32f9c642c09631dd4c984ac8b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0096-new-id.result.json",
+      "sha256": "056f967438f588ffca7cb568f3f40e60db60cd6d12769492c44e27e8a22ed1d8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0097-new-id.result.json",
+      "sha256": "ae2f0e4384a4b51ccb5d5ce9a7e45d01226b259ee0f231f6bca5492c72588252"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0098-new-id.result.json",
+      "sha256": "e91496b1306d429384bf9c144178896e6bad75189bb82ba774a2562274fd9fbc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0099-log-append.input.json",
+      "sha256": "97c15d78c35422aaf70520f1556ea69ae7cc1eca28ec88d5a98356a15319e700"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0099-log-append.result.json",
+      "sha256": "e9ecad44f686edbe0eb6808e59a8f6eef16b0a792652d2e8251c59e3332b224a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0100-inspect-records.input.json",
+      "sha256": "0bf81b320e209ad08343a6e00dda039f075b3bb0127102a3fa7ed5f5ea95ce43"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0100-inspect-records.result.json",
+      "sha256": "292f32db1df99966bb6810c2865f1fa4ed010e87c8a6ee6766190358b7a1f73d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0101-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0101-activity-time.result.json",
+      "sha256": "9233bc836a17b227cdc45cfe4acb1e55bbb49be1ba07480c954a9c6ccbf0528a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0102-new-id.result.json",
+      "sha256": "236b7c273726183563673107d0e50ca802e5eb6aae71dbe65154383cbf07d489"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0103-new-id.result.json",
+      "sha256": "222eb7bf02c6d07455417e399df00dba033e8f7f4a59bb056457a2246bc3e832"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0104-inspect-navigation.input.json",
+      "sha256": "e952da91e0ec213221937f4fdfa114d6ca7870c3b9b6d4116584fb4b8bd50c52"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0104-inspect-navigation.result.json",
+      "sha256": "0a340cb5a8c86b2114b2008af53b4d8bea450e55a63c130f7a69c3d45f3052b3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0105-migration-retirement.input.json",
+      "sha256": "76ec7d81d50052e43cb52359e05b7aa9a1383a7c0a0042248772bf9f9c9906c0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0105-migration-retirement.result.json",
+      "sha256": "9c28a3dfff41aa0a09f968e664603fa26cc212505082ec0db7eebc981542bb5f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0106-log-append.input.json",
+      "sha256": "eb7c125111861591d7907378a97dc8db47b42aa93bf4b03860953499fc6f2b87"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0106-log-append.result.json",
+      "sha256": "3a90cfceb4c32dd6d3be8d85bb1987835d829c467f87f8ca991fe9db0d8ed320"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0107-log-append.input.json",
+      "sha256": "eb7c125111861591d7907378a97dc8db47b42aa93bf4b03860953499fc6f2b87"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0107-log-append.result.json",
+      "sha256": "540a635b0e695263cc7ead9f7d886046f70bd09c3f1e046af5e40937639fa604"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0108-invalidate-project-index.input.json",
+      "sha256": "e7217f1f4181ff8df53440be954d1f9b4d651ca163be8d5d4844a5181375f72d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0108-invalidate-project-index.result.json",
+      "sha256": "60179915dcf7c666a2301285a7d432f2bd6fafe240554a93761a618d0528569f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0109-migration-complete.input.json",
+      "sha256": "76ec7d81d50052e43cb52359e05b7aa9a1383a7c0a0042248772bf9f9c9906c0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0109-migration-complete.result.json",
+      "sha256": "0deaa1661612a43c332a2ca030b94e9ed9e1740f41d8462754be04f3a2418092"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0110-resolve-context.input.json",
+      "sha256": "299ad47dfd83f57142699acd2b4d7ecd7c2ec32eae97a4a2d0255529e86abbd4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0110-resolve-context.result.json",
+      "sha256": "18a4973401f1d5e62a6b193cde5f200d1475e0c71ee57217a24994b4e4348453"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0111-new-id.result.json",
+      "sha256": "e239ed14a81984cd1cba8cdc24e935ac166b0cd3266f879e5075859c8c44217b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0112-new-id.result.json",
+      "sha256": "956613c079c1652eae259d2511f0d9e3cd066cc1cc835982e741c0c9a1efd3fc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0113-new-id.result.json",
+      "sha256": "69031cf59d450f5e4b76f6f77b7824bc4ddac4ff2c51ec699263147b31f48b3b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0114-new-id.result.json",
+      "sha256": "f64f1f91c0dc802072246cb6d5939d28fad1c845dbfcaa6f34777d5ec75dd925"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0115-new-id.result.json",
+      "sha256": "79768aa1330ad84558ac4a8aa1fb837d2347cffceeba09a4d60a00437380cab1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0116-new-id.result.json",
+      "sha256": "ac101cd56c6f4d8a74634a243459f70297cd07501bff5d5f13c911db0ab013bc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0117-new-id.result.json",
+      "sha256": "08503aad3e5d4896a06d9f69cbf0602abc83eb7f04fafc9608d517658cb01955"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0118-new-id.result.json",
+      "sha256": "bf118a9e60dffe002d104c5c8cededbe2974e9ff39e5f8a75e90948f98624384"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0119-new-id.result.json",
+      "sha256": "ab1202830f670a175364a164cdaf63b60031ebd4033328117a29b5492c4aad6e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0120-new-id.result.json",
+      "sha256": "cfaa2db150e0eab5eb0976f08df2044e7745759e7cfa7690047992af77c465ce"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0121-new-id.result.json",
+      "sha256": "a6c990b5cab909b3d43e81c5b0320171950b14a21ed04f2cf0834ae2e1fbe757"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0122-new-id.result.json",
+      "sha256": "4c5c2f2eba3e71fda2a47e4b085250d19f80f689e65000e11e5336d29deb68b7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0123-log-append.input.json",
+      "sha256": "2e90b79ff1e8a6ef537c6dc6061475ecd676d5174d33a0e74a739dfebfd5ca2a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0123-log-append.result.json",
+      "sha256": "836178eaa62af20f71904396b31240d3290d72c79e06b146d3ec33562d464a65"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0124-inspect-records.input.json",
+      "sha256": "328af649821849701dcb5083798f9200085c545b3428d6e5b4dc5384265053ca"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0124-inspect-records.result.json",
+      "sha256": "c1cb0f645c0f108767d5150b4c4eade37464e46f381033dd8123a99eef48daa5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0125-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0125-activity-time.result.json",
+      "sha256": "75da8fa1d5ed3c4650c114dfcf65b4d41c9c61232c5a1f99001cf7fd578e78e0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0126-new-id.result.json",
+      "sha256": "faf53d5518aae8697b128d339503563029b66550755cbd229b9ff39243ee10eb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0127-new-id.result.json",
+      "sha256": "c7260fd54842b3f7046d88db16ef4fde5b8c4f59dd2383eebc393ae6982d83f4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0128-resolve-context.input.json",
+      "sha256": "58a661ccd551d82347ed9103cb1aca98ac85d776b6aecdb31cb9c71aba1683ce"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0128-resolve-context.result.json",
+      "sha256": "ea72017306d75b0693467d7dfa7d035b6c6fdb25a81c26fe0479e5f0d169a536"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0129-new-id.result.json",
+      "sha256": "3b035f623ad1441a9940581fec74cf447ad0b56b778c6a41a3ad31f188d9d98a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0130-new-id.result.json",
+      "sha256": "9ab40b5c3d294f6639192970e3cdeb60105edd9b4428f713aeab02176eeb7edc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0131-new-id.result.json",
+      "sha256": "f7ba0bbce9fa6107bfaf72684581ba48542e8ccb036dec7b903630539efbbcad"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0132-new-id.result.json",
+      "sha256": "d5550ac37faaa7a48c197e1ea9ffda212d14139917e5371a9277b5d00e388ae4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0133-new-id.result.json",
+      "sha256": "c6b3577f4345e5701c3aa7aaa41d8b8044f2c08ccd4a3ee5e7b28386b6ac6888"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0134-new-id.result.json",
+      "sha256": "5139c314b81edefaea604938f3412d2173a7a7b4b7ee32cd9c63b275e18e9e04"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0135-new-id.result.json",
+      "sha256": "07b296710b3d846cae04a02dc2f6878b867c536fb473496e49e3cb0452166a8b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0136-new-id.result.json",
+      "sha256": "d445f053cf26dfb22c7a1e86f37a4b1ef6b58e10cc89ceb23118fb5e8c9671da"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0137-new-id.result.json",
+      "sha256": "d0b0a9ff718e980b6ef12d75bdba7c9607ad7942841af5456c439ab57fedb736"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0138-new-id.result.json",
+      "sha256": "c0b3737bb5354c61f404bd46085b8c29f38ad3cfc1c3ca9e1984b88cdb31017c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0139-new-id.result.json",
+      "sha256": "82b69e332268ede16e0149d31564bbaa62e4fc3c51594502f04f8392f6a2f05c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0140-new-id.result.json",
+      "sha256": "5164d8e79bf78013d82f8cf0c58fb83cd0b123547f227e61838ab5a6d16e0b6d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0141-log-append.input.json",
+      "sha256": "e06f397d7acbea7803f5248b6f5e6b6e7456320f14f2b71eee92a0d077164ae8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0141-log-append.result.json",
+      "sha256": "4bc2e506f804471128384677e792ca8a955d93d71123fd833549fe4fd94fb8b1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0142-inspect-records.input.json",
+      "sha256": "6a69566178e279823c94a6616ae9d4170ccbf0051b81410c6b878a91731c63fc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0142-inspect-records.result.json",
+      "sha256": "a789c865caddec098cb90577456ce1e2ce596d1ad00bef22104cf2473a2a740d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0143-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0143-activity-time.result.json",
+      "sha256": "b6e3d8be9ffe086b7fc8ddbf4fa0cc6c7dfc9d5ca0274cc350b041da0e8eef85"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0144-new-id.result.json",
+      "sha256": "d6e5403d960bf83ac1fb6daa677ee51e1857031dfdd65a3317e21e15a52434c9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0145-new-id.result.json",
+      "sha256": "bc67c1cda9c616669078a088d1122c32de0588868636b50cbb60f4bcdeefcb47"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0146-resolve-context.input.json",
+      "sha256": "7d077cf27b39194eb6601b5f172b468d40106fe05e26ad337b3b0f007a30b20e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0146-resolve-context.result.json",
+      "sha256": "7476a6f5c83d10e2652f136490959d562330964e613aeaa8a93c598a9f57823f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0147-new-id.result.json",
+      "sha256": "60fc26ab144817ca4b056c5174c48b1909cab31509f91ba5cdd7829f6d9a03fd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0148-new-id.result.json",
+      "sha256": "706528bf85d4d4ab6d0633ff9e807c8219d7d49ad7c5419a20eb16a0258f642f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0149-new-id.result.json",
+      "sha256": "2071b5cb87b5eb1e37e39d6d081b8c0aa8fea51ad00d5662038b125fc376fd73"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0150-new-id.result.json",
+      "sha256": "974289f92e3f419618cf7d3215439e9f7190e0ddfc0ad218675bd243b674aece"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0151-new-id.result.json",
+      "sha256": "51506815dd2975d64926569d600904232309045425926bb9f3b68d9ef6859999"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0152-new-id.result.json",
+      "sha256": "5ab48b204245fed5182c4a174fd402abb74f749e496aa69be91fbe577ee3f3c1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0153-new-id.result.json",
+      "sha256": "7a3e7af8d682f8d361313fc729ad36a35bfdacba90990ecef6386a2b333403d0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0154-new-id.result.json",
+      "sha256": "260a72e38c47f9050cc84256a8d9737a9f79950f5023e47ae29a6e0de7a0a5fe"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0155-new-id.result.json",
+      "sha256": "25fdbf6a761d3001c8ebdb2b22fde1b57ee166083849b475fa83f417577bae70"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0156-new-id.result.json",
+      "sha256": "133924ecdd08e0140ee941a9f78a2137321603578df1fb4272933af9a2e35f4c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0157-new-id.result.json",
+      "sha256": "acf2bb9e04e9ff28f894531a1aea17aed66e30d453072320c3fe8f00037b240d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0158-new-id.result.json",
+      "sha256": "ec9820d556367a938e100efb5ce0e5d53c73659d9883ba421c879e924780b89b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0159-log-append.input.json",
+      "sha256": "7a6d5baca22855646d78dc5776cd37c8324695a0a222a502a6c114aa28cb3f1d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0159-log-append.result.json",
+      "sha256": "9d6180c0450113246e5061b1a80e2830471a6f90bee96a063f94c686cee43694"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0160-inspect-records.input.json",
+      "sha256": "f3bdea7952cea05f877bc1cf345769aa791873100ce6f8ee35946d674c34a22b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0160-inspect-records.result.json",
+      "sha256": "94b0e947495c0af125f034d3f60235afd3048fdf7b3caf41c39c609dbe668253"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0161-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0161-activity-time.result.json",
+      "sha256": "74643efca7aaadea5b736e438b808fceeeca70a8abecc3a15ed295c6e9f65569"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0162-new-id.result.json",
+      "sha256": "a20c1bf1407f6e9ee848788856c6b7de4a601bf9a1632726d53889a162a49800"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0163-new-id.result.json",
+      "sha256": "c29b0f805d8cd0c9024cd1ebae7407085c59020fdaf08a6561dd064925fb8123"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0164-invalidate-project-index.input.json",
+      "sha256": "299ad47dfd83f57142699acd2b4d7ecd7c2ec32eae97a4a2d0255529e86abbd4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0164-invalidate-project-index.result.json",
+      "sha256": "313f8dae7840a1b59b9bcd675039cb783add5151a0a7cb5fad4e83509e8e5ab9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0165-migration-complete.input.json",
+      "sha256": "f1ea06a4433d9f3b9197d7cbfe3b0aed73a3b12a0bcce390d2e655dbfc86b375"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0165-migration-complete.result.json",
+      "sha256": "d5a71abfae5f5500f40174eae50a0b889ec302806e4b6b9fae482af2fdc5bcff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0166-invalidate-project-index.input.json",
+      "sha256": "58a661ccd551d82347ed9103cb1aca98ac85d776b6aecdb31cb9c71aba1683ce"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0166-invalidate-project-index.result.json",
+      "sha256": "49e908bdda1d75ccc478cc08560e04471bb02e6c8ea6217ae509fb9489084976"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0167-migration-complete.input.json",
+      "sha256": "0bb2ab2851bccd502e9c1ae46f2f67d58277527198ddd13568f213a77b943302"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0167-migration-complete.result.json",
+      "sha256": "36d65f61295ad2ded82442cfb15a60cba31d68498dc9c95e58d9ffd8a2c82e24"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0168-new-id.result.json",
+      "sha256": "c0125bd27bd643379476d3b4ae805fc6492d5e6aba994df02ca31fa113b3132e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0169-inspect-records.input.json",
+      "sha256": "f3bdea7952cea05f877bc1cf345769aa791873100ce6f8ee35946d674c34a22b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0169-inspect-records.result.json",
+      "sha256": "4595fc7f7c577aafb2237a6271b8deb5fe7d6e166eb033435d49cc5f2d8df2fb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0170-check-closure.input.json",
+      "sha256": "c0bc2f5b4ab44f6a1280b4da11308298ade26527b159407881c64016eda2746e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0170-check-closure.result.json",
+      "sha256": "2cad97aaf3a6af9ffec62877818bd8cd635e16c639bf26048d1ecbfa1dcf5e77"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0171-log-append.input.json",
+      "sha256": "a0e7abff03888123485981e4a427be4c38e33ebdfad397e2a6c0c38018923f59"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0171-log-append.result.json",
+      "sha256": "29bfaa676bb40d3fa8e571871ed5cedb030c3b9a1b200b6801aa913208de35a0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0172-invalidate-project-index.input.json",
+      "sha256": "6720d3dad897fe4aba4b51c3e693c42f6cd08001ac38985be4a30696453387e4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0172-invalidate-project-index.result.json",
+      "sha256": "8c4d6b9eb2af6ceb494c70613df18aad37315e7bf2faa847d1dc68197b9e6891"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0173-log-query.input.json",
+      "sha256": "acf83ff23e456a151eb588453cafe3f649149de88e4de1ab30b026e62fe76bf3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0173-log-query.result.json",
+      "sha256": "f5b93b10a593a983629d1c7d4b32f273fa59e30353d2a76f0634a49d625a3b3c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0174-log-query.input.json",
+      "sha256": "3597666336dc6aaf6215b3f2acdb3e5b3bfeb98d5b9670912f82670137fd1463"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0174-log-query.result.json",
+      "sha256": "754d111773d7eef0f211cc4457a346f93f4df58bf73c0f1aac36888f8ec1a3b1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0175-inspect-records.input.json",
+      "sha256": "3597666336dc6aaf6215b3f2acdb3e5b3bfeb98d5b9670912f82670137fd1463"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0175-inspect-records.result.json",
+      "sha256": "a77fe2c26866665e32094b1855bb0547c4c2a75b6969e1e5c4144757d68ad99b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0176-check-links.input.json",
+      "sha256": "3b7150304ce2ae0261bec7dce9cbfb16585b0f7b857776526497e2d6c802991e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0176-check-links.result.json",
+      "sha256": "45e60fb7854a71345294cb21f3c3b23e770100e2d26e15dcc345579f0c2877f6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0177-inspect-navigation.input.json",
+      "sha256": "266330c014f9027189412c1cb14cf91a4a70e64ccb1b55d63f15d44e9964a168"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0177-inspect-navigation.result.json",
+      "sha256": "ed546fa2da95a2d759285c47381cf20a1ef3a699644155148b14f7556c6e55ff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0178-log-append.input.json",
+      "sha256": "1e3cf180732e6c798faf524dff60ac61a277f23dbebe36ea7199e36f52a260a5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0178-log-append.result.json",
+      "sha256": "e029e26fe199a5e470cd5bc599a91e08e6e9bc115de4bc9b3f52751b12499702"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0179-invalidate-project-index.input.json",
+      "sha256": "e8067fa7f1e5c098b9d3773db943769463179cac942827758e22c8208f0b6e76"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0179-invalidate-project-index.result.json",
+      "sha256": "20639408134ef650600a4ffc27be0e27ca5cb57276e6dee0e1facdc936a3b552"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0180-log-query.input.json",
+      "sha256": "58ded31f9efd5909873eb347f6b7d717a3919624f3afdff7cbfa8256d1ffafe0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0180-log-query.result.json",
+      "sha256": "7d45b5e5e8eef86553c3821cc52c4a463c14a3df958ee4f8dc5d52c62f70b879"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0181-log-query.input.json",
+      "sha256": "77056de32005cd276798c98f53838dd02cd275313dcf27390382bb24a4e709bc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0181-log-query.result.json",
+      "sha256": "26d7115604ec8542c7d553d81c9f6f7561fecb591f537e5b3940ad4638bf7181"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0182-inspect-records.input.json",
+      "sha256": "77056de32005cd276798c98f53838dd02cd275313dcf27390382bb24a4e709bc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0182-inspect-records.result.json",
+      "sha256": "da1e74b4fa5f90558fc0da69154208718fcf68c185b58d0e8a5648e6ec65c20f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0183-check-links.input.json",
+      "sha256": "55f24b63ee9e24c23b4eb6ef5087cb1728c3c0d40ad696761a16e21e8e9fb712"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0183-check-links.result.json",
+      "sha256": "54527ead62ca4c5a7559e8e04ed40ee2d9ac4b6d1aba1114ec2e32d273603d57"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0184-inspect-navigation.input.json",
+      "sha256": "f9558842a5af62b909a2e35e78a85c2bb1510ec7ad364dd397aef7f0a24ba904"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0184-inspect-navigation.result.json",
+      "sha256": "502329d72591129265741524739a9f0a6a6e73626d8d3808109e8773c258ce88"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0185-log-append.input.json",
+      "sha256": "eb7c125111861591d7907378a97dc8db47b42aa93bf4b03860953499fc6f2b87"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0185-log-append.result.json",
+      "sha256": "f498563ecfc8e9fb3e5c2ce9c35b8d44cf43f9b8cf6d412c5ce4ddab0f40a2b6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0186-invalidate-project-index.input.json",
+      "sha256": "e7217f1f4181ff8df53440be954d1f9b4d651ca163be8d5d4844a5181375f72d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0186-invalidate-project-index.result.json",
+      "sha256": "5861620586f5b7160c7b6bfa2cea8865e4e130e3035580babc60eee58d4d38ff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0187-log-query.input.json",
+      "sha256": "9f9e733ac42e027159e155d2125e6d71482266acb1353a8191f67dee76f677ea"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0187-log-query.result.json",
+      "sha256": "9a27a0fd6b0d8958818f56631981d93f1a55c5e8bdc2648fb259bceb4552bdf4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0188-log-query.input.json",
+      "sha256": "0bf81b320e209ad08343a6e00dda039f075b3bb0127102a3fa7ed5f5ea95ce43"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0188-log-query.result.json",
+      "sha256": "09adfed49a1efd002c83cce76d6a3ff34f82d8fecc4697307555a1e87e894c56"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0189-inspect-records.input.json",
+      "sha256": "0bf81b320e209ad08343a6e00dda039f075b3bb0127102a3fa7ed5f5ea95ce43"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0189-inspect-records.result.json",
+      "sha256": "f9808a65f1e2e090ca170a0e6aff49c1379a0cdfb7d082b0a60c3e16cc72dbf2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0190-check-links.input.json",
+      "sha256": "2192da13bb20c87db04ac565d662dab072037046fb9d6fc693b430ae8287238b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0190-check-links.result.json",
+      "sha256": "1996c41b1d3b218eadecd9d027dd4a4381f5221d4cb1764b11a9c3ddfadd854b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0191-inspect-navigation.input.json",
+      "sha256": "e952da91e0ec213221937f4fdfa114d6ca7870c3b9b6d4116584fb4b8bd50c52"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0191-inspect-navigation.result.json",
+      "sha256": "0751f9417cffcd0641564c48b989ac3bf85fa3bfeeecb7cfa5271c5164ae8af0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0192-log-query.input.json",
+      "sha256": "328af649821849701dcb5083798f9200085c545b3428d6e5b4dc5384265053ca"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0192-log-query.result.json",
+      "sha256": "57d692bae646df223d1d29a7c35f69ea05b29121e303b27e2984e81675426653"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0193-inspect-records.input.json",
+      "sha256": "328af649821849701dcb5083798f9200085c545b3428d6e5b4dc5384265053ca"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0193-inspect-records.result.json",
+      "sha256": "653fa8d2111daa8d8981a03c347b1b0ab0431b8fc9296cab457bb7723a68cc3a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0194-check-links.input.json",
+      "sha256": "ed16b026cd28e64cd72a532f8feaa0e526a44b08b2ccaa0fb4192ec0e7ad8ded"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0194-check-links.result.json",
+      "sha256": "59ad4404f38664685c006176834c70b65b7a6bf3582f75c007fb42b030c0fd05"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0195-inspect-navigation.input.json",
+      "sha256": "73b71a8f9293a9681c095be263e6937da0bc29e69f42543e81f622b53861abcb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0195-inspect-navigation.result.json",
+      "sha256": "bd72fdcc4277d42e9b284ede9dd66e9ffe484b6531a9a45f1571ae179be581c4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0196-log-query.input.json",
+      "sha256": "6a69566178e279823c94a6616ae9d4170ccbf0051b81410c6b878a91731c63fc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0196-log-query.result.json",
+      "sha256": "318bc17d4b073c23f71fb09e8fc6420cc6da005fe0c5c0576c4f2cf62f79e3c0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0197-inspect-records.input.json",
+      "sha256": "6a69566178e279823c94a6616ae9d4170ccbf0051b81410c6b878a91731c63fc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0197-inspect-records.result.json",
+      "sha256": "0f5e291ba15d2c63f1cc2bf22089a0c2bd2ab28144740182aee73919737ead2b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0198-check-links.input.json",
+      "sha256": "d1060b1abd6d42921d825ba35f5110268d8fd031e7c27e689ac57b64db4c1f35"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0198-check-links.result.json",
+      "sha256": "9aa4c00c141d2fa3fc12022321251780987838b603f8c14320e493f1de64271d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0199-inspect-navigation.input.json",
+      "sha256": "2a00b044a6ea062b516afd12e219c204a9780c9d5785cb44b0e20bff5cc42893"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0199-inspect-navigation.result.json",
+      "sha256": "10b2f271340abf25c17a41a833e4c692d08a2580aad54d169a19a09f59cd0416"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0200-log-query.input.json",
+      "sha256": "f3bdea7952cea05f877bc1cf345769aa791873100ce6f8ee35946d674c34a22b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0200-log-query.result.json",
+      "sha256": "4070ec43a7a570eacc33dd6ecd3c916bf54dc47d4c4799070cd3101592449a9f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0201-resolve-context.input.json",
+      "sha256": "8ded46478f6b2d93250f62b0fe2c040d4a905b02a36563c14585e5df753c2984"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0201-resolve-context.result.json",
+      "sha256": "64e23ad144b8efc94d0f85b65f7c3f950503ea299d5dd6c0f556b4b8614d1ea3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0202-new-id.result.json",
+      "sha256": "0628348e7c10271f786b91d78f1c165a51108943537ac93de222590536ea2a78"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0203-new-id.result.json",
+      "sha256": "7e24b13c2bb97a366cfac55e088fbe3a7617a0ee75a9c30912b7b15ba71dc2d6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0204-new-id.result.json",
+      "sha256": "b94aa9e7b22ea4f58b47201082e6c77be1299e746416a35125844442da528b07"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0205-new-id.result.json",
+      "sha256": "97fe9532d09dbc6cf2260a78f26141191a594af9660c8f6adc807fcd38d5b1dd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0206-new-id.result.json",
+      "sha256": "14ff0dd0e7ce2f3b611b5bd9ad250563a88c2abadf499f097be8937cc6b8e1a3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0207-new-id.result.json",
+      "sha256": "839c17a7e3b3def6747093dcbfc0374c57ee8acd1769c7f856c96b867b36f587"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0208-new-id.result.json",
+      "sha256": "31bf49a7fdeffddf6ec7cd90653215f142dc0c98545afef2b11ec99495f7d864"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0209-new-id.result.json",
+      "sha256": "c1b1d5175ef83d502f2a7433526a09e01d27ff8067ed9da29b06671a5bc67749"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0210-new-id.result.json",
+      "sha256": "e2bca0258bd7a738f3ec8e3c920e60208d1942d02e7dc6c1519246ef9f804e47"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0211-new-id.result.json",
+      "sha256": "58be5e244d32299427a4ffb9ff5dd53e3a465874f6ea82354894103188bb9eda"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0212-new-id.result.json",
+      "sha256": "bf9e776900ccf9b182f9d4b97390d7defcb539de98b90b1e1ece72df00b3fbb0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0213-new-id.result.json",
+      "sha256": "f95a18cdc2fdd7375749ef1faddf2bcec83581a29ce7384d1de2b39899650ace"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0214-log-append.input.json",
+      "sha256": "8a6dae5e12089f0613bd13a923bf1215e78b77dc3c5f01c62d5663040869f840"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0214-log-append.result.json",
+      "sha256": "e58f6f8ecf617b47fd06a9da70e5a3aee8cb14204ff2637062f905715e6863fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0215-inspect-records.input.json",
+      "sha256": "b4a82b6fde1c4792db13c980166697371807575e0a429e5532ef354e79fa62d3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0215-inspect-records.result.json",
+      "sha256": "d28392685b6a9e1464822fc7b01efc1d6b3f093fb517a9caa89c06cec6f5ea22"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0216-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0216-activity-time.result.json",
+      "sha256": "e58af69e6ce386980cfcccd90550933c338631e1fd9509ddc0c5a86d7042f35e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0217-new-id.result.json",
+      "sha256": "216b54cc07a0d274cf7ac5d6f1867edbf12d04d52bd2f1c116e152d659f148f1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0218-new-id.result.json",
+      "sha256": "a1ac8db67cd6a98bd920d0c039269824c97caae29f89ceb077dc3af3fd7516c4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0219-inspect-navigation.input.json",
+      "sha256": "d34fe4e2b935948707111431dc565f4c2c939bb3943237461fca58579fa71d0b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0219-inspect-navigation.result.json",
+      "sha256": "5b65b9e87ef8c0af5073d556db2aeb4224c010af804f63b815cc8867b9a6deab"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0220-migration-retirement.input.json",
+      "sha256": "60e0153465cdcfc4efae392005d76d8054081a4a6cba85a6e24bc8e76a171b60"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0220-migration-retirement.result.json",
+      "sha256": "0fd8a802d04d0611e8e2d9dd8877ba25e1bd7161d413793e1b96d4f4ed54ffe4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0221-log-append.input.json",
+      "sha256": "fdb5a9aa760b93a968286473324e09e2794ecd3c72a288a459d6003aa09ffeaa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0221-log-append.result.json",
+      "sha256": "3b178536a5bc17fc199e58d255c29263361ef36a1e5613868028028393db60db"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0222-invalidate-project-index.input.json",
+      "sha256": "8ded46478f6b2d93250f62b0fe2c040d4a905b02a36563c14585e5df753c2984"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0222-invalidate-project-index.result.json",
+      "sha256": "0b87a2f644f9ffdbcfc224c64fd8b9e13116da6157d73ba7c4375ddf9d4d63a0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0223-migration-complete.input.json",
+      "sha256": "60e0153465cdcfc4efae392005d76d8054081a4a6cba85a6e24bc8e76a171b60"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0223-migration-complete.result.json",
+      "sha256": "5a85683fdbc59f97fa55eff8a6d5dbe17909d341e27ecd0bcc75b9df6d6b4c73"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0224-inspect-records.input.json",
+      "sha256": "b4a82b6fde1c4792db13c980166697371807575e0a429e5532ef354e79fa62d3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0224-inspect-records.result.json",
+      "sha256": "91032e182cffa8e93474f235013f7e321dc591b30614a1319379852b6c057ac0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0225-check-links.input.json",
+      "sha256": "8b82494bc1e84c2fbcaba3333c3b2ea9d9d171dd816b0d125858b29eb00dd09e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0225-check-links.result.json",
+      "sha256": "c749e37f4fc603fe5372a8d4003050fc46fcdf2c47be3db45a4e63147c094b4f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0226-inspect-navigation.input.json",
+      "sha256": "d34fe4e2b935948707111431dc565f4c2c939bb3943237461fca58579fa71d0b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0226-inspect-navigation.result.json",
+      "sha256": "59347ee840eceeb388aaf5e0ad233cb36ad60932abb33b2f65ead12b1e2b3cc7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0227-log-query.input.json",
+      "sha256": "b4a82b6fde1c4792db13c980166697371807575e0a429e5532ef354e79fa62d3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/cli/0227-log-query.result.json",
+      "sha256": "5947ba1db231746438db2899bc3341c725a4e21478142799e6e9c77ee8421cb2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/actions.jsonl",
+      "sha256": "4e554733d1c22c4a656e137f9a68e1a49907e97c32d6f8e8d7cd0693a8c755bf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before/Daily/2026-10-09.md",
+      "sha256": "90c080097b74da9b40140f49d5447c9f0e9219c28ea1eb4a8e50ed1c200e3290"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "9aea7afd7128b77c38435289b6cef498246b1a5e191e936558af42567a7d11eb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "59038224eb9fbf3802cac22dfb0f41730b28fc21e0031f7389bdd1cfbfe71540"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "944d0eb3aeee64651a398c2aaee330682b486d14bfe476be736386106bbdbdb9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "27e79c8911dad99d5bad1070a199c0c3ef87a654d9a565a37d6e7b6ebad15c14"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "6944ccf1e964a4ff578b5e57582bcddf5ce0b6fadde3bf8405370f240319ef0c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "6d7d983e10c8d68e54cfd742ed2e1996466efc9008cc22c6d5eeaefddcac3dbf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before/Projects/legacy-review/project-index.md",
+      "sha256": "055c5ae25aa6de944475d530a2b8a1b97558acffbc5a3366c6b88c53ff6f2c2b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/before-inspection.json",
+      "sha256": "349ddd60462c214a9a5886aff4d183556fb9123e00adbb85f0bce7fe5b7cd170"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/closure.json",
+      "sha256": "3e448640dc3715176188c033d6a31a41a0301ff2ff479d0877633afa0ea328ef"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/competing-inspection.json",
+      "sha256": "96e63d948d65f0f2793fe7de01788f90ad8635b4969507e2c58dd2c70707b51f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/invocation-query-1791571672430.json",
+      "sha256": "785762a8c9ef7dda6894c14b481c4ac64cfcc7c65546532ab6f81e20b1872546"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/log-query.json",
+      "sha256": "5874b1b9d4e87b0c3ad80cdbe75864d78ce890d3f295f4bb8161b591d3f6d373"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/saved-operation.json",
+      "sha256": "4075ba78b853ce57924d0f7fa24058a42fd74b14f67944ecd492d3fa552da922"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/.nyssaai/daily-tasks/operations/01a121fd-46ca-70f3-9133-26cfda015a05.json",
+      "sha256": "4075ba78b853ce57924d0f7fa24058a42fd74b14f67944ecd492d3fa552da922"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Daily/2026-10-09.md",
+      "sha256": "90c080097b74da9b40140f49d5447c9f0e9219c28ea1eb4a8e50ed1c200e3290"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "3bc65dc9f957ad4ab4ed1ed2a11f9f04484a3f3d256ba193554c94e5c96abce0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "9aea7afd7128b77c38435289b6cef498246b1a5e191e936558af42567a7d11eb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "59038224eb9fbf3802cac22dfb0f41730b28fc21e0031f7389bdd1cfbfe71540"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "944d0eb3aeee64651a398c2aaee330682b486d14bfe476be736386106bbdbdb9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/legacy-review/legacy/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "a34696ed65c7f4572b4f83ec3eef9013823066a812be3d0a92e501152064c429"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "6944ccf1e964a4ff578b5e57582bcddf5ce0b6fadde3bf8405370f240319ef0c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "6d7d983e10c8d68e54cfd742ed2e1996466efc9008cc22c6d5eeaefddcac3dbf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/vault/Projects/legacy-review/project-index.md",
+      "sha256": "055c5ae25aa6de944475d530a2b8a1b97558acffbc5a3366c6b88c53ff6f2c2b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing-sources/workflow.json",
+      "sha256": "de2b32bf3e11bfe5e4989e7277d06d969186e0454f337591e83d920ba7552fa1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/actions.jsonl",
+      "sha256": "5a0f6e55dc7a55a2132cf45639cb82dbf519b05e0d9c1091875f4c6a7287afa9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/after/Daily/2026-10-09.md",
+      "sha256": "6539803c123df8a0a649ada87082db2d761f4ccfdac3e01ff26f39c4d88de549"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/after/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "f57e73075ae869f146569d8501e3f605e7a9d6d9cd88910d08ff5da1234298d0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/after/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "c787264717e3074ea108b5d9af69fa1c548fc5c36d94a174fd725d223bd5c32b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/after/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "79fd25a3f60e96a90cceec8fba336b5d0324b9f4cd2a97fbf284326df45c580e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/after/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "19abf29a9291004638e94771aa2bda5d9ba911bd91a8a08f218d0a9b0d308b2a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/after/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "3dc4abe872213bb15488c7b4591f215ad855c5ebf2d2965bafe4990fd05ac2ab"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/after/Projects/legacy-review/project-index.md",
+      "sha256": "cb0da2b42fa33b6f6b2370ed017435d3d46c214f80927e59ce73777b18735fd7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/after-inspection.json",
+      "sha256": "b0555ca9b976e26f5ad40adb149109ea7ef270683c6acfa5a1346d93c3d4ae04"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before/Daily/2026-10-09.md",
+      "sha256": "b88766f485372f60893e0c85a42a9e63824db77896ac3786c0105e7b58d83131"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "999f9fb4e686cf27661e1ef2186da4fed0bc54561b3286e59b29feaa210387d5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "e73ad3ad28c54693333746a17cb9b31e9c86b9bee5858306edb2f77562766a45"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "5c6c6619b0df6cde73c3249112931729f1652a536a65a6bbf9633ca81aefb273"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "9906385fe89ae79c124d37070de46ec87ffb9e25699e8bf8ff77cfe20ab43109"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "e1196b54a7a63474f9c83d609e372ace4822d9c893ccd6b4021cb320605d7712"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "44e84d6e9f4bf2c3699eea10bd932b414decac68ffaeb55dc2c437722c292f40"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before/Projects/legacy-review/project-index.md",
+      "sha256": "758c60a4bf8cb60f569414feae9222278e8e96ce4538b0ce37ee2bba57822876"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/before-inspection.json",
+      "sha256": "76816f6eb89fe7303c44108996a0405442dae6fbd2abc26ec99d8f0787b5608e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/completion.json",
+      "sha256": "4e8d4343150bf772a0a2b090e20b00b06703656aa195c30f2b0b80e8f323b1d1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/invocation-dest-1791571669969.json",
+      "sha256": "e68274e4e2e5fa145fe6495d6349f200cfe6a987f92147560008228f87dac295"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/invocation-inspect-1791571670501.json",
+      "sha256": "dce1aaaf85bdf00f911608e846d7b5bb3dd4ed660bb0cfdf4aa8b994092cd40b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/invocation-log-1791571670089.json",
+      "sha256": "296ab06cb497b5bf6442e497094c5a291e0316448882454b5d715218a49be6bb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/invocation-query-1791571670304.json",
+      "sha256": "dbb7cad21330ce763e933070fdc7cc8ce3a48acdd69ad0cc97ddd23f4940758e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/invocation-sources-1791571670004.json",
+      "sha256": "0234bd72907dc1f89fd121aa24e9f915c08e524db86d287eb63b6800fa193953"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/invocation-verify-1791571670219.json",
+      "sha256": "6c6621b29c8edbf944bcbc77320222dd55ea677b40b011d3d4de90779dbfaef4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/links.json",
+      "sha256": "6a433a9fa8b2f0e1086630be475634181285c41b0357b9bf34cbe0dcbe62a881"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/log-query.json",
+      "sha256": "f630433832f5fd8f664367dd4e40ebf20f9bdb3b12bc59da57f40e1ef2e986e0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/navigation.json",
+      "sha256": "6280c563a9fc12341ba7428a41bd9835c47fdef9cfc6fb957de287e5b05e551f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/retirement.json",
+      "sha256": "d8dc52329b0aa090fbc4cd915f5dfcc7dc7446594793ceb845917b42fa34064f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/saved-operation.json",
+      "sha256": "437b0fbe6754009d34b6e7bace8504e29d39fad77f3fc50c407e1ede1216b122"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Daily/2026-10-09.md",
+      "sha256": "6539803c123df8a0a649ada87082db2d761f4ccfdac3e01ff26f39c4d88de549"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "3ee7980ecc97eeb08a268679ce7ecd394a2565f91c503cd6e4091baf0629593e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "f57e73075ae869f146569d8501e3f605e7a9d6d9cd88910d08ff5da1234298d0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Projects/legacy-review/legacy/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "c787264717e3074ea108b5d9af69fa1c548fc5c36d94a174fd725d223bd5c32b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "79fd25a3f60e96a90cceec8fba336b5d0324b9f4cd2a97fbf284326df45c580e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "19abf29a9291004638e94771aa2bda5d9ba911bd91a8a08f218d0a9b0d308b2a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "3dc4abe872213bb15488c7b4591f215ad855c5ebf2d2965bafe4990fd05ac2ab"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/vault/Projects/legacy-review/project-index.md",
+      "sha256": "cb0da2b42fa33b6f6b2370ed017435d3d46c214f80927e59ce73777b18735fd7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-final/workflow.json",
+      "sha256": "adaf0977635612379c0e73ee4983b12ea6758af2241e75dca67cc628da56e196"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/actions.jsonl",
+      "sha256": "816778af106e083189a13d52b12c4ea882bf74c8c6cafe70c16dee9e8bf8db3d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before/Daily/2026-10-09.md",
+      "sha256": "4d46ecd61ea15e137fa7c02c6429320a88f81842b13ca353e7f25879301e90c7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "aa0e02bdf1a9ebfdafc9660150d53534c295eabefc0669149e25e97c175baf41"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "758ea77e31b7102ff7352090a5e162af12ba6075e8385c6af6b8e6aeff3af2b2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "60d34056df52d877242737cfd2b583a83101cefcc5c110dc3005aa34bbbc5f65"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "105454000236b0b3e0186722b100f68b381e41b276bf49539236e05d2e30cbb0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "51052379d1f3ea17df7f41cb6f56aff920857a418b526df8bc3032f00f0331da"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "35db7c1bba8035e3464c5150df4df302eeb67b49ac1cddfb3f1709abe00dc345"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before/Projects/legacy-review/project-index.md",
+      "sha256": "881827936e88acfdfb2814b56d87e1830708d12e3dd0bd020325d0e7ec48b64c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/before-inspection.json",
+      "sha256": "93191605caf9adbb54e7a178d63190c517ee5f91ad28f17c693d0c679cf54b63"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/retirement.json",
+      "sha256": "6dc090db5c30d50fb4f2c7050eb492851143fedaabcfdd74ccc753d748cd253f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/saved-operation.json",
+      "sha256": "d06117aa9c59ec8b0459ffaca0a68592cf79b49a0d515e81a88bbe6199d286aa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/.nyssaai/daily-tasks/operations/01a121fc-170e-726f-acce-01749fc459ae.json",
+      "sha256": "d06117aa9c59ec8b0459ffaca0a68592cf79b49a0d515e81a88bbe6199d286aa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Daily/2026-10-09.md",
+      "sha256": "ab983fa19c6a1ee506991454f613cb3f878e028bcac7c670f571446ad331e84a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "c396cd005b30669aee6112f8228d2ec878f12ca226e2541309de9c02d2600873"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "c64e41e3f8e1a0052fc8d9f6f50ee8d1f5473576d50e2c6feee0113212a5b2ad"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "60d34056df52d877242737cfd2b583a83101cefcc5c110dc3005aa34bbbc5f65"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/legacy-review/m1-review/inputs/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "429450f71c6fa956ec5421e6a2aed53f9c9ef707ed5badd5f0b4ec802d7fdd4e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "6c1f241d1f0569b9b84a33901b9c41a38b889b29dd82e526d23c3d6ef728435f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "d5931b21c693b9162b6d380f553f36921cbe899fda8528043676b48b93e9f31e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "2ba41ef873231fbd49dfa3b4f1cebc5016c93a400152aa27421626ac15fcfe01"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/vault/Projects/legacy-review/project-index.md",
+      "sha256": "f7a46d0645fde395c15ff4079203485fdeff0f05afbaca2429da15c6a05acc57"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-recovery/workflow.json",
+      "sha256": "4aba30ab8a1a73a6f286da2b26a72a92008ae23a49cd8a377419bfaa52732471"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/actions.jsonl",
+      "sha256": "160350d9282e9601a0247e72aabe4bd065e34ecdf2ff53dcf302eb3120b6a90d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before/Daily/2026-10-09.md",
+      "sha256": "103c7c537aa06f29fe8f6e6d87b4ec1e9fda203ee70370792048d5b84007b3f3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "28ce96c5072f20d1943285763d63dec8af4bf5b27879d0c039aa2fe6e6ea8660"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "a73f3c0f08c08d9c28583135f48ad9454744637e41dc11ae7bedb3d440dd82a6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "c4aa07afe0d2e5cab95c5d97571d6f1cc62e48ad04b91d962bc17409e3df5382"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "08cdf43d48ec42a49d9e17ccee4c7e6b2e727c1ef3b53b8a3b68f315076bb3e3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "a6411547a280ab3723d1c2266bd662c16abdfe848c4842528873e074d724a9c7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "9f280f568d732f64754b5181f3a554cbccc07e92c45f488517500390ec6ba9d2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before/Projects/legacy-review/project-index.md",
+      "sha256": "6f50869c0e126b1fc11365f0481bfb92b44df246de82f95037abd844227dc015"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/before-inspection.json",
+      "sha256": "f683d17ad498ad7eaf93280c6352a72f522d92cbae0cdf0bf959c8a6252cfe0c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/retirement.json",
+      "sha256": "39b2497ca7a081eed6a336d658b3a294bb1e091042574958300ce1af5a29b04b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/saved-operation.json",
+      "sha256": "0940cb84e13f86b163dee048d423cb6bb30ffbf70108e7e8952190dc734d24ed"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/.nyssaai/daily-tasks/operations/01a121fb-a0ac-7424-9f7b-a3c0751b3c78.json",
+      "sha256": "6cd0ac90e6e4cfe6adb272974431527e152a1c6ea96dd3bd41ff392abac7f99a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Daily/2026-10-09.md",
+      "sha256": "0a5f49710dc0219c634c7c13ea0dc9336933a36416b8692565c40421716aafee"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "b7cdb6a3bd12494eee6031b65e72412ea3dcc5de833a5618128a2dec1a9ee244"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "2182bfc99eb40448fefd616c52ad870d2eec29b996854540f5d2018ecef74d15"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "c4aa07afe0d2e5cab95c5d97571d6f1cc62e48ad04b91d962bc17409e3df5382"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/legacy-review/m1-review/inputs/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "a29a9f4b967dc157d8929ee3f3db9563914332cc1d4fb6e93b5bfbf37548635e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "fc9c9a957b19b2f78bd3ae3d83fe5848ed5ccea73f9bdab71c9101a61004c94a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "b69a1f4c69e7a71377c9d71a18e3b33dde01df6f3a531d5ef9a8a4417c612ddd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "a12e91469e96daf953e01710cb3bdef812a2e63609ac609b59d7de92497cca92"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/vault/Projects/legacy-review/project-index.md",
+      "sha256": "530ace59e2c5717f041bf7fe06f2fd3bd6aa6384dbbbc885a358b45f1fd34d84"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination-stop/workflow.json",
+      "sha256": "fc2551cbed862ca2d374d88abb6af07f31697226fb840897c57a4e452afa3b5a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/finish-evidence.mjs",
+      "sha256": "d6f75226c355a53d90aa3ed2def1a544585f43781f343d67bc24082bc2bf53c7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/instructions-evidence.json",
+      "sha256": "0ec268c01d8f4a38243b58ee113e404dd45b49de908e3626d0795a14dcd06691"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/actions.jsonl",
+      "sha256": "36487d624409e75f09d7ff4e16ab6d132de6e47b83138a1902de4250a2ecc2f4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/after/Daily/2026-10-09.md",
+      "sha256": "d2b4b4427c11a5f8d5cbdb124b0b6880b8d314909d29e30621fcdc7302a6b60d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/after/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "27f6148eb3a9fac011475f1c03facdb66864d72ce9a7577e39050d5124a9d0cd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/after/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "1077f0d31f09294cebe0b6a5036539fe6a456320950632a7779a480459d46a6d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/after/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "9248c0d29f8abb0110da4cb11fc9cd86b8e7edfbed5f16bcabab1761f07ab60c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/after/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "fb6210e571543aa7a0688c0eed381f81f8d5cb218ec2ad0667a25b349fc9d7cf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/after/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "b488161f4f0d8df6c0fd66cf755a090ed988bec898b2a3bd4d0c0279f700c3dd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/after/Projects/legacy-review/project-index.md",
+      "sha256": "05113291559eff921c0e6a894c0d134ee8f5a7c37c04b2784208c59030ce52a9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/after-inspection.json",
+      "sha256": "90300d7d5c8c3f1a29583eab57a31f34c5312ecb66126e5ec0473a60117b41ce"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before/Daily/2026-10-09.md",
+      "sha256": "492e64f606834e800edd2caf2f7830a09e8134d5cfb298cef2d6865ca86fa52a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "cb417f1ac7675c4112f3e13e335feb664ee56ca23304a7dfeb7f621079f9fdb8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "b2e50c44a7d90e36fe4f747cd4a0b5fbd602ca10bda260394de11109fc72bf57"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "5ea60429f6f96a6357bf99cfff51f39371fb517f7f4cb5bd346982df7a43de67"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "46d692eac0b5cb4f9594c4f522378dab3b7fc17bf257781166f304795680be58"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "2fe4c3e2350fe65abbb8f7bafa0330bc145a15d6c4c0ffa83b43ef3c882507cc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "0008dd43c16c1e92a56a61d49ba6acb8d1971efaea2e5e5ded0ff613974f28ee"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before/Projects/legacy-review/project-index.md",
+      "sha256": "40caf8106f31679b82cce138efa4bdbb2e5f47625e005a067befc6df3560ebd4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/before-inspection.json",
+      "sha256": "8a7ecc38cb790181c81287ba7c0b6a71f741e397c8aeeb46ee2c2a356db88da8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/completion.json",
+      "sha256": "ff570ec9ab57648a6fefb5c43565243cdf1b7294e1795757bf14f79650f02acf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/invocation-dest-1791571671140.json",
+      "sha256": "bdde7ca39beed077aaee24b68875615ac8177d3282f0b522c4caa709436745b0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/invocation-inspect-1791571671683.json",
+      "sha256": "266404e67b363c019302640b1b35bd45cf03f23f1e6863341b14a3e37cf9c6f0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/invocation-log-1791571671267.json",
+      "sha256": "19d906bf632dae675b421358199de61945bbb22d4b466d9b97fe95dd70008c0b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/invocation-query-1791571671484.json",
+      "sha256": "863750e9797db34a7ce5c63b3f2cf82ede7c09fd849ad23a0f25e3062ef8c9e6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/invocation-sources-1791571671178.json",
+      "sha256": "635bd4e4d7eccda0512e4b09ebe07c5593b9ecd57f0d03040e15493a72ee0538"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/invocation-verify-1791571671400.json",
+      "sha256": "0c2f9d4bc5ee4cc124d843f0dd0b0ae3facf2e70c7b04153c70cb81e86dfb66c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/links.json",
+      "sha256": "6a433a9fa8b2f0e1086630be475634181285c41b0357b9bf34cbe0dcbe62a881"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/log-query.json",
+      "sha256": "b4d941c41a769699a1b2c4d25a944c15d3144cf874d345b1b089bf2954b65ec2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/navigation.json",
+      "sha256": "fd8f74f57f49665768a97f22240c3ca2591d13d5941d33008cad0c1965214a16"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/pre-retirement-navigation.json",
+      "sha256": "e37f19fd45b5c8620ef9b8806a156ef1ff00f08e78a4155f49b555931b3c548d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/retirement.json",
+      "sha256": "19f6b25cd23716f300ca1605e7369eec0a1669f6f9ed4c637fb1cd873e65792d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/saved-operation.json",
+      "sha256": "9492bb4fef3430ca7e4cc261a0557a7288aeae2bf70208fc03dcdbee1d120886"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Daily/2026-10-09.md",
+      "sha256": "d2b4b4427c11a5f8d5cbdb124b0b6880b8d314909d29e30621fcdc7302a6b60d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "68970b5158ce665d0dc77ee71322bcf829ab381c62555ec4511bfdb3a41db747"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "27f6148eb3a9fac011475f1c03facdb66864d72ce9a7577e39050d5124a9d0cd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Projects/legacy-review/legacy/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "1077f0d31f09294cebe0b6a5036539fe6a456320950632a7779a480459d46a6d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "9248c0d29f8abb0110da4cb11fc9cd86b8e7edfbed5f16bcabab1761f07ab60c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "fb6210e571543aa7a0688c0eed381f81f8d5cb218ec2ad0667a25b349fc9d7cf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "b488161f4f0d8df6c0fd66cf755a090ed988bec898b2a3bd4d0c0279f700c3dd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/vault/Projects/legacy-review/project-index.md",
+      "sha256": "05113291559eff921c0e6a894c0d134ee8f5a7c37c04b2784208c59030ce52a9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/log-stop/workflow.json",
+      "sha256": "0180c20a6dfe59217864aff67b088411c4ff3a1ee6bdccf24bf9090c5bcbb6a5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/actions.jsonl",
+      "sha256": "c847489ff2db6155313862e0f24e7d39220f73c6739dc5a0f7e110b47e2fa3ad"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/after/Daily/migration-fixture.md",
+      "sha256": "d6e706021eb50dfbefabb889891aa3287547e5e48551a398bffb834b6c21a4d6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/after/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "30a733b187a1db87efb89840ec8d1527bac6a151ed8595d7a1dd544006fe389a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/after/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "5a64030e7cffdc1268baeee1906088b7bbc759e0e3a914787cf1eab8ce12435d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/after/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "1dd4662a2237e98a617d89a824701af35c54d6e26be05c032fe7bed33e41a27a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/after/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "018659c9a10d274abc16dbb25d601a3ce81ac9eddd82193555ddb217ae0df0ce"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/after/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "9285a6c91bcac9ce13785b76a677afa83e2b04602d4475f7f7607abd0a7c4ec8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/after/Projects/legacy-review/project-index.md",
+      "sha256": "2524e57f04d237284094e20249e71a83937c5cd2b860c0ca3a8df044021baec8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/after-inspection.json",
+      "sha256": "3947619789fb46478d94cfd654ff18dfa33a9ad44e92ebddf35a4c982074c637"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before/Daily/migration-fixture.md",
+      "sha256": "43f4931a993fea00d0022f5e76d8916bd6ae85db8a604720166be12bfb96df40"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "45062b5b9b90964c683439a44bc58f6027d8790c6145f942f88d5e7b0c52732d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "01b3715f0d879745a2612eb79b3efb769a4c12d8a01bfcaac055c200433d0527"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "269b68b500766892ad2c60396fecec122d88ec2d7c9cd383c28ee9d516f97d90"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "a1f01f3a117128e7d1210bf149c6408df209977ceadb9ae72384b19abb78a4f1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "43162e39dbdb4e15e2e5b2ec9886b0ffcbb1f687d002b85597c994c83d06526a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "2c794884833b54b98e5b0f01478dd7b6a9014db24433b46f278160bc8d629f9d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before/Projects/legacy-review/project-index.md",
+      "sha256": "071271365a51e1c42a6ef600d564c984a4ee58f28ed69e85f8215d9aa2aa2978"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/before-inspection.json",
+      "sha256": "b81c2c27af09f762949267a5c38029b9c63fc3e1a997c277f7f8c478dbcf0faf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/completion.json",
+      "sha256": "6a67d228700e8124a5719f2f71d2d06def73e467f46bfd245701eccd5d00c8af"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/links.json",
+      "sha256": "6a433a9fa8b2f0e1086630be475634181285c41b0357b9bf34cbe0dcbe62a881"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/log-query.json",
+      "sha256": "21d65f572afc8a154390cd92a745e1fa7e8da3866489056b585b61924c543a37"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/navigation.json",
+      "sha256": "92118de375d9cb831dd37a8152aa25707dd8633418a5d9dd040ec7383408c2a3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/pre-retirement-navigation.json",
+      "sha256": "dfec59cbfb0bdddb37985186d569183eb51f727981455adb5278c94f53e56741"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/retirement.json",
+      "sha256": "7b4bf7ce923567e711cf05c2b1f74ef55add49bd7bb5439e0d980251de2f2c27"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/saved-operation.json",
+      "sha256": "f3fdcae4eed0c85755d3f5eaa78c94eedf90a6889e3d652e7632838a333ec7f9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/verification-summary.json",
+      "sha256": "7dce11c151d5354f76102eb1e32f832ea1a265e89ec71b4071aa308542ddefd5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/main-run/workflow.json",
+      "sha256": "6f22afb827d11abf3ea4701eb6072b22935368f7dbc837481aaba8a0e40315b7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/report.md",
+      "sha256": "a365fe7c1d3cb69b2eaadb867a31ab3185814f6f59fe76e84eddfb807f020b8f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/sequence.json",
+      "sha256": "b56797986dcb891ef0072c12ebc457b38e63b1e6d61be1547b04b88431df9465"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/actions.jsonl",
+      "sha256": "55ca1133fe1fb5e3ec1b59af19743564724563f285461d52ba7936fba14367b6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/after/Daily/2026-10-09.md",
+      "sha256": "36fd0b6611b8260e48ed5bbe99d27552802b2002271e36b71d389856c7c6aa92"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/after/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "564489669bacbd7b90008fe817a653fc2db45df5f88d8bbc7fb4045cb525db50"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/after/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "374aaed09b6a4c2e703cede3c6538ba9921218c9f0df6b0560007f6aa054b134"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/after/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "91d1caadf0a57616c058a6fbf34326e438720c0f9d596a63fc75d7b1aa8c09da"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/after/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "f8b9bea91b1784b8d6ba1b39665c74c7fa43d7760138ff7bd18b7aa47f3b04eb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/after/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "0fcfb09755d1b5831a3c931cc3d85622ef26229f5f4679281d96f5b057535dc4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/after/Projects/legacy-review/project-index.md",
+      "sha256": "0ce3543d987007c0e0198f7ca13ca353cb9f99549cfe192dc346b41e8caf7083"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/after-inspection.json",
+      "sha256": "6864ab81feec6c9ee5f02f5524862c2bd084108734a981730b6fa033cdb72d6a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before/Daily/2026-10-09.md",
+      "sha256": "93921678694ce8ce3ff16b5504973284e30f2bee5254273b8aeb68dc8105b895"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "4dd0def637e8af110251d25da720bf5d447a848c3f039d52e939b82486bbd0bb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "60c6d9a0cad8340fac09aa01b5373c1e505866c692b0e36d753dbf7468cb0f5a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "f91e745692b25931a4e188d4956cd801b2d1679bf80abbb439a25b1a10f3f91f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "0dd2dbf50aaa1e93c46160a8d693eb3397fb85539a5e2a9d0052e8be04dc4c04"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "5234649b776d30f74761c0dfbf5c76f1494ac34a268b73af4fd725e0f5b3f550"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "0e7b44fa1d7de3566302ee04af9c5c20053f9577396e8cc7ec5a5d0b681d4ea3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before/Projects/legacy-review/project-index.md",
+      "sha256": "ab072cd3fab2289e6d9cea2bef893ea552061864eabc35fcd9fe13c23c7ed5c9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/before-inspection.json",
+      "sha256": "e3cfe4aa4f069656727945d0ee96045828e61992e91bc228e4c0c7a3cbd8b049"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/completion.json",
+      "sha256": "36fb841d3dc6cea4eda5f8bf9877d99a6ccf62f3335417fc8f38745842813464"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/invocation-dest-1791571670535.json",
+      "sha256": "529a94d509071da1f009321a3e5f24ed3730fa45d10d0364accc6a6406eb467e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/invocation-inspect-1791571671107.json",
+      "sha256": "09a1c7ec845414871fbd7bb64687e91e7bdc9691f11593f95dc57fc7048f632d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/invocation-log-1791571670655.json",
+      "sha256": "13182d08771be02bc623712f31f8dc2c20a9de021d2a9b035c00062f54d59c03"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/invocation-query-1791571670914.json",
+      "sha256": "5d7d6ab708e407141e305442d84c4d1d8170e70b493141f25585542b0813b5a9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/invocation-sources-1791571670567.json",
+      "sha256": "c17177d7de4cdd86fe79969b8a28ece3c6f8111d1a1ef68e7692bf0bb6477848"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/invocation-verify-1791571670822.json",
+      "sha256": "f8ac43a10b3b62e634c1f48c145971ed9993c634dcea9e1eb76de1f95f6f55ae"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/links.json",
+      "sha256": "6a433a9fa8b2f0e1086630be475634181285c41b0357b9bf34cbe0dcbe62a881"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/log-query.json",
+      "sha256": "ac7fa23ac1f25c865c16547aadae87e4fdf7bb3420e7b2dd1be5d5407460c244"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/navigation.json",
+      "sha256": "10f93abce7560f62d6b6ac94d488ad3c08dd889a474134a0e48956abf1ed28fc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/pre-retirement-navigation.json",
+      "sha256": "c2f68a2303a00d7428b2c371618684da03e997ff0e4d37c6cfb0c1aa9d0957ba"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/retirement.json",
+      "sha256": "12c6b0c34b8aa93b36112eeb4e8afa9fab16665df1f2bcff9baef20141ecf67f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/saved-operation.json",
+      "sha256": "0d3f689b3df1d3f4ee9607bc31e53b710b9363e57ac19dcf6c7e06956d9342ac"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Daily/2026-10-09.md",
+      "sha256": "36fd0b6611b8260e48ed5bbe99d27552802b2002271e36b71d389856c7c6aa92"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "82f939ece513670587ba952389c16c27a11740c7afc86a600b3bc0a3e276b0e5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "564489669bacbd7b90008fe817a653fc2db45df5f88d8bbc7fb4045cb525db50"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Projects/legacy-review/legacy/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "374aaed09b6a4c2e703cede3c6538ba9921218c9f0df6b0560007f6aa054b134"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "91d1caadf0a57616c058a6fbf34326e438720c0f9d596a63fc75d7b1aa8c09da"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "f8b9bea91b1784b8d6ba1b39665c74c7fa43d7760138ff7bd18b7aa47f3b04eb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "0fcfb09755d1b5831a3c931cc3d85622ef26229f5f4679281d96f5b057535dc4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/vault/Projects/legacy-review/project-index.md",
+      "sha256": "0ce3543d987007c0e0198f7ca13ca353cb9f99549cfe192dc346b41e8caf7083"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source-stop/workflow.json",
+      "sha256": "8213ea3bb21dd933769711c59cfb5b92b09e17255faad1a37c3cc480a528c8f0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/actions.jsonl",
+      "sha256": "167c4db2ff58734ad57665c1888aa1bb450e47763e96a461b1af6004f82b2916"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Daily/2026-10-09.md",
+      "sha256": "c926421177107e0ce3526163158a9d7f83667ff4f5caaf56c7f69656dbc199f7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "2fbd1368444d145cd79cc2ab95d51da2375f9ab96704af8e4260256a6b0cc1f1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "52390babb3f8bd5e8aca22b71fef802e3f1d6b6dc7c1db9f7bb583a73f4b9c5a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "c8113573294936e18905a9382e838eb96acc9473093f8f784d8db623dbb6043f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "107df4da97bc946dc8e4586ebf18b63ee375949cf70c01b778b893a18debd903"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "0cdae9a51b47761d136fd215a83af3cd1fedbb3a42d83918c4544d6a0f958aae"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "cbcb8743a1397fed4bff70c80eb51ce95bae5497951eb100b684cf931ee6ed3e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "d69d1382668a507bd8d33164ea2e2c2c5b25a5ceaab22f648d665a16bbd4a350"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "d693311d2f583d3039438ece4e73b21b617cdd6b21ddba3ac2f833355a1feb6c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "d5ce94f503506a92b7da2ea4c1e4d60dd661be14727fefb1f9123362f90721bb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "670c9f4039dc3fd37a3757efe86f22929018d1216641bc672c6bda073085ffc7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after/Projects/legacy-review/project-index.md",
+      "sha256": "eeec38e9a724fcfd317204d77c59e42fac679c1ee5ff09a2ccc178d7b2bd323e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/after-inspection.json",
+      "sha256": "d4e3040e50c38aeca3ef7960cbf6934e1b053e1efde5fb2e5b35937a089300a5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before/Daily/2026-10-09.md",
+      "sha256": "c926421177107e0ce3526163158a9d7f83667ff4f5caaf56c7f69656dbc199f7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "2fbd1368444d145cd79cc2ab95d51da2375f9ab96704af8e4260256a6b0cc1f1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "52390babb3f8bd5e8aca22b71fef802e3f1d6b6dc7c1db9f7bb583a73f4b9c5a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "c8113573294936e18905a9382e838eb96acc9473093f8f784d8db623dbb6043f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "107df4da97bc946dc8e4586ebf18b63ee375949cf70c01b778b893a18debd903"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "0cdae9a51b47761d136fd215a83af3cd1fedbb3a42d83918c4544d6a0f958aae"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "cbcb8743a1397fed4bff70c80eb51ce95bae5497951eb100b684cf931ee6ed3e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before/Projects/legacy-review/project-index.md",
+      "sha256": "eeec38e9a724fcfd317204d77c59e42fac679c1ee5ff09a2ccc178d7b2bd323e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/before-inspection.json",
+      "sha256": "4770ef318e922ef0dace21d01005ae224b94e5e6a7b0d6a69d9a47fa1bcb3bb8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/completion.json",
+      "sha256": "87e2a2c54df5c864764f07e59ee2e28dee48aac3df8b6fcbb581432bb352903e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/invocation-dest-1791571671717.json",
+      "sha256": "32cc20d848e24f3d37d837269aa00676c618461eef676e33bc667279bb1049eb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/invocation-inspect-1791571672017.json",
+      "sha256": "a042d59f5690753a2057e03d03d00723e22b9a6bc37aa1b8e2ad27d9e6d58777"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/invocation-query-1791571671805.json",
+      "sha256": "a53c669c716fece7e0a17e00b0bbff3530fbd77ddd069288005cf8e7d4f7c071"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/links.json",
+      "sha256": "83caeaeeb1f83a80298ecc872a5892e7975ffbd370726e4b488165773f995310"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/log-query.json",
+      "sha256": "4353153885d4492ac50bf72cd743d78295aa5d560ca1e283a0b921913849636b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/navigation.json",
+      "sha256": "d110fbc4d0257784c078117af3416f0ff11143d6da787b7f8aab7dd074b32660"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/saved-operation.json",
+      "sha256": "8001ab314cf274d08e5226c2a325db7d5daab1429bccd5e95d30c32c0d727569"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/.nyssaai/daily-tasks/operations/01a121fd-3fb3-71c7-afb9-e8be0863da0a.json",
+      "sha256": "8001ab314cf274d08e5226c2a325db7d5daab1429bccd5e95d30c32c0d727569"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Daily/2026-10-09.md",
+      "sha256": "c926421177107e0ce3526163158a9d7f83667ff4f5caaf56c7f69656dbc199f7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "04afba141029c10601221f9d97a138f5b6ac35ec110db6b831cde9f718a45f9f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "2fbd1368444d145cd79cc2ab95d51da2375f9ab96704af8e4260256a6b0cc1f1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "52390babb3f8bd5e8aca22b71fef802e3f1d6b6dc7c1db9f7bb583a73f4b9c5a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "c8113573294936e18905a9382e838eb96acc9473093f8f784d8db623dbb6043f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/legacy/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "107df4da97bc946dc8e4586ebf18b63ee375949cf70c01b778b893a18debd903"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "0cdae9a51b47761d136fd215a83af3cd1fedbb3a42d83918c4544d6a0f958aae"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "cbcb8743a1397fed4bff70c80eb51ce95bae5497951eb100b684cf931ee6ed3e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "d69d1382668a507bd8d33164ea2e2c2c5b25a5ceaab22f648d665a16bbd4a350"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "d693311d2f583d3039438ece4e73b21b617cdd6b21ddba3ac2f833355a1feb6c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "d5ce94f503506a92b7da2ea4c1e4d60dd661be14727fefb1f9123362f90721bb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "670c9f4039dc3fd37a3757efe86f22929018d1216641bc672c6bda073085ffc7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/vault/Projects/legacy-review/project-index.md",
+      "sha256": "eeec38e9a724fcfd317204d77c59e42fac679c1ee5ff09a2ccc178d7b2bd323e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/unexpected-edit/workflow.json",
+      "sha256": "c4e23fb61275e7421d0a959f2f941d331bb9a3710e93519edb16fe1f22547393"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/workflow.mjs",
+      "sha256": "b03868a93dd9ebc8f5dece03cf41323f95b1282363538d44525c804ed878dec5"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Daily/migration-fixture.md",
+      "sha256": "d6e706021eb50dfbefabb889891aa3287547e5e48551a398bffb834b6c21a4d6"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "4fd1610b5c1b15c392413a61efd8d9f274c8fd228dfae1c9e09ea3f3f59492ce"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "961ea61e86a0a55b5b60904c819e8a8349c2d2c9a5655cc91185b4e4b0190656"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "4d229d4dcd793a8a6ca4319654859593e956eb02e3db74c27f31b792dc82c9ad"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/job-search/project-index.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/after/Daily/migration-fixture.md",
+      "sha256": "d6e706021eb50dfbefabb889891aa3287547e5e48551a398bffb834b6c21a4d6"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/after/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "30a733b187a1db87efb89840ec8d1527bac6a151ed8595d7a1dd544006fe389a"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/after/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "5a64030e7cffdc1268baeee1906088b7bbc759e0e3a914787cf1eab8ce12435d"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/after/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "1dd4662a2237e98a617d89a824701af35c54d6e26be05c032fe7bed33e41a27a"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/after/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "018659c9a10d274abc16dbb25d601a3ce81ac9eddd82193555ddb217ae0df0ce"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/after/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "9285a6c91bcac9ce13785b76a677afa83e2b04602d4475f7f7607abd0a7c4ec8"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/after/Projects/legacy-review/project-index.md",
+      "sha256": "2524e57f04d237284094e20249e71a83937c5cd2b860c0ca3a8df044021baec8"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/before/Daily/migration-fixture.md",
+      "sha256": "43f4931a993fea00d0022f5e76d8916bd6ae85db8a604720166be12bfb96df40"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/before/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "45062b5b9b90964c683439a44bc58f6027d8790c6145f942f88d5e7b0c52732d"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/before/Projects/legacy-review/legacy/completed-task.md",
+      "sha256": "01b3715f0d879745a2612eb79b3efb769a4c12d8a01bfcaac055c200433d0527"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/before/Projects/legacy-review/legacy/definition-of-done.md",
+      "sha256": "269b68b500766892ad2c60396fecec122d88ec2d7c9cd383c28ee9d516f97d90"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/before/Projects/legacy-review/legacy/milestone.md",
+      "sha256": "a1f01f3a117128e7d1210bf149c6408df209977ceadb9ae72384b19abb78a4f1"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/before/Projects/legacy-review/legacy/ready-task.md",
+      "sha256": "43162e39dbdb4e15e2e5b2ec9886b0ffcbb1f687d002b85597c994c83d06526a"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/before/Projects/legacy-review/legacy/unresolved-task.md",
+      "sha256": "2c794884833b54b98e5b0f01478dd7b6a9014db24433b46f278160bc8d629f9d"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/.temp/01a121ff-0c8c-7572-b591-653e3baaa577/before/Projects/legacy-review/project-index.md",
+      "sha256": "071271365a51e1c42a6ef600d564c984a4ee58f28ed69e85f8215d9aa2aa2978"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/blockers/b1-approval.md",
+      "sha256": "30a733b187a1db87efb89840ec8d1527bac6a151ed8595d7a1dd544006fe389a"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/legacy/evidence.txt",
+      "sha256": "bc8d85935b83fcd02b76fe9d79686d6d3ed350540a50d425e5910a0681ba47fa"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/m1-review/m1-review.md",
+      "sha256": "5a64030e7cffdc1268baeee1906088b7bbc759e0e3a914787cf1eab8ce12435d"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/m1-review/t1-ready-task.md",
+      "sha256": "1dd4662a2237e98a617d89a824701af35c54d6e26be05c032fe7bed33e41a27a"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/m1-review/t2-completed-task.md",
+      "sha256": "018659c9a10d274abc16dbb25d601a3ce81ac9eddd82193555ddb217ae0df0ce"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/m1-review/t3-unresolved-task.md",
+      "sha256": "9285a6c91bcac9ce13785b76a677afa83e2b04602d4475f7f7607abd0a7c4ec8"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/legacy-review/project-index.md",
+      "sha256": "2524e57f04d237284094e20249e71a83937c5cd2b860c0ca3a8df044021baec8"
+    }
+  ]
+}

@@ -278,6 +278,18 @@ async function inspectMigration(loaded, retired = false) {
 
 export async function inspectMigrationRetirement(input) { return inspectMigration(await load(input)); }
 
+/** Called under the log lock: inspect source evidence without querying the log. */
+export async function assertMigrationDecision(input, entry) {
+  const loaded = await load(input);
+  if (path.relative(path.resolve(input.projectsRoot),loaded.context.projectsRoot) !== '') throw new Error('Migration projectsRoot differs from resolved context');
+  if (!isDeepStrictEqual(entry,loaded.operation.event)) throw new Error('Migration event differs from bound checkpoint event');
+  const inspection = await inspectMigration(loaded,true);
+  if (!inspection.allowed) throw new Error(`Migration retirement not verified: ${JSON.stringify(inspection.issues)}`);
+  for (const file of loaded.operation.files) if (hash(await ordinary(file.path)) !== file.after) throw new Error('Migration effect not persisted');
+  for (const file of loaded.operation.protectedFiles ?? []) if (hash(await ordinary(file.path)) !== file.sha256) throw new Error('Migration protected source changed');
+  if (hash(await ordinary(loaded.filename)) !== loaded.checkpointHash) throw new Error('Migration checkpoint changed before log append');
+}
+
 /** Verify post-retirement effects; cannot attest whether inspection preceded deletion. */
 export async function completeMigration(input) {
   const loaded = await load(input);

@@ -1,0 +1,1252 @@
+{
+  "id": "reconciliation",
+  "status": "pass",
+  "candidateHash": "5ecc2c25458837374b8619209d96ad0f90f548c14c7a02d98479712fecf00233",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "source_unchanged": true,
+  "archive": "evidence.zip",
+  "report": "evidence/reconciliation/.temp/RESULT.md",
+  "transcripts": [
+    "transcripts/reconciliation.jsonl"
+  ],
+  "assessment": "Unchanged stale row preserves completion, deliberate change reopens, task2 unresolved conflict remains pending and independent accepted task3 completes. Actual log append interruption, saved exact event resume and duplicate retry preserve one event. Selected unresolved work correctly blocks rollover; no maintenance worker success fabricated.",
+  "evidenceFiles": [
+    {
+      "path": "evidence/reconciliation/.temp/01-prepare.execution.json",
+      "sha256": "930b7190eeee33f9a9be414d2fdc0d22fa4aba3682f5303f3a54b4a9c239cd9d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/01-prepare.input.json",
+      "sha256": "e907fde47bb7b600b395574e8d72da8b3d80665b03e5498feba2e61eed77c6b0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/01-prepare.result.json",
+      "sha256": "75367b848caa5d0cb58b275e20cb6cdd3dce823e887b16f915186ba5330cf367"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/02-inspect.execution.json",
+      "sha256": "cf56c7eb38c6c8918f0c0de9b86b91549b954732df9f846f9ea848f47c5b659e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/02-inspect.input.json",
+      "sha256": "86a9f0809f84ef150a9e7ad6b4ea34147e0f513a9c48c6a5d0df934f0048937a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/02-inspect.result.json",
+      "sha256": "13addfeac96d3586afc63b01c6487e5857aeea13f3fbee4540df4592f9edc78a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/03-history-before.execution.json",
+      "sha256": "fea6c4f47f4fa3628f36022b5cb0a8f5bc3ab7f3a7c43f89f4d0d29d70d1a07b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/03-history-before.input.json",
+      "sha256": "86a9f0809f84ef150a9e7ad6b4ea34147e0f513a9c48c6a5d0df934f0048937a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/03-history-before.result.json",
+      "sha256": "02554623a614d98798344d68c436948acfa7fcca11379cf497241b1f25ad178e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/04-plan-id.execution.json",
+      "sha256": "2f9af25d6c2dcebf94ca1c114bc73368dd4e87e493259e8d7d225f37163ee86b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/04-plan-id.result.json",
+      "sha256": "263ea175b2e447b862638f19813e95d980acc2687ff315d6394bab6f866467eb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/05-plan-time.execution.json",
+      "sha256": "ce90b566b200a19137bd4cca1501065294be198ff96e6c60b42e82db46d665ef"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/05-plan-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/05-plan-time.result.json",
+      "sha256": "c611ffe60b760511281facfab83723b8b78b6dc9d86241372f6be391ab2a8b06"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-operation-id.execution.json",
+      "sha256": "913b9fe3a0abe2d9e38b87b13ad424859353a07357faff2d232054c0d1f37918"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-operation-id.result.json",
+      "sha256": "7cbafce5b3d8a31fe6564c12d6f363967f341719b03a6bc7019ebbcdc4e7c204"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/07-plan-event-id.execution.json",
+      "sha256": "8aa2865645f2ec4346ac45370a6e86fa2f487515558f64bda66ec69f030eda35"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/07-plan-event-id.result.json",
+      "sha256": "9fffdf7dc1174feb2ee2a74e5aa9b0adbfd213e0618b0f4118e5a20813b29773"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-enrollment-checkpoint.json",
+      "sha256": "5d23f64fea67000f6e88c437880139c7cdf33aa33ce40d61257b365b374a7a61"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-plan-after.md",
+      "sha256": "cce42c318d1727a5d31b63f40132b119cf1b70f25e612e474ab9b216094066a2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-invalidate.execution.json",
+      "sha256": "d76893b449dde44ffb60a43464fe4a2ba5482d8a90078090861a1e2f9ec16eab"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-invalidate.input.json",
+      "sha256": "9c81132e38db8f6721b3e6d23e00e2a24bfce5055446c6b0c86fa8c12e503444"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-invalidate.result.json",
+      "sha256": "0749b97efa38ccf685147631cf0646adfee659223756b9ed77dcf6c9d4a17342"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-plan-log.execution.json",
+      "sha256": "75055fea2d5c001a7200111ff465f79cbdb03bfd38a6675d0c69adfe8c940175"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-plan-log.input.json",
+      "sha256": "29d7a69e3c7343d046d4d82b31be1ac17b154f7d43652a817a2555caff915fd4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-plan-log.result.json",
+      "sha256": "e186d3a7f7a09ca326a436f3d6d8c05f9620aee8c3a30088df8c601d8dd504f8"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/11-plan-verify.execution.json",
+      "sha256": "26f80cc8661df3c4bb82c2c81584c2522fba3418dfb9812afe20d41c4fe886bd"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/11-plan-verify.input.json",
+      "sha256": "3fef4551e0cc8ff73a8aeb3bc34ace82e3674f5eecce5bd4b553d71b39869759"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/11-plan-verify.result.json",
+      "sha256": "d1d4d2b7da09c1dd0330de99a0ba14e797f8926c2283540b1f6c1c3c41e2798d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-plan-complete.execution.json",
+      "sha256": "1a41e03bae78940e54ab3e8b1279ca4506949abd6ca1656f181d461a7daf177f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-plan-complete.input.json",
+      "sha256": "3fef4551e0cc8ff73a8aeb3bc34ace82e3674f5eecce5bd4b553d71b39869759"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-plan-complete.result.json",
+      "sha256": "741768e01974b6e60fcfd9702a8550f661e887406016c3f06cef5f10b53b9322"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-completion-time.execution.json",
+      "sha256": "1f01c731859332f2119bbb0c57cefca75db9a0b3696a9bf85175e7f0c372503e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-completion-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-completion-time.result.json",
+      "sha256": "3f89d30e6ea71621dc623a6b8c879b8220f573a8c312c00e64fefb849eaf5134"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-completion-operation.execution.json",
+      "sha256": "324c45337f09652dff436e13a97f2f264e5f3d7dd56ba50fd59b2075f42f15cb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-completion-operation.result.json",
+      "sha256": "f8445cda995d84bedf688e45a9177eecdb68f3fbb5b6ccaec6a3b27badd7cd9e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/15-completion-event.execution.json",
+      "sha256": "e7acbd6346625530ad65ecc08d64a381f4da562769c6ef978e1eb0008630f852"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/15-completion-event.result.json",
+      "sha256": "552a4b4af0dbab14c22a1555cf553e908fe0d4266edbd6065b469fae77885c08"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/16-proposed-task1.execution.json",
+      "sha256": "2a38969ccf133defc9317b917a54ea851f15a1e472aa1070808be8d1013caa89"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/16-proposed-task1.input.json",
+      "sha256": "2fdc67323a6b0db9d735690acd536db5b2aa9ee61843e5b83a449e9bfdea91d3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/16-proposed-task1.result.json",
+      "sha256": "67787f623a6e1502c1e0c124aa2f1273dff32af92939c55cf33dcbac82429614"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-task1-closure.execution.json",
+      "sha256": "fbab1c9a01209a7b1a5fe88e9d1eb03da03658e41063d6c7a7810ccf0acf775b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-task1-closure.input.json",
+      "sha256": "f042f5ee74093476b5b094658b3cba56be5d18c2a3124bfde84a4a02756b21ef"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-task1-closure.result.json",
+      "sha256": "090b61407f3a84d53f2d0f847328f946b5fea4bb8953d91541297efbbac1f67a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-after-0.md",
+      "sha256": "87994f0b0f9b60da02ec502538fdcca4cdac5f7633306ecd0d91c65b15651b18"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-after-1.md",
+      "sha256": "d026a57a81b60d5e6e61d4b9294b859f64fbd67c181adfe6cede7ed1cd6cbd4e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-after-2.md",
+      "sha256": "90f77ebc9254f8ebc5cde110a63c3c2eebaa07574c03749d8550155ca895133c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-after-3.md",
+      "sha256": "b3366c65efc77cc17da6e387c56b5f8a1f582e282d99086bb4c19c79ce7f939e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-before-0.md",
+      "sha256": "08b6a0bc6906cd596f1458be5ac2911c478709b27e4f3c52e8edd0293e2f4c56"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-before-1.md",
+      "sha256": "4d229d4dcd793a8a6ca4319654859593e956eb02e3db74c27f31b792dc82c9ad"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-before-2.md",
+      "sha256": "961ea61e86a0a55b5b60904c819e8a8349c2d2c9a5655cc91185b4e4b0190656"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-before-3.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/18-completion-checkpoint.json",
+      "sha256": "d6303fc5886bb1c99655a76f38ab4276fd906795b21af36d43377ff917a6ea92"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/19-invalidate.execution.json",
+      "sha256": "349760b28bd5b4c032b7de036818a8df2e3c1f1351cfcde4efc241001e2989bd"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/19-invalidate.input.json",
+      "sha256": "9c81132e38db8f6721b3e6d23e00e2a24bfce5055446c6b0c86fa8c12e503444"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/19-invalidate.result.json",
+      "sha256": "fbc0a6c69684063715d3ea3465d98b5bc09980d57cd6ab66fb059bf6c27e0ea7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/20-completion-log.execution.json",
+      "sha256": "a2d005791b442593da9f4211f84aa49cb76596e26d7fb511735d3264e12f327e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/20-completion-log.input.json",
+      "sha256": "86f307211f7a9eb2e3d90eee5f4d21135c0e0ecaa402dca875113d08af7531b3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/20-completion-log.result.json",
+      "sha256": "4756e2f2284b4c354ba9abde968784500ef37cb6b40203efaa6065b4fb5adc1c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/21-completion-verify.execution.json",
+      "sha256": "509ece9d7f75d5364afba585ba2262e80deec9b093899cea358099020154b6b8"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/21-completion-verify.input.json",
+      "sha256": "4f697bbf1a7f87676edfde563a4e5c55ef9166f297198bd2490d39c1307607c6"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/21-completion-verify.result.json",
+      "sha256": "9fe02947f51f02242a6c622251464a2669895a3d54762a0278cce18c1eb1fbbe"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/22-completion-commit.execution.json",
+      "sha256": "dcf62db097e9f4813fd81e44cdc9fb39ae77ff098d973303a75d474c6982db20"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/22-completion-commit.input.json",
+      "sha256": "4f697bbf1a7f87676edfde563a4e5c55ef9166f297198bd2490d39c1307607c6"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/22-completion-commit.result.json",
+      "sha256": "0bbe3057671fe1d5afbff020cb119b82aed33a0d8f5dc38ef05d7e249a569c28"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/23-stale-inspect.execution.json",
+      "sha256": "46fb7b7a04c93a19f7f37a70cc84fb1b20975c2d3d96a55040ecc8d41f069e8a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/23-stale-inspect.input.json",
+      "sha256": "86a9f0809f84ef150a9e7ad6b4ea34147e0f513a9c48c6a5d0df934f0048937a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/23-stale-inspect.result.json",
+      "sha256": "7b5d267f9f9a88b97694dd90eb2f140733715601c5e64203dd98772feb8111d5"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/24-stale-plan-rows.execution.json",
+      "sha256": "4d8fe60e1c8031fa2f8ac036a7354d335b424170c545c4f1185adb9d48e15541"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/24-stale-plan-rows.input.json",
+      "sha256": "48620f1aea1c3f90ee0e3c38b0b3f32e2d95c0d431b99f8f2c5c32d43cb09b37"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/24-stale-plan-rows.result.json",
+      "sha256": "6307b3bb800254b0cc3144b13306cfe72b751f00aa3010413f27025ad7028871"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/25-stale-evidence.json",
+      "sha256": "470d7c98695479e29984034af937759cac7105e89cf34eec44b244ca62af3a9d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/25-stale-reconcile.execution.json",
+      "sha256": "b36b08464320cc0c19d82d95924c02acd8e75b0a66dd9aaee42d40976edf56d0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/25-stale-reconcile.input.json",
+      "sha256": "0c4d88ecebab7e56b77ec99da1602736047da29fe0da2e21dc7be152f9d88100"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/25-stale-reconcile.result.json",
+      "sha256": "697b3a702fb2b4d883cba0aac5c2c7cb85be28948dba6ac04693a6e9270f9f05"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/26-stale-prepare.execution.json",
+      "sha256": "81725f055f131c1f6ae5f6230af9fb9b75126fe2c6bc8846429da0ab57a74125"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/26-stale-prepare.input.json",
+      "sha256": "e907fde47bb7b600b395574e8d72da8b3d80665b03e5498feba2e61eed77c6b0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/26-stale-prepare.result.json",
+      "sha256": "1af15214a9485fdba77008d9a330ace977cbc1946218f27620baa8a7594c3c9d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/27-refresh-time.execution.json",
+      "sha256": "cbc8688b75ba36ee905207144fe68024bfe6b418f69973336ac49ce58166a347"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/27-refresh-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/27-refresh-time.result.json",
+      "sha256": "9200691321b446b2c91642802c3cf48025effdf6e507e56b68ec02997809f6d2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/28-refresh-operation.execution.json",
+      "sha256": "73f465adbb64305a9387c0b137ccdc2a7132866cbff5bc2af843496512d03b62"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/28-refresh-operation.result.json",
+      "sha256": "6625feec6c389e1384125ce94c282669b15805c62cbd60ea2785ce8ed8420c7d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/29-refresh-event.execution.json",
+      "sha256": "c2411804d6f844fc45b617c301b3b099254fb25b5930e373efab17d54769a142"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/29-refresh-event.result.json",
+      "sha256": "ff6503c068e267ffa071f9a49b8671ddd631cf5ecccbfb977e3262a1e8c6e789"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/30-after-plan.md",
+      "sha256": "6712187534ab8efb1d0ff05e22fc7d833647f04a87cf980192cc12607205c00d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/30-before-plan.md",
+      "sha256": "cce42c318d1727a5d31b63f40132b119cf1b70f25e612e474ab9b216094066a2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/30-refresh-checkpoint.json",
+      "sha256": "82ce82a898068aa93d72a8f51509ddfe64910e305b6c287a2347659950577be3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/31-invalidate.execution.json",
+      "sha256": "e57653ef6d7c2c251188db77051236c7f6f9c0e07b1e7e1e749df3e4d99a69f3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/31-invalidate.input.json",
+      "sha256": "9c81132e38db8f6721b3e6d23e00e2a24bfce5055446c6b0c86fa8c12e503444"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/31-invalidate.result.json",
+      "sha256": "0749b97efa38ccf685147631cf0646adfee659223756b9ed77dcf6c9d4a17342"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/32-refresh-log.execution.json",
+      "sha256": "521f72e3918962cc7e50e021932be2631b79a7552e760a566c79c0f971e3d060"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/32-refresh-log.input.json",
+      "sha256": "b14aa515fd966de9a726dbed3583b9789af26f11ffc8ce0dbb07a91617fe8534"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/32-refresh-log.result.json",
+      "sha256": "abae62c4590037e4fce11bafeacc936433bede97a802bd80a480dbba980e0c85"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/33-refresh-verify.execution.json",
+      "sha256": "c505d54bf9c3d581cbb23dbed0d876c4bd8ed50511340a52f1fe3df2bd0f7d0a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/33-refresh-verify.input.json",
+      "sha256": "3439206bcaf9adfe1c1d2812b568714626928204770e5513258e94deea58cfa9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/33-refresh-verify.result.json",
+      "sha256": "c19a63b7db3f16a49a09830124a65395d70b0f3dc9b5d33979c6a4db8208cf75"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/34-refresh-complete.execution.json",
+      "sha256": "68a9290e2e2af259bda06160bc68a7464f70dcc0c04b18c6c112f2b5865c4f16"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/34-refresh-complete.input.json",
+      "sha256": "3439206bcaf9adfe1c1d2812b568714626928204770e5513258e94deea58cfa9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/34-refresh-complete.result.json",
+      "sha256": "015a5fe7299c6071f3f691d9a77910c8b9e0d391116a9c0187116491d40b50e1"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/35-preedit-inspect.execution.json",
+      "sha256": "3e82b3cad356aeaeff1ec9809e802aea13d49e728b7c4b1e97235f550b5e974f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/35-preedit-inspect.input.json",
+      "sha256": "86a9f0809f84ef150a9e7ad6b4ea34147e0f513a9c48c6a5d0df934f0048937a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/35-preedit-inspect.result.json",
+      "sha256": "7b5d267f9f9a88b97694dd90eb2f140733715601c5e64203dd98772feb8111d5"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/36-manual-actions.json",
+      "sha256": "422eb11689a68455be095d9a1875eb750b6b249fa86b0508685da6a49805dcf8"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/36-manual-after-plan.md",
+      "sha256": "508391f584baf89c435a104f1b55eee844d0a630f680d9f72490ffce013f1203"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/36-manual-after-project.md",
+      "sha256": "5cf996409138da7da5850fa31fed9f10d3f8a7592832d9ced70f2029d02f71e4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/36-manual-before-2026.10.09-daily-plan.md",
+      "sha256": "6712187534ab8efb1d0ff05e22fc7d833647f04a87cf980192cc12607205c00d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/36-manual-before-project-index.md",
+      "sha256": "b3366c65efc77cc17da6e387c56b5f8a1f582e282d99086bb4c19c79ce7f939e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/37-invalidate.execution.json",
+      "sha256": "b63651e47de7ed2fbf053a743fc333f3e890b3319da1d32faa68c016ada64346"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/37-invalidate.input.json",
+      "sha256": "9c81132e38db8f6721b3e6d23e00e2a24bfce5055446c6b0c86fa8c12e503444"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/37-invalidate.result.json",
+      "sha256": "fbc0a6c69684063715d3ea3465d98b5bc09980d57cd6ab66fb059bf6c27e0ea7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/38-task1-changed-reconcile.execution.json",
+      "sha256": "1a95c4bdeeacd2783d081040968e530660b6b3be64d05853b66836990a263373"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/38-task1-changed-reconcile.input.json",
+      "sha256": "2c1b0ce59cfb5efe88044c1fe4900bdb783638e86afa1111776a0113e246a64c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/38-task1-changed-reconcile.result.json",
+      "sha256": "60e0f340e83dc463e1f09e266d815c2bb54f5c01720d6d1d2cb89a3439d0b374"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/39-task2-conflict-reconcile.execution.json",
+      "sha256": "4346b5e6bd4ea2b14910287a277d125b66b45053b04e922d415e2848960eaf2b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/39-task2-conflict-reconcile.input.json",
+      "sha256": "93c8fe9bdb31c56b4b3138def0a1a2bb461cf12cd8e6a4f4a768b7b565168376"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/39-task2-conflict-reconcile.result.json",
+      "sha256": "220cceb3b2afabc40bb7cb6c24f4fa777448c3cff5ec41a96cdd1b4a9af1aafb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/40-conflict-id.execution.json",
+      "sha256": "e284da8319b535940d38faae437915219d6fcf1e36531479e10f5c0019721f75"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/40-conflict-id.result.json",
+      "sha256": "3a39f90384603c11aaf4a845a0f2c1ffba848f558467ba669d0211744e93925e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/41-task2-pending-conflict.json",
+      "sha256": "4f258190ea16dc75ffe4cc59759c776c341310ac0c903091c6bfb14b77e9cabb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/42-reopen-ancestors.execution.json",
+      "sha256": "8cc53fd31fe601e4b2aef3b11375c0aba733325abd94e3f4a4e55f9a60c22c43"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/42-reopen-ancestors.input.json",
+      "sha256": "243c2348835871d5e23d07371fb403f566e64624979b4f7606edef0732854dfc"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/42-reopen-ancestors.result.json",
+      "sha256": "2b6df627de04d1a75a3b800b12667c4f21fbea681d3068f195ccda3befe92ab7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/42-reopen-proposal.json",
+      "sha256": "64dd9ce62b45927018ee1b7fdcbd8d0adf63e5475e9410839144fb0cf4b4542e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/43-reopen-time.execution.json",
+      "sha256": "3cee499075b50cc8910349a785d16add1ef74ea054803bf3bd4e63248f3ab43a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/43-reopen-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/43-reopen-time.result.json",
+      "sha256": "266c271957b1b29825635f520e3eaa12a67aa94c5dae52f15a7d4cbdb9e4b68c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/44-reopen-operation.execution.json",
+      "sha256": "aef4304570bccdeeea8aac12980108cf84ef23a79cead9aac47d66f84fcdd543"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/44-reopen-operation.result.json",
+      "sha256": "60c78cbb837647b2f7b67a457d38ad7ff919af5761bba0a6dbf58516b05062b9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/45-reopen-event.execution.json",
+      "sha256": "f3786893abeeaa71f8edc43dec1486c67e5bb02daa6c2f09698d34630eab9f6f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/45-reopen-event.result.json",
+      "sha256": "4f453e4ae03559206823a2b919cc0750f24bbf93f94750bc72d1113ecf6a22cf"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-after-0.md",
+      "sha256": "89c3d5473b2a30e452b6c9a725f2105da054b1ad97b3d452810b60d3fe8d33a3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-after-1.md",
+      "sha256": "ce87894c2cac43b63944404d3f4acf5289aa9babd1e1326979f76dcbc9527dff"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-after-2.md",
+      "sha256": "6c8a7c058408be5bd5bd23d8f817e85bf766a40dfdb41a8efa8f351b0c65e05f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-after-3.md",
+      "sha256": "508391f584baf89c435a104f1b55eee844d0a630f680d9f72490ffce013f1203"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-before-0.md",
+      "sha256": "d026a57a81b60d5e6e61d4b9294b859f64fbd67c181adfe6cede7ed1cd6cbd4e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-before-1.md",
+      "sha256": "90f77ebc9254f8ebc5cde110a63c3c2eebaa07574c03749d8550155ca895133c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-before-2.md",
+      "sha256": "5cf996409138da7da5850fa31fed9f10d3f8a7592832d9ced70f2029d02f71e4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-before-3.md",
+      "sha256": "508391f584baf89c435a104f1b55eee844d0a630f680d9f72490ffce013f1203"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/46-reopen-checkpoint.json",
+      "sha256": "3a56f528026c6c186dc62826e3468691e81e69bdde7dd4d245cbea2c5d2ad2a1"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/47-invalidate.execution.json",
+      "sha256": "3780d6635e6c721ebe8d2af2c80c6e7eabd78c0cca5b3c53a0fc07dd2ee8a96a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/47-invalidate.input.json",
+      "sha256": "9c81132e38db8f6721b3e6d23e00e2a24bfce5055446c6b0c86fa8c12e503444"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/47-invalidate.result.json",
+      "sha256": "fbc0a6c69684063715d3ea3465d98b5bc09980d57cd6ab66fb059bf6c27e0ea7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/48-reopen-log.execution.json",
+      "sha256": "69d962ef0715ff001efab05f32d027fde7bf940f3adc65e1e7e1616e424aaf55"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/48-reopen-log.input.json",
+      "sha256": "086c20be352d67cc2fbb0b6f933e69729c38f7659ed6e286065eb5c04931f497"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/48-reopen-log.result.json",
+      "sha256": "e6ec36956e4498a61b68aa9977eb3ff336152215570a09b5731aa5c3bb21827c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/49-reopen-verify.execution.json",
+      "sha256": "b72de128a1ef8c439089e9db168bc86a729d3474e8a0ee8bfaf8e3e484c97c20"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/49-reopen-verify.input.json",
+      "sha256": "986d333b1f908fffa85407b93eb086610f80e04747b181fa86e022eeb7d2e1dd"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/49-reopen-verify.result.json",
+      "sha256": "578e08a452c4e82de1227325b702e951e3b281d84574acbe6cead2f2d24ee691"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/50-reopen-complete.execution.json",
+      "sha256": "75147916cc1e4c09bc69ff3334c32e1593298bc992a7626522ab32b340c13bed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/50-reopen-complete.input.json",
+      "sha256": "986d333b1f908fffa85407b93eb086610f80e04747b181fa86e022eeb7d2e1dd"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/50-reopen-complete.result.json",
+      "sha256": "67b4f7516ecc552711d3ec0495ae3878cc6dc9f28c70b17c440e74fddfbef44b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/51-inspect.execution.json",
+      "sha256": "9758ddf884ad964fd2640f693f696e7f5679fabb254d9dd9fa90e3f9b6e1923b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/51-inspect.input.json",
+      "sha256": "86a9f0809f84ef150a9e7ad6b4ea34147e0f513a9c48c6a5d0df934f0048937a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/51-inspect.result.json",
+      "sha256": "e853a62a4a746b1e70faf5e0dec6015baeac003edfce61959338afb5adc12935"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/52-next-task-number.execution.json",
+      "sha256": "9b6327d6cf1b8f1a4178fdd22f2ffd198d8ba4bddd0ca31ee5c1ca0fe6bf2c7a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/52-next-task-number.input.json",
+      "sha256": "89ddfd11c398ead3780f7d8b38cbc53367c04b5115b5a8eb206e2e741633cc4a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/52-next-task-number.result.json",
+      "sha256": "c545f9a6b93bdb48613befc2da0db2d0e5b6d4cf8b7d8661b9c07e55a23aa427"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/53-task3-id.execution.json",
+      "sha256": "cf33e8ddd05ca9d2a592d811954a4459dc43e86cca8252f66a8b74716294a582"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/53-task3-id.result.json",
+      "sha256": "9143451702c4b511e7964fa3cf78d9893d5ea2536e4d38210c789d808949616b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/54-task3-criterion-id.execution.json",
+      "sha256": "beeea5d77ded7aca3662bfd597e6ff8f4b20fa8c033dfa58e6d6068d503e17e9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/54-task3-criterion-id.result.json",
+      "sha256": "e13344ccbbcae9c220e928d1e9e5062b205e197206bf29c1b9b0b5c8044ca53f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/55-accept-time.execution.json",
+      "sha256": "1aa1c971b5c6b12c0f623576301a3f3622b6c7c387a4035507d4e9edb65f32a3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/55-accept-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/55-accept-time.result.json",
+      "sha256": "9c1428089eec1c32c519d28c902697af5ba6afa7b98ff7e4007a5b37885b922c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/56-accept-operation.execution.json",
+      "sha256": "518fc1615d3680fd0941fdc643044f90130198ab98c1722b0f0f6851c092005b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/56-accept-operation.result.json",
+      "sha256": "5f5de9abaae6308c29529953e8a08476c7ef8e26499f1d3f41ee64d933e2439f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/57-accept-event.execution.json",
+      "sha256": "4e3dd347ca253d316545d66d3cfc547d4e0dc8861009380482fd1b7f1925298c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/57-accept-event.result.json",
+      "sha256": "decd90e7357453f901d47925785bb10c843cdd7296b801472fe14bca47de0013"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/58-accept-checkpoint.json",
+      "sha256": "748801f3b3bfb03e0c373a69d4d32b3d876c4c5b7111abdeae7b2e9f87f653ad"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/58-after-0.md",
+      "sha256": "190f8512ad464f1ff1f3a4f185b53171d1fe1dd9abfb62f219c44c25c384318c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/58-after-1.md",
+      "sha256": "c6ce033a16f8dfc550d26059d79b1b437ac50b75120082235fd9c822b1131fe0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/58-after-2.md",
+      "sha256": "db6cbb2246c525114c665382cfe786e7b89afb461361787be2dfece589bcb6ba"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/58-before-0.md",
+      "sha256": "08b6a0bc6906cd596f1458be5ac2911c478709b27e4f3c52e8edd0293e2f4c56"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/58-before-1.md",
+      "sha256": "ce87894c2cac43b63944404d3f4acf5289aa9babd1e1326979f76dcbc9527dff"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/58-before-2.md",
+      "sha256": "6c8a7c058408be5bd5bd23d8f817e85bf766a40dfdb41a8efa8f351b0c65e05f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/59-invalidate.execution.json",
+      "sha256": "b8ac46e6af9c4e840f51f66e94b3d35b7344017fd59842117cc3bdafde1489be"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/59-invalidate.input.json",
+      "sha256": "9c81132e38db8f6721b3e6d23e00e2a24bfce5055446c6b0c86fa8c12e503444"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/59-invalidate.result.json",
+      "sha256": "fbc0a6c69684063715d3ea3465d98b5bc09980d57cd6ab66fb059bf6c27e0ea7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/60-accept-log.execution.json",
+      "sha256": "54345c9e6678cebe3a0e6c5872a3d5c48cfc67146020b1943280d113dae858f1"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/60-accept-log.input.json",
+      "sha256": "bcb290822281aa707cb1fdcd2ff3a3f084ef7b5d4d4e5e38d5a5eb3051a37213"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/60-accept-log.result.json",
+      "sha256": "67745c419a14199de973194c0f5be88791578ea95dac0970b1ccd0c5c9f58b24"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/61-accept-verify.execution.json",
+      "sha256": "cb6cb13f6e97029c3466dfd583816013ede37c981c981edf51de6e7895b67f54"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/61-accept-verify.input.json",
+      "sha256": "6ebd8d444f3c695d838ab3068c6be1e0e79052c0fbdd9569976ccf2aea8dc864"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/61-accept-verify.result.json",
+      "sha256": "864e675bb99dd003f3eba9bf2bedcd054315e45a32a5e7c221fb01ed7dead0d2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/62-accept-complete.execution.json",
+      "sha256": "8c15689045248fb79057ff7a31d6d77128354408cdac153cb5e2a081e830377f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/62-accept-complete.input.json",
+      "sha256": "6ebd8d444f3c695d838ab3068c6be1e0e79052c0fbdd9569976ccf2aea8dc864"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/62-accept-complete.result.json",
+      "sha256": "e5bff643440e3bcebe5973c25e95e947d4c3256bd36f687f76d2759ccba62e1b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/63-inspect.execution.json",
+      "sha256": "9d05b51c4b9376cd87a37a6d2c2de1873dcf3e5247cf69f98bc1334824290bf7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/63-inspect.input.json",
+      "sha256": "86a9f0809f84ef150a9e7ad6b4ea34147e0f513a9c48c6a5d0df934f0048937a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/63-inspect.result.json",
+      "sha256": "81474e4e9125c9352158fbc80c30f17370f4d9e2e6176f8ac8e7eaec95b11854"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/64-task3-complete-time.execution.json",
+      "sha256": "a45d34c769aaf30acae342369f39d8d596271427d17f15b33213ee10a005b875"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/64-task3-complete-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/64-task3-complete-time.result.json",
+      "sha256": "a470c83a5661f029ed60eb504c647b92872b55b2a040470efad0c50c88b5f5a7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/65-task3-complete-operation.execution.json",
+      "sha256": "d85899319f0cc5e806de71cd4abf9f3d9e2ab264e4a6f453be448f3e8dcb9e9f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/65-task3-complete-operation.result.json",
+      "sha256": "40e6c184c8c4b242cfbe4cf250d67872cd516b864d52da263ab0c2927b003d2d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/66-task3-complete-event.execution.json",
+      "sha256": "83680624b3c2deddc17e5dfc2e2e11961f2f320f0227d8ffd176fa025bae81dc"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/66-task3-complete-event.result.json",
+      "sha256": "f8b5c129bf13414a2078c91a1018a875198187eb1b2548c6b3899d4f47e49eb9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/67-task3-proposed.execution.json",
+      "sha256": "df3e37ed9feb641c84967e75004ced2c81fe09af5402680895f72caa2cd83900"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/67-task3-proposed.input.json",
+      "sha256": "465bc67e74c5b8021c6cb28b4440a9d7a437eec527aa89f39201a690d4648edd"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/67-task3-proposed.result.json",
+      "sha256": "90d96bf93dc0196dc4701315ebf2e61ffb4519b543c091fad25eeb8dc2e1833f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/68-task3-closure.execution.json",
+      "sha256": "4140a24ef78fceeaf7ca20a70c2d6001c1aa6fc2135f56b032b0d8b9977884a3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/68-task3-closure.input.json",
+      "sha256": "1b17ebc90c6f968e39b3a61ef7318872fa30551ac1e98f23fa52ba55653a6ee0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/68-task3-closure.result.json",
+      "sha256": "090b61407f3a84d53f2d0f847328f946b5fea4bb8953d91541297efbbac1f67a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-after-0.md",
+      "sha256": "6082e0f6598081da8fc658d27f99a847c4f34959b8d717a060a01487667cbe97"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-after-1.md",
+      "sha256": "b330107bc47d6f09dd1345dce04c2a920021dd4b1197129e59c6b16815ec2f5c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-after-2.md",
+      "sha256": "c98c187cfad9fffaadf0928041d114a2ccc8028d89d1e34719805e58420961e6"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-after-3.md",
+      "sha256": "f9e2343864e9f0493ce4a0dc73e9836e8cc450618cd154d5667ef2e6e6befbd0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-before-0.md",
+      "sha256": "08b6a0bc6906cd596f1458be5ac2911c478709b27e4f3c52e8edd0293e2f4c56"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-before-1.md",
+      "sha256": "190f8512ad464f1ff1f3a4f185b53171d1fe1dd9abfb62f219c44c25c384318c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-before-2.md",
+      "sha256": "c6ce033a16f8dfc550d26059d79b1b437ac50b75120082235fd9c822b1131fe0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-before-3.md",
+      "sha256": "db6cbb2246c525114c665382cfe786e7b89afb461361787be2dfece589bcb6ba"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-interrupted-checkpoint.json",
+      "sha256": "445ddb8df9b64ce02131dfb69f6633939b26e57ce4e0aa7e550925ac64a61582"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/69-interrupted-event.json",
+      "sha256": "130ccec9cc74c9919a03e99eb093d77d86633fa8fb81b0f19dda027e14211d52"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/70-invalidate.execution.json",
+      "sha256": "000167b2e4000cd61d09229fd65659d1c85abf1a51264b1637da36b12cdef578"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/70-invalidate.input.json",
+      "sha256": "9c81132e38db8f6721b3e6d23e00e2a24bfce5055446c6b0c86fa8c12e503444"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/70-invalidate.result.json",
+      "sha256": "fbc0a6c69684063715d3ea3465d98b5bc09980d57cd6ab66fb059bf6c27e0ea7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/71-first-append.execution.json",
+      "sha256": "a711902281be93fe5512d768e40263c6821b873fcecefd902311fd499024ed6a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/71-first-append.input.json",
+      "sha256": "2321c46d35c769a39dca2ec5d6a3b788754671d7b5cb16c7c7f54eea7e49776f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/71-first-append.result.json",
+      "sha256": "9ce04b07d3a41b1aced71440d5da1faf215081037d4083e7d6e20c01a957606a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/72-interruption-boundary.json",
+      "sha256": "390c8b2c0503ae5db99c453643065db7d21dd4d32eb6f7ebd5c5c94a9b8ba92e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/73-resume-inspect.execution.json",
+      "sha256": "840db136dbccc94d949c9924b0423311e14df3d9d8ae1aaa6c537ddd61c73fd9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/73-resume-inspect.input.json",
+      "sha256": "86a9f0809f84ef150a9e7ad6b4ea34147e0f513a9c48c6a5d0df934f0048937a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/73-resume-inspect.result.json",
+      "sha256": "b7e6fb3a39c0aef2a7c420f8baced6c1a8bb1dab4f281e0859e17f83d53a54d6"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/74-recover.execution.json",
+      "sha256": "c9e8cb8660daebc1cbed55ad88bc30527b7ce4089a651b3b33eba398b1875beb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/74-recover.input.json",
+      "sha256": "a9976baef27246d636b38c35786ed988d10896ecd311c41f1ea6568749d1e926"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/74-recover.result.json",
+      "sha256": "220d342c21a51ffa140761954cbc65811e2d1582d7770691dd642d60577b39e7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/75-query-before-retry.execution.json",
+      "sha256": "c36ddbece19983bb8da8ea13a10710da948354b8022352c90bb612568b5cc2d5"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/75-query-before-retry.input.json",
+      "sha256": "da9cec8331a9db459aa8ab1894e83be953168c17dd6ae000b1d566cf537c1b45"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/75-query-before-retry.result.json",
+      "sha256": "0df6704a0c37145e1eda78488779c24ff583b6d7f56c6cd535a9489fc1523f15"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/76-precompletion-verify.execution.json",
+      "sha256": "8ad0e213e4398040cf246387ad23a7a6343ea82420860e9b07ba4a54fff69fad"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/76-precompletion-verify.input.json",
+      "sha256": "336cc23e086c85a0b360b0d1223609cc28ac5c4f6ee0f8c728a7cc2dd7615d7f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/76-precompletion-verify.result.json",
+      "sha256": "d0c9ebfc7ed366f070ac4ef213e971a0629253d7472453c0bd16560ff2621fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/77-exact-append-retry.execution.json",
+      "sha256": "10be1c993b0e08611a9f99cea1385052d6d5e55bc727abc8a18e4a492cad1988"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/77-exact-append-retry.input.json",
+      "sha256": "2321c46d35c769a39dca2ec5d6a3b788754671d7b5cb16c7c7f54eea7e49776f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/77-exact-append-retry.result.json",
+      "sha256": "5d8a5d623b56533d64f0d390aebe0af3b12b8d5030ee35a98b56082911a48d84"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/78-resume-verify.execution.json",
+      "sha256": "93ae2c537a91648d5a23e7d0577f3bc5609853288b9c7b91b45805a353c7e99c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/78-resume-verify.input.json",
+      "sha256": "336cc23e086c85a0b360b0d1223609cc28ac5c4f6ee0f8c728a7cc2dd7615d7f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/78-resume-verify.result.json",
+      "sha256": "d0c9ebfc7ed366f070ac4ef213e971a0629253d7472453c0bd16560ff2621fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/79-resume-complete.execution.json",
+      "sha256": "9cd2609771dab00348c547a397ab1305a034d0a19ba05144bdd68bebc35825c5"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/79-resume-complete.input.json",
+      "sha256": "336cc23e086c85a0b360b0d1223609cc28ac5c4f6ee0f8c728a7cc2dd7615d7f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/79-resume-complete.result.json",
+      "sha256": "5c30529606396a2b8527b0ee9c60bd8817ce95d37031dbedc9eec8dac69b86c1"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/80-query-after-retry.execution.json",
+      "sha256": "c2c1daae1334f96213a1aa5e8494daf1065dafd8162f6391df5b08b44c93243a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/80-query-after-retry.input.json",
+      "sha256": "da9cec8331a9db459aa8ab1894e83be953168c17dd6ae000b1d566cf537c1b45"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/80-query-after-retry.result.json",
+      "sha256": "0df6704a0c37145e1eda78488779c24ff583b6d7f56c6cd535a9489fc1523f15"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/80-recovery-proof.json",
+      "sha256": "ff91f7f93c3338f494c598f31ce0dd931d4f14fcc80640acd8de5696febb2db4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/81-maintenance-inspect.execution.json",
+      "sha256": "a87a77a1af7e1bd01f987628370c247376451556b05b0225c44f938f5fcce84b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/81-maintenance-inspect.input.json",
+      "sha256": "e907fde47bb7b600b395574e8d72da8b3d80665b03e5498feba2e61eed77c6b0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/81-maintenance-inspect.result.json",
+      "sha256": "0fb1374c6b6243726aaede665758107d94bfd6de3ffaf3e785023d12ee4fd7d3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/82-final-records.execution.json",
+      "sha256": "4865db4a5c05817f610bfeb4c28245558e3b34121d835e01e003857482b11de3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/82-final-records.input.json",
+      "sha256": "86a9f0809f84ef150a9e7ad6b4ea34147e0f513a9c48c6a5d0df934f0048937a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/82-final-records.result.json",
+      "sha256": "b7e6fb3a39c0aef2a7c420f8baced6c1a8bb1dab4f281e0859e17f83d53a54d6"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/83-final-validation.execution.json",
+      "sha256": "6143a688e136d6ab47ad20387b1ea538c3bbeb74f04d3b71d161b40d67047922"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/83-final-validation.input.json",
+      "sha256": "651c03a531a1c59c01e5eef0756646d1a485a8a65ba4ce302770e3502c4984ee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/83-final-validation.result.json",
+      "sha256": "6a433a9fa8b2f0e1086630be475634181285c41b0357b9bf34cbe0dcbe62a881"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/84-final-links.execution.json",
+      "sha256": "01c0a7b4cd7bab9c4b91c8d6ca9b989ae6b26b8d95367112413aa590c88defd2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/84-final-links.input.json",
+      "sha256": "651c03a531a1c59c01e5eef0756646d1a485a8a65ba4ce302770e3502c4984ee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/84-final-links.result.json",
+      "sha256": "6a433a9fa8b2f0e1086630be475634181285c41b0357b9bf34cbe0dcbe62a881"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/85-navigation.execution.json",
+      "sha256": "3cfb68aba10aa372230d69f84836300314b8fd75bfef38f191d54282872685bc"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/85-navigation.input.json",
+      "sha256": "2212d7dc23ce0748a0f6fb6f5531400d038a063948f8b1183431676fad3a1dd1"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/85-navigation.result.json",
+      "sha256": "b881a0b49083949fb48fdcdfa732343156af66715a77fcd913b368cfcd2bec17"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/86-final-prepare.execution.json",
+      "sha256": "3c8c8651c76dc9c1536172657b159168f051670e515d56e6a2bda9e680862183"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/86-final-prepare.input.json",
+      "sha256": "e907fde47bb7b600b395574e8d72da8b3d80665b03e5498feba2e61eed77c6b0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/86-final-prepare.result.json",
+      "sha256": "e71659459ad13762d27545a589ee5c9ceae9ca61cc821d18ba69cb369f604a8a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/87-nochange-rollover.execution.json",
+      "sha256": "8fa5b8bb20d80a5b8d5222cebf9ef097751f4731c75f38ea30af4410870d0700"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/87-nochange-rollover.input.json",
+      "sha256": "600e9df1b8cf2d14b8647a70e91bbdb1cd1c15d64306d6f6f25eb80963a69995"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/90-final-history.execution.json",
+      "sha256": "cdf0b4155b104a4d73c2ca26258d327450b471d84b7a5327d7a3e7cdbdb24f45"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/90-final-history.input.json",
+      "sha256": "203b8187af3b2295a29e6c28187fcbee184a285cb5db935b18ef020bfbceb4b9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/90-final-history.result.json",
+      "sha256": "0e8b318eb957138198eecc3d8fa504a07fc125786235d5e0e98cc75b0c18d2f4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/91-final-conflict-compare.execution.json",
+      "sha256": "90ed566cbdc04864fc7b7b3d5f1a663172c7c4265e60aa8b52f4f7d487c5fd07"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/91-final-conflict-compare.input.json",
+      "sha256": "93c8fe9bdb31c56b4b3138def0a1a2bb461cf12cd8e6a4f4a768b7b565168376"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/91-final-conflict-compare.result.json",
+      "sha256": "220cceb3b2afabc40bb7cb6c24f4fa777448c3cff5ec41a96cdd1b4a9af1aafb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/92-candidate-id.execution.json",
+      "sha256": "f255b68e9b6ad4cd009cb3a48c6199c863275a0fe7f2e9387e453b535f3ca310"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/92-candidate-id.result.json",
+      "sha256": "104ff8c2bac7bb83dfdd3ca65f8d6138b52c85bbff63c0098de24891b6400c8d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/93-final-checkin.json",
+      "sha256": "c27d32a3388a8031d98efcc9566fd7a1c5e10ed3697b77580ce755195d0c3ae8"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/94-scenario3-results.json",
+      "sha256": "f3ae1885f78aeab52349b1256f40b1e19e17c8bcde95d253903deb05c70c999c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/2026.10.09-daily-plan.md",
+      "sha256": "508391f584baf89c435a104f1b55eee844d0a630f680d9f72490ffce013f1203"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/m1-career-materials.md",
+      "sha256": "c98c187cfad9fffaadf0928041d114a2ccc8028d89d1e34719805e58420961e6"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/project-index.md",
+      "sha256": "f9e2343864e9f0493ce4a0dc73e9836e8cc450618cd154d5667ef2e6e6befbd0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/reconciliation.json",
+      "sha256": "a901742c88f95f978df1d3fb9c06c2a427efa6af4cfb86c621929621c7ff40a6"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/t1-update-linkedin.md",
+      "sha256": "89c3d5473b2a30e452b6c9a725f2105da054b1ad97b3d452810b60d3fe8d33a3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/t3-independent-note.md",
+      "sha256": "b330107bc47d6f09dd1345dce04c2a920021dd4b1197129e59c6b16815ec2f5c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/m1-career-materials.md",
+      "sha256": "961ea61e86a0a55b5b60904c819e8a8349c2d2c9a5655cc91185b4e4b0190656"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/project-index.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/t1-update-linkedin.md",
+      "sha256": "4d229d4dcd793a8a6ca4319654859593e956eb02e3db74c27f31b792dc82c9ad"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/cli-evidence.mjs",
+      "sha256": "5bd35abef5afd161e57dc24dbbb04332b2971e016780a0d2afd91a54967e1887"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/context.json",
+      "sha256": "85d6f3f7fcc684a95d35707aa5e7c69f570f7dbe230dc6009e5d62fa2cff3218"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/RESULT.md",
+      "sha256": "b33d595af5a7a16da42833cee744d827bf9d105d970b80b46d55b998fe525dea"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "ff4399ab6851d112a96fd5024af1ccd7a91963e685a31031f406ade53319d51a"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/checkin.json",
+      "sha256": "c27d32a3388a8031d98efcc9566fd7a1c5e10ed3697b77580ce755195d0c3ae8"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/conflicts/01a121fc-91f5-75d6-9be6-d2240b1383b4.json",
+      "sha256": "4f258190ea16dc75ffe4cc59759c776c341310ac0c903091c6bfb14b77e9cabb"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "a901742c88f95f978df1d3fb9c06c2a427efa6af4cfb86c621929621c7ff40a6"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.temp/daily-tasks/project-index-freshness.json",
+      "sha256": "247d8293f184295ea55f8f0c0d3d6bbeae5aa4592e7f71c98877b700dbebe557"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.temp/daily-tasks/project-index.json",
+      "sha256": "1d3c654430710b0c89ff39bbca57abcc4318c2c4999de8d77749d095618545d3"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Daily/2026.10.09-daily-plan.md",
+      "sha256": "508391f584baf89c435a104f1b55eee844d0a630f680d9f72490ffce013f1203"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "c2e2a3b609fa83e1b6d255c3a166fc23a823245d6dbd95dbea3f8f04f4cf575a"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "c98c187cfad9fffaadf0928041d114a2ccc8028d89d1e34719805e58420961e6"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/outputs/independent-note.md",
+      "sha256": "6082e0f6598081da8fc658d27f99a847c4f34959b8d717a060a01487667cbe97"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/outputs/reviewed-headline.md",
+      "sha256": "87994f0b0f9b60da02ec502538fdcca4cdac5f7633306ecd0d91c65b15651b18"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "89c3d5473b2a30e452b6c9a725f2105da054b1ad97b3d452810b60d3fe8d33a3"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/t3-independent-note.md",
+      "sha256": "b330107bc47d6f09dd1345dce04c2a920021dd4b1197129e59c6b16815ec2f5c"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/project-index.md",
+      "sha256": "f9e2343864e9f0493ce4a0dc73e9836e8cc450618cd154d5667ef2e6e6befbd0"
+    }
+  ]
+}

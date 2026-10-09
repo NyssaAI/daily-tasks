@@ -8,7 +8,7 @@ import { promisify } from 'node:util';
 import { tmpdir } from 'node:os';
 import { uuid7 } from '../lib/identity/identity.mjs';
 import { resolveContext } from '../lib/profile/context.mjs';
-import { appendDecision } from '../lib/log/decision-log.mjs';
+import { appendDecision, queryDecisions } from '../lib/log/decision-log.mjs';
 import { verifyOperation, completeOperation, completeChangedRollover, inspectMigrationRetirement, completeMigration } from '../lib/operations/verification.mjs';
 
 const hash = text => createHash('sha256').update(text).digest('hex');
@@ -310,6 +310,48 @@ test('baseline checks actual canonical fields, view hashes and preserves unrelat
   f.operation.baseline.value.records[unrelatedId] = JSON.parse(beforeText).records[unrelatedId];
   await f.save();
   assert.equal((await completeOperation(f.input)).status,'completed');
+});
+
+test('migration decisions require actual retirement before log append and retain completed retry idempotency', async () => {
+  const f = await fixture(), criterionId = uuid7();
+  f.event.action = 'workspace.migration';
+  const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  const retiringPath = path.join(f.context.projectsRoot,'definition-of-done.md');
+  await writeFile(retiringPath,source); await writeFile(f.file,destination);
+  f.operation.files = [{path:retiringPath,before:hash(source),after:null},{path:f.file,before:hash('before'),after:hash(destination)}];
+  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:false}]};
+  f.operation.sourceSnapshot = {retiringMarkdown:source}; await f.save();
+  const append = {...f.input,projectsRoot:f.context.projectsRoot,entry:f.event};
+  const prior = await appendDecision({projectsRoot:f.context.projectsRoot,entry:{...f.event,id:uuid7(),operation_id:uuid7(),action:'note.recorded'}});
+  const priorBytes = await readFile(prior.file,'utf8');
+  for (const dryRun of [true,false]) await assert.rejects(appendDecision({...append,dryRun}),/retirement/i);
+  assert.equal(await readFile(prior.file,'utf8'),priorBytes);
+  assert.equal((await queryDecisions({projectsRoot:f.context.projectsRoot,dryRun:true})).total,1);
+  await unlink(retiringPath);
+  await assert.rejects(appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event}),/vaultRoot|operation/i);
+  await assert.rejects(appendDecision({...append,operationPath:path.join(f.context.stateRoot,'operations',`${uuid7()}.json`)}),/checkpoint missing/i);
+  await assert.rejects(appendDecision({...append,entry:{...f.event,original_words:'changed event'}}),/event/i);
+  const protectedPath = path.join(f.context.projectsRoot,'protected.md');
+  await writeFile(protectedPath,'changed');
+  f.operation.protectedFiles = [{path:protectedPath,sha256:hash('original')}]; await f.save();
+  await assert.rejects(appendDecision(append),/protected source/i);
+  delete f.operation.protectedFiles; await f.save();
+  await writeFile(f.file,destination+'\nUnexpected edit.\n');
+  await assert.rejects(appendDecision(append),/retirement|effect/i);
+  await writeFile(f.file,destination);
+  await writeFile(path.join(f.context.projectsRoot,'incoming.md'),'[Old DoD](definition-of-done.md)');
+  await assert.rejects(appendDecision(append),/retirement/i);
+  await unlink(path.join(f.context.projectsRoot,'incoming.md'));
+  const changed = destination.replace('[ ] Criterion','[x] Criterion');
+  await writeFile(f.file,changed); f.operation.files[1].after = hash(changed); await f.save();
+  await assert.rejects(appendDecision(append),/retirement/i);
+  await writeFile(f.file,destination); f.operation.files[1].after = hash(destination); await f.save();
+  assert.equal(await readFile(prior.file,'utf8'),priorBytes);
+  assert.equal((await appendDecision({...append,dryRun:true})).duplicate,false);
+  assert.equal((await appendDecision(append)).duplicate,false);
+  assert.equal((await completeMigration(f.input)).status,'completed');
+  assert.equal((await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event})).duplicate,true);
 });
 
 test('migration post-delete completion verifies snapshot preservation and clears checkpoint only', async () => {

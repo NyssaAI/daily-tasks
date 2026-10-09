@@ -45,6 +45,12 @@ declared absence, destination preservation, remaining live incoming references,
 event and baseline. Only a proven absent retiring DoD identity may be removed from
 its baseline; unrelated entries remain preserved. It cannot retrospectively attest
 that inspection preceded deletion. Neither command deletes Markdown.
+For a new `workspace.migration` event, `log-append` requires the same resolved
+profile/vault scope, `projectsRoot` and `operationPath`. It checks the exact bound
+event, actual post-retirement preservation/references, declared after hashes and
+protected sources before writing the log. An identical recorded event remains an
+idempotent retry after its checkpoint is cleared. This check cannot prove the
+chronological order of the earlier inspection and deletion.
 
 These checks enforce supported CLI transitions. They cannot authenticate an
 agent-authored worker receipt or prevent unrestricted host file tools from

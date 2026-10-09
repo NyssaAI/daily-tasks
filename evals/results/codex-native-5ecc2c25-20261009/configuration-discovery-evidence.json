@@ -1,0 +1,2100 @@
+{
+  "id": "configuration-discovery",
+  "status": "pass",
+  "candidateHash": "5ecc2c25458837374b8619209d96ad0f90f548c14c7a02d98479712fecf00233",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "source_unchanged": true,
+  "archive": "evidence.zip",
+  "report": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation-complete.result.json",
+  "transcripts": [
+    "transcripts/config-positive.jsonl",
+    "transcripts/config05.jsonl",
+    "transcripts/config06.jsonl",
+    "transcripts/config07-a.jsonl",
+    "transcripts/config07-b.jsonl"
+  ],
+  "assessment": "Four positive configuration cases and unknown/conflicting cases retain supported outcomes. A remains pending before selection log/baseline/receipt; B rejects foreign mapping/operation, completes only own milestone. Independent audit preserves all10 A non-log files plus complete queried history unchanged.",
+  "evidenceFiles": [
+    {
+      "path": "evidence/configuration-discovery/.temp/execute-accepted-requests.mjs",
+      "sha256": "eec1cf0f7e8ac6955bfbe36b441599c78e0c4aeb80c3fc133833f5b64d6b393c"
+    },
+    {
+      "path": "evidence/configuration-discovery/.temp/finish-common-root.mjs",
+      "sha256": "b0be5e9fb5c271d8d3dc4592fad73225020cc2d6c9320c52d3fd262e110edcbd"
+    },
+    {
+      "path": "evidence/configuration-discovery/.temp/results.md",
+      "sha256": "e1a4d08290b00ab1926fdfec54aa1ed8306737de031f6af4c8e9c79fd94eabb6"
+    },
+    {
+      "path": "evidence/configuration-discovery/.temp/validate-results.mjs",
+      "sha256": "8995fb8844693e7c6d4fa622d3e9f8b8437a3aff0504f8e2e9fb2f061305a19b"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/01---help.result.json",
+      "sha256": "47b617a9a957ce0e3d877f9e78e695a20c13751816d9c1a57a8c60ccb8bf6ff2"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/02-resolve-context.input.json",
+      "sha256": "36dacfe67493cfa8b535664364f261934e5f42072480d1fae8620eeb180cfd9e"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/02-resolve-context.result.json",
+      "sha256": "4673fb6ebb5b49bb459431d08006d8f87dd9b6984f6b08acbffd9d0f2128576a"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/03-validate-profile.input.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/03-validate-profile.result.json",
+      "sha256": "a2da53d8b8d85a1edb51a51bdf3b20fa2601da4b352da3c0f6957724704a7ad1"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/04-inspect-records.input.json",
+      "sha256": "63adbbd99920b329db02c21bad674138b7b5056eeb43af5cd0e0609639311f97"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/04-inspect-records.result.json",
+      "sha256": "2f3a3addb2d0fcf3b2f6e85a41bced1d73dff7f06122e3b9789348404c99712d"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/05-parse-record.input.json",
+      "sha256": "4d07b80f2b41abdf8fac277245eac6d7638c0e1daa195c6ffc2daea40cfb2a62"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/05-parse-record.result.json",
+      "sha256": "8da267a4e64eb36894da860887267be28b8f5b7e30c13c6e4f9704b4338b08a1"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/06-next-record-number.input.json",
+      "sha256": "d025ffad9648f3f45f4b0a7a8ab7dab6a79f8c855f382735f21891a6160d098e"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/06-next-record-number.result.json",
+      "sha256": "14a84b60a481ccba276cf61d226fac6f521e8749a671e1d72bf5d15f78d9b5be"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/07-new-id.result.json",
+      "sha256": "22b20cf80422033543032142a59242990411f990664ab34a05ba7751ef289bbc"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/08-new-id.result.json",
+      "sha256": "2dbfb9180ac8c72decfaf56e69d01b2ccd93f7f3fc1bc1d98b0a63b8accbad95"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/09-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/09-activity-time.result.json",
+      "sha256": "020c70cbbaa58a80569ae7b00bf56c8747aaf7684cfaca6013a40afbe0e53045"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/10-new-id.result.json",
+      "sha256": "84ba25632cc58db50ebeb8c236363329b8f24e0c8e86b524b771561f894d162d"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/11-new-id.result.json",
+      "sha256": "789c485b78ed6d828800107bc9c119a348bcec70f7d748a4716ab42b3306431f"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/12-inspect-records.input.json",
+      "sha256": "63adbbd99920b329db02c21bad674138b7b5056eeb43af5cd0e0609639311f97"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/12-inspect-records.result.json",
+      "sha256": "85063c9c37991f9a137e45f9f1f247d97c8512c82a78806b8515e9e3a20a9583"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/13-log-append.input.json",
+      "sha256": "3b0845ff8970929cc29f08aa3c993dd748227e3dded71957ecab38ac38a15f04"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/13-log-append.result.json",
+      "sha256": "5d37033481de3118d179cce46e7c8e089a9a8da7043a5670efbb1a680bf292c0"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/14-invalidate-project-index.input.json",
+      "sha256": "a95282393f41acc6f4ad09c43f724a4f2a2c18889a9fb03d558e6131dd452ede"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/14-invalidate-project-index.result.json",
+      "sha256": "7bd30aa880002fa9e99345903765736c5051f5f0ac959d4a58e0b4fa14c8b94e"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/15-log-query.input.json",
+      "sha256": "63adbbd99920b329db02c21bad674138b7b5056eeb43af5cd0e0609639311f97"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/15-log-query.result.json",
+      "sha256": "beec1f99eb329937ecb2dff5e5a56cafabed92c20103756561882280329a15ca"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/16-inspect-navigation.input.json",
+      "sha256": "35eac3fda3496724465ea36cef4cd68fc88a70c8ffd31777495bbbdd7f736f4f"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/16-inspect-navigation.result.json",
+      "sha256": "ddd471d880b24e81cc44623093d218e55cd567678862b09a8aa68b0913832b34"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/31-inspect-navigation.input.json",
+      "sha256": "63adbbd99920b329db02c21bad674138b7b5056eeb43af5cd0e0609639311f97"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/31-inspect-navigation.result.json",
+      "sha256": "9b11e8f22901401d2baa1771421504f09ba71a1828492fc12cce1f4aed38ef9b"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/32-operation-verify.input.json",
+      "sha256": "ba014205ce3f6e5adca6d2304559643a50cf70ba3ee6d78c74755ef1e6fbea55"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/32-operation-verify.result.json",
+      "sha256": "93c16720d4b4e72903c271c31c9e2ff3203d2930a36d95419960f7d0a498891b"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/33-operation-complete.input.json",
+      "sha256": "ba014205ce3f6e5adca6d2304559643a50cf70ba3ee6d78c74755ef1e6fbea55"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/33-operation-complete.result.json",
+      "sha256": "7a1ca3c97a67784ca9b8804b8b0ae87aadde8595505512b665ed72bef5d039a0"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/34-log-query.input.json",
+      "sha256": "63adbbd99920b329db02c21bad674138b7b5056eeb43af5cd0e0609639311f97"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/34-log-query.result.json",
+      "sha256": "f1838b25d28bd0c93dbd96e8cefa067995f1cc4b00d5208df8888ef4d3e0b9e6"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/after/common/.nyssaai/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/after/fixture.json",
+      "sha256": "c987e438576fc6f7b33ef45c65b3f312ede694c2d57bba01cc1c3114e8073c14"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/after/vault/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "b8bb35408b4ec657be704757e7605e56bffcbb45c118025b070fa750171f1b7d"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/after/vault/Projects/job-search/project-index.md",
+      "sha256": "3f975a3c992a01c91be6ffcf95b93ac307e299f76f7dc56585f9873a5b52d25d"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/after.manifest.json",
+      "sha256": "45e33b9128e77166f36e7521fa731f39c162e8358c01e705b9b9aade3dc34d8f"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/before/common/.nyssaai/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/before/fixture.json",
+      "sha256": "c987e438576fc6f7b33ef45c65b3f312ede694c2d57bba01cc1c3114e8073c14"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/before/vault/Projects/job-search/project-index.md",
+      "sha256": "cd4d9a27f318f675944cf89e36e9c180fc59f206b3959ace5394c4eae137646e"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/before.manifest.json",
+      "sha256": "66030e6ec16fd43c87de90cd9a969da35aa2be642f7cf87865ce1c6d059f18ce"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-check-links.input.json",
+      "sha256": "53531eb2fe51ce3897dbefd7edb000e816382055499ec7303e3ea72d071609c7"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-check-links.result.json",
+      "sha256": "a8de407e7f2a8ff0e7b9dd4b5718f2695566c3db115a7e7734c7af7668d83c4a"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-inspect-records.input.json",
+      "sha256": "63adbbd99920b329db02c21bad674138b7b5056eeb43af5cd0e0609639311f97"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-inspect-records.result.json",
+      "sha256": "2095b28331ce1e4935a0db5a98246dbc7c532ef94d12f8a4cf5299c19ff424a2"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-log-query.input.json",
+      "sha256": "63adbbd99920b329db02c21bad674138b7b5056eeb43af5cd0e0609639311f97"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-log-query.result.json",
+      "sha256": "d4536a4f147cf49a38be290e33681ea6b38204747c938a29380956c446033d1d"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-validate-records.input.json",
+      "sha256": "53531eb2fe51ce3897dbefd7edb000e816382055499ec7303e3ea72d071609c7"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-validate-records.result.json",
+      "sha256": "1e0c22da2e185c331a66909df1ac9a3a377db65879f9b7c522c6d85d381a38f7"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/final-validation.json",
+      "sha256": "778553043d58614ba8160344ead67d93aa21c4d612c040fc1d903456eb6277de"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/inspection-shape.json",
+      "sha256": "fc8a3db21ab82c1723c39f5764ea73eabb2b8356ff53b4765a43104aeef13603"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/installed-milestone-template.md",
+      "sha256": "f7e284fbb64c6498b9d6a40eef20a8cf52dc59e6be6f5e5bc3a374eeafe14670"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/outcome.json",
+      "sha256": "1751b1c94d0109be646c3914055ac93f9a31a87d0c7641193c0f0ad08a425457"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/parsed-project.json",
+      "sha256": "8611899013a1f1f0e9f7f6b63b040e46f75c5d2cafd522ce216eac9ea8f5a445"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/pending-operation.json",
+      "sha256": "b908494cd64148eabee876e911db7991a83630d866947b8b10062fba885c4c18"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/queried-log.json",
+      "sha256": "e9b697c99dab06b20076232e15fc827d84366433bdd702e4e201ba9c198bffd6"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/.temp/native-workflow/runtime.json",
+      "sha256": "8c15acedc3bf6c13f9c0b3ecf9de3085d847bb6a5ecb791e0c3dacdf12d19502"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/common/.nyssaai/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/fixture.json",
+      "sha256": "c987e438576fc6f7b33ef45c65b3f312ede694c2d57bba01cc1c3114e8073c14"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "9dd0364583b715e136dc343e855b52759e58f05e4553677d54a8e283ced37a3f"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/vault/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "b8bb35408b4ec657be704757e7605e56bffcbb45c118025b070fa750171f1b7d"
+    },
+    {
+      "path": "evidence/configuration-discovery/01-common-root/vault/Projects/job-search/project-index.md",
+      "sha256": "3f975a3c992a01c91be6ffcf95b93ac307e299f76f7dc56585f9873a5b52d25d"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/01---help.result.json",
+      "sha256": "e6b158ce04c73aa0ea7351e48ed758f4c70256bae74a441308d3e05364b4fbd3"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/02-resolve-context.input.json",
+      "sha256": "45e5d1218991c9ec108417bf88c60ff984059d4dbb64da5dce07461659c72a74"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/02-resolve-context.result.json",
+      "sha256": "6df07eea7fffec33f02cdd33df323f34fa59a3e2e94eb0e08097ad37b05ec824"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/03-validate-profile.input.json",
+      "sha256": "9782e5815ac5aa61b254b259a9a49fe4db6388264cef7042c5e9d9fb10682683"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/03-validate-profile.result.json",
+      "sha256": "aa1e4c8350b0008cc53e9626160bb6afca0955e620b5cd5a06c7df3ef9e6825b"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/04-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/04-activity-time.result.json",
+      "sha256": "f6cfdfe86e84be3ef9011257aeb991180dbfa0840196622dd6daa3fbbbb5f9ca"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/05-new-id.result.json",
+      "sha256": "10b985f730e074672dff11b3952c4a6d84d0bcd4cef9112107bb4aa3cd42380a"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/06-new-id.result.json",
+      "sha256": "d6556da8ae570f49714dc3c60d79be5eba16ec292047ad073974ed6c26ebeb47"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/07-resolve-context.input.json",
+      "sha256": "45e5d1218991c9ec108417bf88c60ff984059d4dbb64da5dce07461659c72a74"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/07-resolve-context.result.json",
+      "sha256": "5c7330d686f72219946879ecdce695f63714c8552b537984d3d98ca43b400b49"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/08-validate-profile.input.json",
+      "sha256": "9782e5815ac5aa61b254b259a9a49fe4db6388264cef7042c5e9d9fb10682683"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/08-validate-profile.result.json",
+      "sha256": "aa22518e3c71006364b555d2ce1b83103fc941d843e7dbf728a0472daf0bb8d9"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/09-inspect-records.input.json",
+      "sha256": "f4a2d658037f02a3a1960c223b7797522d09210afad47bc6b569c7b04c705479"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/09-inspect-records.result.json",
+      "sha256": "69f46a9caac427a9f4b6bf9a8248f9a9371d3faa51cc908a0ce5a82b093a64e2"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/10-parse-record.input.json",
+      "sha256": "999c0068df27e5a6c5dfcf865a96bb82a68139755e38896908c3c25cc3b6ce32"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/10-parse-record.result.json",
+      "sha256": "5841c71ab056331a92084601c7f540cefc26674debced33eb2c901e7755ff72a"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/11-next-record-number.input.json",
+      "sha256": "6b7531101cba27f877088689e05c9272c3c839c4fce2ca234bb506b49ccff1ee"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/11-next-record-number.result.json",
+      "sha256": "5726c8042d3d3dab81e7726a8251f00502b69a7572cc5401ab62d3cbfbd657be"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/12-new-id.result.json",
+      "sha256": "423c42698a9a556d566770fb3cbdc142b7c518b13332d1f3de2179cb56b00ccd"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/13-new-id.result.json",
+      "sha256": "ff8037cdf90124fea7d91c2ee6b60a33529faaa6455654345066a1075849d454"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/14-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/14-activity-time.result.json",
+      "sha256": "e83215aaf2b51aa6ac76c127f3c734d056ab09f7d1286b794081920b62a26a0c"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/15-new-id.result.json",
+      "sha256": "2c20ad403491719fe27dc93fe21bd5ac62bf484722b40d2df0c1ade9c2aedc10"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/16-new-id.result.json",
+      "sha256": "ee2681b5cd32581a7eae07f9cbe3c82a1d65f4a9eff72130ae4dc24d93d10f4a"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/17-inspect-records.input.json",
+      "sha256": "f4a2d658037f02a3a1960c223b7797522d09210afad47bc6b569c7b04c705479"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/17-inspect-records.result.json",
+      "sha256": "08ede20148501da4bd6707ddc8dbcd73b3966c97056f0ae75bb45836597f4112"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/18-log-append.input.json",
+      "sha256": "b163dc0e83fd2b32e8b26892da1fae0a7be3e738ceb00e249e472b4c0aab37b0"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/18-log-append.result.json",
+      "sha256": "abe17c93383be17292224a8a1aed57365c2727d9d8cd13a3d36e302a0a8e1593"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/19-log-append.input.json",
+      "sha256": "c55e43294f936cd7beea6707e2eab99985fd624b0363130acf017b2a1435f5fd"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/19-log-append.result.json",
+      "sha256": "0df91f5a82a8511786b44259b6871ca2d39d3df4bb6cfabd441acdfa85a4dab8"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/20-invalidate-project-index.input.json",
+      "sha256": "43f8db7505af3c6310a04123a7ac70e8739015bc69c9494e2fe164375c9f7813"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/20-invalidate-project-index.result.json",
+      "sha256": "72be24170fe7c8327aabc0ac83b43a996e3e68e64a7e89cc131d2a984c4aa11b"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/21-log-query.input.json",
+      "sha256": "f4a2d658037f02a3a1960c223b7797522d09210afad47bc6b569c7b04c705479"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/21-log-query.result.json",
+      "sha256": "b89c429d2c4a59533ada7373ed00144022e4b31afcb46aa8b40e6e3ff591c0c5"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/22-inspect-navigation.input.json",
+      "sha256": "f4a2d658037f02a3a1960c223b7797522d09210afad47bc6b569c7b04c705479"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/22-inspect-navigation.result.json",
+      "sha256": "b9900152730ebb139a6a7009fcccc8e6407d1153e6c5919c184556a2e1222206"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/23-operation-verify.input.json",
+      "sha256": "ce77cf168b55be0340fd9184b24cea8b2de9927639c322b5c8e0896d1854f213"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/23-operation-verify.result.json",
+      "sha256": "59e01807cc26043eecec87aac4219b115f915337c82cdc5496caa56b2fb65a91"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/24-operation-complete.input.json",
+      "sha256": "ce77cf168b55be0340fd9184b24cea8b2de9927639c322b5c8e0896d1854f213"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/24-operation-complete.result.json",
+      "sha256": "00404b268f47202724744a149c83ececb3265ff71a1f26acd32d6f315ad887b5"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/after/common/.nyssaai/daily-tasks/profile.json",
+      "sha256": "9782e5815ac5aa61b254b259a9a49fe4db6388264cef7042c5e9d9fb10682683"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/after/fixture.json",
+      "sha256": "6e1410ff483e484a4161febc97e53b922c728dbf3185d8f76ddbe7fdee85f93c"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/after/vault/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "28eabe50aa081586379ca74925d6d41622141f47e4f5df766676458be4a61b16"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/after/vault/Projects/job-search/project-index.md",
+      "sha256": "344f9f28a231f383c31fd9b2e7c064fc8be9aaa9a07040a60aa3ddae95f985b3"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/after.manifest.json",
+      "sha256": "ae4533b18c4f684605515e9dc5935e0022538c4a2d898802b884e7807ae29b9f"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/before/fixture.json",
+      "sha256": "6e1410ff483e484a4161febc97e53b922c728dbf3185d8f76ddbe7fdee85f93c"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/before/vault/Projects/job-search/project-index.md",
+      "sha256": "331c062c376d5191bcaa44d6f922236c8b7f155894dd2717ec624d4fa1347d8c"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/before.manifest.json",
+      "sha256": "e6d1e2caaffcd88166f6b7559868efe9554077f9560825dcefa45dad6d55b942"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-check-links.input.json",
+      "sha256": "25348dbdcfa092c803b913d06468c41c58c039816ff40db59ab9593e276ae7ef"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-check-links.result.json",
+      "sha256": "e587f9bf94b67976ae2b4efda77565de90fbf3317045cbb8a12ffa6e7cab1b91"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-inspect-records.input.json",
+      "sha256": "f4a2d658037f02a3a1960c223b7797522d09210afad47bc6b569c7b04c705479"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-inspect-records.result.json",
+      "sha256": "0ba3182616ecbb7b90b0518232698689357f87d852a20a26175e6139a7cd4d7e"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-log-query.input.json",
+      "sha256": "f4a2d658037f02a3a1960c223b7797522d09210afad47bc6b569c7b04c705479"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-log-query.result.json",
+      "sha256": "6dec912495adc6931d22b38b0c1ab95eeb3fe36f978efaeac21c370f2fa60806"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-validate-records.input.json",
+      "sha256": "25348dbdcfa092c803b913d06468c41c58c039816ff40db59ab9593e276ae7ef"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-validate-records.result.json",
+      "sha256": "e7f2ee60cddade02ec9ce692968c924f08f720ae1106084a44a5e2fcd292dee3"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/final-validation.json",
+      "sha256": "cbe9815e3f655875ffff953119020ed434de7083d7db57bb04cd8e592358e86e"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/inspection-shape.json",
+      "sha256": "afc8b3fbfc66cf1ba84ac8c9b16ec624ed4a3dfe889466b8f2a546af4f6140ba"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/installed-milestone-template.md",
+      "sha256": "f7e284fbb64c6498b9d6a40eef20a8cf52dc59e6be6f5e5bc3a374eeafe14670"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/outcome.json",
+      "sha256": "8fbe080e003b2f2edaec292b38ee17352deaf6515adab90fe23f999fad1b9432"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/parsed-project.json",
+      "sha256": "4311408bc6e44f6e5f6179b67db020421f3e13f7ff0454fb760e00c5ee58b8eb"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/pending-operation.json",
+      "sha256": "1ab7d2875f88aff78aa0e15345973f152c44749d65f0f4158d787f7d185529b3"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/profile-before.json",
+      "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/queried-log.json",
+      "sha256": "7d5ec03f4a89028bb8bc75e7ca791538fe42cdc0213390ebc48249b395bcc45f"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/.temp/native-workflow/runtime.json",
+      "sha256": "2bce08e14ba9e4a4f3ccecc0d70aa21a3c16f9ab5f85917846e92b3bf7f27c7b"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/common/.nyssaai/daily-tasks/profile.json",
+      "sha256": "9782e5815ac5aa61b254b259a9a49fe4db6388264cef7042c5e9d9fb10682683"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/fixture.json",
+      "sha256": "6e1410ff483e484a4161febc97e53b922c728dbf3185d8f76ddbe7fdee85f93c"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "3539c556539fcc847bdfdfdcbb02c9f49e64577f3b95a91bb4130cf791d75c69"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/vault/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "28eabe50aa081586379ca74925d6d41622141f47e4f5df766676458be4a61b16"
+    },
+    {
+      "path": "evidence/configuration-discovery/02-no-profile/vault/Projects/job-search/project-index.md",
+      "sha256": "344f9f28a231f383c31fd9b2e7c064fc8be9aaa9a07040a60aa3ddae95f985b3"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/01---help.result.json",
+      "sha256": "10c16deb9ab4bdc1fe33059ab6e84a5877b0d90a597ec3044de2a602d429d569"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/02-resolve-context.input.json",
+      "sha256": "215c8beb096cb18cb2aaec901cfa74bd1b046e7c9ebe1eb76406dd814d362376"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/02-resolve-context.result.json",
+      "sha256": "8a2cb7dd8aea8b3045dfdb9b7c6ae0b6a0d6599ec6e3ec9b3a71a22a4e639e83"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/03-validate-profile.input.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/03-validate-profile.result.json",
+      "sha256": "fef83256c313776516669956273ad045dbd940d09058ad50fc7b54cb9db0a582"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/04-inspect-records.input.json",
+      "sha256": "360c3988f40f320fe0d5c740487a460b9d34de143991a37ed23ff29a15e5cd81"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/04-inspect-records.result.json",
+      "sha256": "8c2061e41b048b9f6a8d2eb392080da4ddb41ab9540f9adc4a9a7b007d12d99f"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/05-parse-record.input.json",
+      "sha256": "f1d797b307f9c86a579afe038f65a596645a7b2029bbc8af7727ef63a6d8f3c5"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/05-parse-record.result.json",
+      "sha256": "4ff90f2ba057e03e377d63dae5f2a2b9d28f9d0b2df77a6ab341ee8bd23896ab"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/06-next-record-number.input.json",
+      "sha256": "f115e7abccac0d7125998ed6c4acdb066b30f309da6a0f529cafd94c650e6130"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/06-next-record-number.result.json",
+      "sha256": "8d68fbbc093c3c3cd3b619b658df267517fa60d24b662b552e6963f561205764"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/07-new-id.result.json",
+      "sha256": "a7a40a47ecf01747f5be2e5940a0a8a25c20d25b9b05ca3f0abd47a0c7240249"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/08-new-id.result.json",
+      "sha256": "d19a51d0c7c47c1d1fd4f1d742d5dfedbb08f4f7062f268158dc50673f207414"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/09-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/09-activity-time.result.json",
+      "sha256": "b03f6379f100df22c41e3e9f3bcd5988b412e326668c2e3ad68d81c1bcffbe8b"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/10-new-id.result.json",
+      "sha256": "fcd8bb8506d6d851bdcb9e95df44e3e98bb7e7f88eadd389055d230bb33d43c4"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/11-new-id.result.json",
+      "sha256": "079e29d967633ba9c9d5c47fcda8f1b6172aafd4cfec2a7a54e9f33a02b4bc09"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/12-inspect-records.input.json",
+      "sha256": "360c3988f40f320fe0d5c740487a460b9d34de143991a37ed23ff29a15e5cd81"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/12-inspect-records.result.json",
+      "sha256": "f8730f7304cfbd650fac21dc29ba431bfdab5d822ea8815efb868dec3641690d"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/13-log-append.input.json",
+      "sha256": "fdfa9cddc978756c0cd72121d3e8d65791cd889f38a549065a6cd4bad024be2f"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/13-log-append.result.json",
+      "sha256": "5ddbb382ab10de2bcb1310a16823ad5b45338eaedbb40109c0832cf62acd8257"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/14-invalidate-project-index.input.json",
+      "sha256": "8a2c849ea88457cdc687cb9daddc67a78c865bb40db5790501329b6e77d4d5f6"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/14-invalidate-project-index.result.json",
+      "sha256": "21f3d3b5b826c1d232976c3fb1afd54c73647a35fc0ec87266394556ed0f1177"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/15-log-query.input.json",
+      "sha256": "360c3988f40f320fe0d5c740487a460b9d34de143991a37ed23ff29a15e5cd81"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/15-log-query.result.json",
+      "sha256": "df55b7aa12742536a97f666b56f1cc1925a69f0f4ea54655e77a17ff5f713499"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/16-inspect-navigation.input.json",
+      "sha256": "360c3988f40f320fe0d5c740487a460b9d34de143991a37ed23ff29a15e5cd81"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/16-inspect-navigation.result.json",
+      "sha256": "1654e1446b9c6cfe9aa80bbf502c85fba75974f44d071aa4a6b072de90f4503a"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/17-operation-verify.input.json",
+      "sha256": "4089e154d8a7f8cdd11b5dc5fe31ba94753a5aea09429db2d80007a5dabfb90e"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/17-operation-verify.result.json",
+      "sha256": "ddfca6a7105ffd2549f079b2d454bbc8589eeb61822905a310075130a1484875"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/18-operation-complete.input.json",
+      "sha256": "4089e154d8a7f8cdd11b5dc5fe31ba94753a5aea09429db2d80007a5dabfb90e"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/18-operation-complete.result.json",
+      "sha256": "86c29171edc7e62036aa04ba0d982686b81287c32afa7a10281b81b6ff3e1deb"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/after/fixture.json",
+      "sha256": "3df94758564d2baec95e4a8c22fe5012d91079ddf00d4e815746043a617a3b8f"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/after/vault/.nyssa/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/after/vault/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "64695ccc52b0fc4b4e7fbfb91e13745b89a76fa49792762484ef00b471fa46ff"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/after/vault/Projects/job-search/project-index.md",
+      "sha256": "25b4ae1f39f9de9e0f8b203ee1ff8882cafe7603a11d87dc2e70a86a4c637cee"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/after.manifest.json",
+      "sha256": "2cbf16fb1eeafdb9815e10d6ae09c09aa1ce4350e85cf8aed8452824bf1000f9"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/before/fixture.json",
+      "sha256": "3df94758564d2baec95e4a8c22fe5012d91079ddf00d4e815746043a617a3b8f"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/before/vault/.nyssa/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/before/vault/Projects/job-search/project-index.md",
+      "sha256": "f46ac48f61933aa708ff3852fd4921e0637f9a791e33a022a677bd2b96a25de6"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/before.manifest.json",
+      "sha256": "96472eda3dd93a56f128d7d31e1f6b4f9658e17bb9c2a7ec3b44bcb2773683c0"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-check-links.input.json",
+      "sha256": "d8109fa11c44d274ccf49ea30d7f4079de6e58043f9154369cf5c4726ad409fd"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-check-links.result.json",
+      "sha256": "2bda4ec8642ce1ee9123a242b8241077c57c7eafede26baacc042a74a70ccebf"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-inspect-records.input.json",
+      "sha256": "360c3988f40f320fe0d5c740487a460b9d34de143991a37ed23ff29a15e5cd81"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-inspect-records.result.json",
+      "sha256": "442d09113083ccc6922037b42aae0acd01ce4e4a4d5fafc5c5217f50038ac3f7"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-log-query.input.json",
+      "sha256": "360c3988f40f320fe0d5c740487a460b9d34de143991a37ed23ff29a15e5cd81"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-log-query.result.json",
+      "sha256": "fe466f7e50eb618a30a44d68041e01d8c2a41f9201ba3191c2c6bf1d29139c65"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-validate-records.input.json",
+      "sha256": "d8109fa11c44d274ccf49ea30d7f4079de6e58043f9154369cf5c4726ad409fd"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-validate-records.result.json",
+      "sha256": "601d1bb4f1cca1194393c43035e93fdda266f7a11f31d21684d4c48917136d0b"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/final-validation.json",
+      "sha256": "6046cf04bca31af567dfc749206f5b42b403ffdf12c82533c3b7481ce73de10a"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/inspection-shape.json",
+      "sha256": "504fc8ff4a83ca0d87cd3a9609bde6c1e225471530b7cbd505f318198f588f56"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/installed-milestone-template.md",
+      "sha256": "f7e284fbb64c6498b9d6a40eef20a8cf52dc59e6be6f5e5bc3a374eeafe14670"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/outcome.json",
+      "sha256": "cf1fa08a9b8651ddfed38f958a494c837a6fc2f40c34cdee1386597db7263999"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/parsed-project.json",
+      "sha256": "a27ad6902981ca01fbe4ba287eadb0f11a591b2ffdb8f57067440384b1716203"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/pending-operation.json",
+      "sha256": "57ffb145a83c31f394b2c0b72e0381c408065d1fbfec73b11d93c355d4a4d1f2"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/queried-log.json",
+      "sha256": "97bf5eface3ef1ab13159438f9c6e5d8055d46a6f3672bef36b07a384cd97a81"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/.temp/native-workflow/runtime.json",
+      "sha256": "4ecd9f9eb2c51eea70d6fb9c49941115e4e3cd3da7e42e87bbcbcfd1dfbfc1b7"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/fixture.json",
+      "sha256": "3df94758564d2baec95e4a8c22fe5012d91079ddf00d4e815746043a617a3b8f"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/vault/.nyssa/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "6302edd81c1dee9d3ccc4090ad578b370621ed71fe2520cae0ef05e685023938"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/vault/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "64695ccc52b0fc4b4e7fbfb91e13745b89a76fa49792762484ef00b471fa46ff"
+    },
+    {
+      "path": "evidence/configuration-discovery/03-explicit-legacy/vault/Projects/job-search/project-index.md",
+      "sha256": "25b4ae1f39f9de9e0f8b203ee1ff8882cafe7603a11d87dc2e70a86a4c637cee"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/01---help.result.json",
+      "sha256": "31b42a5cab876c0316bb75a088fd3b4371c24f12e091fd1791c0418e425242ed"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/02-resolve-context.input.json",
+      "sha256": "3bab00b3b86e8fbf65f7084fae2f67ceb2c66db0010e8e5d47bc2940369d7c03"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/02-resolve-context.result.json",
+      "sha256": "ea1a9cf079315e001cb94e76f4f71c02212f038bf6f6742335b85ea43156d571"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/03-validate-profile.input.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/03-validate-profile.result.json",
+      "sha256": "775e501e473b11a79597341f759be9f81f93972754ebeb41385545c42804911f"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/04-inspect-records.input.json",
+      "sha256": "3750f68b6e0c2bdee3ad0d469595b4393a91af973d52f7582797499ed08ff6c5"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/04-inspect-records.result.json",
+      "sha256": "528f7e09d65c571c579f537df6b172bc9c4f7f73ffb6fa246af994bbd38fcd5f"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/05-parse-record.input.json",
+      "sha256": "f0dfb25722fe4afe923006c179d9ce9607e32396c93999ef758ff236198ae23a"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/05-parse-record.result.json",
+      "sha256": "9e58b1f7f5abf50a3cd9c0c15a6ebfb718ee7ffde5288e23a87ad1b122ad5914"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/06-next-record-number.input.json",
+      "sha256": "bebd562edb5b5e576495d4603d7c51ddf8c7c6541e4ea39de503b08c14edd39c"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/06-next-record-number.result.json",
+      "sha256": "728f58c2e7fbc15496d8eb66f665ae7ea440de66f54ac75f61ec81f9a5b713de"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/07-new-id.result.json",
+      "sha256": "8b1d9525de9f30b0fffb140c8e28f8ee54d0e342f7603212d276fa7c5840cdee"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/08-new-id.result.json",
+      "sha256": "241fe0f617e88784174699419d48d1c5a5d9af628957045f1ad782ce138b2c1d"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/09-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/09-activity-time.result.json",
+      "sha256": "2c4749e707081dc47524ea33c104ab3dc60df08544c473caed507f02eac3bd74"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/10-new-id.result.json",
+      "sha256": "4d0381b30a21ab4d8bedb9c745d8b9d6808fec65d3c1df66f81719380ba4217a"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/11-new-id.result.json",
+      "sha256": "3891c36d0a6ada0e02085bd92c4a09bb3b7e73ccc6ccd9cd57946fba6109e430"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/12-inspect-records.input.json",
+      "sha256": "3750f68b6e0c2bdee3ad0d469595b4393a91af973d52f7582797499ed08ff6c5"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/12-inspect-records.result.json",
+      "sha256": "6f29feccc7bd1ffc833c43c6e0f423eb814a56d22c97dcab39ffe82c50d33684"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/13-log-append.input.json",
+      "sha256": "e27b893ab9dec20dde443016681ddb6a468934ff0f4ca8b1e7d5e55d3cdf625b"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/13-log-append.result.json",
+      "sha256": "1b7cee797e078232913042232f5baa5116e85822af03ef07c76667b48a709f65"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/14-invalidate-project-index.input.json",
+      "sha256": "7ce5f8b8cfdd05cc7c310746e77d3b220347657be3a0049f324de9c3d3d860dd"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/14-invalidate-project-index.result.json",
+      "sha256": "79de3d17f62b877981b2acc1c180add418abdb55ca8f92a589c517bc58cc5f8c"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/15-log-query.input.json",
+      "sha256": "3750f68b6e0c2bdee3ad0d469595b4393a91af973d52f7582797499ed08ff6c5"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/15-log-query.result.json",
+      "sha256": "6a5aac426540c41ac809aee14eb3a831c9dab778f73734cbf3f3136afd380595"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/16-inspect-navigation.input.json",
+      "sha256": "3750f68b6e0c2bdee3ad0d469595b4393a91af973d52f7582797499ed08ff6c5"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/16-inspect-navigation.result.json",
+      "sha256": "8cc280c8c2b26909c393a4cc0da5c447d199b774ed098c49149fd7e813651248"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/17-operation-verify.input.json",
+      "sha256": "6c91f06a4cb54f7f0ffed76e4d96cb440c0b119a051c530ccf58df557840107c"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/17-operation-verify.result.json",
+      "sha256": "6e2b387db25b6bdc2dd6470f75aa6a865f9dceadf26aef43f62660bd03408a14"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/18-operation-complete.input.json",
+      "sha256": "6c91f06a4cb54f7f0ffed76e4d96cb440c0b119a051c530ccf58df557840107c"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/18-operation-complete.result.json",
+      "sha256": "44384614f772be55c1dd0b0dd030bd6b14b127366156b96e476bb86a8e1cf984"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/after/fixture.json",
+      "sha256": "8b5b52bd661b0b0fb14ffdbeb72621b3127dd15a2f74fe0bf837abb5a23ff173"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/after/vault/.nyssa/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/after/vault/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "e79556315929eba4556353d17800307891f3dd9282350cec5738aba6f05d6edd"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/after/vault/Projects/job-search/project-index.md",
+      "sha256": "e70a63537041eb81c37586bed44cf7fb0a1fd38b1764cbdac7e9cce89959761f"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/after.manifest.json",
+      "sha256": "e2edecb0799af3e6b24fbf42735d786735d8cacb457e8f1e325615496a35cd1b"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/before/fixture.json",
+      "sha256": "8b5b52bd661b0b0fb14ffdbeb72621b3127dd15a2f74fe0bf837abb5a23ff173"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/before/vault/.nyssa/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/before/vault/Projects/job-search/project-index.md",
+      "sha256": "d2268aaa42e99aa15100973459b4aad9a76f65215b6570a78c13c6d2a08ca632"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/before.manifest.json",
+      "sha256": "1ff4b8e6b294f83351a1b88a3a80b3ff9e77d38336d519c36a5e8c077fb8e8bb"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-check-links.input.json",
+      "sha256": "dfed124549974a58f6889fbb9de027eacd96ee2e4cf764628e75eaba59aa5584"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-check-links.result.json",
+      "sha256": "faf8f6c8bab329741b26e1199c3f31164983eb476738a2454c8bdfadcfa1b53a"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-inspect-records.input.json",
+      "sha256": "3750f68b6e0c2bdee3ad0d469595b4393a91af973d52f7582797499ed08ff6c5"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-inspect-records.result.json",
+      "sha256": "593d72960d12ef91969492c22f50883fd69b4f5c3ab4440d97b37df1077e527b"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-log-query.input.json",
+      "sha256": "3750f68b6e0c2bdee3ad0d469595b4393a91af973d52f7582797499ed08ff6c5"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-log-query.result.json",
+      "sha256": "e45c599d5a9c5cbb0e47143257d47b9c31ac7ae2f9c9caf80315df659c7c7981"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-validate-records.input.json",
+      "sha256": "dfed124549974a58f6889fbb9de027eacd96ee2e4cf764628e75eaba59aa5584"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-validate-records.result.json",
+      "sha256": "d41a3378f6641af5eeeead53cd36a13c11f16d391efd85077d2d8a7f05b761b6"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/final-validation.json",
+      "sha256": "5e217145254a8f767fb25e6952370528e1cf1a2ac72e9bd1c0b3e5920f6c2874"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/inspection-shape.json",
+      "sha256": "34fb3bf3f97c54d8b091319a055da3c2cf246f920c0c955d50b5ca9bc7d3aeef"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/installed-milestone-template.md",
+      "sha256": "f7e284fbb64c6498b9d6a40eef20a8cf52dc59e6be6f5e5bc3a374eeafe14670"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/outcome.json",
+      "sha256": "efda95cdd7a9d4a27c96bf3de8c4240ba9edef3f083cc46fbe9fd7506c4707a9"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/parsed-project.json",
+      "sha256": "b680841180e43e118162dcf2a4c07b87ba9ffafb5b6e79a9e3c9f0fa2a65cc1d"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/pending-operation.json",
+      "sha256": "8de6b5dc285134ab0a927a5a6f24eea9af6a9f726e258157567745eb8ee6c061"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/queried-log.json",
+      "sha256": "8231e062ffeb7ba9e6b3818fb987478334329848b67cb3ca025a25b4df9f8260"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/.temp/native-workflow/runtime.json",
+      "sha256": "d208286415f1a321a94a4ed66f45167729a223795b48c348fd6e299daa0c52a7"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/fixture.json",
+      "sha256": "8b5b52bd661b0b0fb14ffdbeb72621b3127dd15a2f74fe0bf837abb5a23ff173"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/vault/.nyssa/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "05763ef220b31ec4cda5627889e776da0d3bfe42d15592d4057d793a8af81fbe"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/vault/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "e79556315929eba4556353d17800307891f3dd9282350cec5738aba6f05d6edd"
+    },
+    {
+      "path": "evidence/configuration-discovery/04-vault-only-legacy/vault/Projects/job-search/project-index.md",
+      "sha256": "e70a63537041eb81c37586bed44cf7fb0a1fd38b1764cbdac7e9cce89959761f"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/.temp/actions.json",
+      "sha256": "1b5271f7526dd46d8f2e469ea355f4c4329766b23eeeef61b18ac35eb235abd0"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/.temp/cli-help.json",
+      "sha256": "d71a45901ce9281bde3ef17408e90e797db5a9f4c4e38ebd643afc5b19c080ef"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/.temp/node-version.txt",
+      "sha256": "bc697de995dc791df53d688ef69c08994cdffc8ce30c906b1ffc65b131ccd0eb"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/.temp/profile-after.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/.temp/profile-before.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/.temp/resolve-context-error.json",
+      "sha256": "78accccc57a7a7fe90aee0455f4fcdb73e10ac1f55d0d8d23b9720158a5cc43b"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/.temp/resolve-context-input.json",
+      "sha256": "7dbbb031570fc328b37ab8b14564125622110fcf1ebbf814313632f592ea061d"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/.temp/resolve-context-result.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/common/.nyssaai/daily-tasks/profile.json",
+      "sha256": "bb8091d7a0a820190c27ad16d7233c081c18296d3bc13828d27df62fd832444f"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/fixture.json",
+      "sha256": "3400d7fb185859712a7506a11538a8331c63d888c8249a79cacc41ea635cc354"
+    },
+    {
+      "path": "evidence/configuration-discovery/05-unknown-vault/vault/Projects/job-search/project-index.md",
+      "sha256": "c00230c725595ef9be9ac498b15a259894c85fef05e646507bab0ac41448adba"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/actions.md",
+      "sha256": "06f1309b351b8e41178f624e720c1c88a4b08b68a7d88295d52a7f82f4a2a814"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/cli-exit.txt",
+      "sha256": "c068fc03749eb30e10c7d6e4312168e4ca1a8dec247d2f850b7a25f33fdd4c0a"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/cli-help.txt",
+      "sha256": "948c8778655e1d8ee778e52f41655f99dc75fb05d4cc7bfab9edf93e3ef49008"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/log-query.input.json",
+      "sha256": "ce3e687207c73dd1376396c50bc6a8a3f12e28450aabfb723176f55aaeae2611"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/log-query.result.txt",
+      "sha256": "85a31329561937bb191af148d6bb31e6b099db6598173fc826eca72719a9792d"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/node-version.txt",
+      "sha256": "bc697de995dc791df53d688ef69c08994cdffc8ce30c906b1ffc65b131ccd0eb"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/profile.after.json",
+      "sha256": "4474911c7ad134a7513f57f93262ca4da91b8382469180be83028c61534a408f"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/profile.before.json",
+      "sha256": "4474911c7ad134a7513f57f93262ca4da91b8382469180be83028c61534a408f"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/project.after.md",
+      "sha256": "57f1151c2e4fca7b99ead0df1246c2b1ac3dc4ceb606fc8be35e58521f313476"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/project.before.md",
+      "sha256": "57f1151c2e4fca7b99ead0df1246c2b1ac3dc4ceb606fc8be35e58521f313476"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/resolve-context.input.json",
+      "sha256": "c40521e087cfccb9f8ff6fd717a9687382c9df1f8be78ed08309a3fa4d5550a2"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/.temp/resolve-context.result.txt",
+      "sha256": "11e397e111d2b4be425fae48f756aea960228c739a99cd6d4096ccc502a1ad30"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/common/.nyssaai/daily-tasks/profile.json",
+      "sha256": "4474911c7ad134a7513f57f93262ca4da91b8382469180be83028c61534a408f"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/fixture.json",
+      "sha256": "ccedf1a7f4581bb44c26cb8d0214052c479a1e0c057c26fdff3e42cc60a5c2a4"
+    },
+    {
+      "path": "evidence/configuration-discovery/06-conflicting-profile/vault/Projects/job-search/project-index.md",
+      "sha256": "57f1151c2e4fca7b99ead0df1246c2b1ac3dc4ceb606fc8be35e58521f313476"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/01-validate-profile.execution.json",
+      "sha256": "44c1194076551b15611d7aa4deebb7ae7bae54c0e17f714c8e278ba4f8c494ad"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/01-validate-profile.input.json",
+      "sha256": "9782e5815ac5aa61b254b259a9a49fe4db6388264cef7042c5e9d9fb10682683"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/01-validate-profile.result.json",
+      "sha256": "fe331cd7515a58150e2cac6c96232e235b8cbb115116b0c00fd4de31fa5487d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/02-resolve-context.execution.json",
+      "sha256": "e86e4455644e061769790ec37e6839c94efc2d7187067073e1b8c3223a2ef72c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/02-resolve-context.input.json",
+      "sha256": "5cbc07905cb5e5b8f0fea898edcffe3aeb365099510eb25dd8a771d81ac52936"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/02-resolve-context.result.json",
+      "sha256": "3a80e103ff73dbbcf1e525d2a17ab414ebaef715ab1018472d9722c64f841e30"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/03-activity-time.execution.json",
+      "sha256": "be48b8325ef3357c7297aec1a2c4aaaed71a8e35e17628829da62657a9471836"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/03-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/03-activity-time.result.json",
+      "sha256": "612a29a6238edc14679336a4ad682d40015a512b0f257fbb959912223773af46"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/04-new-id.execution.json",
+      "sha256": "033bf1245c3565538fd7c7b375170f62d20c50f370e513d7a1d3223a9f811564"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/04-new-id.result.json",
+      "sha256": "00e7ae6aa7a2e8dcb9dbb6166ea2286ee055e49c50103ba4e6b39f79ae7644ee"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/11-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/11-new-id.result.json",
+      "sha256": "e5481ba47c77c985035fc3a4a26522c2b6286d1d76c765377a8f20656cdb771d"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/12-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/12-new-id.result.json",
+      "sha256": "dbefbda2b0751f2f2918e653c00fee1939eae50159f6a048989fd7fa1c912034"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/13-activity-time.execution.json",
+      "sha256": "c61e3be790936f9a272a58924e69c22e93f6d5046b9592d33419fcfc027bc9e3"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/13-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/13-activity-time.result.json",
+      "sha256": "b2b5a966f5a7cc55f2c9439556bb68318aaaa8a1d5a3782d3ec1b5a45ed1b206"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/14-log-append.execution.json",
+      "sha256": "4813fc1340143df1cd3e07eabbc19e2ec3e16b1e9eba44456e3976363147a105"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/14-log-append.input.json",
+      "sha256": "f63237b5d37878d2b327202ee303ac119603adbc630ea9350928f5507ae6ef25"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/14-log-append.result.json",
+      "sha256": "29a493dfae9be6aa5872c9ece2179ca78cc6c1ab7a185af36cecf20131280308"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/15-inspect-records.execution.json",
+      "sha256": "1b9151214b1d9a2255934497b9bcb4851824457e17f7a7c0f381a56a14c47290"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/15-inspect-records.input.json",
+      "sha256": "b1956a9444332bafa79575b14b10e02b0823c8631bb6497cae9818232552e1c1"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/15-inspect-records.result.json",
+      "sha256": "c2f53c26f2c6699861b777e13c1fe860dc07d54c2a2c3f32da17f92d476984b3"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/16-log-query.execution.json",
+      "sha256": "9e1d6210b315f0ec6d0fa85eebe002861f7e9ab86d1e3a2646cd583262a833ac"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/16-log-query.input.json",
+      "sha256": "b1956a9444332bafa79575b14b10e02b0823c8631bb6497cae9818232552e1c1"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/16-log-query.result.json",
+      "sha256": "83554364f422d752e7b645f90bbd3453659c7854bad9b2a2511d4456d159267b"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/17-next-record-number.execution.json",
+      "sha256": "574c9d54516955aa2d2bba21cdfd8e6dd962e90d25e362fccbd8eb2d3e119743"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/17-next-record-number.input.json",
+      "sha256": "4233705c00f7350834d721cd6e0d84ec5f92c058b6251b77601d292f108c0349"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/17-next-record-number.result.json",
+      "sha256": "f7cd3a6fea4675d965d2c8c96021de2b37c75080d17071dafdfe882f33776b48"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/18-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/18-new-id.result.json",
+      "sha256": "7fdf336f3a456081a5061879238d6f89892b99e5e81217114e6db78ac3e21b7f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/19-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/19-new-id.result.json",
+      "sha256": "3b890269e6275daaea49ca414c4591b44aa90867b1c29788931fd5cda0a46a62"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/20-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/20-new-id.result.json",
+      "sha256": "e14fa9c0d6a2fbd8b2e4a0fcb458f1e40da23a827524f0b8a5866c7d30192be6"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/21-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/21-new-id.result.json",
+      "sha256": "3dd60c2f75bef3cfb533fa453f23652f9fa080a3fb5600dced57e2fe0b710c8a"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/22-next-record-number.execution.json",
+      "sha256": "2ec72c598773cb8bf1461d6eed629af67a36ac3763706b4fba4bb48e8c7da3a0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/22-next-record-number.input.json",
+      "sha256": "481f152f4764e5ac35618371970663fb1ef77924242d21d1c998bf1e5698f158"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/22-next-record-number.result.json",
+      "sha256": "c3b00454e2b415d9df2d70ad661ea0952626fc7124954828cd0e5282c4317be5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/23-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/23-new-id.result.json",
+      "sha256": "929b32b19a9e5d9447806b54a5c072a2036dd2e9c0279f319b2ea7407ccb0bf8"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/24-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/24-new-id.result.json",
+      "sha256": "4280171822704bba6a7856d34ecd61bdc70aca5695b8c65dac63e14960c57078"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/25-activity-time.execution.json",
+      "sha256": "0acd724fe089819e200261ceaf2461a333741cdf289b3e7574cfad7ab9722208"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/25-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/25-activity-time.result.json",
+      "sha256": "4798483b063bbbb7231f5b6f16c1c487d67eae7b877b016523491401f7292c8f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/26-next-record-number.execution.json",
+      "sha256": "ebc23c61da147cf29b7fb23abc0fa3cc6eb3e3d3a06acf58b2f94d2b6a1c9f74"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/26-next-record-number.input.json",
+      "sha256": "481f152f4764e5ac35618371970663fb1ef77924242d21d1c998bf1e5698f158"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/26-next-record-number.result.json",
+      "sha256": "383ad1b9085ca085b297f9274288cc9c99c9705392b8429b8e4c3075e80517e1"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/27-invalidate-project-index.execution.json",
+      "sha256": "cad1cada34fad1b910dac4ac538d66516388a778b8df6380e16a1c6d4be949ee"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/27-invalidate-project-index.input.json",
+      "sha256": "d201580e7fc58d3cdb5c6bbb1b7b1bece5b3546a0dd6c6fe083f083a74f3acb4"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/27-invalidate-project-index.result.json",
+      "sha256": "f5124935c08f8340dc9da3ce6e3f3552a8edca09b184bd1924aa9708c6047696"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/28-inspect-records.execution.json",
+      "sha256": "b2b4e6015f52d9eced06f35dd386d607666bb149b5468bed2b74022ad667e5cf"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/28-inspect-records.input.json",
+      "sha256": "b1956a9444332bafa79575b14b10e02b0823c8631bb6497cae9818232552e1c1"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/28-inspect-records.result.json",
+      "sha256": "b95afc20a70b29c26847dfc7bdee9e0df63521486d71eddc29fd474a255856ef"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/29-log-append.execution.json",
+      "sha256": "30cf93ea8bc485d0f4b6a569a4f0a05787fbb060642cf3eee79b850a1b0c4c56"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/29-log-append.input.json",
+      "sha256": "ac35262ccb2d6e8e0e22f0406fc90a862fb8e8facaa963325cc9603897c7a787"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/29-log-append.result.json",
+      "sha256": "aeec747dfd2369c56c0789d803d988212cb4314d47ac19393cfeb917c195b4b4"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/30-log-query.execution.json",
+      "sha256": "63533c519789fa118e37731f91a75f7430cfb7a251d09f3740ec59ee6a26ac02"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/30-log-query.input.json",
+      "sha256": "b1956a9444332bafa79575b14b10e02b0823c8631bb6497cae9818232552e1c1"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/30-log-query.result.json",
+      "sha256": "e58ac1de578f66ee294b392d8d45da761f4dd85c2a8a728046771a2a53bb309b"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/31-operation-verify.execution.json",
+      "sha256": "bd6a8758600993ebd32a0da77d3e288595d6f20c9026735baf0b655c5f65163f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/31-operation-verify.input.json",
+      "sha256": "5aee945a0d532852981f25ea97307be6375419e90c41181fa9d3be0efbc50cdb"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/31-operation-verify.result.json",
+      "sha256": "311cf9c4b3246aaf23725ec5042a8e66e79b184e1cd04e6cb557175afdd2be3c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/32-operation-complete.execution.json",
+      "sha256": "91fe40ea29605a1b19e4bbfbda66f2fd247885d97d3a7bad2f5ccb5781b2a49f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/32-operation-complete.input.json",
+      "sha256": "5aee945a0d532852981f25ea97307be6375419e90c41181fa9d3be0efbc50cdb"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/32-operation-complete.result.json",
+      "sha256": "4694cbcc4d0fcc8f7172e7d391fd0094f891a230399088a65b7795d3d51480cc"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/33-planning-prepare.execution.json",
+      "sha256": "ce6d3e0b5eb5b48e49209dfe573d4cc8223e809265dca133b1faf4a3a58c223f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/33-planning-prepare.input.json",
+      "sha256": "a594db29c719ca0973d5a6ec28bcb762fe7a46b624693db1815e4924c0e3bc77"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/33-planning-prepare.result.json",
+      "sha256": "60711ac296bbfb1e7e9ba510f69d97cadaa5a211908d75ab9b518cbbfe231bda"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/34-maintenance-inspect.execution.json",
+      "sha256": "8ded31dc380265a838f473ea280174e89ccc2199e2ea47bce46f704c67282949"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/34-maintenance-inspect.input.json",
+      "sha256": "a594db29c719ca0973d5a6ec28bcb762fe7a46b624693db1815e4924c0e3bc77"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/34-maintenance-inspect.result.json",
+      "sha256": "feeaefde1db874a33ab9a00d1908ce753000735385bda634c9b2a548e788e388"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/35-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/35-new-id.result.json",
+      "sha256": "0133505df48241d0e8f070860a3f5f3d1c842a9e1a22b81c740f80bb2583e98e"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/36-activity-time.execution.json",
+      "sha256": "db7ad15ecddc43a00abee8c31faafd0bbb6f9174ce0c114f3ca7da718744215d"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/36-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/36-activity-time.result.json",
+      "sha256": "a5ad770358be278816d0ca6f169dbf9e009abd8cc3671670119ed44df15ec595"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/37-format-time.execution.json",
+      "sha256": "89b30cb855fdf154010a061f4ef86e12e819f210201a81e5e38d9658bbf5530a"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/37-format-time.input.json",
+      "sha256": "047e1833ad5c0193bb9279949e20270a3030e81b5237be1fd5de5f188105dc33"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/37-format-time.result.json",
+      "sha256": "46d63c9c715e85ce4fd214cd73417e2106faf3caaa9172984d4cb8674380c920"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/38-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/38-new-id.result.json",
+      "sha256": "a08ec69d777060c61ca42ee06789b23c9a9bc7b64c0d6739a4e264c952cb276b"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/39-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/39-new-id.result.json",
+      "sha256": "27218b5852b7f9423d1300002ca9a41180ab2b15728176a10c3a409d86d1a9a2"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/40-activity-time.execution.json",
+      "sha256": "1fc44e25ce22ef06022e73c567ec569b05a97e7e86a352806bf941992e328c66"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/40-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/40-activity-time.result.json",
+      "sha256": "916198957dd3083193cb5411948509bc23a5dddc419f443580d62aa4805402ef"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/41-invalidate-project-index.execution.json",
+      "sha256": "29b361e59f890ae022654979f5c98c4fd704f5c691fcabfa19151ffa3edb94bf"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/41-invalidate-project-index.input.json",
+      "sha256": "d201580e7fc58d3cdb5c6bbb1b7b1bece5b3546a0dd6c6fe083f083a74f3acb4"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/41-invalidate-project-index.result.json",
+      "sha256": "d1e42e05bf69b9cf40427b66d7d66f53eb6375578b5e92653b6a6a870608f5ef"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/42-log-append.execution.json",
+      "sha256": "5cba373e2a183cb06d29e4d3fe5c3bc189d6344490e91e9392331b4ece81d7cd"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/42-log-append.input.json",
+      "sha256": "c34ec35fac19a8cbe10e2cc52a539c0fc92f718947362ab80611ddd84be9d178"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/42-log-append.result.json",
+      "sha256": "0f21612daaef78b44f60776e53989bca5152c391bcfc1d7f043922f8b47473ec"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/43-log-query.execution.json",
+      "sha256": "a11846a111f68d22b72d23e808d702065112bb94e5229e2ce17f7886cba2485a"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/43-log-query.input.json",
+      "sha256": "1e5d8a9f01d16a3b26147923ff2e707244572cdc811cba701a01b38052e162ba"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/43-log-query.result.json",
+      "sha256": "c81cf4f2504c239e1a3a010c4a13539576e2bf355a121da4c02f029da174df0f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/44-operation-verify.execution.json",
+      "sha256": "4c557412ac9ddce9427b8eb8c5f4d01801d654ddeb84f31c3052cfc228dc5cdb"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/44-operation-verify.input.json",
+      "sha256": "54aa79f26ab84282064bf98f71a0ce885700abee6ae400717d07be719c7a2603"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/44-operation-verify.result.json",
+      "sha256": "6b0520bb1fc4725c2bb6e993437a9fc7bb02857d214614fbc61309430781334d"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/45-operation-complete.execution.json",
+      "sha256": "93f3082a4e4b5e0af3c9b54b9011ed84d7d3f70874158a81b5f3ee803c4b9317"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/45-operation-complete.input.json",
+      "sha256": "54aa79f26ab84282064bf98f71a0ce885700abee6ae400717d07be719c7a2603"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/45-operation-complete.result.json",
+      "sha256": "6ef67f47136a2e27b079584bee6ebebb2e7a827eec790a2abd3ed0b2f90b2644"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/46-planning-prepare.execution.json",
+      "sha256": "feee36a25e64e9995af58b0a6861ebc364098a15381d2e08504d052ea8607c56"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/46-planning-prepare.input.json",
+      "sha256": "a594db29c719ca0973d5a6ec28bcb762fe7a46b624693db1815e4924c0e3bc77"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/46-planning-prepare.result.json",
+      "sha256": "2b4c94261d31a8b895ab2e37be86d7eb41544b460ca68a4b79f17b5f60e902c0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/47-planning-state.execution.json",
+      "sha256": "705a95a51139160c8ef27e0d2c1fbb5aef020efe691a322cf8675fbe0df5cde5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/47-planning-state.input.json",
+      "sha256": "681333e58d76b30e6541a7b1519f20e8170481eeb9a995471fc2fcef7af72a36"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/47-planning-state.result.json",
+      "sha256": "4646e217f5a1a0325865248f88f5b3a176d2f83a30280100b99cd61515f13527"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/48-planning-prepare.execution.json",
+      "sha256": "e8030a720d6145df78ec019a41206dbe7bf65397e65b0007a4ab06ac04bef497"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/48-planning-prepare.input.json",
+      "sha256": "a594db29c719ca0973d5a6ec28bcb762fe7a46b624693db1815e4924c0e3bc77"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/48-planning-prepare.result.json",
+      "sha256": "529a034e151f974606bfd727129204901d4c9eb6430d7a7322eef46f72444869"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/49-planning-state.execution.json",
+      "sha256": "9552c99ecb0eb5a2dee81fcb5a796c7a40204694824c3a4e1c7205bd5abeed29"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/49-planning-state.input.json",
+      "sha256": "266168c9c44e367bb726b49ffe49ffd22e503448e5237ce5311f079ad909afc2"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/49-planning-state.result.json",
+      "sha256": "d762bc59435b52ccac7ea1d9d19b432c698eeecae86cc4859daaa1f1ae7108d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/50-plan-selection.execution.json",
+      "sha256": "b5f25b9aae62e40525357617cb16979a67ffff5ee790b3b6db88fd404c115f14"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/50-plan-selection.input.json",
+      "sha256": "441461033abecdbe1d241f321bf1e76b2adb224df7fa7a2219f0d5299ea8eba0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/50-plan-selection.result.json",
+      "sha256": "5dc953eda208623d60c6001bcb56c0415ce3a16f342d2bbe71c5c30688cf936e"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/51-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/51-new-id.result.json",
+      "sha256": "6999d01a030395fcc6b1176892575847766da240ebc0445b87720d3e2e500ff2"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/52-new-id.execution.json",
+      "sha256": "3ff501223d2399ca43fd1fc24c0b84a9d41ecd36ef3ec0800d84a9b24cb172d5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/52-new-id.result.json",
+      "sha256": "c34a7e1292df5b59a5b4982ff7ac3a91277cbb0e9479aed53e49acc9ba617df3"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/53-activity-time.execution.json",
+      "sha256": "17fa76d5ccd16eead028ec019e053646013ab98a7e3284820e4e7c1ac94c7819"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/53-activity-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/53-activity-time.result.json",
+      "sha256": "52b00e5142fc515266377035a7d936e16626a9b171d1b357f4079e24a7043366"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/54-invalidate-project-index.execution.json",
+      "sha256": "2d57bde9fdc8e263580926931faa2f3a4848e192cfa328971f5ec54a547bcd74"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/54-invalidate-project-index.input.json",
+      "sha256": "d201580e7fc58d3cdb5c6bbb1b7b1bece5b3546a0dd6c6fe083f083a74f3acb4"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/54-invalidate-project-index.result.json",
+      "sha256": "d1e42e05bf69b9cf40427b66d7d66f53eb6375578b5e92653b6a6a870608f5ef"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/55-log-query.execution.json",
+      "sha256": "cd1dfd3b171139e542f40924f87dae9c6ad88b0cb0616819daf88bc9de8b6c0f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/55-log-query.input.json",
+      "sha256": "72d24cd97b765a8f4b2bd0e34628079f45a0ccd87ce32a2722ff2d6c818bbce8"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/55-log-query.result.json",
+      "sha256": "4801e5a1b37b6099111f1d49c79019aea16883a478e1f6a321284608608bf146"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/56-operation-verify.execution.json",
+      "sha256": "8761733cae61555e03c2317a7866e78e6a697c3ae81761b81437d461791d7231"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/56-operation-verify.input.json",
+      "sha256": "b5319f9c04d7aec6087cb553ead90a0f30c4324c7e9a488bf5f7e107d474e44c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/56-operation-verify.result.json",
+      "sha256": "79360b86f1dba484d8755a1291f86169105195c960e8f0249cda70deeb728db6"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/activity-time.input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/activity-time.result.json",
+      "sha256": "4994a8eaa4635503e77ca0878eb6c7074dde0b7c7c9d796640696a551d2a6a19"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/check-links.execution.json",
+      "sha256": "a9229bd6eda15adb8df0e473ad10067053ec349725d5ce23db5179dddcbbcd41"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/check-links.input.json",
+      "sha256": "dcda98f67e332078b31cca03773950c13558e1d7a3910b2d4bab5e77de35bc40"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/check-links.result.json",
+      "sha256": "60326e4e048106d4366a2fd8fe472ccfdf06667fcd0f234977febfeaa38f31b8"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/context.json",
+      "sha256": "8124ae23dd337f3bbb4ca5be7ae8ad6d3a25cfe358b78d316e7d9face01428a1"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/creation-time.execution.json",
+      "sha256": "0406751976ba28ef8301e719aa17c7c84d2ede1e252ef14bd137cbb3ddb2f7a0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/creation-time.input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/creation-time.result.json",
+      "sha256": "9a8121cbfde48d9973930e39e847f6db9894776ea82984532fa2a2eef3c480e1"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/foreign-inventory.json",
+      "sha256": "1188ea7b355e2d714b2936857c3086c65cc1e5c5510f1632af9715dc25ded9e0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/foreign-operation-routing.execution.json",
+      "sha256": "62e579f009d8fb5366b46bdd69eea1a008cfa54d14b8384e9d8c4b1e55a38c56"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/foreign-operation-routing.input.json",
+      "sha256": "d0d82463de31c7b41c81fcd1b65a6e2e6711760d8f5b3a8233e47bfd20e2f898"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/foreign-operation-routing.result.json",
+      "sha256": "6cdd304542ba34554e74ac9fa766c6e8f3a154d9d6a87f640e0b54555bb11a2c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/foreign-operationPath.json",
+      "sha256": "1b6df7016da5109458e9ba46e1d1b1077cc312085b4eadf6c08673601fb39822"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/foreign-reviewMapping.json",
+      "sha256": "7c103aa2e4aa3dae88651a5ca92c1862e4da25d77456b22934482de37d8d5ddb"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/ids.json",
+      "sha256": "48429c5b97662d5e1da50d1aadd6074b3be2d7eae36e6d1accd5b272acc49ce0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/inspect-records.input.json",
+      "sha256": "714efd0f5cf0892ae3aac3d9546d3b8a5e9d8c9f60d66ea7e5c29a9cb8966311"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/inspect-records.result.json",
+      "sha256": "1361fd6bc59a7c641c532525ff719871853ef00f64ce0ae4443eadc9401d47c6"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/invalidate-project-index.execution.json",
+      "sha256": "cecbf09da925346c28147c38ee6b67bf03f4f05a65a623db12d143589feffb7e"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/invalidate-project-index.input.json",
+      "sha256": "d8defe41d882d93b9edd56e5a5125efeb46888e47d55405122ec951b94887a71"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/invalidate-project-index.result.json",
+      "sha256": "f5124935c08f8340dc9da3ce6e3f3552a8edca09b184bd1924aa9708c6047696"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-after.execution.json",
+      "sha256": "6f55e90a52a870841d1b8864910750f7e8a0b242e4dd136887c8581b7251c163"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-after.input.json",
+      "sha256": "714efd0f5cf0892ae3aac3d9546d3b8a5e9d8c9f60d66ea7e5c29a9cb8966311"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-after.result.json",
+      "sha256": "7bb662ab7418a4cdb39f25ebe4bee22ecec2010bdf0bc42b3c28f46f9383b204"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-append.execution.json",
+      "sha256": "aa3de5cd3bdda7fdb2607bb37326bbb8e36f5c37d60e0d5f28c62ff3abd71e3b"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-append.input.json",
+      "sha256": "480f35ae09e30123731b93f5c1b65c26922727d283492bd7abc6e9db5c73cb82"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-append.result.json",
+      "sha256": "b0fcdb903d78eafb3f54d83b38cc86603b4b029037548080a0b43d18bcad479f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-before.execution.json",
+      "sha256": "506e680d2fe1dc5326067f190f2a7e21e1ddafd48b01b537d75cd9fd65ae307f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-before.input.json",
+      "sha256": "714efd0f5cf0892ae3aac3d9546d3b8a5e9d8c9f60d66ea7e5c29a9cb8966311"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/log-before.result.json",
+      "sha256": "4801e5a1b37b6099111f1d49c79019aea16883a478e1f6a321284608608bf146"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/milestone.after.md",
+      "sha256": "bc90714e4dd64f303d8f50b1f2a8f703a5287e0de903f933db3181c4ebda7702"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/milestone.before.json",
+      "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/new-id-0.result.json",
+      "sha256": "1e0be3824c99f1f3f5b7eb7f48eba96de839bd2972076670f5f1eb8a7fe2286a"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/new-id-1.result.json",
+      "sha256": "8ae13010bfc8615d9c1816b0424637458e52371ea8c3ac19720cda14344ae250"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/new-id-2.result.json",
+      "sha256": "c06fe571fa7ffa22898e3c9bf45461e89c99a0bf2e879c9be12b09e32124d58c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/new-id-3.result.json",
+      "sha256": "3172e887efd16b93a5c2e9743e4600ef85f171fa041783e8b0c51ad033b557f4"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/next-record-number.input.json",
+      "sha256": "00f62ac8d804456faaf07443657c5316edf982b37f14cf027a657e74858a5f34"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/next-record-number.result.json",
+      "sha256": "f7d8b281656b60d4e2e739f0f0d2a7c6fbb694f0b73e5fd0b30aa8ab7a66e9ae"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation-complete.execution.json",
+      "sha256": "147ed450cf426ffb9909ece841933675deb5db9c803e1c175688120e1e07b7e1"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation-complete.input.json",
+      "sha256": "3dfcc0b6642c9bddf92e4442505e2093b1c3c5b8a7f12271f61176c8e76a01e5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation-complete.result.json",
+      "sha256": "3a1fc9df9174e66db3715757fc40a1e02ed53ef3ac59a2b4deecde06e3daabff"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation-path.json",
+      "sha256": "93ed7da29feae2d92cf854d0168d399844569aa802d68d967eb9df1e4124c060"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation-verify.execution.json",
+      "sha256": "3b9019398ca76c001f378a80779315ee100acced91676040c0bfe3637355be21"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation-verify.input.json",
+      "sha256": "3dfcc0b6642c9bddf92e4442505e2093b1c3c5b8a7f12271f61176c8e76a01e5"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation-verify.result.json",
+      "sha256": "5986e956722c6339be1ebf8c050287e0c013a66ebb667bf4524e98ed6b89dd97"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/operation.json",
+      "sha256": "1361c0b300e7df470c4742cacfe45e99bae7388ff86aea181252ffe49cfc441d"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/project-index.after.md",
+      "sha256": "3539f6b0b7ff0dd000d434b5434db91697a47cc9d0b369aca8b09e9d723e05eb"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/project-index.before.md",
+      "sha256": "478823af49e1a461f88fdbce47816e3101256398e88ccee062b580a53fcfa986"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/records-after.execution.json",
+      "sha256": "3174111dc27bfc9f2a8eb9c3ccc0e8a81f0a8cc07329bd230e53c5b26b2b190e"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/records-after.input.json",
+      "sha256": "714efd0f5cf0892ae3aac3d9546d3b8a5e9d8c9f60d66ea7e5c29a9cb8966311"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/records-after.result.json",
+      "sha256": "95d27ea58fa7323bf926649c5a9182c34afde201355ee0e5dd1ea762fff47f57"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/resolve-context.input.json",
+      "sha256": "ba6588617b28bcc0b5a532a1d055fe7ae680c6afede06d64f831da36f78cf502"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/resolve-context.result.json",
+      "sha256": "209ef681118b4cfd535f085760a961e28391a67e2580f62400b3fd21c93087e7"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/validate-records.execution.json",
+      "sha256": "f6ae7880045585a1fb661ad8570452cb0bb6a04f3cdb6846190dbc8131b7386c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/validate-records.input.json",
+      "sha256": "dcda98f67e332078b31cca03773950c13558e1d7a3910b2d4bab5e77de35bc40"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/b-evidence/validate-records.result.json",
+      "sha256": "60326e4e048106d4366a2fd8fe472ccfdf06667fcd0f234977febfeaa38f31b8"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/context.json",
+      "sha256": "2c54a8e4fcb0b456ea7f989995615e04fcccddaecc5ba076e6dd1fd47f11bb8a"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/display.json",
+      "sha256": "5918015b7bcb35f25376989f2165676bbc8c5e4ffc16e7d9fe008f72e213d30c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/empty-plan-checkpoint.json",
+      "sha256": "375b38546c1866b6b4d96f0104ba8e8a94a214b39cdb7dcde1b2b133f8c80647"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/initial.json",
+      "sha256": "586618c12820c3345ce45801a4011ef1aebe0879324c14d969d59d1ebd7022a2"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/numbered-review.md",
+      "sha256": "d3ad5a88dfdd1e0e1c29033059f32330a95d7de9010a7a86e1b4fe3c118c8afd"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/plan-workflow.mjs",
+      "sha256": "2e4180e567510f8ab49cf5a76063b662dd143922bfa2fb12149f5ba3a891b24f"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/prepare.json",
+      "sha256": "cdc2b312303e0b6f385f37bede04d2983d935199a95d2d8486c4b19cbe0f4bb0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/record-identities.json",
+      "sha256": "f591189f81a8aacebb4c2b143e747505c2af214ac730d0a53e1d7c23cb875e16"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/records-after.json",
+      "sha256": "3eb3e4c087287b40c4c15c403f52e9a281c5846ee8bffe0e2caecf3235fedbfe"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/records-before.json",
+      "sha256": "77e73e47a3028d09ebe9cc64dd1080357b200c2f285b1429799ec6ddedd14608"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/records-checkpoint.json",
+      "sha256": "2f61972aa41b183daf0fbbeb5b0561997ebc121b5389f754b38e803ac797e394"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/records-continue.mjs",
+      "sha256": "60abf650b0a8924ee6182c6e860a9b29c458a9170068236ca7e8f450c59c212d"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/records-workflow.mjs",
+      "sha256": "5981b54b8700d4f296fda848c342c5e15ebeac0bed534115927fce32f67eaf1c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/resume-paths.json",
+      "sha256": "ac423709ab6e19e96b9415bef5f6c9b773a57c4906b4c7dc5f58fcecc5a8c8ca"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/review-inventory.json",
+      "sha256": "1188ea7b355e2d714b2936857c3086c65cc1e5c5510f1632af9715dc25ded9e0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/review-packet.json",
+      "sha256": "8c2bb7dc76d37178cec14c4f9a0117035bb327ce056de86f1dc57a3581ba56f9"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/saved-mapping.json",
+      "sha256": "77f3134ac0aeff6337e8eb1ce5b7bf9a5409dcd03e231bf537594e163e2fb331"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/selection-after.md",
+      "sha256": "f91178bfb773b529205306e7427e6e9687f08d66ce50f2f946a4cb44121844c0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/selection-before.md",
+      "sha256": "93fdeaf8bcf81b8752988b8fe5ede128d30b8dbedd062860390cf017904a2f57"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/selection-checkpoint.json",
+      "sha256": "1b6df7016da5109458e9ba46e1d1b1077cc312085b4eadf6c08673601fb39822"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/selection-interrupt.mjs",
+      "sha256": "474e2f3978c12d7f506be8206c0caa51ddf95ed52a5b6017104577c84d88d0fb"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/selection-log-pending.input.json",
+      "sha256": "e632b171bd6c2deaae7bb9ac581e9ab4110867707889c8c865bb19170a04df1e"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/selection-proposal.json",
+      "sha256": "170b93de44b9e33cfc3d301f1525125a82bfbec7a7ef7f43d44f5cdce6a3418c"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/.temp/workflow.mjs",
+      "sha256": "ed2877518a79736cb32073e8404abf8ce470af34144e8674435cda341caa77ef"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/fixture.json",
+      "sha256": "77c2b741774a0d43e19e995bb029251533bd44daaeaf5980f96761958128b54e"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/synthetic-home/.nyssaai/daily-tasks/profile.json",
+      "sha256": "9782e5815ac5aa61b254b259a9a49fe4db6388264cef7042c5e9d9fb10682683"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/.nyssaai/daily-tasks/operations/01a121fc-5e58-79f3-9afe-3a4ba13848ae.json",
+      "sha256": "1b6df7016da5109458e9ba46e1d1b1077cc312085b4eadf6c08673601fb39822"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/.nyssaai/daily-tasks/review/2026.10.09.json",
+      "sha256": "7c103aa2e4aa3dae88651a5ca92c1862e4da25d77456b22934482de37d8d5ddb"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/.nyssaai/daily-tasks/rollover/2026.10.09.json",
+      "sha256": "8960071276a1e25f2e2e97af691bf868978f8e5e2d2b67e4b838801038f60302"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/.temp/daily-tasks/project-index.json",
+      "sha256": "1188ea7b355e2d714b2936857c3086c65cc1e5c5510f1632af9715dc25ded9e0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/2-areas/daily-plans/2026.10.09-daily-plan.md",
+      "sha256": "f91178bfb773b529205306e7427e6e9687f08d66ce50f2f946a4cb44121844c0"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "32063cc08f5d425e275a837b327152ec9b5c8859bc0cb4f9509b2df05e109e4a"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/Projects/job-search/.temp/project-before.md",
+      "sha256": "a89342782c2606392264c273ec8fcc2dad3594bf2e81f265e8356108b85fe75b"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/Projects/job-search/.temp/selection-before.md",
+      "sha256": "93fdeaf8bcf81b8752988b8fe5ede128d30b8dbedd062860390cf017904a2f57"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "dfa0626e8ea5977053eca5ade3ac8de51535bf0914aa3f30a0c97b6865ee0289"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/Projects/job-search/m1-update-linkedin-and-resume/t1-routing-note.md",
+      "sha256": "71ede1596a6ccc265d3f95ab174202bda65dcf9ff4fa205132b0363241d82efc"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-a/Projects/job-search/project-index.md",
+      "sha256": "e50e18804b908c1c340bf5efe2e58c58bffa1e4ab2df487f3ec1866c68eeb8ae"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-b/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "eb77fd7abec6bacda334559cc502440d77c37358d0a824e305ceaa3dc6586036"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-b/Projects/job-search/m1-update-linkedin-and-resume/m1-update-linkedin-and-resume.md",
+      "sha256": "bc90714e4dd64f303d8f50b1f2a8f703a5287e0de903f933db3181c4ebda7702"
+    },
+    {
+      "path": "evidence/configuration-discovery/07-shared-home/vault-b/Projects/job-search/project-index.md",
+      "sha256": "3539f6b0b7ff0dd000d434b5434db91697a47cc9d0b369aca8b09e9d723e05eb"
+    }
+  ]
+}

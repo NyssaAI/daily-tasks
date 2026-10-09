@@ -27,10 +27,10 @@ recovery, optional daily-plan storage and attachment freshness. Additional tests
 exercise nonempty carry/removals, first-plan creation, stale state hashes,
 task-shaped prior plans and retired UUID references.
 
-Repository validation passes 144 tests, package assembly consistency and six-skill
-contract validation. The final frozen source also passed all eight required Codex
+Repository validation passes 145 tests, package assembly consistency and six-skill
+contract validation. The earlier frozen source also passed all eight required Codex
 native scenarios across 14 host turns. Source and 49 installed files stayed
-unchanged. The required Node/Codex release acceptance gate passes; see the
+unchanged. That candidate passed the required Node/Codex release acceptance gate; see the
 [latest evaluation](../evals/LATEST.md) and
 [final native receipt](../evals/results/codex-native-dabf0f6f-20261009/result.json).
 The requested model was `gpt-6.1-sol`; backend model metadata was not independently
@@ -64,6 +64,36 @@ decision-log bytes in nested scratch vaults. Query-only guidance now explicitly
 covers checksums, evidence capture and hidden log directories at every depth.
 Supported CLI scanners already exclude those directories; arbitrary host file
 tools remain outside this enforcement boundary.
+
+The first 0.3.4 native run passed six scenarios and failed closure and migration.
+Closure omitted an explicitly proposed milestone reopening before a later repair.
+Migration appended its success event after retirement inspection refused live
+references, leaving the original document and checkpoint present. Those failures
+remain retained. New `workspace.migration` log entries now require the bound
+checkpoint and verified retirement, preserved criteria, declared file effects
+and protected hashes before persistence. Exact already-recorded retries remain
+idempotent after checkpoint clearance. A filesystem regression failed before
+this guard and passes with it; independent local review found no defects.
+
+The next 0.3.4 native run passed seven scenarios and failed day-change. Its initial
+rollover checkpoint declared empty carry without deriving against the new plan
+identity; completion refused it. A second operation left the original pending,
+and its renderer nested a full carried row presentation inside another link.
+The failed run remains retained. General rollover guidance now explicitly derives
+final carry against the new stable plan UUID and renders one link from the
+canonical task title or parsed label, with carry and assignee context outside.
+
+The resulting 0.3.4 candidate passed all eight native scenarios across 14 host
+turns, with source and 49 installed files unchanged. The current required
+Node/Codex release gate passes; see the
+[0.3.4 native receipt](../evals/results/codex-native-c8f8bf4f-20261009/result.json).
+Its evidence retains an initial checker access error: independent byte comparison
+proved the historical plan unchanged, with completed and cancelled rows intact.
+Closure also retains a misleading custom operation label whose declared actual
+snapshot left the blocker open; task completion remained refused until a verified
+repair resolved it. The log checks declared effects, not free-form action semantics.
+Completion checks can verify declared effects, but cannot reconstruct requested
+intent that an agent omits from its checkpoint.
 
 The external review route was rejected by automatic approval review; no repository
 payload was sent externally. The review used a local adversarial fallback.

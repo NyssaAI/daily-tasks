@@ -116,6 +116,10 @@ and log payloads. `operation-verify` reads actual effects and queries the event;
 `rollover-complete`, `migration-retirement` and `migration-complete` add selection,
 identity and retirement-preservation checks. See the canonical
 [verification contract](../skills/daily-tasks/references/verification.md).
+New `workspace.migration` log appends require resolved profile/vault scope and a
+bound `operationPath`; actual retirement, preservation, references and declared
+effects must be verified before the event is persisted. Exact recorded retries
+remain idempotent after checkpoint clearance.
 `inspect-navigation` checks local headings and attachments. `next-record-number`
 queries retirement history through the log API and fails closed on ambiguous
 labels. Supported scans exclude hidden log directories; unrestricted host file

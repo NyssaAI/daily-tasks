@@ -195,7 +195,10 @@ test('concrete unnumbered legacy DoD retirement does not poison parent-local all
     if (kind === 'numeric-path') dod.path = 'legacy/t8-ambiguous.md';
     const entry = {...event(task),action:'workspace.migration',record_ids:[task.id,dod.id],
       before:{records:[task,dod]},after:{records:[task],retired_dod_id:dod.id}};
-    await appendDecision({projectsRoot:input.projectsRoot,entry});
+    // Historical fixture: new migration events now require a retirement checkpoint.
+    const directory = path.join(input.projectsRoot,'.daily-tasks');
+    await mkdir(directory);
+    await writeFile(path.join(directory,'2026.10.09-decisions.json'),JSON.stringify({schema_version:1,created_at:entry.recorded_at,entries:[entry]}));
     const result = await nextRecordNumber(input);
     assert.equal(result.number,kind === 'valid' ? 8 : null);
     assert.deepEqual(result.usedNumbers,[7]);
