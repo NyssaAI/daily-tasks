@@ -1,0 +1,1484 @@
+{
+  "id": "reconciliation",
+  "status": "fail",
+  "candidateHash": "6abc8b05460fab2365001dc02b3673faf9bdb995f2f4cc427ba4ea8548ac7192",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "nativeExecution": "New external Codex exec processes/threads, isolated CODEX_HOME and explicit local marketplace registration. Main model authored actual workflows; no prior operations replayed. Acceptance phase2 resumes its first actual user turn.",
+  "sourceWindow": {
+    "before": "2026-10-09T15:52:04.152Z",
+    "after": "2026-10-09T16:09:13.539Z",
+    "unchanged": true
+  },
+  "report": "evidence/reconciliation/.temp/scenario3-report.json",
+  "transcripts": [
+    "transcripts/reconciliation.jsonl"
+  ],
+  "assessment": "11 behavioral assertions true, but strict protocol fails: maintenance lastFullReconcileAt advanced with authored gpt-6-luna worker claim; no actual child Codex command or native spawn event in transcript. Claimed host-invocation receipt retained unchanged. Stale/deliberate view, pending conflict, unrelated task and exact-once append behavior preserved.",
+  "evidenceFiles": [
+    {
+      "path": "evidence/reconciliation/.temp/01-context.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/01-context.result.json",
+      "sha256": "be7f17f03246c89c8bfdc93152df3582eedd12c593ba9058a52f9d16552e40d9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/02-history-before.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/02-history-before.result.json",
+      "sha256": "60af5bed2d52fa1c6d77c11ce5df427ef15f8dea70afb436daac638940aa6a42"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/03-prepare.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/03-prepare.result.json",
+      "sha256": "0932aab51081471f96ab6255a6fd913a4e2f2415ab5654fef5e8f1f4bc2dd955"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/04-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/04-inspect.result.json",
+      "sha256": "2b0c5821fc6e52d1c3c512bc41f0578a772bcda0da77b90b3ae12f8e02e6aab8"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/05-reconcile-probe.input.json",
+      "sha256": "cfed3378e4d2ffa6ac56763bbb74247d50016c6fcefa9e527e915393834abfb5"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/05-reconcile-probe.result.json",
+      "sha256": "4e9401c355709af6715a6f1778226ffb1daa2d1dd9076dae5d58216739632af2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-maintenance-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-maintenance-time.result.json",
+      "sha256": "86061da4c831207a64e993d18ec3ee2538d0b9180b7f54978feaa07b2ab9d02d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-append.input.json",
+      "sha256": "d8b969db457879e57a1ac39739adf295b1f02d96491d8a319c728184d753f87c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-append.result.json",
+      "sha256": "e5d12d422c5cceab3b9e97a016bc5c6e0f5a355245982aa803028df369ac06f1"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-event-id.result.json",
+      "sha256": "e5f4555c9b5376aa52c9730069dec154064d13a90071c55319fee23f04e69e10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-id.result.json",
+      "sha256": "b6f12589ae50ef4a31199df3872a84f76ca6fbfe161510dc0164576bbc81f087"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-inspect.result.json",
+      "sha256": "aa91014e73c0ffd3231ef38f19f288fb6c38d3037eff743a0cbb83713050a821"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-invalidate.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-invalidate.result.json",
+      "sha256": "d1adf6329f87caac65fedf432248fbbdd555850989562552a761a8974dbdaae0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-operation-id.result.json",
+      "sha256": "7867ea0ce3998a226ac5c42df6e383e2802bf11d21388590ce64be7bde86f569"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-query.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-query.result.json",
+      "sha256": "0ceee1a8c132e293318ef09d2ac687de12bb00d085165d3ab71a883b67a31e4a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-time.result.json",
+      "sha256": "63b5096104db5fc6e174dd2eab4b8d8c5cda11a01d9f4fd09df76aa413ac9c74"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-2026.10.09-daily-plan.md-01a1211c-fbe7-727c-885c-bd3fcf926af2.input.json",
+      "sha256": "93dc52b6ac4871bd0c7efdd07787c215e653bbe880d19d8c14aacc00afba064e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-2026.10.09-daily-plan.md-01a1211c-fbe7-727c-885c-bd3fcf926af2.result.json",
+      "sha256": "70547c6f1d47e6aeef9d89f64a2804bcc2744b0a3fc9a2107b348ed8c4020c34"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-2026.10.09-daily-plan.md-01a1211c-fc13-750e-993c-51e78d20ea25.input.json",
+      "sha256": "93dc52b6ac4871bd0c7efdd07787c215e653bbe880d19d8c14aacc00afba064e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-2026.10.09-daily-plan.md-01a1211c-fc13-750e-993c-51e78d20ea25.result.json",
+      "sha256": "ea4c32c5b5f20491a7f00c19c4b4750f02f1adbff742a877191760ef138279ef"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-2026.10.09-daily-plan.md-01a1211c-fc3f-7cdf-a7aa-b0aa50ee3fc8.input.json",
+      "sha256": "93dc52b6ac4871bd0c7efdd07787c215e653bbe880d19d8c14aacc00afba064e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-2026.10.09-daily-plan.md-01a1211c-fc3f-7cdf-a7aa-b0aa50ee3fc8.result.json",
+      "sha256": "00aee05fe96f1273c9e7dc9398453845a9dec675e2147291c1c5de6f74ecb90b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-2026.10.09-daily-plan.md-01a1211c-fc6d-7e56-b639-7133ec8fe4d6.input.json",
+      "sha256": "93dc52b6ac4871bd0c7efdd07787c215e653bbe880d19d8c14aacc00afba064e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-2026.10.09-daily-plan.md-01a1211c-fc6d-7e56-b639-7133ec8fe4d6.result.json",
+      "sha256": "3fef4109e7c7fce1e592777f989a49526d5a5874c0d0bc551deca86e98b70346"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-m1-career-materials.md-01a1211c-fbe7-727c-885c-bd3fcf926af2.input.json",
+      "sha256": "6b9faba423e4e2e04516cf5bf4a6807b2b274ac4731c25edaaeab6b0c037ba6d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-m1-career-materials.md-01a1211c-fbe7-727c-885c-bd3fcf926af2.result.json",
+      "sha256": "9e32fe840147e6bbdae017476060898fd9855f87dda2108cac36e967d4afdad3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-m1-career-materials.md-01a1211c-fc13-750e-993c-51e78d20ea25.input.json",
+      "sha256": "6b9faba423e4e2e04516cf5bf4a6807b2b274ac4731c25edaaeab6b0c037ba6d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-m1-career-materials.md-01a1211c-fc13-750e-993c-51e78d20ea25.result.json",
+      "sha256": "80ce3eab9b62619cae75bb363f14f65c4f22380ad479e6502d2dc68c0a5da47c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-m1-career-materials.md-01a1211c-fc3f-7cdf-a7aa-b0aa50ee3fc8.input.json",
+      "sha256": "6b9faba423e4e2e04516cf5bf4a6807b2b274ac4731c25edaaeab6b0c037ba6d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-m1-career-materials.md-01a1211c-fc3f-7cdf-a7aa-b0aa50ee3fc8.result.json",
+      "sha256": "76d19a5c59ccbff27e6f9dc21430b8ee21a3fa72924a9c544dcfe43fcf3b4d18"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-m1-career-materials.md-01a1211c-fc6d-7e56-b639-7133ec8fe4d6.input.json",
+      "sha256": "6b9faba423e4e2e04516cf5bf4a6807b2b274ac4731c25edaaeab6b0c037ba6d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-m1-career-materials.md-01a1211c-fc6d-7e56-b639-7133ec8fe4d6.result.json",
+      "sha256": "e41cd080383aba72753b440bc2bcbb0326497478ae611ea1d75ea7a21155b12d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-project-index.md-01a1211c-fbe7-727c-885c-bd3fcf926af2.input.json",
+      "sha256": "1b360bbc3f3d54103358153c976bcb928790ebb7eebf12021bd4bd48b4c12e76"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-project-index.md-01a1211c-fbe7-727c-885c-bd3fcf926af2.result.json",
+      "sha256": "e77880ccea7f9942fc43787f1f65c551dae9b77f8fe403cea994fb4f60828a4f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-project-index.md-01a1211c-fc13-750e-993c-51e78d20ea25.input.json",
+      "sha256": "1b360bbc3f3d54103358153c976bcb928790ebb7eebf12021bd4bd48b4c12e76"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-project-index.md-01a1211c-fc13-750e-993c-51e78d20ea25.result.json",
+      "sha256": "91ebd761a38df7b484cb8772eb425ac349ef177825743727307788b227d8c255"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-project-index.md-01a1211c-fc3f-7cdf-a7aa-b0aa50ee3fc8.input.json",
+      "sha256": "1b360bbc3f3d54103358153c976bcb928790ebb7eebf12021bd4bd48b4c12e76"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-project-index.md-01a1211c-fc3f-7cdf-a7aa-b0aa50ee3fc8.result.json",
+      "sha256": "64b54e67e03e6e47974ec86233ed29fc8194d540f7a5d4e18a76e8a833519cd3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-project-index.md-01a1211c-fc6d-7e56-b639-7133ec8fe4d6.input.json",
+      "sha256": "1b360bbc3f3d54103358153c976bcb928790ebb7eebf12021bd4bd48b4c12e76"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan-view-project-index.md-01a1211c-fc6d-7e56-b639-7133ec8fe4d6.result.json",
+      "sha256": "22916e530f20cb8ec2774e3bc2a71daa386eddeedad45d8e76630b1ae149e2a0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan.baseline.json",
+      "sha256": "c76bdce40a927034ec129d210c6fdd42aae2d68084b56e01e6eb37ed04ad9981"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan.checkpoint-before.json",
+      "sha256": "71659655a7e7b9d7d49ab2693d0fdb2360a44a07149825d2a251d273b0e4b6f3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/06-plan.checkpoint-verified.json",
+      "sha256": "50ea7e576400c818179e6d515cfd946f1f662b456a89e823c36f6a65d80da3cb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/07-prepare.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/07-prepare.result.json",
+      "sha256": "8f1b753109533b143bab09d1aad090d98b6084e57e225e4704a0418c71850810"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-before-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-before-inspect.result.json",
+      "sha256": "4f9d2562845f82c29f89d12c78688e751d2c2be3d0d29c3acb1cc68c0e72ca23"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-closure.input.json",
+      "sha256": "9d4fc2acf240df5788e17cb536de4125a8c1cfe4ba50c9cae10db8462661fec0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-closure.result.json",
+      "sha256": "8c8a7b0648a66d2235f2e9e16e11bf68191b4f78e02b18129c913e7ee6184aab"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-append.input.json",
+      "sha256": "233eaf8d2d7b2a600c1a01329487f4e47f6177985dc7c4a5cff7038f1bb3f89c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-append.result.json",
+      "sha256": "2cf0953a0b640575661566032865504fd644afeb70a35522c25e498cb04f10cf"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-event-id.result.json",
+      "sha256": "d0fabaa0e8d1afd703257c818c152f7c8351aa5d6759a0cb64429d51ee3c76eb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-invalidate.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-invalidate.result.json",
+      "sha256": "2bb4e9c5969ae97dcf6ddf3e8ca25c761196f0e76aaa3f8b74f5b409905e6a60"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-operation-id.result.json",
+      "sha256": "79e97402fd0db84175bb11fa8f5573446734e0793a4c16830bcc91acd344878d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-query.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-query.result.json",
+      "sha256": "fea7cdff7823fa7fb90bf9ce521903c370f705480e7a56abd21ce6f087358baa"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete-time.result.json",
+      "sha256": "72c481d481196bc99fa8810414b667135f0cc95c4f5494f94f59e4a474a12b90"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete.checkpoint-before.json",
+      "sha256": "b6f3b637b0d3ef203b282a6eecee6aecfa57301daa75d98edb44eed173a0115f"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-complete.checkpoint-verified.json",
+      "sha256": "7aba99f86de85f7bc9dd610da811ecaee11b469cff463b690b1723a69576e69b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-proposed-parse.input.json",
+      "sha256": "46833b04dea0d0ec0d37e3fad6b6f9f923666b6476f2d35b73e1a5f13e5ea476"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/08-proposed-parse.result.json",
+      "sha256": "4b1cf8787023d99125936bdd5011730528f82729cc57fbcc43d56c4271682093"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-inspect.result.json",
+      "sha256": "4f8b0ecf371369637dc21393206b925197b88a52ff3071d159a9b3ff1b876894"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-plan-rows.input.json",
+      "sha256": "93dc52b6ac4871bd0c7efdd07787c215e653bbe880d19d8c14aacc00afba064e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-plan-rows.result.json",
+      "sha256": "53a875589a5ebe1cb08fbd0945ce7be95712816c8422208bd1e2dd0367254f13"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-append.input.json",
+      "sha256": "e457f2f2b1bbb3fc170274ac6738299e890b3523d85dbb3f1d4e45d6a946dc8a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-append.result.json",
+      "sha256": "659680c33ffd39e6ab6ceee0221e5f53b567196cc7cdde8c950bff3634a5d15c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-event-id.result.json",
+      "sha256": "8dc48572b80543bf49dd248557f94c1bf1fd08e7d79263b85fc7c94580fdf6a7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-invalidate.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-invalidate.result.json",
+      "sha256": "2da3141c8154c71d219aa8d8b997b07f48a8c42d1449fc3a7dbda7fe56ef192e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-operation-id.result.json",
+      "sha256": "8d7f8e1ab992544f50e3e0827ff2486d49b50e3017d51c002d1ae98ba9c62eb7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-query.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-query.result.json",
+      "sha256": "6fcdef48c37ba4ad7976a817edd1c5a8743293a59f268f339bb7cc1742deb03b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh-time.result.json",
+      "sha256": "f281b466e54022f311107ffb6189bfa8b9ff541de54425ffbdccb791465c7bb3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh.checkpoint-before.json",
+      "sha256": "e840d0ec13370db55e44a3970082c3c309754f0ddbed7f3c86a88037b70c5bc5"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-refresh.checkpoint-verified.json",
+      "sha256": "e5121a57d1b69b6a4d198560e757c3f77dc668355a677cb912a29b3ac37ecbc0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-stale-observation.json",
+      "sha256": "112e90b98d4fb5518a6776af53b1f1027fda6cc6321a483c2c1fa47ecaa4e5f0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-stale-reconcile.input.json",
+      "sha256": "c8a47813243d889842ec0338bde4d9bf223fc15bfffa6fa94cc835702ba633b1"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/09-stale-reconcile.result.json",
+      "sha256": "9fe025490b5ca257ae975baf2370e238ab6c9322f92b5fd969de85154d69c4e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-ancestors.input.json",
+      "sha256": "3fc48495e93b42cb2ed8439ee4daf67ace50a637dced67e426dfaa298a71a043"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-ancestors.result.json",
+      "sha256": "8548b8db6aa91a9d2fe0565dc1cc0fc1a7b1b098693e9c6c02a3413fdfc0dbec"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-inspect.result.json",
+      "sha256": "86298978e4e73d761cb923fcb31fa4ccd2d4016839ea33a6b804b6045e0a4dd7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-manual-checkbox.json",
+      "sha256": "997b104347233c7d14e7115eced90f5cbcee6ab6adb36d5886a4869e995a204b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reconcile.input.json",
+      "sha256": "810783ee4ccae486be328f73291a968e6b9e75e4087d95b8ba5853855029bc3c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reconcile.result.json",
+      "sha256": "e3c9454e83a9c51c9cdb1b35fe526933d5ecc5f45aad646caae5ce868f907a9e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-append.input.json",
+      "sha256": "b8b9f230c7bcf741016422b35a6362fc8ce2756be080d7467ce3e261ad77aa1e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-append.result.json",
+      "sha256": "761d397220c8b2b5f1e793abc38e03e646d1e714dd2c64057f18531f2fc1c3f2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-event-id.result.json",
+      "sha256": "440549662c8a34909bbdc66df51f59a8f85ec2f9fb864456105a77e39dd0676e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-invalidate.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-invalidate.result.json",
+      "sha256": "2afbd1fa298cb6f60ac026a47d0b8f6f32cca25627f3414e3f3da7565365d990"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-operation-id.result.json",
+      "sha256": "7077ec9bbed475f09fd13b0db4c77f84cc1952588d36018fbe64a5d0761f8c15"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-query.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-query.result.json",
+      "sha256": "001e2e954a0f694ec145258177a45f583f4c8b825da0cbb4d50722e7162727c2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen-time.result.json",
+      "sha256": "ddd3613c1281e446581dee76b9f8988bfc18b6b97a7aaa8e8214565de07791da"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen.checkpoint-before.json",
+      "sha256": "cce0792aeca3bbc8407103e87aa00fe931aff3dabda30b36190a2521945f53bb"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/10-reopen.checkpoint-verified.json",
+      "sha256": "8c21770c2708ed331d79e1a8b213f543f91f20a1e57bab6a7416e80281d1ab53"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/11-conflict-reconcile.input.json",
+      "sha256": "cc07f30b97ae436056790e9f5521e50a6a3d9e99e33633432d2cbc58ca403182"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/11-conflict-reconcile.result.json",
+      "sha256": "eb9efda4f0ad9468a20d1edce215198b7c3f6c3d70dd297ac2e1c7ad1a0074aa"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/11-manual-conflicting-edits.json",
+      "sha256": "990a3f0dc94e6580c10b453888eb9950555c2e42192aed74ff4e0387a2c0c76a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-append.input.json",
+      "sha256": "cc3c08418e9750c345d7f5e21c822c7d80cf1a50e6ff740f4e4edb0356adaa6d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-append.result.json",
+      "sha256": "b8fd6eed7b21de5cd748d98286f36f91346bb03fa662d79dcf6e81c8fb9b00f0"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-event-id.result.json",
+      "sha256": "1936db7a52c99cb2bba89cb10d684fd8b619d2a38c73812bc25069394e09449c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-invalidate.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-invalidate.result.json",
+      "sha256": "0b2e1967642bff36bf796e0800a9186dedb7ab9cb6b41b96be1c985fb48df47e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-operation-id.result.json",
+      "sha256": "2a9c6c57ef6f6b15e4f7af09eca95e662658e6b94a44a1e4d42cb9cb65901495"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-query.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-query.result.json",
+      "sha256": "f560451ca8e729bd705d88e51dfcb2a1f3116e5e2978b37dfb155b417a0a61ad"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept-time.result.json",
+      "sha256": "635fb5421c1ec0999db55cf2de6673101be8afe1fc954929fcaf50f35afead43"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept.checkpoint-before.json",
+      "sha256": "e86ff16af1cbcc4dd938c66fdeb4e9a42c0cd908ea52f4af1e83bf41bbfcd3d4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-accept.checkpoint-verified.json",
+      "sha256": "99be830291591bd5fc208a51269535a1dd5fe487a79ff5dbf54d2849f8ea3731"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-inspect.result.json",
+      "sha256": "c4c4396a25db13c22e41c970c5f13c24f3b16043e5e239669bf0ee2842aa50b8"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-links.input.json",
+      "sha256": "7cce14c1047afdb741629884b0bafb891c2685c2818802c94c6d5d10feadd1f3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-links.result.json",
+      "sha256": "6489251cac8a61cc97b3293b41836cb0e411dc1f495901cb2b7e95ba0ff84d2b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-number-history.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-number-history.result.json",
+      "sha256": "92d98614f99f1676f8dadea661613a02f79e087d1117e212684113df6b7bc37a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-task3-criterion.result.json",
+      "sha256": "1f50183ee20de401d00830c8f466e34a398f6f9bb2429f607f665c611df8a1d5"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-task3-id.result.json",
+      "sha256": "4421a7859fd3c5ceb1fd5e0aa3f4b39d4d4609932554225b6407e93828018e2b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-validate.input.json",
+      "sha256": "7cce14c1047afdb741629884b0bafb891c2685c2818802c94c6d5d10feadd1f3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/12-validate.result.json",
+      "sha256": "bf344425b28e4fd74d5631b3fa55e5efa0f0916398d0ccf056f87f01fa38ef97"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-after-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-after-inspect.result.json",
+      "sha256": "c0d0dab527530cc5c960b749eb14b8694bb786041552c9321a5040d6d5167da4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-after-links.input.json",
+      "sha256": "57ac123fcab20630ee8d9c4a630224afcf957b6966847d988b61af7b6660e5ec"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-after-links.result.json",
+      "sha256": "f0490fd3d82b9516f10a2c52dd27950a850e3893679bac511f2bccad69233eac"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-after-validate.input.json",
+      "sha256": "57ac123fcab20630ee8d9c4a630224afcf957b6966847d988b61af7b6660e5ec"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-after-validate.result.json",
+      "sha256": "1da3c484096760d06617972ebc8536e778e05dbd7d460003ea3593a7bd828a68"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-before-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-before-inspect.result.json",
+      "sha256": "89006a245d648b398218e8c1a4ed77bde1eede3294b450e4e2dd17f1d3646e9d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-closure.input.json",
+      "sha256": "ffdfcbec359fed31154d890c557adc557c6ebd935cf5e61c0e8fd5738f684f60"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-closure.result.json",
+      "sha256": "28c5f308ea9bdb5511226a9f9d07bd613bb495cae2eedb6de4f397d277433c7a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-append.input.json",
+      "sha256": "b78af9cec984482209783de21619cf83f93d4fbd7672422038d763dac816ba00"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-append.result.json",
+      "sha256": "b270e71dc6f48cf8813b4926ed8b45584146694047297b7161a0f5f3f76badbf"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-event-id.result.json",
+      "sha256": "3414c14736127dbd6fea9a1424874903e463a3653de705ac125f2c0434ce770c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-invalidate.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-invalidate.result.json",
+      "sha256": "17217d1fc48a32a17567f49f50de3495b4a6ed1352412ad9de68da9d01700f07"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-operation-id.result.json",
+      "sha256": "4f9cfed7f5ec3ec68f9e026f399848767bfcd12d2163f70a10a11c1c7b347c04"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-query.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-query.result.json",
+      "sha256": "fcb1a3b5eeb556d008a0f3b6c494c064a90993b7aeeea19701b6d659028d673a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-time.input.json",
+      "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent-time.result.json",
+      "sha256": "7c6c8998915ca7953caf852acd6778eff9f7bbb1da29f733b8552d0f77b07574"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-complete-independent.checkpoint-before.json",
+      "sha256": "0fbc344f78cff33a63067ce6833908ae15774fb9f25820d4eba33e7d52520b42"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-proposed-parse.input.json",
+      "sha256": "bf97745d1c6b633775027b82573804d03101c8e50d12cb34974be2823f995968"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/13-proposed-parse.result.json",
+      "sha256": "92a6ba3c22e2d53ad3914c038cc705be0c3346bfefdd869c16aac8d3d8504bf8"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-one-exact-retry-append.input.json",
+      "sha256": "b78af9cec984482209783de21619cf83f93d4fbd7672422038d763dac816ba00"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-one-exact-retry-append.result.json",
+      "sha256": "8536f38b1a307668d72118da8922dd65f6eb96d2c063212be43eeaa2c94695a6"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-one-exact-retry-query.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-one-exact-retry-query.result.json",
+      "sha256": "3fc44207ea01ad04e13fe33888d97dd52724bc4358664eb60432de27a58c6006"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-recover.input.json",
+      "sha256": "c71e0d7b7bad96931d6fbfacc5cd038fc52287eb437076856b72a454ea3ac200"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-recover.result.json",
+      "sha256": "66813cb79f63e7ae275848f054125285b077469cfb67fc61c450badb831e6824"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-resume-query-before.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-resume-query-before.result.json",
+      "sha256": "c619ebb17ef77b70bbdf968967ddc0fa84363e9dec50d52e1ea144786fe229a4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-resumed.checkpoint-verified.json",
+      "sha256": "7142ea08491ab0a58fa56518ef6f3187ed6f539b5f9085f13ea4d09656cb6cb2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/14-retry-proof.json",
+      "sha256": "3965b610add3587d606f83a656316bd82f88a2fb5895f4ba1a8e3bc229a15a40"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/15-prepare-rollover.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/15-prepare-rollover.result.json",
+      "sha256": "94d8bc53c026e70fa41fdf5c427757b7ad12e4163be257521930e1e5d8c22942"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/15-rollover-receipt.input.json",
+      "sha256": "cc787ed3ec4c3ab1d99161f0faa11fb47fcbfc1b849f6429a5e0924cce3dd9d2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/15-rollover-receipt.result.json",
+      "sha256": "b48ecae063b7acf21c0e764f6ec6170467f4411d4df1f3f3ed137675e6ce5e84"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/16-prepare-review-pending.input.json",
+      "sha256": "b018b8f7a2d7a2594e0fd9ed71089b7586f5e0350ce4d6f3f7db79c0a16439e2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/16-prepare-review-pending.result.json",
+      "sha256": "97b0298140deff7965628c5a891779fc85603486d865ff05bc7110e079eb1409"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/16-review-save-pending.input.json",
+      "sha256": "85dcff6345766d38c9cb9761dea3cabe55222748e05bf492a99372b200641c24"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/16-review-save-pending.result.json",
+      "sha256": "0d4c2b81a4958a7faa700927916423dc927061852dd4fbf8e209c8fc02b198ec"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-inspect.input.json",
+      "sha256": "d3c72e26f5612b63ba455c9094282cd74eb56bd56b2c46bcc2a2e63ea683b3ed"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-inspect.result.json",
+      "sha256": "3ae5172c065d33928a33bd3b8ba00cad43f61799560ed3cbf6068e216411843b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-links.input.json",
+      "sha256": "57ac123fcab20630ee8d9c4a630224afcf957b6966847d988b61af7b6660e5ec"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-links.result.json",
+      "sha256": "31c899087f6145d3931529f6a99e2a4581ba99830b7ba344da52426cc785b78c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-milestone-rows.input.json",
+      "sha256": "34193337d66e5e59d31ff45be2fe6b38aea0434d18bcff7c7f3ca3e47fac9e34"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-milestone-rows.result.json",
+      "sha256": "79bb02663531ddce5a5d24eb74a3b0eb35ab564916965e6b4e995ec4b425f660"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-plan-rows.input.json",
+      "sha256": "8ba3cbf81a648e814a900b26626024cf177a78092e36fc44cbe31060daffcc25"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-plan-rows.result.json",
+      "sha256": "bd4d34a55629624390909f793e2f558d73e3cc266a23b299b12ed77139d1c89b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-validate.input.json",
+      "sha256": "57ac123fcab20630ee8d9c4a630224afcf957b6966847d988b61af7b6660e5ec"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-final-validate.result.json",
+      "sha256": "cf70b3d1d5cc5e1a694da908637ec50b9c68394d66c640d850fb25d1d69637b1"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-history-after.input.json",
+      "sha256": "20c5526ee9677a25057bca0e65545642a7cb7f5704bc1406b8f61cbe098cc91a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/17-history-after.result.json",
+      "sha256": "0ee20a1125f836ceef98cb7e86bea714ee6762210187b0d8d1306396ae31c782"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/accept-independent.mjs",
+      "sha256": "8c254dfce051cb91d7aa772a27af04e562d8d34f2597d268e5aef8f52da7df99"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/actions.md",
+      "sha256": "e0801d786f93530610fdaa5018e416a71687167256079d7701b65238ec88a661"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/.nyssaai/daily-tasks/checkin.json",
+      "sha256": "7f8458e1de332fd15bd1cdf44086d0b4a1d82b8b9a09a13336f7e0e928053bf7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/.nyssaai/daily-tasks/conflicts.json",
+      "sha256": "4be955a6a48840b5573815e12dd68fe9d808a1fd240d63d23104c9a1ba5efe95"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "69debcc3cbd4c5645ae4e90ca6646142b25c59281d12eb62bc6e161106d0e541"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/.nyssaai/daily-tasks/review/2026.10.09.json",
+      "sha256": "af1ee1c336d7d12b14f4b2306ddee5f346615d2ae2ae372338f3ffcdb6b4530d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Daily/2026.10.09-daily-plan.md",
+      "sha256": "300b9c6b9870c5697dd1302ffd4d8b8474f8baa0b8eca21f1e41435a3571c5d4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "64ac508fda8816f5ed679ba63a1c1438e55384f15a34109995cf02f8e7ec64db"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Projects/job-search/m1-career-materials/outputs/independent-note.md",
+      "sha256": "fb5b7212f135a58135573a2823c23411e12452acf430d3bc3ed9de91aeae6036"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "036c0c765e62014160ce25f8af40a1b090fe7aa120291ea0475386095235d214"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Projects/job-search/m1-career-materials/t3-independent-note.md",
+      "sha256": "50d00c31742bd08b32eb2c769f04260b8639a8bf5d725c92fe10116d8818e8c9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/after/Projects/job-search/project-index.md",
+      "sha256": "04b08c9e2eb6f0a93fda220ee0f77e25589e8fb08e284fe91fe1c02632c02589"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "c76bdce40a927034ec129d210c6fdd42aae2d68084b56e01e6eb37ed04ad9981"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/Daily/2026.10.09-daily-plan.md",
+      "sha256": "ea176700e24974370cf0c2faedab70bcb97eff2d96cdc1b477139def59442af7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "961ea61e86a0a55b5b60904c819e8a8349c2d2c9a5655cc91185b4e4b0190656"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "4d229d4dcd793a8a6ca4319654859593e956eb02e3db74c27f31b792dc82c9ad"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/baseline-established/Projects/job-search/project-index.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "961ea61e86a0a55b5b60904c819e8a8349c2d2c9a5655cc91185b4e4b0190656"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "4d229d4dcd793a8a6ca4319654859593e956eb02e3db74c27f31b792dc82c9ad"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/before/Projects/job-search/project-index.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "b1952374e74a95271687e3ed97591ec8d8683399c4d01180da2b390f255a274b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/Daily/2026.10.09-daily-plan.md",
+      "sha256": "ea176700e24974370cf0c2faedab70bcb97eff2d96cdc1b477139def59442af7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "c7c8b1ce86141fb5472778b436fecf78436d5fa981d3bb09bd5d41efae09c963"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "ffeb4ef8e7a06537da3b4abcc7c080e186d4729319bc448da2f6fa481f7be490"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/canonical-completed-stale-plan/Projects/job-search/project-index.md",
+      "sha256": "b3366c65efc77cc17da6e387c56b5f8a1f582e282d99086bb4c19c79ce7f939e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/complete-stale.mjs",
+      "sha256": "c0bf0daa6b0ad60246ed789c9e67d367f5d48229aea084239dffd772b3fea53a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/context.json",
+      "sha256": "ca019b2afeaa051dbea313969e4e3293ba8a3594425860cec33a2ea1d45e6b2a"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "e3dfe3212427ae920e1b34a779ad662a5c94d4e362c62a35a633bf0079ae358b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/Daily/2026.10.09-daily-plan.md",
+      "sha256": "ea176700e24974370cf0c2faedab70bcb97eff2d96cdc1b477139def59442af7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "c7c8b1ce86141fb5472778b436fecf78436d5fa981d3bb09bd5d41efae09c963"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "ffeb4ef8e7a06537da3b4abcc7c080e186d4729319bc448da2f6fa481f7be490"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/deliberate-uncheck/Projects/job-search/project-index.md",
+      "sha256": "b3366c65efc77cc17da6e387c56b5f8a1f582e282d99086bb4c19c79ce7f939e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/establish.mjs",
+      "sha256": "58988ca5aa746f2382887be7aa35140880051fed45f19689c227fe51abaef3a2"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/evidence.mjs",
+      "sha256": "8b85a39cc62cd79a58b7712f35d588676a6aa31ec713a8d5f5cb3247afabcf77"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/finalize-evidence.mjs",
+      "sha256": "cd312d7d0792329cc186344b3ebf92560ee331fece576f985a5111a6e3e334f7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/initial.mjs",
+      "sha256": "cca5b25ec2467424c37c9381537be7320fee22306b124538cc93ad1e542a2a1b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/installed-sources.json",
+      "sha256": "420c2f88bd6f9902e615d071bac34ca0f595b5a758de53130699b5af764b82f4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupt-independent.mjs",
+      "sha256": "280be4544e9cbb62067a67f5794c87dd390576e4cc1c2120146c82a612ef516c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/.nyssaai/daily-tasks/checkin.json",
+      "sha256": "830dde0b38a797fac5777c7c31420731ed51f593aba768d9c31b82f6aa73d5ea"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/.nyssaai/daily-tasks/conflicts.json",
+      "sha256": "4be955a6a48840b5573815e12dd68fe9d808a1fd240d63d23104c9a1ba5efe95"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/.nyssaai/daily-tasks/operations/01a12161-a786-79f7-b875-e36c46f7d9fa.json",
+      "sha256": "0fbc344f78cff33a63067ce6833908ae15774fb9f25820d4eba33e7d52520b42"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "d4ccee1fbf62f152394c67314778478f25ad1ebf3609329ceef166f33cdcb190"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Daily/2026.10.09-daily-plan.md",
+      "sha256": "300b9c6b9870c5697dd1302ffd4d8b8474f8baa0b8eca21f1e41435a3571c5d4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "64ac508fda8816f5ed679ba63a1c1438e55384f15a34109995cf02f8e7ec64db"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Projects/job-search/m1-career-materials/outputs/independent-note.md",
+      "sha256": "fb5b7212f135a58135573a2823c23411e12452acf430d3bc3ed9de91aeae6036"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "036c0c765e62014160ce25f8af40a1b090fe7aa120291ea0475386095235d214"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Projects/job-search/m1-career-materials/t3-independent-note.md",
+      "sha256": "50d00c31742bd08b32eb2c769f04260b8639a8bf5d725c92fe10116d8818e8c9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-after-log-append/Projects/job-search/project-index.md",
+      "sha256": "04b08c9e2eb6f0a93fda220ee0f77e25589e8fb08e284fe91fe1c02632c02589"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interrupted-operation.json",
+      "sha256": "0fbc344f78cff33a63067ce6833908ae15774fb9f25820d4eba33e7d52520b42"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/interruption.json",
+      "sha256": "7a2aa77ddeb27bf8daa7f44817b51014122a381cd4a32c704760c95a4fc6f895"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/maintenance/check-links.input.json",
+      "sha256": "4c3f63bac2b23248986b289c95e7ad210c8f5e56cf07878b3d90455262cd6a2c"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/maintenance/check-links.result.json",
+      "sha256": "60326e4e048106d4366a2fd8fe472ccfdf06667fcd0f234977febfeaa38f31b8"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/maintenance/host-invocation.json",
+      "sha256": "6a28b5685b891abb3f32ada390e5dd8dc5a63903756a18ea4adfef181980fdd7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/maintenance/inspect-records.input.json",
+      "sha256": "ed305077754bdfd7e83052c347a756bed3566acd04ad0e10f53f20c573227675"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/maintenance/inspect-records.result.json",
+      "sha256": "cbe658392c71f8a65f932a3c5846056e2b568a9a7e205df7685cad6c1620e7ab"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/.nyssaai/daily-tasks/checkin.json",
+      "sha256": "0b5ff45126ff80b2d7d4480b3820864c472ccbf75bb85fad981b9df22513e313"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/.nyssaai/daily-tasks/conflicts.json",
+      "sha256": "4be955a6a48840b5573815e12dd68fe9d808a1fd240d63d23104c9a1ba5efe95"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "b8ae8cba56a9175dd3577a5c4b9677b621e34d58eedf81f7abeb0e3a6069820d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/Daily/2026.10.09-daily-plan.md",
+      "sha256": "300b9c6b9870c5697dd1302ffd4d8b8474f8baa0b8eca21f1e41435a3571c5d4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "04aa2bf8a2890302f6e757cee51ef6f52c8337ed10d9c5a4dfc6a8a630ad6a2d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "036c0c765e62014160ce25f8af40a1b090fe7aa120291ea0475386095235d214"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/pending-conflict/Projects/job-search/project-index.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/probe.mjs",
+      "sha256": "dd6ed3f27ef58518a86bfcf53d46bafe721de803d6b90aa3cdc6105d64315c0d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/protocol.mjs",
+      "sha256": "87a4203d407a031c69f65a5226852f6a3baeb97e3c8247d3a87c4dacd4a3e65d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopen-conflict.mjs",
+      "sha256": "b5b4bde0f8110c657b3735a03e68a9d9bf79051436452956ee5e7e3e88521e96"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "b8ae8cba56a9175dd3577a5c4b9677b621e34d58eedf81f7abeb0e3a6069820d"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/Daily/2026.10.09-daily-plan.md",
+      "sha256": "ea176700e24974370cf0c2faedab70bcb97eff2d96cdc1b477139def59442af7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "dfa908478a9613464ca66bc8fb2076646b5871a9e09072e2b03d7ca31b34c400"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "036c0c765e62014160ce25f8af40a1b090fe7aa120291ea0475386095235d214"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/reopened/Projects/job-search/project-index.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resume.mjs",
+      "sha256": "cd09b7ee9075de8a2fd69fc898ebdc298487d4f0a25a51e87528dcc1c03ddde4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/.nyssaai/daily-tasks/checkin.json",
+      "sha256": "7f8458e1de332fd15bd1cdf44086d0b4a1d82b8b9a09a13336f7e0e928053bf7"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/.nyssaai/daily-tasks/conflicts.json",
+      "sha256": "4be955a6a48840b5573815e12dd68fe9d808a1fd240d63d23104c9a1ba5efe95"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "69debcc3cbd4c5645ae4e90ca6646142b25c59281d12eb62bc6e161106d0e541"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Daily/2026.10.09-daily-plan.md",
+      "sha256": "300b9c6b9870c5697dd1302ffd4d8b8474f8baa0b8eca21f1e41435a3571c5d4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "64ac508fda8816f5ed679ba63a1c1438e55384f15a34109995cf02f8e7ec64db"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Projects/job-search/m1-career-materials/outputs/independent-note.md",
+      "sha256": "fb5b7212f135a58135573a2823c23411e12452acf430d3bc3ed9de91aeae6036"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "036c0c765e62014160ce25f8af40a1b090fe7aa120291ea0475386095235d214"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Projects/job-search/m1-career-materials/t3-independent-note.md",
+      "sha256": "50d00c31742bd08b32eb2c769f04260b8639a8bf5d725c92fe10116d8818e8c9"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/resumed-exactly-once/Projects/job-search/project-index.md",
+      "sha256": "04b08c9e2eb6f0a93fda220ee0f77e25589e8fb08e284fe91fe1c02632c02589"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/scenario3-report.json",
+      "sha256": "2677e871466e79b86ee770ebe12925fc82e5d2241026ce16ce9db168bca27977"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/scenario3-summary.md",
+      "sha256": "8a9fd3b890aa3bae80cc981fb9407397629ca5c2759fd9d49db1034ae98177c3"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "e3dfe3212427ae920e1b34a779ad662a5c94d4e362c62a35a633bf0079ae358b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/Daily/2026.10.09-daily-plan.md",
+      "sha256": "91c81c4550589332c4cdbce77f694c697c81773b96affbb595671043ef298cdc"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "c7c8b1ce86141fb5472778b436fecf78436d5fa981d3bb09bd5d41efae09c963"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "ffeb4ef8e7a06537da3b4abcc7c080e186d4729319bc448da2f6fa481f7be490"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/stale-checkin-no-reopen/Projects/job-search/project-index.md",
+      "sha256": "b3366c65efc77cc17da6e387c56b5f8a1f582e282d99086bb4c19c79ce7f939e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/.nyssaai/daily-tasks/checkin.json",
+      "sha256": "0b5ff45126ff80b2d7d4480b3820864c472ccbf75bb85fad981b9df22513e313"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/.nyssaai/daily-tasks/conflicts.json",
+      "sha256": "4be955a6a48840b5573815e12dd68fe9d808a1fd240d63d23104c9a1ba5efe95"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "d4ccee1fbf62f152394c67314778478f25ad1ebf3609329ceef166f33cdcb190"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/Daily/2026.10.09-daily-plan.md",
+      "sha256": "300b9c6b9870c5697dd1302ffd4d8b8474f8baa0b8eca21f1e41435a3571c5d4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "3c0d628eee3e05050690c71c242f02c83fc84099ad660656b4a51038e688aa21"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "036c0c765e62014160ce25f8af40a1b090fe7aa120291ea0475386095235d214"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/Projects/job-search/m1-career-materials/t3-independent-note.md",
+      "sha256": "b37a4ae8e16d07571e4573f2d0a37da6e3f4ad13b6d9d710964c9224409bee06"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3-accepted-despite-conflict/Projects/job-search/project-index.md",
+      "sha256": "5448e628109c0e97a5395bad6bb49633950d4e8cab98257f66dabae266bf7cb4"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/task3.json",
+      "sha256": "de88d39a06746eae9a25839df51567c526bbf5e66e6bde389ce731fc7034cd96"
+    },
+    {
+      "path": "evidence/reconciliation/.temp/verify-current.mjs",
+      "sha256": "53c9c9e95ebb12cf02225e90ccf5ee8102e2903bacc7491ba509f9cbb71363cf"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/candidates.json",
+      "sha256": "02ae836c55c31c46ff5a7b84e52fbd9a1d462c8947f5ef76479e8b796d02f405"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/checkin.json",
+      "sha256": "7f8458e1de332fd15bd1cdf44086d0b4a1d82b8b9a09a13336f7e0e928053bf7"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/conflicts.json",
+      "sha256": "4be955a6a48840b5573815e12dd68fe9d808a1fd240d63d23104c9a1ba5efe95"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/maintenance.json",
+      "sha256": "ecf82e37fbf32c32950aaccfa71a5936e5d3fd0b0dd30aa92a8f9d2baf2a8a10"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "69debcc3cbd4c5645ae4e90ca6646142b25c59281d12eb62bc6e161106d0e541"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.nyssaai/daily-tasks/review/2026.10.09.json",
+      "sha256": "af1ee1c336d7d12b14f4b2306ddee5f346615d2ae2ae372338f3ffcdb6b4530d"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.temp/daily-tasks/project-index-freshness.json",
+      "sha256": "5f9b25be1a7bf66a86f31c6636afb52825f6fb82b4847f09c9764ff04b062e9b"
+    },
+    {
+      "path": "evidence/reconciliation/vault/.temp/daily-tasks/project-index.json",
+      "sha256": "85b19eb39a14b6a761b5bc0bc81216c8af48ea438b61139f60452a9a23c14723"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Daily/2026.10.09-daily-plan.md",
+      "sha256": "300b9c6b9870c5697dd1302ffd4d8b8474f8baa0b8eca21f1e41435a3571c5d4"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "7dfe0f32be0a54db445707587ca2d5b6772f4624442b7529d4f47340684134f5"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "64ac508fda8816f5ed679ba63a1c1438e55384f15a34109995cf02f8e7ec64db"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/outputs/independent-note.md",
+      "sha256": "fb5b7212f135a58135573a2823c23411e12452acf430d3bc3ed9de91aeae6036"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/outputs/linkedin-headline.md",
+      "sha256": "3d364342bc43f950277b5d27542e093bb2dae9b413a1b6a99798048a0dff7a0e"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "036c0c765e62014160ce25f8af40a1b090fe7aa120291ea0475386095235d214"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/m1-career-materials/t3-independent-note.md",
+      "sha256": "50d00c31742bd08b32eb2c769f04260b8639a8bf5d725c92fe10116d8818e8c9"
+    },
+    {
+      "path": "evidence/reconciliation/vault/Projects/job-search/project-index.md",
+      "sha256": "04b08c9e2eb6f0a93fda220ee0f77e25589e8fb08e284fe91fe1c02632c02589"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "runId": "codex-native-focus-724a7fe6-20261009",
+  "kind": "focused-native-attempt",
+  "suite": "workflow-v3-focus",
+  "status": "fail",
+  "candidate": {
+    "hash": "724a7fe67b01ba4333e2b6ff2db69111b105bb8a3edeb1140ac380012dcde3e6"
+  },
+  "source_unchanged": true,
+  "completed_at": "2026-10-09T17:45:33.115Z",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "backendModelIndependentlyExposed": false,
+  "isolatedRegistration": true,
+  "installedFiles": 49,
+  "scenarios": [
+    {
+      "id": "milestone-workspace",
+      "status": "fail",
+      "transcripts": [
+        "milestone-workspace"
+      ],
+      "report": ".temp/scenario7-report.md",
+      "note": "Strict independent FAIL despite solver behavioral self-pass. Original tasks.reordered-cancelled-accepted event01a121c3-3641-75be-aca6-6f0ad1e33ed7 creates new T3 only after; operation file before:null and original fixture prove T3 absent. Correction01a121c3-ddd7-79b2-8abd-f2e8f868df70 fabricates T3 before with snapshot_kind:label facts to satisfy prior-label requirements. Actual queried history preserved in277-log-query.result.json wrapper.stdout. No correction of failed history or passing promotion. Contract omitted exact task.cancel-and-accept action, and runtime did not reject explicitly non-observed before snapshot kinds. Other final workspace outcomes pass; this does not excuse history violation."
+    },
+    {
+      "id": "unavailable-worker",
+      "status": "pass",
+      "transcripts": [
+        "unavailable-worker"
+      ],
+      "report": ".temp/checkin-evidence.json",
+      "note": "Workers explicitly unavailable; direct record/link/navigation checks clean. CLI inspection blocked missing baseline with successAdvanced:false, no inspection receipt. Old maintenance receipt bytes/model/success timestamp independently unchanged by SHA256; final response explicitly says no worker launched or ran under any model and full reconcile remains due."
+    }
+  ],
+  "releaseEvidence": false,
+  "note": "Focused attempts are retained independently and do not constitute the full eight-scenario release suite. Actual failed history is preserved. Private authentication, home settings and plugin cache are excluded."
+}

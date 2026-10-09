@@ -1,0 +1,774 @@
+stdout:
+✖ portable profile validates and resolves vault profile before home without subprocess cwd (14.6013ms)
+✔ invalid portable traversal, TTL and malformed discovered profile are diagnosed (4.0661ms)
+✖ Windows vault bindings tolerate case differences and state containment stays safe (1.1501ms)
+✖ one home profile shares preferences while two vaults retain independent planning and state roots (0.7304ms)
+✔ evidence accepts complete host execution and rejects missing, corrupt and falsely passing results (18.4314ms)
+✔ report retains historical v2 evidence without promoting it over workflow-v3 acceptance (239.4994ms)
+✔ CLI accepts Windows UTF-8 BOM input and reports the package version (129.7346ms)
+✔ assembled packages and source hashes are identical for LF and CRLF source files (101.737ms)
+✔ UUIDv7 carries timestamp/version/variant without conflating identities (3.4967ms)
+✔ carry-forward retains selected own/delegated work but not terminal or removed work (0.8255ms)
+✖ inspection discovers uppercase Markdown and suggests a descriptive lowercase rename (51.3699ms)
+✔ profile validates explicit identity timezone and safe independently chosen roots (7.2109ms)
+✔ published templates become valid related records and gate milestone closure (6.3612ms)
+✔ CLI logs explicit acceptance, retries once, queries archive, rejects invalid input and previews without writes (381.1855ms)
+✔ assembled portable and Cowork CLI surfaces preserve operation behavior (93.1227ms)
+✔ packaged rollover CLI merges a pre-created plan and preserves a later same-day removal (200.3255ms)
+✖ packaged planning CLI resolves portable scope independently of cwd and reuses inventory (126.1107ms)
+✖ inspect-records scans nested records, skips hidden directories and rejects symlinks (52.4277ms)
+✖ context navigation and unidentified legacy projects cannot erase unrelated managed work (5.0784ms)
+✖ maintained preparation binds actual plan identity and state writes reject stale or task-shaped inputs (1.8599ms)
+✖ preparation cannot complete pending carry or unresolved current rows (1.8288ms)
+✖ valid tasks and future allocations survive an invalid ancestor, while additions stay blocked (1.1492ms)
+✖ inventory uses agreed shape, table order and one planned source, then reuses and invalidates (1.5641ms)
+✖ conflicting active dates are diagnosed, historical selections do not conflict, move is a proposal (2.2346ms)
+✖ review pages keep stable handles, preserve later selections, owner filtering and day calculations (1.0396ms)
+✖ project order uses dates then names and failed refresh preserves prior cache (1.7814ms)
+✖ local midnight expires date-sensitive allocations even within the TTL (1.1595ms)
+✖ invalidation, corrupt cache and failed sidecar read preserve truthful freshness (1.3997ms)
+✖ selected rows retain allocation, terminal work and out-of-view responsibility (0.7497ms)
+✖ manual future status edits remain affected work until reconciled, notes are not allocations (0.7647ms)
+✖ removal preserves date intent, repeated selections are no-ops and carry conflicts isolate tasks (1.1726ms)
+✖ invalid ancestor text blocks affected additions uniformly, preserving selections and unrelated projects (1.5029ms)
+✖ invalid task metadata isolates that task without blocking other tasks or hiding a selection (0.8051ms)
+✖ accepted independent projects storage indexes through a logical anchor without absolute cache paths (0.9512ms)
+✖ planning rejects another vault inventory, destination roots or numbered screen even with matching task IDs (0.8248ms)
+✖ following-line selections are allocated and legacy future cancellation reaches reconciliation (0.9603ms)
+✖ append, identical retry, conflicting retry, correction and archive preserve history (3.4393ms)
+✖ dry runs never create storage or modify existing bytes (0.932ms)
+✖ corrupt history and invalid input fail without rewriting history (0.6344ms)
+✖ person actors require email identity while named agents remain valid (0.6597ms)
+✖ separate processes serialize appends without losing entries (0.6267ms)
+✖ same-day rotations choose fresh names and query filters include archives (0.8374ms)
+✖ creation date is retained across days; archived IDs remain reserved (0.9793ms)
+✖ failed archive setup preserves original bytes and history (1.036ms)
+✖ stale locks are reported without mutation or automatic breaking (0.9713ms)
+✖ symlinked storage cannot redirect log operations (1.2284ms)
+✔ embedded criteria stay distinct from navigation and allow evidence links and nested headings (3.0548ms)
+✔ task and milestone closure require their own criteria, while legacy task closure stays readable (6.0122ms)
+✔ new tasks missing DoD or containing duplicate criterion IDs cannot complete (0.4097ms)
+✔ unchecking task DoD reopens that task and parents but milestone DoD leaves completed children alone (0.4905ms)
+✔ numbered records remain discoverable with broken metadata and duplicate numbers are reported (0.2857ms)
+✔ legacy milestone conversion preserves criterion references and rejects competing DoD sources (0.5609ms)
+✔ criterion section boundaries reject malformed criteria without mistaking unrelated checkboxes for DoD (0.7315ms)
+✖ flat holding folders cannot introduce phantom tasks in either inventory or CLI inspection (19.6055ms)
+✔ blocker labels are project-local, discoverable and compatible with legacy names (1.9944ms)
+✔ canonical and generated skill bundles do not ship a standalone DoD template (1.3205ms)
+✔ task table templates include milestone context without adding selectable milestone rows (1.4306ms)
+✔ rollover merges yesterday into a pre-created plan while preserving future, terminal and removed work (2.0221ms)
+✔ verified daily completion preserves a later removal and does not carry a second time (0.2338ms)
+✔ rollover preserves unresolved identities and explicit removals during unfinished recovery (0.422ms)
+✔ stale checkbox never reopens changed task; independent edits merge (1.0971ms)
+✔ conflicts preserve current facts and do not block independent changes (0.259ms)
+✔ unchecking completed task restores start-aware state and records are not mutated (0.1379ms)
+✔ DoD and blockers reopen parents while preserving completed tasks (0.3002ms)
+✔ recovery compares expected values and never infers ambiguous intent (0.2163ms)
+✔ reopening isolates unrelated copied IDs and rejects ambiguity in affected records (0.2933ms)
+✔ invalid metadata and blocker checkbox states are handled by record type (0.1316ms)
+✔ reopening clears present resolution timestamp, retaining baseline history (0.0892ms)
+✔ recovery snapshots survive JSON for absent fields and timestamp removal (1.0318ms)
+✔ explicit null removes optional assignment and target while preserving owner (0.1857ms)
+✔ parsed explicit status edits override checkbox reopening inference (0.6578ms)
+✔ legacy cancellation reconciles as a state edit and never overrides changed canonical facts (0.2272ms)
+✔ context links remain navigation while explicit and relationship links remain managed (3.2772ms)
+✔ missing record and reference identities never join through undefined (0.2456ms)
+✔ explicit empty or malformed refs never become ordinary navigation (0.7114ms)
+✔ parse scalar frontmatter, hidden identity, relations and criterion IDs (1.0118ms)
+✔ invalid states, dates, metadata, duplicate IDs and unsupported YAML are surfaced (0.5762ms)
+✔ filenames require lowercase descriptive task names without changing identity or lifecycle (0.3711ms)
+✔ milestone closure needs DoD, resolved tasks and no open blocker; dependencies are informational (0.7174ms)
+✔ missing or invalid closure relationships cannot falsely permit closure (0.2901ms)
+✔ link checks propose path repairs by identity and expose missing backlinks (0.2758ms)
+✔ malformed collections diagnose rather than crash and missing index refs gate closure (0.2163ms)
+✔ DoD identity collisions and parent mismatch cannot pass closure (0.175ms)
+✔ project criterion projections use ref IDs without requiring another wiki link (0.2568ms)
+✔ code examples do not create spurious identities or relations (0.1064ms)
+✔ frontmatter identity and table projections retain separate link identities and status (0.1718ms)
+✔ separate table status cells and Markdown examples are parsed without accepting prose (0.3938ms)
+✔ literal HTML comments inside a fence cannot swallow following real rows (0.1654ms)
+✔ statusless reference tables preserve links without requesting work-state edits (0.1946ms)
+✔ same-line and immediately following references share identity rules across editable parsers (0.2475ms)
+✔ conflicting reference IDs never silently select one in list or table views (0.6085ms)
+✔ legacy cancellation matches modern cancellation while completed marks retain completion (0.1215ms)
+✖ future move interrupted after stage 0 resumes with one date and one decision (33.6319ms)
+✖ future move interrupted after stage 1 resumes with one date and one decision (14.866ms)
+✖ future move interrupted after stage 2 resumes with one date and one decision (14.1325ms)
+✖ future move interrupted after stage 3 resumes with one date and one decision (24.7925ms)
+✖ future move interrupted after stage 4 resumes with one date and one decision (24.967ms)
+✖ recovery preserves unexpected prose and baseline edits without false completion (14.5544ms)
+✖ conflicting recorded decisions remain visible even when their record_ids differ (25.1435ms)
+✖ recovery oracle rejects altered canonical files, checkpoint binding and invalid completion (22.4223ms)
+✖ oracle accepts removal of a completed checkpoint and rejects absence during pending effects (15.5927ms)
+✔ system timezone resolves to the host zone and displays the actual zone (11.3302ms)
+✔ reported activity and recording time remain separate; vague time defaults (0.5399ms)
+✔ invalid precise dates and implicit local timestamps fail instead of defaulting (0.1211ms)
+✔ local day and display use explicit zone across midnight and DST (0.7244ms)
+ℹ tests 105
+ℹ suites 0
+ℹ pass 61
+ℹ fail 44
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1307.3452
+
+✖ failing tests:
+
+test at test\context.test.mjs:9:1
+✖ portable profile validates and resolves vault profile before home without subprocess cwd (14.6013ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\context-yhx0Pu'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/context.test.mjs:12:16)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\context-yhx0Pu'
+  }
+
+test at test\context.test.mjs:38:1
+✖ Windows vault bindings tolerate case differences and state containment stays safe (1.1501ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\context-case-3a1KrK'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/context.test.mjs:40:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\context-case-3a1KrK'
+  }
+
+test at test\context.test.mjs:49:1
+✖ one home profile shares preferences while two vaults retain independent planning and state roots (0.7304ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\two-vaults-dt7WBX'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/context.test.mjs:50:16)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\two-vaults-dt7WBX'
+  }
+
+test at test\integration.test.mjs:66:1
+✖ inspection discovers uppercase Markdown and suggests a descriptive lowercase rename (51.3699ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/integration.test.mjs:73:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\integration.test.mjs:173:1
+✖ packaged planning CLI resolves portable scope independently of cwd and reuses inventory (126.1107ms)
+  AssertionError [ERR_ASSERTION]: {"error":"EPERM: operation not permitted, realpath 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\integration-rAZqrv\\1-projects'","code":"EPERM"}
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/integration.test.mjs:196:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\integration.test.mjs:221:1
+✖ inspect-records scans nested records, skips hidden directories and rejects symlinks (52.4277ms)
+  AssertionError [ERR_ASSERTION]: {"error":"EPERM: operation not permitted, realpath 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\integration-sH0vPY\\projects'","code":"EPERM"}
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/integration.test.mjs:238:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\inventory.test.mjs:32:1
+✖ context navigation and unidentified legacy projects cannot erase unrelated managed work (5.0784ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-sfklPv'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:33:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-sfklPv'
+  }
+
+test at test\inventory.test.mjs:46:1
+✖ maintained preparation binds actual plan identity and state writes reject stale or task-shaped inputs (1.8599ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-lkjgy6'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:47:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-lkjgy6'
+  }
+
+test at test\inventory.test.mjs:77:1
+✖ preparation cannot complete pending carry or unresolved current rows (1.8288ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-Y1AQDe'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:78:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-Y1AQDe'
+  }
+
+test at test\inventory.test.mjs:96:1
+✖ valid tasks and future allocations survive an invalid ancestor, while additions stay blocked (1.1492ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-CwqsHo'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:97:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-CwqsHo'
+  }
+
+test at test\inventory.test.mjs:106:1
+✖ inventory uses agreed shape, table order and one planned source, then reuses and invalidates (1.5641ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-Hqanbe'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:107:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-Hqanbe'
+  }
+
+test at test\inventory.test.mjs:131:1
+✖ conflicting active dates are diagnosed, historical selections do not conflict, move is a proposal (2.2346ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-Uf60Vf'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:132:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-Uf60Vf'
+  }
+
+test at test\inventory.test.mjs:150:1
+✖ review pages keep stable handles, preserve later selections, owner filtering and day calculations (1.0396ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-5sUn64'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:151:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-5sUn64'
+  }
+
+test at test\inventory.test.mjs:166:1
+✖ project order uses dates then names and failed refresh preserves prior cache (1.7814ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-thMzAd'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:167:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-thMzAd'
+  }
+
+test at test\inventory.test.mjs:187:1
+✖ local midnight expires date-sensitive allocations even within the TTL (1.1595ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-DN2vPm'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:188:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-DN2vPm'
+  }
+
+test at test\inventory.test.mjs:199:1
+✖ invalidation, corrupt cache and failed sidecar read preserve truthful freshness (1.3997ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-6Szoz1'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:200:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-6Szoz1'
+  }
+
+test at test\inventory.test.mjs:215:1
+✖ selected rows retain allocation, terminal work and out-of-view responsibility (0.7497ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-TwTirZ'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:216:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-TwTirZ'
+  }
+
+test at test\inventory.test.mjs:232:1
+✖ manual future status edits remain affected work until reconciled, notes are not allocations (0.7647ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-zyXEeJ'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:233:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-zyXEeJ'
+  }
+
+test at test\inventory.test.mjs:250:1
+✖ removal preserves date intent, repeated selections are no-ops and carry conflicts isolate tasks (1.1726ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-6QVF9b'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:251:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-6QVF9b'
+  }
+
+test at test\inventory.test.mjs:270:1
+✖ invalid ancestor text blocks affected additions uniformly, preserving selections and unrelated projects (1.5029ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-fmW66f'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:271:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-fmW66f'
+  }
+
+test at test\inventory.test.mjs:315:1
+✖ invalid task metadata isolates that task without blocking other tasks or hiding a selection (0.8051ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-YxkPUF'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:316:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-YxkPUF'
+  }
+
+test at test\inventory.test.mjs:326:1
+✖ accepted independent projects storage indexes through a logical anchor without absolute cache paths (0.9512ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-wCxhzC'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:327:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-wCxhzC'
+  }
+
+test at test\inventory.test.mjs:352:1
+✖ planning rejects another vault inventory, destination roots or numbered screen even with matching task IDs (0.8248ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-Kxbp6u'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:353:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-Kxbp6u'
+  }
+
+test at test\inventory.test.mjs:365:1
+✖ following-line selections are allocated and legacy future cancellation reaches reconciliation (0.9603ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\inventory-Kdl1A0'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:17:21)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/inventory.test.mjs:366:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\inventory-Kdl1A0'
+  }
+
+test at test\log.test.mjs:12:1
+✖ append, identical retry, conflicting retry, correction and archive preserve history (3.4393ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-o64GoB'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:13:23)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-o64GoB'
+  }
+
+test at test\log.test.mjs:30:1
+✖ dry runs never create storage or modify existing bytes (0.932ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-II7sO5'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:31:23)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-II7sO5'
+  }
+
+test at test\log.test.mjs:39:1
+✖ corrupt history and invalid input fail without rewriting history (0.6344ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-m4ERiI'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:40:23)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-m4ERiI'
+  }
+
+test at test\log.test.mjs:48:1
+✖ person actors require email identity while named agents remain valid (0.6597ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-O8MA8I'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:49:23)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-O8MA8I'
+  }
+
+test at test\log.test.mjs:55:1
+✖ separate processes serialize appends without losing entries (0.6267ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-wdGtUV'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:56:21)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-wdGtUV'
+  }
+
+test at test\log.test.mjs:63:1
+✖ same-day rotations choose fresh names and query filters include archives (0.8374ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-xeSpyg'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:64:21)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-xeSpyg'
+  }
+
+test at test\log.test.mjs:71:1
+✖ creation date is retained across days; archived IDs remain reserved (0.9793ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-gH8uE7'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:72:21)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-gH8uE7'
+  }
+
+test at test\log.test.mjs:80:1
+✖ failed archive setup preserves original bytes and history (1.036ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-cf4Nqc'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:81:21)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-cf4Nqc'
+  }
+
+test at test\log.test.mjs:89:1
+✖ stale locks are reported without mutation or automatic breaking (0.9713ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-K9SgZu'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:90:21)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-K9SgZu'
+  }
+
+test at test\log.test.mjs:95:1
+✖ symlinked storage cannot redirect log operations (1.2284ms)
+  Error: EPERM: operation not permitted, realpath 'C:\Users\jmayn\AppData\Local\Packages\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\AC\Temp\daily-log-uiOFZ9'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async fixture (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:11:42)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/log.test.mjs:96:21)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'C:\\Users\\jmayn\\AppData\\Local\\Packages\\sandbox.{846fc3ac-7720-4684-b852-753d15a97599}\\AC\\Temp\\daily-log-uiOFZ9'
+  }
+
+test at test\milestone-workspace.test.mjs:96:1
+✖ flat holding folders cannot introduce phantom tasks in either inventory or CLI inspection (19.6055ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\milestone-workspace-dEtjA1'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 0)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/milestone-workspace.test.mjs:113:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\milestone-workspace-dEtjA1'
+  }
+
+test at test\recovery-flow.test.mjs:27:34
+✖ future move interrupted after stage 0 resumes with one date and one decision (33.6319ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-XGSu17\2-areas\daily-plans'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 2)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:29:18)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-XGSu17\\2-areas\\daily-plans'
+  }
+
+test at test\recovery-flow.test.mjs:27:34
+✖ future move interrupted after stage 1 resumes with one date and one decision (14.866ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-flC98k\1-projects'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 1)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:29:18)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-flC98k\\1-projects'
+  }
+
+test at test\recovery-flow.test.mjs:27:34
+✖ future move interrupted after stage 2 resumes with one date and one decision (14.1325ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-BTTqKd\1-projects'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 1)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:29:18)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-BTTqKd\\1-projects'
+  }
+
+test at test\recovery-flow.test.mjs:27:34
+✖ future move interrupted after stage 3 resumes with one date and one decision (24.7925ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-Nko2tW\1-projects'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 1)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:29:18)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-Nko2tW\\1-projects'
+  }
+
+test at test\recovery-flow.test.mjs:27:34
+✖ future move interrupted after stage 4 resumes with one date and one decision (24.967ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-yCMjGC\1-projects'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 1)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:29:18)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-yCMjGC\\1-projects'
+  }
+
+test at test\recovery-flow.test.mjs:49:1
+✖ recovery preserves unexpected prose and baseline edits without false completion (14.5544ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-xBFX9q'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 0)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async resumeFixture (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:11:20)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:56:19)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-xBFX9q'
+  }
+
+test at test\recovery-flow.test.mjs:63:1
+✖ conflicting recorded decisions remain visible even when their record_ids differ (25.1435ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-B7xf4S'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 0)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async resumeFixture (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:11:20)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:70:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-B7xf4S'
+  }
+
+test at test\recovery-flow.test.mjs:77:1
+✖ recovery oracle rejects altered canonical files, checkpoint binding and invalid completion (22.4223ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-8HKRQW'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 0)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async resumeFixture (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:11:20)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:80:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-8HKRQW'
+  }
+
+test at test\recovery-flow.test.mjs:94:1
+✖ oracle accepts removal of a completed checkpoint and rejects absence during pending effects (15.5927ms)
+  Error: EPERM: operation not permitted, realpath 'D:\repos\NyssaAI\daily-tasks\.temp\recovery-flow\planning-jyqfqL\2-areas\daily-plans'
+      at async realpath (node:internal/fs/promises:1241:10)
+      at async rootPath (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:42:108)
+      at async Promise.all (index 2)
+      at async projectInventory (file:///D:/repos/NyssaAI/daily-tasks/lib/inventory/inventory.mjs:119:51)
+      at async inspectPlanningFixture (file:///D:/repos/NyssaAI/daily-tasks/evals/planning-fixture.mjs:115:23)
+      at async TestContext.<anonymous> (file:///D:/repos/NyssaAI/daily-tasks/test/recovery-flow.test.mjs:97:17)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'realpath',
+    path: 'D:\\repos\\NyssaAI\\daily-tasks\\.temp\\recovery-flow\\planning-jyqfqL\\2-areas\\daily-plans'
+  }
+
+stderr:
+
+error:

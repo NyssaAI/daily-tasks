@@ -1,0 +1,182 @@
+{
+  "reviewRunId": "01a120e8-1a4e-74b1-a691-f9fe3a34ec7d",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 36 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-capture'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (164 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 3 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 5,
+            "reasoning": "Every sentence is an operative rule (\"Match existing UUID/source references before proposing a new item\", \"Missing assignee means owner does it\", \"Confirm persistence from files and log result\") with zero explanation of concepts Claude already knows and no padding. This matches the 'lean and efficient; every token earns its place' anchor exactly."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Guidance is concrete and executable for an instruction-only skill: exact candidate fields (title, parent, owner, assignee, target_date, source reference), a persistence path (stateRoot/candidates.json), explicit acceptance and non-acceptance rules, and a worked acceptance example (\"create M1: update LinkedIn and resume in this project\"). Not 5 because there is no example of the compact candidate-list format and key creation details are delegated to sibling skills; well above 3 since the guidance is specific and mostly self-sufficient."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "A clear ordered flow (resolve scope → read sources → dedupe against existing → present candidates → persist if unfinished → obtain acceptance → create records → return links) with real checkpoints: dedup before proposing, saving declined dispositions to prevent re-proposal, and confirming persistence from files rather than the displayed proposal. The batch-operation cap does not apply since validation is present; not 5 because the sequence is implied by paragraph order rather than enumerated and record-level verification is delegated to the record-management skill."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "The body is under 50 lines with clearly labeled one-level-deep links ([setup], [record conventions], [record management]) each signaling their purpose. It falls short of 5 because the referenced sibling files are not present in this bundle (paths point outside the skill directory), and there is only a single top-level heading with no internal section structure to aid navigation; above 3 because references are explicit and well-signaled rather than buried."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "A dense, highly disciplined instruction body: every token is an operative rule, acceptance semantics are spelled out with concrete positive and negative examples, and verification checkpoints are built in. The only structural weakness is that its three cross-references point to sibling skill files absent from this bundle, leaving navigation unverifiable in isolation."
+      },
+      "weightedScore": 4.3,
+      "normalizedScore": 0.825
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 4,
+            "reasoning": "The description names its domain (\"tasks, projects and milestones\") and lists several concrete actions — \"Capture ... as candidates\", \"deduplicate against existing work\", \"obtain explicit individual or batch acceptance before creation\". It falls short of 5 because coverage is incomplete (no mention of proposal presentation, candidate persistence, or the record-creation follow-through), and exceeds 3 since it goes beyond 1-2 generic actions."
+          },
+          "completeness": {
+            "score": 3,
+            "reasoning": "The 'what' is clear (capture candidates, deduplicate, obtain acceptance), but there is no 'Use when...' clause or equivalent trigger guidance anywhere — \"before creation\" is workflow-internal, not a usage trigger. Per the judging guidelines this caps completeness at 3; it is not 2 because the 'what' half is concrete and specific."
+          },
+          "trigger_term_quality": {
+            "score": 3,
+            "reasoning": "Relevant keywords like \"tasks\", \"projects\", \"milestones\", and \"deduplicate\" are present, but the phrasing leans on process jargon (\"deduplicate against existing work\", \"explicit individual or batch acceptance\", \"candidates\") rather than natural user phrases such as \"add a task\", \"to-do\", or \"create tasks from notes\". Missing common variations places it squarely at the 'some relevant keywords but missing synonyms' anchor, not 4 (no good natural-term coverage) and not 2 (it is not merely generic)."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "The capture-then-accept-with-dedup workflow is a distinct niche with few overlapping triggers, but the description shares the generic task/project/milestone vocabulary of closely related task-management skills (the body reveals sibling skills like daily-tasks-setup and daily-tasks-records), creating minor overlap risk. Fits anchor 4; not 5 because it does not clearly differentiate itself from those sibling skills."
+          }
+        },
+        "suggestions": [
+          "Add an explicit trigger clause, e.g. \"Use when the user mentions tasks, to-dos, projects, or milestones that may need tracking, or asks to capture, add, or create work items.\"",
+          "Include natural user-facing synonyms such as \"add task\", \"to-do\", or \"capture action items from conversation, notes, or meetings\" alongside the existing vocabulary.",
+          "Differentiate from sibling task-management skills by naming this skill's role (e.g. candidate capture and acceptance, not setup or record management) to reduce overlap risk."
+        ],
+        "overall_assessment": "The description communicates concrete capabilities in third person without padding, but omits any 'when to use' trigger clause and relies on workflow jargon over natural user phrases. It is a solid mid-range description that would be substantially improved by an explicit trigger clause and user-facing synonyms."
+      },
+      "weightedScore": 3.35,
+      "normalizedScore": 0.5875
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.5875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.825
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 75
+  }
+}

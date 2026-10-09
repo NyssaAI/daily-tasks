@@ -9,6 +9,9 @@ const definitions = {
   'planning-prepare':[], 'planning-state':['action','expectedPlanHash','expectedPreviousHash','expectedStateHash','expectedInventoryHash'],
   'invalidate-project-index':['vaultRoot'], 'planning-review':['inventory','userEmail','timezone','contextBinding','inventoryBinding'],
   'plan-selection':['inventory','taskIds','action','today','dailyPlansRoot','contextBinding','inventoryBinding'], 'maintenance-status':[],
+  'maintenance-inspect':[], 'operation-verify':['operationPath'], 'operation-complete':['operationPath'],
+  'rollover-complete':['operationPath'], 'migration-retirement':['operationPath'], 'migration-complete':['operationPath'],
+  'inspect-navigation':['projectsRoot'], 'next-record-number':['projectsRoot','type','parentId'],
   'parse-record':['markdown'], 'parse-checklist':['markdown'], 'inspect-records':['projectsRoot'],
   'validate-records':['records'], 'check-links':['records'], 'check-closure':['recordId','records'],
   'reconcile-record':['base','current','views'], 'reopen-ancestors':['records','changedIds'],
@@ -19,7 +22,7 @@ const definitions = {
 const operations = Object.entries(definitions).map(([name,required]) => ({name,path:'bin/daily-tasks.mjs',
   purpose:`${name.replaceAll('-',' ')}; see skills/daily-tasks/references/cli.md`,
   inputSchema:{type:'object',required:[...new Set([...required,...(['planning-review','plan-selection','carry-forward','plan-rollover'].includes(name) ? ['vaultRoot','projectsRoot','dailyPlansRoot'] : [])])]},outputSchema:{type:'object'},
-  sideEffects:name === 'log-append' ? 'append-log' : name === 'log-archive' ? 'archive-log' : name === 'log-query' ? 'temporary-lock' : name === 'planning-state' ? 'planning-state' : ['project-index','invalidate-project-index','planning-prepare'].includes(name) ? 'derived-cache' : 'none',
-  requiredEnvironment:[],dryRun:['log-append','log-archive','log-query','project-index','invalidate-project-index','planning-prepare','planning-state'].includes(name),
+  sideEffects:name === 'log-append' ? 'append-log' : name === 'log-archive' ? 'archive-log' : name === 'log-query' ? 'temporary-lock' : name === 'planning-state' ? 'planning-state' : name === 'maintenance-inspect' ? 'inspection-state' : ['operation-complete','rollover-complete','migration-complete'].includes(name) ? 'verified-state' : ['project-index','invalidate-project-index','planning-prepare'].includes(name) ? 'derived-cache' : 'none',
+  requiredEnvironment:[],dryRun:['log-append','log-archive','log-query','project-index','invalidate-project-index','planning-prepare','planning-state','maintenance-inspect','operation-complete','rollover-complete','migration-complete'].includes(name),
   invocation:`node bin/daily-tasks.mjs ${name}${name === 'new-id' ? '' : ' --input ABSOLUTE_JSON_FILE'}` }));
 await writeFile(path.join(root,'capabilities.json'),JSON.stringify({schemaVersion:1,operations},null,2)+'\n');

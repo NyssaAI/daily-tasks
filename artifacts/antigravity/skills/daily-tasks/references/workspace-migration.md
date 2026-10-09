@@ -44,12 +44,34 @@ scope, resolved roots and existing identities; never discover personal data else
 7. Update incoming and outgoing relative links across maintained records and views,
    including task input/output links and links within moved notes. Project index links
    milestone; milestone links tasks; tasks link relevant files. Verify heading targets
-   and attachment links in addition to CLI identity/link diagnostics. Remove the old
-   live standalone DoD only after destination and references verify. Validate final
+   and attachment links in addition to CLI identity/link diagnostics. Before retiring
+   the old standalone DoD, retarget or remove every still-live legacy source copy
+   that links to it, verifying each destination before source removal. Immediately
+   before deleting the DoD, re-read all remaining live affected source/destination
+   records and views and verify copied content and incoming links. Final destination
+   checks alone do not cover old source copies awaiting removal; recovery backups
+   and evidence snapshots in .temp/ are not live references. Any unresolved link
+   keeps the DoD and checkpoint pending. Validate affected
+   records through `migration-retirement` immediately before removal, using the
+   schemaV2 migration evidence in [verified completion](verification.md). Its
+   `allowed:false` result prohibits retirement. The CLI checks content/criteria and
+   still-live incoming links; it does not delete anything. After skill-owned retirement,
+   use `migration-complete` for actual file/event/baseline verification. A post-deletion
+   check cannot prove the chronological order of earlier actions.
+   Validate final
    records, closure/reopening effects and navigation; append and query the exact
-   migration event via log CLI, refresh views/baselines, invalidate inventory, then
+   `workspace.migration` event via log CLI, passing the same resolved profile/vault
+   scope, `projectsRoot` and `operationPath` used by `migration-retirement`.
+   `log-append` rejects a new migration event until actual retirement, preserved
+   criteria/content, live references and all declared effects match the checkpoint.
+   A refusal keeps the event unrecorded and the checkpoint pending; do not blindly
+   append on retry. Refresh views/baselines, invalidate inventory, then
    finish the checkpoint. Keep unchanged history and unrelated prose intact.
 8. On retry, compare each checkpoint effect to its actual before/after value and skip
    applied effects. Reuse the event IDs and payload, checking through log-query so
    there is one event. Unexpected edits remain conflicts. Report migrated records,
    legacy tasks awaiting criteria, and remaining conflicts with exact links.
+
+Use `inspect-navigation` for heading and attachment targets as well as managed
+identity links. Use supported Markdown scanners for bounded reads; never recursively
+read all file types or include the script-owned decision-log directories.

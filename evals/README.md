@@ -42,9 +42,12 @@ remain separate from fresh isolated host acceptance.
 
 Use a clean fixture with no pending operation. Retain the actual subagent invocation,
 model and worker output, installed skill paths and observed hashes. Missing/expired
-maintenance success should trigger the supported lightweight worker. The parent
-verifies results before persisting success; a failed/conflicting pass leaves the old
-success unchanged. A second request within four hours skips broad delegation but
+inspection should trigger actual supported checks and, when available, the
+lightweight worker. Missing worker capability must be reported; no worker success
+timestamp may advance without trusted execution evidence. The current CLI has no
+trusted host adapter and records only separate CLI inspection freshness. A
+failed/conflicting pass leaves the old success unchanged. A second request within
+four hours of valid CLI inspection skips broad inspection/delegation but
 still checks current/previous plan edits and pending operations. Cache freshness alone
 cannot prove reconciliation success.
 

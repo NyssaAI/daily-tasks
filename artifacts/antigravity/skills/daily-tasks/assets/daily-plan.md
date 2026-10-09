@@ -48,32 +48,23 @@ Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · 
 
 ## Notes and references
 
-<!-- Formatting example only. Replace sample content and placeholders with actual
-selected work. Never create or select sample tasks. Keep the user's chosen order.
-Use the planning screen's #, Status, Project, Milestone, Task and Due Date columns. Keep task
-labels short; descriptions and assignment details remain in canonical task files.
-Group under project/milestone headings within personal and delegated work. Reuse
-existing review numbers without restarting at section boundaries; numbers are
-display handles, while hidden task refs retain identity. Without a review mapping,
-assign one continuous display sequence in the user's chosen order.
-Status cells show canonical progress, never whether a task was selected. Escape
-wiki label pipes and keep the task ref in the Task cell. Prefix only genuinely
-carried-forward selections with ↺, outside the link; preserve recorded provenance.
-Display explicit target dates as yyyy.mm.dd, or an em dash when absent. Planning
-dates do not change due dates. Keep due-date columns compact where supported.
-Counts describe the user-owned scoped inventory at the recorded update time, not
-only selected rows. Open projects/tasks have not-started or in-progress state;
-late tasks are open tasks with a target date before the configured local day.
-Tasks due today are not late. Identify stale/incomplete inventory instead of
-claiming verified totals. Do not invent missing counts.
-Only selected work belongs in this saved plan. Available unselected options and
-interaction prompts stay on the planning screen. Preserve selections outside the
-current ownership view. Keep blocker rows informational, without task checkboxes
-or task refs. Omit Focus when the user supplied none.
-Use short empty-state sentences when a work/decision/blocker section has no items.
-Completed rows remain checked and cancelled rows remain visibly marked for today.
-Do not infer a daily focus, deadlines, time estimates or scheduled time slots. -->
+<!-- Formatting example only. Before deriving counts/responsibility or saving,
+load ../references/planning-flow.md, especially Review scope and Saved daily plan.
+Before consequential writes/recovery load ../references/operations.md. For custom
+formatting load ../references/templates.md. Replace sample content/placeholders
+with actual selected work; template examples never create/select work.
 
-<!-- Show each task?s owning milestone in the Milestone column, even under grouped
-headings. Use plain milestone text; task links and hidden refs identify task rows.
-Do not create a separate task selection or status row for the milestone cell. -->
+Use #, Status, Project, Milestone, Task and Due Date columns. Group by project and
+milestone within My work and Delegated work. Each task's owning milestone is plain
+text in the Milestone cell, even under grouped headings; it is not a separate
+selection/status row. One status cell and hidden ref identify each task row.
+Keep task labels short, escape wiki label pipes and keep the hidden ref in Task.
+Reuse review numbers continuously across sections; without a review mapping use
+one continuous display sequence in the user's chosen order. Load
+../references/response-conventions.md for status, response handles and carry meaning.
+Prefix only recorded carry selections with the carry marker outside the task link.
+Render explicit target dates as yyyy.mm.dd or an em dash; keep Due Date compact.
+Omit unsupplied Focus and blank sample rows. Use short empty-state sentences for
+empty work/decision/blocker sections. Keep blockers informational without task refs
+or status checkboxes. Preserve completed/cancelled visibility and unresolved refs.
+Do not invent focus, deadlines, estimates or scheduled slots. -->

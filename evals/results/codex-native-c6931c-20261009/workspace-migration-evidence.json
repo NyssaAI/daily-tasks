@@ -1,0 +1,1920 @@
+{
+  "id": "workspace-migration",
+  "status": "pass",
+  "candidateHash": "c6931c62c8c3530b7d6b117ef19f14b50fc8efce36c48bc2160df3c07c33227e",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "nativeExecution": "New external Codex exec processes/threads, isolated CODEX_HOME and explicit local marketplace registration. Main model authored actual workflows; no prior operations replayed. Acceptance phase2 resumes its first actual user turn.",
+  "sourceWindow": {
+    "before": "2026-10-09T15:29:12.820Z",
+    "after": "2026-10-09T15:44:08.663Z",
+    "unchanged": true
+  },
+  "report": "evidence/workspace-migration/.temp/scenario8-report.md",
+  "transcripts": [
+    "transcripts/workspace-migration.jsonl"
+  ],
+  "assessment": "55/55 observed assertions in six branches. Actual DoD retirement immediately follows live incoming-link verification after sources retargeted/removed. Original IDs/criteria/lifecycle/history/evidence preserved; missing task DoD requested, unresolved tasks pending conversion; three real interruption boundaries/retries one exact event; unexpected edit/case-insensitive collision pending without overwrite/false receipt; competing DoD closure rejected.",
+  "evidenceFiles": [
+    {
+      "path": "evidence/workspace-migration/.temp/append/001-resolve-context-input.json",
+      "sha256": "1288d1fd9257bc9843940a34840278e6ec83c091e7c75939c40ee72850392a9b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/001-resolve-context-result.json",
+      "sha256": "2ec51ed9a05c7dbfd18854152c603f211ec2ad7e5e1d64cb3022cbd4dacba2be"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/002-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/002-new-id-result.json",
+      "sha256": "530af6029229ba3dc14e038f5f9fb62080f60785f3980f9ca0c395fff619ed29"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/003-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/003-new-id-result.json",
+      "sha256": "076068b9ef3bba80266702e4216027e1e6425da2fa85f5cac6efdc8361ed80d4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/004-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/004-new-id-result.json",
+      "sha256": "c2437858f500c2653314f4d43a64f3ab0f44063aa8b05c2e53af7e29cc5e3e38"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/005-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/005-activity-time-result.json",
+      "sha256": "77de7cd6cfc35cca97a55d0175d3d65ca93629d6fcc236f0a68593fdb0425686"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/006-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/006-new-id-result.json",
+      "sha256": "b7052dc110f9b6331618181ecb46b0273e54360ccd5eb51027a7d5d61164424b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/007-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/007-new-id-result.json",
+      "sha256": "ab8e1250c7a0653d65f912db08b73e80960f6205dc8b898a19146e76e0119a06"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/008-log-append-input.json",
+      "sha256": "76515937493c7d8f47faf3b512d00163261a1f3116a0ef99d90f8fa03687bcf2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/008-log-append-result.json",
+      "sha256": "5f6a67798d2d0e9e4f517041aa2bd19ad78a6570f1acf863a2dd107a12c5f84a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/009-log-query-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/009-log-query-result.json",
+      "sha256": "2e21bc90d10cb1c8a778d30837e56e9b7dc0163ecddf412c5f8436b01ae3052f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/010-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/010-activity-time-result.json",
+      "sha256": "f6fbe3d802d7a7350e904d3dcf46adc913de00dda6c882a317457c2b9ce5b778"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/011-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/011-new-id-result.json",
+      "sha256": "75f7c2eb173074755bbbdb7567cb15f9e9ff78efb1a224a15101bd13b8061714"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/012-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/012-new-id-result.json",
+      "sha256": "5f9db99c76067dde5d4e07aee45ce31e93011573fe25bd0bdf6795283a4985dc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/013-recover-operation-input.json",
+      "sha256": "0c2415b77e93144dd1aeb1939b498ed0b36527c6ae7b50f0482746ffcc793a9f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/013-recover-operation-result.json",
+      "sha256": "eede6871b62febc8052c9b536d2d010aee1adbf35d7573acc0e8792824d6a71a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/014-invalidate-project-index-input.json",
+      "sha256": "1288d1fd9257bc9843940a34840278e6ec83c091e7c75939c40ee72850392a9b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/014-invalidate-project-index-result.json",
+      "sha256": "560c2429b3853da0e681c284d661dea4d384ecbe95c6881f5cef7d7440d834b2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/015-inspect-records-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/015-inspect-records-result.json",
+      "sha256": "305eb56f278f71255a8cce6005196943147238b32f93a35becdd8185551912df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/016-validate-records-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/016-validate-records-result.json",
+      "sha256": "0894f0b30a60f05cc8fb8b325e984aec27211074490d8bd719bb5df741cb03da"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/017-check-links-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/017-check-links-result.json",
+      "sha256": "4dbad961a2fea948dce77a2b756abe862e2dbc62d26189c868d3dbbac8f4c3b1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/018-log-append-input.json",
+      "sha256": "11061cb6c956ee7158cff900e152d8cd7baa8dccca6bffd25f758e79f8be0941"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/018-log-append-result.json",
+      "sha256": "25887bb1537272fbaf8d358726a630f2d1ed6848e9f3f62ceb08e14a3d4174b4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/019-recover-operation-input.json",
+      "sha256": "73f885717a7da27bfaccd6c8a80447093df3b9d9f624612c03b776e1aded9bb3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/019-recover-operation-result.json",
+      "sha256": "28437a7f57e690857657e9b12c50423e03810eabf522bb4773336d54df8ff542"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/020-invalidate-project-index-input.json",
+      "sha256": "1288d1fd9257bc9843940a34840278e6ec83c091e7c75939c40ee72850392a9b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/020-invalidate-project-index-result.json",
+      "sha256": "1921997f272dfa68a1a0516f7a58aa7be95364927e66fecfd5b87c0bfe041ec6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/021-inspect-records-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/021-inspect-records-result.json",
+      "sha256": "bf8b19fa7fa725350cd55f349aee31b82a8828633789bc7483f789aec7ad7d05"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/022-validate-records-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/022-validate-records-result.json",
+      "sha256": "1dd1a79511aeb8737598f0bad6feafd9c50fb757d2549fb7e198be9780f0d723"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/023-check-links-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/023-check-links-result.json",
+      "sha256": "ca41f3843cf28f5f18ce853782c10433f1bd45c70b9e8f8880bb288917ee917f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/024-log-append-input.json",
+      "sha256": "11061cb6c956ee7158cff900e152d8cd7baa8dccca6bffd25f758e79f8be0941"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/024-log-append-result.json",
+      "sha256": "f41adba853d0e87f0e968e93d1647a98b14a78cc637f3a5790658d42ac35eaeb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/025-log-query-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/025-log-query-result.json",
+      "sha256": "b86b3716b265bff1e3518ee63e1369a1a9de6f368d1963756626729dfac75ec2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/026-invalidate-project-index-input.json",
+      "sha256": "1288d1fd9257bc9843940a34840278e6ec83c091e7c75939c40ee72850392a9b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/026-invalidate-project-index-result.json",
+      "sha256": "b6bfe4622a3eba470def6c4a1e7b2abe856486737fd21f478f17ec5b9b7bd1a9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/027-recover-operation-input.json",
+      "sha256": "73f885717a7da27bfaccd6c8a80447093df3b9d9f624612c03b776e1aded9bb3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/027-recover-operation-result.json",
+      "sha256": "e3f364da557fa35025e46064e96c2eaded8e4c91132df18c986ae50922f5ac33"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/028-invalidate-project-index-input.json",
+      "sha256": "1288d1fd9257bc9843940a34840278e6ec83c091e7c75939c40ee72850392a9b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/028-invalidate-project-index-result.json",
+      "sha256": "8d7edb463b4fd148fcfca9412e16144bd092da2a13e893cf8cc74fd741d9cbd4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/029-inspect-records-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/029-inspect-records-result.json",
+      "sha256": "b138ff3c4aaacc180fede8ccb2e32667bae388ed9333b6681068759483e42d4d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/030-validate-records-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/030-validate-records-result.json",
+      "sha256": "0e546f4044f60ac0e6d5986405425ac1447cd76b818796e5e84932d210664744"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/031-check-links-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/031-check-links-result.json",
+      "sha256": "22e00ce58da67040a4300629b0fe8c7919bd1de3c5023ddf679837b5de269126"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/032-log-append-input.json",
+      "sha256": "11061cb6c956ee7158cff900e152d8cd7baa8dccca6bffd25f758e79f8be0941"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/032-log-append-result.json",
+      "sha256": "9588e3543fbe83f6a4fe4fce68652648b4475e9db7bdf051db5ef6190faf7560"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/033-log-query-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/033-log-query-result.json",
+      "sha256": "924c4f6993488c85e77f3f94d9e6bba1b3f7bbbd866b9671665acc0803c84826"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/034-invalidate-project-index-input.json",
+      "sha256": "1288d1fd9257bc9843940a34840278e6ec83c091e7c75939c40ee72850392a9b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/034-invalidate-project-index-result.json",
+      "sha256": "21fa6c2925b371539afc122dc6ab707484e6fe36e8e570e5cbb82aa1ffa14bed"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/035-log-query-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/035-log-query-result.json",
+      "sha256": "e3ddf3300ced8dc35d4752760dda7151f1adcf4c77c7226c07c952dadae0e17a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/036-inspect-records-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/036-inspect-records-result.json",
+      "sha256": "57caf659397309e825771923e61a551e6835f5a1bf4311bdbe6e386c5fa852cb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/037-validate-records-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/037-validate-records-result.json",
+      "sha256": "d1dbb8445c97ba6f8403febe1ce562c5f4618c3adfce39723d8106f1547e1eba"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/038-check-links-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/038-check-links-result.json",
+      "sha256": "f7b63474d113560432b75ad9f59a8f048b16f94325980091dd3601c5a5c642eb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/039-log-query-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/039-log-query-result.json",
+      "sha256": "bdbafb4e330a1bef1ef639c4a33e74b63cca76bb409ff8303ebe9217bb4b81e4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/040-inspect-records-input.json",
+      "sha256": "22ede68c74c1983da00f51f00191f09566d514b496af36ee92909606e895fed5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/040-inspect-records-result.json",
+      "sha256": "2789d9180169d3d4afe4e3d28208b90cc0054d7ec41707554c0e60756c8ab398"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/041-validate-records-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/041-validate-records-result.json",
+      "sha256": "8d7cc492018a7a59e9defa579478cc3b1455d4110231c34216d57cfdfb0fe14d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/042-check-links-input.json",
+      "sha256": "1dd97c118983609f948f2ba2b7ca3b7ca0df952d923142fa0f30099e8ccfb59c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/042-check-links-result.json",
+      "sha256": "9af66129af19b5689a896a62cba27591dd95f9c0fe3377fb75149d9d238e791f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/actions.ndjson",
+      "sha256": "02c2d2ceea09b9fc12bb460e35dfa827f83befc72ffab6b27c1289649ab1e6e2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/after.json",
+      "sha256": "4afd2f356c0dac864eed7e2355e18da273761343c6693a2117c055424ae5b2de"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/assertions.json",
+      "sha256": "d046bb44bf348191669a378cc7adb60d57ce05a305461f4146406a642e2af0fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/audited-after.json",
+      "sha256": "4afd2f356c0dac864eed7e2355e18da273761343c6693a2117c055424ae5b2de"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/before-dod-retirement.json",
+      "sha256": "97ad02609ee0e134fb8b7e2c0e91ea18aa552fe5c570b6593046e80fdba8d543"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/before.json",
+      "sha256": "fa5fad88ca7fbedb4be7e997d4a15bacb5ec313aba7abf8f8f902be5b3d97ee5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/context.json",
+      "sha256": "9b0dde581ec6d5aa7a1668a5d4582c95b6723a68aff971152b0ba01c8725b167"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/final-inspection.json",
+      "sha256": "d765278fa0d05ce75ed6e5a8063fb6a5704fb20afb3c7e9a34600e4f570be5f3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/historical-event.json",
+      "sha256": "a61a9b0d00101f6f4fa5de568e738fe43521326c8796621097688f1bc75ac1be"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/recovery-classification.json",
+      "sha256": "0506b53854dc2eeacc444fdb6faae4ae5bbb3eb983594cc7c6653f85e9289297"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/saved-operation.json",
+      "sha256": "863c1e79d1a8194ae32d90be2aaffa06ef5b1c0ef14d61d5dd7a19edd53c8509"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/.nyssaai/daily-tasks/operations/migration.json",
+      "sha256": "4e3f5439be7896ba69e756e4024a2c9cfd8834e8dfc5caaaac9e043f8492134f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "a1e0142919461cb9cc31ff6f4902543cd10cfa52d412709b330bb4b84d7b0671"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Daily/2026-10-09.md",
+      "sha256": "c201880954407be00c09b7841aa6aa5a68f6727a482920d5016a0b474df1e491"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "23ff2884a84e486f351f63e7dd193e57a7e8a64d9dca1a95f52f9b9f55bffc6a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Projects/job-search/blockers/b1-review.md",
+      "sha256": "060ed7630f9136ca7f5d09d1dee3bd22d37e6bf335095aadaf9e1f85ae9009ed"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "91493007f6a928adef6f92db2817a585e71c206ad693e832047095f1a8e11ebc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Projects/job-search/m1-career-materials/obtain-review.md",
+      "sha256": "aa03f67499f456a5cf59022e2f1171b71d31d91533cef92e1820650e5226bf31"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Projects/job-search/m1-career-materials/outputs/review.txt",
+      "sha256": "55bc01603fe5a86adb2e4e83aa30951dfdeb612c75aca58fddf621f8ade7ee80"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "d6e23961f0042c82c05cf41c64f2bf9b2afc13cfc44f6669550f1ed769d8cbff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Projects/job-search/m1-career-materials/update-resume.md",
+      "sha256": "349914bd64baeddbf90ef746ae3933f4646756ab70b4553c8bc8c0fef2371cd0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/vault/Projects/job-search/project-index.md",
+      "sha256": "9c84b88a71cdfd0a2ad1459fe1cbefd920e99f927cddf768fa6037bcf7dab2ff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/append/verified-query.json",
+      "sha256": "5893da8710d2d42bfdf2f89c53a952d301c225b0a702f0a29660f6cd375f1054"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/001-resolve-context-input.json",
+      "sha256": "38899a8badddca5bc1dbd8dc31e9921c41c0535ebb92ed11f47a9bdbf5838473"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/001-resolve-context-result.json",
+      "sha256": "ad0624ebac60cee2d3374fd87331312abd3d1e1466f25b626512628b20a00cac"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/002-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/002-new-id-result.json",
+      "sha256": "25557fa3520d860aaaed95657b87001b2143860c440bbf68603ead1065387bf2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/003-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/003-new-id-result.json",
+      "sha256": "8360b384d22789ab8274af6c548271c967d46d376530189c278c5262990fbd23"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/004-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/004-new-id-result.json",
+      "sha256": "6998c234c8fadd4461ccb883579f8d4b4fa2d8d1f7608eac895bd3e572d08691"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/005-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/005-activity-time-result.json",
+      "sha256": "61c6b73d491b097992e5da1d267e51f01360fb85377da8d40f275d85b4e1bcd6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/006-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/006-new-id-result.json",
+      "sha256": "d2bca278032984025cea2daa1ffa8b00e3cf8d4f5bdeee53c52c5d20a1273574"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/007-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/007-new-id-result.json",
+      "sha256": "a1027c54094a063815fa34d5230a6f19d3f051fa9ea001a2056bd3388227d97c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/008-log-append-input.json",
+      "sha256": "2e6f66a2cdca93fcb4bd9fe7c1abb35077ee4d21c269eb23d786dac23b9b2b34"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/008-log-append-result.json",
+      "sha256": "03e34bb02166dd627db040bf0a97d3252af03abe70200edc1fc1248f08a66d7a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/009-log-query-input.json",
+      "sha256": "7f51577955f283e904616272dc004adde2df9c834de8f273308a41f53f9b93ad"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/009-log-query-result.json",
+      "sha256": "d350a5b7c7b208b925a0f79d5808387f0e010db77946db8faf63c098fa8c248d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/010-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/010-activity-time-result.json",
+      "sha256": "c05a221766c9a1ea09142a050638f44c93a630f0a868e7d0b850e96f920a159d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/011-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/011-new-id-result.json",
+      "sha256": "852c3c95cc8f03bc33586f6cfb8fe48f3e07aeb0096179e166e231fdfd686b5e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/012-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/012-new-id-result.json",
+      "sha256": "12686cb1cc17c1dc56742aab7e94c25ab5ad3722875a3d22dfac3866049cc8b7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/013-recover-operation-input.json",
+      "sha256": "67d8cd739f3cf3a3c063b53c83b7f3861194ff67583fa4339f14edd4baf292ca"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/013-recover-operation-result.json",
+      "sha256": "ac73f15b2f69ef2514e8ef31b9ae5e2d58a378e51de6465916e38db9a3e30d68"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/014-log-query-input.json",
+      "sha256": "7f51577955f283e904616272dc004adde2df9c834de8f273308a41f53f9b93ad"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/014-log-query-result.json",
+      "sha256": "f967db15498f34be9a1f1169819d847dfa1dd8dc49ded895e35bdbfb1dd24974"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/actions.ndjson",
+      "sha256": "d296cd845e94cf0a8787a12fb1ec8e6192708c61f8f2b60223e4542197405422"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/assertions.json",
+      "sha256": "1aefa203facf5109870d707fc5d09830ad1a0afa56f4f98c6b7ed435e1cd92c8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/before.json",
+      "sha256": "67738de652001fe677e9e561765e8dc3859bc20093ff336f04cd1293c1e23e98"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/context.json",
+      "sha256": "11765b85621ecb414abec391d09ca539e98e0179c863026104358619c4f7c5b0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/historical-event.json",
+      "sha256": "62d55f55f79d7f959dea5d4ef12a7c431da36bea869588f2032c81da68321ca6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/recovery-classification.json",
+      "sha256": "a9826413fcdab6574b081bde3590c5dd3b9f87e848b6bf224fe5ef3dec13580f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/saved-operation.json",
+      "sha256": "06a8f09579a59998740d227f1d64a1f9c4a0d4a5f0cbb5e6ce0bb18e20de61d6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/.nyssaai/daily-tasks/operations/migration.json",
+      "sha256": "da1c9f8dbfb98d1afbf9c86102b6e22221e59a5f841524730a4874d8dc2ed7fe"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Daily/2026-10-09.md",
+      "sha256": "5b5c9a1460f283161ff5723418afc40cb0b1fa03324eac54079cea9abcee2bd4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "b55591b9af404bb30b5c5ffdead9375fdd139ca52251ad4e9892f2faf7c8f57c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/blockers/b1-review.md",
+      "sha256": "d5119d11fee1963e1deed64621ddca3f23e846d3a37db3a647a5c6c212c3df94"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/m1-career-materials/definition-of-done.md",
+      "sha256": "9c7ee985807cdb85741a34e7d703d6856fbc7f6424911ee61fac1d01f1af3df0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/m1-career-materials/M1-CAREER-MATERIALS.MD",
+      "sha256": "7fe62888ae090ed7e0496096b5b1c777f67ba201ad093adf37514ac475d7e3f6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/m1-career-materials/milestone.md",
+      "sha256": "0169b65d8ea64bf26076568090647600ae1be06c288321a81093d5aff3f9fcda"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/m1-career-materials/obtain-review.md",
+      "sha256": "cee970209e16c971da2383ca8ef3d6042448ed5f8ac88f6848b0a87dd3ece5c0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/m1-career-materials/outputs/review.txt",
+      "sha256": "55bc01603fe5a86adb2e4e83aa30951dfdeb612c75aca58fddf621f8ade7ee80"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/m1-career-materials/update-linkedin.md",
+      "sha256": "5c87b9ebcd7ff8cfee9682d4814321009712a352b7a5df77fa9a8bda8b5d8012"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/m1-career-materials/update-resume.md",
+      "sha256": "4809fa358a3e6e178f17dea9a1592bf058165eddb10df0e26864ff81e0341b40"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/collision/vault/Projects/job-search/project-index.md",
+      "sha256": "4515bac6849465eb3fee651a42c0f4888254a9e897e643dba5156a160b311a0d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/001-resolve-context-input.json",
+      "sha256": "5a770b1d35c89b81779f03f968c2f6586af91dc26e9dc167961607fb2fe52f34"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/001-resolve-context-result.json",
+      "sha256": "2144be63e57adfee0e6d4719855a3ee0770b0b775c37496c73e31816cfb7d7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/002-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/002-new-id-result.json",
+      "sha256": "75f0f4672cf561a2ca0658193ef004d4ee19a7da1a46295939b0f29e2f1b7870"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/003-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/003-new-id-result.json",
+      "sha256": "25a55b3e900d253a2b271071409788dd0ba988bdc107db38c413993afce5fa93"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/004-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/004-new-id-result.json",
+      "sha256": "e603c58848c8129880248033ffea812020daa5ed81c9304c38cd7f97f6fda66c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/005-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/005-activity-time-result.json",
+      "sha256": "c243c1675e53aae94297bb98fa53b86f3901f4058dfc81c0eae11b1886f82d1c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/006-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/006-new-id-result.json",
+      "sha256": "7f17453b3263dd1cac6cdafd51a373c6975378bf27f84a14cdb9b0deb6bd9e9c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/007-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/007-new-id-result.json",
+      "sha256": "53da5acefd56024bbdbe9eab07dd2f25ddeef382e1f734235baf4284d74c33ae"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/008-log-append-input.json",
+      "sha256": "6564a5d00b3839a77c8fb7ad8dd51b9614e11e49e9c31c1046d99da3fbf74c9c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/008-log-append-result.json",
+      "sha256": "d737b789570d71751593bb30b5e22d4e84d1b1464a8dfbcbafae3435daed96e5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/009-log-query-input.json",
+      "sha256": "8680f186b082269d36ccc29023c326ccaca5175cf437c3081f1f7c98d9be1cd9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/009-log-query-result.json",
+      "sha256": "6fd3d07f2e98645678a8cd37ff720906d85f103e0249cf1c214f5dc60f9ef9c4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/010-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/010-activity-time-result.json",
+      "sha256": "fbe66632ad4f0d24e42bf276367924b70a2e21a1203191aa4e79b86c37d8be94"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/011-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/011-new-id-result.json",
+      "sha256": "2bac6a30e6878eb04d0aa04c790626b27056929bfd879c03fdd9a2d645c10050"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/012-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/012-new-id-result.json",
+      "sha256": "addb5ac4a39292dfdd8c97dea8214f42820e6652c37567a0c30bfe94c54b5509"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/013-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/013-new-id-result.json",
+      "sha256": "b5fd87c360aad2bafd28f94d51e5e7bb2b9b94f6506edd1846acbada17c9e68d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/014-inspect-records-input.json",
+      "sha256": "8680f186b082269d36ccc29023c326ccaca5175cf437c3081f1f7c98d9be1cd9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/014-inspect-records-result.json",
+      "sha256": "661e5be408248a37ac4860a51d332543a9febdfae0c7d72961ce756c30b3fcf8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/015-check-closure-input.json",
+      "sha256": "0d1562759f255c7744e2deb5ce01b2688325a49104c787cf4d5c0827c6a68d67"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/015-check-closure-result.json",
+      "sha256": "51e8f5a4a3b325c95b2c314848cf9aafde25de0805e2df225ccdb49e66757e25"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/016-log-query-input.json",
+      "sha256": "8680f186b082269d36ccc29023c326ccaca5175cf437c3081f1f7c98d9be1cd9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/016-log-query-result.json",
+      "sha256": "2fc1dc210f8b4618bd89a3664f1d240e6c8dc914b077f3a7362da745ee648668"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/actions.ndjson",
+      "sha256": "2c0bf0a59702dd0c54ea86388d56edaf71541cd8bfdbb4c7362b334f52e2d9b8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/assertions.json",
+      "sha256": "a8533691f552926fc00f0e7eb2a48e22901309174f639b185010d3a4a53fb6b1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/before.json",
+      "sha256": "351cf5748cbbe3ff05b2593bc1a45af6a85bc952d2fee0ac792a6f9be3c32cc6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/competing-closure.json",
+      "sha256": "b67806ada343e588aab7827ebe53dce79bde0bc31d4d3bf04edcd8152e6adaba"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/competing.json",
+      "sha256": "5eeb342c9d90226ddf5511cb6c7889a216f404d1ca4099380229ab6fb7ca02bc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/context.json",
+      "sha256": "1457ff26d6f86f64598477ac4ceb881053302924d1528204704e01cc156dc88f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/historical-event.json",
+      "sha256": "8291f7819f714e3225d2d92da3ec29c818d260b97501ed7d4cef90e0e2604603"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/saved-operation.json",
+      "sha256": "029e96bbf73af5f2a96a91634ba12a75c5422fae5bc815e8d10b7ac07d659dab"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/.nyssaai/daily-tasks/operations/migration.json",
+      "sha256": "029e96bbf73af5f2a96a91634ba12a75c5422fae5bc815e8d10b7ac07d659dab"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Daily/2026-10-09.md",
+      "sha256": "5b5c9a1460f283161ff5723418afc40cb0b1fa03324eac54079cea9abcee2bd4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "e57cb6098633a596c55f7c140f85fedf619d7cf3bf7e8f00886764490d68b093"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/job-search/blockers/b1-review.md",
+      "sha256": "9366db33a0b25be8c08015203047ef5ac3b2d43f1462876de8467949d94da5d1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/job-search/m1-career-materials/definition-of-done.md",
+      "sha256": "efdfdc57f1dbae0cbbe64acc74cbd2f4795630b0305ca3eedec28857626e3f71"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/job-search/m1-career-materials/milestone.md",
+      "sha256": "dceb253806ef49d406e268ff8dc6723b63263e165265f7209bebd2e92999d396"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/job-search/m1-career-materials/obtain-review.md",
+      "sha256": "0be1aa47fb8eac52b59853764b04aa8337ac376f006ff7319e90ad0f82473115"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/job-search/m1-career-materials/outputs/review.txt",
+      "sha256": "55bc01603fe5a86adb2e4e83aa30951dfdeb612c75aca58fddf621f8ade7ee80"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/job-search/m1-career-materials/update-linkedin.md",
+      "sha256": "c34aea8cf4e655d7e529286e71c6fca901b8e55fb432ebc1acd2bdaef4a180d6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/job-search/m1-career-materials/update-resume.md",
+      "sha256": "2f9d2002eb5ad8e349fc7937c96a35690e30ae8e2b09d9b8945406e42f0d7a5d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/competing/vault/Projects/job-search/project-index.md",
+      "sha256": "4515bac6849465eb3fee651a42c0f4888254a9e897e643dba5156a160b311a0d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/001-resolve-context-input.json",
+      "sha256": "1fbb648275dcf351d8b9b6248ede4532fd0da0139aa8b7bdd0bcb3ba27fd5e52"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/001-resolve-context-result.json",
+      "sha256": "057193fca061f238274054de38022787bab63731799e78e6747b370dbafe7d07"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/002-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/002-new-id-result.json",
+      "sha256": "0dd34249e6feb4e3c5a61039db3e7d1e201d909e13b6b1f1998a4767d05555ae"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/003-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/003-new-id-result.json",
+      "sha256": "997b53186d8c47495f7dcad6fa5a2764ff5ab5e27c7c05bd59b8dede4c547c9d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/004-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/004-new-id-result.json",
+      "sha256": "1957bca6221e4cf7ccdb613fc95c1a0a86375aac4f1879a6bccd2adf8a60f320"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/005-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/005-activity-time-result.json",
+      "sha256": "6ca4a1fc901ab9bc9c01bea5d3286db7824e993a4e51087d3e4fc060865eecbf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/006-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/006-new-id-result.json",
+      "sha256": "72d42678b4cecc33ad01d46a0610e6b000b2d6baaabfb5d53aacbc3090f38a19"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/007-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/007-new-id-result.json",
+      "sha256": "c490807e833ca246d286929dc25e432ad1a5564a5a87fcb31d991797e786a1b9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/008-log-append-input.json",
+      "sha256": "c77dbfe3130601d9599d48198f4d2a04db506a0a4aa9dbaf7b0a35a69c7aadfb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/008-log-append-result.json",
+      "sha256": "3b247a0f94c3f79b3833df46f312a8ce0abe49015b7576a810a290b45e6bf810"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/009-log-query-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/009-log-query-result.json",
+      "sha256": "58f4936de22b52d462b06daeb69e1789dd01e5d79e451f1df5977deefdafd033"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/010-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/010-activity-time-result.json",
+      "sha256": "213b04aac7e1ba67d1620165b7b64e1e0a8eb8a0a22e698c345b126306f737c8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/011-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/011-new-id-result.json",
+      "sha256": "86bcc16a0baa23600e33b29e86262d96d8bc22e17365e383d43025b6742b8df0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/012-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/012-new-id-result.json",
+      "sha256": "c87026c94d8170d0998de65c2c0200af8917beb245d018c666f038df2ffb7b5e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/013-recover-operation-input.json",
+      "sha256": "9a67c0131fe38bfd1f6eac4e4e65217c20984879d7cd184ddc483fa9dbf04b72"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/013-recover-operation-result.json",
+      "sha256": "3cf25096cc96624ab5c59b20a2199fdb80730d115868d5522b667885868fe6a4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/014-invalidate-project-index-input.json",
+      "sha256": "1fbb648275dcf351d8b9b6248ede4532fd0da0139aa8b7bdd0bcb3ba27fd5e52"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/014-invalidate-project-index-result.json",
+      "sha256": "5b830932d95d922937d2ca1a81af072fa32a201dc6036b91e4ce373219956280"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/015-recover-operation-input.json",
+      "sha256": "1c5cd7d609bcaa2e79328ba6f44e0a139c90956b31739d8eec9b55526b9c3c34"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/015-recover-operation-result.json",
+      "sha256": "cd4e6ecb18ef1a1e8c4b8a5bae907b8705f408ab2dceafa087b30f21e8e2005b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/016-invalidate-project-index-input.json",
+      "sha256": "1fbb648275dcf351d8b9b6248ede4532fd0da0139aa8b7bdd0bcb3ba27fd5e52"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/016-invalidate-project-index-result.json",
+      "sha256": "435fac0244f8d60f115bd011214394f74ff7835ed72bf72845a6620e1cae2190"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/017-inspect-records-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/017-inspect-records-result.json",
+      "sha256": "026aba6890c1131ea1e614d5e3799dabfa2870cd71541cb2c7e97a533d6ffe38"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/018-validate-records-input.json",
+      "sha256": "64726dca51c430bfdbea528a11d5408bee551b7f6bb55884d14d29fdf6126946"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/018-validate-records-result.json",
+      "sha256": "5d1c7806400216b1d681edc50fc0d695f27717a1793b7e4298447cbb5d74bd58"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/019-check-links-input.json",
+      "sha256": "64726dca51c430bfdbea528a11d5408bee551b7f6bb55884d14d29fdf6126946"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/019-check-links-result.json",
+      "sha256": "7ea76508751c276f2b048e2b08204e53aaf2d30ae43770c49aa18250f82e373b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/020-log-append-input.json",
+      "sha256": "e88449d01a0e99e3f23512fc651e2aad4272a33ef441c64d64d715f277083389"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/020-log-append-result.json",
+      "sha256": "0458458507b40231ae40c9803bb723c27f51c9fa48b989e759792b64f8c069d7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/021-log-query-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/021-log-query-result.json",
+      "sha256": "7c0ade86db0638080bb24d95b8c0a8f7c5d926f350489dcbce2c329e25f7501b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/022-invalidate-project-index-input.json",
+      "sha256": "1fbb648275dcf351d8b9b6248ede4532fd0da0139aa8b7bdd0bcb3ba27fd5e52"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/022-invalidate-project-index-result.json",
+      "sha256": "b13f163c36f2119b6b3455caa1ba4b43e225878a23572616dff3a7376e738e02"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/023-recover-operation-input.json",
+      "sha256": "ebe5491afea3f4fddba252d0e7e0b45e98a8967cb9e38b22ca1ce45db6f0527e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/023-recover-operation-result.json",
+      "sha256": "4f4b1b5488d5c9934e415038db1c5b210fac19f2494ebd9e4bc5f77110a5855d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/024-invalidate-project-index-input.json",
+      "sha256": "1fbb648275dcf351d8b9b6248ede4532fd0da0139aa8b7bdd0bcb3ba27fd5e52"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/024-invalidate-project-index-result.json",
+      "sha256": "37877ee82bfdab8ffacec8a631f5457f04de094368a2230ed33fb7cc5c79a599"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/025-inspect-records-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/025-inspect-records-result.json",
+      "sha256": "b3238e04af9f55fa226d3651c0cf08b89a10c8d8c3eb4dec9142080dedea96fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/026-validate-records-input.json",
+      "sha256": "64726dca51c430bfdbea528a11d5408bee551b7f6bb55884d14d29fdf6126946"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/026-validate-records-result.json",
+      "sha256": "210a1db2f9af781da5b7987aa2dc9ff5aa40d8a7d9f40b5fa47084e2eacd287d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/027-check-links-input.json",
+      "sha256": "64726dca51c430bfdbea528a11d5408bee551b7f6bb55884d14d29fdf6126946"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/027-check-links-result.json",
+      "sha256": "35ec2fc212d60a8665e9c8533848226e43dc82d967193d9c09107831443aec3d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/028-log-append-input.json",
+      "sha256": "e88449d01a0e99e3f23512fc651e2aad4272a33ef441c64d64d715f277083389"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/028-log-append-result.json",
+      "sha256": "0328bb2785d946c73fcf4ad2faeef151e4373967c7cdc9403696464ef873bc9c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/029-log-query-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/029-log-query-result.json",
+      "sha256": "fa03ef05daf06b01d3080e6eae7d75d889797adbe613586023a8085883059726"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/030-invalidate-project-index-input.json",
+      "sha256": "1fbb648275dcf351d8b9b6248ede4532fd0da0139aa8b7bdd0bcb3ba27fd5e52"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/030-invalidate-project-index-result.json",
+      "sha256": "8852158180d6fb2d9348df0d6fd546a5cff183485573df658c200a4efa372d2b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/031-log-query-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/031-log-query-result.json",
+      "sha256": "c5ce303378a9f4c08fac1dac5561991a6110aa79da0d91cf12ba6d79f0fae31b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/032-inspect-records-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/032-inspect-records-result.json",
+      "sha256": "c3ae4ce68863339dff757ebe545b709afa35928f92981d14a13c949455fa246f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/033-validate-records-input.json",
+      "sha256": "64726dca51c430bfdbea528a11d5408bee551b7f6bb55884d14d29fdf6126946"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/033-validate-records-result.json",
+      "sha256": "5df3cc3380fa3c977961af547a681f412442574794f78fa2c77ce9201fb62ea9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/034-check-links-input.json",
+      "sha256": "64726dca51c430bfdbea528a11d5408bee551b7f6bb55884d14d29fdf6126946"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/034-check-links-result.json",
+      "sha256": "855a8a087dfcbce532a0fe828dc90100ea2abc5f3561e24b8dea6324a6baa859"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/035-log-query-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/035-log-query-result.json",
+      "sha256": "37c60b8d664b3f53ad8deb2d44464b956e13538c148af9bdd9f62d39efddd4e1"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/036-inspect-records-input.json",
+      "sha256": "9bc7764d7801d04a01fcdbfb19b378f1c490ac0cb38f87e748eb6b583ef59fa6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/036-inspect-records-result.json",
+      "sha256": "5b1d124bfcd3418ad840dc6aa2ec96442311b7a6518b6d50784d1606716fed26"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/037-validate-records-input.json",
+      "sha256": "64726dca51c430bfdbea528a11d5408bee551b7f6bb55884d14d29fdf6126946"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/037-validate-records-result.json",
+      "sha256": "0d34057a77ee266aaf18e1ac2b47c433791594809768e43d42cfdff27b33a1ee"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/038-check-links-input.json",
+      "sha256": "64726dca51c430bfdbea528a11d5408bee551b7f6bb55884d14d29fdf6126946"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/038-check-links-result.json",
+      "sha256": "5594cb2330a9f4911974712595a75e7cdabcf03bf96fca7487909be38e5fe7ab"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/actions.ndjson",
+      "sha256": "95ea4fd26f02314af64980b57a27cae356e402649a7958000b1d07092869684a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/after.json",
+      "sha256": "6484c57f3e20b9b76dc7c7e270e08f07d14707f091ea9a3c91d41a34b4c90625"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/assertions.json",
+      "sha256": "d046bb44bf348191669a378cc7adb60d57ce05a305461f4146406a642e2af0fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/audited-after.json",
+      "sha256": "6484c57f3e20b9b76dc7c7e270e08f07d14707f091ea9a3c91d41a34b4c90625"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/before-dod-retirement.json",
+      "sha256": "3db6931273960d863e16fabfa3447d7d3253220ac096efa3fce6fd57380d574f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/before.json",
+      "sha256": "9c424088eb947ed69dfb36c4a24690437d95a83cd83180a222a78cc694110932"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/context.json",
+      "sha256": "5a44ab9a42fd0e434249d390b8a0a65e4b2b3698bb937cc000f0cdb3b353f04a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/final-inspection.json",
+      "sha256": "1b2855d8cc06e70b3927218cbf92581ca0b52d66ad76ac9a6495056132d79618"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/historical-event.json",
+      "sha256": "26d815160a0312ab2bf0b4ce6ae6fa10447ca17ffb57a8ddcaf264c49ff2eeef"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/interrupted-destination.json",
+      "sha256": "50270d1c0873b87cf2c6f0e63dfd51ce3301f164c0e49d6f89bbb4b6b93093fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/recovery-classification.json",
+      "sha256": "0506b53854dc2eeacc444fdb6faae4ae5bbb3eb983594cc7c6653f85e9289297"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/saved-operation.json",
+      "sha256": "c58999109102d5295c99eb7a5a67a0e5157ffafc2efe8c1b68112a70b004fff9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/.nyssaai/daily-tasks/operations/migration.json",
+      "sha256": "bcfff8b5af08ff9d0b22b698fe6f4f1b36cb9b2b8ee27ebcd2ea6f2b4368e78c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "b6d5abaae5471d86ed7e08a63d67456d5983c07a4db1a97e6cd693588a128918"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Daily/2026-10-09.md",
+      "sha256": "c201880954407be00c09b7841aa6aa5a68f6727a482920d5016a0b474df1e491"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "6e6e7ad33008b69b594a22e69050794e129e4dacc02ec3202cc9d7a46ddc259a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Projects/job-search/blockers/b1-review.md",
+      "sha256": "a9ec51fb1c54f2b59c8211dfca63b31062a0e89a0a9c2e17d573b6547bb76e45"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "5fdb4aafadbcfbdd8e775bd7476fbfd1caf7e6f2cec702f99a10f458cd8d6f25"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Projects/job-search/m1-career-materials/obtain-review.md",
+      "sha256": "b8367dc58f8e05f49c3aa9a5f94c25dc7cca1826d19d155240b56c3e2765cef5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Projects/job-search/m1-career-materials/outputs/review.txt",
+      "sha256": "55bc01603fe5a86adb2e4e83aa30951dfdeb612c75aca58fddf621f8ade7ee80"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "d6e23961f0042c82c05cf41c64f2bf9b2afc13cfc44f6669550f1ed769d8cbff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Projects/job-search/m1-career-materials/update-resume.md",
+      "sha256": "349914bd64baeddbf90ef746ae3933f4646756ab70b4553c8bc8c0fef2371cd0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/vault/Projects/job-search/project-index.md",
+      "sha256": "9c84b88a71cdfd0a2ad1459fe1cbefd920e99f927cddf768fa6037bcf7dab2ff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/destination/verified-query.json",
+      "sha256": "56465c36387b90e31c312e2d8a1a9cef091c85c5ff17851469eed4f2477c5bbb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/001-resolve-context-input.json",
+      "sha256": "401c9d80125805f4c6281e90dd9e6bc73f22f1ae57fbf598b08f6e9b36fd341b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/001-resolve-context-result.json",
+      "sha256": "5abc023e80d4887fca5eb605f3008e206de9be1c2f6d4997309ccd4bf3a89f7d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/002-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/002-new-id-result.json",
+      "sha256": "03380b7e1b10ab3ae84c345bea652cedb30865ff5540ec6e6952c1d9a63fcea4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/003-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/003-new-id-result.json",
+      "sha256": "868ef0b9b57619025d92ad6cc3a6ace565954ec439113090b780b82033571f63"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/004-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/004-new-id-result.json",
+      "sha256": "f44550bc4d603c70da55c3e419cf31daa243cf5f72a8200861a69c2539022c2e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/005-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/005-activity-time-result.json",
+      "sha256": "f3fec8c7e3096d40332a252b429e2b7b35831f21f023d22726c2faec9a94bf49"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/006-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/006-new-id-result.json",
+      "sha256": "80b7bce1b36cf8ef48d52e1122c3c174010d3564b8af4cf36c5303729508f83e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/007-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/007-new-id-result.json",
+      "sha256": "0166750b4fe077a1b278746d3e2ae27468b333da543c4a10de5829210fe99bbf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/008-log-append-input.json",
+      "sha256": "b138328d1c331d6fcd987c2aa19587bccc7e1129acb2da2c57ea2a20873099bc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/008-log-append-result.json",
+      "sha256": "46a20448ebc6d736fde0bf5161c1dc7aa41f846d37dabebb7a3e3f4a498005f2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/009-log-query-input.json",
+      "sha256": "15415e7907f3d21e334209229fd9117e69c8194e5636092a342c6eee216e33cd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/009-log-query-result.json",
+      "sha256": "ac88baf3b71b0a7e4ea16d8ebc83aefdae10365d480fcb654ac8642515ae9007"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/010-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/010-activity-time-result.json",
+      "sha256": "09c06170ef86e07ccf149779cab5fe2ec81658333eab76e7a24b7ef044101958"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/011-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/011-new-id-result.json",
+      "sha256": "9a3c7f95c2a6bf821a39f5c8032e1f8b1780f56cff6dce596f7428f6240df0b6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/012-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/012-new-id-result.json",
+      "sha256": "9708ebba0a260b99eac7da58e81a75526f41022b8cd4ae56cb797c93d09576f6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/013-recover-operation-input.json",
+      "sha256": "cf4e866a73a7fab2d379c6a7846300700e0215efa1e89b4e627b8ce114cc23f6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/013-recover-operation-result.json",
+      "sha256": "9b08f085525fddfdcef416225498444a0c1a5dc8a7d16ccb555dcf13dcdec439"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/014-invalidate-project-index-input.json",
+      "sha256": "401c9d80125805f4c6281e90dd9e6bc73f22f1ae57fbf598b08f6e9b36fd341b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/014-invalidate-project-index-result.json",
+      "sha256": "05789a80338bd2bd7ed54aa32a0a13631ca82f2885f3da529f308dd808635ccb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/015-recover-operation-input.json",
+      "sha256": "5ccb02a7e1155a9a490740dd6a31b18a049f580209a29051503e7232abcc34f3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/015-recover-operation-result.json",
+      "sha256": "03dccec8df50cfda1d680e530279990dfe32aff8a9adc6f6e68d99affef68433"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/016-log-query-input.json",
+      "sha256": "15415e7907f3d21e334209229fd9117e69c8194e5636092a342c6eee216e33cd"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/016-log-query-result.json",
+      "sha256": "2968cf872888f8aedfc0eae45bf2b583a764ba6e38f4c7cf72c6c2e365135aac"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/actions.ndjson",
+      "sha256": "7d00c843beb8c8b65267b3513b90d014205d485d294a4c266be5de10c9317514"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/assertions.json",
+      "sha256": "1aefa203facf5109870d707fc5d09830ad1a0afa56f4f98c6b7ed435e1cd92c8"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/before.json",
+      "sha256": "2378f4d17cd500874039488d66f96084e12fbeb7df9c4c43e38c34bfa5af595d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/context.json",
+      "sha256": "2294932a30726b41be11e40f735ddd7b003c18b4229d1846ea9479a0c4246525"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/historical-event.json",
+      "sha256": "084e66f274b932fce8cad2e683ca918fa3b745b07066f103e32c96d230178ec4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/interrupted-destination.json",
+      "sha256": "604e9b6faca3ba865c69b19d14a8c444aa8afdc8413d234e1aeea31df4f2ff9c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/recovery-classification.json",
+      "sha256": "143194a0e0978568dfab8123c645d7b0b913dfba11842900f9f9d9f0789924af"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/saved-operation.json",
+      "sha256": "36d7b9b03d98ad49af107c84d0c6a233555fbf3f5c0e5c0bb073d0c0d46e5119"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/.nyssaai/daily-tasks/operations/migration.json",
+      "sha256": "88a2fdd075e296bd23f9668aecc2b09b3d07650dcb94f1a30eced379dcf4cf60"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Daily/2026-10-09.md",
+      "sha256": "c201880954407be00c09b7841aa6aa5a68f6727a482920d5016a0b474df1e491"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "cf44a9e1e609302d51322f54c264c1f9f1555c036fc1246b47be82d691164875"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/blockers/b1-review.md",
+      "sha256": "990ebc5a5d78d3948c8c24db7a5131426b3e41e58337dd041a16420620e90acf"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/m1-career-materials/definition-of-done.md",
+      "sha256": "2fe8a4eaa3ac085f42ce53a176c483441676a1d3aedf0a8ba790f2167d228414"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "be0675a68824ae3e30d902970aea27cf41c9da996192f8009dacc8093f55d033"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/m1-career-materials/milestone.md",
+      "sha256": "a334233d4f787f2bdef7d99c5d77e7b079ab3979184135db6b337dbab743bf10"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/m1-career-materials/obtain-review.md",
+      "sha256": "5b05bd87722d251b08b9e8a58be3e5614fee63c2e15f5645aa6f8522fda3ddb3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/m1-career-materials/outputs/review.txt",
+      "sha256": "55bc01603fe5a86adb2e4e83aa30951dfdeb612c75aca58fddf621f8ade7ee80"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "d6e23961f0042c82c05cf41c64f2bf9b2afc13cfc44f6669550f1ed769d8cbff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/m1-career-materials/update-linkedin.md",
+      "sha256": "c6e7e5948e81354c6605a18441fdf810aff83335633afe3689d997dd9d0a56e6"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/m1-career-materials/update-resume.md",
+      "sha256": "349914bd64baeddbf90ef746ae3933f4646756ab70b4553c8bc8c0fef2371cd0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/edit/vault/Projects/job-search/project-index.md",
+      "sha256": "9c84b88a71cdfd0a2ad1459fe1cbefd920e99f927cddf768fa6037bcf7dab2ff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/installed-instructions.json",
+      "sha256": "a51905cf4ac7608378ffea6e6302e0970636fca2f5183c40b2f9da8756a14421"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/report.mjs",
+      "sha256": "d056c979c96c6d75a6c492cd2f7e238cf52982c5230ed163157e2a86f2e7ca8d"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/scenario8-report.md",
+      "sha256": "fcdcf9b728449c6d8be1fe82fe1fc59dd7571a4193e715666d3d9a3727491c14"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/001-resolve-context-input.json",
+      "sha256": "0cc83ec709e3fba54bbb27e3a16c27e4957d9982269fc2ce02c2ceff4c72838c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/001-resolve-context-result.json",
+      "sha256": "7b9332096c7b6238adc51b034b3e96c72d6107a1fc1c5d144801365e436f467b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/002-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/002-new-id-result.json",
+      "sha256": "6a5c23217af33796e1e1400788df8884dc47f70cf46a37bb78c5492eaea4c803"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/003-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/003-new-id-result.json",
+      "sha256": "f4c6f453307e154580578f3c5f1662470ec82c31f327511291c742eebada31de"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/004-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/004-new-id-result.json",
+      "sha256": "e4dfc9f3444a0531c74586abf0aed984428a7ec072e9eec5a702b4e1d9411e13"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/005-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/005-activity-time-result.json",
+      "sha256": "a9f60a4fa964028764ca4fe2ebadcf67db5874d0c47eb06d486365d768de563a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/006-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/006-new-id-result.json",
+      "sha256": "1e09a40ed8a4ad65e7b32cd4db3b6668017131d34de10536b1c0cc2ead0d5abc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/007-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/007-new-id-result.json",
+      "sha256": "71d3172ee907b88d8a26235cb1891948780bbe4cab5c26c725c03491d6789b16"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/008-log-append-input.json",
+      "sha256": "f088e750f395c867023582688834b94e1b95967405af7dfc1e54c2c4724c4026"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/008-log-append-result.json",
+      "sha256": "87932a5e9c5ac5b246c450a274f71f46e49ff2d32d8d33c3b0e77600756f8413"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/009-log-query-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/009-log-query-result.json",
+      "sha256": "7c1f5a68e7e9f032f4e0ad58f06dac221607218d45393eebcd684893f7b2ce5e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/010-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/010-activity-time-result.json",
+      "sha256": "6e932d9c48803c5867039f754cd0ee49bdebbfb13a29eb2c050498fbf512ef95"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/011-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/011-new-id-result.json",
+      "sha256": "1529b2d7bd6f33813dbb24f03a70a24133589e85027ea0f36438c8e182ea48b5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/012-new-id-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/012-new-id-result.json",
+      "sha256": "401741ec7c79757c2926948637789fe980c8ca6e97f6eb1ee933784b74472a54"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/013-recover-operation-input.json",
+      "sha256": "ce578480f2d8abd99dfcf03d80c8548d7756b44c5434a1f5a8f35282bf57c1ee"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/013-recover-operation-result.json",
+      "sha256": "14d6447db07426bf300b1cb2a396d65053b4fc89de70ab1265fae3d9a22c7159"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/014-invalidate-project-index-input.json",
+      "sha256": "0cc83ec709e3fba54bbb27e3a16c27e4957d9982269fc2ce02c2ceff4c72838c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/014-invalidate-project-index-result.json",
+      "sha256": "baa578b74bc59eea46f941dead2b7b596ac95a72b4c63a9097f280a4572cb64f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/015-recover-operation-input.json",
+      "sha256": "2cbc9e5091b9000575c57f0eb7c6a8fd3cf7884285ecc7cc95115b2c9a87601b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/015-recover-operation-result.json",
+      "sha256": "9de1a1cda59e3eccd46d7a310551c69380675d57204472927df37c84349d40fc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/016-invalidate-project-index-input.json",
+      "sha256": "0cc83ec709e3fba54bbb27e3a16c27e4957d9982269fc2ce02c2ceff4c72838c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/016-invalidate-project-index-result.json",
+      "sha256": "ceb2a2c3cc7d8ec383139973331e309a15c01c55c06aeccebaab8adc0d098479"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/017-inspect-records-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/017-inspect-records-result.json",
+      "sha256": "fa7c3fa4c21ec02d0ade708b172233810b4d82e8449f9591a501c8694d7b94a5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/018-validate-records-input.json",
+      "sha256": "ff441314324cf29324db0128ac5dd2eea0ba9c77ce4fd392cf647c4efa81f56c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/018-validate-records-result.json",
+      "sha256": "abd2d6131538695b1517ede133f5cade71293ff7d03af370b00e6e5b8155b8a9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/019-check-links-input.json",
+      "sha256": "ff441314324cf29324db0128ac5dd2eea0ba9c77ce4fd392cf647c4efa81f56c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/019-check-links-result.json",
+      "sha256": "e4e8e51d319bea87d015dc3e6fa659cfdd1d974767240d28d738003030eac306"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/020-log-append-input.json",
+      "sha256": "e2fdf65c5f60f9790c4aa200e448659f04c0207ed5de504a1b5ccc54c68e06f2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/020-log-append-result.json",
+      "sha256": "2233eb3ef7a4712fcb80e63461f58bc623b8833e681c0992700e704334acf437"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/021-log-query-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/021-log-query-result.json",
+      "sha256": "a930213004908cb280d939b852ead5b7522a8e41e1a67993794521d862044a76"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/022-invalidate-project-index-input.json",
+      "sha256": "0cc83ec709e3fba54bbb27e3a16c27e4957d9982269fc2ce02c2ceff4c72838c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/022-invalidate-project-index-result.json",
+      "sha256": "0a3256a6a304bb0426849b9629edeee02000ba4f3c5790c0d270d680119fd21a"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/023-recover-operation-input.json",
+      "sha256": "2cbc9e5091b9000575c57f0eb7c6a8fd3cf7884285ecc7cc95115b2c9a87601b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/023-recover-operation-result.json",
+      "sha256": "eeba6259b5851f23a90c1e6c1c6b2787431045fe860d0dcb42c9a31d060cf99c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/024-invalidate-project-index-input.json",
+      "sha256": "0cc83ec709e3fba54bbb27e3a16c27e4957d9982269fc2ce02c2ceff4c72838c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/024-invalidate-project-index-result.json",
+      "sha256": "e82382ba8c0387b1e44ea7abde1af0bc6d4eaad50ab59779c4deff2c3883cd4b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/025-inspect-records-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/025-inspect-records-result.json",
+      "sha256": "0f6b93eac49771e777f96fb6cbb29b3af1cc1ac418f37f605792941ae399bf9f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/026-validate-records-input.json",
+      "sha256": "ff441314324cf29324db0128ac5dd2eea0ba9c77ce4fd392cf647c4efa81f56c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/026-validate-records-result.json",
+      "sha256": "3e3cdb96fd0642fb633bed4da58faa9e285bc27c11653493af74589d4bff066c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/027-check-links-input.json",
+      "sha256": "ff441314324cf29324db0128ac5dd2eea0ba9c77ce4fd392cf647c4efa81f56c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/027-check-links-result.json",
+      "sha256": "e8cd5b83b29e7fdd7b28d3bb7e001c88ed0f551e6d90577c5ccb42128e244973"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/028-log-append-input.json",
+      "sha256": "e2fdf65c5f60f9790c4aa200e448659f04c0207ed5de504a1b5ccc54c68e06f2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/028-log-append-result.json",
+      "sha256": "9bdd6f66f4408a5ef27c1c7521665949fec964904406174350e573d60f007724"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/029-log-query-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/029-log-query-result.json",
+      "sha256": "0bbbe25555dc9322ec87ab8354b8601993e31e76753acde8a8db46eb98ca34b5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/030-invalidate-project-index-input.json",
+      "sha256": "0cc83ec709e3fba54bbb27e3a16c27e4957d9982269fc2ce02c2ceff4c72838c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/030-invalidate-project-index-result.json",
+      "sha256": "a81fffe79ca9f0b2c69ccce3bae0b066c838ce2a89a144fd6ebeadf9be4fba8c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/031-log-query-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/031-log-query-result.json",
+      "sha256": "428e86fdfe8bdc6a9735e9947bfc0fdb6dab5feda79784a4db3669ac2dbe044b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/032-inspect-records-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/032-inspect-records-result.json",
+      "sha256": "b3a957ea9d5356cbcbeaa5bcc6aaccec2e5689289a996268886265a739a984d4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/033-validate-records-input.json",
+      "sha256": "ff441314324cf29324db0128ac5dd2eea0ba9c77ce4fd392cf647c4efa81f56c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/033-validate-records-result.json",
+      "sha256": "634f5e64ed2c72315922cdb0b15a3569181736f3451fdfde83c0076f45f6ba92"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/034-check-links-input.json",
+      "sha256": "ff441314324cf29324db0128ac5dd2eea0ba9c77ce4fd392cf647c4efa81f56c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/034-check-links-result.json",
+      "sha256": "76e7bd96bf50eadd1e9ab4986b7345e7ba562346409d67ee7d1b62f92cc7b3d2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/035-log-query-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/035-log-query-result.json",
+      "sha256": "14aa4b2f78c9a2a74c16e16dc378f1295cf0f90bbb825d1d101440870c581658"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/036-inspect-records-input.json",
+      "sha256": "ab817ca90bb53296fd1a513e476323f5ec28660775ee4f8e6b831d774ea3e7df"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/036-inspect-records-result.json",
+      "sha256": "06cdc9bbe087a79f3ce96b51a9b965148ed2a94273642977996db769e7efd9a7"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/037-validate-records-input.json",
+      "sha256": "ff441314324cf29324db0128ac5dd2eea0ba9c77ce4fd392cf647c4efa81f56c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/037-validate-records-result.json",
+      "sha256": "cc8b65277bc46e155352fbddedb80c794438c652cb95f91300ea47f5654a84fb"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/038-check-links-input.json",
+      "sha256": "ff441314324cf29324db0128ac5dd2eea0ba9c77ce4fd392cf647c4efa81f56c"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/038-check-links-result.json",
+      "sha256": "c4c31a0434851722d1f95e17094ed2e3acb0b4f278374019198810d13501ebf2"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/actions.ndjson",
+      "sha256": "90776c20e211d4aac53bc0c8d45ec8ddfae02bcc3c3de5b46b2d8336042cae79"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/after.json",
+      "sha256": "2dbf738d70732627b55e839c5c8e3c4d70f4e1667321539b4125e3daa515f853"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/assertions.json",
+      "sha256": "d046bb44bf348191669a378cc7adb60d57ce05a305461f4146406a642e2af0fa"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/audited-after.json",
+      "sha256": "2dbf738d70732627b55e839c5c8e3c4d70f4e1667321539b4125e3daa515f853"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/before-dod-retirement.json",
+      "sha256": "4024bd31c35006ab48123c513cc53f6fab980bb55574894f5d29a213cc6e790f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/before.json",
+      "sha256": "6cbd2c0b8c54544bf7faf5a5c0717a653306716064ed2db18493da47ff7b87f9"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/context.json",
+      "sha256": "f562bda6c1191fc69ce80b88506340cf7fde2a6ed72ae41775fb57ded26451ce"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/final-inspection.json",
+      "sha256": "c746c496fff5eb53356ac745cb51be69a5f914145cca1c7d8d5ccb4531119f2f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/historical-event.json",
+      "sha256": "cb9d0a1ab886b0ea5c010bc55e4f297153700395b4670081ebac15bb36f79ecc"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/interrupted-source.json",
+      "sha256": "2dbf738d70732627b55e839c5c8e3c4d70f4e1667321539b4125e3daa515f853"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/recovery-classification.json",
+      "sha256": "0506b53854dc2eeacc444fdb6faae4ae5bbb3eb983594cc7c6653f85e9289297"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/saved-operation.json",
+      "sha256": "5045ec916651032d435911bb42e87df7fd9734697e4dc86147a306d16964c671"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/.nyssaai/daily-tasks/operations/migration.json",
+      "sha256": "19c3148152de6ce148e0b2beacb72ac374689449997e665de2d629a19c9a2ce5"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "34f2721f65e70a96fb44503488ab7166b573735b6a8ca2812e8b217e22d05d9e"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Daily/2026-10-09.md",
+      "sha256": "c201880954407be00c09b7841aa6aa5a68f6727a482920d5016a0b474df1e491"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "5ab597867cf673aadbf56b73f7e1146710e999aa5066b21fccd9f768d828b2f4"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Projects/job-search/blockers/b1-review.md",
+      "sha256": "839b0048c14c54e1966bbd4f40dce446aa69bc5ac7d2019e5bebcee9a518ab8f"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "991ed97f6a9e4d6c1eea9dd8e01aa7f2b1e02208d283dd06478e745d0bc1bebe"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Projects/job-search/m1-career-materials/obtain-review.md",
+      "sha256": "98d1c06261447d77876cee920b46bb3fc36815a405108428b25c640978d77880"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Projects/job-search/m1-career-materials/outputs/review.txt",
+      "sha256": "55bc01603fe5a86adb2e4e83aa30951dfdeb612c75aca58fddf621f8ade7ee80"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "d6e23961f0042c82c05cf41c64f2bf9b2afc13cfc44f6669550f1ed769d8cbff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Projects/job-search/m1-career-materials/update-resume.md",
+      "sha256": "349914bd64baeddbf90ef746ae3933f4646756ab70b4553c8bc8c0fef2371cd0"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/vault/Projects/job-search/project-index.md",
+      "sha256": "9c84b88a71cdfd0a2ad1459fe1cbefd920e99f927cddf768fa6037bcf7dab2ff"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/source/verified-query.json",
+      "sha256": "ce71c7c58558a319f925fa4c1f4a8a3a4af5fb1441ff5a1f1b12878991e9a2b3"
+    },
+    {
+      "path": "evidence/workspace-migration/.temp/workflow.mjs",
+      "sha256": "911f4bac4d3574353c3173dfd82b7dc6259c15188397a3957cc0ebfb011c0faf"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "fe79973b32d918a8479cd84c9c1a0d50286ebc553c1ef50b0309eab94a561a54"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "961ea61e86a0a55b5b60904c819e8a8349c2d2c9a5655cc91185b4e4b0190656"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "4d229d4dcd793a8a6ca4319654859593e956eb02e3db74c27f31b792dc82c9ad"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/workspace-migration/vault/Projects/job-search/project-index.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    }
+  ]
+}

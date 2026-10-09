@@ -1,0 +1,178 @@
+{
+  "reviewRunId": "01a12117-2ae7-74b7-b437-33c7e15c3192",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 56 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-checkin'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (384 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 8 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 5,
+            "reasoning": "Lean and telegraphic with zero padding — no concept explanations, no filler; lines like \"No router load is required.\" and \"A new day changes plan target, not the identity or disposition of unresolved decisions.\" pack policy into minimal tokens. Every token earns its place; the anchor-4 profile (over-explanation to trim) does not apply because there is nothing to trim."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Names concrete commands, files and paths — `recover-operation`, `log-query`, `reconcile-record`, \"stateRoot/checkin.json\", \"`<vaultRoot>/<dailyPlansRelative>`\" — plus an explicit state schema (\"local day, pending operation IDs, unresolved candidate/conflict IDs\"), so guidance is mostly executable. Not 5 because actual invocation syntax and worked examples are deferred to cli.md/operations.md, and some directives (\"Inspect relevant project/daily views and definitions against per-view baselines\") leave key details to the referenced files."
+          },
+          "workflow_clarity": {
+            "score": 5,
+            "reasoning": "Six clearly numbered steps with explicit validation checkpoints (\"Run record/link validation\", \"verify log appends, then save baselines\"), an error-recovery feedback loop (\"Recover pending operations using expected before/after values... never duplicate an event\"), a re-prepare retry loop (\"Reprepare after writes invalidate packet hashes\"), and per-decision state saves. This is a consequential-write skill and validation is present at every phase, so the missing-validation cap does not apply."
+          },
+          "progressive_disclosure": {
+            "score": 5,
+            "reasoning": "The body is an orchestration overview only, with well-signaled one-level-deep references each tied to a condition: \"Load [operations] before reconciliation, recovery or consequential writes\", \"[CLI] when invoking operations\", \"[response conventions] before review screens/numbered replies\", plus phase-gated sibling-skill links. No local bundle files exist (no references/, scripts/, or assets/ directories), and referenced paths resolve into sibling skill directories that could not be verified in this sandbox, but nothing that belongs in a separate file is inlined."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "A dense, well-structured orchestration skill: a six-step sequenced workflow with explicit validation, recovery, and re-prepare checkpoints, and exemplary conditional loading of one-level-deep reference files. The density occasionally pushes operational detail (command syntax, examples) into referenced files, which keeps the overview lean but leaves minor actionability gaps. No verbosity or concept-teaching padding is present."
+      },
+      "weightedScore": 4.7,
+      "normalizedScore": 0.925
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 4,
+            "reasoning": "Lists four concrete actions — \"Run or resume an anytime personal check-in\", \"reconcile Markdown edits and reported progress\", \"resolve conflicts and candidates\", \"open or create today's local-day plan with carry-forward\" — matching the several-specific-actions anchor, but coverage has minor gaps: recovery of pending operations and final revalidation/reporting from the workflow are only weakly implied by \"resume\"."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "Clearly and explicitly answers both: the what lists four concrete capabilities, and the when gives four concrete trigger phrases (\"Use when asked to check in, resume an interrupted check-in, reconcile manual edits, or review progress across work\"), matching the top anchor exactly. Not 4 because the when-clause is explicit and specific rather than needing more detail."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Triggers are natural phrases a user would say — \"asked to check in\", \"resume an interrupted check-in\", \"reconcile manual edits\", \"review progress across work\" — giving good keyword coverage, though common variations like \"daily plan\", \"carry over tasks\", or \"roll over unfinished work\" are missing, so it falls just short of the comprehensive-synonyms anchor."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "The check-in framing and explicit delegation (\"apply accepted record changes through Records and daily selections through Plan\") delineate the sibling daily-tasks skills well, but \"review progress across work\" is broad enough to overlap with general progress-review or standup-style skills, so minor overlap risk remains. Not 5 because that broad trigger lacks a distinguishing qualifier; not 3 because the core check-in/resume/reconcile triggers are clearly niche-specific."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "A strong description that explicitly states both capabilities and triggers in third-person imperative voice with no fluff. The four-part what-clause and four-phrase when-clause make it highly actionable for skill selection. The only weaknesses are a slightly broad \"review progress across work\" trigger and minor coverage gaps in the capability list."
+      },
+      "weightedScore": 4.35,
+      "normalizedScore": 0.8375
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.8375
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.925
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 89
+  }
+}

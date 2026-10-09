@@ -1,0 +1,980 @@
+{
+  "id": "milestone-workspace",
+  "status": "pass",
+  "candidateHash": "c6931c62c8c3530b7d6b117ef19f14b50fc8efce36c48bc2160df3c07c33227e",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "nativeExecution": "New external Codex exec processes/threads, isolated CODEX_HOME and explicit local marketplace registration. Main model authored actual workflows; no prior operations replayed. Acceptance phase2 resumes its first actual user turn.",
+  "sourceWindow": {
+    "before": "2026-10-09T15:29:12.820Z",
+    "after": "2026-10-09T15:44:08.663Z",
+    "unchanged": true
+  },
+  "report": "evidence/milestone-workspace/.temp/scenario7-receipt.md",
+  "transcripts": [
+    "transcripts/milestone-workspace.jsonl"
+  ],
+  "assessment": "29/29 observed assertions covering required flat sibling layout, meaningful same-basename preservation, shared input, two outputs/in-place consumption, distinct criteria, copied-ID attachment exclusion, stable task/blocker labels, reciprocal singleton shared blocker and navigation/rename/prose preservation. Initial explicitly accepted records supplied by fixture; native creation also acceptance scenario.",
+  "evidenceFiles": [
+    {
+      "path": "evidence/milestone-workspace/.temp/001-resolve-context-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/001-resolve-context-result.json",
+      "sha256": "837a5b9baed5b2ce35e80f0c50ad21fd6d5db1331ec794a345f532ead547b164"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/002-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/002-log-query-result.json",
+      "sha256": "2bb71beddcd7ef52c70bee0fa95abd6808157d289c1b27aa80f559e3f6908ea2"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/003-new-id-result.json",
+      "sha256": "55bf23f453a5a6e5e4a7e9705f03947ec79e7aa0a2f9c57915f336cd6e54e883"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/004-new-id-result.json",
+      "sha256": "524b40baacfe50c8700d3178f4e4dd4ddd6406426668b944ab56b13178eeb86f"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/005-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/005-activity-time-result.json",
+      "sha256": "5f6a1208548b2fce64212650c1e84fe2c9bfca5cb4ef97796582724fcd819b76"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/006-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/006-invalidate-project-index-result.json",
+      "sha256": "4faf9ac32bfc7bc4fb6069f4b1cd25136fb5e48c8f4fe504899cd31b7abf2a71"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/007-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/007-inspect-records-result.json",
+      "sha256": "6e6e9335568d85732d039d8b1f702054c0132db560b308880f0f139963d531ad"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/008-log-append-input.json",
+      "sha256": "86bdc017d80ffcf365b6325004975290ac148be7e5fc13ca46986b22e02a410f"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/008-log-append-result.json",
+      "sha256": "6830f7a18f675ecc90c5a383d0b768c88e50bbd0607057e87f92f9560f251b74"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-3446-724a-9df7-aea1ad4f30ca-complete.json",
+      "sha256": "b826ee2d856bd73f6d2d674145dd7216be96712c9c1ce1073161c49b3d173561"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-3446-724a-9df7-aea1ad4f30ca-inspection.json",
+      "sha256": "b7fb9f04331bc8333a49a1d7dfc01c807cfaed7c809ee4b0ed4137835c0b1185"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-3446-724a-9df7-aea1ad4f30ca-pending.json",
+      "sha256": "4b4be9144507b6acef0e281b3243f472d890c2d3fbc072c5a870c37cb3853a30"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-3577-71c7-8764-deca22f72b1a-complete.json",
+      "sha256": "4a42b2504151b16dd1a8b374a5c76ba915c86b011aa9f5efb8b4577837c238ef"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-3577-71c7-8764-deca22f72b1a-inspection.json",
+      "sha256": "b7fb9f04331bc8333a49a1d7dfc01c807cfaed7c809ee4b0ed4137835c0b1185"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-3577-71c7-8764-deca22f72b1a-pending.json",
+      "sha256": "ee0c50fc4a3bbc81577e0d5bbae065bbfbaf2e8e1eadba529fdd087da80ecbaa"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-36b9-7788-b986-6be6e33d6657-complete.json",
+      "sha256": "3969e55a24ce29c1ca887476f4d63fca6b0ff06ab718a7a603dac194bdd598d8"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-36b9-7788-b986-6be6e33d6657-inspection.json",
+      "sha256": "970afdedac2f733a3ad335431f64f71d57bae0c2e21ea16704530efa9c1a43fa"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-36b9-7788-b986-6be6e33d6657-pending.json",
+      "sha256": "e94f5ed157081dbcefe0b63d564c151c6b30e684a6cc5841598d9e87c8a9435a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5897-7aeb-93d6-d564b2947fc1-complete.json",
+      "sha256": "b3480836ce4e279794df0f1bf77844cdc89aac7c1f3e615fe1cc68b7ccba8cb2"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5897-7aeb-93d6-d564b2947fc1-inspection.json",
+      "sha256": "55e3af178fb7badf8c2407db04a58e7e59a0339ac64ea6644ec15d3e27974d63"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5897-7aeb-93d6-d564b2947fc1-pending.json",
+      "sha256": "c5159454018226d6b414a0bb8a38af89831d4c8550797f84fb7421ebe70e1596"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5a4e-7b37-95a7-ec902cb04619-complete.json",
+      "sha256": "274afceb0d18a12a2389a66bb242aa254ac4162030bedae071e67033f7e1efcb"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5a4e-7b37-95a7-ec902cb04619-inspection.json",
+      "sha256": "73f2dfc9b60d7054c500af88b025d88bdfd2ef63f71ee300e2829444fb1ca2f8"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5a4e-7b37-95a7-ec902cb04619-pending.json",
+      "sha256": "4959bd2520bcae99b631cf9aadeccd5301f271ec584ebd79f12f72c7063cc89d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5bb7-7ab6-8687-18537a208de4-complete.json",
+      "sha256": "553b78cf9e2955411b1996502223cad7574863306d098d6f9163a83c884fe3a1"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5bb7-7ab6-8687-18537a208de4-inspection.json",
+      "sha256": "18f9862d2de9e35b4b3809a009887e57df25375befabe5d5f2bd572e3be57d23"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5bb7-7ab6-8687-18537a208de4-pending.json",
+      "sha256": "7837b6b449e8a6fd8066b1425c07f170ebaea03c2d68b2b828c63cb98c1c3438"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5d5e-7e65-a631-59f5061233f9-complete.json",
+      "sha256": "70e2cfa79e56d7efeec38234be50cbe83198e2956f0374bb7f433143fb42e98c"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5d5e-7e65-a631-59f5061233f9-inspection.json",
+      "sha256": "ec7ad51ffd758be1be532e1ed81e59a0aee9c361c6524006a12d3e4503773f49"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5d5e-7e65-a631-59f5061233f9-pending.json",
+      "sha256": "2d867544ae187ea9b79d258f5e25dc1d411f304d4393bd97de544cc57ff6edf6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5e8c-7586-a624-0f4db6878858-complete.json",
+      "sha256": "79056ddf81f8521b6c35ff26e3af83083279df1d0b8375cb10107189aec00176"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5e8c-7586-a624-0f4db6878858-inspection.json",
+      "sha256": "ec7ad51ffd758be1be532e1ed81e59a0aee9c361c6524006a12d3e4503773f49"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/01a1214f-5e8c-7586-a624-0f4db6878858-pending.json",
+      "sha256": "f57318536c1373cc50d8b30524dab48ee43a911c0baa5b64b0a9c5869cc1b6dc"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/101-resolve-context-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/101-resolve-context-result.json",
+      "sha256": "4737d699e374d09cd4fc3f6ada22644cbfe94a891dfec54390d0df957ff18919"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/102-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/102-log-query-result.json",
+      "sha256": "1c491124505f1f9cba757338921da5d39e17ae15f13b781bc8f223ed801dfe7b"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/103-new-id-result.json",
+      "sha256": "01839f9fd0a000b712fffad6d3c7c17dfde035d5b01afe4982460065f75e5abb"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/104-new-id-result.json",
+      "sha256": "c4281f48f70ae6aa2ebbf43fe76cbfe99de790a764a0886551c0f242216cc32c"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/105-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/105-activity-time-result.json",
+      "sha256": "d912d2a99a47f67109684c1b3bcf7a33d40097420831ad15e2b65473dcb25c9a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/106-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/106-invalidate-project-index-result.json",
+      "sha256": "633d170d85c00068af5b7fc42194d39d7e37dddaac714b8f66157465965ffd99"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/107-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/107-inspect-records-result.json",
+      "sha256": "3bd5f011b4b76e69927a5f7229ba61b44e26967fcb1401bcccbbf24feb3ec23f"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/108-log-append-input.json",
+      "sha256": "296993a2be776ae2b010b8ccbe13043accdf3173a8e62472300a4e06ffa9cffd"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/108-log-append-result.json",
+      "sha256": "59bf252dbb628e8326e2a83749e12d26b45640c878c6dc5d9df58706f5b8e869"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/109-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/109-log-query-result.json",
+      "sha256": "e9acff1c16ec5c9e721eb6663da8e492ae3a9605053a5b324ec1c3d037dcf9ea"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/110-new-id-result.json",
+      "sha256": "3332b1fc96cecb2dc3907c2ffb7ce6eff61a0852de40b17af27add972b129978"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/111-new-id-result.json",
+      "sha256": "dc4e3fc5c50a8c8fa771f40e5a5075e2b61933be75663797cb75dee8b7708ca6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/112-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/112-activity-time-result.json",
+      "sha256": "e5e8ca11ab1463db6851cda6948b9972c8b1427b986021180499ed515fed26eb"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/113-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/113-invalidate-project-index-result.json",
+      "sha256": "1e5d2bf88dd1128b6caf20f61ba776657f17614beaf3820bbbf14433adf24d1f"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/114-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/114-inspect-records-result.json",
+      "sha256": "3540e9fc9185ae2c90243ee343a3a7325233c64b4f4f26ef79bb96e2d6dd9ac6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/115-log-append-input.json",
+      "sha256": "694924c6d907866c90bf39ea8900d19c498ee1570f34fd81880780a40e2ad2d1"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/115-log-append-result.json",
+      "sha256": "357f2270d9e264bf7db064c3a5cd772213618d86d7371083e548cb7b42dfee49"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/116-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/116-log-query-result.json",
+      "sha256": "da6afde5396f8b159107e09299f5b401ce0135b219dd6d2169bdb58aba1185a4"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/117-new-id-result.json",
+      "sha256": "39ccf9dcff9ea911947a05d05ea4795feb286143be7a7b81b7287de38994c331"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/118-new-id-result.json",
+      "sha256": "bb4f551f6f809aefd6a8d1a701020d19bad24bc1162f58f89076e129d643ff44"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/119-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/119-activity-time-result.json",
+      "sha256": "8c9f56eb4462477aaa98f34cadb468bb617a346e4b74230f8864c351b6de2ceb"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/120-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/120-invalidate-project-index-result.json",
+      "sha256": "851113af0e5f1a0b5c07efea6827755d6354f52e554f09e4e900a768158b647f"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/121-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/121-inspect-records-result.json",
+      "sha256": "54e4b5394ae8804d1ba9fd51106de923eb7481a3c85feab597ec4951c3e50888"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/122-log-append-input.json",
+      "sha256": "96c93cbce25354a690c16b26403444e16535b4fa03362e58bed15b6edb0615db"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/122-log-append-result.json",
+      "sha256": "692a0a3901c1729447dbfafe37b61fd18ee81c09b9c0ea8e5f03f4edc0f18c6e"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/123-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/123-log-query-result.json",
+      "sha256": "66416255032509bc05b24713e17f85cf0fa998a6adaf1fc5956b480022701410"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/124-new-id-result.json",
+      "sha256": "5ef83f6dc171f947b8ff27aaafe9dc998a4fa4afc5e1e68a283225e708e3432e"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/125-new-id-result.json",
+      "sha256": "452b23039d708eefb4b04c24f5da9f53d935e9ae49f052abaee91ec2789b2444"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/126-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/126-activity-time-result.json",
+      "sha256": "55c6bde060bd82a43ab787cd31bf606f1bba84c96b7e4cd90b88395c77e33257"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/301-resolve-context-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/301-resolve-context-result.json",
+      "sha256": "314e69269627325a26a440a594fff69c100f4b03cb4b1c0d4684e8c1f6eaa0e5"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/302-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/302-log-query-result.json",
+      "sha256": "0a17a57480a620ea926f8dc01daea9f89de7e02daaa3d8c0dde279479bc702c1"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/303-new-id-result.json",
+      "sha256": "cf13d9a863db02fe73d48443e046649ffe303ba1601e8da623f099bc0c78a735"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/304-new-id-result.json",
+      "sha256": "3ac3e01e2a06e584e9af0cdd93ebb5a77c6b9f44af4e85d12b5c4942702806b2"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/305-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/305-activity-time-result.json",
+      "sha256": "06af5e970b5f43d2fe498ce97c92270d773329b9d0adbab66b52bb80e04eb747"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/306-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/306-activity-time-result.json",
+      "sha256": "1f40b38db1d16706c4118e6a7ad3ddae39c3250d80cb69838c3188a698bc5adc"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/307-new-id-result.json",
+      "sha256": "0b1d10b8f0d10ac1013b52ef199a3602a4553b13b9b99e8bc3c6175a6f9cc2d1"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/308-new-id-result.json",
+      "sha256": "0bc6ba5b583fdf65b9cc7318a4738cdf8794a142c35421040382e69a4e780a71"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/309-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/309-activity-time-result.json",
+      "sha256": "abc1d740af7dd6f3a7608bcce644923cc384a2019122253b679778780d80ef99"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/310-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/310-invalidate-project-index-result.json",
+      "sha256": "f9593eba0a7aefbd6f7b757de42f39238d8c6965f6250990cd946b7f272c7f34"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/311-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/311-inspect-records-result.json",
+      "sha256": "57009e264e71927288248f60b23f0de521b5d3bc09b558c852af233af83e5848"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/312-log-append-input.json",
+      "sha256": "98706d0b150a07d5d1a661f0c75b3181091e52a0e45740060c554c87dd50a27f"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/312-log-append-result.json",
+      "sha256": "f6c1db1de6b2648ff3deb15edb4eb161c9bc2ccf488a3b5d631f9e7ac79308ae"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/313-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/313-log-query-result.json",
+      "sha256": "9efc06aa2cd5ef0370eca561e29c71ffe30d6fd02c2854045f7226e75bdbdfdb"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/314-new-id-result.json",
+      "sha256": "a592a99a01fe13df2138f9409dbdd16068be0bfda871121a44438568f3b868bc"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/315-new-id-result.json",
+      "sha256": "f17b01e65aae8db462aa80a27aa41e983728dfafae31eeac60a66c7826f75907"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/316-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/316-activity-time-result.json",
+      "sha256": "90c21e88ca6e73afa022df7b0c8a85563044038859f47bdc1fe5ee1658bdfb74"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/317-new-id-result.json",
+      "sha256": "934f7371a83ce41e2d39f3ce100b5cfe1292303cd73831da4ff275a24c7c34b2"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/318-new-id-result.json",
+      "sha256": "de95d598d2d0a95b7d9ac7ae83bd101d280169ea1fc851c03e179a892a662aed"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/319-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/319-activity-time-result.json",
+      "sha256": "fe552511ff99957a18723c7801a26fd9867dd811f6feed02b5d8623ca7b15de8"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/320-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/320-invalidate-project-index-result.json",
+      "sha256": "df145f0d256bdff03aad92dcb17c74c03ba64b44ac052c2238bfd15c0fa80bc2"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/321-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/321-inspect-records-result.json",
+      "sha256": "d2f49dcef6514e8f123fe67f108930e43b692361906000125647a25ed8c89374"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/322-log-append-input.json",
+      "sha256": "4034fd9230eb02d614cec40edfce7cdcecb5bca68b11720ed90b9807860c45a5"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/322-log-append-result.json",
+      "sha256": "1c368e9735eb4a73451b181a5ada7e79867fcfd08dccc9148c266850ab9c5bfd"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/323-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/323-log-query-result.json",
+      "sha256": "361ee101a0db784ce67ae25e2fae9322bd974d05cf0feb10788229c8baa5edc6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/324-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/324-activity-time-result.json",
+      "sha256": "127f13c02f33be1a9213d591f1e237fcbd442513f62ff251b1b70d08c4716bb9"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/325-new-id-result.json",
+      "sha256": "f9dbeb194944f930d0a86275582dff48fbcc5ab040dc5570f51f188f634bd7f7"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/326-new-id-result.json",
+      "sha256": "88a9fba59b7dc3e9e08f023d89430da6848f592c2dd336bf0c9d6fe653cb6664"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/327-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/327-activity-time-result.json",
+      "sha256": "b97cadbb570e361d8f924518b289e5f7f7e5794c0b5cb6b10688f2e7bebc7a39"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/328-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/328-invalidate-project-index-result.json",
+      "sha256": "3de9c3ee6775479c076060e31b252852cf1d5b29a83e931f336e6d1631ba0b91"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/329-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/329-inspect-records-result.json",
+      "sha256": "adac5baf0e4b47731cb7d3a9067367f9ea4543e4ace7db7991396ee94eda0375"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/330-log-append-input.json",
+      "sha256": "2dc4cfa40048a29e1f5658a60258c5b2513f5db1ca4493ab4d88d60b5d7501dc"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/330-log-append-result.json",
+      "sha256": "ad16810f01a38a6786cdea01705bc68c70af644c96107e6fb47947d6fd582b5e"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/331-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/331-log-query-result.json",
+      "sha256": "a50e2d62e536b86449f7e11daf93e4556fda0fe8e5363a17e307a5d8ad2e8978"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/332-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/332-log-query-result.json",
+      "sha256": "67045d64a438ae49713687cdc5a69fdbb3a3c9531081f9552814f5a2b324693c"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/333-new-id-result.json",
+      "sha256": "321bff86b404d362be44377fd083130e3040769385d5c0dcf5d82be0a7f0541d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/334-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/334-activity-time-result.json",
+      "sha256": "f333c51fa0b9594cbc40cb2522367729da6208cc5285179ffc1eb94778b39f02"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/335-new-id-result.json",
+      "sha256": "42617948dee2da6622eff458c9a421518161ff95b654c889bfeb5112db73bb54"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/336-new-id-result.json",
+      "sha256": "278b30eeb7e17b5867ad0425c77e6f5353f7d8c27ff07896c1b3fdcc9128a566"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/337-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/337-activity-time-result.json",
+      "sha256": "a875d0fbd8c640931e7f10ad2f005ab114101d1cffdce218cd48ac1bf18ae7b7"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/338-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/338-invalidate-project-index-result.json",
+      "sha256": "c9bca8da4c77c61763c7bf416c23a9d62741b3294b17dc476b0d57955382f8be"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/339-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/339-inspect-records-result.json",
+      "sha256": "9106a5801b7aabb4367eca19b9fe22a81058f209cc08ff169290e6d5bdd913d1"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/340-log-append-input.json",
+      "sha256": "28219e455df0689758c034ac2c34ba94485b76bdd1dc0e2851c8f232cb2da4ad"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/340-log-append-result.json",
+      "sha256": "fbb3b181350169cfa82f76dd6e6d29234ecb3a14f63ebf91806bd96d7270d064"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/341-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/341-log-query-result.json",
+      "sha256": "af799f85de7fd66ee9845fc1e56706b0521b4dc6facd6034f2d4433a36476e7c"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/342-new-id-result.json",
+      "sha256": "d9d818a20079e7effeb8886c8067dd5934e50c9f2a6fa10c48821e1010deeb8d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/343-new-id-result.json",
+      "sha256": "bb2d0a08621d0b8b66d04828c0e88977be8501a26d1ce36f187e92070e872211"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/344-activity-time-input.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/344-activity-time-result.json",
+      "sha256": "12557eb61f0bd1c5fcd636af32c55eb471148b16607415b49f8db5947014b07e"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/345-invalidate-project-index-input.json",
+      "sha256": "98950fca3fc5954674c61d06676f037cea5a8cf4afab34ddc9f27de7df36de0d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/345-invalidate-project-index-result.json",
+      "sha256": "fad3242e2d34ff576e2148f92f6454708b91ef0c6ddb83f5479ae3c2ae718dd4"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/346-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/346-inspect-records-result.json",
+      "sha256": "be5abbd23ab37f912d90c4ff8b71ee9fd38478f89f39145b7b2eded397c4f618"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/347-log-append-input.json",
+      "sha256": "46486c2c860eda749102ab3efaa6caa6f49d58768ceed2ec496886f1b6bfc520"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/347-log-append-result.json",
+      "sha256": "53d7129f26f70baf26a3f19692f91539dd52289b659bdc39308aa90193b30b44"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/348-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/348-log-query-result.json",
+      "sha256": "df59d39589affc31f875635088245efa8cb9f7f0ec41e4b99cb264944e2fbf18"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/349-inspect-records-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/349-inspect-records-result.json",
+      "sha256": "b07eae00688b447ae276f972937768cfe89105253b3f4d72c84a24d4a5aacbc0"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/350-project-index-input.json",
+      "sha256": "d61f1970cb451837b3cd2bab9e69dc10212637cc78fe5f87f2e3a1506618ce5b"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/350-project-index-result.json",
+      "sha256": "3338d5a7681d2744b699e04cf3aa60508b07242316b90e1e0cbe59329db5ebf9"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "3c3cab3a2de1c568cc979623e47e0221e3e59a49b27efe631f5df43c67bc1327"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/.temp/daily-tasks/project-index-freshness.json",
+      "sha256": "973e2b55566d14e577de5fa7edf26deec5ab6697e5bff6733d7b995e22aed0ce"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/.temp/daily-tasks/project-index.json",
+      "sha256": "0a91e79c68662c27bbaf35e846b6a860f5886c5b659b6ab71e27e921eb2b5e39"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "deef3e9f19185faebb78ca8a5a5e646c2f56952281f37f0a63d4d08942ca918a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/blockers/b1-await-review.md",
+      "sha256": "da9dcc5803f21d863241bbb85f80adbc0598742555a28f55de7088262c1ab3c8"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/blockers/b2-await-source.md",
+      "sha256": "2552677e120598187444278fbfa4382a1d1815a60ed0655a7216f9a412c7ee13"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/blockers/b3-await-signoff.md",
+      "sha256": "1f92e579c8228eaacec323a959a84fca144b29bb06f42edd9689f4a60aeb714e"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/inputs/copied-task-attachment.md",
+      "sha256": "85d2953bf0f7f44d1224d57143cf7c729067703d22d66cfa3e2444a76f8225a2"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/inputs/linkedin-source.txt",
+      "sha256": "973b98e661da32949520ced67e957c55697b2c2814818fe160ba374f59c21a4b"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/inputs/resume-source.txt",
+      "sha256": "0d65d6eb3c0a122f7297c7f04bad7e56bf73606af82d3000a79651a8206e46c2"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/inputs/shared-style-guide.txt",
+      "sha256": "e2f9956c1a8b5d0cc1cd950fcafce5a29a3c70aa0888da51ac6d6d84db74e8a6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "b2ff99e12df1558ae06f72119cef12d8b5741396affa6b69dd659df7673160b6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/outputs/career-headline-draft.md",
+      "sha256": "3281dcb84f34663cd0c22d4c57dcded5db354dcc1126cc35951a2ef1ee7a2e2e"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/outputs/resume-summary-draft.md",
+      "sha256": "17ac97ede9e5eefa041798ac5aefda02a54226a45679e280aaea9308df89b5f9"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "a2e45dab3987d5ff175f8c42d87c1a8d618c71fa7ee4c6ce57249a33d50061cf"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "a3748a181eaafdb58c2a33140af74d67f50fdb1d71532ec4c0199ff9e098aaa0"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/m1-career-materials/t3-polish-summary.md",
+      "sha256": "fa211f82ca9deafd504b723707ceaf69029a794583be19130221f3bcef177a84"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/after-vault/Projects/job-search/project-index.md",
+      "sha256": "10a2ef8cebb0b9d71388c2ee10667dc3e2c1bc3cab7df6ccdbf93597f0847bc1"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/before-vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/before-vault/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/before-vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "fe79973b32d918a8479cd84c9c1a0d50286ebc553c1ef50b0309eab94a561a54"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/before-vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "961ea61e86a0a55b5b60904c819e8a8349c2d2c9a5655cc91185b4e4b0190656"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/before-vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "4d229d4dcd793a8a6ca4319654859593e956eb02e3db74c27f31b792dc82c9ad"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/before-vault/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "c605735a7a47e7ca56b96532d74bfda3024bff52a72f6501a38b44300572bf36"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/before-vault/Projects/job-search/project-index.md",
+      "sha256": "7a796d6a9d0cdeebc286f354f4de29278d23c7c10e154e0de810fd6f99b41937"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/final-inspection.json",
+      "sha256": "ec7ad51ffd758be1be532e1ed81e59a0aee9c361c6524006a12d3e4503773f49"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/final-inventory.json",
+      "sha256": "609c141939383bd122c9915c876c8b5923935bb4170b16a26d4d269078bb173d"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/initial-assertions.json",
+      "sha256": "977f71924102f855edef1247b6529873fb8e34464dccca0d3600a818d1e2b19e"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/installed-source-hashes.json",
+      "sha256": "dd40b726e1e9ca782f553b0b29e9791c816f6836c2ab14df3300a4cd4bb7db59"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/loaded-instructions.json",
+      "sha256": "077059ca6da1205500e6c838e4c106215551d8609b6cb8f7a732534cf349fe58"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/native-workflow.mjs",
+      "sha256": "c02d215d1705b23774d06b507adabea4d4f6d8e5b0940754b9ad22b670dac9ec"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/recover-input-import.mjs",
+      "sha256": "67e433982b65c41852b4849ad76771b24e67f51624d3b98f7c194f1c70bc41db"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/recovered-input-import.json",
+      "sha256": "73c2d75946c5d2cf4f58da37a4d0801af496f3cf2f623740b14de205061918ed"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/recovery-log-append-input.json",
+      "sha256": "3bf0b8204736c9d3ca1ce8db6cddfe7c737083025e0293f19bfaa22b2c5a40b7"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/recovery-log-append-result.json",
+      "sha256": "a22d99a8a084a87a7317f63682d046f7c17f13ba8d37a4b751fefc6804b5cc28"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/recovery-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/recovery-log-query-result.json",
+      "sha256": "305f97ceaa67d2bfe671d678864db63a88dd3aaf9c46f56bd9c9fb3e94c89ae4"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/scenario7-assertions.json",
+      "sha256": "4bb86305824a63972489092b120eb9d2b2c5d5482779cc810eb9806b8d78e17a"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/scenario7-receipt.md",
+      "sha256": "1817dfcb1dd88d00bd7603d3ae0bdffd088bf007947310a2cd3b7cfd8fa46eee"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/verify-check-closure-input.json",
+      "sha256": "3c5a0ef557ec7c1962cf974f26e836a486ebeac7562b0fb1c153599b519bf051"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/verify-check-closure-result.json",
+      "sha256": "419654f554cc5e3591c4c093d78d73016e6c9d96c7464c5bbbfd0656f4494643"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/verify-check-links-input.json",
+      "sha256": "6ce0e92225aed46ddd31be3750d0986334c16feddf014254da299b58452c64dd"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/verify-check-links-result.json",
+      "sha256": "e472fbfb586ace51f3f3ef782c3b7c88411cd9b68207554ce2523b8ee9bdd00e"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/verify-log-query-input.json",
+      "sha256": "39ae506871e32e84355f34677799644695366df17258d56cdc7799f02860d8c6"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/verify-log-query-result.json",
+      "sha256": "5d1462057fa7132a97dfe7df25ac35d8a60c9733105a46f86a5227bfa9c51af7"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/verify-scenario7.mjs",
+      "sha256": "852726bd895d12de69272598299fbefc139993f20ab09bfc88887664da35210b"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/[object Object]-inspection.json",
+      "sha256": "b7fb9f04331bc8333a49a1d7dfc01c807cfaed7c809ee4b0ed4137835c0b1185"
+    },
+    {
+      "path": "evidence/milestone-workspace/.temp/[object Object]-pending.json",
+      "sha256": "57d205a46b1d065482997f11e0598d90ff21359fed8857120a735d11243d9458"
+    },
+    {
+      "path": "evidence/milestone-workspace/attachments/a/source.txt",
+      "sha256": "973b98e661da32949520ced67e957c55697b2c2814818fe160ba374f59c21a4b"
+    },
+    {
+      "path": "evidence/milestone-workspace/attachments/b/source.txt",
+      "sha256": "0d65d6eb3c0a122f7297c7f04bad7e56bf73606af82d3000a79651a8206e46c2"
+    },
+    {
+      "path": "evidence/milestone-workspace/attachments/shared.txt",
+      "sha256": "e2f9956c1a8b5d0cc1cd950fcafce5a29a3c70aa0888da51ac6d6d84db74e8a6"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/.nyssaai/daily-tasks/profile.json",
+      "sha256": "7f1653c27bf56a7438bf13ddf794f1cab1a8e8e9774a10d391d7834cbfc7773b"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/.nyssaai/daily-tasks/reconciliation.json",
+      "sha256": "3c3cab3a2de1c568cc979623e47e0221e3e59a49b27efe631f5df43c67bc1327"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/.temp/daily-tasks/project-index-freshness.json",
+      "sha256": "973e2b55566d14e577de5fa7edf26deec5ab6697e5bff6733d7b995e22aed0ce"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/.temp/daily-tasks/project-index.json",
+      "sha256": "0a91e79c68662c27bbaf35e846b6a860f5886c5b659b6ab71e27e921eb2b5e39"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Daily/2026-10-09.md",
+      "sha256": "967b75268dc295ceee67abf8df1242ec602476b9899a6a6fce3b1d5e85fe5fee"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/.daily-tasks/2026.10.09-decisions.json",
+      "sha256": "deef3e9f19185faebb78ca8a5a5e646c2f56952281f37f0a63d4d08942ca918a"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/blockers/b1-await-review.md",
+      "sha256": "da9dcc5803f21d863241bbb85f80adbc0598742555a28f55de7088262c1ab3c8"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/blockers/b2-await-source.md",
+      "sha256": "2552677e120598187444278fbfa4382a1d1815a60ed0655a7216f9a412c7ee13"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/blockers/b3-await-signoff.md",
+      "sha256": "1f92e579c8228eaacec323a959a84fca144b29bb06f42edd9689f4a60aeb714e"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/inputs/copied-task-attachment.md",
+      "sha256": "85d2953bf0f7f44d1224d57143cf7c729067703d22d66cfa3e2444a76f8225a2"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/inputs/linkedin-source.txt",
+      "sha256": "973b98e661da32949520ced67e957c55697b2c2814818fe160ba374f59c21a4b"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/inputs/resume-source.txt",
+      "sha256": "0d65d6eb3c0a122f7297c7f04bad7e56bf73606af82d3000a79651a8206e46c2"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/inputs/shared-style-guide.txt",
+      "sha256": "e2f9956c1a8b5d0cc1cd950fcafce5a29a3c70aa0888da51ac6d6d84db74e8a6"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/m1-career-materials.md",
+      "sha256": "b2ff99e12df1558ae06f72119cef12d8b5741396affa6b69dd659df7673160b6"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/outputs/career-headline-draft.md",
+      "sha256": "3281dcb84f34663cd0c22d4c57dcded5db354dcc1126cc35951a2ef1ee7a2e2e"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/outputs/resume-summary-draft.md",
+      "sha256": "17ac97ede9e5eefa041798ac5aefda02a54226a45679e280aaea9308df89b5f9"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/t1-update-linkedin.md",
+      "sha256": "a2e45dab3987d5ff175f8c42d87c1a8d618c71fa7ee4c6ce57249a33d50061cf"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/t2-update-resume.md",
+      "sha256": "a3748a181eaafdb58c2a33140af74d67f50fdb1d71532ec4c0199ff9e098aaa0"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/m1-career-materials/t3-polish-summary.md",
+      "sha256": "fa211f82ca9deafd504b723707ceaf69029a794583be19130221f3bcef177a84"
+    },
+    {
+      "path": "evidence/milestone-workspace/vault/Projects/job-search/project-index.md",
+      "sha256": "10a2ef8cebb0b9d71388c2ee10667dc3e2c1bc3cab7df6ccdbf93597f0847bc1"
+    }
+  ]
+}

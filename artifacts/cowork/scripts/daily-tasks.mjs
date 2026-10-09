@@ -10,7 +10,11 @@ import { carryForward, parseChecklist, planRollover } from '../lib/planning/plan
 import { validateProfile } from '../lib/profile/profile.mjs';
 import { resolveContext, assertPlanningScope } from '../lib/profile/context.mjs';
 import { projectInventory, invalidateInventory } from '../lib/inventory/inventory.mjs';
-import { planningReview, planSelection, maintenanceStatus } from '../lib/planning/review.mjs';
+import { planningReview, planSelection } from '../lib/planning/review.mjs';
+import { inspectMaintenance, verifiedMaintenanceStatus } from '../lib/planning/maintenance.mjs';
+import { verifyOperation, completeOperation, completeChangedRollover, inspectMigrationRetirement, completeMigration } from '../lib/operations/verification.mjs';
+import { inspectNavigation } from '../lib/records/navigation.mjs';
+import { nextRecordNumber } from '../lib/records/numbering.mjs';
 import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
 
 const operations = {
@@ -24,7 +28,15 @@ const operations = {
   'invalidate-project-index': invalidateInventory,
   'planning-review': planningReview,
   'plan-selection': planSelection,
-  'maintenance-status': maintenanceStatus,
+  'maintenance-status': verifiedMaintenanceStatus,
+  'maintenance-inspect': inspectMaintenance,
+  'operation-verify': verifyOperation,
+  'operation-complete': completeOperation,
+  'rollover-complete': completeChangedRollover,
+  'migration-retirement': inspectMigrationRetirement,
+  'migration-complete': completeMigration,
+  'inspect-navigation': inspectNavigation,
+  'next-record-number': nextRecordNumber,
   'planning-prepare': preparePlanning,
   'planning-state': savePlanningState,
   'parse-record': input => parseRecord(input.markdown, input.path),
@@ -72,7 +84,7 @@ async function main() {
   if (args.length === 0 || args.includes('--help')) {
     const {version} = JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'));
     console.log(JSON.stringify({ name: 'daily-tasks', version, usage: 'node <installed-entry-path> OPERATION --input ABSOLUTE_JSON_FILE [--dry-run]', operations: Object.keys(operations),
-      effects: 'Log operations mutate logs/locks; inventory/preparation mutate disposable JSON cache; planning-state saves validated review/rollover JSON. Markdown operations only inspect or propose.',
+      effects: 'Log operations mutate logs/locks; inventory/preparation mutate cache; planning/operation completion saves verified JSON state and clears checkpoints. Maintenance inspection records CLI checks, never worker success. Markdown operations only inspect or propose.',
       scope: 'Explicit absolute projectsRoot for log/scan; explicit timezone for local displays. No environment variables or credentials.',
       exits: '0: JSON result (inspect diagnostics before applying). 1: JSON error on stderr.' }));
     return;

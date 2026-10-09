@@ -1,0 +1,417 @@
+{
+  "runId": "01a12148-97ac-7268-af40-cd67022aab14",
+  "url": "https://tessl.io/eval-runs/01a12148-97ac-7268-af40-cd67022aab14",
+  "status": "completed",
+  "actualAgent": "claude",
+  "actualModel": "deepseek-v4.1-flash",
+  "actualJudges": [
+    "claude/claude-sonnet-4-6"
+  ],
+  "judgeEvidence": "runMetadata recipe tasks; cached cells may lack a current-run recipe and require original receipt.",
+  "forcedActivation": true,
+  "scoring": true,
+  "cells": [
+    {
+      "scenario": "evals/tessl/content-iteration1/closure-reopening",
+      "fingerprint": "a1124c70747906c41b51a80ed9684abbdb80a9b275f382b750f917fb44b4d0e3",
+      "arm": "baseline",
+      "solutionId": "01a12135-d548-77c3-8661-14a239ddecf4",
+      "status": "completed",
+      "score": 75,
+      "criteria": [
+        {
+          "name": "closure-reopening_1",
+          "score": 1,
+          "reasoning": "The Review launch checklist task was correctly closed with task-state: completed, its DoD criterion checked [x], started_at preserved from the prior date (2026-10-08), resolved_at set to the current instant (2026-10-09T15:00:00Z), and a Result section documenting satisfaction was added � matching the closure protocol.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_2",
+          "score": 1,
+          "reasoning": "The milestone (m1-launch) was correctly kept at milestone-state: in-progress and not completed, because the landing-copy DoD criterion remains unsatisfied; the project-index similarly shows the Launch milestone unchecked, so the Launch milestone is not prematurely closed.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_3",
+          "score": 1,
+          "reasoning": "The Draft landing copy task was reopened to task-state: not-started consistently across the task file, the milestone task list ([ ]), and the project-index summary ([ ]), with human ownership (casey@example.test) preserved and task identity unchanged.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_4",
+          "score": 0,
+          "reasoning": "No decision log entries were written (no log directory or log files exist in the vault); the solution bypassed the required script-only log-append operation and directly mutated markdown files without recording authorized effects or checkpoints, violating the log-append requirement.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d548-77c3-8661-14a239ddecf4.tar.gz",
+      "recipeTasks": []
+    },
+    {
+      "scenario": "evals/tessl/content-iteration1/closure-reopening",
+      "fingerprint": "a1124c70747906c41b51a80ed9684abbdb80a9b275f382b750f917fb44b4d0e3",
+      "arm": "original",
+      "solutionId": "01a12148-9adb-74b6-9e78-2616291126c0",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "closure-reopening_1",
+          "score": 1,
+          "reasoning": "The Review launch checklist task was completed with its DoD item checked off ([x] Every launch checklist item reviewed), a Result section added confirming activity on 2026-10-08, original started_at (2026-10-08T15:00:00Z) preserved, and resolved_at set to the current time (2026-10-09T15:00:00.000Z); the decisions log records the before/after states correctly with time_defaulted noted.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_2",
+          "score": 1,
+          "reasoning": "The Launch milestone correctly remains in-progress (not completed) because its DoD criterion '[ ] Landing copy is approved and checklist reviewed' is still unsatisfied; both the milestone file and project-index.md show the milestone and project as in-progress, and the Draft landing copy task is still unchecked.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_3",
+          "score": 1,
+          "reasoning": "The reopening was applied consistently: the task file shows task-state: in-progress with resolved_at cleared, the milestone file shows the task unchecked, and project-index.md shows it unchecked; human ownership (casey@example.test) and task IDs are preserved; the decisions log explains the canonical rule that in-progress (not not-started) is used when started_at already exists, which is the correct system behavior.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_4",
+          "score": 1,
+          "reasoning": "The decisions log (2026.10.09-decisions.json) contains proper script-append entries with before/after states, original_words, actor, and time_defaulted flags; no today selection or execution start was inferred (original started_at dates are preserved from 2026-10-08 and 2026-10-07 respectively); both operations are logged with operation_ids and record_ids matching the actual task IDs.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12148-9adb-74b6-9e78-2616291126c0.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-iteration1/closure-reopening",
+      "fingerprint": "a1124c70747906c41b51a80ed9684abbdb80a9b275f382b750f917fb44b4d0e3",
+      "arm": "revised",
+      "solutionId": "01a12148-9ae6-7541-8e13-38970cbc97df",
+      "status": "completed",
+      "score": 92,
+      "criteria": [
+        {
+          "name": "closure-reopening_1",
+          "score": 1,
+          "reasoning": "The Review launch checklist task is correctly completed with DoD checkbox marked satisfied ([x]), original started_at (2026-10-08) preserved, resolved_at set to the current instant (2026-10-09T15:00:00Z), and a Result section added documenting the actual activity; the decisions log records the before state as in-progress and after as completed.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_2",
+          "score": 1,
+          "reasoning": "The milestone (m1-launch.md) retains milestone-state: in-progress and its DoD item remains unchecked since the Draft landing copy task is not done; the project-index also stays in-progress, correctly refusing to close Launch while the landing-copy criterion is unsatisfied.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_3",
+          "score": 0.7,
+          "reasoning": "The reopening is consistently reflected through parent (milestone shows [ ] for Draft landing copy) and project projections (project-index shows [ ]), human ownership (casey@example.test) and task identity (same ID) are preserved; however, the DoD checkbox in t1-draft-landing-copy.md remains checked ([x] Landing copy approved by Casey) despite the task being not-started, and started_at is not cleared, creating internal inconsistency in the task file.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_4",
+          "score": 1,
+          "reasoning": "The decisions log is appended (not rewritten) with properly structured entries using distinct operation_ids, time_defaulted: true (no execution start inferred � uses the environment 'now'), and the log captures both operations with before/after states; no today selection is inferred and no checkpoint bypass is present.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12148-9ae6-7541-8e13-38970cbc97df.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-iteration1/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "baseline",
+      "solutionId": "01a12135-d57d-743e-b2c9-3aaa6e1b8e2a",
+      "status": "completed",
+      "score": 0,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 0,
+          "reasoning": "No evidence the agent actually invoked the planning-prepare or planning-review operation to inspect both the 2026.10.08 and 2026.10.09 daily plans; the only new artifacts are the project-index cache files, not any planning review state, meaning rollover eligibility was never verified against the earlier plan.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 0,
+          "reasoning": "No rollover result was produced or saved; the eligible unfinished task from 2026.10.08 (t1-draft-landing-copy, not-started) was never identified, carried forward, or preserved in any output, and task state/ownership in the plan files is unchanged from pristine state.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 0,
+          "reasoning": "No planning-state save-review operation was executed; the .nyssaai/daily-tasks/ directory contains only profile.json with no review/ or rollover/ subdirectories, no numbered mapping JSON was written, and no six-column screen with status legend was produced.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 0,
+          "reasoning": "No explicit choices were offered to the user; the solution contains only the pristine library code and vault with no displayed options, no numbered task list, and no user-facing output showing available selections without starting work.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d57d-743e-b2c9-3aaa6e1b8e2a.tar.gz",
+      "recipeTasks": []
+    },
+    {
+      "scenario": "evals/tessl/content-iteration1/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "original",
+      "solutionId": "01a12148-9af4-7280-8fd6-ca8463de7e5f",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 1,
+          "reasoning": "The solution ran prepare with the bound vault configuration, inspected both the pre-created current plan (2026.10.09-daily-plan.md) and the previous plan (2026.10.08-daily-plan.md), and determined rollover status was 'due' from actual runtime state rather than inferring from file existence � confirmed by the prepare2 output showing rollover.status='due' before the complete-rollover operation was executed.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 1,
+          "reasoning": "The solution correctly carried only t1-draft-landing-copy (the unfinished 2026.10.08 selection absent from today's pre-created plan) exactly once via a single plan.selection.carried log entry, while leaving t2-review-launch-checklist (already in today's plan) untouched; canonical task states, ownership, and earlier plan history are all preserved intact.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 1,
+          "reasoning": "The solution saved review/2026.10.09.json and rollover/2026.10.09.json with a stable numbered mapping ({task1: 1, task2: 2}) keyed to the current plan's preparation hashes (mappingBinding consistent across both files), satisfying the requirement for a stable same-date same-vault mapping; the review data is structured for the six-column screen (Project, Milestone, Task, Status, #, Due Date) with the ? carry-forward marker and legend support in place.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 1,
+          "reasoning": "The solution completed the rollover and saved review state without starting any work, fitting time, or silently adding available tasks; the available section is empty (no surplus tasks were auto-added), the two selected tasks are presented for user review, and the operation stopped at the selection-display stage awaiting explicit user choices.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12148-9af4-7280-8fd6-ca8463de7e5f.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-iteration1/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "revised",
+      "solutionId": "01a12148-9aff-750b-906f-01165caaa6c6",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 1,
+          "reasoning": "The solution read ENVIRONMENT.md for the vault binding and invoked planning-prepare twice (before and after rollover), inspecting both the previous 2026.10.08 plan and the pre-created 2026.10.09 plan; the first prepare result shows rollover status as 'due' with the unfinished item from the prior plan correctly identified, establishing verified rollover rather than inferring it from file existence.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 1,
+          "reasoning": "The unfinished 'Draft landing copy' task from 2026.10.08 was carried forward exactly once with the ? marker in the 2026.10.09 plan, the rollover completion receipt was written to stateRoot/rollover/2026.10.09.json with completedAt, the log entry captures the task.selected action with carried-from provenance, and canonical task state and ownership remain intact in the task files.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 1,
+          "reasoning": "A stable numbered mapping ({t2-review-launch-checklist: 1, t1-draft-landing-copy: 2}) bound by mappingBinding was saved to stateRoot/review/2026.10.09.json using the current plan hash, and the prepare2 output confirms the six-column review structure with status, project, milestone, task, and due date columns along with the carry marker and status legend.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 1,
+          "reasoning": "The solution presented the already-selected tasks in the plan review screen with explicit numbered choices, showed an empty available section (both tasks were already selected), and did not start work, silently select additional tasks, or fit tasks into time � correctly stopping at the display stage and awaiting user instruction.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12148-9aff-750b-906f-01165caaa6c6.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-iteration1/interrupted-recovery",
+      "fingerprint": "925558827c22053e9a35f5607300d348887ce53ab74dcd5a8b2fd5136011d84e",
+      "arm": "baseline",
+      "solutionId": "01a12135-d5b2-71fc-838b-98cd753fbb08",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "interrupted-recovery_1",
+          "score": 1,
+          "reasoning": "The solution correctly uses the checkpoint in ENVIRONMENT.md ('source selection removed; remaining effects unfinished') to identify the remaining effect (adding Recovery task to 2026.10.10 plan). The reconciliation.json stores before/after hashes for both plan files, and those hashes match the sha256 values in project-index.json sources � confirming files were checked against the saved hashes.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_2",
+          "score": 1,
+          "reasoning": "Recovery task is correctly absent from the source 2026.10.09-daily-plan.md and present exactly once in the destination 2026.10.10-daily-plan.md. The decisions log (2026.10.09-decisions.json) contains exactly one selection-move event recording the move from date 2026.10.09 to 2026.10.10 with the correct record ID.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_3",
+          "score": 1,
+          "reasoning": "Reconciliation.json is properly updated with selected:false for the source date and selected:true for the destination date with matching hashes. Rollover state is updated � 2026.10.09 rollover includes completedAt and removedIds containing the recovery task ID, 2026.10.10 rollover has the correct planId. Historical 2026.10.08 plan is untouched, unrelated notes ('Preserve this unrelated note.') are preserved in all plans, and canonical task files are unmodified.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_4",
+          "score": 1,
+          "reasoning": "The decisions log contains exactly one event (a single selection-move, no acceptance, lifecycle-start, or duplicate events). No conflicting overwrites were introduced � the project-index.json consistently shows Recovery task planned only for 2026.10.10, matching the file state. No fabricated events were added beyond what the interrupted operation required.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d5b2-71fc-838b-98cd753fbb08.tar.gz",
+      "recipeTasks": []
+    },
+    {
+      "scenario": "evals/tessl/content-iteration1/interrupted-recovery",
+      "fingerprint": "925558827c22053e9a35f5607300d348887ce53ab74dcd5a8b2fd5136011d84e",
+      "arm": "original",
+      "solutionId": "01a12148-9b0c-7523-8484-1ad7994d0394",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "interrupted-recovery_1",
+          "score": 1,
+          "reasoning": "The agent ran the prepare CLI command which returned status 'recovery-required', correctly reading the existing recover.json checkpoint to identify remaining effects (logRecorded=false, baselineHash and sourceRolloverHash still at 'before' values); the recover-verify.json confirms the actual file hashes were checked against the saved before/after values after completion.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_2",
+          "score": 1,
+          "reasoning": "The Recovery task is absent from 2026.10.09-daily-plan.md (source) and present exactly once in 2026.10.10-daily-plan.md (destination); 2026.10.09-decisions.json contains exactly one log entry with action='selection-move', the correct operation_id, and correct before/after dates, logged via the CLI.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_3",
+          "score": 1,
+          "reasoning": "reconciliation.json is updated with the correct state (Recovery task: 2026.10.09 selected=false, 2026.10.10 selected=true with matching hashes); checkin.json records the recoveredOperationIds with no pending operations; the checkpoint is completed via recover-verify.json showing all actual values matching 'after' values; canonical task files and the unrelated note in 2026.10.09-daily-plan.md are preserved.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_4",
+          "score": 1,
+          "reasoning": "The decisions log contains exactly one selection-move entry with no duplicate events; no new task acceptance or lifecycle start events were invented; checkin.json confirms unresolvedConflictIds=[] and unresolvedCandidateIds=[] consistent with the initial state; no conflicting overwrites were made to any files.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12148-9b0c-7523-8484-1ad7994d0394.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-iteration1/interrupted-recovery",
+      "fingerprint": "925558827c22053e9a35f5607300d348887ce53ab74dcd5a8b2fd5136011d84e",
+      "arm": "revised",
+      "solutionId": "01a12148-9b18-70da-b647-312ab16f942d",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "interrupted-recovery_1",
+          "score": 1,
+          "reasoning": "The solution reads recover.json (the checkpoint) to identify the exact remaining effect (logRecorded was false while destinationMember and sourceMember were already done), then verifies actual file hashes against the saved before/after hashes in recover-verify.json, correctly confirming which steps remained.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_2",
+          "score": 1,
+          "reasoning": "The recovery task is absent from 2026.10.09-daily-plan.md and present exactly once in 2026.10.10-daily-plan.md; the log-append.json records the selection-move event exactly once through the log CLI, and recover-verify.json confirms logRecorded matches the expected 'after' value of true.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_3",
+          "score": 1,
+          "reasoning": "reconciliation.json is updated with correct selected flags and hashes; rollover/2026.10.09.json lists recovery task in removedIds and rollover/2026.10.10.json is updated; recover-verify.json serves as the checkpoint completion record with all actuals matching after-values; unrelated historical notes in all daily plans and the canonical recovery-task.md are preserved untouched.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_4",
+          "score": 1,
+          "reasoning": "The decisions log contains only a single selection-move entry with no invented acceptance, lifecycle-start, or duplicate events; recovery-task.md retains task-state: not-started confirming no unauthorized lifecycle changes; no conflicting overwrites are present.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12148-9b18-70da-b647-312ab16f942d.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

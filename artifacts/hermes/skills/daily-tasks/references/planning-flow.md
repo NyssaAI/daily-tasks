@@ -12,8 +12,11 @@ profilePath, instead of composing temporary orchestration scripts. Its packet in
 context, current/previous plan identities and hashes, inventory, rollover, review,
 pending operations, maintenance gate and explicit enrollment issues. It validates the
 complete inventory graph; selected-record fragments are not a validation universe.
-Inspect pending/reconciliation issues before applying the proposals. A prepared packet
-does not mean rollover, reconciliation or check-in has completed.
+Inspect pending/reconciliation issues before applying the proposals. After recovery,
+reconciliation, plan or state writes change packet hashes, run planning-prepare again
+before a dependent state action or review save; never reuse stale fingerprints.
+Preserve saved mapping numbers for unchanged identities when preparing again.
+A prepared packet does not mean rollover, reconciliation or check-in has completed.
 
 Omit `now` on initial preparation so the host resolves its actual clock and local
 day. Use the returned localDate even when the UTC calendar date differs. A requested
@@ -36,7 +39,10 @@ the profile and resolved paths in this request's runtime context. User preferenc
 may be home-scoped, but stateRoot defaults to the vault's `.nyssaai/daily-tasks` so
 different vaults do not share pending operations, baselines or check-in progress.
 Use stateRoot for operational state and configRoot for the selected profile/templates.
-Setup asks only scope and missing identity routinely and reports the detected timezone.
+When configuration is missing/conflicting or explicitly changed, load
+[Setup](../../daily-tasks-setup/SKILL.md) for authoritative discovery precedence,
+first-use questions and output defaults. Reuse configured scope without restarting
+setup; Setup reports the actual detected timezone.
 
 A planning session has exactly one bound vault and one projectsRoot assigned to it.
 Home-level preferences can be reused in separate vault sessions; they never widen
@@ -70,8 +76,9 @@ computed eligibility/count fields there. Each vault retains its own cache.
 
 Read current plan and the most recent earlier plan when needed, inspect their edits,
 and recover applicable pending operations on every request, even with fresh inventory.
-Read stateRoot/maintenance.json if present; pass lastFullReconcileAt to
-`maintenance-status`. If fullReconcileDue, run one read-only maintenance subagent
+Call `maintenance-status` with the resolved context, not a supplied success timestamp.
+Its `inspectionDue` gate concerns CLI checks; `fullReconcileDue` remains true when
+trusted host worker evidence is unavailable. If inspection is due, optionally run one read-only maintenance subagent
 using explicit `gpt-6-luna` on Codex, Haiku on Claude, or another supported lightweight
 model. Use the host's actual subagent tool with that model parameter; a Markdown
 declaration is not evidence that the model ran. Use `fork_turns: "none"` with Codex
@@ -84,11 +91,14 @@ Do not spawn another worker solely for indexing. If model selection/subagents ar
 unavailable, report that exact limitation and perform the same checks directly.
 
 The parent reconciles/apply-verifies authorized safe effects; user conflicts remain
-in their separate queue. Save the actual GMT completion time as lastFullReconcileAt
-in durable stateRoot/maintenance.json
-only after a complete successful broad pass and verification, recording actual model
-and execution evidence. A pending conflict/failure does not advance that timestamp.
-Inventory generatedAt is independent; deleting `.temp` cannot erase success evidence.
+in their separate queue. Run `maintenance-inspect` after those changes; it reads the
+actual graph, navigation, baselines and pending operations. Only a successful CLI
+inspection saves `maintenance-inspection.json`, with its own clock and execution kind.
+It never advances a worker-success timestamp. The current CLI has no trusted host
+worker-evidence adapter: do not write `maintenance.json`, claim an unavailable model
+ran, or turn an inspection into worker-success evidence. Report an unavailable worker
+truthfully and preserve previous success. Blocked checks leave inspection state unchanged.
+Inventory generatedAt is independent; deleting `.temp` cannot erase inspection evidence.
 No worker runs merely because time passes. The gate is checked on requested use.
 
 Inventory view-state-difference diagnostics identify discrepancies, not the winning
@@ -131,7 +141,8 @@ Pending future selections pass pendingFutureIds to suppress repeat suggestions.
 Out-of-view selections are preserved in the daily plan, not displayed in this owner view.
 
 Apply templates.planDayReview or the bundled screen. Match its count line, conditional,
-five columns, legends, carry marker and today-only recap. If incomplete is true, add a
+six columns (#, Status, Project, Milestone, Task, Due Date), legends, carry marker
+and today-only recap. If incomplete is true, add a
 short factual note that counts/options are incomplete and route affected diagnostics
 to reconciliation; do not add blockers or a Needs clarification section to this screen.
 The conditional first_run_today describes the first review run, not plan-file existence
@@ -141,6 +152,67 @@ Commands must include an action and stable numbers. Resolve ambiguous commands b
 affected writes; process independent clear items. Status reports update canonical tasks,
 parent effects and project views first, daily plan second. They do not select work.
 No execution ordering, scheduling/time fitting, implicit acceptance or automatic shortlist.
+
+## Review scope
+
+Load this contract before deriving review rows or inventory counts. The review is
+owner-only: canonical owner must match the current user's email, regardless of
+assignee. Do not split delegated rows or show assignees, blockers, blocker counts
+or a Needs clarification section. Preserve affected selections while reconciliation
+handles uncertain facts separately. This filter never removes out-of-view selections
+from the saved plan. Ownership permits planning/delegation decisions, not execution.
+
+Counts describe the full user-owned scoped inventory at the recorded update time:
+unique open projects/tasks are not-started or in-progress; late tasks are open tasks
+with an explicit target_date before the configured local day. Due today is not late.
+Never infer dates/counts; identify stale/incomplete inventory rather than claiming
+verified exact totals. The addition-page cap does not limit selected rows or counts.
+
+Order projects by directory date, oldest first, with alphabetical name tie-breaking;
+undated directories follow alphabetically. Preserve indexed task order, then place
+valid unlisted tasks by filename. Missing index links do not make accepted work
+ineligible. This is stable presentation, never priority/due-date ranking or execution
+order. Show only the first incomplete milestone in authoritative sequence, skipping
+completed/cancelled milestones, unless all milestones are explicitly requested.
+An empty first incomplete milestone does not advance eligibility to the next.
+Resolve unknown sequence before relying on "first"; never use UUID ordering.
+Preserve existing selections from later milestones.
+
+Keep selected tasks out of available rows. Exclude explicit future-day selections,
+including durable allocations and pending review decisions; a future due date alone
+does not exclude a task. Work moved to another day does not return on later pages or
+today's recap. Offer at most 15 available additions per page with Show more for the
+remainder; all-milestones requests keep this cap. Never make an automatic shortlist.
+First review introduction, plan-file existence, rollover completion and successful
+check-in are separate states. On resumed/same-day requests preserve the plan and
+follow the requested route rather than forcing the first-check-in screen again.
+
+## Saved daily plan
+
+Load this contract when authoring saved output, independently of the owner-only
+review. Separate **My work** (effective assignee is current user's email, including
+work owned by someone else) from **Delegated work** (owner is current user, effective
+assignee is another human/agent). Missing assignee falls back to owner; there is no
+unassigned category. Delegated completion belongs to its doer. Suggested follow-up
+is a Capture candidate, never a silently created obligation; ownership does not
+authorize external messages or taking over execution.
+
+Only selected work belongs in the saved plan; available options/prompts stay on the
+review screen. Preserve selections outside its ownership filter, stable display
+order, existing prose and terminal/unresolved rows. Do not silently reorder work.
+Use the configured dailyPlan template; when supplied, load [custom templates](templates.md)
+for authoritative precedence, registration and adaptation. Otherwise use the
+[daily-plan asset](../assets/daily-plan.md) for visible layout/placeholders. The
+review independently uses planDayReview or its [screen asset](../assets/plan-day-select-tasks-screen.md).
+Template examples supply no work acceptance or execution authority.
+
+Use readable task links with hidden UUID refs and one status mark per task (a table
+Status cell or the custom template's supported checkbox form). Never expose raw IDs
+or repeat full task metadata. When needed, add concise project, delegated assignee
+or concrete blocker context. Omit sample/blank rows and unsupplied Focus; use short
+empty-state sentences. Blockers are informational, without task checkbox/ref rows.
+Completed rows remain checked and cancelled rows visibly marked for today. Do not
+infer focus, deadlines, estimates or slots; no scheduling/timeframe fitting.
 
 ## Once-per-day rollover
 
@@ -160,6 +232,10 @@ read selected canonical records and refresh the inventory as needed. Call again
 with previousDate, previousRows, records and inventory. Pass explicit removals
 from pending/review decisions as removedIds; never infer deselection merely from
 absence in a pre-created future plan.
+If `planning-prepare` reports `missing-plan`, allocate the new plan's stable UUID
+first; that packet is not a final carry proposal. Call `plan-rollover` with that
+UUID and the actual previous date/rows, canonical records, inventory and explicit
+removals before checkpointing the selected IDs.
 
 The command proposes a UUID merge: existing rows/prose are preserved, unfinished
 personal/delegated rows are carried, terminal and future-selected work is skipped,
@@ -169,11 +245,21 @@ they never turn a later milestone into the first eligible milestone.
 
 Before any changed Markdown, checkpoint the exact source/destination fingerprints,
 membership deltas, removal IDs and stable operation/event IDs through the operation
-protocol. Merge only the proposed delta into today's configured template, verify the
-saved memberships and retained edits, append actual selection decisions once via
-the log CLI, invalidate inventory immediately after a committed plan write, then
+protocol. Merge only the proposed delta into today's configured template. For each
+added carried row, render one link using the canonical task title or parsed `label`
+and the correctly rebased target. A parsed/carried row's `title` contains full row
+presentation, including links and context; do not wrap it inside another link.
+Keep the carry marker and assignee context outside the link. For an
+existing plan, retain its original id and created_at instead of filling those fields
+from template placeholders or the current clock. Compare both saved values to the
+checkpoint's before bytes before logging or completing rollover; a mismatch leaves
+the operation pending. Verify saved memberships and retained edits, append actual
+selection decisions once via the log CLI, invalidate inventory immediately after a committed plan write, then
 refresh affected inventory and baselines. A no-change rollover needs no log entry.
-Only after verification write completedAt/operationId into the dated rollover state;
+For changed rollover use a schemaV2 checkpoint and `rollover-complete` under
+[verified completion](verification.md); never write its completion receipt directly.
+The CLI rechecks identity, membership, prior/task sources, event and baseline facts.
+Only after verification does it write completedAt/operationId into the dated rollover state;
 for a no-change pass generate an operation UUID for its completion receipt. A failure
 or unresolved carried reference leaves completion pending; persist exact attempted
 membership so a later removal is not overwritten during recovery. Re-read and
@@ -198,6 +284,12 @@ successful check-in completion are separate states.
 Resolve and echo an explicit requested future calendar date in the effective zone.
 Use plan-selection with inventory, taskIds, action add/move/remove, date when applicable,
 today and dailyPlansRoot. It returns effects and conflicts and writes no Markdown.
+Inspect both fields before creating a checkpoint or writing. A successful process
+exit does not authorize a change: suspend each conflicted task, preserve its plans
+and state, and report the unresolved identity or decision. Apply only returned
+unconflicted effects; never reconstruct an effect from the request or a visible row.
+An empty effects list authorizes no plan/state write or selection event. Refresh
+inventory and resolve the conflict before requesting a new proposal for that task.
 Each task has one active planning date; historical rows remain historical. An add
 that conflicts with another active date requires clarification; an explicit move
 transfers that selection. Removing a selection defaults to today, not another day.
@@ -208,7 +300,8 @@ before/after row membership, generated plan ID/timestamps, event ID and all affe
 For an absent destination, render the configured dailyPlan template with a new UUIDv7
 frontmatter id and GMT creation/update timestamps, actual local date/timezone, real
 relative task link/ref, and no sample work or inferred focus. For an existing plan,
-preserve identity, prose, selections and other people's edits. Do not mark execution
+preserve its original id and created_at, prose, selections and other people's edits.
+Verify those identity fields against the before bytes after writing. Do not mark execution
 started/completed, alter target_date or create every intervening day's plan.
 
 Write/verify destination first, then remove the task from its old active day if

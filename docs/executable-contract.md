@@ -104,8 +104,26 @@ inventory, supply its result binding as `inventoryBinding`; with an existing
 nonempty numbered mapping, supply `mappingBinding`. Root or binding mismatches
 fail before planning. Review results retain the mapping binding. Pure
 library helpers do not establish host sessions or authorize Markdown writes.
-`maintenance-status` computes the four-hour gate; the skill executes the actual
-supported lightweight worker and saves verified success independently of cache age.
+`maintenance-status` separates four-hour CLI inspection freshness from worker
+execution evidence. No trusted host worker adapter is supplied, so worker success
+remains unrecorded. `maintenance-inspect` checks actual files, navigation, baselines
+and pending operations and saves only `maintenance-inspection.json` with its own
+clock. It never changes worker-success timestamps.
+
+SchemaV2 completion checkpoints bind exact file hashes, context, protected sources
+and log payloads. `operation-verify` reads actual effects and queries the event;
+`operation-complete` saves checked baselines and clears checkpoints. Specialized
+`rollover-complete`, `migration-retirement` and `migration-complete` add selection,
+identity and retirement-preservation checks. See the canonical
+[verification contract](../skills/daily-tasks/references/verification.md).
+New `workspace.migration` log appends require resolved profile/vault scope and a
+bound `operationPath`; actual retirement, preservation, references and declared
+effects must be verified before the event is persisted. Exact recorded retries
+remain idempotent after checkpoint clearance.
+`inspect-navigation` checks local headings and attachments. `next-record-number`
+queries retirement history through the log API and fails closed on ambiguous
+labels. Supported scans exclude hidden log directories; unrestricted host file
+tools remain outside the CLI's enforcement boundary.
 
 `plan-rollover` is pure: input today, planId, userEmail, optional currentRows/state,
 previousDate/previousRows/records/inventory and explicit removedIds. It returns

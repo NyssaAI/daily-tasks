@@ -1,0 +1,3 @@
+Iteration1 native workflow-v3 FAIL: seven scenarios pass; day-change writes after an empty/conflicted CLI proposal and directly hashes the decision log. Source window c6931c unchanged. Later successful branches are preserved separately and do not erase failures.
+
+The nine direct evidence JSON files are checked by the repository evidence verifier. supporting-evidence.zip retains 3,256 exact byte-verified synthetic snapshot, sanitized transcript and provenance members with manifest. archive.json records archive hash and size. Private codex-home/auth/config/cache are excluded. Extract supporting evidence under .temp for deeper inspection.

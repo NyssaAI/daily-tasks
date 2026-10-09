@@ -1,0 +1,178 @@
+{
+  "reviewRunId": "01a12117-2af5-74b0-a861-c7488419ea06",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 138 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-plan'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (354 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 19 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 5,
+            "reasoning": "The body is lean, rule-dense prose with no padding and no explanation of concepts Claude already knows — every sentence is a skill-specific contract (e.g., \"A fresh cache never skips these checks,\" \"Never backfill skipped days\"). This matches anchor 5: every token earns its place."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Concrete, specific guidance throughout: named commands (\"Start with `planning-prepare`, passing the captured absolute vault binding and known explicit profilePath\"; \"`planning-state` action `save-review`\"), exact output paths (\"<vaultRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md\"), and hard limits (\"pages of at most 15 additions\"). It falls short of anchor 5 only because no sample CLI invocations are shown — invocation syntax is deferred to cli.md — leaving minor gaps for an instruction-only skill that is otherwise mostly executable guidance."
+          },
+          "workflow_clarity": {
+            "score": 5,
+            "reasoning": "Six clearly sequenced checkpoints (resolve/prepare, recover/reconcile, verify rollover, render/save review, apply decisions, verify/report) with explicit validation and feedback loops: \"run `planning-prepare` again\" after reconciled writes, \"Retain its checkpoint until all required effects are verified,\" \"A failure retains the pending checkpoint and the exact incomplete effects,\" and \"suspend only conflicting items and continue independent changes.\" This matches anchor 5 (clear sequence, explicit validation, error-recovery loops)."
+          },
+          "progressive_disclosure": {
+            "score": 5,
+            "reasoning": "The body is a well-organized overview hub that loads detail at the point of need via clearly signaled, one-level-deep, anchor-targeted references (\"Load [operations](../daily-tasks/references/operations.md) before recovery, reconciliation or consequential writes\"), with each load tied to a stated purpose. Note: all referenced files live in a sibling skill directory not present in this review environment, so they could not be opened for verification; the referencing structure itself matches anchor 5."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "An exemplary orchestration-style skill body: six well-sequenced checkpoints with explicit validation and feedback loops, near-zero token waste, and disciplined point-of-need references to one-level-deep documentation. The only minor gap is the absence of sample CLI invocations, which are deferred to the referenced cli.md."
+      },
+      "weightedScore": 4.7,
+      "normalizedScore": 0.925
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 5,
+            "reasoning": "\"Create or edit the user's local-day Markdown plan across personal and delegated work; review available work and carry unfinished selected work forward\" plus \"adding or removing daily selections\" lists multiple specific concrete actions with comprehensive coverage, including explicit exclusions (\"without ranking, scheduling or fitting durations\"). It exceeds anchor 4 because there are no meaningful coverage gaps within the skill's stated domain."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "Both questions are explicitly answered: the \"what\" (\"Create or edit the user's local-day Markdown plan… review available work and carry unfinished selected work forward\") and the \"when\" with concrete trigger phrases (\"Use for 'plan my day,' selecting accepted tasks for today or a future day, or adding or removing daily selections\"). This matches anchor 5 exactly."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Natural user phrases are present: \"plan my day,\" \"selecting accepted tasks for today or a future day,\" \"adding or removing daily selections.\" A few natural terms are missing (e.g., \"daily plan\" as a standalone phrase, \"carry over tasks,\" the .md file extension), which fits anchor 4 (good coverage, a few natural terms missing) rather than anchor 5's comprehensive synonym/extension coverage."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "The daily-plan selection niche is clear and triggers like \"plan my day\" are distinct, but the skill sits in a dense sibling family (Records, Capture, Setup), creating minor overlap risk with closely related skills. The boundary statement \"selection does not change task status\" mitigates it, but the situation fits anchor 4 (mostly distinct, minor overlap with closely related skills) better than anchor 5's minimal conflict risk."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "A strong description that explicitly answers both what the skill does and when to use it, with concrete trigger phrases and a well-defined niche. Its only weakness is slightly incomplete natural-term coverage and residual overlap risk within its closely related sibling-skill family."
+      },
+      "weightedScore": 4.55,
+      "normalizedScore": 0.8875
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.8875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.925
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 91
+  }
+}

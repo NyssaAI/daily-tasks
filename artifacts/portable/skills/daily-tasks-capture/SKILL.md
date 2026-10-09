@@ -1,6 +1,6 @@
 ---
 name: daily-tasks-capture
-description: Capture possible tasks, projects and milestones as candidates, deduplicate against existing work and obtain explicit individual or batch acceptance before creation.
+description: Capture possible tasks, projects and milestones as candidates, deduplicate against existing work and obtain explicit individual or batch acceptance before creation. Use when extracting action items from notes or messages, collecting possible commitments, or reviewing candidates for acceptance; hand accepted work to Records for creation.
 ---
 
 # Capture and accept

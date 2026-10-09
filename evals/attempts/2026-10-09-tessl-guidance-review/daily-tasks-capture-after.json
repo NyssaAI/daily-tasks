@@ -1,0 +1,185 @@
+{
+  "reviewRunId": "01a12117-2b48-7568-98e7-24ce2e2f5c16",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 36 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-capture'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (338 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 3 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 5,
+            "reasoning": "Lean, rule-dense prose with zero explanation of concepts Claude already knows — e.g., 'A repeated mention adds context, not another task.' and 'Missing assignee means owner does it.' Every sentence carries an operational rule; no padding or over-explanation anywhere."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Concrete, executable guidance for an instruction-only skill: exact candidate fields ('proposed title, parent milestone/project, owner, assignee if specified, target_date only if explicit, source reference and unresolved facts'), a state path ('stateRoot/candidates.json'), a batch acceptance pattern ('Accept all? [Y]'), and a worked acceptance example. Minor gap: the candidates.json entry format is never specified, leaving the persistence step partially underspecified."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "Clear sequence: resolve scope → read sources → distinguish/dedupe → present candidates → persist queue → require acceptance → hand off to record management → report results. An explicit verification checkpoint exists ('Confirm persistence from files and log result, not merely from the fact that the proposal was displayed'), so the batch-operation cap does not apply; however, there is no error-recovery feedback loop (e.g., what to do when creation fails or state is corrupt), which keeps it below 5."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "All three references ([setup], [record conventions], [record management]) are clearly signaled, one level deep, and load-bearing rather than decorative. However, no section headers structure the dense paragraphs, and the referenced paths point to sibling skills outside this bundle rather than to local reference files, so navigation relies entirely on inline links. Good structure with minor organization gaps — matches the 4 anchor."
+          }
+        },
+        "suggestions": [
+          "Specify the candidates.json entry shape (stable source key, fields, disposition values) so persistence and deduplication are deterministic rather than inferred.",
+          "Add a short failure-recovery rule (e.g., re-check state files if creation fails or candidates.json is corrupt) to close the feedback-loop gap for the batch creation step.",
+          "Add 2-3 section headers (e.g., 'Candidates', 'Acceptance', 'Creation') to break up the dense paragraphs and make the workflow stages scannable."
+        ],
+        "overall_assessment": "A tightly written instruction-only skill: every token is an operational rule, the workflow is well sequenced with an explicit post-creation verification step, and external detail is correctly delegated via clearly signaled one-level-deep links. The remaining gaps are the unspecified candidates.json entry format, a missing error-recovery loop for creation failures, and unsectioned dense paragraphs."
+      },
+      "weightedScore": 4.3,
+      "normalizedScore": 0.825
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 5,
+            "reasoning": "Names multiple concrete actions with comprehensive coverage of the pipeline: 'Capture possible tasks, projects and milestones as candidates', 'deduplicate against existing work', 'obtain explicit individual or batch acceptance before creation', and 'hand accepted work to Records for creation'. All in third person with no vague or padded language."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "Explicitly answers both questions: the 'what' is the capture → deduplicate → accept pipeline, and the 'when' is stated with concrete trigger phrases in an explicit 'Use when…' clause ('extracting action items from notes or messages, collecting possible commitments, or reviewing candidates for acceptance')."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Good natural phrases users would say — 'extracting action items from notes or messages', 'collecting possible commitments', 'reviewing candidates for acceptance' — but common variations like 'to-dos', 'follow-ups', or 'task list' are missing. Better than the 'some relevant keywords' (3) anchor; not the comprehensive synonym coverage of 5."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "Clear niche (candidate capture with acceptance gating) and the closing 'hand accepted work to Records for creation' explicitly delineates the boundary against the sibling Records skill. Minor overlap risk remains with the closely related daily-tasks skill family and general task-management skills, so not the 'minimal conflict risk' of 5."
+          }
+        },
+        "suggestions": [
+          "Add one or two common trigger synonyms (e.g., 'to-dos', 'follow-ups', 'commitments from chat') to the 'Use when…' clause to broaden natural trigger coverage.",
+          "Sharpen the family boundary with a negative scope hint (e.g., 'for creating records of already-accepted work, use the Records skill directly') to further reduce overlap with the sibling daily-tasks skills."
+        ],
+        "overall_assessment": "A strong description: it states concrete third-person actions covering the full capture-to-acceptance pipeline, includes an explicit 'Use when…' clause with natural trigger phrases, and draws a clear boundary against the sibling records-creation skill. The only gaps are a few missing common trigger synonyms and slight residual overlap with the sibling skill family."
+      },
+      "weightedScore": 4.55,
+      "normalizedScore": 0.8875
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.8875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.825
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 87
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "runId": "codex-native-focus-dabf0f6f-20261009",
+  "kind": "focused-native-attempt",
+  "suite": "workflow-v3-focus",
+  "status": "pass",
+  "candidate": {
+    "hash": "dabf0f6f7cd91d402c56d4e2a2bfc001d576daeb5971da95529b7a694d9015e2"
+  },
+  "source_unchanged": true,
+  "completed_at": "2026-10-09T18:11:53.453Z",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "backendModelIndependentlyExposed": false,
+  "isolatedRegistration": true,
+  "installedFiles": 49,
+  "scenarios": [
+    {
+      "id": "day-change",
+      "status": "pass",
+      "transcripts": [
+        "day-change"
+      ],
+      "report": ".temp/REPORT.md",
+      "note": "Independent inspection confirms all 19 behavior checks, schemaV2 completion, exact event IDs and timestamps on interrupted recovery, single retry event, removals retained, source Monday unchanged, untracked checkbox still pending. Recursive copying and snapshots skip .daily-tasks before file reads at each depth; final evidence uses explicit non-log paths and supported log-query outputs. No fabricated worker claim or maintenance success advancement."
+    },
+    {
+      "id": "workspace-migration",
+      "status": "pass",
+      "transcripts": [
+        "workspace-migration"
+      ],
+      "report": ".temp/scenario8-report.md",
+      "note": "Independent inspection confirms 56 final checks with actual three interruption/resume/retry operations, exact single events, preserved identity/criteria/history, pre-removal retirement checks and pending deliberate conflicts. Legacy DoD retirement no longer poisons next-record-number; concrete allocation succeeds after retirement. Later null allocation names deliberately malformed collision file, correctly blocked. Legacy completed tasks retain empty criteria and prior lifecycle; initial assessment errors and actual CLI rejections retained. No direct log access or manufactured history."
+    }
+  ],
+  "releaseEvidence": false,
+  "note": "Focused attempts are retained independently and do not constitute the full eight-scenario release suite. Actual failed history is preserved. Private authentication, home settings and plugin cache are excluded."
+}

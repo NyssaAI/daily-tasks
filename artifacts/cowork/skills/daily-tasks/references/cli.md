@@ -27,8 +27,8 @@ Reuse a preparation packet's context.now only for that packet's state save;
 the next request reads the clock again. New decisions use fresh `activity-time`
 results for their event and record timestamps. A reported historical activity
 belongs in `reported`, not `now`; recorded_at remains the actual recording time.
-After verified maintenance, read the actual GMT completion time for
-lastFullReconcileAt. Only recovery of an existing operation preserves its original
+Maintenance inspection records its own actual GMT completion time and never
+advances worker success. Only recovery of an existing operation preserves its original
 event timestamps. A new operation must not inherit that recovery event's clock.
 
 On Windows, preserve JSON timestamps as strings. PowerShell's default
@@ -52,12 +52,20 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | validate-profile | profile object | valid/errors/resolvedTimezone; no save |
 | resolve-context | absolute vaultRoot or captured initialCwd; homeRoot?, profilePath?, configRoot?, stateRoot?, now? | Resolved absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
 | planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
-| planning-state | context inputs; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent); page?, allMilestones?, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
+| planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
 | planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | Owner-focused counts, selected/available rows, stable mapping, diagnostics; max 15 addition rows |
 | plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
-| maintenance-status | now?, lastFullReconcileAt? | Four-hour reconciliation gate; no worker launch/write |
+| maintenance-status | resolved context inputs | Separate inspection freshness and unavailable trusted worker evidence; no write |
+| maintenance-inspect | resolved context inputs, dryRun? | Actual graph/navigation/baseline checks; saves CLI inspection JSON only; no worker success |
+| operation-verify | resolved context inputs, operationPath absolute | Actual effects/protected sources/exact event checks; no write |
+| operation-complete | same, dryRun? | Verified baseline save and checkpoint removal |
+| rollover-complete | same, schemaV2 rollover checkpoint | Recomputed selections and identity checks before receipt/baseline/checkpoint completion |
+| migration-retirement | same, schemaV2 migration checkpoint | Pre-removal content and live incoming-reference checks; allowed/ issues; no deletion |
+| migration-complete | same, retained source snapshot, dryRun? | Post-removal effect/event/baseline checks; no chronological attestation |
+| inspect-navigation | projectsRoot absolute, dailyPlansRoot? | Local identity, heading and attachment diagnostics; no write |
+| next-record-number | projectsRoot absolute, type milestone/task/blocker, parentId | Next unused parent-local label from live records and queried retirement history; number:null on ambiguity; no reservation |
 | parse-record | markdown, path? | Structured record; no write |
 | parse-checklist | markdown | Rows with ref IDs or candidate indication |
 | inspect-records | projectsRoot absolute | Canonical records and integrity diagnostics; ignores dot folders, rejects symlinks |
@@ -69,7 +77,7 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | recover-operation | operation:{changes:[{key,before,after}]}, actual:{key:value} | pending/already-applied/conflict |
 | carry-forward | rows, records, userEmail; inventory? with today | own/delegated/unresolved selection, excludes terminal/future-selected work |
 | plan-rollover | today, planId, userEmail; currentRows?, state?, previousDate?, previousRows?, records?, inventory?, removedIds? | due/complete/conflict and merged selected rows with carry provenance; no writes |
-| log-append | projectsRoot, entry, dryRun? | Append decision, identical operation retry deduplicated |
+| log-append | projectsRoot, entry, dryRun?; new workspace.migration also requires vaultRoot (or captured initialCwd), profile scope and operationPath | Append decision; migration checks actual retirement against bound checkpoint; identical operation retry deduplicated |
 | log-query | projectsRoot, recordId?, action?, since?, until?, limit?, offset? | Matching entries across active/archive files |
 | log-archive | projectsRoot, dryRun? | Preserve current file in archives; next append starts new dated segment |
 
@@ -119,7 +127,55 @@ process is stopped before removing only that lock directory through deliberate r
 Never automatically break a lock based on age. Corrupt JSON is an error, not an empty log.
 Keep the pending operation and return the exact error; don't edit log files to make it pass.
 
-## Illustrative input (use generated IDs and actual timestamps)
+## Planning-state input from a preparation packet
+
+After recovery/reconciliation and any plan creation or writes, obtain a fresh
+`planning-prepare` packet. Preserve the same `page` and `allMilestones` options.
+The following input construction uses values returned by that actual packet; do
+not substitute sample hashes or invent a clock. `prepareOptions` is the input
+used for that preparation, and `packet` is its parsed JSON result.
+
+```javascript
+const shared = {
+  vaultRoot: packet.context.vaultRoot,
+  profilePath: packet.context.profilePath,
+  configRoot: packet.context.configRoot,
+  stateRoot: packet.context.stateRoot,
+  homeRoot: packet.context.homeRoot,
+  now: packet.context.now,
+  page: prepareOptions.page,
+  allMilestones: prepareOptions.allMilestones,
+  expectedPlanHash: packet.current.sha256,
+  expectedPreviousHash: packet.previous?.sha256 ?? null,
+  expectedInventoryHash: packet.inventoryHash
+};
+const reviewInput = {
+  ...shared,
+  action: 'save-review',
+  expectedStateHash: packet.state.review.sha256,
+  expectedReviewHash: packet.reviewHash
+};
+const rolloverInput = {
+  ...shared,
+  action: 'complete-rollover',
+  expectedStateHash: packet.state.rollover.sha256
+};
+```
+
+Serialize the chosen input as JSON with file tools in the working scope's `.temp/`,
+then invoke `node PACKAGE_ROOT/scripts/daily-tasks.mjs planning-state --input ABSOLUTE_JSON_FILE`.
+`undefined` options are omitted by JSON serialization; explicit options must match
+preparation. These are alternative inputs, not a sequence using one stale packet.
+Reprepare after a state or source write before constructing another input.
+`complete-rollover` is only for an eligible no-change rollover. Pending membership
+changes require the [rollover operation protocol](planning-flow.md#once-per-day-rollover).
+A rejected hash or failed state save remains pending; never report it complete.
+
+This construction was exercised using an actual synthetic preparation packet:
+review saving and a no-change receipt succeeded, and stale state was rejected.
+It documents input assembly, not a replacement planning orchestrator.
+
+## Illustrative log input (use generated IDs and actual timestamps)
 
 ```json
 {

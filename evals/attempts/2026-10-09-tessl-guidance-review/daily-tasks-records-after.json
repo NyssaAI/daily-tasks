@@ -1,0 +1,182 @@
+{
+  "reviewRunId": "01a12117-2b00-772b-b0c5-905c169a547c",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 75 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-records'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (374 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 7 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 4,
+            "reasoning": "Telegraphic, policy-dense prose with no filler and no explanation of concepts Claude already knows (e.g. \"Delegation isn't start.\", \"A provisional task template can be trialled when requested without promoting its maturity.\"). Not 5: minor redundant restatements exist (\"Verify new location and links before removing old file; don't leave two live IDs\" says the same thing twice), matching the 4 anchor 'minor instances that could be trimmed'. Not 3: there is no unnecessary explanation."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Concrete guidance throughout: file patterns (\"m{number}-{name}/m{number}-{name}.md\", \"blockers/b{number}-{name}.md\"), frontmatter fields (\"Depends on / Required by\", \"record_version: 2\"), and named operations (\"check-closure\", \"reopen-ancestors\", \"invalidate-project-index\"). Not 5: those operations are named without invocation syntax, and the CLI details live in an external cli.md not bundled with this skill, leaving minor gaps per the 4 anchor."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "Clear sequence (steps 1-9 plus the ordered apply protocol \"checkpoint, Markdown changes, validation, log, refresh views, baselines\") with validation (\"Validate chronology\", verify-before-remove) and error recovery (\"A failed earlier effect retains the checkpoint\"; \"Do not claim a complete operation if the log failed\"). No missing-validation cap applies. Not 5: checkpoints are named but their mechanics are delegated entirely to the external operations.md, and steps 1-9 read partly as a policy catalog rather than a strictly linear flow."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "References (records.md, operations.md, cli.md, templates.md, workspace-migration.md, setup and capture SKILLs) are well-signaled markdown links, one level deep. Not 5: roughly 70 lines of dense naming/delegation policy are inlined in SKILL.md itself, and no bundle files exist in this skill's directory - all referenced paths resolve to sibling skills, so navigation depends on external layout. Not 3: the split between overview policy and reference detail is still mostly appropriate."
+          }
+        },
+        "suggestions": [
+          "Show or link the invocation syntax for the named operations (check-closure, reopen-ancestors, invalidate-project-index) - they are referenced by name only and the CLI reference is not bundled with this skill.",
+          "Trim redundant restatements such as \"Verify new location and links before removing old file; don't leave two live IDs\", where the second clause restates the first.",
+          "Move the detailed naming, file-placement and delegation-packet rules into records.md so SKILL.md stays a leaner overview pointing at the references."
+        ],
+        "overall_assessment": "A dense, disciplined instruction-only skill body: concrete file layouts, frontmatter conventions, and named operations, with validation and error-recovery checkpoints present in the workflow. All four dimensions land at 4 - strong but not exceptional, mainly because operation syntax and validation mechanics are delegated to references not bundled alongside this file, and some policy detail could be pushed out of SKILL.md."
+      },
+      "weightedScore": 4,
+      "normalizedScore": 0.75
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 5,
+            "reasoning": "Multiple specific concrete actions with comprehensive coverage: \"Create explicitly requested or accepted projects, milestones and tasks; update progress, ownership, assignment, DoD, dependencies and external blockers; move, cancel or reopen records\". Third-person voice throughout. Not 4: coverage spans the full record lifecycle (create/update/move/cancel/reopen) plus record attributes, matching the comprehensive 5 anchor."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "Both answered explicitly and concretely: the 'what' is the full action list, and the 'when' is \"Use when asked to create named work, mark done, reassign, or change an existing record\" with concrete trigger phrases. Not 4: the 'when' clause is explicit rather than merely present."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Natural user phrasing present: \"create named work\", \"mark done\", \"reassign\", \"change an existing record\". Not 5: common synonyms and variations (\"add a task\", \"close\", \"complete\") are missing, matching the 4 anchor 'good keyword coverage; a few natural terms missing'. Not 3: the included terms are genuinely natural, not generic."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "The projects/milestones/tasks/DoD/blockers domain carves a clear niche, but generic triggers like \"change an existing record\" and \"reassign\" create minor overlap risk with closely related sibling skills (capture, daily-plan). Matches the 4 anchor; not 5 because it is not fully conflict-free against adjacent skills."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "A strong description: it enumerates concrete record-lifecycle actions in third person and pairs them with an explicit 'Use when' trigger clause. Trigger-term coverage is good but misses a few natural synonyms, and broad triggers leave minor overlap risk with sibling skills."
+      },
+      "weightedScore": 4.55,
+      "normalizedScore": 0.8875
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.8875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.75
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 84
+  }
+}

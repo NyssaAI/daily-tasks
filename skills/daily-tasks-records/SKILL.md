@@ -1,6 +1,6 @@
 ---
 name: daily-tasks-records
-description: Create accepted projects, milestones and tasks; update progress, ownership, assignment, DoD, dependencies and external blockers; move, cancel or reopen records consistently.
+description: Create explicitly requested or accepted projects, milestones and tasks; update progress, ownership, assignment, DoD, dependencies and external blockers; move, cancel or reopen records consistently. Use when asked to create named work, mark done, reassign, or change an existing record. A direct named create instruction supplies acceptance without another acceptance prompt.
 ---
 
 # Manage records
@@ -50,7 +50,8 @@ once required values are available.
    preserving old values in append-only history. targets are optional explicit input only.
 7. For closure use `check-closure`; never silently complete children or infer DoD evidence.
    For cancelling parents collect explicit child dispositions (batch allowed). For reopening,
-   use `reopen-ancestors` and apply required parent changes in the same pending operation.
+   prepare any explicitly requested task state before calling `reopen-ancestors`; apply
+   required parent changes in the same pending operation under the records contract.
 8. Move/rename only after checking destination collision and identity. Preserve task UUID,
    lifecycle, owner/assignee, dependencies and blocker refs; update parent IDs and backlinks.
    Verify new location and links before removing old file; don't leave two live IDs.

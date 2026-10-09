@@ -1,0 +1,182 @@
+{
+  "reviewRunId": "01a120e8-1ac0-76cc-a7bb-e2be8491fb20",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 75 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-records'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (173 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 7 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 5,
+            "reasoning": "The body is a telegraphic rulebook with zero padding: no concept explanations Claude already knows, no filler, and every clause encodes a rule (e.g. \"DoD belongs only in milestone/task files; never create a standalone DoD file or template\"). There are no over-explanation instances to trim, so it exceeds anchor 4 and matches anchor 5's 'every token earns its place'."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Concrete, specific guidance throughout: named operations (`new-id`, `check-closure`, `reopen-ancestors`, `invalidate-project-index`), exact file patterns (`m{number}-{name}/m{number}-{name}.md`, `blockers/b{number}-{name}.md`), and concrete fields (`Depends on`/`Required by`, `record_version: 2`). Not 5 because actual CLI invocation syntax is delegated to cli.md and several steps are policy constraints ('never', 'do not') rather than executable how-to, leaving minor gaps."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "A numbered 1–9 sequence with explicit checkpoints for the destructive/batch operations: destination collision/identity check before moves, \"Verify new location and links before removing old file\", validation embedded in the operation protocol, and \"Do not claim a complete operation if the log failed; retain recovery checkpoint\". The batch/destructive cap of 3 does not apply since validation is explicitly present; not 5 because the validation and error-recovery mechanics themselves are externalized to operations.md rather than shown inline as feedback loops."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "The SKILL.md stays a lean overview and defers detail via clearly signaled one-level links at point of need: structure rules to records.md, protocol to operations.md, CLI to cli.md, templates to templates.md, migration to workspace-migration.md. Not 5 because every reference lives in sibling skill directories (../daily-tasks, ../daily-tasks-setup, ../daily-tasks-capture) rather than this skill's own bundle — no local references/ directory exists and the targets are unverifiable from the skill itself, leaving navigation dependent on files outside the skill."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "The body is an exceptionally lean, dense rulebook with concrete file layouts, named operations, and explicit validation checkpoints around destructive moves and batch changes. Detail is appropriately pushed to clearly signaled one-level references, though all of them live in sibling skills rather than this skill's own bundle, and CLI invocation syntax is delegated rather than shown."
+      },
+      "weightedScore": 4.3,
+      "normalizedScore": 0.825
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 5,
+            "reasoning": "The description lists multiple concrete actions covering the full record lifecycle — \"Create accepted projects, milestones and tasks\", \"update progress, ownership, assignment, DoD, dependencies and external blockers\", \"move, cancel or reopen records\" — with named artifacts and fields. Coverage spans creation, update, and lifecycle transitions comprehensively, matching the anchor-5 example's breadth rather than the minor-gaps profile of anchor 4."
+          },
+          "completeness": {
+            "score": 3,
+            "reasoning": "The 'what' is explicit and detailed (create/update/move/cancel/reopen with named fields), but there is no 'Use when...' clause or equivalent trigger guidance anywhere, which caps completeness at 3 per the judging guidelines. It cannot score 4 without at least a weakly explicit 'when'; it is above 2 because the 'what' is clear and specific."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Natural keywords are good — projects, milestones, tasks, ownership, assignment, dependencies, blockers, cancel, reopen, update progress — but common user synonyms (todo, backlog, tracker, \"mark done/complete\") and any format markers are absent. Keyword coverage is well beyond anchor 3's 'some relevant keywords', but not the comprehensive synonym coverage of anchor 5."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 3,
+            "reasoning": "Terms like DoD, external blockers, dependencies, and \"move, cancel or reopen records\" carve a somewhat specific niche, but the opening \"Create accepted projects, milestones and tasks; update progress\" overlaps broadly with generic project- and task-management skills, and nothing distinguishes it from sibling capture/setup skills in the same family. Anchor 3 ('somewhat specific but could still overlap with similar skills') fits better than anchor 4's 'minor overlap risk'."
+          }
+        },
+        "suggestions": [
+          "Add an explicit trigger clause, e.g. 'Use when creating, updating, moving, cancelling, or reopening projects, milestones, tasks, or blockers in the daily-tasks record system.'",
+          "Include natural synonyms and phrasings users actually say — 'todo', 'backlog', 'task tracker', 'mark task done', 'reassign' — to broaden trigger-term coverage.",
+          "Distinguish this skill from sibling skills (capture for accepting new work, setup for profile/scope resolution) with a phrase like 'For operations on existing accepted records...' rather than leading with 'Create'."
+        ],
+        "overall_assessment": "The description clearly and comprehensively states what the skill does through a dense list of concrete record-management actions, but it omits any 'Use when...' trigger guidance (capping completeness at 3), lacks natural synonyms users would say, and does not distinguish itself from closely related task-management skills."
+      },
+      "weightedScore": 3.7,
+      "normalizedScore": 0.675
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.825
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.675
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 79
+  }
+}

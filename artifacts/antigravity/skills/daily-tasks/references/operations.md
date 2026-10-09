@@ -11,6 +11,14 @@ Include the context planningBinding in new checkpoints and resumable screen stat
 For legacy checkpoints without it, verify their explicit paths/identities before
 enrollment; absence is not permission to cross vaults.
 
+Load this protocol before consequential Markdown writes or recovery. When applying
+status changes, write canonical tasks and required parent effects, then project
+views, and only then daily-plan projections. If a project effect fails, preserve
+the daily projection and retain the checkpoint; never report a completed batch.
+Load [Records](../../daily-tasks-records/SKILL.md) before ownership, lifecycle or
+closure/reopening changes. Planning receipts/mappings follow
+[planning flow](planning-flow.md); they never replace a changed-Markdown transaction.
+
 For a consequential change:
 
 1. Read relevant records and stored per-view baselines in stateRoot/reconciliation.json.
@@ -23,6 +31,9 @@ For a consequential change:
    stateRoot/operations/<operation-id>.json BEFORE any Markdown write. This is a
    recoverable pending action, not a second decision log. Preserve original words,
    reason, acceptance source and existing event ID/times across retries.
+   New checkpoints use schemaVersion: 2 and the [verified completion contract](verification.md).
+   Preserve legacy checkpoints for their existing recovery; never assert a new receipt
+   merely by relabeling their schema.
 3. Compare expected before values with actual values immediately before each write.
    Re-read the file if it changed. Merge independent edits or suspend that item on
    conflict; don't use modification time as a winner. Write only the agreed delta,
@@ -35,9 +46,13 @@ For a consequential change:
    matching operation/event IDs alone do not prove the intended decision was logged.
    A differing payload is a conflict and must not advance baselines or completion.
 5. Refresh affected views AFTER reconciliation; preserve cancelled/completed daily
-   rows for the day. Update per-view snapshots to the exact rendered field values
-   and source values. Mark/remove the completed pending checkpoint only after records,
-   views, baselines and log append are verified. Checkpoints aren't retained history.
+   rows for the day. Propose per-view snapshots with exact rendered field values
+   and source values in the checkpoint. Call `operation-verify`, then
+   `operation-complete` (or the specialized rollover/migration completion).
+   The CLI independently checks actual files and the exact event, writes verified
+   baseline state and clears the checkpoint. Do not hand-write success, advance a
+   baseline or remove a schemaV2 checkpoint when the result is pending/conflict.
+   Checkpoints aren't retained history.
 
 Minimal reconciliation state keyed by record UUID contains canonical field baseline,
 each projection path's last-rendered field values, and exact file fingerprints for
@@ -60,6 +75,10 @@ field preserve both values and become a durable pending conflict. Continue other
 items; never refresh the conflicting representation away or call the check-in fully
 reconciled while conflicts remain. Choosing a winner is an explicit supplied decision.
 
+File hashes below mean the declared non-log operation files only. Never hash or
+read a whole workspace or scratch tree for verification: nested `.daily-tasks`
+logs remain query-only, including evidence capture. Use `operation-verify` for
+supported effect comparisons and `log-query` output for event evidence.
 Recovery examines existing checkpoints first at check-in. `recover-operation`
 classifies field-level effects as pending, already-applied or conflict. Supplement
 with file hashes and `log-query` before applying. Finish missing unambiguous effects

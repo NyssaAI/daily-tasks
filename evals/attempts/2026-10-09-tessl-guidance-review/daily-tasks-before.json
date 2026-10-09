@@ -1,0 +1,182 @@
+{
+  "reviewRunId": "01a120e7-c4a3-74a9-a92d-f62063a9fa1b",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 58 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (290 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory contains 7 file(s)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory contains 6 file(s)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 6 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "Referenced paths look valid"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 4,
+            "reasoning": "The body is a dense rule-set with essentially no padding — nearly every line is domain-specific policy Claude could not know (\"Human owner defaults to current user; only user direction changes it\", \"Read/write log only through the CLI\"). A couple of lines restate basics Claude already knows (\"Use standard Markdown with a blank line before lists and after headings\", \"In chat, use normal Markdown links to actual files\"), which is the minor trimmable over-explanation of anchor 4 rather than the every-token-earns-its-place profile of anchor 5."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "The request-to-route table gives concrete, unambiguous load instructions per request class, and directives like \"If Node or filesystem access is unavailable, report the exact capability gap and offer a proposal only\" are executable. It falls short of anchor 5 because the body contains no commands, record examples, or CLI invocations — all operational detail is deferred to references — and rules like \"Ask only for genuinely missing scope/data or conflicting settings\" require judgment without an inline example."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "A clear sequence is discernible (select one route via the table, load only that route, resolve configuration per setup's ordered discovery rules, do the work, present per response conventions), with explicit checkpoints: batch acceptance gates (\"Projects, milestones and tasks require explicit user acceptance, including batches\"), the capability-gap fallback, and the ask-only-when-missing rule. Not anchor 5 because the configuration-resolution ordering (\"reuse an existing pointer or established `.nyssaai` common state root, then the known vault convention\") is packed into a run-on paragraph rather than clearly ordered steps, leaving some checkpoints implicit."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "A hub-and-router design: the table maps five request classes to sibling skills, references are named with their roles (\"[records and views](references/records.md), [operation protocol](references/operations.md) and [CLI](references/cli.md)\"), and all referenced files exist in the bundle, with assets/templates reachable one hop deeper via references/records.md. Minor organization gaps keep it at anchor 4: references/workspace-migration.md is not discoverable from SKILL.md or any reference file, and the five sibling SKILL.md route targets lie outside this bundle."
+          }
+        },
+        "suggestions": [
+          "Trim guidance that restates what Claude already knows — e.g., \"Use standard Markdown with a blank line before lists and after headings\" and \"In chat, use normal Markdown links to actual files\" — keeping only skill-specific deviations such as the wiki-links-in-vault-documents rule.",
+          "Include one concrete inline artifact — a minimal task/milestone record snippet or a single example CLI invocation from references/cli.md — so the most common operations are executable without first loading a reference file.",
+          "Surface references/workspace-migration.md (and the path to assets/templates via references/records.md) from the routing table or the references paragraph so every bundle file is discoverable from the hub SKILL.md."
+        ],
+        "overall_assessment": "A disciplined hub-and-router SKILL.md: compact, low-redundancy policy text, a crisp request-to-route table, and explicit acceptance/validation gates for batches and capability gaps. The main weaknesses are a few lines restating standard Markdown behavior Claude already knows, no inline example of a record or CLI call, and one orphaned bundle file (workspace-migration.md) unreachable from the hub."
+      },
+      "weightedScore": 4,
+      "normalizedScore": 0.75
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 4,
+            "reasoning": "\"Manage personal projects, milestones, accepted tasks, external blockers, daily priorities and anytime check-ins using editable Markdown records\" enumerates six concrete object types plus the storage mechanism, and the trigger clause adds actions (capturing, updating, delegating, planning, reconciling). It is below anchor 5 because the lead verb \"Manage\" is generic — the skill's distinct operations (create/update/move/assign) are only implied rather than named — while clearly exceeding anchor 3's 1-2 concrete actions."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "It explicitly answers what (\"Manage personal projects, milestones, accepted tasks, external blockers, daily priorities and anytime check-ins using editable Markdown records\") and when (\"Use when capturing commitments, updating or delegating work, planning a day, or reconciling progress\"), with concrete trigger phrases and an explicit scope boundary (\"Does not schedule work into available time\") — a direct match for anchor 5."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "\"Use when capturing commitments, updating or delegating work, planning a day, or reconciling progress\" contains natural phrases users would actually say (\"plan a day\", \"delegate work\", \"check in\"). It sits at anchor 4 rather than 5 because common synonyms and variations are missing — \"to-do list\", \"todos\", \"track tasks\", \"reminders\" — leaving a few natural entry terms uncovered."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "A clear niche — personal project/task management in editable Markdown records — with deliberate conflict avoidance via the exclusion \"Does not schedule work into available time\". Broad trigger terms like \"updating work\", \"tasks\", and \"daily priorities\" leave minor overlap risk with generic task-tracking or notes skills, matching anchor 4 rather than anchor 5's minimal-conflict profile."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "A strong description with an explicit what, an explicit \"Use when...\" trigger clause, and a scope boundary that actively reduces mis-triggering against scheduling skills. Trigger coverage is good but misses common synonyms (to-dos, track tasks), and the generic lead verb \"Manage\" slightly undersells the concrete record operations the skill performs."
+      },
+      "weightedScore": 4.35,
+      "normalizedScore": 0.8375
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.75
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.8375
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 82
+  }
+}

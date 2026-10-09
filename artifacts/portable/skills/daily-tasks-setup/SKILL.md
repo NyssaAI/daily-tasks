@@ -5,8 +5,11 @@ description: Set up or explicitly update Daily Tasks identity, timezone, priorit
 
 # Set up Daily Tasks
 
-Read [record conventions](../daily-tasks/references/records.md) and
-[CLI](../daily-tasks/references/cli.md). Resolve configuration before asking setup questions.
+Resolve configuration before asking setup questions. Load the
+[CLI](../daily-tasks/references/cli.md) when invoking context/profile/log operations;
+load [record conventions](../daily-tasks/references/records.md) when validating
+output roots or continuing into record work. This skill owns configuration discovery
+and first-use questions; direct child workflows use the same procedure.
 An absolute path is required for file operations; it need not be typed by the user.
 Use `resolve-context` with the host's captured initial vault-root workspace binding,
 or an already known absolute vaultRoot. Reuse its result for the request. It accepts
@@ -62,16 +65,15 @@ If host detection fails, explain the failure and ask for an explicit IANA zone a
 an exception. Do not silently fall back to UTC. Concrete conflicts or missing
 required output scope may still require focused clarification.
 
-Load the selected profile before collecting missing values. Use known identity,
-timezone and accepted priorities from applicable user/host context. Reuse vaultRoot,
-projectsRoot and dailyPlansRelative from the profile or accepted vault conventions.
+Load the selected profile before collecting missing values; reuse accepted settings
+and output roots from that profile or applicable user/host vault conventions.
 A verified vault/workspace binding or the captured initial cwd of a vault-root
 workspace can establish scope. A later process cwd, package location and cache paths
 cannot. Check that the profile matches the requested vault/project.
 Do not replace malformed profiles, overwrite conflicting values or merge different
 users' state. Ask only for missing information needed for the operation or conflicts
-that affect it, after applying the precedence above. Missing priority preferences do
-not block record creation: use an empty list until priorities are supplied.
+that affect it, after applying the precedence above. Missing priorities do not block
+record creation.
 
 For an authorized vault with no daily-plan setting, use `2-areas/daily-plans` unless
 an accepted local convention provides another destination. Resolve projectsRoot from
@@ -95,8 +97,8 @@ If output settings cannot be resolved by the rules above or resolve into the
 configuration/state directory, ask for the intended output location before writing.
 Setup's summary must show the resolved
 configuration directory, daily-plan output directory and projects directory separately.
-Reuse an existing configured state location (including legacy `.nyssa/daily-tasks/`)
-until the user requests migration; do not silently move existing state or output.
+The discovery precedence above also governs existing state (including legacy
+`.nyssa/daily-tasks/`); scope changes never silently migrate state or output.
 
 Check Node >=22 and CLI --help. Use `validate-profile` before saving profile.json:
 
@@ -122,12 +124,11 @@ user accepts a proposed revision, including its reason. Never infer a preference
 Ensure directory is separate from plugin source; no account installation needed for setup.
 
 Create reconciliation/check-in state only as needed, not imaginary tasks/projects.
-When the user provides a project-index, daily-plan, milestone or task example, follow
-[custom templates](../daily-tasks/references/templates.md). Store the optional
-`templates.projectIndex`, `templates.dailyPlan`, `templates.milestone` and
-`templates.task` and optional `templates.planDayReview` portable Markdown paths in the
-existing profile. Template preferences are optional; do not add template questions
-to ordinary setup. Changing a template does not authorize rewriting existing records.
+When the user supplies an example/template or explicitly changes formatting, load
+[custom templates](../daily-tasks/references/templates.md) for registration, portable
+profile fields, precedence and adaptation. Template preferences are optional; do not
+add template questions to routine setup. Registration does not authorize rewriting
+existing records.
 Return configured locations/timezone and capability limits. Setup does not authorize
 creating work, changing existing ownership, or migrating an existing vault schema.
 When setup was reached during another request, continue that already-authorized work

@@ -1,0 +1,53 @@
+{
+  "runId": "01a12135-d04c-7286-9ee5-ff722bfd91bb",
+  "solutionId": "01a12135-d5da-74d6-b0aa-9a1ea469e779",
+  "normalization": "Copied downloaded vault; only sandbox absolute root rebased in JSON. Original artifacts untouched. Existing oracle reused.",
+  "recovery": {
+    "status": "conflict",
+    "pending": [],
+    "conflicts": [
+      {
+        "key": "baselineHash",
+        "before": {
+          "present": true,
+          "value": "ba073ba831b940f558b82e58219f8fcb5aa656ff466231c3ec1d72fe966a65d7"
+        },
+        "after": {
+          "present": true,
+          "value": "03b85d62c085a7e2ce584442e7bc9932e8d7342b3a7015db82749248d87120b9"
+        },
+        "actual": {
+          "present": true,
+          "value": "4013d8fed7baeede7fcec85928c6785c4009bbf4889da868f26fe300a76dcbbc"
+        }
+      }
+    ]
+  },
+  "unexpectedFiles": [
+    "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\recovery-oracle-revised-normalized\\.nyssaai\\daily-tasks\\operations\\01a1212d-9d80-77bf-9fcd-0920f0b051c0.json"
+  ],
+  "actual": {
+    "sourceMember": false,
+    "destinationMember": true,
+    "logRecorded": true,
+    "baselineHash": "4013d8fed7baeede7fcec85928c6785c4009bbf4889da868f26fe300a76dcbbc",
+    "sourceRolloverHash": "28506e50755a9ffdf0e47e44659e1fad905002022c6e860333bd682a79969765"
+  },
+  "logCount": 1,
+  "active": [
+    {
+      "date": "2026.10.10",
+      "source": "2-areas/daily-plans/2026.10.10-daily-plan.md"
+    }
+  ],
+  "otherPreserved": true,
+  "prosePreserved": true,
+  "planIdentityPreserved": true,
+  "canonicalPreserved": true,
+  "checkpointIntentPreserved": false,
+  "checkpointRemoved": false,
+  "completionValid": true,
+  "historyPreserved": true,
+  "rolloverPreserved": true,
+  "verified": false
+}
