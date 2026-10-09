@@ -1,0 +1,185 @@
+{
+  "reviewRunId": "01a12147-1a91-70a0-943a-48d8965fbaf1",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 76 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-records'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (374 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 7 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 4,
+            "reasoning": "The body is extremely lean: \"Identify existing work by UUID. New projects/milestones/tasks require recorded explicit user acceptance…, not implied approval\" adds only domain-specific rules Claude could not know, with zero padding or explanation of known concepts. A few passages compress so many clauses into single sentences (e.g. item 2 packing templates, owners, assignees, DoD placement and provisional-trial rules) that they read as rule walls needing re-reading, which keeps it below anchor 5's \"every token earns its place\" clarity-efficiency balance."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Concrete, specific guidance throughout: exact file patterns (\"m{number}-{name}/m{number}-{name}.md\" with sibling \"t{number}-{name}.md\", \"blockers/b{number}-{name}.md\"), exact fields (\"Depends on\" / \"Required by\", \"Blocks\" / \"Blocked by\"), frontmatter value \"record_version: 2\", and named operations (\"new-id\", \"check-closure\", \"reopen-ancestors\", \"invalidate-project-index\", \"activity-time\"). Not anchor 5 because the executable details of each CLI operation and the operation protocol are delegated to referenced files (cli.md, operations.md) that are not part of this skill's bundle, so guidance is not copy-paste self-contained."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "A numbered 1–9 sequence with explicit validation checkpoints and failure handling for destructive/batch operations: \"Verify new location and links before removing old file; don't leave two live IDs\", \"checkpoint, Markdown changes, validation, log, refresh views\", \"A failed earlier effect retains the checkpoint\", and \"Do not claim a complete operation if the log failed; retain recovery checkpoint\". Below anchor 5 because items 2–6 are topical rule groups rather than a strictly ordered procedure, the apply/validation loop detail lives in the external operations.md protocol, and the recovery path after a failed effect is stated but not walked through."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "The opening signals each one-level-deep reference with its purpose (\"Read [records]…, [operation protocol]… and the needed [CLI operation]\", setup and capture skills, \"[custom templates]…\", \"[workspace migration]…\"), giving clear navigation to detail files. Below anchor 5 because all references point into sibling skills' bundles (../daily-tasks/references/, ../daily-tasks-setup/, ../daily-tasks-capture/) with none in this skill's own references/ directory, and the body still inlines substantial rule detail (items 2–6) that reads like reference material rather than a slim overview."
+          }
+        },
+        "suggestions": [
+          "Restructure items 2–6 into the named reference files (records.md, templates.md) or group them under headed sections, keeping the numbered list as a strictly procedural apply-order (identify → author → validate → log → refresh).",
+          "Inline a minimal example of one CLI operation (e.g. a check-closure or new-id invocation) so the apply step is executable without loading the external cli.md.",
+          "Move cross-skill reference links into a short \"References\" section with one line on when each is needed, and state where the referenced files live since none are bundled with this skill."
+        ],
+        "overall_assessment": "The body is a dense, well-sequenced operational contract: concrete naming schemes, fields, operations and validation/checkpoint rules with almost no wasted tokens. Its weaknesses are that it delegates execution detail to sibling-skill references not bundled here, mixes topical rules into the numbered workflow, and front-loads rule walls that would sit better in the referenced detail files."
+      },
+      "weightedScore": 4,
+      "normalizedScore": 0.75
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 5,
+            "reasoning": "\"Create explicitly requested or accepted projects, milestones and tasks; update progress, ownership, assignment, DoD, dependencies and external blockers; move, cancel or reopen records consistently\" lists multiple concrete actions covering the full record lifecycle across all record types, in third-person voice. No coverage gap that would drop it to anchor 4's \"minor gaps in coverage\"."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "Sentence one explicitly answers what the skill does (create, update, move, cancel, reopen records with specific attributes), and \"Use when asked to create named work, mark done, reassign, or change an existing record\" is an explicit when-clause with concrete trigger phrases. It clearly matches anchor 5 rather than anchor 4's \"when could be more explicit or specific\"."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "\"Use when asked to create named work, mark done, reassign, or change an existing record\" supplies natural trigger phrases, and \"create\"/\"update\"/\"move\"/\"cancel\" are terms users say. Missing common synonyms and variations (\"complete\", \"finish\", \"delete\", \"todo\") keeps it below anchor 5, and domain jargon like \"DoD\" and \"records\" is not user-natural."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "\"Create explicitly requested or accepted projects, milestones and tasks\" carves a clear records-management niche with distinct triggers around acceptance and record lifecycle. Minor overlap risk remains with closely related sibling skills (capture, setup) that also handle creating or configuring records, so it fits anchor 4 rather than anchor 5's \"minimal conflict risk\"."
+          }
+        },
+        "suggestions": [
+          "Add common user synonyms to the when-clause, e.g. \"Use when asked to create named work, mark tasks done or complete, reassign, or change an existing record\".",
+          "Consider spelling out the abbreviation \"DoD\" (e.g. \"definition of done\") so the description reads naturally to users who don't know the internal shorthand."
+        ],
+        "overall_assessment": "The description is a strong example: it states concrete third-person capabilities across the whole record lifecycle and pairs them with an explicit, natural-language trigger clause. The only notable weakness is trigger-term coverage, which omits common synonyms users might use for record operations."
+      },
+      "weightedScore": 4.55,
+      "normalizedScore": 0.8875
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.8875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.75
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 84
+  }
+}

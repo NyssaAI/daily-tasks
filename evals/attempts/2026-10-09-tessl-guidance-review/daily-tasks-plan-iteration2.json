@@ -1,0 +1,182 @@
+{
+  "reviewRunId": "01a12161-259f-7570-b004-f3a35ca141d0",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 141 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-plan'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (354 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 19 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 4,
+            "reasoning": "The body is lean with zero concept explanations Claude already knows — every line is rule content like \"Bind one vault, its assigned projectsRoot and dailyPlansRoot\" and \"create only a missing plan with UUIDv7\". However, the reprepare/hash-freshness rule is restated at the end of sections 2, 3 and 5 (\"Reprepare after changed Markdown or state writes\", \"Reprepare after writes invalidate packet hashes\"), and the CLI load instruction appears in both sections 1 and 4, so a few tokens could be trimmed."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Concrete, named operations appear throughout — \"Start with `planning-prepare`\", \"`planning-state` action `complete-rollover`\", \"action `save-review`\", output path \"`<vaultRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md`\", and hard limits like \"pages of at most 15 additions\". It falls short of fully executable because no sample CLI invocation or rendered plan snippet is shown inline; execution details are deferred entirely to the referenced cli.md and templates."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "Six numbered checkpoints in strict order with pervasive validation gates (\"Any write changing the packet's source or state hashes requires a fresh packet\", \"Retain its checkpoint until all required effects are verified\", \"Empty effects authorize no plan/state change... even when the CLI process exits successfully\") and explicit failure recovery (\"Failed receipts, unfinished operations or conflicts remain pending and resumable\") — so the destructive/batch cap of 3 does not apply. It misses 5 because sub-steps within sections are compressed into dense run-ons; section 5 alone packs reply resolution, logging, records routing, future-date transactions, conflict handling and prohibitions into two paragraphs, obscuring the intra-section order."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "References are clearly signaled with conditional load rules (\"Load [CLI](...) when invoking operations\", \"Load [custom templates](...) if configured/supplied\") and are one level deep, with the body acting as a router over 12+ targets. It misses 5 because the skill ships no bundle of its own — every reference points into sibling skills' directories (../daily-tasks/..., ../daily-tasks-setup/, ../daily-tasks-records/), none verifiable within this skill — and the body inlines substantial procedural detail (rollover rules, review-screen rules, future-selection transaction) that duplicates what those references should carry."
+          }
+        },
+        "suggestions": [
+          "Break each section's run-on paragraphs into short numbered sub-steps (especially section 5) so the intra-section order is as legible as the six checkpoint titles.",
+          "State the reprepare/hash-freshness rule once in a shared location (e.g. the operations reference) instead of repeating it at the end of sections 2, 3, and 5.",
+          "Inline one minimal example each of a `planning-prepare`/`planning-state` invocation and the resulting daily-plan file heading so common cases are executable without loading the CLI reference."
+        ],
+        "overall_assessment": "A dense, well-validated orchestration skill: clear six-phase sequence, explicit checkpoints, resumable failure states, and disciplined conditional loading of references. Its weaknesses are uniform — extreme telegraphic compression that obscures sub-step order within sections, no inline executable examples, mild redundancy across sections, and total dependence on sibling-skill bundles for its referenced content."
+      },
+      "weightedScore": 4,
+      "normalizedScore": 0.75
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 5,
+            "reasoning": "Multiple concrete actions are named — \"Create or edit the user's local-day Markdown plan\", \"review available work\", \"carry unfinished selected work forward\", \"adding or removing daily selections\" — plus explicit scope boundaries (\"without ranking, scheduling or fitting durations\"). Coverage of the skill's action space is comprehensive, matching the anchor for multiple specific concrete actions."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "Both halves are explicit: the \"what\" (\"Create or edit the user's local-day Markdown plan...; review available work and carry unfinished selected work forward\") and the \"when\" with concrete quoted trigger phrases (\"Use for 'plan my day,' selecting accepted tasks for today or a future day, or adding or removing daily selections\"). This matches the anchor for clearly answering both what AND when with concrete trigger phrases."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Includes the natural marquee phrase \"plan my day\" plus variations \"selecting accepted tasks for today or a future day\" and \"adding or removing daily selections\". Natural synonyms users would plausibly say — \"daily plan\", \"carry forward unfinished tasks\", \"rollover\", the output file pattern \"YYYY.MM.DD-daily-plan.md\" — are absent, so coverage is good but not comprehensive."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 5,
+            "reasoning": "A clear niche (local-day Markdown planning and task selection) with a distinct trigger (\"plan my day\") and an explicit disambiguator against sibling skills (\"selection does not change task status\"), minimizing overlap with records/capture/status-management skills. Conflict risk is minimal."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "A strong description: third-person voice, concrete actions with explicit scope exclusions, and a fully explicit 'Use for' trigger clause anchored by the natural phrase \"plan my day\". The only gap is moderate synonym coverage — common phrasings like \"daily plan\" and \"carry forward\" are omitted."
+      },
+      "weightedScore": 4.7,
+      "normalizedScore": 0.925
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.75
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.925
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 86
+  }
+}

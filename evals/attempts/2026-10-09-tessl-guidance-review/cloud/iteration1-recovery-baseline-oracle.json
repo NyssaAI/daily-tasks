@@ -1,0 +1,47 @@
+{
+  "runId": "01a12148-97ac-7268-af40-cd67022aab14",
+  "solutionId": "01a12135-d5b2-71fc-838b-98cd753fbb08",
+  "seededIds": {
+    "project": "01a1212d-9d80-744e-8df9-59af79e0e4ef",
+    "milestone": "01a1212d-9d80-7d43-8419-2dbea92703ad",
+    "task": "01a1212d-9d80-7e28-adb6-f8e2710fd826",
+    "other": "01a1212d-9d80-7572-870a-07412a981c7f",
+    "source": "01a1212d-9d80-7531-8b91-f4e9c47649a6",
+    "destination": "01a1212d-9d80-76ba-9071-5262e9e7b756",
+    "operation": "01a1212d-9d80-77bf-9fcd-0920f0b051c0",
+    "event": "01a1212d-9d80-7209-8dc9-4c68a4174811",
+    "rollover": "01a1212d-9d80-7479-8da9-c5ace8bebf65",
+    "history": "01a1212d-9d80-7319-8ee3-959afb204b2f"
+  },
+  "normalization": "Downloaded JSON bytes untouched. Expected baseline hashes constructed from identical seeded IDs and cloud absolute root; only inspection file locators rebased. Existing oracle reused.",
+  "recovery": {
+    "status": "already-applied",
+    "pending": [],
+    "conflicts": []
+  },
+  "unexpectedFiles": [],
+  "actual": {
+    "sourceMember": false,
+    "destinationMember": true,
+    "logRecorded": true,
+    "baselineHash": "6c7f1ba9f171f1cf33d619750bd32fc04ba3758179f62f7262beefb32dfd3df9",
+    "sourceRolloverHash": "28506e50755a9ffdf0e47e44659e1fad905002022c6e860333bd682a79969765"
+  },
+  "logCount": 1,
+  "active": [
+    {
+      "date": "2026.10.10",
+      "source": "2-areas/daily-plans/2026.10.10-daily-plan.md"
+    }
+  ],
+  "otherPreserved": true,
+  "prosePreserved": true,
+  "planIdentityPreserved": true,
+  "canonicalPreserved": true,
+  "checkpointIntentPreserved": true,
+  "checkpointRemoved": true,
+  "completionValid": true,
+  "historyPreserved": true,
+  "rolloverPreserved": true,
+  "verified": true
+}

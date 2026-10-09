@@ -1,0 +1,149 @@
+{
+  "runId": "01a12160-ae48-7412-9bf2-82d5ef0561b4",
+  "url": "https://tessl.io/eval-runs/01a12160-ae48-7412-9bf2-82d5ef0561b4",
+  "status": "completed",
+  "actualAgent": "claude",
+  "actualModel": "deepseek-v4.1-flash",
+  "actualJudges": [
+    "claude/claude-sonnet-4-6"
+  ],
+  "judgeEvidence": "runMetadata recipe tasks; cached cells may lack a current-run recipe and require original receipt.",
+  "forcedActivation": true,
+  "scoring": true,
+  "cells": [
+    {
+      "scenario": "evals/tessl/content-iteration2/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "baseline",
+      "solutionId": "01a12135-d57d-743e-b2c9-3aaa6e1b8e2a",
+      "status": "completed",
+      "score": 0,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 0,
+          "reasoning": "No evidence the agent actually invoked the planning-prepare or planning-review operation to inspect both the 2026.10.08 and 2026.10.09 daily plans; the only new artifacts are the project-index cache files, not any planning review state, meaning rollover eligibility was never verified against the earlier plan.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 0,
+          "reasoning": "No rollover result was produced or saved; the eligible unfinished task from 2026.10.08 (t1-draft-landing-copy, not-started) was never identified, carried forward, or preserved in any output, and task state/ownership in the plan files is unchanged from pristine state.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 0,
+          "reasoning": "No planning-state save-review operation was executed; the .nyssaai/daily-tasks/ directory contains only profile.json with no review/ or rollover/ subdirectories, no numbered mapping JSON was written, and no six-column screen with status legend was produced.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 0,
+          "reasoning": "No explicit choices were offered to the user; the solution contains only the pristine library code and vault with no displayed options, no numbered task list, and no user-facing output showing available selections without starting work.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d57d-743e-b2c9-3aaa6e1b8e2a.tar.gz",
+      "recipeTasks": []
+    },
+    {
+      "scenario": "evals/tessl/content-iteration2/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "original",
+      "solutionId": "01a12160-b1da-70f3-b121-db658bb6d239",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 1,
+          "reasoning": "The solution used the planning-prepare CLI operation to read the vault profile/configuration, explicitly inspected both the current plan (2026.10.09) and the previous plan (2026.10.08), and verified rollover status as 'due' from actual plan content and runtime state — not inferred from file existence. The prepare.json and prepare2.json clearly show both plans parsed and rollover determined via the planning-state mechanism with hash-verified comparison.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 1,
+          "reasoning": "The unfinished earlier selection (t1-draft-landing-copy, unchecked in 2026.10.08) was carried forward exactly once into 2026.10.09 with the ↺ marker; canonical task state was untouched (task-state remains 'not-started', owner 'casey@example.test', no timestamp changes); the previous plan (2026.10.08) is fully preserved including the 'Preserve this personal note'; and the rollover was logged via log-append with the exact carried record IDs.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 1,
+          "reasoning": "The stable numbered mapping ({01a1212d-9d80-76cf-943a-e368aeffb4ac: 1, 01a1212d-9d80-7d34-a020-2540c4c46f0d: 2}) was saved to vault/.nyssaai/daily-tasks/review/2026.10.09.json with the same mappingBinding hash used throughout the session, anchored to the current planId and date; the review state file confirms same-date same-vault binding was applied; the six-column screen template (plan-day-select-tasks-screen.md) with status legend was followed as evidenced by the ↺ prefix applied correctly to carried rows.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 1,
+          "reasoning": "Canonical task states were not changed (t1 stays not-started, t2 stays in-progress), no additional tasks were silently selected beyond the rollover protocol (available=[] in the final prepare3 review), and the screen was designed to offer explicit choices — the final state presents both selected tasks with options to add, remove, or keep, without fitting time or starting work.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12160-b1da-70f3-b121-db658bb6d239.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-iteration2/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "revised",
+      "solutionId": "01a12160-b1eb-7303-908e-eddc9529e976",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 1,
+          "reasoning": "The solution reads ENVIRONMENT.md for the vault binding, runs planning-prepare to load profile/config, explicitly inspects both the 2026.10.08 previous plan (found t1 unchecked) and the pre-created 2026.10.09 current plan (found t2 already selected), and verifies rollover status via hash-based optimistic checks rather than inferring from file existence alone — confirmed by the prepare.out.json rollover.status='due' before the rollover script ran.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 1,
+          "reasoning": "The apply-rollover.mjs script carries t1 (Draft landing copy, eligible: unchecked in 2026.10.08) into today's plan exactly once with the ↺ marker, canonical task records are untouched (t1 stays not-started, t2 stays in-progress with casey@example.test ownership), the previous plan's notes/prose are preserved, and removedIds is empty in the rollover receipt.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 1,
+          "reasoning": "The save-review.json action persists the UUID→number mapping {t2→1, t1→2} with the mappingBinding hash tied to the current plan and inventory hashes for 2026.10.09 in the same vault; review/2026.10.09.json confirms the mapping was saved; the review data contains all six required screen columns (status, project, milestone, task, due date, number) with the status legend from the plan-day-select-tasks-screen template.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 1,
+          "reasoning": "The solution stops after saving the review mapping and displaying the selection screen (available=[] since all open tasks are already selected), with the template's 'Update your plan' section offering explicit numbered choices (add, move to future date, etc.) without executing any work, scheduling into time slots, or silently adding any tasks beyond the authorized carry-forward of t1.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12160-b1eb-7303-908e-eddc9529e976.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,750 @@
+{
+  "runId": "01a12135-d04c-7286-9ee5-ff722bfd91bb",
+  "url": "https://tessl.io/eval-runs/01a12135-d04c-7286-9ee5-ff722bfd91bb",
+  "status": "completed",
+  "actualAgent": "claude",
+  "actualModel": "deepseek-v4.1-flash",
+  "actualJudges": [
+    "claude/claude-sonnet-4-6"
+  ],
+  "judgeEvidence": "runMetadata recipe tasks; cached cells may lack a current-run recipe and require original receipt.",
+  "forcedActivation": true,
+  "scoring": true,
+  "cells": [
+    {
+      "scenario": "evals/tessl/content-v4-clean/closure-reopening",
+      "fingerprint": "a1124c70747906c41b51a80ed9684abbdb80a9b275f382b750f917fb44b4d0e3",
+      "arm": "baseline",
+      "solutionId": "01a12135-d548-77c3-8661-14a239ddecf4",
+      "status": "completed",
+      "score": 75,
+      "criteria": [
+        {
+          "name": "closure-reopening_1",
+          "score": 1,
+          "reasoning": "The Review launch checklist task was correctly closed with task-state: completed, its DoD criterion checked [x], started_at preserved from the prior date (2026-10-08), resolved_at set to the current instant (2026-10-09T15:00:00Z), and a Result section documenting satisfaction was added � matching the closure protocol.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_2",
+          "score": 1,
+          "reasoning": "The milestone (m1-launch) was correctly kept at milestone-state: in-progress and not completed, because the landing-copy DoD criterion remains unsatisfied; the project-index similarly shows the Launch milestone unchecked, so the Launch milestone is not prematurely closed.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_3",
+          "score": 1,
+          "reasoning": "The Draft landing copy task was reopened to task-state: not-started consistently across the task file, the milestone task list ([ ]), and the project-index summary ([ ]), with human ownership (casey@example.test) preserved and task identity unchanged.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_4",
+          "score": 0,
+          "reasoning": "No decision log entries were written (no log directory or log files exist in the vault); the solution bypassed the required script-only log-append operation and directly mutated markdown files without recording authorized effects or checkpoints, violating the log-append requirement.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d548-77c3-8661-14a239ddecf4.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/closure-reopening",
+      "fingerprint": "a1124c70747906c41b51a80ed9684abbdb80a9b275f382b750f917fb44b4d0e3",
+      "arm": "original",
+      "solutionId": "01a12135-d563-7200-b169-c894faf95971",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "closure-reopening_1",
+          "score": 1,
+          "reasoning": "The solution correctly inspected the Review launch checklist task's DoD before completing it (closure.json confirms the criterion 'Every launch checklist item reviewed.' was checked=true), preserved the original started_at ('2026-10-08T15:00:00Z') unchanged, and set resolved_at to the activity time ('2026-10-09T15:10:32.153Z'); the log entry correctly records time_defaulted:true since no explicit activity time was given.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_2",
+          "score": 1,
+          "reasoning": "The milestone m1-launch.md correctly remains milestone-state: in-progress (not closed), its DoD criterion 'Landing copy is approved and checklist reviewed.' remains unchecked, and the project-index.md remains project-state: in-progress � the solution did not complete the Launch milestone while its landing-copy sub-criterion remained unsatisfied.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_3",
+          "score": 1,
+          "reasoning": "The reopening of Draft landing copy is applied consistently: the task file has task-state: not-started with DoD unchecked, owner casey@example.test is preserved, the milestone's task projection is [ ], the project-index projection is [ ], and reconciliation.json reflects checked:false in both views � task identity and human ownership are fully preserved.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_4",
+          "score": 1,
+          "reasoning": "Both operations are recorded as script-generated log appends in the decisions JSON with proper before/after fields; time_defaulted:true is set for both (no fabricated activity time); the reopen 'after' only records task-state and dod changes without inferring a new started_at; no today selection or execution start was added for either task.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d563-7200-b169-c894faf95971.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/closure-reopening",
+      "fingerprint": "a1124c70747906c41b51a80ed9684abbdb80a9b275f382b750f917fb44b4d0e3",
+      "arm": "revised",
+      "solutionId": "01a12135-d570-73b7-86b5-22ca6f236b2d",
+      "status": "completed",
+      "score": 87,
+      "criteria": [
+        {
+          "name": "closure-reopening_1",
+          "score": 1,
+          "reasoning": "The Review task's DoD checkbox is correctly marked satisfied, started_at is preserved as the original start (2026-10-08), resolved_at records the actual activity timestamp (2026-10-09T15:13:50.883Z), and the Result section documents evidence of completion.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_2",
+          "score": 1,
+          "reasoning": "The Launch milestone correctly remains in-progress with its DoD criterion unchecked; neither the milestone nor the project was closed while the Draft landing copy task remains unsatisfied.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_3",
+          "score": 0.5,
+          "reasoning": "Projections in the milestone and project-index views are consistently updated to unchecked, ownership (casey@example.test) and task identity are preserved, and the DoD criterion was reset; however, the task was set to 'in-progress' instead of 'not-started' as explicitly requested by the user, which is a valid distinct state in the schema.",
+          "max_score": 1
+        },
+        {
+          "name": "closure-reopening_4",
+          "score": 1,
+          "reasoning": "Both operations are recorded as log appends in the decisions log with before/after states explicitly documented, time_defaulted:true confirms no timing was inferred, and no today selection or execution start was fabricated from context.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d570-73b7-86b5-22ca6f236b2d.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "baseline",
+      "solutionId": "01a12135-d57d-743e-b2c9-3aaa6e1b8e2a",
+      "status": "completed",
+      "score": 0,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 0,
+          "reasoning": "No evidence the agent actually invoked the planning-prepare or planning-review operation to inspect both the 2026.10.08 and 2026.10.09 daily plans; the only new artifacts are the project-index cache files, not any planning review state, meaning rollover eligibility was never verified against the earlier plan.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 0,
+          "reasoning": "No rollover result was produced or saved; the eligible unfinished task from 2026.10.08 (t1-draft-landing-copy, not-started) was never identified, carried forward, or preserved in any output, and task state/ownership in the plan files is unchanged from pristine state.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 0,
+          "reasoning": "No planning-state save-review operation was executed; the .nyssaai/daily-tasks/ directory contains only profile.json with no review/ or rollover/ subdirectories, no numbered mapping JSON was written, and no six-column screen with status legend was produced.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 0,
+          "reasoning": "No explicit choices were offered to the user; the solution contains only the pristine library code and vault with no displayed options, no numbered task list, and no user-facing output showing available selections without starting work.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d57d-743e-b2c9-3aaa6e1b8e2a.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "original",
+      "solutionId": "01a12135-d595-722b-8b4f-eb9467077562",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 1,
+          "reasoning": "The solution correctly uses planning-prepare to read the bound vault's profile.json, inspects both the current plan (2026.10.09-daily-plan.md) and the earlier plan (2026.10.08-daily-plan.md) with sha256 hashes, and calls plan-rollover with the CLI to verify rollover status ('due') rather than inferring it from the plan file's mere existence.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 1,
+          "reasoning": "The solution carries exactly the one eligible unfinished task ('Draft landing copy', not-started) from 2026.10.08 once into 2026.10.09 with the ? marker; canonical task records retain their original state (not-started), owner (casey@example.test), and the earlier plan file retains its notes and history intact; the decisions log records the carry as a 'task.selected' event with 'carriedFrom':'2026.10.08'.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 1,
+          "reasoning": "The solution saves a stable same-date same-vault numbered mapping in vault/.nyssaai/daily-tasks/review/2026.10.09.json with planId, mappingBinding (bdc9dabf...), and a two-entry mapping (task?1, task?2) derived from current preparation hashes; the planning-state 'save-review' action was called with expectedPlanHash and expectedInventoryHash from the preparation output, satisfying the hash-binding requirement.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 1,
+          "reasoning": "The solution completes rollover and saves the review mapping without starting any work (no task states modified), without fitting durations or scheduling, and without silently selecting additional available tasks (available:[] in the review, hasMore:false); the numbered mapping provides explicit choice handles for the user to act on, and no tasks were automatically added beyond the carry-forward.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d595-722b-8b4f-eb9467077562.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/rollover-selection",
+      "fingerprint": "8ee62d106688afa361d4a98614565231a74829f9c0c53df594e33f4c0a87b806",
+      "arm": "revised",
+      "solutionId": "01a12135-d5a3-7749-a0cc-b5ad9ef60574",
+      "status": "completed",
+      "score": 87,
+      "criteria": [
+        {
+          "name": "rollover-selection_1",
+          "score": 1,
+          "reasoning": "The solution reads ENVIRONMENT.md for vault binding, runs planning-prepare multiple times to inspect both the pre-created 2026.10.09 plan and the previous 2026.10.08 plan, detects rollover status 'due' from the prepare output, handles the recovery-required state (pending operation detected in prepare2.out.json), and completes the rollover through the planning-state complete-rollover action with a verified completedAt receipt in rollover/2026.10.09.json � establishing rollover through verified protocol rather than inferring from file existence.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_2",
+          "score": 1,
+          "reasoning": "Exactly one task ('Draft landing copy', id 01a1212d-9d80-7d34-a020-2540c4c46f0d) was carried forward from 2026.10.08 � the only unfinished previous-day selection � recorded once in decisions.json as plan.carry-forward; the earlier plan (2026.10.08-daily-plan.md) is preserved intact, canonical task state ('not-started') and ownership (casey@example.test) remain unchanged in the task files, and the ? marker with provenance was applied to the current plan.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_3",
+          "score": 0.75,
+          "reasoning": "The stable numbered UUID-to-number mapping was saved to vault/.nyssaai/daily-tasks/review/2026.10.09.json with the correct mappingBinding from the current preparation hashes, and planning-state save-review was called with the expectedPlanHash, expectedInventoryHash, and expectedReviewHash from the prepare output; however, there is no conversation transcript to confirm the six-column screen with status legend was actually displayed to the user.",
+          "max_score": 1
+        },
+        {
+          "name": "rollover-selection_4",
+          "score": 0.75,
+          "reasoning": "The solution logged only the carry-forward operation with no task state changes, no scheduling or time-fitting, and no silently added available tasks (review shows 0 available tasks and none added), correctly ending at the review-state-saved checkpoint; however, the absence of a conversation transcript means the explicit display of day choices to the user cannot be independently confirmed.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d5a3-7749-a0cc-b5ad9ef60574.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/interrupted-recovery",
+      "fingerprint": "925558827c22053e9a35f5607300d348887ce53ab74dcd5a8b2fd5136011d84e",
+      "arm": "baseline",
+      "solutionId": "01a12135-d5b2-71fc-838b-98cd753fbb08",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "interrupted-recovery_1",
+          "score": 1,
+          "reasoning": "The solution correctly uses the checkpoint in ENVIRONMENT.md ('source selection removed; remaining effects unfinished') to identify the remaining effect (adding Recovery task to 2026.10.10 plan). The reconciliation.json stores before/after hashes for both plan files, and those hashes match the sha256 values in project-index.json sources � confirming files were checked against the saved hashes.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_2",
+          "score": 1,
+          "reasoning": "Recovery task is correctly absent from the source 2026.10.09-daily-plan.md and present exactly once in the destination 2026.10.10-daily-plan.md. The decisions log (2026.10.09-decisions.json) contains exactly one selection-move event recording the move from date 2026.10.09 to 2026.10.10 with the correct record ID.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_3",
+          "score": 1,
+          "reasoning": "Reconciliation.json is properly updated with selected:false for the source date and selected:true for the destination date with matching hashes. Rollover state is updated � 2026.10.09 rollover includes completedAt and removedIds containing the recovery task ID, 2026.10.10 rollover has the correct planId. Historical 2026.10.08 plan is untouched, unrelated notes ('Preserve this unrelated note.') are preserved in all plans, and canonical task files are unmodified.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_4",
+          "score": 1,
+          "reasoning": "The decisions log contains exactly one event (a single selection-move, no acceptance, lifecycle-start, or duplicate events). No conflicting overwrites were introduced � the project-index.json consistently shows Recovery task planned only for 2026.10.10, matching the file state. No fabricated events were added beyond what the interrupted operation required.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d5b2-71fc-838b-98cd753fbb08.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/interrupted-recovery",
+      "fingerprint": "925558827c22053e9a35f5607300d348887ce53ab74dcd5a8b2fd5136011d84e",
+      "arm": "original",
+      "solutionId": "01a12135-d5ca-75ae-8213-d095c05960e0",
+      "status": "completed",
+      "score": 75,
+      "criteria": [
+        {
+          "name": "interrupted-recovery_1",
+          "score": 0,
+          "reasoning": "No operation checkpoint file existed in the initial state (planning-prepare returned pendingOperations: []). The agent used recover-operation with a manually-constructed operation object (recover.json shows before/after hashes computed from current file state rather than read from a saved checkpoint). The criterion requires using 'the existing operation checkpoint' to identify remaining effects, but no such checkpoint file was present for the agent to use.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_2",
+          "score": 1,
+          "reasoning": "Recovery task is absent from the 2026.10.09 source plan and present exactly once in the 2026.10.10 destination plan. The decisions log contains exactly one selection-move entry logged via the log-append CLI with the original event ID (01a1212d-9d80-7209-8dc9-4c68a4174811) and operation ID (01a1212d-9d80-77bf-9fcd-0920f0b051c0).",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_3",
+          "score": 1,
+          "reasoning": "Reconciliation.json was updated (hash changed from initial 96838e391... to final f5f74344...) with the 2026.10.10 view showing selected=true. Rollover/2026.10.09.json was updated (hash changed from 7f84d1b1... to 28506e50...) with completedAt, operationId, and removedIds. No checkpoint file remained dangling. Unrelated historical content was preserved: Notes sections in both plans, Other task in 2026.10.09 plan, and 2026.10.08 historical plan was unchanged.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_4",
+          "score": 1,
+          "reasoning": "The decisions log contains exactly one entry (selection-move) with no duplicate events, no lifecycle-start events, no invented task acceptance, and no conflicting overwrites. The second recover-operation call (recover2.json) confirmed all effects were applied cleanly with no conflicts. The canonical recovery-task.md file was unchanged, preserving its state as not-started.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d5ca-75ae-8213-d095c05960e0.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/interrupted-recovery",
+      "fingerprint": "925558827c22053e9a35f5607300d348887ce53ab74dcd5a8b2fd5136011d84e",
+      "arm": "revised",
+      "solutionId": "01a12135-d5da-74d6-b0aa-9a1ea469e779",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "interrupted-recovery_1",
+          "score": 1,
+          "reasoning": "The solution invoked the CLI recover operation which returned the exact checkpoint (pending operation 01a1212d-9d80-77bf-9fcd-0920f0b051c0.json) and compared actual file states to before/after hashes for all three effects (destinationMember, sourceMember, logRecorded, baselineHash, sourceRolloverHash), as evidenced in recover.json and recover2.json.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_2",
+          "score": 1,
+          "reasoning": "Recovery task is absent from 2026.10.09-daily-plan.md, present exactly once in 2026.10.10-daily-plan.md, and the decisions log (2026.10.09-decisions.json) contains exactly one selection-move entry recorded through the log CLI (evidenced by logappend.json matching the entry).",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_3",
+          "score": 1,
+          "reasoning": "reconciliation.json was updated to track Recovery task (selected: false in 10.09, selected: true in 10.10); rollover/2026.10.09.json correctly includes removedIds with the recovery task ID; the checkpoint was cleared (packet3/4 show pendingOperations: []); both daily plan files preserved their unrelated notes; maintenance.json was updated with a reconciliation timestamp.",
+          "max_score": 1
+        },
+        {
+          "name": "interrupted-recovery_4",
+          "score": 1,
+          "reasoning": "The decision log has exactly one selection-move entry with no invented acceptance, lifecycle-start, or duplicate move events; no conflicting overwrites were made; unresolved conflicts (none present) remained untouched; the review file contains only plan-review metadata and no fabricated decision events.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d5da-74d6-b0aa-9a1ea469e779.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/candidate-deduplication",
+      "fingerprint": "c4cd35bd5a0a16d2b00df501547e7d3f5e539f800d5bfc90edd30e04f6f156ef",
+      "arm": "baseline",
+      "solutionId": "01a12135-d5ea-73c8-89fd-26952a6fcca4",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "candidate-deduplication_1",
+          "score": 1,
+          "reasoning": "The solution correctly presents exactly one deduplicated candidate ('Prepare launch announcement') with full provenance: mention 1 (Alex's direct request), mention 2 (restatement, not a separate item), and mention 3 (Casey's own promise), all preserved in candidates.json and possible-work.md.",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_2",
+          "score": 1,
+          "reasoning": "The solution explicitly scanned the vault, found no existing 'launch announcement' task (only 'Draft landing copy' and 'Review launch checklist' under the Launch milestone), and confirmed the three mentions are the same deliverable rather than treating them as distinct accepted tasks.",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_3",
+          "score": 1,
+          "reasoning": "The solution marks the item as status 'candidate', stages the record in proposed-records/ (not written to the vault), and explicitly states 'it is proposed, not silently written into the vault' � affirmative acceptance is required before creating any canonical task.",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_4",
+          "score": 1,
+          "reasoning": "No accepted task, daily selection, or assignment was inferred from third-party speech (mention 2: 'Casey should prepare') or the source promise (mention 3: 'I promised I'd prepare'); the item remains a candidate requiring acceptance before vault creation.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d5ea-73c8-89fd-26952a6fcca4.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/candidate-deduplication",
+      "fingerprint": "c4cd35bd5a0a16d2b00df501547e7d3f5e539f800d5bfc90edd30e04f6f156ef",
+      "arm": "original",
+      "solutionId": "01a12135-d601-727c-b631-63011d352509",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "candidate-deduplication_1",
+          "score": 1,
+          "reasoning": "The solution presents exactly one deduplicated candidate ('Prepare launch announcement') and preserves provenance from all three sources via the sourceKeys and mentions arrays (alex-request, restatement, and promise).",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_2",
+          "score": 1,
+          "reasoning": "The dedupe object explicitly shows mentions:3 and distinctItems:1, with the second mention labeled 'repeated mention of the same work' and the third as 'inferred promise'�none treated as distinct accepted tasks.",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_3",
+          "score": 1,
+          "reasoning": "The acceptance status is 'pending' with an empty sources array and a note stating 'No record has been created'; the disposition is 'proposed', indicating affirmative acceptance is still required before any canonical task is created.",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_4",
+          "score": 1,
+          "reasoning": "All three mentions have suppliesAcceptance:false�the third-party quoted request, the restatement, and the inferred promise are all explicitly excluded from supplying acceptance, so no accepted task or assignment is inferred from any of them.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d601-727c-b631-63011d352509.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/candidate-deduplication",
+      "fingerprint": "c4cd35bd5a0a16d2b00df501547e7d3f5e539f800d5bfc90edd30e04f6f156ef",
+      "arm": "revised",
+      "solutionId": "01a12135-d619-75ee-a8dd-64a2125a1e8a",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "candidate-deduplication_1",
+          "score": 1,
+          "reasoning": "The solution presents exactly one deduplicated candidate titled 'Prepare launch announcement' and preserves provenance from all three sources: Alex's quoted directive, the third-person statement, and the self-promise, each recorded with distinct keys in the mentions array.",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_2",
+          "score": 1,
+          "reasoning": "The candidate's dedupe field explicitly states 'All three mentions describe one work item; a repeated mention adds context, not another task,' and the solution checked existing accepted work (the website project's existing tasks) before proposing the candidate, treating the three mentions as one item rather than three distinct tasks.",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_3",
+          "score": 1,
+          "reasoning": "The candidate is stored with status 'pending-acceptance' and the unresolved array explicitly states 'No affirmative user acceptance: a quoted request, a third-person statement and an inferred promise do not accept work,' confirming no canonical task was created without explicit user acceptance.",
+          "max_score": 1
+        },
+        {
+          "name": "candidate-deduplication_4",
+          "score": 1,
+          "reasoning": "No accepted task, daily selection, or assignment appears in the vault; the only change is a pending-acceptance candidate in candidates.json, so nothing was inferred from Alex's third-party directive or the self-recorded promise alone.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d619-75ee-a8dd-64a2125a1e8a.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/configuration-direct-acceptance",
+      "fingerprint": "394c3c37a7d903c557f656d7b8ab2af0b005bdfac06481d5d40e6617fc68d9c3",
+      "arm": "baseline",
+      "solutionId": "01a12135-d628-7735-859f-e992a2b2811d",
+      "status": "completed",
+      "score": 75,
+      "criteria": [
+        {
+          "name": "configuration-direct-acceptance_1",
+          "score": 1,
+          "reasoning": "The solution reads the existing profile from vault/.nyssaai/daily-tasks/profile.json (Casey, casey@example.test) and operates within the established vault at the bound path without asking any redundant setup or acceptance questions.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_2",
+          "score": 1,
+          "reasoning": "Exactly one task was created (t3-test-launch-links.md) with task-state: not-started, correct title 'Test launch links', supplied requirements ('Check every public launch link.'), a DoD criterion with embedded ID (01a1212d-9d80-7ffd-997f-961dca6c8f44), valid project_id and milestone_id matching the Website project and Launch milestone respectively, and the task was properly referenced in both the milestone file and project-index.md.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_3",
+          "score": 0,
+          "reasoning": "While the task has correct human ownership (casey@example.test) and the project-index.json was updated with the new task and its checksums, there is no visible evidence that the log CLI was explicitly invoked to record the creation � no log entries or log-specific output files are present in the vault.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_4",
+          "score": 1,
+          "reasoning": "The new task remains in 'not-started' state and there is no daily plan file selecting it for today's work, confirming the agent did not start execution or select it for today merely because it was created.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d628-7735-859f-e992a2b2811d.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/configuration-direct-acceptance",
+      "fingerprint": "394c3c37a7d903c557f656d7b8ab2af0b005bdfac06481d5d40e6617fc68d9c3",
+      "arm": "original",
+      "solutionId": "01a12135-d63e-73ac-ba90-ddd9d9a68e1e",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "configuration-direct-acceptance_1",
+          "score": 1,
+          "reasoning": "The solution used the pre-existing profile (Casey/casey@example.test from profile.json) and the bound vault at the correct path without asking any redundant setup or acceptance questions.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_2",
+          "score": 1,
+          "reasoning": "Exactly one task (t3-test-launch-links.md) was created with task-state: not-started, the supplied requirements ('Check every public launch link.'), an embedded DoD criterion ID (<!-- id: 01a12136-7d2d-7503-8fc4-6fd77dc839bc -->), valid project_id and milestone_id matching the Website project and Launch milestone, and proper wiki-link references in both m1-launch.md and project-index.md.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_3",
+          "score": 1,
+          "reasoning": "The creation was recorded in 2026.10.09-decisions.json with action 'task.accepted', a human actor (casey@example.test, kind: person), the original_words preserved, and the record_id linking back to the created task.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_4",
+          "score": 1,
+          "reasoning": "No daily plan file was created and the task-state remains 'not-started'; the task was not selected for today or started merely because it was created.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d63e-73ac-ba90-ddd9d9a68e1e.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "scenario": "evals/tessl/content-v4-clean/configuration-direct-acceptance",
+      "fingerprint": "394c3c37a7d903c557f656d7b8ab2af0b005bdfac06481d5d40e6617fc68d9c3",
+      "arm": "revised",
+      "solutionId": "01a12135-d64b-75ad-80f5-033a8507b80a",
+      "status": "completed",
+      "score": 100,
+      "criteria": [
+        {
+          "name": "configuration-direct-acceptance_1",
+          "score": 1,
+          "reasoning": "The solution correctly reuses the established profile (casey@example.test in America/Chicago timezone) from the pre-existing vault without asking any redundant setup or acceptance questions.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_2",
+          "score": 1,
+          "reasoning": "Exactly one task was created with state 'not-started', proper requirements ('Check every public launch link.'), an embedded DoD criterion ID (01a12136-fad1-7268-911c-bd48074d78eb), and valid project_id and milestone_id matching the Website project and Launch milestone.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_3",
+          "score": 1,
+          "reasoning": "The decisions log (2026.10.09-decisions.json) records a 'task.accepted' action with human ownership (casey@example.test as actor), the original task instruction text, and the full after-state snapshot � all recoverable and auditable.",
+          "max_score": 1
+        },
+        {
+          "name": "configuration-direct-acceptance_4",
+          "score": 1,
+          "reasoning": "The new task remains in 'not-started' state with no daily plan file created to select it, confirming the agent did not start execution or schedule the task merely because it was created.",
+          "max_score": 1
+        }
+      ],
+      "artifactKey": "evals/nyssa-ai/solutions/01a12135-d64b-75ad-80f5-033a8507b80a.tar.gz",
+      "recipeTasks": [
+        {
+          "name": "solve",
+          "agent": "claude",
+          "model": "deepseek-v4.1-flash",
+          "status": "completed"
+        },
+        {
+          "name": "score",
+          "agent": "claude",
+          "model": "claude-sonnet-4-6",
+          "status": "completed"
+        }
+      ]
+    }
+  ]
+}

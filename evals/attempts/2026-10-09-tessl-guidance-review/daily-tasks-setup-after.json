@@ -1,0 +1,185 @@
+{
+  "reviewRunId": "01a12117-2b5b-71d2-a0a3-4cd3b8c7d70b",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 136 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-setup'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (166 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 3 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 3,
+            "reasoning": "The body is dense and purely operational with no explanations of known concepts, but the same guardrails are restated multiple times: scope/migration warnings appear in the discovery steps (\"This lookup does not select a vault\"), again around the scope question (\"The question is about preference scope, not internal directory selection\"), in the output section (\"never use configRoot as an output default\", \"Do not place daily plans... in .nyssaai/daily-tasks/\"), and in the closing (\"Setup does not authorize... migrating an existing vault schema\"). This repetition is more than the minor trimming of anchor 4, matching anchor 3's \"mostly efficient but could be tightened\"."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Guidance is highly concrete: exact paths (`<vaultRoot>/.nyssaai/daily-tasks/profile.json`), verbatim question strings, a complete profile.json example, specific commands (\"Use `validate-profile` before saving profile.json\", \"log... through log CLI using an empty record_ids array\", \"Check Node >=22 and CLI --help\"), and a location-semantics table. It is not fully executable because actual CLI invocation syntax is deferred to the referenced cli.md, so anchor 4 (mostly executable, minor gaps) fits rather than anchor 5."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "A numbered discovery sequence with explicit precedence and fallbacks, verbatim questions with defaults, and a real validation checkpoint (\"Use `validate-profile` before saving profile.json\") plus error recovery for timezone-detection failure. Not anchor 5 because there is no validate->fix->retry loop for profile validation and the sequence is scattered (the Node/CLI environment check appears near the end while profile loading appears mid-document), but well above anchor 3's implicit-checkpoint level."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "The three references (cli.md, records.md, templates.md) are one level deep and clearly signaled with conditional load instructions tied to task context (\"Load the CLI... when invoking context/profile/log operations\"). It falls short of anchor 5 because the references resolve to a sibling skill directory rather than a local bundle (no references/, scripts/, or assets/ exist in this skill), and the ~130-line body is organized under a single section heading, leaving minor navigation gaps at anchor 4's level."
+          }
+        },
+        "suggestions": [
+          "Consolidate the repeated scope/migration guardrails (stated in the discovery steps, the scope-question section, the output-resolution section, and the closing) into one short \"Invariants\" list to cut redundant tokens.",
+          "Reorder the procedure into a linear numbered flow (environment check -> discovery -> questions -> defaults -> resolve outputs -> validate -> save -> log -> report) so the reader assembles the sequence from one pass, and add an explicit \"if validate-profile fails, fix and re-validate\" loop.",
+          "Add a second or third section heading (e.g. \"## First-use questions\", \"## Output resolution\", \"## Validation and saving\") to break up the single long section, and consider local copies or a clear note for the ../daily-tasks references so the skill bundle is self-contained."
+        ],
+        "overall_assessment": "The body is an unusually precise, constraint-dense setup procedure with concrete paths, verbatim questions, a complete profile example, and explicit validation — genuinely actionable instruction-only content. Its weaknesses are repetitive guardrail statements that could be consolidated, a scattered step ordering, and reliance on reference files that live outside the skill's own bundle."
+      },
+      "weightedScore": 3.7,
+      "normalizedScore": 0.675
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 4,
+            "reasoning": "\"Set up or explicitly update Daily Tasks identity, timezone, priorities and storage locations\" names two concrete actions applied to four specific configuration targets (identity, timezone, priorities, storage locations). This matches anchor 4 (several specific actions, minor gaps) rather than 3, since it goes beyond 1-2 generic actions, but falls short of 5 because it omits capabilities the body performs (scope question, validation, resolved-location reporting)."
+          },
+          "completeness": {
+            "score": 4,
+            "reasoning": "Both what (\"Set up or explicitly update Daily Tasks identity, timezone, priorities and storage locations\") and when (\"Use on first use or when the user changes personal planning preferences\") are explicitly stated. The when-clause is concrete but narrow — it would not clearly capture requests like \"update my Daily Tasks profile/settings\" — so it sits at anchor 4 rather than the comprehensive trigger-phrase coverage of anchor 5."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Natural phrases like \"first use\", \"personal planning preferences\", \"timezone\", and \"priorities\" are present and would be said by users. Good coverage but missing common variations such as \"profile\", \"settings\", or \"configuration\", placing it at anchor 4 rather than 5, and clearly above anchor 3's partial keyword coverage."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "\"Daily Tasks\" names a specific tool and the description is scoped to setup/configuration, giving it a clear niche with mostly distinct triggers. Minor overlap risk remains with closely related planning/task-execution skills (e.g., a user saying \"set up my day\" or \"change my priorities\" mid-workflow), so anchor 4 fits better than anchor 5's minimal-conflict bar."
+          }
+        },
+        "suggestions": [
+          "Broaden the when-clause with concrete trigger phrases users actually say, e.g. \"Use when setting up Daily Tasks for the first time, or when the user changes their name/email, timezone, priorities, or where plans and projects are stored (profile/settings updates).\"",
+          "Mention that setup validates and reports resolved locations, so the what-clause reflects the full capability scope without adding vague padding."
+        ],
+        "overall_assessment": "A strong description: third-person voice, concrete capability targets, and an explicit \"Use on...\" trigger clause covering first use and preference changes. Its main limitation is narrow trigger coverage — synonyms like profile, settings, or configuration are absent — which keeps every dimension at 4 rather than 5."
+      },
+      "weightedScore": 4,
+      "normalizedScore": 0.75
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.75
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.675
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 76
+  }
+}

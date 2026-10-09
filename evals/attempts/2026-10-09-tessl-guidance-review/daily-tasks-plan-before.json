@@ -1,0 +1,186 @@
+{
+  "reviewRunId": "01a120e8-1a73-7199-b225-791f206f3bf8",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 121 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-plan'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (200 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 8 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 4,
+            "reasoning": "The body is dense directive prose — \"Paginate available additions at 15 rows maximum\", \"Do not backfill skipped days\", \"Log deselection and selection once when changed\" — with almost no padding or explanation of concepts Claude already knows. It sits at the 'efficient; minor instances that could be trimmed' anchor because a few rules restate one another (e.g., unresolved references mentioned twice, and 'Execution order belongs to the person' repeats the no-ranking rule) rather than at the lean 5 anchor."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Concrete specifics abound: an exact path pattern `<vaultRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md` (default `2-areas/daily-plans`), named commands (`planning-prepare`, `planning-state`, `project-index`, `local-day`, `format-time`), deterministic sort rules, and display templates. It falls short of fully executable 5 because command invocation syntax is never shown and several rules defer without specifics (\"Pending carry still requires the Markdown operation protocol\")."
+          },
+          "workflow_clarity": {
+            "score": 3,
+            "reasoning": "A sequence exists (bind vault, run planning-prepare, read profile/plan, verify rollover, reconcile/merge, render review, persist via planning-state) and validation elements are stated (\"Only verified rollover completion skips this merge\", \"recover an interrupted checkpoint before reconsidering its effects\"), but the steps are scattered across dense paragraphs with no enumerated order and checkpoints are implicit in placement. This matches the 'steps listed but checkpoints missing or implicit' anchor rather than the clear-sequence 4 anchor."
+          },
+          "progressive_disclosure": {
+            "score": 3,
+            "reasoning": "References are clearly signaled with purpose and one level deep (\"Apply [response conventions] ... when rendering review screens\", \"Use the [inventory and planning flow] for context, cache, maintenance...\"), but none of the referenced files exist in this bundle (no references/, scripts/, or assets/ directories; links point to a sibling ../daily-tasks/ bundle not present here), and ~115 lines of policy sit under only two headings with display/sorting rules fully inlined. This fits the 'some structure but could be better organized' anchor rather than the good-structure 4 anchor."
+          }
+        },
+        "suggestions": [
+          "Present the core workflow as an explicit numbered sequence (resolve vault binding → planning-prepare → read profile/plan → verify rollover → reconcile/merge → render review → planning-state → write/link plan) instead of scattering the order across prose paragraphs.",
+          "Make validation checkpoints explicit inline (when to verify rollover completion, when to run planning-state, what constitutes a failed effect) as a short checklist for the write/reconciliation path.",
+          "Break the two monolithic sections into headed subsections (e.g., Review rendering rules, Rollover and carry-forward, Plan file format) or move detailed display rules to a reference file so the body acts as a navigable overview."
+        ],
+        "overall_assessment": "The content is an information-dense policy document with concrete paths, commands, and thresholds, but it reads as a monolithic wall of rules under two headings rather than a navigable workflow. Its weakest points are the unenumerated multi-step sequence with implicit checkpoints and the thin in-bundle structure given that all referenced materials live outside the review bundle."
+      },
+      "weightedScore": 3.6,
+      "normalizedScore": 0.65
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 4,
+            "reasoning": "\"Create or edit the user's local-day Markdown plan\", \"review available work\", and \"carry unfinished selected work forward\" name several concrete actions on a specific artifact, matching the 'several specific actions with minor gaps' anchor. It is not a 5 because significant capabilities (rollover merging, reconciliation, templates, timezone handling) are not covered at all in the description."
+          },
+          "completeness": {
+            "score": 3,
+            "reasoning": "The 'what' is clear (create/edit/review/carry-forward a local-day Markdown plan across personal and delegated work), but there is no 'Use when...' clause or equivalent explicit trigger guidance, which caps completeness at 3 per the judging guidelines. It is not a 2 because the 'what' is concrete and multi-part, not vague."
+          },
+          "trigger_term_quality": {
+            "score": 3,
+            "reasoning": "Relevant keywords like \"plan\", \"carry unfinished selected work forward\", and \"review available work\" are present, but users' natural phrases (\"plan my day\", \"daily plan\", \"carry over tasks\") are missing and \"local-day Markdown plan\" leans on domain jargon users would not say. This fits the 'some relevant keywords but missing common variations or synonyms' anchor rather than the good-coverage anchor above."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "\"Local-day Markdown plan across personal and delegated work\" and \"carry unfinished selected work forward without ranking, scheduling or fitting durations\" carve a distinct daily-planning niche with low risk of triggering generic file or writing skills. Not a 5 because it shares planning/task vocabulary with other planning skills and lacks trigger phrases that would sharpen the boundary."
+          }
+        },
+        "suggestions": [
+          "Append an explicit trigger clause, e.g. 'Use when the user asks to plan their day, create or update a daily plan, or carry unfinished work forward.'",
+          "Replace jargon like 'local-day Markdown plan' with natural user phrasing such as 'daily plan' or 'plan for today' so the description matches what users actually type.",
+          "Include common synonyms (daily plan, carry over tasks, rollover) to broaden natural keyword coverage without adding vague claims."
+        ],
+        "overall_assessment": "The description states a concrete, multi-action 'what' in a distinct niche, but omits any explicit 'when to use' trigger guidance and relies on domain jargon ('local-day') over natural user phrases. Adding a 'Use when...' clause with everyday trigger terms would resolve its two weakest dimensions."
+      },
+      "weightedScore": 3.35,
+      "normalizedScore": 0.5875
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.5875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.65
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 68
+  }
+}

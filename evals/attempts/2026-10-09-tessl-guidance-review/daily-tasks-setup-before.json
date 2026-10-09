@@ -1,0 +1,182 @@
+{
+  "reviewRunId": "01a120e8-1a85-73ac-aef7-2f8a0e264e89",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 135 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-setup'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (166 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 3 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 3,
+            "reasoning": "The body is dense and mostly necessary, but the configuration-scope question is explained in three separate passages ('The question is about preference scope, not internal directory selection', 'Explicit scope in the request already answers this question', 'Reuse an existing setup without asking again') and 'do not silently move existing state' is restated, so it could be tightened."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "Concrete paths, exact question strings, a complete JSON profile example, a location table, and named validation steps ('Check Node >=22 and CLI --help. Use validate-profile before saving profile.json') make the guidance mostly executable, but no actual command syntax is shown for validate-profile, resolve-context, or the log CLI, leaving minor gaps."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "There is a numbered discovery precedence (steps 1-4), explicit pre-save validation, and an error-recovery path ('If host detection fails, explain the failure and ask for an explicit IANA zone'), but the end-to-end setup flow must be assembled across several sections rather than presented as one sequence with checkpoints."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "Sections are clear and detail is appropriately deferred to reference files via well-signaled, one-level-deep links ([records.md], [cli.md], [templates.md]), but all three resolve to a sibling bundle at ../daily-tasks/references/ and this bundle itself ships no references/, scripts/, or assets/ files."
+          }
+        },
+        "suggestions": [
+          "Consolidate the configuration-scope guidance (currently spread across three passages) into the single block that poses the vault-only vs all-vaults question, and merge the duplicate 'do not silently move existing state' instructions.",
+          "Include the actual command syntax for validate-profile, resolve-context, and the log CLI (or at least one inline example invocation) so the core workflow is executable without first reading the external cli.md reference.",
+          "Either bundle the referenced records/cli/templates material under this skill's own references/ directory or inline short summaries of what each external reference covers, since the current links point to a sibling bundle that is not part of this skill."
+        ],
+        "overall_assessment": "A detailed, safety-conscious setup procedure with concrete paths, exact question wording, a full profile example, and explicit validation before saving. Its main weaknesses are repeated explanation of the scope question and reference links that point outside the bundle rather than to bundled files."
+      },
+      "weightedScore": 3.7,
+      "normalizedScore": 0.675
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 4,
+            "reasoning": "'Set up or explicitly update Daily Tasks identity, timezone, priorities and storage locations' names several specific objects, matching the several-specific-actions anchor, but the action coverage is narrow (only set up / update), short of the comprehensive anchor 5."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "It explicitly answers both what ('Set up or explicitly update Daily Tasks identity, timezone, priorities and storage locations') and when ('Use on first use or when the user changes personal planning preferences') with concrete trigger phrases, matching the top anchor; the when-clause is already specific."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Terms like 'Daily Tasks', 'identity', 'timezone', 'priorities', 'first use', and 'personal planning preferences' are phrases a user would naturally say, but common synonyms such as 'profile', 'configuration', or 'settings' are missing, so keyword coverage is good rather than comprehensive."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "The named 'Daily Tasks' domain and setup-specific triggers (first use, planning-preference changes) give it a mostly distinct niche, with only minor overlap risk against a general daily-tasks usage skill."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "A strong description that states concrete capabilities and an explicit, specific use-when clause in third person without padding. Its only gaps are missing common synonyms (profile, configuration, settings) and modest overlap risk with a sibling daily-tasks skill."
+      },
+      "weightedScore": 4.35,
+      "normalizedScore": 0.8375
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.675
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.8375
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 79
+  }
+}

@@ -4,8 +4,8 @@ Direct code and package checks are separate from native-host activation.
 
 | Target / suite | Required | Platform / configuration | Result | Evidence / next check |
 | --- | --- | --- | --- | --- |
-| node-local / deterministic-v1 | Yes | win32/x64 / node-22-plus | pass; STALE | [2026-10-08T17-34-02-498Z-42076](results/2026-10-08T17-34-02-498Z-42076/result.json) |
-| codex / workflow-v3 | Yes | win32/x64 / default | Not run / unverified | Register portable artifact in an isolated Codex profile, verify skill discovery and run scenarios. |
+| node-local / deterministic-v1 | Yes | win32/x64 / node-22-plus | pass; current | [2026-10-09T15-51-20-679Z-12060](results/2026-10-09T15-51-20-679Z-12060/result.json) |
+| codex / workflow-v3 | Yes | win32/x64 / default | fail; current | [codex-native-6abc8b-20261009](results/codex-native-6abc8b-20261009/result.json) |
 | claude-code / workflow-v3 | No | win32/x64 / default | Not run / unverified | Authenticate Claude Code; run with --plugin-dir artifacts/portable in isolated fixture and execute scenarios. |
 | claude-cowork / workflow-v3 | No | win32/x64 / default | Not run / unverified | Upload zipped artifacts/cowork; verify skill discovery, Node availability and persistence in isolated fixture. |
 | antigravity-2 / workflow-v3 | No | win32/x64 / default | Not run / unverified | Register artifacts/antigravity in 2.0 and execute scenarios. |

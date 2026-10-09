@@ -1,0 +1,1998 @@
+{
+  "runs": [
+    "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+    "01a12121-9c01-74ca-83b4-65e06d88cfc4"
+  ],
+  "status": "Completed executions; skill-read telemetry and saved effects inspected; dialogue/order criteria unverified.",
+  "results": [
+    {
+      "id": "A01",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [],
+      "observedMethods": [],
+      "solutionId": "01a1211d-005b-71e1-ac86-758942016e01",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-005b-71e1-ac86-758942016e01.tar.gz",
+      "workflowOutcome": "Saved review/rollover/maintenance for empty selection; canonical task states unchanged.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A01",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a01-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211d-b020-706d-9766-2603fe44f366",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211d-b020-76b2-b4be-992d7bf950bf",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211d-b020-7299-b55c-1f32e73998c6",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211d-b01f-7387-8421-96e869073f89",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "maintenance.json": {
+            "schemaVersion": 1,
+            "lastFullReconcileAt": "2026-10-09T14:44:48.363Z",
+            "model": "haiku",
+            "host": "claude",
+            "evidence": "read-only maintenance subagent (agent a127e78cc934cfee6): no current/previous plan, no pending operations, no reconciliation baselines, inventory rebuilt clean with 0 diagnostics",
+            "checks": [
+              "current-plan-edits",
+              "previous-plan-edits",
+              "applicable-pending-operations",
+              "reconciliation-baselines",
+              "inventory-diagnostics"
+            ]
+          },
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          },
+          "review/2026.10.09.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "planId": "01a12120-2cb3-7614-8b68-ade1a25decb5",
+            "mappingBinding": "bdc9dabf6cc73c2cc10a688a736daffa4089feb1eabc47b78a831ee12aa8ce13",
+            "mapping": {
+              "01a1211d-b020-76b2-b4be-992d7bf950bf": 1,
+              "01a1211d-b020-7299-b55c-1f32e73998c6": 2
+            }
+          },
+          "rollover/2026.10.09.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "planId": "01a12120-2cb3-7614-8b68-ade1a25decb5",
+            "operationId": "01a12120-c3ab-7638-a8b7-9fe6657f36af",
+            "completedAt": "2026-10-09T14:45:40.921Z"
+          }
+        },
+        "plans": [
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.09-daily-plan.md",
+            "content": "---\nid: 01a12120-2cb3-7614-8b68-ade1a25decb5\ntype: daily-plan\ntitle: \"Daily plan 2026.10.09\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T14:45:00.150Z\"\nupdated_at: \"2026-10-09T14:45:00.150Z\"\n---\n# Daily plan — 2026.10.09\n\nOpen projects: 1          Open tasks: 2          Late tasks: 0\n\n**Timezone:** America/Chicago  \n**Updated:** Oct 9, 2026, 9:45:00 AM CDT (America/Chicago)\n\n## Selected for today\n\n### My work\n\nNo work selected yet.\n\n### Delegated work\n\nNo delegated work selected.\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward\n\n## Blockers\n\nNo blockers.\n\n## Decisions\n\n## Notes and references\n"
+          }
+        ],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[],\"total\":0,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/activity.json",
+          ".temp/ft.json",
+          ".temp/ld.json",
+          ".temp/maint.json",
+          ".temp/prepare.json",
+          ".temp/prepare.out.json",
+          ".temp/prepare2.out.json",
+          ".temp/prepare3.out.json",
+          ".temp/prepare4.out.json",
+          ".temp/project-index.json",
+          ".temp/resolve.json",
+          ".temp/rollover-state.json",
+          ".temp/rollover.json",
+          ".temp/save-review.json"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A02",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks-setup"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks-setup",
+          "via": "skill-tool"
+        }
+      ],
+      "solutionId": "01a1211d-009a-7757-914c-c57d6a61c473",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-009a-7757-914c-c57d6a61c473.tar.gz",
+      "workflowOutcome": "Profile created; profile.configured script log present.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A02",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a02-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211d-6a5d-7be9-a763-1d7c8362c33e",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211d-6a5d-71a4-9ea7-3dbaf59c1193",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211d-6a5d-7cb9-8e95-8f37da866f5a",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211d-6a5d-779e-b00b-f2c76a36b34a",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "system",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[{\"id\":\"01a12123-5371-7a97-9df4-9b991bf4a0de\",\"operation_id\":\"01a12123-5398-7182-b708-810d2d03d69d\",\"action\":\"profile.configured\",\"record_ids\":[],\"actor\":{\"kind\":\"person\",\"id\":\"casey@example.test\"},\"activity_at\":\"2026-10-09T15:00:00.000Z\",\"recorded_at\":\"2026-10-09T15:00:00.000Z\",\"time_defaulted\":true,\"original_words\":\"Set up Daily Tasks for this vault. I'm Casey, casey@example.test.\",\"after\":{\"scope\":\"this vault only\",\"configRoot\":\"/workspace/solution/vault/.nyssaai/daily-tasks\",\"timezone\":\"system\",\"projectsRoot\":\"./1-projects\",\"dailyPlansRelative\":\"2-areas/daily-plans\"}}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/activity-time.json",
+          ".temp/log-append.json",
+          ".temp/log-query.json",
+          ".temp/profile-draft.json",
+          ".temp/resolve-context.json"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A03",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-capture",
+        "tessl__daily-tasks-checkin",
+        "tessl__daily-tasks-plan",
+        "tessl__daily-tasks-setup"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-capture",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-checkin",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-plan",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-setup",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-00d6-740e-9bd0-2a7b7dc01e75",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-00d6-740e-9bd0-2a7b7dc01e75.tar.gz",
+      "workflowOutcome": "One pending announcement candidate with source quote; accepted records unchanged.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A03",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a03-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211d-387f-7260-80d8-f367a0326249",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211d-387f-7797-8a73-3040a06b07e4",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211d-387f-7d18-8540-18385e4e4a14",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211d-387f-7071-97a6-11d09644d7d7",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "candidates.json": {
+            "schemaVersion": 1,
+            "generatedAt": "2026-10-09T15:00:00Z",
+            "vaultRoot": "/workspace/solution/vault",
+            "candidates": [
+              {
+                "id": "01a1211e-2f3f-7fe7-a8e4-f70d6ed4792b",
+                "sourceKey": "meeting-note:alex:prepare-launch-announcement",
+                "status": "pending",
+                "title": "Prepare launch announcement",
+                "type": "task",
+                "proposedParent": {
+                  "projectId": "01a1211d-387f-7071-97a6-11d09644d7d7",
+                  "projectTitle": "Website",
+                  "milestoneId": "01a1211d-387f-7260-80d8-f367a0326249",
+                  "milestoneTitle": "Launch"
+                },
+                "owner": "casey@example.test",
+                "assignee": null,
+                "targetDate": null,
+                "source": {
+                  "kind": "meeting-note",
+                  "speaker": "Alex",
+                  "addressee": "Casey",
+                  "quote": "Casey, please prepare a launch announcement."
+                },
+                "unresolved": [
+                  "Acceptance pending: a quoted third-party request does not by itself create work.",
+                  "Confirm parent: existing Website / Launch milestone or a new milestone.",
+                  "No explicit target date and no assignee beyond the owner default were supplied."
+                ],
+                "recordedAt": "2026-10-09T15:00:00Z"
+              }
+            ]
+          },
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[],\"total\":0,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/inspect.json",
+          ".temp/resolve.json"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A04",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-records",
+        "tessl__daily-tasks-setup"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-records",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-setup",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-0113-7146-a36e-33c2260cd3e5",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-0113-7146-a36e-33c2260cd3e5.tar.gz",
+      "workflowOutcome": "Alex assigned; Casey owner and not-started state preserved; task.reassigned log present.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A04",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a04-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211f-8d90-7244-a1a2-86fdf7ba67d2",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211f-8d90-7396-a771-8b0e65a0c546",
+            "state": "not-started",
+            "owner": "\"casey@example.test\"",
+            "assignee": "\"alex@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211f-8d90-7d76-9d42-75eaaedabe73",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211f-8d90-7d08-9bd4-c2c1ce58bacc",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[{\"id\":\"01a12120-f9e9-7261-9e1b-3f1e0f1a9e70\",\"operation_id\":\"01a12120-f9c2-7b38-af04-51d8b80aa568\",\"action\":\"task.reassigned\",\"record_ids\":[\"01a1211f-8d90-7396-a771-8b0e65a0c546\"],\"actor\":{\"kind\":\"person\",\"id\":\"casey@example.test\"},\"activity_at\":\"2026-10-09T15:00:00.000Z\",\"recorded_at\":\"2026-10-09T15:00:00.000Z\",\"time_defaulted\":true,\"original_words\":\"Reassign Draft landing copy to Alex.\",\"before\":{\"assignee\":null},\"after\":{\"assignee\":\"alex@example.test\"}}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A05",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-plan"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-plan",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-014f-7765-a954-2b7fcbe3ca19",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-014f-7765-a954-2b7fcbe3ca19.tar.gz",
+      "workflowOutcome": "Draft carried to today; selection carry log, review and rollover state saved.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A05",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a05-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211d-3bb1-7ef2-a29b-7dd90109ef3f",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211d-3bb1-77f7-9c59-93a4c572ba6a",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211d-3bb1-7ef8-bd7c-dc517932923f",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211d-3bb1-753e-a250-69727ceeb314",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "maintenance.json": {
+            "lastFullReconcileAt": "2026-10-09T14:48:07.218Z",
+            "model": "claude-haiku-4-5",
+            "execution": "host subagent tool, read-only maintenance pass",
+            "evidence": {
+              "scope": "vault 2026.10.09 planning session",
+              "recordsInspected": 4,
+              "pendingOperations": 0,
+              "viewStateDifferences": 0,
+              "diagnostics": 0,
+              "notes": "Canonical records and project/milestone/daily views agree; no baseline existed before this pass."
+            }
+          },
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          },
+          "reconciliation.json": {
+            "schemaVersion": 1,
+            "records": {
+              "01a1211d-3bb1-77f7-9c59-93a4c572ba6a": {
+                "canonical": {
+                  "state": "not-started"
+                },
+                "views": {
+                  "/workspace/solution/vault/2-areas/daily-plans/2026.10.08-daily-plan.md": {
+                    "selected": true,
+                    "hash": "676d8654fa7fc6ade005f9552428226550bca24c1d3f425d1825069ca0676960"
+                  },
+                  "/workspace/solution/vault/2-areas/daily-plans/2026.10.09-daily-plan.md": {
+                    "selected": true,
+                    "hash": "7e6d33e4aff2490022974ca8e85092dda5e882cd3441cd385e5b3cdcee620606"
+                  }
+                }
+              }
+            }
+          },
+          "review/2026.10.09.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "planId": "01a12122-af47-7e51-a112-8d562ee413bf",
+            "mappingBinding": "bdc9dabf6cc73c2cc10a688a736daffa4089feb1eabc47b78a831ee12aa8ce13",
+            "mapping": {
+              "01a1211d-3bb1-77f7-9c59-93a4c572ba6a": 1,
+              "01a1211d-3bb1-7ef8-bd7c-dc517932923f": 2
+            }
+          },
+          "rollover/2026.10.09.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "planId": "01a12122-af47-7e51-a112-8d562ee413bf",
+            "operationId": "01a12122-af72-7643-a37d-f864895b21d9",
+            "completedAt": "2026-10-09T14:48:07.218Z",
+            "removedIds": []
+          }
+        },
+        "plans": [
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.08-daily-plan.md",
+            "content": "---\nid: 01a1211d-3bb1-7f07-bbc7-7d0e2ce72da7\ntype: daily-plan\ntitle: \"Daily plan 2026.10.08\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T15:00:00Z\"\nupdated_at: \"2026-10-09T15:00:00Z\"\n---\n# Daily plan 2026.10.08\n\n## My work\n- [ ] [[../../1-projects/website/m1-launch/t1-draft-landing-copy|Draft landing copy]] <!-- ref: 01a1211d-3bb1-77f7-9c59-93a4c572ba6a -->\n\n## Notes\nPreserve this personal note.\n"
+          },
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.09-daily-plan.md",
+            "content": "---\nid: 01a12122-af47-7e51-a112-8d562ee413bf\ntype: daily-plan\ntitle: \"Daily plan 2026.10.09\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T14:48:07.218Z\"\nupdated_at: \"2026-10-09T14:48:07.218Z\"\n---\n# Daily plan — 2026.10.09\n\nOpen projects: 1          Open tasks: 2          Late tasks: 0\n\n**Timezone:** America/Chicago  \n**Updated:** Oct 9, 2026, 9:48:07 AM CDT (America/Chicago)\n\n## Selected for today\n\n### My work\n\n#### Website / Launch\n\n| # | Status | Project | Milestone | Task | Due Date |\n| --- | --- | --- | --- | --- | --- |\n| 1 | [ ] | Website | Launch | ↺ [[../../1-projects/website/m1-launch/t1-draft-landing-copy\\|Draft landing copy]] <!-- ref: 01a1211d-3bb1-77f7-9c59-93a4c572ba6a --> | — |\n\n### Delegated work\n\nNo delegated work is selected for today.\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward\n\n## Blockers\n\nNo blockers affect today's selected work.\n\n## Decisions\n\nNo decisions recorded today.\n\n## Notes and references\n"
+          }
+        ],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[{\"id\":\"01a12122-af97-7243-b3ad-b39965b1868a\",\"operation_id\":\"01a12122-af72-7643-a37d-f864895b21d9\",\"action\":\"selection-carry-forward\",\"record_ids\":[\"01a1211d-3bb1-77f7-9c59-93a4c572ba6a\"],\"actor\":{\"kind\":\"person\",\"id\":\"casey@example.test\"},\"activity_at\":\"2026-10-09T14:48:07.218Z\",\"recorded_at\":\"2026-10-09T14:48:07.218Z\",\"time_defaulted\":true,\"original_words\":\"Plan my day\",\"before\":{\"date\":\"2026.10.08\"},\"after\":{\"date\":\"2026.10.09\"}}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/atime.json",
+          ".temp/baseline.json",
+          ".temp/closure.json",
+          ".temp/ftime.json",
+          ".temp/hashes.json",
+          ".temp/inspect-records.json",
+          ".temp/invalidate.json",
+          ".temp/log-append.json",
+          ".temp/log-query.json",
+          ".temp/maint.json",
+          ".temp/maintenance.json",
+          ".temp/newid.json",
+          ".temp/pcheck.json",
+          ".temp/plan.md",
+          ".temp/prepare.err.txt",
+          ".temp/prepare.json",
+          ".temp/prepare.out.json",
+          ".temp/prepare2.err.txt",
+          ".temp/prepare2.out.json",
+          ".temp/prepare3.out.json",
+          ".temp/project-index.json",
+          ".temp/rollover-in.json",
+          ".temp/rollover-out.json",
+          ".temp/rollover-state.json",
+          ".temp/save-review.json"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A06",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-capture",
+        "tessl__daily-tasks-checkin",
+        "tessl__daily-tasks-plan",
+        "tessl__daily-tasks-records"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-capture",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-checkin",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-plan",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-records",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-0188-7512-a0d4-b590be0dcc6f",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-0188-7512-a0d4-b590be0dcc6f.tar.gz",
+      "workflowOutcome": "Manual announcement candidate pending; no accepted task or inferred start; rollover unresolved.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A06",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a06-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211d-3609-7130-974b-2d4a1fef63cd",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211d-3609-7a58-b8ff-2e75302a7e8f",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211d-3609-75df-acad-4ee9aaf064ce",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211d-3609-734f-91e2-e3b2a0877932",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "candidates.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "candidates": [
+              {
+                "key": "2-areas/daily-plans/2026.10.09-daily-plan.md#prepare-launch-announcement",
+                "title": "Prepare launch announcement",
+                "proposedProject": "website",
+                "proposedMilestone": "website/m1-launch",
+                "owner": "casey@example.test",
+                "assignee": null,
+                "target_date": null,
+                "source": {
+                  "path": "2-areas/daily-plans/2026.10.09-daily-plan.md",
+                  "planId": "01a1211d-3609-7d31-a410-fde29969d83a",
+                  "row": "Prepare launch announcement"
+                },
+                "status": "pending",
+                "requiresExplicitAcceptance": true,
+                "note": "Manual text-only checkbox added to the daily plan; no task reference, not accepted work."
+              }
+            ]
+          },
+          "checkin.json": {
+            "schemaVersion": 1,
+            "planningBinding": "bdc9dabf6cc73c2cc10a688a736daffa4089feb1eabc47b78a831ee12aa8ce13",
+            "localDate": "2026.10.09",
+            "timezone": "America/Chicago",
+            "pendingOperationIds": [],
+            "unresolved": {
+              "candidateKeys": [
+                "2-areas/daily-plans/2026.10.09-daily-plan.md#prepare-launch-announcement"
+              ],
+              "conflictIds": [],
+              "dispositions": [
+                "website/m1-launch/t2-review-launch-checklist.md: DoD fully satisfied, task-state still in-progress; awaiting explicit completion decision"
+              ]
+            },
+            "processedSources": {
+              "2-areas/daily-plans/2026.10.09-daily-plan.md": "96217c73417d72e9fb090407ade34fd89b6a08987ec8974eb978444274bb99d0",
+              "2-areas/daily-plans/2026.10.08-daily-plan.md": "b09c18cc9fb456fbdba7aab0f9111cb724af660be522422b822faa75f7bc5be3"
+            },
+            "rollover": {
+              "status": "due",
+              "change": "none",
+              "blockedBy": "unresolved-selection-identity",
+              "detail": "Carry from 2026.10.08 adds nothing new (Draft landing copy already selected today); completion receipt refused while the plan holds a row without a task UUID."
+            },
+            "review": {
+              "status": "not-saved",
+              "reason": "unidentified-selection",
+              "detail": "Additions withheld (unknown allocation); numbered mapping cannot be persisted until the ref-less row is resolved."
+            },
+            "nextStep": "Resolve the ref-less plan row 'Prepare launch announcement' (accept as a task or remove it), then complete the no-change rollover and save the review mapping."
+          },
+          "maintenance.json": {
+            "schemaVersion": 1,
+            "lastFullReconcileAt": "2026-10-09T15:00:00.000Z",
+            "model": "haiku",
+            "evidence": {
+              "tool": "Agent/Explore read-only subagent",
+              "scope": "Broad read-only pass: project-index refresh, inspect-records, current/previous plan rows vs canonical records, baseline and pending-operation scan, check-closure",
+              "result": "No canonical or view conflicts; no baselines existed (initial enrollment); sole diagnostic is the unidentified plan selection row",
+              "writes": "none in vault"
+            }
+          },
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.08-daily-plan.md",
+            "content": "---\nid: 01a1211d-3609-7ab6-bc7d-6e6a20ef40e5\ntype: daily-plan\ntitle: \"Daily plan 2026.10.08\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T15:00:00Z\"\nupdated_at: \"2026-10-09T15:00:00Z\"\n---\n# Daily plan 2026.10.08\n\n## My work\n- [ ] [[../../1-projects/website/m1-launch/t1-draft-landing-copy|Draft landing copy]] <!-- ref: 01a1211d-3609-7a58-b8ff-2e75302a7e8f -->\n\n## Notes\nPreserve this personal note.\n"
+          },
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.09-daily-plan.md",
+            "content": "---\nid: 01a1211d-3609-7d31-a410-fde29969d83a\ntype: daily-plan\ntitle: \"Daily plan 2026.10.09\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T15:00:00Z\"\nupdated_at: \"2026-10-09T15:00:00Z\"\n---\n# Daily plan 2026.10.09\n\n## My work\n- [ ] [[../../1-projects/website/m1-launch/t1-draft-landing-copy|Draft landing copy]] <!-- ref: 01a1211d-3609-7a58-b8ff-2e75302a7e8f -->\n- [ ] Prepare launch announcement\n\n## Notes\nPreserve this personal note.\n"
+          }
+        ],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[],\"total\":0,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/maint-closure-m1.json",
+          ".temp/maint-closure-proj.json",
+          ".temp/maint-closure-t2.json",
+          ".temp/maint-inspect.err",
+          ".temp/maint-inspect.json",
+          ".temp/maint-inspect.out.json",
+          ".temp/maint-pi.err",
+          ".temp/maint-pi.out.json",
+          ".temp/maint-project-index.json",
+          ".temp/prepare.json",
+          ".temp/prepare.out.json",
+          ".temp/review.json",
+          ".temp/rollover.json"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A07",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-records"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-records",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-01c4-7091-bc98-b4eb2f546d53",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-01c4-7091-bc98-b4eb2f546d53.tar.gz",
+      "workflowOutcome": "Exactly one Test launch links accepted task, not-started; parent navigation and task.accepted log; no plan.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A07",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a07-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211f-8a7d-72a7-94d3-8cc15c2dd1bc",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211f-8a7d-75e3-b5ae-5e17948fcdb8",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211f-8a7d-71fe-ac8d-715cee83a860",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t3-test-launch-links.md",
+            "type": "task",
+            "title": "\"Test launch links\"",
+            "id": "01a12120-3fae-7997-b505-e57c2fd7f93f",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211f-8a7d-74c6-8cce-75dcdfea4388",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[{\"id\":\"01a12120-4044-7825-8b30-d846a67d8a38\",\"operation_id\":\"01a12120-4003-7481-b75f-5d01946fb031\",\"action\":\"task.accepted\",\"record_ids\":[\"01a12120-3fae-7997-b505-e57c2fd7f93f\"],\"actor\":{\"kind\":\"person\",\"id\":\"casey@example.test\"},\"activity_at\":\"2026-10-09T15:00:00.000Z\",\"recorded_at\":\"2026-10-09T15:00:00.000Z\",\"time_defaulted\":true,\"original_words\":\"Create a task named Test launch links under Website's Launch milestone.\",\"after\":{\"task-state\":\"not-started\",\"title\":\"Test launch links\",\"milestone_id\":\"01a1211f-8a7d-72a7-94d3-8cc15c2dd1bc\"}}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/activity-time.json",
+          ".temp/inspect.json",
+          ".temp/invalidate.json",
+          ".temp/log-append.json",
+          ".temp/log-query.json",
+          ".temp/records-in.json",
+          ".temp/records.json",
+          ".temp/resolve-context.json"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A08",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-capture",
+        "tessl__daily-tasks-records",
+        "tessl__daily-tasks-setup"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-capture",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-records",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-setup",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-01fa-7066-ba18-b3e051f80267",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-01fa-7066-ba18-b3e051f80267.tar.gz",
+      "workflowOutcome": "Exactly two header/footer accepted tasks, not-started; batch log; no plan.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A08",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a08-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211f-8d4c-79eb-a25a-aa6a12aee5d2",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211f-8d4c-71e4-8ebf-ee1521d43169",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211f-8d4c-7d6e-8c38-89dcab6b69ea",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t3-check-footer-links.md",
+            "type": "task",
+            "title": "\"Check footer links\"",
+            "id": "01a12120-2a06-78a4-889b-72eec2487507",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t4-check-header-links.md",
+            "type": "task",
+            "title": "\"Check header links\"",
+            "id": "01a12120-2a61-750a-96ca-a52d6d827bc3",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211f-8d4c-7800-b840-28d6d9f5a34e",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[{\"id\":\"01a12120-2ae1-7489-9f4d-031fac17d533\",\"operation_id\":\"01a12120-2aac-75c5-b1b9-e2ca5ccb003d\",\"action\":\"task.accepted\",\"record_ids\":[\"01a12120-2a06-78a4-889b-72eec2487507\",\"01a12120-2a61-750a-96ca-a52d6d827bc3\"],\"actor\":{\"kind\":\"person\",\"id\":\"casey@example.test\"},\"activity_at\":\"2026-10-09T14:45:18.421Z\",\"recorded_at\":\"2026-10-09T14:45:18.421Z\",\"time_defaulted\":true,\"original_words\":\"Create two tasks under Website's Launch milestone: Check footer links, done when every footer link reaches its intended page; Check header links, done when every header link reaches its intended page. Both require checking the public launch page.\",\"after\":{\"project\":\"01a1211f-8d4c-7800-b840-28d6d9f5a34e\",\"milestone\":\"01a1211f-8d4c-79eb-a25a-aa6a12aee5d2\",\"tasks\":[\"01a12120-2a06-78a4-889b-72eec2487507\",\"01a12120-2a61-750a-96ca-a52d6d827bc3\"]}}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A09",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-capture",
+        "tessl__daily-tasks-checkin",
+        "tessl__daily-tasks-plan",
+        "tessl__daily-tasks-records",
+        "tessl__daily-tasks-setup"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-capture",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-capture",
+          "via": "skill-tool"
+        },
+        {
+          "skill": "tessl__daily-tasks-checkin",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-plan",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-records",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-setup",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-0232-7643-84e5-b8ef287970ab",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-0232-7643-84e5-b8ef287970ab.tar.gz",
+      "workflowOutcome": "Two initial tasks preserved; no plan, candidates, or log mutations.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A09",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a09-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211d-38bc-7257-b6c4-89152b0c5e20",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211d-38bc-7f80-b88f-fce53be4954c",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211d-38bc-7be6-9348-925ed08e60db",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211d-38bc-7836-8832-235f6b650172",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[],\"total\":0,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A10",
+      "runId": "01a12121-9c01-74ca-83b4-65e06d88cfc4",
+      "sourceVersion": "fixture-v2",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [],
+      "observedMethods": [],
+      "solutionId": "01a12121-9f79-773f-bc19-d675a3579399",
+      "artifactKey": "evals/nyssa-ai/solutions/01a12121-9f79-773f-bc19-d675a3579399.tar.gz",
+      "workflowOutcome": "Corrected stable numbered mapping and plans unchanged; no mutations/log.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "supersededInitial": {
+        "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+        "solutionId": "01a1211d-026c-7335-8fa6-defd5bdeac89",
+        "reason": "Inverted saved mapping in fixture v1"
+      },
+      "savedEffects": {
+        "id": "A10",
+        "fixtureVersion": 2,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-correction-solutions\\a10-synthetic-fixture-v2\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1212d-9d80-7e4f-8ba2-a8d6febf496f",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1212d-9d80-7f59-8e42-f5e3575cd4ad",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1212d-9d80-73ea-9d96-3cf11b34fc7b",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1212d-9d80-7646-804f-f0baeb828b83",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          },
+          "review/2026.10.09.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "planId": "01a1212d-9d80-73e7-b5dd-2b88997d1db9",
+            "mappingBinding": "bdc9dabf6cc73c2cc10a688a736daffa4089feb1eabc47b78a831ee12aa8ce13",
+            "mapping": {
+              "01a1212d-9d80-7f59-8e42-f5e3575cd4ad": 2,
+              "01a1212d-9d80-73ea-9d96-3cf11b34fc7b": 4
+            }
+          }
+        },
+        "plans": [
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.08-daily-plan.md",
+            "content": "---\nid: 01a1212d-9d80-762a-858b-280bfb4b2421\ntype: daily-plan\ntitle: \"Daily plan 2026.10.08\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T15:00:00Z\"\nupdated_at: \"2026-10-09T15:00:00Z\"\n---\n# Daily plan 2026.10.08\n\n## My work\n- [ ] [[../../1-projects/website/m1-launch/t1-draft-landing-copy|Draft landing copy]] <!-- ref: 01a1212d-9d80-7f59-8e42-f5e3575cd4ad -->\n\n## Notes\nPreserve this personal note.\n"
+          },
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.09-daily-plan.md",
+            "content": "---\nid: 01a1212d-9d80-73e7-b5dd-2b88997d1db9\ntype: daily-plan\ntitle: \"Daily plan 2026.10.09\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T15:00:00Z\"\nupdated_at: \"2026-10-09T15:00:00Z\"\n---\n# Daily plan 2026.10.09\n\n## My work\n- [ ] [[../../1-projects/website/m1-launch/t1-draft-landing-copy|Draft landing copy]] <!-- ref: 01a1212d-9d80-7f59-8e42-f5e3575cd4ad -->\n\n## Notes\nPreserve this personal note.\n"
+          }
+        ],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[],\"total\":0,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A11",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-plan",
+        "tessl__daily-tasks-records"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-plan",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-records",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-02a6-76c6-98ee-f74e7973adb7",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-02a6-76c6-98ee-f74e7973adb7.tar.gz",
+      "workflowOutcome": "Review completed and Draft selected today without starting Draft; completion and selection logs.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A11",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a11-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211f-a317-7a41-940e-e1112ad6f853",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211f-a317-7c9b-90d4-cad4b1164d68",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211f-a317-7e7e-bc93-f8d6d913e501",
+            "state": "completed",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\"",
+            "resolvedAt": "\"2026-10-09T14:45:40.211Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211f-a316-7167-a522-b2e0014ac430",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          },
+          "review/2026.10.09.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "planId": "01a12123-96ae-7b05-b966-ba883bc1418a",
+            "mappingBinding": "bdc9dabf6cc73c2cc10a688a736daffa4089feb1eabc47b78a831ee12aa8ce13",
+            "mapping": {
+              "01a1211f-a317-7c9b-90d4-cad4b1164d68": 1
+            }
+          },
+          "rollover/2026.10.09.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "planId": "01a12123-96ae-7b05-b966-ba883bc1418a",
+            "operationId": "01a12124-f387-735a-bbf3-f4d1a45aeec9",
+            "completedAt": "2026-10-09T14:50:27.874Z"
+          }
+        },
+        "plans": [
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.09-daily-plan.md",
+            "content": "---\nid: 01a12123-96ae-7b05-b966-ba883bc1418a\ntype: daily-plan\ntitle: \"Daily plan 2026.10.09\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T14:49:02.856Z\"\nupdated_at: \"2026-10-09T14:49:02.856Z\"\n---\n# Daily plan — 2026.10.09\n\nOpen projects: 1          Open tasks: 1          Late tasks: 0\n\n**Timezone:** America/Chicago  \n**Updated:** Oct 9, 2026, 9:49:02 AM CDT (America/Chicago)\n\n## Selected for today\n\n### My work\n\n#### Website / Launch\n\n| # | Status | Project | Milestone | Task | Due Date |\n| --- | --- | --- | --- | --- | --- |\n| 1 | [ ] | Website | Launch | [[../../1-projects/website/m1-launch/t1-draft-landing-copy\\|Draft landing copy]] <!-- ref: 01a1211f-a317-7c9b-90d4-cad4b1164d68 --> | — |\n\n### Delegated work\n\nNo delegated work is selected for today.\n\nLegend: [ ] not started · [>] in progress · [x] completed · [-] cancelled\n\n## Blockers\n\nNo blockers affect today's selected work.\n\n## Decisions\n\nNo planning decisions are recorded in this plan.\n\n## Notes and references\n"
+          }
+        ],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[{\"id\":\"01a12120-7f5d-7049-ab5b-43b9e8b55808\",\"operation_id\":\"01a12120-7f30-7111-8318-0449a2874057\",\"action\":\"task.completed\",\"record_ids\":[\"01a1211f-a317-7e7e-bc93-f8d6d913e501\"],\"actor\":{\"kind\":\"person\",\"id\":\"casey@example.test\"},\"activity_at\":\"2026-10-09T14:45:40.211Z\",\"recorded_at\":\"2026-10-09T14:45:40.211Z\",\"time_defaulted\":true,\"original_words\":\"Mark Review launch checklist done\",\"before\":{\"task-state\":\"in-progress\"},\"after\":{\"task-state\":\"completed\"}},{\"id\":\"01a12123-9712-7d6a-99a7-c985dc2a30af\",\"operation_id\":\"01a12123-96e9-73fe-a03e-465760cceffa\",\"action\":\"plan.selection.added\",\"record_ids\":[\"01a1211f-a317-7c9b-90d4-cad4b1164d68\"],\"actor\":{\"kind\":\"person\",\"id\":\"casey@example.test\"},\"activity_at\":\"2026-10-09T14:49:02.856Z\",\"recorded_at\":\"2026-10-09T14:49:02.856Z\",\"time_defaulted\":true,\"original_words\":\"add Draft landing copy to today\",\"before\":{\"date\":null},\"after\":{\"date\":\"2026.10.09\"}}],\"total\":2,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/activity.json",
+          ".temp/activity2.json",
+          ".temp/checklist-plan.json",
+          ".temp/closure-t2.json",
+          ".temp/fmt.json",
+          ".temp/fmt2.json",
+          ".temp/inspect.json",
+          ".temp/invalidate.json",
+          ".temp/log-append-sel.json",
+          ".temp/log-append-t2.json",
+          ".temp/log-query-all.json",
+          ".temp/log-query-t2.json",
+          ".temp/packet2.json",
+          ".temp/packet3.json",
+          ".temp/packet4.json",
+          ".temp/packet5.json",
+          ".temp/packet6.json",
+          ".temp/parse-plan.json",
+          ".temp/parse-t2.json",
+          ".temp/plan-selection.json",
+          ".temp/prepare.json",
+          ".temp/records.json",
+          ".temp/rollover-state.json",
+          ".temp/save-review.json",
+          ".temp/stage/2026.10.09-daily-plan.md",
+          ".temp/stage/m1-launch.md",
+          ".temp/stage/project-index.md",
+          ".temp/stage/t2-review-launch-checklist.md"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A12",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-capture",
+        "tessl__daily-tasks-checkin",
+        "tessl__daily-tasks-plan"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-capture",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-checkin",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-plan",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-02dd-7331-bb1e-2dd8b99f08c4",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-02dd-7331-bb1e-2dd8b99f08c4.tar.gz",
+      "workflowOutcome": "Promise retained as pending candidate; no accepted task or log.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A12",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a12-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211d-6199-7e75-8edd-cad7b1e50479",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211d-6199-7c04-9f79-a58347d50bc9",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211d-6199-775a-abbc-0893c0f87574",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211d-6199-7ab5-99a2-16e0809ed20b",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "candidates.json": {
+            "schemaVersion": 1,
+            "updatedAt": "2026-10-09T14:45:00.000Z",
+            "candidates": [
+              {
+                "sourceKey": "note:181e4975a26f8b08",
+                "kind": "promise",
+                "title": "Prepare launch announcement",
+                "proposedType": "task",
+                "proposedParent": {
+                  "projectId": "01a1211d-6199-7ab5-99a2-16e0809ed20b",
+                  "projectTitle": "Website",
+                  "milestoneId": "01a1211d-6199-7e75-8edd-cad7b1e50479",
+                  "milestoneTitle": "Launch"
+                },
+                "owner": "casey@example.test",
+                "assignee": null,
+                "targetDate": null,
+                "source": {
+                  "kind": "note",
+                  "text": "I promised I'd prepare a launch announcement.",
+                  "capturedAt": "2026-10-09T14:45:00.000Z"
+                },
+                "unresolved": [
+                  "No explicit target date supplied; none inferred.",
+                  "A promise is not acceptance; creation requires the user's affirmative decision.",
+                  "Deliverable/channel for the announcement (e.g. site, email, social) not specified."
+                ],
+                "status": "proposed",
+                "disposition": null
+              }
+            ]
+          },
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[],\"total\":0,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/inspect.json",
+          ".temp/inspect.out.json",
+          ".temp/resolve-context.json"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A13",
+      "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+      "sourceVersion": "fixture-v1",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-capture",
+        "tessl__daily-tasks-checkin"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-capture",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-checkin",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a1211d-0314-701a-a2ce-24f03f016c58",
+      "artifactKey": "evals/nyssa-ai/solutions/01a1211d-0314-701a-a2ce-24f03f016c58.tar.gz",
+      "workflowOutcome": "Initial tasks preserved; no plan, candidates, or log mutations.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "savedEffects": {
+        "id": "A13",
+        "fixtureVersion": 1,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-solutions\\a13-synthetic-fixture-v1\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1211d-64e5-722b-8c70-058b3fe19278",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1211d-64e6-769c-a90a-90ed0ff3f93a",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1211d-64e6-73ef-b664-42246e624a46",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1211d-64e5-7e84-914f-97674b59565d",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          }
+        },
+        "plans": [],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[],\"total\":0,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    },
+    {
+      "id": "A14",
+      "runId": "01a12121-9c01-74ca-83b4-65e06d88cfc4",
+      "sourceVersion": "fixture-v2",
+      "actualAgent": "claude",
+      "actualModel": "deepseek-v4.1-flash",
+      "forcedActivation": false,
+      "scoring": false,
+      "observedSkillReads": [
+        "tessl__daily-tasks",
+        "tessl__daily-tasks-capture",
+        "tessl__daily-tasks-checkin",
+        "tessl__daily-tasks-plan",
+        "tessl__daily-tasks-records",
+        "tessl__daily-tasks-setup"
+      ],
+      "observedMethods": [
+        {
+          "skill": "tessl__daily-tasks",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-capture",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-checkin",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-plan",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-records",
+          "via": "read"
+        },
+        {
+          "skill": "tessl__daily-tasks-setup",
+          "via": "read"
+        }
+      ],
+      "solutionId": "01a12121-9fac-7539-9a4a-3874ded56b87",
+      "artifactKey": "evals/nyssa-ai/solutions/01a12121-9fac-7539-9a4a-3874ded56b87.tar.gz",
+      "workflowOutcome": "Independent Review completion logged; announcement candidate remains pending.",
+      "boundaryCriterion": "Saved-boundary evidence only; not a full workflow pass.",
+      "limitation": "Supported download-solutions supplied final workspace files, not full dialogue/tool trace. Exact handoff, unnecessary questions, screen rendering and pre-write checkpoint ordering remain unverified. Earlier fixture setup/oracle source was accessible; source reads unobservable. Browser createBrowserTab hung623 seconds; eval debug rejected Tessl-organization entitlement.",
+      "supersededInitial": {
+        "runId": "01a1211c-f878-7382-ada2-f3d0d7bb243a",
+        "solutionId": "01a1211d-034d-73a3-8ea9-3290c0db6566",
+        "reason": "Inverted saved mapping in fixture v1"
+      },
+      "savedEffects": {
+        "id": "A14",
+        "fixtureVersion": 2,
+        "folder": "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\tessl-eval\\natural-correction-solutions\\a14-synthetic-fixture-v2\\usage-spec\\1",
+        "records": [
+          {
+            "path": "vault/1-projects/website/m1-launch/m1-launch.md",
+            "type": "milestone",
+            "title": "\"Launch\"",
+            "id": "01a1212d-9d80-78b3-b66b-5feafe91b0eb",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t1-draft-landing-copy.md",
+            "type": "task",
+            "title": "\"Draft landing copy\"",
+            "id": "01a1212d-9d80-78b2-86a0-54d70597b910",
+            "state": "not-started",
+            "owner": "\"casey@example.test\""
+          },
+          {
+            "path": "vault/1-projects/website/m1-launch/t2-review-launch-checklist.md",
+            "type": "task",
+            "title": "\"Review launch checklist\"",
+            "id": "01a1212d-9d80-75ac-8b5e-586e692e6561",
+            "state": "completed",
+            "owner": "\"casey@example.test\"",
+            "startedAt": "\"2026-10-08T15:00:00Z\"",
+            "resolvedAt": "\"2026-10-09T15:00:00.000Z\""
+          },
+          {
+            "path": "vault/1-projects/website/project-index.md",
+            "type": "project",
+            "title": "\"Website\"",
+            "id": "01a1212d-9d80-7f76-a116-d89227f4ffec",
+            "state": "in-progress",
+            "owner": "\"casey@example.test\""
+          }
+        ],
+        "state": {
+          "candidates.json": {
+            "schemaVersion": 1,
+            "candidates": [
+              {
+                "key": "daily-plan:2026.10.09:prepare-launch-announcement",
+                "title": "Prepare launch announcement",
+                "proposedParent": {
+                  "projectId": "01a1212d-9d80-7f76-a116-d89227f4ffec",
+                  "milestoneId": "01a1212d-9d80-78b3-b66b-5feafe91b0eb"
+                },
+                "owner": "casey@example.test",
+                "assignee": null,
+                "targetDate": null,
+                "source": {
+                  "kind": "manual-checkbox",
+                  "path": "2-areas/daily-plans/2026.10.09-daily-plan.md",
+                  "text": "Prepare launch announcement"
+                },
+                "status": "unresolved",
+                "requiresAcceptance": true,
+                "unresolvedFacts": [
+                  "acceptance",
+                  "whether it belongs to the Launch milestone"
+                ],
+                "created_at": "2026-10-09T15:00:00.000Z"
+              }
+            ]
+          },
+          "checkin.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "vaultRoot": "/workspace/solution/vault",
+            "planId": "01a1212d-9d80-79cd-9ca6-3aa0b6a15d19",
+            "pendingOperationIds": [],
+            "unresolvedCandidateKeys": [
+              "daily-plan:2026.10.09:prepare-launch-announcement"
+            ],
+            "unresolvedConflicts": [],
+            "processed": {
+              "2-areas/daily-plans/2026.10.09-daily-plan.md": "511b3d635370f5e5d26fe63aab1954ad530afd1ca222b3e92b315bddefaa0dd6"
+            },
+            "nextStep": "await acceptance decision for the launch-announcement candidate; then complete the no-change rollover receipt",
+            "updated_at": "2026-10-09T15:00:00.000Z"
+          },
+          "profile.json": {
+            "schema_version": 1,
+            "user": {
+              "name": "Casey",
+              "email": "casey@example.test"
+            },
+            "timezone": "America/Chicago",
+            "priorities": [],
+            "vaultRoot": ".",
+            "projectsRoot": "./1-projects",
+            "dailyPlansRelative": "2-areas/daily-plans",
+            "projectIndex": {
+              "ttlSeconds": 14400
+            }
+          },
+          "reconciliation.json": {
+            "schemaVersion": 1,
+            "records": {
+              "01a1212d-9d80-7f76-a116-d89227f4ffec": {
+                "canonical": {
+                  "state": "in-progress"
+                },
+                "views": {}
+              },
+              "01a1212d-9d80-78b3-b66b-5feafe91b0eb": {
+                "canonical": {
+                  "state": "in-progress"
+                },
+                "views": {
+                  "/workspace/solution/vault/1-projects/website/project-index.md": {
+                    "checked": false,
+                    "hash": "bf4bb07817237acfac99a8f8065a2008b5af82c6cbc56b0b2f2c7aeff4a408d2"
+                  }
+                }
+              },
+              "01a1212d-9d80-78b2-86a0-54d70597b910": {
+                "canonical": {
+                  "state": "not-started"
+                },
+                "views": {
+                  "/workspace/solution/vault/1-projects/website/m1-launch/m1-launch.md": {
+                    "checked": false,
+                    "hash": "40df1eac801b1de295c0d893de58b2cec775fab0d01009323941cb99caa9cc90"
+                  },
+                  "/workspace/solution/vault/1-projects/website/project-index.md": {
+                    "checked": false,
+                    "hash": "bf4bb07817237acfac99a8f8065a2008b5af82c6cbc56b0b2f2c7aeff4a408d2"
+                  }
+                }
+              },
+              "01a1212d-9d80-75ac-8b5e-586e692e6561": {
+                "canonical": {
+                  "state": "completed",
+                  "resolved_at": "2026-10-09T15:00:00.000Z"
+                },
+                "views": {
+                  "/workspace/solution/vault/1-projects/website/m1-launch/m1-launch.md": {
+                    "checked": true,
+                    "hash": "40df1eac801b1de295c0d893de58b2cec775fab0d01009323941cb99caa9cc90"
+                  },
+                  "/workspace/solution/vault/1-projects/website/project-index.md": {
+                    "checked": true,
+                    "hash": "bf4bb07817237acfac99a8f8065a2008b5af82c6cbc56b0b2f2c7aeff4a408d2"
+                  }
+                }
+              }
+            }
+          },
+          "review/2026.10.09.json": {
+            "schemaVersion": 1,
+            "date": "2026.10.09",
+            "planId": "01a1212d-9d80-79cd-9ca6-3aa0b6a15d19",
+            "mappingBinding": "bdc9dabf6cc73c2cc10a688a736daffa4089feb1eabc47b78a831ee12aa8ce13",
+            "mapping": {
+              "01a1212d-9d80-78b2-86a0-54d70597b910": 2,
+              "01a1212d-9d80-75ac-8b5e-586e692e6561": 4
+            }
+          }
+        },
+        "plans": [
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.08-daily-plan.md",
+            "content": "---\nid: 01a1212d-9d80-7b2a-9448-74eae29f267e\ntype: daily-plan\ntitle: \"Daily plan 2026.10.08\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T15:00:00Z\"\nupdated_at: \"2026-10-09T15:00:00Z\"\n---\n# Daily plan 2026.10.08\n\n## My work\n- [ ] [[../../1-projects/website/m1-launch/t1-draft-landing-copy|Draft landing copy]] <!-- ref: 01a1212d-9d80-78b2-86a0-54d70597b910 -->\n\n## Notes\nPreserve this personal note.\n"
+          },
+          {
+            "path": "vault/2-areas/daily-plans/2026.10.09-daily-plan.md",
+            "content": "---\nid: 01a1212d-9d80-79cd-9ca6-3aa0b6a15d19\ntype: daily-plan\ntitle: \"Daily plan 2026.10.09\"\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-09T15:00:00Z\"\nupdated_at: \"2026-10-09T15:00:00Z\"\n---\n# Daily plan 2026.10.09\n\n## My work\n- [ ] [[../../1-projects/website/m1-launch/t1-draft-landing-copy|Draft landing copy]] <!-- ref: 01a1212d-9d80-78b2-86a0-54d70597b910 -->\n- [ ] Prepare launch announcement\n\n## Notes\nPreserve this personal note.\n"
+          }
+        ],
+        "logQuery": {
+          "exit": 0,
+          "output": "{\"entries\":[{\"id\":\"01a12125-e21a-7642-ac2b-e8766eb988d8\",\"operation_id\":\"01a12125-e1eb-71dc-86eb-92954b1afe0f\",\"action\":\"task.completed\",\"record_ids\":[\"01a1212d-9d80-75ac-8b5e-586e692e6561\"],\"actor\":{\"kind\":\"person\",\"id\":\"casey@example.test\"},\"activity_at\":\"2026-10-09T15:00:00.000Z\",\"recorded_at\":\"2026-10-09T15:00:00.000Z\",\"time_defaulted\":true,\"original_words\":\"4 is done.\",\"before\":{\"task-state\":\"in-progress\"},\"after\":{\"task-state\":\"completed\"}}],\"total\":1,\"offset\":0,\"limit\":100,\"nextOffset\":null}",
+          "error": ""
+        },
+        "cliInputs": [
+          ".temp/apply.mjs",
+          ".temp/at.json",
+          ".temp/baseline.mjs",
+          ".temp/candidate.mjs",
+          ".temp/closure-ms.json",
+          ".temp/closure-proj.json",
+          ".temp/closure-task.json",
+          ".temp/fix.mjs",
+          ".temp/ft.json",
+          ".temp/inspect.err.json",
+          ".temp/inspect.json",
+          ".temp/inspect.out.json",
+          ".temp/invalidate.json",
+          ".temp/ld.json",
+          ".temp/log.json",
+          ".temp/logq.json",
+          ".temp/prepare.err.json",
+          ".temp/prepare.json",
+          ".temp/prepare.out.json",
+          ".temp/prepare2.err.json",
+          ".temp/prepare2.out.json",
+          ".temp/prepare3.err.json",
+          ".temp/prepare3.out.json",
+          ".temp/recover.json",
+          ".temp/restore.mjs",
+          ".temp/rollover.json"
+        ],
+        "limitations": [
+          "No conversation transcript in downloaded solution files. Cannot establish question wording, source-read chronology or tool-call ordering solely from final state.",
+          "Fixture initializer/oracle source was agent-visible during these initial natural executions; actual source reading is unverified."
+        ]
+      }
+    }
+  ]
+}

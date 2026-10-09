@@ -1,0 +1,186 @@
+{
+  "reviewRunId": "01a120e8-1a7a-7562-8a42-74964fdf8dd5",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 50 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks-checkin'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (197 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 7 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "No obvious file path mentions found"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 5,
+            "reasoning": "Lean and efficient: every sentence carries operational content ('Save compact resumable progress at stateRoot/checkin.json: local day, pending operation IDs...'), with zero padding and no explanations of concepts Claude already knows. Even edge-case rules ('Completed and cancelled items remain visible today and don't carry') are stated in minimal tokens; nothing could be trimmed without losing information."
+          },
+          "actionability": {
+            "score": 3,
+            "reasoning": "Some concrete guidance exists — named operations (`recover-operation`, `log-query`, `reconcile-record`), a concrete state file with its fields, and the plan path `<vaultRoot>/<dailyPlansRelative>` — but no executable commands or examples appear in the body; the actual CLI syntax, view names, and baselines live in external references (operations.md, cli.md) not present in this bundle. That matches 'some concrete guidance but incomplete; missing key details' rather than the mostly-executable anchor."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "A clear six-step numbered sequence with most checkpoints present: step 2 runs 'record/link validation' and separates conflicts from safe deltas, step 4 saves progress after each decision, and step 6 revalidates 'affected records, links, closure/reopening effects and views' and verifies 'log appends' before saving baselines. Step 1 even includes a recovery loop with 'expected before/after values'. It falls short of 5 because no step says what to do when validation fails — the validate→fix→retry loop is implied rather than explicit."
+          },
+          "progressive_disclosure": {
+            "score": 4,
+            "reasoning": "The 45-line body is appropriately split: it keeps only orchestration inline and signals each external reference with its purpose ('Apply response conventions... for review screens', 'Use planning flow... for the shared four-hour maintenance worker', 'Open/create today's local-day plan using daily planning'), all one level deep. Minor gaps: no section headers, and the post-step edge-case rules ('Task uncheck or task-DoD uncheck reopens...') sit in an unstructured trailing paragraph; also none of the referenced sibling-skill files ship in this skill's own bundle."
+          }
+        },
+        "suggestions": [
+          "Inline one or two concrete CLI invocation examples (e.g. a sample `recover-operation` or `reconcile-record` call with arguments) so the core steps are executable without loading the external cli.md.",
+          "Add an explicit validation-failure branch in step 2 or 6 (e.g. 'if record/link validation fails: report, fix, re-run') to complete the feedback loop and lift workflow clarity.",
+          "Add section headers (e.g. '## Setup', '## Check-in steps', '## Reopen and rollover rules') and move the trailing edge-case rules under a headed section for easier navigation."
+        ],
+        "overall_assessment": "A tightly written orchestration document: an extremely token-efficient six-step workflow with explicit resumable state, recovery protocol, validation checkpoints, and well-signaled one-level-deep references. Its weakness is actionability — operational specifics (CLI syntax, view definitions, baselines) are entirely delegated to external files, and no failure-handling loop is spelled out."
+      },
+      "weightedScore": 4,
+      "normalizedScore": 0.75
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 4,
+            "reasoning": "Lists several concrete actions — 'Run or resume an anytime personal check-in, reconcile Markdown edits and reported progress, resolve conflicts and candidates, and open or create today's local-day plan with automatic carry-forward' — covering the skill's main functions. Not a 5 because phrases like 'resolve conflicts and candidates' and 'local-day plan' are domain jargon whose referents are unclear to a reader outside this skill family, leaving minor gaps in comprehensiveness."
+          },
+          "completeness": {
+            "score": 3,
+            "reasoning": "The 'what' is clear (run/resume check-in, reconcile edits and progress, resolve conflicts/candidates, open/create today's plan with carry-forward), but there is no 'Use when...' clause or equivalent explicit trigger guidance — 'anytime personal check-in' only weakly implies when. Per the judging guideline, a missing explicit trigger caps completeness at 3."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Good natural keywords: 'personal check-in', 'today's local-day plan', 'carry-forward', 'reported progress' — terms a user would plausibly say when needing this. A few natural variations are missing (e.g. 'daily check-in', 'plan my day', 'roll over unfinished tasks'), so it falls just short of the comprehensive-with-synonyms anchor."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 4,
+            "reasoning": "The niche is fairly distinct — Markdown-edit reconciliation, local-day plans, and carry-forward are specific to this personal-task ecosystem — with only minor overlap risk against closely related sibling skills (e.g. a daily-planning or task-records skill) that could trigger on similar 'plan'/'tasks' language."
+          }
+        },
+        "suggestions": [
+          "Add an explicit trigger clause, e.g. 'Use when the user asks to check in, review today's tasks, reconcile plan edits, or start/carry over their daily plan.'",
+          "Clarify or ground domain jargon: replace 'resolve conflicts and candidates' with something like 'resolve conflicting edits and propose new task candidates' so the scope is understandable outside the skill family.",
+          "Include common user synonyms such as 'daily check-in' or 'carry over unfinished tasks' to broaden natural trigger coverage."
+        ],
+        "overall_assessment": "A dense, specific description that names the skill's full pipeline in four concrete action groups with mostly natural trigger terms. Its main weakness is the complete absence of 'when to use' guidance, which caps completeness, and some opaque family-specific jargon ('conflicts and candidates', 'local-day')."
+      },
+      "weightedScore": 3.65,
+      "normalizedScore": 0.6625
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.6625
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.75
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 75
+  }
+}

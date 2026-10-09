@@ -1,0 +1,182 @@
+{
+  "reviewRunId": "01a12117-2b8e-777f-9f3f-cf19a4910225",
+  "status": "completed",
+  "review-plugin": "tessl/default-skill-review@0.2.0",
+  "validation": {
+    "overallPassed": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "checks": [
+      {
+        "name": "skill_md_line_count",
+        "status": "passed",
+        "message": "SKILL.md line count is 58 (<= 500)"
+      },
+      {
+        "name": "frontmatter_valid",
+        "status": "passed",
+        "message": "YAML frontmatter is valid"
+      },
+      {
+        "name": "name_field",
+        "status": "passed",
+        "message": "'name' field is valid: 'daily-tasks'"
+      },
+      {
+        "name": "description_field",
+        "status": "passed",
+        "message": "'description' field is valid (290 chars)"
+      },
+      {
+        "name": "compatibility_field",
+        "status": "passed",
+        "message": "'compatibility' field not present (optional)"
+      },
+      {
+        "name": "allowed_tools_field",
+        "status": "passed",
+        "message": "'allowed-tools' field not present (optional)"
+      },
+      {
+        "name": "metadata_version",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "metadata_field",
+        "status": "passed",
+        "message": "'metadata' field not present (optional)"
+      },
+      {
+        "name": "license_field",
+        "status": "passed",
+        "message": "'license' field not present (optional)"
+      },
+      {
+        "name": "frontmatter_unknown_keys",
+        "status": "passed",
+        "message": "No unknown frontmatter keys found"
+      },
+      {
+        "name": "body_present",
+        "status": "passed",
+        "message": "SKILL.md body is present"
+      },
+      {
+        "name": "scripts_directory",
+        "status": "passed",
+        "message": "'scripts/' directory not present in bundle (optional)"
+      },
+      {
+        "name": "references_directory",
+        "status": "passed",
+        "message": "'references/' directory contains 7 file(s)"
+      },
+      {
+        "name": "assets_directory",
+        "status": "passed",
+        "message": "'assets/' directory contains 6 file(s)"
+      },
+      {
+        "name": "relative_links",
+        "status": "warning",
+        "message": "Relative link issues: 6 suspicious"
+      },
+      {
+        "name": "referenced_paths_exist",
+        "status": "passed",
+        "message": "Referenced paths look valid"
+      }
+    ]
+  },
+  "judges": {
+    "content": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "conciseness": {
+            "score": 5,
+            "reasoning": "The 50-line body contains no concept explanations or padding; every sentence carries a distinct rule (\"One authoritative record per item\", \"Read/write log only through the CLI\"). Lean and assuming Claude's competence matches anchor 5 — the dense, gnarled prose is a clarity cost, not a token cost."
+          },
+          "actionability": {
+            "score": 4,
+            "reasoning": "The request-to-route table and the ordered config-resolution rules (reuse pointer → .nyssaai root → vault convention) are concrete and executable, but directives like \"Report only changes, unresolved decisions and the next input actually needed\" stay abstract with no inline example. Mostly executable guidance with minor gaps fits anchor 4, not 5 — concrete examples live entirely in referenced files."
+          },
+          "workflow_clarity": {
+            "score": 4,
+            "reasoning": "The sequence is clear (select route → resolve configuration → continue work → present results) and batch operations have an explicit validation gate (\"Projects, milestones and tasks require explicit user acceptance, including batches\"), so the batch-operation cap does not apply. However, there is no explicit recover step when conflicting settings are found (only \"Ask only for... conflicting settings\"), which keeps it at anchor 4 rather than 5."
+          },
+          "progressive_disclosure": {
+            "score": 5,
+            "reasoning": "Verified against the actual bundle: all referenced files (references/records.md, operations.md, cli.md, planning-flow.md, response-conventions.md) exist, and the router table cleanly dispatches to sibling route skills. This is a clear overview with well-signaled one-level-deep references and easy navigation, matching anchor 5."
+          }
+        },
+        "suggestions": [
+          "Add one short inline example (e.g., a resolved-configuration decision or an acceptance verdict on a named batch) so the acceptance and reporting rules are immediately actionable without loading a route skill.",
+          "Add an explicit validate-and-recover step for conflicting settings: what to present, what to ask, and how to proceed once the user resolves the conflict, closing the workflow's remaining checkpoint gap.",
+          "Loosen the densest run-on sentences (e.g., the vault/resolve-context paragraph) into short imperative rules — the compression currently trades clarity for tokens."
+        ],
+        "overall_assessment": "A well-structured router skill: lean token budget, a clean dispatch table, real one-level references, and acceptance gates on batch operations. The remaining gaps are the absence of any inline example to ground the abstract reporting/acceptance rules and a missing recovery step for conflicting settings."
+      },
+      "weightedScore": 4.45,
+      "normalizedScore": 0.8625
+    },
+    "description": {
+      "scale": {
+        "max": 5,
+        "min": 1
+      },
+      "success": true,
+      "evaluation": {
+        "scores": {
+          "specificity": {
+            "score": 5,
+            "reasoning": "\"Manage personal projects, milestones, accepted tasks, external blockers, daily priorities and anytime check-ins using editable Markdown records\" lists multiple concrete actions with a concrete medium, comprehensively covering the domain — matching the anchor-5 example's verb-plus-objects pattern. Coverage is comprehensive rather than having minor gaps, so not 4."
+          },
+          "completeness": {
+            "score": 5,
+            "reasoning": "The first sentence explicitly states what the skill does, and \"Use when capturing commitments, updating or delegating work, planning a day, or reconciling progress\" gives concrete when-triggers, plus a boundary sentence (\"Does not schedule work into available time\"). Both what and when are explicit with concrete trigger phrases, matching anchor 5."
+          },
+          "trigger_term_quality": {
+            "score": 4,
+            "reasoning": "Phrases like \"capturing commitments\", \"planning a day\", \"updating or delegating work\", and \"reconciling progress\" are natural user language, but common variations such as \"to-do list\", \"add a task\", or \"track my work\" are absent. Good coverage with a few natural terms missing fits anchor 4; the synonym breadth of anchor 5 is not met."
+          },
+          "distinctiveness_conflict_risk": {
+            "score": 5,
+            "reasoning": "The personal project/task management niche with editable Markdown records is distinct, and \"Does not schedule work into available time\" explicitly fences off overlap with calendar/scheduling skills. Clear niche with minimal conflict risk fits anchor 5; the explicit boundary handles the overlap that would justify 4."
+          }
+        },
+        "suggestions": [],
+        "overall_assessment": "The description is strong: it states concrete capabilities, explicit use-when triggers, and an explicit non-capability boundary that reduces conflict with scheduling skills. The only weakness is modest synonym coverage of natural trigger terms (e.g., to-do list, add a task)."
+      },
+      "weightedScore": 4.7,
+      "normalizedScore": 0.925
+    }
+  },
+  "scoring": {
+    "components": [
+      {
+        "id": "validation",
+        "weight": 0.19999999999999996,
+        "normalized": 0.96875
+      },
+      {
+        "id": "description",
+        "weight": 0.4,
+        "normalized": 0.925
+      },
+      {
+        "id": "content",
+        "weight": 0.4,
+        "normalized": 0.8625
+      }
+    ]
+  },
+  "review": {
+    "reviewScore": 90
+  }
+}
