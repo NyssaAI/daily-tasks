@@ -126,3 +126,44 @@ test('flat holding folders cannot introduce phantom tasks in either inventory or
   assert.equal((await projectInventory(inventoryInput)).status,'rebuilt');
   assert.equal(await readFile(path.join(milestone,'inputs/source.md'),'utf8'),taskText);
 });
+
+
+test('blocker labels are project-local, discoverable and compatible with legacy names', () => {
+  const project = graph()[0];
+  const blocker = (n, filename, projectId=id(1), version=true) => parseRecord(
+    doc(n,'blocker','',`project_id: ${projectId}\n`).replace('blocker-state: completed','blocker-state: open')
+      .replace('record_version: 2\n', version ? 'record_version: 2\n' : ''), `/p/blockers/${filename}`);
+  assert.equal(recordMarkdownIsManaged('# Missing metadata','/p/blockers/b1-approval.md'),true);
+  const first = blocker(10,'b1-approval.md');
+  assert.deepEqual(validateRecords([project,first]),[]);
+  const duplicate = blocker(11,'b1-delivery.md');
+  assert.equal(validateRecords([project,first,duplicate]).filter(d => d.code === 'invalid-number').length,2);
+  const otherProject = {...project,id:id(12),path:'/other/project-index.md'};
+  const other = blocker(13,'b1-delivery.md',id(12));
+  assert.deepEqual(validateRecords([project,otherProject,first,other]),[]);
+  assert.ok(validateRecords([project,blocker(14,'approval.md')]).some(d => d.code === 'noncanonical-filename'));
+  assert.deepEqual(validateRecords([project,blocker(14,'approval.md',id(1),false)]),[]);
+});
+
+
+test('canonical and generated skill bundles do not ship a standalone DoD template', async () => {
+  for (const prefix of ['', ...['portable','antigravity','cowork','hermes'].map(host => `artifacts/${host}/`)]) {
+    await assert.rejects(readFile(`${prefix}skills/daily-tasks/assets/definition-of-done.md`), {code:'ENOENT'});
+  }
+});
+
+
+test('task table templates include milestone context without adding selectable milestone rows', async () => {
+  const {parseViewRows} = await import('../lib/records/views.mjs');
+  for (const name of ['daily-plan.md','plan-day-select-tasks-screen.md']) {
+    const markdown = await readFile(`skills/daily-tasks/assets/${name}`,'utf8');
+    assert.match(markdown, /\| Status \| Project \| Milestone \| Task \| Due Date \|/);
+    const rows = parseViewRows(markdown);
+    assert.equal(rows.length, name === 'daily-plan.md' ? 2 : 4);
+    assert.ok(rows.every(row => row.mark === ' ' && row.id && row.target));
+    for (const line of markdown.split('\n').filter(line => /^\| \d/.test(line))) {
+      assert.equal(line.split(/(?<!\\)\|/).slice(1,-1).length,6);
+      assert.match(line.split(/(?<!\\)\|/)[4], /MILESTONE/);
+    }
+  }
+});

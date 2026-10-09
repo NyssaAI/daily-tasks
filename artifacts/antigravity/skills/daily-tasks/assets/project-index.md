@@ -22,7 +22,7 @@ State the accepted project outcome. Display times in LOCAL_TIMEZONE.
 
 | Blocker | Impact | Owner | Resolved When |
 | --- | --- | --- | --- |
-| [ ] [[blockers/BLOCKER_SLUG\|BLOCKER_TITLE]] <!-- ref: BLOCKER_UUID --> | Impact on the project. | OWNER_NAME | Resolution condition. |
+| [ ] [[blockers/bBLOCKER_NUMBER-BLOCKER_SLUG\|BLOCKER_TITLE]] <!-- ref: BLOCKER_UUID --> | Impact on the project. | OWNER_NAME | Resolution condition. |
 
 ## Decisions
 

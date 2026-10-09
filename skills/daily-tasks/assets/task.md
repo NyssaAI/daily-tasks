@@ -134,7 +134,7 @@ criteria remain independently owned; never copy milestone criteria as task crite
 
 ## Blocked by
 
-- [[../blockers/BLOCKER_SLUG|BLOCKER_TITLE]] <!-- ref: BLOCKER_UUID -->
+- [[../blockers/bBLOCKER_NUMBER-BLOCKER_SLUG|BLOCKER_TITLE]] <!-- ref: BLOCKER_UUID -->
 
 ## Decisions needed
 

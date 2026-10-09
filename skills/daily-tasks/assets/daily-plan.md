@@ -24,17 +24,17 @@ FOCUS_DESCRIPTION
 
 #### PROJECT_TITLE / MILESTONE_TITLE
 
-| # | Status | Project | Task | Due Date |
-| --- | --- | --- | --- | --- |
-| 1 | [ ] | PROJECT_TITLE | ↺ [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | TARGET_DATE_OR_DASH |
+| # | Status | Project | Milestone | Task | Due Date |
+| --- | --- | --- | --- | --- | --- |
+| 1 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | ↺ [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | TARGET_DATE_OR_DASH |
 
 ### Delegated work
 
 #### DELEGATED_PROJECT_TITLE / DELEGATED_MILESTONE_TITLE
 
-| # | Status | Project | Task | Due Date |
-| --- | --- | --- | --- | --- |
-| 2 | [ ] | DELEGATED_PROJECT_TITLE | [[RELATIVE_DELEGATED_TASK_PATH\|DELEGATED_TASK_TITLE]] <!-- ref: DELEGATED_TASK_UUID --> | TARGET_DATE_OR_DASH |
+| # | Status | Project | Milestone | Task | Due Date |
+| --- | --- | --- | --- | --- | --- |
+| 2 | [ ] | DELEGATED_PROJECT_TITLE | DELEGATED_MILESTONE_TITLE | [[RELATIVE_DELEGATED_TASK_PATH\|DELEGATED_TASK_TITLE]] <!-- ref: DELEGATED_TASK_UUID --> | TARGET_DATE_OR_DASH |
 
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward
 
@@ -50,7 +50,7 @@ Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · 
 
 <!-- Formatting example only. Replace sample content and placeholders with actual
 selected work. Never create or select sample tasks. Keep the user's chosen order.
-Use the planning screen's #, Status, Project, Task and Due Date columns. Keep task
+Use the planning screen's #, Status, Project, Milestone, Task and Due Date columns. Keep task
 labels short; descriptions and assignment details remain in canonical task files.
 Group under project/milestone headings within personal and delegated work. Reuse
 existing review numbers without restarting at section boundaries; numbers are
@@ -73,3 +73,7 @@ or task refs. Omit Focus when the user supplied none.
 Use short empty-state sentences when a work/decision/blocker section has no items.
 Completed rows remain checked and cancelled rows remain visibly marked for today.
 Do not infer a daily focus, deadlines, time estimates or scheduled time slots. -->
+
+<!-- Show each task?s owning milestone in the Milestone column, even under grouped
+headings. Use plain milestone text; task links and hidden refs identify task rows.
+Do not create a separate task selection or status row for the milestone cell. -->

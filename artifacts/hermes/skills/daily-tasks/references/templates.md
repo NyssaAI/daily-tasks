@@ -76,3 +76,7 @@ For new documents use the configured template. For existing documents preserve
 their layout and user prose during ordinary updates. Reformat them only when the
 user requests it, reconciling edits first and preserving identities, selections,
 relationships and facts. Template registration alone does not authorize reformatting.
+
+DoD has no standalone template. Keep milestone DoD in the milestone file and task
+DoD in the task file, including when using custom templates. Do not create or copy
+a separate definition-of-done document.

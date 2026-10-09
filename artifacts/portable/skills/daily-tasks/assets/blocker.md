@@ -1,6 +1,7 @@
 ---
 id: BLOCKER_UUID
 type: blocker
+record_version: 2
 title: "BLOCKER_TITLE"
 blocker-state: open
 owner: "OWNER_EMAIL"
@@ -19,3 +20,7 @@ State the observable condition that will resolve the blocker.
 
 ## Blocks
 - [[../MILESTONE_SLUG/TASK_SLUG|TASK_TITLE]] <!-- ref: TASK_UUID -->
+
+<!-- Save as project/blockers/b{number}-{blocker-name}.md. Allocate a project-local
+number above existing and recorded retired numbers; never reuse or renumber it for
+sorting. Keep the UUID stable. Link every affected record reciprocally. -->
