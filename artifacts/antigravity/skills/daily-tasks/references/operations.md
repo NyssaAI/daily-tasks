@@ -11,6 +11,14 @@ Include the context planningBinding in new checkpoints and resumable screen stat
 For legacy checkpoints without it, verify their explicit paths/identities before
 enrollment; absence is not permission to cross vaults.
 
+Load this protocol before consequential Markdown writes or recovery. When applying
+status changes, write canonical tasks and required parent effects, then project
+views, and only then daily-plan projections. If a project effect fails, preserve
+the daily projection and retain the checkpoint; never report a completed batch.
+Load [Records](../../daily-tasks-records/SKILL.md) before ownership, lifecycle or
+closure/reopening changes. Planning receipts/mappings follow
+[planning flow](planning-flow.md); they never replace a changed-Markdown transaction.
+
 For a consequential change:
 
 1. Read relevant records and stored per-view baselines in stateRoot/reconciliation.json.

@@ -2,7 +2,11 @@
 
 Use these conventions for every Daily Tasks planning/review screen and follow-up.
 Preserve the current screen template and its ownership filter. The interaction
-sequence is defined by the screen templates; do not import another plugin's process.
+sequence uses the selected screen layout and the
+[planning-flow contract](planning-flow.md#build-and-review); load it before saving
+a planning mapping, deriving eligibility or applying rollover/future selections.
+Load [operations](operations.md) before record/status effects or recovery. Do not
+import another plugin's process.
 
 ## Legends and meanings
 

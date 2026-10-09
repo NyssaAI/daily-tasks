@@ -1,6 +1,6 @@
 ---
 name: daily-tasks-records
-description: Create accepted projects, milestones and tasks; update progress, ownership, assignment, DoD, dependencies and external blockers; move, cancel or reopen records consistently.
+description: Create explicitly requested or accepted projects, milestones and tasks; update progress, ownership, assignment, DoD, dependencies and external blockers; move, cancel or reopen records consistently. Use when asked to create named work, mark done, reassign, or change an existing record. A direct named create instruction supplies acceptance without another acceptance prompt.
 ---
 
 # Manage records
