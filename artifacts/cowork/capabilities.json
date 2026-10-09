@@ -253,6 +253,150 @@
       "invocation": "node scripts/daily-tasks.mjs maintenance-status --input ABSOLUTE_JSON_FILE"
     },
     {
+      "name": "maintenance-inspect",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "maintenance inspect; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "inspection-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node scripts/daily-tasks.mjs maintenance-inspect --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "operation-verify",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "operation verify; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs operation-verify --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "operation-complete",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "operation complete; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "verified-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node scripts/daily-tasks.mjs operation-complete --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "rollover-complete",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "rollover complete; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "verified-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node scripts/daily-tasks.mjs rollover-complete --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "migration-retirement",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "migration retirement; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs migration-retirement --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "migration-complete",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "migration complete; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "verified-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node scripts/daily-tasks.mjs migration-complete --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "inspect-navigation",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "inspect navigation; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs inspect-navigation --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "next-record-number",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "next record number; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot",
+          "type",
+          "parentId"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs next-record-number --input ABSOLUTE_JSON_FILE"
+    },
+    {
       "name": "parse-record",
       "path": "scripts/daily-tasks.mjs",
       "purpose": "parse record; see skills/daily-tasks/references/cli.md",

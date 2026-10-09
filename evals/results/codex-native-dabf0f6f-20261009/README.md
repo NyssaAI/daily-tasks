@@ -1,0 +1,1 @@
+Fresh full eight-scenario native suite. Independent strict statuses are retained in result.json and scenario receipts; solver self-pass claims do not override protocol/integration failures. evidence.zip contains every manifest entry. Private authentication is excluded and removed after all hosts.

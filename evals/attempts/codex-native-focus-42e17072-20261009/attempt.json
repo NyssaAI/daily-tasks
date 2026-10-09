@@ -1,0 +1,60 @@
+{
+  "runId": "codex-native-focus-42e17072-20261009",
+  "kind": "focused-native-attempt",
+  "suite": "workflow-v3-focus",
+  "status": "fail",
+  "candidate": {
+    "hash": "42e17072a7366d5373bf12f3890256c3bd4e296c9c99938f7b188999dfa16b64"
+  },
+  "source_unchanged": true,
+  "completed_at": "2026-10-09T17:20:35.896Z",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "backendModelIndependentlyExposed": false,
+  "isolatedRegistration": true,
+  "installedFiles": 49,
+  "scenarios": [
+    {
+      "id": "reconciliation",
+      "status": "pass",
+      "transcripts": [
+        "reconciliation"
+      ],
+      "report": ".temp/REPORT.md",
+      "note": "Independent transcript and saved CLI-input/result review confirms unchanged stale plan contributes no edit; deliberately unchecked fresh view reopens; completed/cancelled conflict remains pending; explicitly accepted unrelated task proceeds; interruption occurred after real append and retry retained one exact matching event. Wrong checkpoint/baseline authoring attempts were rejected and retained. No fake maintenance worker success or direct decision-log read observed."
+    },
+    {
+      "id": "day-change",
+      "status": "pass",
+      "transcripts": [
+        "day-change"
+      ],
+      "report": ".temp/REPORT.md",
+      "note": "Independent transcript and branch assertion/effect review confirms Friday only, own/delegated unfinished carry, historical terminal rows, explicit deselection, Tuesday pre-created identity/B preservation, A removal/retry, actual subprocess interruption before receipt, saved operation recovery and one exact event, future removal. Invalid membership and dual-date attempts retained and rejected without false receipt. No fake worker success or direct decision-log read observed."
+    },
+    {
+      "id": "configuration-discovery",
+      "status": "pass",
+      "transcripts": [
+        "config-positive",
+        "config05",
+        "config06",
+        "config07-a",
+        "config07-b"
+      ],
+      "report": ".temp/results.md",
+      "note": "Four positive independent scopes created only accepted milestone with verified completion and retained legacy/config profile bytes; no-profile used empty priorities. Unknown scope asked user, conflicting settings preserved. A saved mapping/checkpoint could not apply to selected B, B created only milestone, no tasks/status updates or A writes; separate B state and verified operation retained. No unsupported worker claim or success timestamp write observed."
+    },
+    {
+      "id": "milestone-workspace",
+      "status": "fail",
+      "transcripts": [
+        "milestone-workspace"
+      ],
+      "report": ".temp/scenario7-report.md",
+      "note": "Final observed layout/import/output/holding exclusion/navigation/identity/criteria/shared-blocker/rename outcomes pass; original nested cancellation snapshots were ambiguous to allocator. A concrete history.snapshot-correction entry using supported corrects pointer and direct snapshot arrays did not resolve original ambiguity, so next-record-number remains null. Immutable original+correction preserved. Runtime integration gap requires correction before full suite; no direct log access or fabricated worker success observed."
+    }
+  ],
+  "releaseEvidence": false,
+  "note": "Focused attempts are retained independently and do not constitute the full eight-scenario release suite. Actual failed history is preserved. Private authentication, home settings and plugin cache are excluded."
+}

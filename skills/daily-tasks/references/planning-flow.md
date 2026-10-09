@@ -76,8 +76,9 @@ computed eligibility/count fields there. Each vault retains its own cache.
 
 Read current plan and the most recent earlier plan when needed, inspect their edits,
 and recover applicable pending operations on every request, even with fresh inventory.
-Read stateRoot/maintenance.json if present; pass lastFullReconcileAt to
-`maintenance-status`. If fullReconcileDue, run one read-only maintenance subagent
+Call `maintenance-status` with the resolved context, not a supplied success timestamp.
+Its `inspectionDue` gate concerns CLI checks; `fullReconcileDue` remains true when
+trusted host worker evidence is unavailable. If inspection is due, optionally run one read-only maintenance subagent
 using explicit `gpt-6-luna` on Codex, Haiku on Claude, or another supported lightweight
 model. Use the host's actual subagent tool with that model parameter; a Markdown
 declaration is not evidence that the model ran. Use `fork_turns: "none"` with Codex
@@ -90,11 +91,14 @@ Do not spawn another worker solely for indexing. If model selection/subagents ar
 unavailable, report that exact limitation and perform the same checks directly.
 
 The parent reconciles/apply-verifies authorized safe effects; user conflicts remain
-in their separate queue. Save the actual GMT completion time as lastFullReconcileAt
-in durable stateRoot/maintenance.json
-only after a complete successful broad pass and verification, recording actual model
-and execution evidence. A pending conflict/failure does not advance that timestamp.
-Inventory generatedAt is independent; deleting `.temp` cannot erase success evidence.
+in their separate queue. Run `maintenance-inspect` after those changes; it reads the
+actual graph, navigation, baselines and pending operations. Only a successful CLI
+inspection saves `maintenance-inspection.json`, with its own clock and execution kind.
+It never advances a worker-success timestamp. The current CLI has no trusted host
+worker-evidence adapter: do not write `maintenance.json`, claim an unavailable model
+ran, or turn an inspection into worker-success evidence. Report an unavailable worker
+truthfully and preserve previous success. Blocked checks leave inspection state unchanged.
+Inventory generatedAt is independent; deleting `.temp` cannot erase inspection evidence.
 No worker runs merely because time passes. The gate is checked on requested use.
 
 Inventory view-state-difference diagnostics identify discrepancies, not the winning
@@ -244,7 +248,10 @@ checkpoint's before bytes before logging or completing rollover; a mismatch leav
 the operation pending. Verify saved memberships and retained edits, append actual
 selection decisions once via the log CLI, invalidate inventory immediately after a committed plan write, then
 refresh affected inventory and baselines. A no-change rollover needs no log entry.
-Only after verification write completedAt/operationId into the dated rollover state;
+For changed rollover use a schemaV2 checkpoint and `rollover-complete` under
+[verified completion](verification.md); never write its completion receipt directly.
+The CLI rechecks identity, membership, prior/task sources, event and baseline facts.
+Only after verification does it write completedAt/operationId into the dated rollover state;
 for a no-change pass generate an operation UUID for its completion receipt. A failure
 or unresolved carried reference leaves completion pending; persist exact attempted
 membership so a later removal is not overwritten during recovery. Re-read and

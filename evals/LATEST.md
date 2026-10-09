@@ -4,8 +4,8 @@ Direct code and package checks are separate from native-host activation.
 
 | Target / suite | Required | Platform / configuration | Result | Evidence / next check |
 | --- | --- | --- | --- | --- |
-| node-local / deterministic-v1 | Yes | win32/x64 / node-22-plus | pass; current | [2026-10-09T15-51-20-679Z-12060](results/2026-10-09T15-51-20-679Z-12060/result.json) |
-| codex / workflow-v3 | Yes | win32/x64 / default | fail; current | [codex-native-6abc8b-20261009](results/codex-native-6abc8b-20261009/result.json) |
+| node-local / deterministic-v1 | Yes | win32/x64 / node-22-plus | pass; current | [2026-10-09T18-02-45-835Z-38824](results/2026-10-09T18-02-45-835Z-38824/result.json) |
+| codex / workflow-v3 | Yes | win32/x64 / default | pass; current | [codex-native-dabf0f6f-20261009](results/codex-native-dabf0f6f-20261009/result.json) |
 | claude-code / workflow-v3 | No | win32/x64 / default | Not run / unverified | Authenticate Claude Code; run with --plugin-dir artifacts/portable in isolated fixture and execute scenarios. |
 | claude-cowork / workflow-v3 | No | win32/x64 / default | Not run / unverified | Upload zipped artifacts/cowork; verify skill discovery, Node availability and persistence in isolated fixture. |
 | antigravity-2 / workflow-v3 | No | win32/x64 / default | Not run / unverified | Register artifacts/antigravity in 2.0 and execute scenarios. |
@@ -19,7 +19,7 @@ Direct code and package checks are separate from native-host activation.
 | node-linux / deterministic-v1 | No | linux/x64 / node-22-plus | Not run / unverified | Run node evals/run.mjs on Linux x64. |
 | node-macos / deterministic-v1 | No | darwin/arm64 / node-22-plus | Not run / unverified | Run node evals/run.mjs on macOS arm64. |
 
-Release acceptance: **Incomplete**. Every required matrix row needs current, verified passing evidence.
+Release acceptance: **Pass**. Every required matrix row needs current, verified passing evidence.
 
 Older development receipts without matrix coordinates are retained but do not establish acceptance.
 

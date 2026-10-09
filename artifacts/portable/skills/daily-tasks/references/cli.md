@@ -27,8 +27,8 @@ Reuse a preparation packet's context.now only for that packet's state save;
 the next request reads the clock again. New decisions use fresh `activity-time`
 results for their event and record timestamps. A reported historical activity
 belongs in `reported`, not `now`; recorded_at remains the actual recording time.
-After verified maintenance, read the actual GMT completion time for
-lastFullReconcileAt. Only recovery of an existing operation preserves its original
+Maintenance inspection records its own actual GMT completion time and never
+advances worker success. Only recovery of an existing operation preserves its original
 event timestamps. A new operation must not inherit that recovery event's clock.
 
 On Windows, preserve JSON timestamps as strings. PowerShell's default
@@ -57,7 +57,15 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
 | planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | Owner-focused counts, selected/available rows, stable mapping, diagnostics; max 15 addition rows |
 | plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
-| maintenance-status | now?, lastFullReconcileAt? | Four-hour reconciliation gate; no worker launch/write |
+| maintenance-status | resolved context inputs | Separate inspection freshness and unavailable trusted worker evidence; no write |
+| maintenance-inspect | resolved context inputs, dryRun? | Actual graph/navigation/baseline checks; saves CLI inspection JSON only; no worker success |
+| operation-verify | resolved context inputs, operationPath absolute | Actual effects/protected sources/exact event checks; no write |
+| operation-complete | same, dryRun? | Verified baseline save and checkpoint removal |
+| rollover-complete | same, schemaV2 rollover checkpoint | Recomputed selections and identity checks before receipt/baseline/checkpoint completion |
+| migration-retirement | same, schemaV2 migration checkpoint | Pre-removal content and live incoming-reference checks; allowed/ issues; no deletion |
+| migration-complete | same, retained source snapshot, dryRun? | Post-removal effect/event/baseline checks; no chronological attestation |
+| inspect-navigation | projectsRoot absolute, dailyPlansRoot? | Local identity, heading and attachment diagnostics; no write |
+| next-record-number | projectsRoot absolute, type milestone/task/blocker, parentId | Next unused parent-local label from live records and queried retirement history; number:null on ambiguity; no reservation |
 | parse-record | markdown, path? | Structured record; no write |
 | parse-checklist | markdown | Rows with ref IDs or candidate indication |
 | inspect-records | projectsRoot absolute | Canonical records and integrity diagnostics; ignores dot folders, rejects symlinks |

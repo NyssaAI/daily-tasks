@@ -1,0 +1,79 @@
+{
+  "target": "codex",
+  "kind": "host",
+  "platform": "win32/x64",
+  "configuration": "default",
+  "suite": "workflow-v3",
+  "status": "pass",
+  "runId": "codex-native-dabf0f6f-20261009",
+  "completed_at": "2026-10-09T18:20:44.735Z",
+  "candidate": {
+    "hash": "dabf0f6f7cd91d402c56d4e2a2bfc001d576daeb5971da95529b7a694d9015e2"
+  },
+  "source_unchanged": true,
+  "hostVersion": "codex-cli 0.161.0",
+  "model": "gpt-6.1-sol",
+  "discovery": {
+    "isolated": true,
+    "loadedSkills": [
+      "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\native-acceptance\\runtime-guards-full8-v2\\codex-home\\plugins\\cache\\daily-tasks-runtime-guards-full8-v2\\daily-tasks\\0.3.3\\skills\\daily-tasks-capture\\SKILL.md",
+      "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\native-acceptance\\runtime-guards-full8-v2\\codex-home\\plugins\\cache\\daily-tasks-runtime-guards-full8-v2\\daily-tasks\\0.3.3\\skills\\daily-tasks-checkin\\SKILL.md",
+      "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\native-acceptance\\runtime-guards-full8-v2\\codex-home\\plugins\\cache\\daily-tasks-runtime-guards-full8-v2\\daily-tasks\\0.3.3\\skills\\daily-tasks-plan\\SKILL.md",
+      "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\native-acceptance\\runtime-guards-full8-v2\\codex-home\\plugins\\cache\\daily-tasks-runtime-guards-full8-v2\\daily-tasks\\0.3.3\\skills\\daily-tasks-records\\SKILL.md",
+      "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\native-acceptance\\runtime-guards-full8-v2\\codex-home\\plugins\\cache\\daily-tasks-runtime-guards-full8-v2\\daily-tasks\\0.3.3\\skills\\daily-tasks-setup\\SKILL.md",
+      "D:\\repos\\NyssaAI\\daily-tasks\\.temp\\native-acceptance\\runtime-guards-full8-v2\\codex-home\\plugins\\cache\\daily-tasks-runtime-guards-full8-v2\\daily-tasks\\0.3.3\\skills\\daily-tasks\\SKILL.md"
+    ],
+    "output": "discovery-evidence.json",
+    "sha256": "a3ec4a0a073735c7da9d7fca298f5e49ce92ada85d4a159ee087dabb4b29e2e9"
+  },
+  "scenarios": [
+    {
+      "id": "acceptance",
+      "status": "pass",
+      "output": "acceptance-evidence.json",
+      "sha256": "5c4c1f45d7996f5ca92321b6133a41f88a9b05e9ab6c794cd246aacce40803a0"
+    },
+    {
+      "id": "assignment-time",
+      "status": "pass",
+      "output": "assignment-time-evidence.json",
+      "sha256": "998b50bd601d8a291be8417e56a8be1dd0dc5d1eeb015ba77f30e8adf6c91f40"
+    },
+    {
+      "id": "reconciliation",
+      "status": "pass",
+      "output": "reconciliation-evidence.json",
+      "sha256": "733993ef65c120ebfa3f746dfac680784752e8aa11bea8e96b4468677b5d01d1"
+    },
+    {
+      "id": "day-change",
+      "status": "pass",
+      "output": "day-change-evidence.json",
+      "sha256": "9252c315b50567c67cd4f9960de21e55e92b70241bc6bdfbd30593f05036c517"
+    },
+    {
+      "id": "closure",
+      "status": "pass",
+      "output": "closure-evidence.json",
+      "sha256": "d6eb71919fadc54ce2ed4ab2f20d24aa79214679a44769de3df9dd9793a21aa7"
+    },
+    {
+      "id": "configuration-discovery",
+      "status": "pass",
+      "output": "configuration-discovery-evidence.json",
+      "sha256": "8f80956092c5510c102af4b53f6b8bbc2bd7f0a8c9249e26e7715bd28467e642"
+    },
+    {
+      "id": "milestone-workspace",
+      "status": "pass",
+      "output": "milestone-workspace-evidence.json",
+      "sha256": "74e4b2a0bf0cc8b5d2f74644e1a67162d7657da8464e8ea28f094b598ef79e69"
+    },
+    {
+      "id": "workspace-migration",
+      "status": "pass",
+      "output": "workspace-migration-evidence.json",
+      "sha256": "748fa0d2d4418f12eb6c9d8cfe532166e2fe79fcdfa8425f6d03fa6a96552ae0"
+    }
+  ]
+}

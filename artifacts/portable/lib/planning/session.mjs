@@ -6,7 +6,8 @@ import { projectInventory, calendarDate } from '../inventory/inventory.mjs';
 import { parseRecord } from '../records/records.mjs';
 import { isUuid7, uuid7 } from '../identity/identity.mjs';
 import { parseChecklist, planRollover } from './planning.mjs';
-import { planningReview, maintenanceStatus } from './review.mjs';
+import { planningReview } from './review.mjs';
+import { verifiedMaintenanceStatus } from './maintenance.mjs';
 
 const fingerprint = text => text === null ? null : createHash('sha256').update(text).digest('hex');
 
@@ -73,7 +74,6 @@ export async function preparePlanning(input) {
     const legacy = await stateFile(path.join(context.stateRoot,'planning-review.json'));
     if (legacy.value?.date === today) reviewState = legacy;
   }
-  const maintenance = await stateFile(path.join(context.stateRoot,'maintenance.json'));
   const pendingOperations = (await names(path.join(context.stateRoot,'operations'))).filter(name => name.endsWith('.json'));
   const indexed = await projectInventory({...context,forceRefresh:input.forceRefresh,dryRun:input.dryRun});
   let records = indexed.inventory.tasks.map(task => ({...task,type:'task',project_id:task.projectId,milestone_id:task.milestoneId}));
@@ -102,7 +102,7 @@ export async function preparePlanning(input) {
     issuesByPath.get(issue.path).push(issue);
   }
   return {status:pendingOperations.length || rollover.status === 'conflict' ? 'recovery-required' : current.id ? 'prepared' : 'create-plan',
-    context,current,previous,rollover,review,maintenance:maintenanceStatus({now:context.now,lastFullReconcileAt:maintenance.value?.lastFullReconcileAt}),
+    context,current,previous,rollover,review,maintenance:await verifiedMaintenanceStatus(input,indexed),
     pendingOperations,inventory:indexed.inventory,inventoryStatus:indexed.status,metrics:indexed.metrics,
     enrollment:indexed.inventory.diagnostics.filter(issue => issue.code === 'invalid-id').map(issue => ({path:issue.path,
       issues:issuesByPath.get(issue.path),requiresExplicitAcceptance:true})),

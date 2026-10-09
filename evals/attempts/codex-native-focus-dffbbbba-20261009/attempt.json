@@ -1,0 +1,38 @@
+{
+  "runId": "codex-native-focus-dffbbbba-20261009",
+  "kind": "focused-native-attempt",
+  "suite": "workflow-v3-focus",
+  "status": "pass",
+  "candidate": {
+    "hash": "dffbbbba89401ded13ecdf81772c9cdf30aee3ff815422717f0c8387beef2989"
+  },
+  "source_unchanged": true,
+  "completed_at": "2026-10-09T17:40:05.146Z",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "backendModelIndependentlyExposed": false,
+  "isolatedRegistration": true,
+  "installedFiles": 49,
+  "scenarios": [
+    {
+      "id": "milestone-workspace",
+      "status": "pass",
+      "transcripts": [
+        "milestone-workspace"
+      ],
+      "report": ".temp/scenario7-receipt.md",
+      "note": "Observed requested workspace workflows satisfy final native checks: layout, both originals, shared copy, two outputs consumed in place, criteria preserved and unchecked, copied-ID attachment excluded, stable task/blocker numbering, shared reciprocal blocker and renamed-output navigation. An ambiguous authored reorder snapshot was repaired through supported append-only corrects; numbering then advances to4. Source is pre-fix for independently reviewed generic cancellation before-coverage gap, so this focused pass is not full release acceptance."
+    },
+    {
+      "id": "unavailable-worker",
+      "status": "pass",
+      "transcripts": [
+        "unavailable-worker"
+      ],
+      "report": ".temp/outcome.json",
+      "note": "Explicitly unavailable workers. Actual record/link/navigation checks clean; inspection blocked missing reconciliation baseline with no success advancement or separate receipt. Old maintenance.json bytes, model and timestamp independently unchanged by SHA256. Native final explicitly reports no worker launched or ran under any model. Logs queried through installed CLI only."
+    }
+  ],
+  "releaseEvidence": false,
+  "note": "Focused attempts are retained independently and do not constitute the full eight-scenario release suite. Actual failed history is preserved. Private authentication, home settings and plugin cache are excluded."
+}

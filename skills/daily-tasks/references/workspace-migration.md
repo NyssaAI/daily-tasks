@@ -51,7 +51,14 @@ scope, resolved roots and existing identities; never discover personal data else
    records and views and verify copied content and incoming links. Final destination
    checks alone do not cover old source copies awaiting removal; recovery backups
    and evidence snapshots in .temp/ are not live references. Any unresolved link
-   keeps the DoD and checkpoint pending. Validate final
+   keeps the DoD and checkpoint pending. Validate affected
+   records through `migration-retirement` immediately before removal, using the
+   schemaV2 migration evidence in [verified completion](verification.md). Its
+   `allowed:false` result prohibits retirement. The CLI checks content/criteria and
+   still-live incoming links; it does not delete anything. After skill-owned retirement,
+   use `migration-complete` for actual file/event/baseline verification. A post-deletion
+   check cannot prove the chronological order of earlier actions.
+   Validate final
    records, closure/reopening effects and navigation; append and query the exact
    migration event via log CLI, refresh views/baselines, invalidate inventory, then
    finish the checkpoint. Keep unchanged history and unrelated prose intact.
@@ -59,3 +66,7 @@ scope, resolved roots and existing identities; never discover personal data else
    applied effects. Reuse the event IDs and payload, checking through log-query so
    there is one event. Unexpected edits remain conflicts. Report migrated records,
    legacy tasks awaiting criteria, and remaining conflicts with exact links.
+
+Use `inspect-navigation` for heading and attachment targets as well as managed
+identity links. Use supported Markdown scanners for bounded reads; never recursively
+read all file types or include the script-owned decision-log directories.

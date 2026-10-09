@@ -1,0 +1,38 @@
+{
+  "runId": "codex-native-focus-3f119f78-20261009",
+  "kind": "focused-native-attempt",
+  "suite": "workflow-v3-focus",
+  "status": "pass",
+  "candidate": {
+    "hash": "3f119f78296ec6819812c0255e27617a4be36aaef11f8d1213121508cfa65e1d"
+  },
+  "source_unchanged": true,
+  "completed_at": "2026-10-09T17:52:29.185Z",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "backendModelIndependentlyExposed": false,
+  "isolatedRegistration": true,
+  "installedFiles": 49,
+  "scenarios": [
+    {
+      "id": "milestone-workspace",
+      "status": "pass",
+      "transcripts": [
+        "milestone-workspace"
+      ],
+      "report": ".temp/REPORT.md",
+      "note": "Independent strict assessment agrees with26 observed outcome checks. Source originals/shared copy/drafts/in-place consumption, copied-ID exclusion, task/blocker labels, reciprocal shared blocker and rename links/prose preserved. Exact task.cancel-and-accept uses only existing T1 before and T1+newT3 after; original checkpoint shows creation before:null. No manufactured before facts. Final task allocator returns4, records/navigation clean, eight operation checkpoints completed; no pending checkpoint or fake worker claim/direct decision-log read."
+    },
+    {
+      "id": "unavailable-worker",
+      "status": "pass",
+      "transcripts": [
+        "unavailable-worker"
+      ],
+      "report": ".temp/evidence-summary.json",
+      "note": "Explicit unavailable workers; real direct inspection blocks missing baseline with no success advancement. Old synthetic worker receipt bytes/model/timestamp independently identical by SHA256. No new inspection receipt or model/worker run claimed; final explicitly says full reconcile remains due and original note/candidate unchanged. Log access through installed CLI queries."
+    }
+  ],
+  "releaseEvidence": false,
+  "note": "Focused attempts are retained independently and do not constitute the full eight-scenario release suite. Actual failed history is preserved. Private authentication, home settings and plugin cache are excluded."
+}

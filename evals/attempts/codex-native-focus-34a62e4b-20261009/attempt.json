@@ -1,0 +1,38 @@
+{
+  "runId": "codex-native-focus-34a62e4b-20261009",
+  "kind": "focused-native-attempt",
+  "suite": "workflow-v3-focus",
+  "status": "fail",
+  "candidate": {
+    "hash": "34a62e4b0a3c15a8f3ca18048c4989fe83dd27b7feaa053c204ad73336c9b495"
+  },
+  "source_unchanged": true,
+  "completed_at": "2026-10-09T17:33:25.207Z",
+  "hostVersion": "codex-cli 0.161.0",
+  "modelArgument": "gpt-6.1-sol",
+  "backendModelIndependentlyExposed": false,
+  "isolatedRegistration": true,
+  "installedFiles": 49,
+  "scenarios": [
+    {
+      "id": "milestone-workspace",
+      "status": "fail",
+      "transcripts": [
+        "milestone-workspace"
+      ],
+      "report": ".temp/scenario7-report.md",
+      "note": "Immutable native event action rename-headline-output uses only absolute before/after artifact paths under the owning milestone outputs folder. Allocator incorrectly returns history-numbering-ambiguous because action lacks artifact prefix, even though actual paths establish non-record movement. All primary workspace outcomes/record/navigation checks pass; failure and actual original event remain preserved. No direct decision-log reads or unsupported worker success observed."
+    },
+    {
+      "id": "unavailable-worker",
+      "status": "pass",
+      "transcripts": [
+        "unavailable-worker"
+      ],
+      "report": ".temp/evidence.json",
+      "note": "Workers explicitly unavailable. Actual supported CLI inspection blocked missing-reconciliation-baseline with successAdvanced:false; record/link/navigation checks clean. No separate inspection receipt created. Historical maintenance.json remains byte-identical by harness SHA256 comparison and native before/after bytes; original model/success timestamp preserved. Native final explicitly reports no worker launched or ran under any model and full reconciliation remains due."
+    }
+  ],
+  "releaseEvidence": false,
+  "note": "Focused attempts are retained independently and do not constitute the full eight-scenario release suite. Actual failed history is preserved. Private authentication, home settings and plugin cache are excluded."
+}

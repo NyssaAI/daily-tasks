@@ -21,6 +21,11 @@ The prefix is the user's local day, not UTC. Configuration may override that con
 Log is projectsRoot/.daily-tasks/YYYY.MM.DD-decisions.json, named at creation, with
 rotation suffixes as needed. One logical history, archives included by the log CLI.
 Never read or edit those JSON logs directly from a skill.
+This includes checksums, hashes, backups, integrity comparisons and evidence
+manifests. A recursive walk beneath `.temp/` can contain a nested vault's logs;
+scratch location does not exempt them. Exclude `.daily-tasks` log directories at
+every depth before reading bytes. Capture log evidence through `log-query` output,
+including paginated/archive results, never by reading or hashing raw decision JSON.
 
 Project content belongs below the chosen projectsRoot. For a PARA vault follow its
 accepted project naming conventions, with this required milestone workspace layout.
@@ -60,6 +65,31 @@ and may link work in other projects; do not copy it or allocate a new number per
 Legacy unnumbered blockers remain readable; rename only when explicitly requested.
 Use the next unused positive integer above existing and recorded
 retired numbers; check files and history through `log-query`, never read log JSON.
+Use `next-record-number` with type and parent UUID; it scans actual records and
+queried history. For label-changing decisions (cancellation, rename, move,
+retirement or migration), retain concrete before/after snapshots with id, type,
+path and project_id or milestone_id as appropriate. Missing historical labels
+can be enriched by an append-only event using `corrects` with the original event
+UUID and complete, consistent affected-record facts. Direct snapshots, arrays and
+`{records:[snapshots]}` wrappers are supported. Every known historical label stays
+reserved; a correction cannot erase one or silently replace contradictory facts.
+Ordinary cancellation, retirement and migration events require observed before
+snapshots for every affected record. For a compound task cancellation and new
+acceptance, use action `task.cancel-and-accept`: existing records have before
+snapshots, newly created UUIDs appear only after. Choose this action before logging;
+an arbitrary compound action does not establish which records are new. Never put
+a newly created record, planned destination or inferred label into before to pass
+allocation. An optional `snapshot_kind` on before must be `observed`; this label
+does not prove authenticity. If prior observations are unavailable, keep allocation
+blocked and report the missing evidence. Correct only facts supported by retained
+observations, never fabricate history.
+For artifact-only moves/renames, log actual before/after file paths in holding
+areas instead of unrelated task snapshots. Artifact events do not retire record labels.
+Missing facts cannot be reconstructed from prose. Legitimate unversioned records
+without a prior numeric label can receive their first label during migration. The CLI scans
+paginated log history. Recheck before creating because its number is a proposal,
+not a reservation. A null number with history diagnostics requires resolution of
+missing concrete path/parent facts; never replace it with a guessed number.
 Never reuse a cancelled/deleted record's number, renumber for sorting, or treat numbers
 as schedule/priority. A move keeps its number unless it collides in the destination;
 then allocate a destination-local number and log the old/new mapping. Keep its stable
