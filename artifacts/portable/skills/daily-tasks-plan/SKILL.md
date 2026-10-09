@@ -58,8 +58,8 @@ requires a fresh packet before a dependent state action or review is saved.
 
 Load [once-per-day rollover](../daily-tasks/references/planning-flow.md#once-per-day-rollover)
 before opening/creating or merging today's plan. Preserve an existing plan's UUID,
-selections, prose and valid edits; create only a missing plan with UUIDv7 and GMT
-creation/update timestamps. Never backfill skipped days. A pre-created future plan
+original created_at, selections, prose and valid edits; create only a missing plan
+with UUIDv7 and GMT creation/update timestamps. Never backfill skipped days. A pre-created future plan
 still needs verified rollover for today. Find and reconcile the most recent earlier
 plan when dated rollover is incomplete, even if today's file already exists.
 

@@ -237,9 +237,12 @@ they never turn a later milestone into the first eligible milestone.
 
 Before any changed Markdown, checkpoint the exact source/destination fingerprints,
 membership deltas, removal IDs and stable operation/event IDs through the operation
-protocol. Merge only the proposed delta into today's configured template, verify the
-saved memberships and retained edits, append actual selection decisions once via
-the log CLI, invalidate inventory immediately after a committed plan write, then
+protocol. Merge only the proposed delta into today's configured template. For an
+existing plan, retain its original id and created_at instead of filling those fields
+from template placeholders or the current clock. Compare both saved values to the
+checkpoint's before bytes before logging or completing rollover; a mismatch leaves
+the operation pending. Verify saved memberships and retained edits, append actual
+selection decisions once via the log CLI, invalidate inventory immediately after a committed plan write, then
 refresh affected inventory and baselines. A no-change rollover needs no log entry.
 Only after verification write completedAt/operationId into the dated rollover state;
 for a no-change pass generate an operation UUID for its completion receipt. A failure
@@ -276,7 +279,8 @@ before/after row membership, generated plan ID/timestamps, event ID and all affe
 For an absent destination, render the configured dailyPlan template with a new UUIDv7
 frontmatter id and GMT creation/update timestamps, actual local date/timezone, real
 relative task link/ref, and no sample work or inferred focus. For an existing plan,
-preserve identity, prose, selections and other people's edits. Do not mark execution
+preserve its original id and created_at, prose, selections and other people's edits.
+Verify those identity fields against the before bytes after writing. Do not mark execution
 started/completed, alter target_date or create every intervening day's plan.
 
 Write/verify destination first, then remove the task from its old active day if

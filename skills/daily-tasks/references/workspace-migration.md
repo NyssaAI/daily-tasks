@@ -44,8 +44,14 @@ scope, resolved roots and existing identities; never discover personal data else
 7. Update incoming and outgoing relative links across maintained records and views,
    including task input/output links and links within moved notes. Project index links
    milestone; milestone links tasks; tasks link relevant files. Verify heading targets
-   and attachment links in addition to CLI identity/link diagnostics. Remove the old
-   live standalone DoD only after destination and references verify. Validate final
+   and attachment links in addition to CLI identity/link diagnostics. Before retiring
+   the old standalone DoD, retarget or remove every still-live legacy source copy
+   that links to it, verifying each destination before source removal. Immediately
+   before deleting the DoD, re-read all remaining live affected source/destination
+   records and views and verify copied content and incoming links. Final destination
+   checks alone do not cover old source copies awaiting removal; recovery backups
+   and evidence snapshots in .temp/ are not live references. Any unresolved link
+   keeps the DoD and checkpoint pending. Validate final
    records, closure/reopening effects and navigation; append and query the exact
    migration event via log CLI, refresh views/baselines, invalidate inventory, then
    finish the checkpoint. Keep unchanged history and unrelated prose intact.
