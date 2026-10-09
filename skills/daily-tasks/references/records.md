@@ -207,6 +207,10 @@ dispositions; offer batch cancellation, never silently cascade cancellation.
 
 Reopening a task reopens completed parents. Unchecking its task DoD reopens that task
 (in-progress if it has started_at, otherwise not-started) and completed parents.
+An explicitly requested supported task state, such as "reopen as not-started", takes
+precedence over that checkbox fallback. Put the requested state in the proposed
+records passed to `reopen-ancestors`; an old started_at does not override the user's
+state decision. Verify the saved task state as well as the required parent effects.
 Unchecking milestone DoD reopens that milestone and project, leaving completed tasks
 alone. Reopening a preventing blocker reopens completed affected parents, while
 completed tasks stay completed. Cancelled work requires an explicit reopening decision.
