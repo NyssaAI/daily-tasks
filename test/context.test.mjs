@@ -1,11 +1,177 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, writeFile, realpath } from 'node:fs/promises';
+import { mkdir, mkdtemp, writeFile, realpath, readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { resolveContext, planningBinding, assertPlanningScope } from '../lib/profile/context.mjs';
 import { validateProfile } from '../lib/profile/profile.mjs';
+import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
+import { uuid7 } from '../lib/identity/identity.mjs';
+import { verifiedMaintenanceStatus, inspectMaintenance } from '../lib/planning/maintenance.mjs';
+import { verifyOperation } from '../lib/operations/verification.mjs';
 
 const profile = {schema_version:1,user:{name:'Example',email:'owner@example.test'},timezone:'system',priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',templates:{task:'~/templates/task.md'},projectIndex:{ttlSeconds:14400}};
+test('partial scoped preferences round-trip explicit sources and bundled resets without selecting another layer', async () => {
+  await mkdir('.temp',{recursive:true});
+  const root = await realpath(await mkdtemp(path.resolve('.temp/layers-')));
+  const homeRoot = path.join(root,'home'), vaultRoot = path.join(root,'vault');
+  for (const directory of [homeRoot,vaultRoot]) await mkdir(path.join(directory,'.nyssa-ai/daily-tasks'),{recursive:true});
+  const userPath = path.join(homeRoot,'.nyssa-ai/daily-tasks/profile.json');
+  const projectPath = path.join(vaultRoot,'.nyssa-ai/daily-tasks/profile.json');
+  await writeFile(userPath,JSON.stringify({schema_version:2,user:profile.user,timezone:'UTC',priorities:['personal'],templates:profile.templates,projectIndex:{ttlSeconds:1}}));
+  await writeFile(projectPath,JSON.stringify({schema_version:2,projectsRoot:'./work',timezone:null,priorities:[],templates:{task:null},projectIndex:{ttlSeconds:null}}));
+  const context = await resolveContext({vaultRoot,homeRoot});
+  assert.equal(context.configured,true);
+  assert.deepEqual(context.profile.priorities,[]);
+  assert.deepEqual(context.templates,{});
+  assert.equal(context.ttlSeconds,14400);
+  assert.equal(context.projectsRoot,path.join(vaultRoot,'work'));
+  const again = await resolveContext({vaultRoot,homeRoot,configurationSources:context.configurationSources,stateRoot:context.stateRoot});
+  assert.deepEqual(again.configurationSources,context.configurationSources);
+  assert.deepEqual(again.profile,context.profile);
+  const overridden = await resolveContext({vaultRoot,homeRoot,configurationSources:context.configurationSources,preferenceOverrides:{timezone:'UTC',priorities:['only this request']}});
+  assert.equal(overridden.timezone,'UTC');
+  assert.deepEqual(overridden.profile.priorities,['only this request']);
+  assert.equal(overridden.preferenceSources.timezone,'current-task');
+  assert.deepEqual((await resolveContext({vaultRoot,homeRoot})).profile.priorities,[]);
+  await assert.rejects(resolveContext({vaultRoot,homeRoot,configurationSources:context.configurationSources,profilePath:userPath}),/exclusive|simultaneous/);
+  const personal = await resolveContext({homeRoot});
+  assert.equal(personal.configured,true);
+  assert.equal(personal.vaultRoot,undefined);
+  assert.equal(personal.stateRoot,undefined);
+  await assert.rejects(resolveContext({homeRoot,configurationSources:{schemaVersion:1,user:{profilePath:userPath},project:{profilePath:null}},preferenceOverrides:{projectsRoot:'./other'}}),/project binding/);
+});
+
+test('completed legacy state remains authoritative and divergent completed copies require reconciliation', async () => {
+  await mkdir('.temp',{recursive:true});
+  const vaultRoot = await realpath(await mkdtemp(path.resolve('.temp/completed-state-')));
+  const canonical = path.join(vaultRoot,'.nyssa-ai/daily-tasks'), legacy = path.join(vaultRoot,'.nyssaai/daily-tasks');
+  await mkdir(canonical,{recursive:true});
+  await mkdir(path.join(legacy,'rollover'),{recursive:true});
+  await writeFile(path.join(canonical,'profile.json'),JSON.stringify(profile));
+  await writeFile(path.join(legacy,'rollover','2026.10.11.json'),JSON.stringify({completedAt:'2026-10-11T00:00:00Z',removedIds:['synthetic']}));
+  const bound = await resolveContext({vaultRoot,homeRoot:vaultRoot});
+  assert.equal(bound.stateRoot,legacy);
+  await mkdir(path.join(canonical,'rollover'));
+  await writeFile(path.join(canonical,'rollover','2026.10.11.json'),JSON.stringify({completedAt:'2026-10-11T00:00:00Z',removedIds:['synthetic']}));
+  assert.equal((await resolveContext({vaultRoot,homeRoot:vaultRoot})).stateRoot,canonical,'Identical authoritative copies use canonical precedence');
+  await writeFile(path.join(canonical,'rollover','2026.10.11.json'),JSON.stringify({removedIds:[]}));
+  await assert.rejects(resolveContext({vaultRoot,homeRoot:vaultRoot}),/reconciliation|conflicting.*state/i);
+  await assert.rejects(resolveContext({vaultRoot,homeRoot:vaultRoot,
+    configurationSources:bound.configurationSources,stateRoot:bound.stateRoot}),/reconciliation|conflicting.*state/i);
+});
+
+test('personal-only consumers require a vault without creating operational files', async () => {
+  await mkdir('.temp',{recursive:true});
+  const homeRoot = await realpath(await mkdtemp(path.resolve('.temp/personal-consumers-')));
+  const settings = path.join(homeRoot,'.nyssa-ai/daily-tasks');
+  await mkdir(settings,{recursive:true});
+  const contents = JSON.stringify({schema_version:2,user:profile.user,timezone:'UTC'});
+  await writeFile(path.join(settings,'profile.json'),contents);
+  const before = await readdir(homeRoot,{recursive:true});
+  assert.equal((await preparePlanning({homeRoot})).status,'setup-required');
+  assert.equal((await verifiedMaintenanceStatus({homeRoot})).reason,'setup-required');
+  await assert.rejects(inspectMaintenance({homeRoot}),/Configured vault context required/);
+  await assert.rejects(verifyOperation({homeRoot}),/Configured vault context required/);
+  assert.deepEqual(await readdir(homeRoot,{recursive:true}),before);
+  assert.equal(await readFile(path.join(settings,'profile.json'),'utf8'),contents);
+});
+
+test('planning preparation preserves completed legacy rollover removals beneath canonical preferences', async () => {
+  await mkdir('.temp',{recursive:true});
+  const root = await realpath(await mkdtemp(path.resolve('.temp/completed-planning-')));
+  const vaultRoot = path.join(root,'vault'), homeRoot = path.join(root,'home');
+  const canonical = path.join(vaultRoot,'.nyssa-ai/daily-tasks');
+  const legacy = path.join(vaultRoot,'.nyssaai/daily-tasks');
+  for (const directory of [homeRoot,canonical,path.join(legacy,'rollover'),path.join(vaultRoot,'projects'),path.join(vaultRoot,'daily')]) await mkdir(directory,{recursive:true});
+  await writeFile(path.join(canonical,'profile.json'),JSON.stringify({...profile,timezone:'UTC',projectsRoot:'./projects',dailyPlansRelative:'daily'}));
+  const planId = uuid7(), removedId = uuid7();
+  await writeFile(path.join(vaultRoot,'daily/2026.10.11-daily-plan.md'),`---\nid: ${planId}\ntype: daily-plan\n---\n`);
+  await writeFile(path.join(vaultRoot,'daily/2026.10.10-daily-plan.md'),`---\nid: ${uuid7()}\ntype: daily-plan\n---\n- [ ] Removed work <!-- ref:${removedId} -->\n`);
+  const statePath = path.join(legacy,'rollover/2026.10.11.json');
+  const state = JSON.stringify({schemaVersion:1,date:'2026.10.11',planId,operationId:uuid7(),completedAt:'2026-10-11T12:00:00Z',removedIds:[removedId]});
+  await writeFile(statePath,state);
+  const prepared = await preparePlanning({vaultRoot,homeRoot,now:'2026-10-11T14:00:00Z',dryRun:true});
+  assert.equal(prepared.context.stateRoot,legacy);
+  assert.equal(prepared.rollover.status,'complete');
+  assert.deepEqual(prepared.rollover.selected,[]);
+  assert.deepEqual(prepared.state.rollover.value.removedIds,[removedId]);
+  assert.equal(await readFile(statePath,'utf8'),state);
+});
+
+test('existing scalar profiles cannot fall through, while unselected malformed legacy preferences are diagnostic only', async () => {
+  await mkdir('.temp',{recursive:true});
+  const root = await realpath(await mkdtemp(path.resolve('.temp/scalar-profile-')));
+  const homeRoot = path.join(root,'home'), vaultRoot = path.join(root,'vault');
+  await mkdir(homeRoot);
+  for (const folder of ['.nyssa-ai','.nyssaai']) await mkdir(path.join(vaultRoot,folder,'daily-tasks'),{recursive:true});
+  const canonical = path.join(vaultRoot,'.nyssa-ai/daily-tasks/profile.json');
+  const legacy = path.join(vaultRoot,'.nyssaai/daily-tasks/profile.json');
+  await writeFile(legacy,JSON.stringify(profile));
+  for (const value of ['null','false','0','[]']) {
+    await writeFile(canonical,value);
+    await assert.rejects(resolveContext({vaultRoot,homeRoot}),/Profile must be an object/);
+  }
+  await writeFile(canonical,JSON.stringify(profile));
+  await writeFile(legacy,'{broken');
+  const context = await resolveContext({vaultRoot,homeRoot});
+  assert.equal(context.configured,true);
+  assert.equal(context.profilePath,canonical);
+  assert.equal(context.diagnostics[0].path,legacy);
+});
+
+test('schema-2 null markers are leaf-only, user bindings are rejected, and schema-1 validation remains strict', () => {
+  for (const layer of [{user:null},{user:{name:null}},{templates:null},{projectIndex:null},{vaultRoot:null},{projectsRoot:null},{dailyPlansRelative:null},{templates:{unknown:null}}]) assert.equal(validateProfile({schema_version:2,...layer}).valid,false,JSON.stringify(layer));
+  assert.equal(validateProfile({schema_version:2,timezone:null,priorities:null,templates:{task:null},projectIndex:{ttlSeconds:null}}).valid,true);
+  assert.equal(validateProfile({...profile,templates:{task:null}}).valid,false);
+});
+
+test('frozen absence and custom source selections preserve scope after new conventional profiles appear', async () => {
+  await mkdir('.temp',{recursive:true});
+  const root = await realpath(await mkdtemp(path.resolve('.temp/source-absence-')));
+  const homeRoot = path.join(root,'home'), vaultRoot = path.join(root,'vault');
+  for (const directory of [homeRoot,vaultRoot]) await mkdir(directory);
+  const userPath = path.join(root,'custom-personal.json');
+  await writeFile(userPath,JSON.stringify({schema_version:2,user:profile.user,timezone:'UTC'}));
+  const configurationSources = {schemaVersion:1,user:{profilePath:userPath},project:{profilePath:null}};
+  const personal = await resolveContext({vaultRoot,homeRoot,configurationSources});
+  assert.equal(personal.configured,false,'Project collection is still required for vault work');
+  await mkdir(path.join(vaultRoot,'.nyssa-ai/daily-tasks'),{recursive:true});
+  await writeFile(path.join(vaultRoot,'.nyssa-ai/daily-tasks/profile.json'),JSON.stringify(profile));
+  const frozen = await resolveContext({vaultRoot,homeRoot,configurationSources});
+  assert.equal(frozen.configured,false);
+  assert.deepEqual(frozen.configurationSources,configurationSources);
+  assert.equal((await resolveContext({vaultRoot,homeRoot})).configured,true);
+  await assert.rejects(resolveContext({vaultRoot:homeRoot,homeRoot,configurationSources:{...configurationSources,project:{profilePath:path.join(vaultRoot,'.nyssa-ai/daily-tasks/profile.json')}}}),/bound scope/);
+});
+
+test('preparation and saved review use the same custom personal and partial project layers from another cwd', async () => {
+  await mkdir('.temp',{recursive:true});
+  const root = await realpath(await mkdtemp(path.resolve('.temp/layered-planning-')));
+  const homeRoot = path.join(root,'home'), vaultRoot = path.join(root,'vault');
+  for (const directory of [homeRoot,path.join(vaultRoot,'projects'),path.join(vaultRoot,'daily')]) await mkdir(directory,{recursive:true});
+  const userPath = path.join(homeRoot,'accepted-settings/profile.json'), projectPath = path.join(vaultRoot,'accepted-settings/profile.json');
+  for (const filename of [userPath,projectPath]) await mkdir(path.dirname(filename),{recursive:true});
+  await writeFile(userPath,JSON.stringify({schema_version:2,user:profile.user,timezone:'UTC',templates:{task:'~/custom/task.md'}}));
+  await writeFile(projectPath,JSON.stringify({schema_version:2,projectsRoot:'./projects',dailyPlansRelative:'daily',templates:{task:null}}));
+  const configurationSources = {schemaVersion:1,user:{profilePath:userPath},project:{profilePath:projectPath}};
+  await writeFile(path.join(vaultRoot,'daily','2026.10.11-daily-plan.md'),`---\nid: ${uuid7()}\ntype: daily-plan\n---\n`);
+  const input = {vaultRoot,homeRoot,configurationSources,preferenceOverrides:{priorities:['session'],timezone:'America/New_York'},now:'2026-10-11T14:00:00Z'};
+  const prepared = await preparePlanning(input);
+  assert.equal(prepared.status,'prepared');
+  assert.deepEqual(prepared.context.configurationSources,configurationSources);
+  assert.deepEqual(prepared.context.templates,{});
+  const bound = Object.fromEntries(['vaultRoot','homeRoot','configurationSources','preferenceOverrides','stateRoot','now'].map(key => [key,prepared.context[key]]));
+  const saved = await savePlanningState({...bound,action:'save-review',expectedPlanHash:prepared.current.sha256,
+    expectedPreviousHash:null,expectedStateHash:null,expectedInventoryHash:prepared.inventoryHash,expectedReviewHash:prepared.reviewHash});
+  assert.equal(saved.status,'saved');
+  assert.equal(JSON.parse(await readFile(saved.path,'utf8')).mappingBinding,prepared.context.planningBinding);
+  const reopened = await preparePlanning(bound);
+  assert.deepEqual(reopened.context.configurationSources,configurationSources);
+  assert.deepEqual(reopened.context.preferenceOverrides,input.preferenceOverrides);
+  assert.deepEqual(reopened.context.profile.priorities,['session']);
+  assert.equal(reopened.context.timezone,'America/New_York');
+  assert.equal(reopened.state.review.path,saved.path);
+});
 test('portable profile validates and resolves vault profile before home without subprocess cwd', async () => {
   assert.equal(validateProfile(profile).valid,true);
   await mkdir('.temp',{recursive:true});
@@ -18,11 +184,11 @@ test('portable profile validates and resolves vault profile before home without 
   assert.equal(result.profile.user.email,'owner@example.test');
   assert.equal(result.projectsRoot,path.join(vault,'1-projects'));
   assert.equal(result.templates.task,path.join(home,'templates/task.md'));
-  assert.equal(result.stateRoot,path.join(vault,'.nyssaai/daily-tasks'));
+  assert.equal(result.stateRoot,path.join(vault,'.nyssa-ai/daily-tasks'));
   assert.equal(result.localDate,'2026.10.06');
   assert.ok(result.timezone !== 'system');
   assert.equal((await resolveContext({vaultRoot:home,homeRoot:home})).profile.user.email,'home@example.test');
-  await assert.rejects(resolveContext({homeRoot:home}),/vaultRoot|initialCwd/);
+  assert.equal((await resolveContext({homeRoot:home})).preferenceOnly,true);
 });
 
 test('invalid portable traversal, TTL and malformed discovered profile are diagnosed', async () => {

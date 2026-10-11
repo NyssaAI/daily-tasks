@@ -18,13 +18,15 @@ for (const runId of runs) {
   // Earlier development receipts lack coordinates; retain without promoting them.
   if (!result.target) continue;
   const target = matrix.targets.find(item => item.id === result.target);
-  // Validate retained v2 receipts against their original six-scenario contract,
-  // without promoting them to acceptance of the workspace changes in v3.
-  const historical = target?.kind === 'host' && target.suite === 'workflow-v3' && result.suite === 'workflow-v2';
-  await verifyResult(result,directory,historical ? {...target,suite:'workflow-v2'} : target);
+  // Validate historical receipts against their original suite contract without
+  // counting them toward current acceptance.
+  const historical = target?.kind === 'host' && ['workflow-v2','workflow-v3'].includes(result.suite) && target.suite !== result.suite;
+  await verifyResult(result,directory,historical ? {...target,suite:result.suite} : target);
   if (historical) continue;
   const prior = latest.get(target.id);
-  if (!prior || Date.parse(result.completed_at) > Date.parse(prior.completed_at)) latest.set(target.id,result);
+  const current = result.candidate.hash === candidate.hash;
+  const priorCurrent = prior?.candidate.hash === candidate.hash;
+  if (!prior || (current && !priorCurrent) || (current === priorCurrent && Date.parse(result.completed_at) > Date.parse(prior.completed_at))) latest.set(target.id,result);
 }
 let text = '# Latest evaluation\n\nDirect code and package checks are separate from native-host activation.\n\n';
 text += '| Target / suite | Required | Platform / configuration | Result | Evidence / next check |\n| --- | --- | --- | --- | --- |\n';

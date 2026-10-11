@@ -35,7 +35,7 @@ test('evidence accepts complete host execution and rejects missing, corrupt and 
   await assert.rejects(verifyResult(result,dir,target),/Evidence changed/);
 });
 
-test('report retains historical v2 evidence without promoting it over workflow-v3 acceptance', async () => {
+test('report retains historical v2 and v3 evidence without promoting them over workflow-v4 acceptance', async () => {
   const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
   await mkdir(path.join(root,'.temp'),{recursive:true});
   const directory = await mkdtemp(path.join(root,'.temp','eval-report-'));
@@ -45,16 +45,16 @@ test('report retains historical v2 evidence without promoting it over workflow-v
   // Isolate the reporting boundary from the repository's real candidate inventory.
   await writeFile(path.join(directory,'scripts/assemble.mjs'),`export const root = ${JSON.stringify(directory)};`);
   await writeFile(path.join(directory,'evals/inventory.mjs'),`export async function inventory() { return {hash: '${'a'.repeat(64)}'}; }`);
-  const target = {id:'codex',kind:'host',required:true,suite:'workflow-v3',platform:'win32/x64',configuration:'default',next:'Run native workspace evals.'};
+  const target = {id:'codex',kind:'host',required:true,suite:'workflow-v4',platform:'win32/x64',configuration:'default',next:'Run native scope evals.'};
   await writeFile(path.join(directory,'evals/matrix.json'),JSON.stringify({targets:[target]}));
   const body = 'Synthetic report fixture; not host acceptance.';
   const artifact = {output:'observation.txt',sha256:createHash('sha256').update(body).digest('hex')};
-  async function receipt(runId,suite,scenarios,completed_at) {
+  async function receipt(runId,suite,scenarios,completed_at,candidateHash = 'a'.repeat(64)) {
     const run = path.join(directory,'evals/results',runId);
     await mkdir(run);
     await writeFile(path.join(run,'observation.txt'),body);
     await writeFile(path.join(run,'result.json'),JSON.stringify({target:target.id,kind:'host',platform:target.platform,
-      configuration:target.configuration,suite,runId,completed_at,candidate:{hash:'a'.repeat(64)},status:'pass',source_unchanged:true,
+      configuration:target.configuration,suite,runId,completed_at,candidate:{hash:candidateHash},status:'pass',source_unchanged:true,
       hostVersion:'fixture',model:'fixture',discovery:{isolated:true,loadedSkills:['fixture'],...artifact},
       scenarios:scenarios.map(id => ({id,status:'pass',...artifact}))}));
   }
@@ -65,10 +65,18 @@ test('report retains historical v2 evidence without promoting it over workflow-v
   assert.equal(runReport('release').status,1);
   await receipt('older-v3','workflow-v3',['acceptance','assignment-time','reconciliation','day-change','closure','configuration-discovery','milestone-workspace','workspace-migration'],'2026-10-08T12:00:00Z');
   assert.equal(runReport('write').status,0);
+  assert.equal(runReport('release').status,1,'Historical workspace results cannot accept new configuration behavior');
+  await receipt('current-v4','workflow-v4',[...scenarioIds,'configuration-scopes'],'2026-10-08T11:00:00Z');
+  assert.equal(runReport('write').status,0);
   const report = await readFile(path.join(directory,'evals/LATEST.md'),'utf8');
-  assert.match(report,/older-v3/);
+  assert.match(report,/current-v4/);
+  assert.doesNotMatch(report,/older-v3/);
   assert.doesNotMatch(report,/newer-v2/);
   assert.equal(runReport('release').status,0);
+  await receipt('newer-stale-v4','workflow-v4',[...scenarioIds,'configuration-scopes'],'2026-10-08T14:00:00Z','b'.repeat(64));
+  assert.equal(runReport('write').status,0);
+  assert.match(await readFile(path.join(directory,'evals/LATEST.md'),'utf8'),/current-v4/);
+  assert.equal(runReport('release').status,0,'A newer stale candidate cannot hide current acceptance');
   await writeFile(path.join(directory,'evals/results/newer-v2/observation.txt'),'tampered');
   assert.equal(runReport('write').status,1,'Historical evidence must still be verified');
 });

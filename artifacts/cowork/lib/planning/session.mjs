@@ -65,7 +65,7 @@ async function selectedRecords(context,plans,known,sources) {
 /** Prepare one bound planning screen from maintained readers; never author Markdown. */
 export async function preparePlanning(input) {
   const context = await resolveContext(input);
-  if (!context.configured) return {status:'setup-required',context};
+  if (!context.configured || context.preferenceOnly) return {status:'setup-required',context};
   const today = context.localDate;
   const current = await dailyPlan(context,today);
   const rolloverState = await stateFile(path.join(context.stateRoot,'rollover',`${today}.json`));

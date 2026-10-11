@@ -18,6 +18,7 @@ async function fixture() {
   const root = await realpath(await mkdtemp(path.resolve('.temp/operation-verification-')));
   const input = {vaultRoot:root,homeRoot:root,now:'2026-10-09T15:00:00Z'};
   const state = path.join(root,'.nyssaai/daily-tasks');
+  input.stateRoot = state; // Established legacy fixture binding survives checkpoint removal.
   await mkdir(path.join(state,'operations'),{recursive:true});
   await mkdir(path.join(root,'projects'),{recursive:true});
   await mkdir(path.join(root,'daily'),{recursive:true});
@@ -65,6 +66,28 @@ test('actual bytes and exact event determine pending, conflict and completion', 
   assert.equal((await completeOperation(f.input)).status,'completed');
   assert.deepEqual(JSON.parse(await readFile(path.join(f.context.stateRoot,'reconciliation.json'),'utf8')),f.operation.baseline.value);
   await assert.rejects(access(f.input.operationPath),{code:'ENOENT'});
+});
+
+test('recovery keeps custom personal and partial project sources through verification and completion', async () => {
+  const f = await fixture();
+  const homeRoot = path.join(f.context.vaultRoot,'synthetic-home');
+  const userPath = path.join(homeRoot,'accepted-settings/profile.json');
+  const projectPath = path.join(f.context.vaultRoot,'accepted-settings/profile.json');
+  for (const filename of [userPath,projectPath]) await mkdir(path.dirname(filename),{recursive:true});
+  await writeFile(userPath,JSON.stringify({schema_version:2,user:{name:'Example',email:'owner@example.test'},timezone:'America/Chicago',priorities:['personal']}));
+  await writeFile(projectPath,JSON.stringify({schema_version:2,projectsRoot:'./projects',dailyPlansRelative:'daily',priorities:[]}));
+  const configurationSources = {schemaVersion:1,user:{profilePath:userPath},project:{profilePath:projectPath}};
+  const input = {...f.input,homeRoot,configurationSources};
+  const context = await resolveContext(input);
+  assert.deepEqual(context.configurationSources,configurationSources);
+  assert.deepEqual(context.profile.priorities,[]);
+  await writeFile(f.file,'before');
+  assert.equal((await verifyOperation(input)).status,'pending');
+  await writeFile(f.file,'after');
+  await appendDecision({projectsRoot:context.projectsRoot,entry:f.event});
+  assert.equal((await completeOperation({...input,configurationSources:context.configurationSources,stateRoot:context.stateRoot})).status,'completed');
+  assert.equal((await queryDecisions({projectsRoot:context.projectsRoot})).total,1);
+  assert.deepEqual((await resolveContext(input)).configurationSources,configurationSources);
 });
 
 test('verification rejects forged evidence, escaped effects and another binding', async () => {

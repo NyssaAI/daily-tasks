@@ -17,11 +17,11 @@ run a personal operating system. One authoritative record per item. Select one r
 | Report progress, reconcile edits, resume or check in | [Check-in](../daily-tasks-checkin/SKILL.md) |
 
 Load only that route and references it needs. Resolve configuration using
-[setup's ordered discovery rules](../daily-tasks-setup/SKILL.md#resolve-configuration-and-scope):
-reuse an existing pointer or established `.nyssaai` common state root, then the known
-vault convention. A missing explicit configRoot is not a reason to ask for a path.
-Read an existing profile or resolve first-use preference scope through setup before
-initializing conventional state within that scope, then
+[setup's scoped discovery rules](../daily-tasks-setup/SKILL.md#read-and-select-a-write-scope):
+reuse accepted pointers or discover user and project `.nyssa-ai` preference layers,
+with legacy `.nyssaai`/`.nyssa` compatibility. Preserve configurationSources through
+continuation. A missing explicit configRoot is not a reason to ask for a path.
+Resolve preferences and independent authoritative vault state through setup, then
 continue the requested work. Ask only for genuinely missing scope/data or conflicting
 settings. Do not scan home directories or infer vault scope from later process cwd
 or installed code. A host-captured initial vault-root workspace is an explicit
