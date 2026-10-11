@@ -58,7 +58,7 @@ IDs, the host timezone, unchanged binding and no duplicate event. Try a mapping 
 another fixture vault and require rejection. Record the user's device confirmation;
 desktop automation cannot establish that the reply arrived through the phone.
 
-### Eight acceptance scenarios (workflow-v3)
+### Nine acceptance scenarios (workflow-v4)
 
 Run these with a fresh authenticated host, explicit plugin registration and synthetic
 vault outside personal state. Record actual loaded skill paths, host version/model when
@@ -132,13 +132,30 @@ passed. Do not use a loaded project AGENTS.md as proof of plugin discovery.
 
 Automated parser/allocation checks cover adjacent next-line references, conflicting
 references and legacy cancellation, including unchanged stale views after reopening.
-These checks do not substitute for the eight native skill-authored scenarios above.
+9. **Configuration scopes:** In fresh user-installed and project-installed sessions,
+   use one partial schema-2 personal layer for two bound vaults, with a partial
+   project override in only one. Verify inherited identity/timezone, array replacement,
+   project template null selecting bundled formatting and removal restoring inheritance.
+   Select custom personal/project sources and preserve the unchanged configurationSources
+   descriptor plus vault/home/state roots through preparation, save and recovery from
+   unrelated/cache cwd. Explicit legacy selectors remain exclusive and reject mixing
+   with the descriptor. A canonical preference-only directory must preserve completed
+   legacy rollover/removal history; divergent completed stores require reconciliation.
+   Personal setup/update without a vault and from a project session must touch only the
+   user layer and never create a vault decision-log entry. Project updates retain their
+   log behavior. Invalid selected layers and unsupported null values must be diagnosed;
+   reinstall must preserve both scoped profiles and operating state.
+
+These checks do not substitute for the nine native skill-authored scenarios above.
 
 Each is pass only if all listed assertions hold; any violation fails that scenario.
 Receipt IDs are `acceptance`, `assignment-time`, `reconciliation`, `day-change`,
-`closure`, `configuration-discovery`, `milestone-workspace`, and `workspace-migration`.
-All eight are required. Historical workflow-v2 receipts retain their original six
-scenarios and evidence verification, but cannot establish workflow-v3 acceptance.
+`closure`, `configuration-discovery`, `milestone-workspace`, `workspace-migration`, and
+`configuration-scopes`. All nine are required. Historical workflow-v2 receipts retain
+their original six scenarios; workflow-v3 retains its original eight. Repository-owned
+allowlisted revision dispatch verifies their original evidence hashes and outcomes,
+without rewriting receipts or promoting either revision to workflow-v4 acceptance.
+Unknown verifier revisions fail. Only current-suite, complete-candidate evidence qualifies.
 Unavailable authentication/host is Not run, not pass. A scenario executed through direct
 code is evidence of code behavior only. Keep safe redacted attempts under attempts/ with
 run ID, timestamps, source hashes, attempted command, last completed stage and next check.

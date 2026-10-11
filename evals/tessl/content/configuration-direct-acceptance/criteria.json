@@ -4,12 +4,12 @@
   "checklist": [
     {
       "name": "configuration-direct-acceptance_1",
-      "description": "Reuses the established profile and independent bound vault; asks no redundant setup or acceptance question.",
+      "description": "Layers the personal identity/timezone with partial project preferences from canonical roots, preserves configurationSources and bound vault/home/state roots, and asks no redundant setup or acceptance question.",
       "max_score": 1
     },
     {
       "name": "configuration-direct-acceptance_2",
-      "description": "Creates exactly one accepted not-started task with supplied requirements, embedded DoD criterion IDs, valid parent IDs and milestone/project navigation.",
+      "description": "Creates exactly one accepted not-started task with supplied requirements, embedded DoD criterion IDs, valid parent IDs and milestone/project navigation; the project task-template null uses bundled formatting, without the Personal template sentinel.",
       "max_score": 1
     },
     {
@@ -19,7 +19,7 @@
     },
     {
       "name": "configuration-direct-acceptance_4",
-      "description": "Does not start execution or select the new task for today merely because it was created.",
+      "description": "Does not start execution or select the new task for today merely because it was created; leaves both scoped preference layers and the personal template unchanged.",
       "max_score": 1
     }
   ]

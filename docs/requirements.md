@@ -109,7 +109,17 @@ default to system detection, report the detected zone, and preserve the sentinel
 in configuration. Existing explicit zones remain overrides. First-use setup asks
 only preference scope and missing name/email routinely; timezone questions are
 reserved for detection failure and priorities are optional.
-Preferences use vault-local or user-level `.nyssaai/daily-tasks/`; reconciliation
+Preferences use user and project `.nyssa-ai/daily-tasks/` layers, independent of installation;
+legacy `.nyssaai`, `.nyssa` and explicit locations remain supported. Schema version 2
+permits partial preferences; project leaves override user defaults, omitted keys inherit,
+and null timezone/priorities/template-kind/TTL leaves select packaged defaults. Identity,
+project bindings and object containers cannot be null. Version 1 retains its validation.
+Versioned configurationSources preserves explicit source paths or absences through
+preparation, save and recovery; legacy profilePath/configRoot remains exclusive.
+Personal preference setup requires no vault, collection or vault log. Project outputs
+and bindings remain local to each vault. Authoritative state contents, including completed
+rollover and removal history, determine discovery separately from profiles/caches;
+divergent stores require explicit reconciliation before dependent writes. Reconciliation
 and check-in state use the vault's independent stateRoot or established state location.
 Reuse applicable configuration pointers, common state roots and known vault scope before
 asking questions. Resolve absolute paths from context; do not require the user to type

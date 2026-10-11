@@ -40,6 +40,13 @@ test('assembled packages and source hashes are identical for LF and CRLF source 
   const sources = await tree(directory);
   for (const [name,value] of sources) await writeFile(path.join(directory,name),value);
   const baseline = await buildPackages();
+  for (const scope of ['.nyssa-ai/daily-tasks','synthetic-home/.nyssa-ai/daily-tasks','.nyssaai/daily-tasks','skills/.nyssa-ai/daily-tasks','lib/.nyssaai/daily-tasks']) {
+    await mkdir(path.join(directory,scope,'rollover'),{recursive:true});
+    await writeFile(path.join(directory,scope,'profile.json'),'Synthetic private preferences must not ship');
+    await writeFile(path.join(directory,scope,'rollover/2026.10.11.json'),'Synthetic completed state must not ship');
+  }
+  const withPrivateState = await buildPackages();
+  assert.deepEqual(withPrivateState,baseline,'Both scoped private stores remain outside assembled artifacts');
   for (const [name,value] of sources) await writeFile(path.join(directory,name),value.replaceAll('\n','\r\n'));
   assert.deepEqual(await buildPackages(),baseline);
 });

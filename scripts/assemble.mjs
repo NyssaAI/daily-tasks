@@ -5,12 +5,14 @@ import { createHash } from 'node:crypto';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const encode = value => JSON.stringify(value, null, 2) + '\n';
-export async function tree(directory, prefix = '') {
+const privateDirectories = new Set(['.nyssa-ai','.nyssaai','.nyssa','.temp']);
+export async function tree(directory, prefix = '', excludePrivate = false) {
   const files = new Map();
   for (const item of (await readdir(directory, { withFileTypes: true })).sort((a,b) => a.name.localeCompare(b.name))) {
+    if (excludePrivate && privateDirectories.has(item.name)) continue;
     const name = prefix + item.name;
     if (item.isSymbolicLink()) throw new Error(`Symlink cannot be packaged: ${name}`);
-    if (item.isDirectory()) for (const [key,value] of await tree(path.join(directory,item.name),name+'/')) files.set(key,value);
+    if (item.isDirectory()) for (const [key,value] of await tree(path.join(directory,item.name),name+'/',excludePrivate)) files.set(key,value);
     else files.set(name, (await readFile(path.join(directory,item.name),'utf8')).replaceAll('\r\n','\n'));
   }
   return files;
@@ -29,7 +31,7 @@ export async function buildPackages() {
     ['.codex-plugin/plugin.json', encode({...host,skills:'./skills/',interface:{displayName:'Daily Tasks',shortDescription:'Personal tasks and daily planning',developerName:'NyssaAI',category:'Productivity'}})],
   ]);
   const shared = new Map([['plugin.json',encode(identity)],['LICENSE',(await readFile(path.join(root,'LICENSE'),'utf8')).replaceAll('\r\n','\n')]]);
-  for (const folder of ['skills','lib','bin']) for (const [key,value] of await tree(path.join(root,folder),folder+'/')) shared.set(key,value);
+  for (const folder of ['skills','lib','bin']) for (const [key,value] of await tree(path.join(root,folder),folder+'/',true)) shared.set(key,value);
   for (const name of ['package.json','capabilities.json']) shared.set(name,(await readFile(path.join(root,name),'utf8')).replaceAll('\r\n','\n'));
   const portable = new Map([...shared,...manifests]);
   const agy = new Map(shared); agy.set('plugin.json',encode({name:identity.name,description:identity.description}));

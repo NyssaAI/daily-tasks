@@ -36,7 +36,7 @@ async function ordinary(filename) {
 function effectPath(context, filename) {
   if (typeof filename !== 'string' || !path.isAbsolute(filename) ||
       ![context.projectsRoot,context.dailyPlansRoot].some(root => within(root,filename)) ||
-      [context.stateRoot,context.configRoot].some(root => within(root,filename)) ||
+      [context.stateRoot,...(context.configurationRoots ?? [context.configRoot])].some(root => within(root,filename)) ||
       [context.projectsRoot,context.dailyPlansRoot].filter(root => within(root,filename)).some(root => path.relative(root,filename).split(path.sep).some(part => part.startsWith('.')))) throw new Error('Effect path must be an ordinary project or daily-plan source outside log/config/state');
   return path.normalize(filename);
 }
@@ -44,7 +44,7 @@ function effectPath(context, filename) {
 async function load(input) {
   if (['actual','verified','operation','checkpoint'].some(key => Object.hasOwn(input,key))) throw new Error('Caller-supplied actual values or checkpoints are not verification evidence');
   const context = await resolveContext(input);
-  if (!context.configured) throw new Error('Configured context required');
+  if (!context.configured || context.preferenceOnly) throw new Error('Configured vault context required');
   const filename = input.operationPath;
   if (!path.isAbsolute(filename ?? '') || path.dirname(filename) !== path.join(context.stateRoot,'operations') || !isUuid7(path.basename(filename,'.json')) || path.extname(filename) !== '.json') throw new Error('Operation path must be stateRoot/operations/UUID.json');
   const bytes = await ordinary(filename);

@@ -30,12 +30,18 @@ maintenance runs during requested workflows.
 
 ## Storage and authority
 
-- Preferences: `<vault root>/.nyssaai/daily-tasks/profile.json` for this vault,
-  or `~/.nyssaai/daily-tasks/profile.json` for all vaults. Reuse existing settings
-  and configured pointers. Portable `.` and `./...` paths resolve against the explicitly
+- Preferences: partial version-2 layers at `<vault root>/.nyssa-ai/daily-tasks/profile.json`
+  and `~/.nyssa-ai/daily-tasks/profile.json`. Project leaves override user defaults;
+  omission inherits and documented null leaves select packaged defaults. Reuse accepted
+  explicit pointers and legacy `.nyssaai`/`.nyssa` profiles without automatic migration.
+  Portable `.` and `./...` paths resolve against the explicitly
   captured vault binding; `~/...` resolves against the current host's home directory.
-- Operating state: `<vault root>/.nyssaai/daily-tasks/`, independent of shared
-  preferences. Reuse an established state location; do not silently migrate it.
+- Operating state: `<vault root>/.nyssa-ai/daily-tasks/`, independent of shared
+  preferences. Content-based discovery preserves existing completed and pending legacy
+  state; divergent stores require reconciliation. Reuse a verified established binding.
+  Preserve configurationSources and vault/home/state roots through continuation.
+- Personal setup needs no vault or decision-log entry. Project bindings and outputs
+  remain vault-specific; project preference updates retain their existing decision log.
 - Project inventory: `<vault root>/.temp/daily-tasks/project-index.json`. It is disposable,
   refreshed on request or when source checks, local-day rollover or the configurable
   four-hour TTL require it. Cache reuse reads file metadata and no Markdown contents.

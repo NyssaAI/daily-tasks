@@ -4,6 +4,8 @@ import { createHash } from 'node:crypto';
 
 const legacyScenarioIds = ['acceptance','assignment-time','reconciliation','day-change','closure','configuration-discovery'];
 export const scenarioIds = [...legacyScenarioIds,'milestone-workspace','workspace-migration'];
+export const configurationScenarioIds = [...scenarioIds,'configuration-scopes'];
+const workflowScenarios = {'workflow-v2':legacyScenarioIds,'workflow-v3':scenarioIds,'workflow-v4':configurationScenarioIds};
 export const deterministicCommands = [['node','--test'],['node','scripts/assemble.mjs','check'],['node','scripts/validate.mjs']];
 export async function verifyResult(result, directory, target) {
   if (!target || result.target !== target.id || result.kind !== target.kind || result.platform !== target.platform || result.configuration !== target.configuration || result.suite !== target.suite || !['pass','fail'].includes(result.status) || !/^[a-zA-Z0-9-]+$/.test(result.runId) || !Number.isFinite(Date.parse(result.completed_at)) || !/^[a-f0-9]{64}$/.test(result.candidate?.hash || '')) throw new Error('Invalid result identity or matrix coordinates');
@@ -20,7 +22,8 @@ export async function verifyResult(result, directory, target) {
     }
     if (result.status === 'pass' && result.commands.some(command => command.exit !== 0)) throw new Error('False command pass');
   } else if (target.kind === 'host') {
-    const requiredScenarios = target.suite === 'workflow-v2' ? legacyScenarioIds : scenarioIds;
+    const requiredScenarios = workflowScenarios[target.suite];
+    if (!requiredScenarios) throw new Error('Unknown workflow verifier revision');
     if (typeof result.hostVersion !== 'string' || !result.hostVersion || typeof result.model !== 'string' || !result.model) throw new Error('Host version and model receipt required');
     if (result.discovery?.isolated !== true || !Array.isArray(result.discovery.loadedSkills) || !result.discovery.loadedSkills.length) throw new Error('Isolated discovery evidence required');
     await evidence(result.discovery);

@@ -50,7 +50,7 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | local-day | time GMT ISO, timezone | local YYYY.MM.DD |
 | format-time | time GMT ISO, timezone | Local display with explicit zone |
 | validate-profile | profile object | valid/errors/resolvedTimezone; no save |
-| resolve-context | absolute vaultRoot or captured initialCwd; homeRoot?, profilePath?, configRoot?, stateRoot?, now? | Resolved absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
+| resolve-context | absolute vaultRoot or captured initialCwd for vault work; homeRoot for personal-only setup; configurationSources?, legacy profilePath?/configRoot?, preferenceOverrides?, stateRoot?, now? | Layered preferences, versioned source selections, provenance/writableScopes, independent absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
 | planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
 | planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
@@ -138,10 +138,12 @@ used for that preparation, and `packet` is its parsed JSON result.
 ```javascript
 const shared = {
   vaultRoot: packet.context.vaultRoot,
-  profilePath: packet.context.profilePath,
-  configRoot: packet.context.configRoot,
+  ...(packet.context.configurationSources
+    ? {configurationSources: packet.context.configurationSources}
+    : {profilePath: packet.context.profilePath}),
   stateRoot: packet.context.stateRoot,
   homeRoot: packet.context.homeRoot,
+  preferenceOverrides: packet.context.preferenceOverrides,
   now: packet.context.now,
   page: prepareOptions.page,
   allMilestones: prepareOptions.allMilestones,

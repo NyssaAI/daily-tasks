@@ -1,6 +1,6 @@
 # Tessl evaluation protocol
 
-This suite is separate from the repository's deterministic and workflow-v3
+This suite is separate from the repository's deterministic and workflow-v4
 native-host evidence. Cloud results do not establish Windows or phone activation.
 
 `activation/` translates all fourteen prompts from [activation-cases.md](activation-cases.md).
@@ -15,7 +15,9 @@ completion/reopening. Criteria judge effects rather than skill loading. Acceptan
 scope, script-only logging or recovery violations fail regardless of the average.
 The target is revised-context average at least 85% without unexplained regressions.
 
-Fixture version 4 uses synthetic Casey/Alex records and a fixed instant,
+Fixture version 5 adds canonical personal/project partial layers and a project template
+reset to configuration-direct-acceptance. Other scenarios retain their version-4
+fixtures. All use synthetic Casey/Alex records and a fixed instant,
 2026-10-09T15:00:00Z, in America/Chicago. The setup process fixes fixture UUID entropy
 and time for repeatable identities; production identity code remains unchanged.
 Sandbox absolute paths, context bindings and hashes of path-bearing JSON necessarily

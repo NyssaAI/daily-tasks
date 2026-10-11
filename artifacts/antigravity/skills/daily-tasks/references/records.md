@@ -2,14 +2,16 @@
 
 ## Scope and paths
 
-Setup resolves absolute configRoot from an existing settings pointer, an established
-`.nyssaai` common state root, or the known vault convention, in that order. It reuses
+Setup resolves both scoped preference sources from accepted pointers or canonical
+`.nyssa-ai` locations, with `.nyssaai`/`.nyssa` compatibility. It reuses
 known vaultRoot and projectsRoot rather than asking for them again; see
-[setup discovery](../../daily-tasks-setup/SKILL.md#resolve-configuration-and-scope).
+[setup discovery](../../daily-tasks-setup/SKILL.md#read-and-select-a-write-scope).
 configRoot holds `profile.json` and optional copied templates. stateRoot holds
 reconciliation baselines, pending operations, candidates and check-in progress.
-`resolve-context` defaults stateRoot to the selected vault's `.nyssaai/daily-tasks`;
-reuse an established explicit legacy stateRoot. Keep these outside the
+`resolve-context` discovers authoritative state independently of profile storage,
+including completed rollover/removal history, and initializes `.nyssa-ai/daily-tasks`
+only when none exists. Reuse a verified state binding; reconcile divergent copies.
+Preserve configurationSources through planning and recovery. Keep these outside the
 installed plugin. Daily plans and accepted task documents are user output and must stay
 outside configRoot, including legacy `.nyssa/daily-tasks` state directories.
 Daily plans resolve from the profile's `vaultRoot` and `dailyPlansRelative`, never from

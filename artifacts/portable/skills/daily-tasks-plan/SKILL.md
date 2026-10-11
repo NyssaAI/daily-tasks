@@ -17,8 +17,10 @@ settings or an explicit configuration change; do not restart setup for a configu
 Bind one vault, its assigned projectsRoot and dailyPlansRoot throughout this session,
 numbered replies and recovery. Shared preferences never combine vaults.
 
-Start with `planning-prepare`, passing the captured absolute vault binding and known
-explicit profilePath. It resolves actual dated plan identities/hashes, full-graph
+Start with `planning-prepare`, passing the captured absolute vault binding. On
+continuation preserve configurationSources, preferenceOverrides and stateRoot from
+the accepted context. Use profilePath only for an explicitly accepted legacy
+exclusive profile, never alongside configurationSources. It resolves actual dated plan identities/hashes, full-graph
 inventory, rollover/review proposals, pending operations, maintenance and enrollment
 issues. Use this packet instead of temporary orchestration or hand-assembled parse
 results. Selected records alone are not the validation universe. Preparation does

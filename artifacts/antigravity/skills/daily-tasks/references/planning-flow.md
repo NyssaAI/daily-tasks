@@ -7,8 +7,10 @@ Desktop and phone activation require actual host testing, not package checks.
 
 ## Resolve once
 
-For routine entry use `planning-prepare` with the captured vault binding and known
-profilePath, instead of composing temporary orchestration scripts. Its packet includes
+For routine entry use `planning-prepare` with the captured vault binding. Preserve
+the accepted configurationSources, preferenceOverrides and stateRoot on continuation;
+use profilePath only for an explicitly accepted legacy exclusive profile, never
+alongside configurationSources. Its packet includes
 context, current/previous plan identities and hashes, inventory, rollover, review,
 pending operations, maintenance gate and explicit enrollment issues. It validates the
 complete inventory graph; selected-record fragments are not a validation universe.
@@ -28,17 +30,22 @@ Capture the host's initial workspace/vault binding once at the start of the requ
 For a vault-root workspace, pass that absolute path as `initialCwd` to
 `resolve-context`; an already resolved vaultRoot takes precedence. Never use a
 changed shell/subprocess cwd as a vault root or derive roots from plugin location.
-Pass an established explicit profilePath/configRoot when available; otherwise the
-resolver searches vault `.nyssaai/daily-tasks/profile.json` before the home profile.
-Reuse legacy explicit profile/state bindings; do not silently migrate them.
+Pass the versioned configurationSources descriptor unchanged after first resolution.
+It records separate user/project absolute paths or explicit absence. Legacy
+profilePath/configRoot selects a single exclusive profile; never combine those selectors
+with configurationSources. Discovery layers canonical `.nyssa-ai` preferences in both
+scopes, with `.nyssaai`/`.nyssa` compatibility; do not silently migrate them.
 
 The returned context contains resolved absolute roots, templates, identity, actual
 timezone, localDate and TTL. Relative profile paths are anchored to the captured
 vault; `~/` paths are anchored to the executing user's home. Keep portable paths in
 the profile and resolved paths in this request's runtime context. User preferences
-may be home-scoped, but stateRoot defaults to the vault's `.nyssaai/daily-tasks` so
-different vaults do not share pending operations, baselines or check-in progress.
-Use stateRoot for operational state and configRoot for the selected profile/templates.
+may be home-scoped, but stateRoot resolves existing authoritative vault state separately,
+including completed rollover history; new state uses `.nyssa-ai/daily-tasks`. Different
+vaults do not share pending operations, baselines or check-in progress.
+Use stateRoot for operational state. For preference and template writes, use
+writableScopes[scope] for the accepted user or project scope; configRoot is a
+compatibility alias and does not select a write scope.
 When configuration is missing/conflicting or explicitly changed, load
 [Setup](../../daily-tasks-setup/SKILL.md) for authoritative discovery precedence,
 first-use questions and output defaults. Reuse configured scope without restarting
