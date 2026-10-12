@@ -136,3 +136,10 @@ semantics: immediately adjacent comment-only references are accepted, conflictin
 IDs are invalid, and legacy unchecked strikethrough Cancelled rows carry explicit
 cancelled state. Reconciliation compares that state to the stored baseline; it
 does not blindly reapply an unchanged stale cancellation over a reopened task.
+
+`template-prepare` resolves relevant active/available layouts and compares revisions
+without writes. `template-state` retains JSON snapshots or explicit per-kind choices
+in existing preference scopes, with atomic recovery and script-only project logging.
+`planning-prepare` includes preparation for dailyPlan and planDayReview. Markdown
+authoring and separately authorized reformatting remain skill-owned. See the
+[template update contract](template-updates.md).

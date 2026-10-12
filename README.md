@@ -73,6 +73,15 @@ can be customized independently, including the interactive planning review scree
 Existing documents are reformatted only on request.
 See [custom templates](skills/daily-tasks/references/templates.md).
 
+Plugin updates and template choices are independent. On the next relevant request,
+the agent compares a changed template, offers a preview, and lets you use the new
+layout, keep the current revision, or postpone. The default is **Ask about updates**;
+you can explicitly select **Always use latest** for compatible updates or **Keep
+current** for each template kind. Declining one revision does not change that policy.
+Selected layouts are retained outside the plugin cache. Accepting a layout applies
+to new documents; reformatting today's plan is a separate choice.
+See [template updates](skills/daily-tasks/references/template-updates.md).
+
 The planning review shows owned work, preserves stable numbered choices, and offers at
 most 15 additions per page from each project's first incomplete milestone. Future
 selections use dated daily-plan files and disappear from today's available additions.

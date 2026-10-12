@@ -15,6 +15,15 @@ are frozen before evaluation; results/attempts/LATEST and dated review receipts 
 
 ## Native skill scenarios
 
+### Template update adoption
+
+[Template update protocol](template-updates.md) seeds an isolated old checklist
+and independent custom chat review, then verifies actual native-authored documents
+after decline, acceptance for new documents, and separately authorized reformatting.
+Run `node evals/template-updates.mjs seed`; verification stays unverified without
+native invocation, discovered candidate skills and original transcript evidence.
+Its standalone receipt does not replace or promote historical workflow receipts.
+
 ### Planning recovery fixture
 
 `node evals/planning-fixture.mjs seed ABSOLUTE_SCRATCH_DIR STAGE` creates an isolated

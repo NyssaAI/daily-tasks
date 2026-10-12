@@ -130,6 +130,34 @@
       "invocation": "node scripts/daily-tasks.mjs project-index --input ABSOLUTE_JSON_FILE"
     },
     {
+      "name": "template-prepare",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "Resolve retained templates, compare available revisions and determine relevant offers",
+      "inputSchema": {
+        "type": "object",
+        "required": ["kinds"]
+      },
+      "outputSchema": { "type": "object" },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node scripts/daily-tasks.mjs template-prepare --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "template-state",
+      "path": "scripts/daily-tasks.mjs",
+      "purpose": "Retain template snapshots and explicit choices with recoverable project logging",
+      "inputSchema": {
+        "type": "object",
+        "required": ["kinds", "action", "expectedToken"]
+      },
+      "outputSchema": { "type": "object" },
+      "sideEffects": "template-preferences-and-log",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node scripts/daily-tasks.mjs template-state --input ABSOLUTE_JSON_FILE"
+    },
+    {
       "name": "planning-prepare",
       "path": "scripts/daily-tasks.mjs",
       "purpose": "planning prepare; see skills/daily-tasks/references/cli.md",

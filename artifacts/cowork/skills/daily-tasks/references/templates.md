@@ -43,12 +43,16 @@ In schema version 2, omitting a key inherits the lower layer; `null` at
 Returning to inheritance removes the key only from the selected scope. Version 1
 keeps its original contract: an omitted template uses bundled formatting and null
 is invalid. Preserve other settings and do not ask for storage scope again.
-If a configured file is missing or unreadable, report that exact path and request a
-replacement or explicit reset; do not silently replace the user's formatting.
+If a configured file is missing, reuse its verified retained snapshot when available
+and disclose the missing source. Otherwise report the exact path and request a
+replacement or explicit reset. Unreadable or unsafe paths remain errors; do not
+silently replace the user's formatting.
 
 ## Apply without changing facts
 
-Load only the template for the document being authored. Match its visible structure
+Resolve only the kind being authored through [template updates](template-updates.md).
+Use its prepared active content, which may retain an earlier bundled revision or an
+explicit replacement for the profile's configured source. Match its visible structure
 and replace all example names, dates, IDs, tasks and relationships with actual data.
 Conventional placeholders are optional; a completed example is sufficient.
 Preserve literal explanatory prose only when it applies to the actual document.

@@ -16,6 +16,7 @@ import { verifyOperation, completeOperation, completeChangedRollover, inspectMig
 import { inspectNavigation } from '../lib/records/navigation.mjs';
 import { nextRecordNumber } from '../lib/records/numbering.mjs';
 import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
+import { prepareTemplates, saveTemplateState } from '../lib/templates/templates.mjs';
 
 const operations = {
   'new-id': () => ({ id: uuid7() }),
@@ -24,6 +25,8 @@ const operations = {
   'format-time': input => ({ display: displayTime(input.time, input.timezone) }),
   'validate-profile': validateProfile,
   'resolve-context': resolveContext,
+  'template-prepare': prepareTemplates,
+  'template-state': saveTemplateState,
   'project-index': projectInventory,
   'invalidate-project-index': invalidateInventory,
   'planning-review': planningReview,
@@ -84,7 +87,7 @@ async function main() {
   if (args.length === 0 || args.includes('--help')) {
     const {version} = JSON.parse(await readFile(new URL('../package.json',import.meta.url),'utf8'));
     console.log(JSON.stringify({ name: 'daily-tasks', version, usage: 'node <installed-entry-path> OPERATION --input ABSOLUTE_JSON_FILE [--dry-run]', operations: Object.keys(operations),
-      effects: 'Log operations mutate logs/locks; inventory/preparation mutate cache; planning/operation completion saves verified JSON state and clears checkpoints. Maintenance inspection records CLI checks, never worker success. Markdown operations only inspect or propose.',
+      effects: 'Log operations mutate logs/locks; inventory/preparation mutate cache; planning/operation completion saves verified JSON state and clears checkpoints. Template preparation is read-only; template-state retains JSON snapshots/choices and logs project decisions. Maintenance inspection records CLI checks, never worker success. Markdown operations only inspect or propose.',
       scope: 'Explicit absolute projectsRoot for log/scan; explicit timezone for local displays. No environment variables or credentials.',
       exits: '0: JSON result (inspect diagnostics before applying). 1: JSON error on stderr.' }));
     return;

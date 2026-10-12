@@ -8,6 +8,7 @@ import { isUuid7, uuid7 } from '../identity/identity.mjs';
 import { parseChecklist, planRollover } from './planning.mjs';
 import { planningReview } from './review.mjs';
 import { verifiedMaintenanceStatus } from './maintenance.mjs';
+import { prepareTemplates } from '../templates/templates.mjs';
 
 const fingerprint = text => text === null ? null : createHash('sha256').update(text).digest('hex');
 
@@ -66,6 +67,7 @@ async function selectedRecords(context,plans,known,sources) {
 export async function preparePlanning(input) {
   const context = await resolveContext(input);
   if (!context.configured || context.preferenceOnly) return {status:'setup-required',context};
+  const templates = await prepareTemplates({...input,kinds:['dailyPlan','planDayReview']},{context});
   const today = context.localDate;
   const current = await dailyPlan(context,today);
   const rolloverState = await stateFile(path.join(context.stateRoot,'rollover',`${today}.json`));
@@ -102,7 +104,7 @@ export async function preparePlanning(input) {
     issuesByPath.get(issue.path).push(issue);
   }
   return {status:pendingOperations.length || rollover.status === 'conflict' ? 'recovery-required' : current.id ? 'prepared' : 'create-plan',
-    context,current,previous,rollover,review,maintenance:await verifiedMaintenanceStatus(input,indexed),
+    context,current,previous,rollover,review,templates,maintenance:await verifiedMaintenanceStatus(input,indexed),
     pendingOperations,inventory:indexed.inventory,inventoryStatus:indexed.status,metrics:indexed.metrics,
     enrollment:indexed.inventory.diagnostics.filter(issue => issue.code === 'invalid-id').map(issue => ({path:issue.path,
       issues:issuesByPath.get(issue.path),requiresExplicitAcceptance:true})),
