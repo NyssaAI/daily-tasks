@@ -133,9 +133,11 @@ like a task document; they cannot create phantom tasks or duplicate live identit
 
 ## Metadata and Markdown contract
 
-Use the [task](../assets/task.md), [milestone](../assets/milestone.md),
-[blocker](../assets/blocker.md),
-[project](../assets/project-index.md) and [daily plan](../assets/daily-plan.md) templates.
+Resolve task, milestone, projectIndex and dailyPlan through
+[template updates](template-updates.md) and use each kind's prepared `active.content`.
+Use the [blocker](../assets/blocker.md) asset for blockers. Installed task, milestone,
+project and daily-plan assets are current-default examples and never override a
+retained layout.
 Definitions of done must be embedded in their milestone or task file only. Never
 create a standalone DoD file or template. Existing standalone records are readable
 solely for explicit legacy migration; they are not an authoring option.

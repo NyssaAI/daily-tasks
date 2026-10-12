@@ -17,10 +17,11 @@ once required values are available.
    blockers have human email owner (default current user) and optional assignee. The user
    chooses owner; agent may execute that direction but never change it autonomously.
    Either person/agent can change assignee. No assignee means owner is doing the work.
-   Use the profile's matching `templates.projectIndex`, `templates.milestone` or
-   `templates.task` when supplied, following
-   [custom templates](../daily-tasks/references/templates.md). Load only the template
-   for the record being authored. An omitted preference uses its bundled template.
+   Prepare only the matching `projectIndex`, `milestone` or `task` kinds through
+   [template updates](../daily-tasks/references/template-updates.md). Retain the baseline,
+   offer relevant revisions and use `active.content`, following
+   [custom templates](../daily-tasks/references/templates.md). Postponement leaves the
+   active layout usable; adoption alone never reformats existing records.
    Use the bundled blocker template. DoD belongs only in milestone/task files;
    never create a standalone DoD file or template.
    A provisional task template can be

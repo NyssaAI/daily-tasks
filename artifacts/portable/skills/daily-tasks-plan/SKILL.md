@@ -34,6 +34,11 @@ Daily output is `<vaultRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md`, nor
 state or a later cwd as output. Setup resolves its known-vault default; ask only if
 scope remains unknown or points into configuration/state storage.
 
+Before authoring the plan or review, follow the packet's `templates` through
+[template updates](../daily-tasks/references/template-updates.md). Retain an observed
+baseline, offer relevant changes and continue with the active layout while an update
+is undecided. Saved-plan and chat-review choices are independent.
+
 ## 2. Recover and reconcile
 
 Load [operations](../daily-tasks/references/operations.md) before recovery,
@@ -93,11 +98,11 @@ inventory/mapping requires a fresh screen; never reinterpret old numbers. Reprep
 using saved mappings, preserving unchanged identities' numbers across writes, pages
 and follow-ups.
 
-When authoring either document, load [custom templates](../daily-tasks/references/templates.md)
-if configured/supplied. `templates.planDayReview` controls chat; `templates.dailyPlan`
-controls saved output independently. Otherwise load the bundled [review screen](../daily-tasks/assets/plan-day-select-tasks-screen.md)
-or [daily-plan template](../daily-tasks/assets/daily-plan.md) for that document's visible
-layout. Use the [saved-plan contract](../daily-tasks/references/planning-flow.md#saved-daily-plan)
+When authoring either document, use its prepared `active.content` following
+[custom templates](../daily-tasks/references/templates.md). `templates.planDayReview`
+controls chat; `templates.dailyPlan` controls saved output independently. The active
+content may retain an earlier bundled revision; do not bypass it with the newest
+installed asset. Use the [saved-plan contract](../daily-tasks/references/planning-flow.md#saved-daily-plan)
 for personal/delegated responsibility and retaining only selected work. Existing
 layout/prose survives ordinary updates. Template registration does not authorize
 rewriting records or accepting sample work.
@@ -135,6 +140,8 @@ results and baselines under operations before completing checkpoints. Preserve
 completed/cancelled visibility, explicit removals and today's plan identity on repeated
 calls. Failed receipts, unfinished operations or conflicts remain pending and resumable.
 Verify rollover completion separately from first review and successful check-in.
+Compare newly authored or explicitly reformatted output with the selected template's
+visible layout. Acceptance alone never authorizes reformatting today's existing file.
 
 Link the saved plan first; summarize applied changes, outstanding decisions and exact
 failed effects without reprinting the entire plan unless requested. Use the review's

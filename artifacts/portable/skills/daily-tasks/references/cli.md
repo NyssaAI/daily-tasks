@@ -51,7 +51,9 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | format-time | time GMT ISO, timezone | Local display with explicit zone |
 | validate-profile | profile object | valid/errors/resolvedTimezone; no save |
 | resolve-context | absolute vaultRoot or captured initialCwd for vault work; homeRoot for personal-only setup; configurationSources?, legacy profilePath?/configRoot?, preferenceOverrides?, stateRoot?, now? | Layered preferences, versioned source selections, provenance/writableScopes, independent absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
-| planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
+| template-prepare | context inputs above, kinds (nonempty distinct supported kinds), scope? user/project/legacy, review? | Active/available content, revisions, policy, comparison, offer decision, token and storage hashes; no writes |
+| template-state | same context/kinds/scope, expectedToken, action baseline/decide/recover, decisions? (one per kind), originalWords for decide, dryRun? | Retained JSON snapshots and choices; atomic checkpoint/recovery; project decisions logged exactly once; never writes Markdown |
+| planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, active dailyPlan/planDayReview template packet, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
 | planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
@@ -80,6 +82,12 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | log-append | projectsRoot, entry, dryRun?; new workspace.migration also requires vaultRoot (or captured initialCwd), profile scope and operationPath | Append decision; migration checks actual retirement against bound checkpoint; identical operation retry deduplicated |
 | log-query | projectsRoot, recordId?, action?, since?, until?, limit?, offset? | Matching entries across active/archive files |
 | log-archive | projectsRoot, dryRun? | Preserve current file in archives; next append starts new dated segment |
+
+Template decisions have `{kind,action}` with action `accept`, `decline`, `postpone`,
+`review`, `reset`, or `set-policy` (also requires `policy: "ask"|"latest"|"keep"`).
+Reuse `template-prepare`'s returned context and token, reprepare after every write,
+and author from `templates[kind].active.content`. A baseline records observation,
+not consent. See [template updates](template-updates.md) for scope and recovery.
 
 Log entry: id and operation_id UUIDv7; action string; record_ids array (empty for profile
 decisions); actor `{kind:"person"|"agent",id:email-or-agent-name}`; activity_at and

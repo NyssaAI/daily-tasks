@@ -83,6 +83,13 @@ Paths use existing absolute paths, `~/` for home, or `./` relative to the bound 
 resolve paths before passing them to consumers. Read custom template guidance only
 when the user supplies or changes formatting.
 
+For template update choices and lasting ask/latest/keep policies, follow
+[template updates](../daily-tasks/references/template-updates.md). Use the selected
+scope's `template-state` operation; do not add unsupported policy fields to profile.json.
+Retained snapshots/choices live beside that profile under `templates/updates.json`.
+They are configuration assets, not vault operating state. Registration and template
+adoption never authorize reformatting existing documents.
+
 Validate the stored layer with `validate-profile` before writing through normal file
 tools. Validate the effective task context separately before continuing vault work.
 Missing project bindings do not prevent personal setup. Do not persist credentials,

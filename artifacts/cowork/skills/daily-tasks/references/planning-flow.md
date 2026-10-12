@@ -147,9 +147,11 @@ that mapping. All-milestones requests set allMilestones without lifting the 15-r
 Pending future selections pass pendingFutureIds to suppress repeat suggestions.
 Out-of-view selections are preserved in the daily plan, not displayed in this owner view.
 
-Apply templates.planDayReview or the bundled screen. Match its count line, conditional,
-six columns (#, Status, Project, Milestone, Task, Due Date), legends, carry marker
-and today-only recap. If incomplete is true, add a
+Resolve planDayReview through [template updates](template-updates.md) and apply its
+active content. The current bundled layout has six columns (#, Status, Project,
+Milestone, Task, Due Date); retained/custom layouts keep their own presentation.
+Preserve the facts, counts, stable response handles, status meanings, carry provenance
+and today-only recap in the selected layout. If incomplete is true, add a
 short factual note that counts/options are incomplete and route affected diagnostics
 to reconciliation; do not add blockers or a Needs clarification section to this screen.
 The conditional first_run_today describes the first review run, not plan-file existence
@@ -207,10 +209,10 @@ authorize external messages or taking over execution.
 Only selected work belongs in the saved plan; available options/prompts stay on the
 review screen. Preserve selections outside its ownership filter, stable display
 order, existing prose and terminal/unresolved rows. Do not silently reorder work.
-Use the configured dailyPlan template; when supplied, load [custom templates](templates.md)
-for authoritative precedence, registration and adaptation. Otherwise use the
-[daily-plan asset](../assets/daily-plan.md) for visible layout/placeholders. The
-review independently uses planDayReview or its [screen asset](../assets/plan-day-select-tasks-screen.md).
+Resolve dailyPlan through [template updates](template-updates.md) and author new
+plans from its prepared `active.content`; use [custom templates](templates.md) for
+adaptation. The review independently uses planDayReview's prepared active content.
+Installed assets are current-default examples, not a fallback over retained choices.
 Template examples supply no work acceptance or execution authority.
 
 Use readable task links with hidden UUID refs and one status mark per task (a table
@@ -252,7 +254,8 @@ they never turn a later milestone into the first eligible milestone.
 
 Before any changed Markdown, checkpoint the exact source/destination fingerprints,
 membership deltas, removal IDs and stable operation/event IDs through the operation
-protocol. Merge only the proposed delta into today's configured template. For each
+protocol. Merge only the proposed delta into the existing plan's layout, or the
+prepared active dailyPlan content for a missing plan. For each
 added carried row, render one link using the canonical task title or parsed `label`
 and the correctly rebased target. A parsed/carried row's `title` contains full row
 presentation, including links and context; do not wrap it inside another link.
@@ -304,7 +307,7 @@ transfers that selection. Removing a selection defaults to today, not another da
 For each authorized effect, read the destination/source and check actual selections
 by task UUID. Create a pending operation BEFORE writing, including expected file hashes,
 before/after row membership, generated plan ID/timestamps, event ID and all affected paths.
-For an absent destination, render the configured dailyPlan template with a new UUIDv7
+For an absent destination, render the prepared active dailyPlan content with a new UUIDv7
 frontmatter id and GMT creation/update timestamps, actual local date/timezone, real
 relative task link/ref, and no sample work or inferred focus. For an existing plan,
 preserve its original id and created_at, prose, selections and other people's edits.

@@ -100,7 +100,7 @@ for an ambiguous item, suspending only affected changes; do not silently reinter
 unknown numbers. Silence or omitted rows never supply acceptance or completion.
 Save each response batch and resume the unfinished screen after interruption.
 Briefly echo results by their original numbers, with unresolved questions or failed
-effects. Recap planning selections using the same table layout as the source screen.
+effects. Recap planning selections using the same selected layout as the source screen.
 Daily recaps show today's selected and still-available work, with no tomorrow or
 future-day tables. Display future-day assignments only on an explicit week-view
 request, grouped by local day. Preserve decisions for work moved out of today without

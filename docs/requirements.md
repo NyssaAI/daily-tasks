@@ -148,9 +148,28 @@ Persist optional absolute or portable `./...` and `~/...`
 Markdown paths in `templates.projectIndex`, `templates.dailyPlan`,
 `templates.milestone`, `templates.task` and `templates.planDayReview` in the existing profile. Examples
 control visible presentation while preserving metadata, IDs, editable projections,
-relationships and accepted facts. Missing configured templates require replacement or
-explicit reset; omitted preferences use bundled defaults. Registration does not
+relationships and accepted facts. Missing configured templates reuse a verified retained
+snapshot when available, otherwise require replacement or explicit reset; omitted
+preferences initially use bundled defaults. Registration does not
 authorize reformatting existing documents or accepting sample work.
+
+Template revisions are independent of plugin versions. On the next relevant request,
+offer changed layouts with a visible comparison and concrete preview. No answer or
+postponement retains the active layout. Remember accepted and declined revisions;
+code-only updates do not cause offers. Per-kind policies are ask (default), latest
+(explicit compatible updates for new documents), and keep (explicit pin). Declining
+one revision never changes policy. All five kinds are independent, with explicit
+batch decisions supported. Fingerprint verified old bundled copies; custom edits
+remain custom and their source files are never overwritten. Retain active content
+outside installed caches, recording first observation without inventing prior consent.
+Template choices use existing configuration scopes separately from vault operating
+state and preserve version 1/2, legacy paths, inheritance and reset behavior.
+Adoption never rewrites existing documents. An explicit reformat reconciles first,
+preserving identity, creation time, selections/order/states/links, carry provenance,
+notes and unresolved references. Mandatory record contracts remain valid independently
+of presentation; genuine incompatibilities require explanation and explicit choice.
+See [template update contract](template-updates.md) for deterministic operations.
+
 Log: `{projects-root}/.daily-tasks/yyyy.mm.dd-decisions.json`;
 prefix is file creation date, not daily rollover. One plugin-wide logical history,
 segmented archives permissible. Independent projects roots represent independent installs.
