@@ -76,12 +76,243 @@
       "purpose": "validate profile; see skills/daily-tasks/references/cli.md",
       "inputSchema": {
         "type": "object",
-        "required": [
-          "user",
-          "timezone",
-          "priorities",
-          "vaultRoot",
-          "projectsRoot"
+        "description": "Supported structural profile inputs. Runtime validation remains authoritative for timezone validity and host-specific path safety. Partial v2 preference layers do not establish a complete workspace; context resolution checks effective identity and bindings separately.",
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "schema_version",
+              "user",
+              "timezone",
+              "priorities",
+              "vaultRoot",
+              "projectsRoot",
+              "dailyPlansRelative"
+            ],
+            "properties": {
+              "schema_version": {
+                "const": 1
+              },
+              "user": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "email"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "email": {
+                    "type": "string",
+                    "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+                  }
+                }
+              },
+              "timezone": {
+                "type": "string",
+                "pattern": "\\S",
+                "description": "IANA timezone name or system; runtime validates against the host timezone database."
+              },
+              "priorities": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "templates": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "projectIndex": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  },
+                  "dailyPlan": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  },
+                  "milestone": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  },
+                  "task": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  },
+                  "planDayReview": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  }
+                }
+              },
+              "projectIndex": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "ttlSeconds"
+                ],
+                "properties": {
+                  "ttlSeconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                }
+              },
+              "vaultRoot": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+              },
+              "projectsRoot": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+              },
+              "dailyPlansRelative": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Relative directory beneath the vault; runtime rejects absolute paths and empty, . or .. segments."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "schema_version"
+            ],
+            "properties": {
+              "schema_version": {
+                "const": 2
+              },
+              "user": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "pattern": "\\S"
+                  },
+                  "email": {
+                    "type": "string",
+                    "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+                  }
+                }
+              },
+              "timezone": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "\\S",
+                "description": "IANA timezone name or system; runtime validates against the host timezone database."
+              },
+              "priorities": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "string",
+                  "pattern": "\\S"
+                }
+              },
+              "templates": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "projectIndex": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  },
+                  "dailyPlan": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  },
+                  "milestone": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  },
+                  "task": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  },
+                  "planDayReview": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "minLength": 1,
+                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                    "pattern": "\\.[mM][dD]$"
+                  }
+                }
+              },
+              "projectIndex": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "ttlSeconds": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                }
+              },
+              "vaultRoot": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+              },
+              "projectsRoot": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+              },
+              "dailyPlansRelative": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Relative directory beneath the vault; runtime rejects absolute paths and empty, . or .. segments."
+              }
+            }
+          }
         ]
       },
       "outputSchema": {
@@ -176,6 +407,12 @@
         "required": [
           "vaultRoot"
         ],
+        "not": {
+          "required": [
+            "profilePath",
+            "configurationSources"
+          ]
+        },
         "properties": {
           "vaultRoot": {
             "type": "string"
@@ -186,8 +423,58 @@
           "profilePath": {
             "type": "string"
           },
+          "stateRoot": {
+            "type": "string"
+          },
           "dryRun": {
             "type": "boolean"
+          },
+          "configurationSources": {
+            "type": "object",
+            "required": [
+              "schemaVersion",
+              "user",
+              "project"
+            ],
+            "additionalProperties": false,
+            "description": "Durable source selections serialized as one JSON argv value; paths and bound scopes are validated by the resolver.",
+            "properties": {
+              "schemaVersion": {
+                "const": 1
+              },
+              "user": {
+                "type": "object",
+                "required": [
+                  "profilePath"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "profilePath": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Accepted absolute profile path, or null for deliberate absence."
+                  }
+                }
+              },
+              "project": {
+                "type": "object",
+                "required": [
+                  "profilePath"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "profilePath": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Accepted absolute profile path, or null for deliberate absence."
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -197,7 +484,7 @@
       "sideEffects": "derived-cache",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node scripts/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH] [--dry-run]"
+      "invocation": "node scripts/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH | --configuration-sources JSON] [--state-root ABSOLUTE_PATH] [--dry-run]"
     },
     {
       "name": "planning-prepare",
@@ -218,7 +505,7 @@
     {
       "name": "planning-state",
       "path": "scripts/daily-tasks.mjs",
-      "purpose": "Validate and retain the active-template review draft or complete verified rollover; see skills/daily-tasks/references/cli.md",
+      "purpose": "planning state; see skills/daily-tasks/references/cli.md",
       "inputSchema": {
         "type": "object",
         "required": [
@@ -230,10 +517,27 @@
         ],
         "allOf": [
           {
-            "if": { "properties": { "action": { "const": "save-review" } }, "required": ["action"] },
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "save-review"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
             "then": {
-              "required": ["expectedReviewHash", "reviewMarkdown"],
-              "properties": { "reviewMarkdown": { "type": "string", "minLength": 1 } }
+              "required": [
+                "expectedReviewHash",
+                "reviewMarkdown"
+              ],
+              "properties": {
+                "reviewMarkdown": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
             }
           }
         ]

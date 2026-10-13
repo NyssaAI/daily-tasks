@@ -32,13 +32,20 @@ export async function resolveContext(input) {
   const exclusive = input.profilePath !== undefined || input.configRoot !== undefined;
   if (input.configurationSources !== undefined && exclusive) throw new TypeError('configurationSources and legacy selectors are exclusive; simultaneous selectors rejected');
   const candidates = [], diagnostics = [];
+  const documents = new Map();
+  const loadProfile = async filename => {
+    const normalized = path.normalize(filename);
+    const key = process.platform === 'win32' ? normalized.toLowerCase() : normalized;
+    if (!documents.has(key)) documents.set(key,await readProfile(filename));
+    return documents.get(key);
+  };
   let configurationSources;
   const layers = [];
   if (exclusive) {
     const filename = input.profilePath ?? path.join(input.configRoot,'profile.json');
     if (!path.isAbsolute(filename)) throw new TypeError('profilePath/configRoot must be absolute');
     candidates.push(filename);
-    const value = await readProfile(filename);
+    const value = await loadProfile(filename);
     if (value) layers.push({scope:'project',profilePath:filename,value});
   } else {
     const descriptor = input.configurationSources;
@@ -58,7 +65,7 @@ export async function resolveContext(input) {
         for (const candidate of configurationPaths(root)) {
           candidates.push(candidate);
           if (!filename) {
-            selectedProfile = await readProfile(candidate);
+            selectedProfile = await loadProfile(candidate);
             if (selectedProfile) filename = candidate;
           }
           else {
@@ -71,8 +78,14 @@ export async function resolveContext(input) {
       }
       configurationSources[scope] = {profilePath:filename};
       if (filename) {
-        const value = selectedProfile ?? await readProfile(filename);
+        let value = selectedProfile ?? await loadProfile(filename);
         if (!value) throw new Error(`Bound configuration source missing: ${filename}`);
+        if (value.schema_version === 2 && scope === 'user') {
+          const validation = validatePreferenceLayer(value);
+          if (!validation.valid) throw new TypeError(`${filename}: ${validation.errors.join('; ')}`);
+          // Stored documents may serve both scopes; user views never inherit bindings.
+          value = Object.fromEntries(Object.entries(value).filter(([key]) => ['schema_version','user','timezone','priorities','templates','projectIndex'].includes(key)));
+        }
         layers.push({scope,profilePath:filename,value});
       }
     }
@@ -109,7 +122,9 @@ export async function resolveContext(input) {
   const configRoot = profilePath ? path.dirname(profilePath) : path.join(boundVault ?? homeRoot,'.nyssa-ai/daily-tasks');
   const writableScopes = exclusive ? {legacy:configRoot} : {user:path.dirname(configurationSources?.user.profilePath ?? path.join(homeRoot,'.nyssa-ai/daily-tasks/profile.json')),
     ...(boundVault ? {project:path.dirname(configurationSources?.project.profilePath ?? path.join(boundVault,'.nyssa-ai/daily-tasks/profile.json'))} : {})};
-  const base = {configurationSources,preferenceOverrides:input.preferenceOverrides,profilePath,configRoot,writableScopes,candidates,diagnostics,preferenceSources,homeRoot,vaultRoot:boundVault,profile};
+  const sharedScopes = writableScopes.project && samePath(writableScopes.user,writableScopes.project)
+    ? [{scopes:['user','project'],directory:writableScopes.user}] : [];
+  const base = {configurationSources,preferenceOverrides:input.preferenceOverrides,profilePath,configRoot,writableScopes,sharedScopes,candidates,diagnostics,preferenceSources,homeRoot,vaultRoot:boundVault,profile};
   if (!layers.length) return {...base,configured:false};
   if (!boundVault) {
     const personal = validatePreferenceLayer({schema_version:2,...(profile.user ? {user:profile.user} : {}),timezone:profile.timezone,priorities:profile.priorities,templates:profile.templates,projectIndex:profile.projectIndex});
@@ -177,6 +192,9 @@ async function resolveStateRoot(vaultRoot,explicit,legacyConfigRoot) {
     if (contents.length) stores.push({root,identity:JSON.stringify(contents)});
   }
   if (new Set(stores.map(store => store.identity)).size > 1) throw new Error('Conflicting authoritative state stores require explicit reconciliation before writes');
+  if (explicit && stores.length && !stores.some(store => samePath(store.root,explicit))) {
+    throw new Error(`Explicit state root ${explicit} has no authoritative history; existing state is at ${stores.map(store => store.root).join(', ')}. Reopen with the established state root or explicitly reconcile the stores before writes.`);
+  }
   if (explicit) return explicit;
   if (stores.length) return stores[0].root;
   // Empty legacy locations remain compatible for existing v1 clients.

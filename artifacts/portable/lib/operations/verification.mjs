@@ -43,7 +43,7 @@ function effectPath(context, filename) {
   return path.normalize(filename);
 }
 
-async function load(input) {
+async function load(input, {allowForeign = false} = {}) {
   if (['actual','verified','operation','checkpoint'].some(key => Object.hasOwn(input,key))) throw new Error('Caller-supplied actual values or checkpoints are not verification evidence');
   const context = await resolveContext(input);
   if (!context.configured || context.preferenceOnly) throw new Error('Configured vault context required');
@@ -52,7 +52,9 @@ async function load(input) {
   const bytes = await ordinary(filename);
   if (bytes === null) throw new Error('Operation checkpoint missing');
   const operation = JSON.parse(bytes.toString('utf8'));
-  if (operation.schemaVersion !== 2 || operation.operation_id !== path.basename(filename,'.json') || operation.contextBinding !== context.planningBinding || !Array.isArray(operation.files) || !operation.files.length || operation.event?.operation_id !== operation.operation_id) throw new Error('Invalid bound schemaV2 operation checkpoint');
+  if (operation.schemaVersion !== 2 || operation.operation_id !== path.basename(filename,'.json') ||
+      !(operation.contextBinding === context.planningBinding || (allowForeign && /^[a-f0-9]{64}$/.test(operation.contextBinding ?? ''))) ||
+      !Array.isArray(operation.files) || !operation.files.length || operation.event?.operation_id !== operation.operation_id) throw new Error('Invalid bound schemaV2 operation checkpoint');
   if (Object.hasOwn(operation,'changes')) throw new Error('Legacy changes are not schemaV2 completion evidence');
   const seen = new Set();
   for (const file of operation.files) {
@@ -95,6 +97,52 @@ async function verifyLoaded(loaded, stateWrites) {
 
 /** Verify only declared effects; this does not claim unobserved files are unchanged. */
 export async function verifyOperation(input) { return verifyLoaded(await load(input)); }
+
+/** Inspect declared recovery dependencies without completing state or querying/appending events. */
+export async function inspectOperationImpact(input) {
+  const loaded = await load(input,{allowForeign:true});
+  const {context,operation} = loaded;
+  const supported = ['schemaVersion','operation_id','contextBinding','event','files','protectedFiles','baseline','selectionState','rollover','migration','sourceSnapshot'];
+  if (Object.keys(operation).some(key => !supported.includes(key))) throw new Error('Unknown checkpoint scope');
+  if (!Array.isArray(operation.event.record_ids) || !operation.event.record_ids.every(isUuid7)) throw new Error('Operation scope requires record identities');
+  const recordIds = new Set(operation.event.record_ids), statePaths = [];
+  if (operation.baseline) {
+    const before = baselineEvidence(operation.baseline);
+    for (const records of [before.records,operation.baseline.value.records]) for (const [id,record] of Object.entries(records)) {
+      if (!isUuid7(id) || !plain(record) || !plain(record.canonical) || !plain(record.views)) throw new Error('Unknown baseline record scope');
+      for (const [filename,view] of Object.entries(record.views)) {
+        effectPath(context,filename);
+        if (!plain(view) || !validHash(view.hash)) throw new Error('Unknown baseline view scope');
+      }
+    }
+    for (const id of new Set([...Object.keys(before.records),...Object.keys(operation.baseline.value.records)])) {
+      if (!isDeepStrictEqual(before.records[id],operation.baseline.value.records[id])) recordIds.add(id);
+    }
+  }
+  if (Object.hasOwn(operation,'selectionState')) {
+    await selectionStateWork(loaded,false);
+    for (const id of operation.selectionState.taskIds) recordIds.add(id);
+    for (const plan of [operation.selectionState.source,operation.selectionState.destination].filter(Boolean)) {
+      statePaths.push(path.join(context.stateRoot,'rollover',`${plan.date}.json`));
+    }
+  }
+  if (Object.hasOwn(operation,'rollover')) {
+    if (operation.migration) throw new Error('Ambiguous operation scope');
+    const rollover = await rolloverWork(loaded);
+    statePaths.push(rollover.path);
+    for (const id of operation.rollover.expectedSelectedIds ?? []) recordIds.add(id);
+  }
+  if (Object.hasOwn(operation,'migration')) {
+    const inspection = await inspectMigration(loaded,(await ordinary(effectPath(context,operation.migration?.retiringPath))) === null);
+    if (!inspection.allowed) throw new Error('Migration scope cannot be verified');
+    recordIds.add(inspection.retiringId); recordIds.add(inspection.destinationId);
+  }
+  const paths = [...new Set([...operation.files,...(operation.protectedFiles ?? [])].map(file => file.path))].sort();
+  // Reuse the verifier's ordinary-path checks for protected sources and effects too.
+  for (const filename of paths) await ordinary(filename);
+  return {operationId:operation.operation_id,checkpointHash:loaded.checkpointHash,
+    foreign:operation.contextBinding !== context.planningBinding,paths,statePaths:statePaths.sort(),recordIds:[...recordIds].sort()};
+}
 
 async function atomic(filename, value, expectedHash) {
   await ordinary(filename);
@@ -291,8 +339,7 @@ export async function completeOperation(input) {
   return {...result,status:'completed'};
 }
 
-export async function completeChangedRollover(input) {
-  const loaded = await load(input);
+async function rolloverWork(loaded) {
   const {context,operation} = loaded, intent = operation.rollover;
   if (!intent || !calendarDate(intent.date) || intent.date > context.localDate || !isUuid7(intent.planId) || !intent.sourceSnapshot || !(intent.sourceSnapshot.currentMarkdown === null || typeof intent.sourceSnapshot.currentMarkdown === 'string') || !Array.isArray(intent.sourceSnapshot.taskSources)) throw new Error('Rollover requires bound original plan and task source evidence');
   const currentPath = path.join(context.dailyPlansRoot,`${intent.date}-daily-plan.md`);
@@ -332,7 +379,12 @@ export async function completeChangedRollover(input) {
   const value = existing?.operationId === operation.operation_id ? existing : {schemaVersion:1,date:intent.date,planId:intent.planId,operationId:operation.operation_id,completedAt:context.now,removedIds:intent.removedIds ?? []};
   if (existing && existing.operationId !== operation.operation_id && (existing.operationId || existing.completedAt || existing.planId !== intent.planId || existing.date !== intent.date || !isDeepStrictEqual(existing.removedIds ?? [],intent.removedIds ?? []))) throw new Error('Rollover state conflicts');
   operation.protectedFiles = [...(operation.protectedFiles ?? []),...(actualPreviousPath === null ? [] : [{path:intent.previousPath,sha256:intent.previousHash}]),...intent.sourceSnapshot.taskSources];
-  return finish(input,loaded,{path:target,value,beforeHash:hash(bytes)});
+  return {path:target,value,beforeHash:hash(bytes)};
+}
+
+export async function completeChangedRollover(input) {
+  const loaded = await load(input);
+  return finish(input,loaded,await rolloverWork(loaded));
 }
 
 async function inspectMigration(loaded, retired = false) {

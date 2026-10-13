@@ -514,6 +514,32 @@
           "expectedPreviousHash",
           "expectedStateHash",
           "expectedInventoryHash"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "save-review"
+                }
+              },
+              "required": [
+                "action"
+              ]
+            },
+            "then": {
+              "required": [
+                "expectedReviewHash",
+                "reviewMarkdown"
+              ],
+              "properties": {
+                "reviewMarkdown": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
         ]
       },
       "outputSchema": {

@@ -11,6 +11,7 @@ import { resolveContext } from '../lib/profile/context.mjs';
 import { appendDecision, queryDecisions } from '../lib/log/decision-log.mjs';
 import { verifyOperation, completeOperation, completeChangedRollover, inspectMigrationRetirement, completeMigration } from '../lib/operations/verification.mjs';
 import { inspectNavigation } from '../lib/records/navigation.mjs';
+import { preparePlanning } from '../lib/planning/session.mjs';
 
 const hash = text => createHash('sha256').update(text).digest('hex');
 const execute = promisify(execFile);
@@ -352,6 +353,77 @@ test('first-plan rollover proves absence of earlier plans', async () => {
   f.operation.rollover = {date:f.context.localDate,planId,previousPlanId:null,previousPath:null,previousHash:null,expectedCreatedAt:f.input.now,removedIds:[],expectedSelectedIds:[],sourceSnapshot:{currentMarkdown:null,taskSources:[]}};
   await f.save(); await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event});
   assert.equal((await completeChangedRollover(f.input)).status,'completed');
+});
+
+test('planning classifies typed rollover dependencies without completing checkpoint, baseline or history', async () => {
+  const f = await fixture(), planId = uuid7(), laterId = uuid7();
+  const currentPath = path.join(f.context.dailyPlansRoot,'2026.10.09-daily-plan.md');
+  const laterPath = path.join(f.context.dailyPlansRoot,'2026.10.10-daily-plan.md');
+  const markdown = id => `---\nid: ${id}\ntype: daily-plan\ncreated_at: ${f.input.now}\n---\n# Plan\n`;
+  await writeFile(currentPath,markdown(planId));
+  await writeFile(laterPath,markdown(laterId));
+  f.operation.files = [{path:currentPath,before:null,after:hash(markdown(planId))}];
+  f.operation.rollover = {date:f.context.localDate,planId,previousPlanId:null,previousPath:null,previousHash:null,
+    expectedCreatedAt:f.input.now,removedIds:[],expectedSelectedIds:[],sourceSnapshot:{currentMarkdown:null,taskSources:[]}};
+  const baselinePath = path.join(f.context.stateRoot,'reconciliation.json');
+  const baseline = JSON.stringify({schemaVersion:1,records:{}});
+  await writeFile(baselinePath,baseline);
+  f.operation.baseline = {beforeHash:hash(baseline),beforeText:baseline,value:JSON.parse(baseline)};
+  const targetState = path.join(f.context.stateRoot,'rollover','2026.10.09.json');
+  const laterState = path.join(f.context.stateRoot,'rollover','2026.10.10.json');
+  await mkdir(path.dirname(targetState));
+  await writeFile(targetState,JSON.stringify({schemaVersion:1,date:'2026.10.09',planId,removedIds:[]}));
+  f.operation.rollover.expectedStateHash = hash(await readFile(targetState));
+  await writeFile(laterState,JSON.stringify({schemaVersion:1,date:'2026.10.10',planId:laterId,removedIds:[],operationId:uuid7(),completedAt:'2026-10-10T15:00:00Z'}));
+  await f.save();
+  const history = await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event});
+  const paths = [f.input.operationPath,baselinePath,targetState,laterState,history.file,currentPath,laterPath];
+  const before = await Promise.all(paths.map(filename => readFile(filename)));
+  const overlap = await preparePlanning({...f.input,dryRun:true});
+  assert.equal(overlap.status,'recovery-required');
+  assert.equal(overlap.recovery.operations[0].status,'blocking');
+  assert.deepEqual(overlap.recovery.operations[0].statePaths,[targetState]);
+  const disjoint = await preparePlanning({...f.input,now:'2026-10-10T15:00:00Z',dryRun:true});
+  assert.equal(disjoint.status,'prepared');
+  assert.equal(disjoint.previous,null);
+  assert.equal(disjoint.recovery.operations[0].status,'unrelated');
+  assert.deepEqual(await Promise.all(paths.map(filename => readFile(filename))),before);
+});
+
+test('planning classifies typed migration records and protected plan dependencies without changing recovery evidence', async () => {
+  const f = await fixture(), retiringId = uuid7(), destinationId = uuid7(), criterionId = uuid7(), projectId = uuid7();
+  const retiringPath = path.join(f.context.projectsRoot,'definition-of-done.md');
+  const currentPath = path.join(f.context.dailyPlansRoot,'2026.10.09-daily-plan.md');
+  const source = `---\nid: ${retiringId}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  const destination = `---\nid: ${destinationId}\ntype: task\ntitle: Task\nowner: owner@example.test\ntask-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\nproject_id: ${projectId}\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  await writeFile(path.join(f.context.projectsRoot,'project-index.md'),`---\nid: ${projectId}\ntype: project\ntitle: Project\nowner: owner@example.test\nproject-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\n---\n`);
+  await writeFile(currentPath,`---\nid: ${uuid7()}\ntype: daily-plan\n---\n`);
+  await writeFile(retiringPath,source); await writeFile(f.file,destination);
+  f.operation.files = [{path:retiringPath,before:hash(source),after:null},{path:f.file,before:hash('before'),after:hash(destination)}];
+  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:false}]};
+  f.operation.sourceSnapshot = {retiringMarkdown:source};
+  const baselinePath = path.join(f.context.stateRoot,'reconciliation.json');
+  const baseline = JSON.stringify({schemaVersion:1,records:{[retiringId]:{canonical:{type:'dod'},views:{}}}});
+  await writeFile(baselinePath,baseline);
+  f.operation.baseline = {beforeHash:hash(baseline),beforeText:baseline,value:{schemaVersion:1,records:{[destinationId]:{canonical:{type:'task'},views:{}}}}};
+  await f.save();
+  const history = await appendDecision({projectsRoot:f.context.projectsRoot,entry:{...f.event,id:uuid7(),operation_id:uuid7(),action:'note.recorded'}});
+  const paths = [f.input.operationPath,baselinePath,history.file,retiringPath,f.file,currentPath];
+  let before = await Promise.all(paths.map(filename => readFile(filename)));
+  const disjoint = await preparePlanning({...f.input,dryRun:true});
+  assert.equal(disjoint.status,'prepared');
+  assert.equal(disjoint.recovery.operations[0].status,'scoped');
+  assert.deepEqual(disjoint.recovery.suspendedRecordIds,[retiringId,destinationId].sort());
+  assert.ok(!disjoint.review.available.some(row => row.id === destinationId));
+  assert.deepEqual(await Promise.all(paths.map(filename => readFile(filename))),before);
+  f.operation.protectedFiles = [{path:currentPath,sha256:hash(await readFile(currentPath))}];
+  await f.save();
+  before = await Promise.all(paths.map(filename => readFile(filename)));
+  const overlap = await preparePlanning({...f.input,dryRun:true});
+  assert.equal(overlap.status,'recovery-required');
+  assert.equal(overlap.recovery.operations[0].status,'blocking');
+  assert.ok(overlap.recovery.operations[0].paths.includes(currentPath));
+  assert.deepEqual(await Promise.all(paths.map(filename => readFile(filename))),before);
 });
 
 test('changed rollover verifies preserved plan identity and prior bytes before receipt', async () => {

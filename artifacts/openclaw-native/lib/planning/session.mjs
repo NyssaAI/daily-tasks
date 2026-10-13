@@ -10,7 +10,7 @@ import { planningReview } from './review.mjs';
 import { verifiedMaintenanceStatus } from './maintenance.mjs';
 import { prepareTemplates } from '../templates/templates.mjs';
 import { validateReviewScreen } from './screen.mjs';
-import { pendingOperationNames } from '../operations/checkpoints.mjs';
+import { planningOperationImpacts } from '../operations/checkpoints.mjs';
 
 const fingerprint = text => text === null ? null : createHash('sha256').update(text).digest('hex');
 
@@ -78,7 +78,6 @@ export async function preparePlanning(input) {
     const legacy = await stateFile(path.join(context.stateRoot,'planning-review.json'));
     if (legacy.value?.date === today) reviewState = legacy;
   }
-  const pendingOperations = await pendingOperationNames(context.stateRoot);
   const indexed = await projectInventory({...context,forceRefresh:input.forceRefresh,dryRun:input.dryRun});
   let records = indexed.inventory.tasks.map(task => ({...task,type:'task',project_id:task.projectId,milestone_id:task.milestoneId}));
   let previous = null;
@@ -97,20 +96,22 @@ export async function preparePlanning(input) {
   if (saved && (saved.date !== today || saved.mappingBinding !== context.planningBinding || (saved.planId !== undefined && saved.planId !== current.id))) {
     throw new Error('Saved review belongs to another date, plan or vault; recover it before reusing numbers');
   }
+  const recovery = await planningOperationImpacts(input,{context,current,previous,inventory:indexed.inventory,records,
+    state:{review:reviewState,rollover:rolloverState}});
   const review = planningReview({...context,contextBinding:context.planningBinding,inventoryBinding:indexed.planningBinding,
     inventory:indexed.inventory,userEmail:context.profile.user.email,selected:rollover.selected,selectedRecords:records,
-    mapping:saved?.mapping,mappingBinding:saved?.mappingBinding,position:saved?.position,page:input.page,allMilestones:input.allMilestones});
+    mapping:saved?.mapping,mappingBinding:saved?.mappingBinding,position:saved?.position,page:input.page,allMilestones:input.allMilestones,recovery});
   const issuesByPath = new Map();
   for (const issue of indexed.inventory.diagnostics) {
     if (!issuesByPath.has(issue.path)) issuesByPath.set(issue.path,[]);
     issuesByPath.get(issue.path).push(issue);
   }
-  return {status:pendingOperations.length || rollover.status === 'conflict' ? 'recovery-required' : current.id ? 'prepared' : 'create-plan',
+  return {status:recovery.blocked || rollover.status === 'conflict' ? 'recovery-required' : current.id ? 'prepared' : 'create-plan',
     context,current,previous,rollover,review,templates,maintenance:await verifiedMaintenanceStatus(input,indexed),
-    pendingOperations,inventory:indexed.inventory,inventoryStatus:indexed.status,metrics:indexed.metrics,
+    pendingOperations:recovery.names,recovery,inventory:indexed.inventory,inventoryStatus:indexed.status,metrics:indexed.metrics,
     enrollment:indexed.inventory.diagnostics.filter(issue => issue.code === 'invalid-id').map(issue => ({path:issue.path,
       issues:issuesByPath.get(issue.path),requiresExplicitAcceptance:true})),
-    inventoryHash:fingerprint(JSON.stringify(indexed.inventory)),reviewHash:fingerprint(JSON.stringify({review,
+    inventoryHash:fingerprint(JSON.stringify({inventory:{...indexed.inventory,generatedAt:undefined},recovery:recovery.fingerprint})),reviewHash:fingerprint(JSON.stringify({review,
       templateRevision:templates.templates.planDayReview.active.revision,templateSelector:templates.templates.planDayReview.selector})),
     state:{rollover:rolloverState,review:reviewState}};
 }
@@ -140,7 +141,7 @@ export async function savePlanningState(input) {
       throw new Error('Rollover still has pending membership or unresolved references; apply and verify its operation first');
     }
     const selectedIds = new Set(current.rows.map(row => row.id));
-    if (review.diagnostics.some(issue => selectedIds.has(issue.recordId) &&
+    if (review.selected.some(row => row.suspended) || review.diagnostics.some(issue => selectedIds.has(issue.recordId) &&
         (issue.code.startsWith('invalid-') || ['missing-selected-record','selection-identity','multiple-planning-dates','view-state-difference','duplicate-id'].includes(issue.code)))) {
       throw new Error('Selected work still needs reconciliation before rollover completion');
     }
@@ -161,6 +162,10 @@ export async function savePlanningState(input) {
   const temporary = `${target.path}.${randomUUID()}.tmp`;
   try {
     await writeFile(temporary,JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+    const refreshed = await preparePlanning({...input,dryRun:true,forceRefresh:true});
+    if (refreshed.status === 'recovery-required' || refreshed.inventoryHash !== prepared.inventoryHash || refreshed.reviewHash !== prepared.reviewHash) {
+      throw new Error('Planning dependencies or checkpoint evidence changed before save; prepare again');
+    }
     if (fingerprint(await readOrdinary(target.path)) !== target.sha256 || fingerprint(await readOrdinary(current.path)) !== current.sha256 ||
         (previous && fingerprint(await readOrdinary(previous.path)) !== previous.sha256)) throw new Error('Planning sources changed before save; retry');
     await rename(temporary,target.path);

@@ -41,11 +41,16 @@ async function inspect(input,options = {}) {
   const catalog = options.catalog ?? await loadTemplateCatalog();
   const stores = {};
   for (const [scope,directory] of Object.entries(context.writableScopes)) {
+    const alias = Object.keys(stores).find(key => samePath(context.writableScopes[key],directory));
+    if (alias) { stores[scope] = stores[alias]; continue; }
     stores[scope] = await readTemplateStore(directory);
     for (const [kind,entry] of Object.entries(stores[scope].value.templates)) validateEntry(kind,entry);
   }
   const scope = input.scope ?? (stores.legacy ? 'legacy' : stores.project ? 'project' : 'user');
   if (!stores[scope]) throw new Error('Requested template scope is not available in this context');
+  const uniqueStores = [...new Set(Object.values(stores))].reverse().map(store => [
+    store === stores[scope] ? scope : Object.keys(stores).find(key => stores[key] === store),store,
+  ]);
   const templates = {};
   for (const kind of input.kinds) {
     const available = snapshot(kind,catalog[kind].content,catalog);
@@ -58,7 +63,7 @@ async function inspect(input,options = {}) {
     const observedRevision = sourceContent === null ? null : templateFingerprint(sourceContent);
     const transient = preferenceSource === 'current-task';
     const bundledSelector = digest({kind,preferenceSource:null,sourcePath:null});
-    const matches = Object.entries(stores).reverse().map(([entryScope,store]) => ({scope:entryScope,entry:store.value.templates[kind]}))
+    const matches = uniqueStores.map(([entryScope,store]) => ({scope:entryScope,entry:store.value.templates[kind]}))
       .filter(({entry}) => !transient && entry && (entry.selector === selector ||
         (sourcePath && entry.selector === bundledSelector && entry.active.revision === observedRevision)));
     const chosen = matches.find(({entry}) => entry.origin !== 'observed') ?? matches[0];
@@ -108,8 +113,9 @@ async function inspect(input,options = {}) {
   const storage = Object.fromEntries(Object.entries(stores).map(([key,store]) => [key,{path:store.path,sha256:store.sha256}]));
   const token = digest({scope,storage,templates:Object.fromEntries(Object.entries(templates).map(([kind,value]) => [kind,
     {selector:value.selector,observedRevision:value.observedRevision,available:value.available.revision,contract:value.available.contract}]))});
-  const pendingScopes = Object.entries(stores).filter(([,store]) => store.value.pending).map(([key]) => key);
+  const pendingScopes = uniqueStores.filter(([,store]) => store.value.pending).map(([key]) => key);
   const packet = {status:pendingScopes.length ? 'recovery-required' : 'prepared',scope,token,templates,storage,pendingScopes,
+    sharedScopes:context.sharedScopes,
     placement:await templatePlacement(context,templates),
     context:{configurationSources:context.configurationSources,profilePath:context.configurationSources ? undefined : context.profilePath,
       homeRoot:context.homeRoot,vaultRoot:context.vaultRoot,stateRoot:context.stateRoot,preferenceOverrides:context.preferenceOverrides}};
@@ -168,7 +174,7 @@ export async function saveTemplateState(input,options) {
   }
   if (input.action === 'decide' && (typeof input.originalWords !== 'string' || !input.originalWords.trim())) throw new TypeError('Explicit originalWords required for template choices');
   if (Object.values(packet.templates).some(row => row.transient)) throw new Error('One-off template overrides cannot be persisted');
-  if (packet.scope === 'user' && decisions.some(({kind}) => context.preferenceSources[`templates.${kind}`] && context.preferenceSources[`templates.${kind}`] === context.configurationSources?.project.profilePath)) throw new Error('Project template overrides personal scope; use a personal-only context to change user defaults');
+  if (packet.scope === 'user' && !samePath(context.configurationSources?.user.profilePath,context.configurationSources?.project.profilePath) && decisions.some(({kind}) => context.preferenceSources[`templates.${kind}`] && context.preferenceSources[`templates.${kind}`] === context.configurationSources?.project.profilePath)) throw new Error('Project template overrides personal scope; use a personal-only context to change user defaults');
   const requestHash = digest({action:input.action,kinds:input.kinds,scope:packet.scope,decisions,originalWords:input.originalWords,expectedToken:input.expectedToken});
   const initialStore = loaded.stores[packet.scope];
   const replay = initialStore.value.lastRequest === requestHash;

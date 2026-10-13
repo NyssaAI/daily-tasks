@@ -2,6 +2,7 @@ import { spawn } from 'node:child_process';
 import { homedir } from 'node:os';
 import path from 'node:path';
 import { buildPrewarmAutomation } from './automation.mjs';
+import { resolveContext } from '../../lib/profile/context.mjs';
 
 function runOpenClaw(entry,args) {
   return new Promise((resolve,reject) => {
@@ -29,15 +30,26 @@ export function registerDailyTasksCli({program,pluginRoot,gatewayConfig = {},ope
     .requiredOption('--vault-root <path>','Absolute configured vault root')
     .option('--home-root <path>','Absolute user home used for personal preferences',homedir())
     .option('--profile-path <path>','Absolute accepted legacy/custom profile path')
+    .option('--configuration-sources <json>','Resolved user/project source descriptor as one JSON argument')
+    .option('--state-root <path>','Absolute established operation state root')
     .option('--every <duration>','OpenClaw interval', '1h')
     .option('--disabled','Create or explicitly reconcile the job disabled',false)
     .option('--dry-run','Print the declaration without changing automations',false)
     .action(async options => {
-      for (const key of ['vaultRoot','homeRoot','profilePath']) {
+      for (const key of ['vaultRoot','homeRoot','profilePath','stateRoot']) {
         if (options[key] !== undefined && !path.isAbsolute(options[key])) throw new Error(`--${key.replace(/[A-Z]/g,m => '-'+m.toLowerCase())} requires an absolute path`);
       }
+      const selectors = {
+        vaultRoot:options.vaultRoot,homeRoot:options.homeRoot,profilePath:options.profilePath,stateRoot:options.stateRoot,
+        configurationSources:options.configurationSources === undefined ? undefined : JSON.parse(options.configurationSources),
+      };
+      const context = await resolveContext(selectors);
+      if (!context.configured || !context.vaultRoot || !context.projectsRoot || !context.dailyPlansRoot) throw new Error('Configured vault context required for project-index prewarm');
+      const boundSelectors = selectors.configurationSources !== undefined || selectors.stateRoot !== undefined
+        ? {...selectors,configurationSources:selectors.profilePath === undefined ? context.configurationSources : undefined,stateRoot:context.stateRoot}
+        : selectors;
       const declaration = buildPrewarmAutomation({
-        ...options,
+        ...boundSelectors,every:options.every,disabled:options.disabled,
         nodePath:process.execPath,
         warmCommandPath,
         gatewayUrl,

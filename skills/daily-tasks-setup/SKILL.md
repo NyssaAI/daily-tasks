@@ -149,7 +149,9 @@ State discovery examines authoritative contents separately from preferences and
 caches. A canonical profile-only directory cannot hide legacy completed state.
 Reuse a verified established state binding; otherwise use the sole authoritative
 store. Divergent stores require explicit reconciliation even without pending work;
-identical copies may use established binding or canonical precedence. Never combine
+an empty explicit target beside populated history is also an error. Use the reported
+established path or resolve the conflict explicitly; never silently redirect a session.
+Identical copies may use established binding or canonical precedence. Never combine
 stores or select by modification time. Create canonical state only when none exists.
 A preference-scope change never authorizes moving state or outputs.
 
@@ -169,7 +171,7 @@ only when the user accepts the optional automation; setup of ordinary preference
 not imply consent. Default to one hour and use the user's explicit interval when given:
 
 ```text
-openclaw daily-tasks setup-prewarm --vault-root ABSOLUTE_VAULT --home-root ABSOLUTE_HOME [--profile-path ABSOLUTE_PROFILE] [--every 1h]
+openclaw daily-tasks setup-prewarm --vault-root ABSOLUTE_VAULT --home-root ABSOLUTE_HOME [--profile-path ABSOLUTE_PROFILE | --configuration-sources JSON] [--state-root ABSOLUTE_STATE] [--every 1h]
 ```
 
 Run `--dry-run` first when inspecting the declaration. The adapter reconciles by a
@@ -177,6 +179,15 @@ scope-derived declaration key, uses exact command argv, starts no agent or model
 delivers no chat output. Verify the returned automation and its command payload.
 Re-running with another `--every` value updates the declaration; routine reconciliation
 preserves an operator-disabled job unless `--disabled` is explicitly supplied.
+For layered settings pass the returned `configurationSources` as one exact JSON argv
+value and the established `stateRoot`. Preserve explicit null source absences. Do not
+serialize effective preferences, one-off overrides, dates or clocks into the job.
+Legacy profile selectors remain exclusive. Changing source bindings creates a different
+declaration, not an update to the old job. When replacing a known job, show both scopes
+and obtain the user's explicit replacement choice; use OpenClaw's supported
+[disable/remove controls](https://docs.openclaw.ai/automation/cron-jobs/managing-jobs)
+for that job before registering its replacement. The adapter does not discover, delete
+or migrate other declarations. Reuse any replacement choice already supplied.
 Other hosts continue with on-demand behavior and need no adapter. Failure, disablement
 or removal of the automation never changes correctness: every inventory consumer still
 performs the TTL, local-date, scope, source-membership and metadata checks itself.

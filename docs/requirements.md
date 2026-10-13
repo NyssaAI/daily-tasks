@@ -123,6 +123,13 @@ and bindings remain local to each vault. Authoritative state contents, including
 rollover and removal history, determine discovery separately from profiles/caches;
 divergent stores require explicit reconciliation before dependent writes. Reconciliation
 and check-in state use the vault's independent stateRoot or established state location.
+An empty explicit state root cannot override populated authoritative history elsewhere;
+report both locations and require a corrected binding or explicit reconciliation.
+Coincident home/workspace sources are valid: validate the complete stored v2 document,
+project preferences into its user view, and apply bindings only in its project view.
+This also supports accepted custom sources on personal-only or other-workspace reentry.
+Shared physical preference/template stores report aliased scopes; edits preserve other
+fields and explain their shared effect. Personal edits still produce no project log entry.
 Reuse applicable configuration pointers, common state roots and known vault scope before
 asking questions. Resolve absolute paths from context; do not require the user to type
 them or separately approve state initialization. The host may capture its initial
@@ -268,9 +275,17 @@ stale-on-demand operation as the correctness boundary. A host may optionally run
 same deterministic operation on a configurable schedule to reduce first-use latency;
 the prewarm must not force refresh, start an agent, select work or make stale data
 trusted when the schedule is disabled or fails.
+Prewarm preserves accepted layered configurationSources, explicit source absences and
+established stateRoot through exact arguments. It never persists one-off overrides or
+a fixed clock. Existing legacy declaration identities remain stable; equivalent new
+contexts share an identity independent of interval and JSON property order.
 Completed legacy operation receipts do not count as pending recovery. Maintenance
 findings are scoped to their affected records and paths: unrelated legacy enrollment,
 navigation and baseline issues do not block independent planning state or plan saves.
+Validated pending-operation effects and protected dependencies suspend only affected
+records/actions. Unknown scope and overlap with required plans/state block the save;
+unrelated operations remain visible. Review saves revalidate checkpoint evidence and
+cannot turn pending whole-vault maintenance into a healthy result.
 Routine inventory access uses the CLI directly. A broader reconciliation pass may
 use one shared maintenance subagent to refresh inventory and propose reconciliation
 changes, with separate inventory and reconciliation freshness timestamps. Prefer

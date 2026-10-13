@@ -79,6 +79,12 @@ field preserve both values and become a durable pending conflict. Continue other
 items; never refresh the conflicting representation away or call the check-in fully
 reconciled while conflicts remain. Choosing a winner is an explicit supplied decision.
 
+Planning preparation classifies validated checkpoint effects, protected dependencies,
+and typed state impacts in its `recovery` packet. Use that classification for the
+current action; never bypass a recovery block merely because an operation looks
+unrelated by name. Independent review saves retain suspended selections and never
+complete or delete their checkpoints. Reprepare if checkpoint evidence changes.
+
 File hashes below mean the declared non-log operation files only. Never hash or
 read a whole workspace or scratch tree for verification: nested `.daily-tasks`
 logs remain query-only, including evidence capture. Use `operation-verify` for

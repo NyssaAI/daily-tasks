@@ -6,6 +6,7 @@ import { recordIssueIsInvalid } from '../records/records.mjs';
 import { assertPlanningScope } from '../profile/context.mjs';
 
 const unfinished = state => ['not-started','in-progress'].includes(state);
+const pathKey = filename => process.platform === 'win32' ? path.resolve(filename).toLowerCase() : path.resolve(filename);
 
 /** Derived screen data only; no Markdown writes and no implicit task/day selection. */
 export function planningReview(input) {
@@ -18,8 +19,11 @@ export function planningReview(input) {
   for (const record of input.selectedRecords ?? []) if (!tasks.has(record.id)) tasks.set(record.id,taskSummary(record));
   const selectedById = new Map();
   for (const row of selected) if (!selectedById.has(row.id)) selectedById.set(row.id,row);
-  const diagnostics = [...inventory.diagnostics];
+  const diagnostics = [...inventory.diagnostics,...(input.recovery?.diagnostics ?? [])];
   const excluded = new Set(diagnostics.filter(d => recordIssueIsInvalid(d) || ['multiple-planning-dates','selection-identity','missing-order','duplicate-selection','view-state-difference'].includes(d.code)).map(d => d.recordId));
+  const suspended = new Set(input.recovery?.suspendedRecordIds ?? []);
+  const suspendedProjects = new Set(input.recovery?.suspendedProjectIds ?? []);
+  for (const id of suspended) excluded.add(id);
   const unknownAllocation = diagnostics.some(d => d.code === 'selection-identity' && !d.recordId);
   const pending = new Set(input.pendingFutureIds ?? []);
   const openTasks = inventory.tasks.filter(t => t.state === 'not-started' &&
@@ -35,12 +39,14 @@ export function planningReview(input) {
   const selectedRows = [...selectedIds].map(id => {
     const task = tasks.get(id), source = selectedById.get(id);
     if (!task) { diagnostics.push({code:'missing-selected-record',recordId:id,message:'Retain unresolved selected row until reconciled'}); return {...source,id,number:number(id),unresolved:true}; }
-    return row(task,source?.carriedFrom ? {carriedFrom:source.carriedFrom} : {});
+    return row(task,{...(source?.carriedFrom ? {carriedFrom:source.carriedFrom} : {}),
+      ...(suspended.has(id) || suspendedProjects.has(task.projectId) ? {unresolved:true,suspended:true} : {})});
   }).filter(Boolean);
   const first = new Map();
   const openMilestones = new Set(inventory.milestones.filter(m => unfinished(m.state)).map(m => m.id));
   for (const m of inventory.milestones) if (!first.has(m.projectId) && unfinished(m.state)) first.set(m.projectId,m.id);
   const unsafeProjects = new Set(inventory.milestones.filter(m => excluded.has(m.id)).map(m => m.projectId));
+  for (const id of suspendedProjects) unsafeProjects.add(id);
   for (const issue of diagnostics) if (issue.code === 'invalid-planning-scope') unsafeProjects.add(issue.projectId);
   const additions = unknownAllocation ? [] : openTasks.filter(t => !selectedIds.has(t.id) && !excluded.has(t.id) && !unsafeProjects.has(t.projectId) &&
     openMilestones.has(t.milestoneId) && t.milestoneId === first.get(t.projectId));
@@ -89,8 +95,16 @@ export function planSelection(input) {
   const tasks = new Map(inventory.tasks.map(t => [t.id,t]));
   const ambiguousIds = new Set(inventory.diagnostics.filter(d => ['multiple-planning-dates','selection-identity','duplicate-selection','view-state-difference'].includes(d.code)).map(d => d.recordId));
   const unsafeProjects = new Set(inventory.diagnostics.filter(d => d.code === 'invalid-planning-scope').map(d => d.projectId));
+  const suspendedIds = new Set(input.recovery?.suspendedRecordIds ?? []);
+  const suspendedProjects = new Set(input.recovery?.suspendedProjectIds ?? []);
+  const pendingPaths = new Set((input.recovery?.operations ?? []).flatMap(operation =>
+    [...(operation.paths ?? []),...(operation.statePaths ?? [])]).map(pathKey));
+  if (pendingPaths.size && (!path.isAbsolute(input.vaultRoot ?? '') || !path.isAbsolute(input.stateRoot ?? ''))) {
+    throw new TypeError('Resolved vaultRoot and stateRoot required for selection recovery checks');
+  }
   for (const id of new Set(taskIds)) {
     const task = tasks.get(id);
+    if (input.recovery?.blocked || suspendedIds.has(id) || suspendedProjects.has(task?.projectId)) { conflicts.push({id,reason:'pending-operation'}); continue; }
     const ambiguous = ambiguousIds.has(id) || ambiguousIds.has(undefined);
     if (!isUuid7(id) || !task || !unfinished(task.state) || ambiguous) { conflicts.push({id,reason:'missing-invalid-or-ambiguous-task'}); continue; }
     if (action === 'remove' && task.state === 'in-progress') { conflicts.push({id,reason:'in-progress-requires-reschedule-or-closure'}); continue; }
@@ -100,7 +114,16 @@ export function planSelection(input) {
     if (action === 'remove' && active[0] && active[0].date !== (date ?? today)) { conflicts.push({id,reason:'selection-date-changed',planned:active}); continue; }
     if (action !== 'remove' && active[0]?.date === date) continue;
     if (action === 'remove' && !active.length) continue;
-    effects.push({id,from:active[0] ?? null,to:action === 'remove' ? null : {date,path:path.join(dailyPlansRoot,`${date}-daily-plan.md`),createIfMissing:true},preserveHistory:true});
+    const from = active[0] ?? null;
+    const to = action === 'remove' ? null : {date,path:path.join(dailyPlansRoot,`${date}-daily-plan.md`),createIfMissing:true};
+    if (pendingPaths.size) {
+      const footprint = [to?.path,from && path.resolve(input.vaultRoot,from.source),
+        ...[from,to].filter(Boolean).map(plan => path.join(input.stateRoot,'rollover',`${plan.date}.json`))].filter(Boolean);
+      if (footprint.some(filename => pendingPaths.has(pathKey(filename)))) {
+        conflicts.push({id,reason:'pending-operation'}); continue;
+      }
+    }
+    effects.push({id,from,to,preserveHistory:true});
   }
   return {effects,conflicts};
 }
