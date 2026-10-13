@@ -96,7 +96,9 @@ An external assigned projects root uses `@projectsRoot` in portable cache scope.
 Operation results carry `planningBinding` separately from inventory JSON.
 
 `planning-review` computes all-owner scoped counts/options and stable pages of at most
-15 additions. `plan-selection` returns explicit add/move/remove effects; the skill
+one project, keeping its eligible tasks together in source order. Saved review position
+anchors resumption to project identity; missing projects advance through the saved order
+or yield reviewComplete. Explicit page navigation overrides the anchor. `plan-selection` returns explicit add/move/remove effects; the skill
 creates dated plans and applies transfers through checkpoints/logging.
 CLI `planning-review`, `plan-selection`, `carry-forward` and `plan-rollover` require
 the resolved vaultRoot/projectsRoot/dailyPlansRoot and `contextBinding`. With an
@@ -161,9 +163,23 @@ IDs are invalid, and legacy unchecked strikethrough Cancelled rows carry explici
 cancelled state. Reconciliation compares that state to the stored baseline; it
 does not blindly reapply an unchanged stale cancellation over a reopened task.
 
-`template-prepare` resolves relevant active/available layouts and compares revisions
-without writes. `template-state` retains JSON snapshots or explicit per-kind choices
+`template-prepare` resolves relevant active/available layouts, compares the retained
+bundled origin and user edits, proposes visible PARA template placement and reports
+pending file effects without writes. `template-state` retains JSON snapshots or explicit per-kind choices
 in existing preference scopes, with atomic recovery and script-only project logging.
 `planning-prepare` includes preparation for dailyPlan and planDayReview. Markdown
-authoring and separately authorized reformatting remain skill-owned. See the
+authoring and separately authorized reformatting remain skill-owned. File-backed
+acceptance returns `file-update-required` until a fresh baseline verifies the skill's
+Markdown write; actual configured files remain authoritative. See the
 [template update contract](template-updates.md).
+
+`planning-state` action `save-review` requires agent-authored `reviewMarkdown` in
+addition to fresh source/state hashes. The prepared `reviewHash` binds the full review
+and active planDayReview template revision/selector. The screen integrity check uses
+that active template's headings and table columns (or custom list layout), exact
+visible task identities/numbers/statuses/order, selected/available example sections,
+carry markers, standard count labels and status legend. Invalid drafts cannot save
+a review mapping. Successful saves retain `{markdown, sha256, templateRevision}` in
+`value.screen`; the skill displays those exact bytes. Legacy mappings remain readable
+but need a newly validated draft before display. This validates proposed Markdown,
+not host rendering, delivery or activation; CLI code does not author the screen.

@@ -7,6 +7,36 @@ const userEmail = 'owner@example.test';
 const today = '2026.10.07', previousDate = '2026.10.06', planId = id(20);
 const open = n => ({id:id(n),owner:userEmail,state:'not-started'});
 
+test('in-progress work carries without a previous selection until terminal or allocated later', () => {
+  const records = [
+    {...open(1),state:'in-progress',title:'Started work'},
+    {...open(2),state:'in-progress',assignee:'research-agent'},
+    {...open(3),state:'in-progress',owner:'someone@example.test'},
+    {...open(4),state:'completed'}, {...open(5),state:'cancelled'},
+    {...open(6),state:'in-progress'}, open(7)
+  ];
+  const inventory = {tasks:records.map(record => ({...record,planned:record.id === id(6) ? [{date:'2026.10.09'}] : []})),diagnostics:[]};
+  const request = {today,planId,userEmail,records,inventory};
+  const result = planRollover(request);
+  assert.deepEqual(result.selected.map(row => row.id),[id(1),id(2),id(3)]);
+  assert.equal(result.own[0].carriedFrom,undefined,'No invented previous-plan provenance');
+  assert.equal(result.delegated[0].id,id(2));
+  assert.equal(result.followUp[0].id,id(3));
+  const next = planRollover({...request,today:'2026.10.08',planId:id(21),previousDate:today,previousRows:result.selected});
+  assert.deepEqual(next.selected.map(row => row.id),[id(1),id(2),id(3)]);
+  assert.equal(next.own[0].carriedFrom,today);
+  const rescheduledDay = planRollover({...request,today:'2026.10.09',planId:id(22)});
+  assert.ok(rescheduledDay.selected.some(row => row.id === id(6)));
+});
+
+test('old deselections cannot drop in-progress work from the next plan', () => {
+  const records = [1,2,3].map(n => ({...open(n),state:'in-progress'}));
+  const result = planRollover({today,previousDate,planId,userEmail,records,
+    previousRows:[{id:id(1),selected:false},{id:id(2)}],currentRows:[{id:id(3),selected:false}],
+    removedIds:[id(2),id(3)]});
+  assert.deepEqual(result.selected.map(row => row.id),[id(1),id(2),id(3)]);
+});
+
 test('rollover merges yesterday into a pre-created plan while preserving future, terminal and removed work', () => {
   const records = [open(1),open(2),open(3),{...open(4),state:'completed'},open(5),{...open(6),assignee:'research-agent'},{...open(7),owner:'someone@example.test'}];
   const currentRows = [{id:id(2),title:'Already selected B',customNote:'retain this edit'}];

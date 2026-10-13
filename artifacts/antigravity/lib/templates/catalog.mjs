@@ -11,6 +11,7 @@ const templateDefinitions = {
 };
 
 export const templateKinds = Object.freeze(Object.keys(templateDefinitions));
+export const templateFiles = Object.freeze(Object.fromEntries(Object.entries(templateDefinitions).map(([kind,value]) => [kind,value.file])));
 
 export function templateFingerprint(text) {
   return `sha256:${createHash('sha256').update(text.replaceAll('\r\n', '\n')).digest('hex')}`;
@@ -77,7 +78,7 @@ function templateLayout(content) {
   return {headings, tables, layout};
 }
 
-function tableColumns(line) {
+export function tableColumns(line) {
   return line.trim().replace(/^\|/, '').replace(/\|$/, '').split(/(?<!\\)\|/).map(cell => cell.trim());
 }
 

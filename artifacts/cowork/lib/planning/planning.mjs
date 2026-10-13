@@ -22,7 +22,7 @@ export function carryForward(previousRows, records, userEmail, options = {}) {
   const result = { own: [], delegated: [], followUp: [], unresolved: [] };
   for (const row of previousRows) {
     if (!isUuid7(row.id)) { result.unresolved.push({ ...row, reason: 'missing-identity' }); continue; }
-    if (seen.has(row.id) || row.selected === false) continue;
+    if (seen.has(row.id) || (row.selected === false && byId.get(row.id)?.state !== 'in-progress')) continue;
     seen.add(row.id);
     const record = byId.get(row.id);
     if (duplicateIds.has(row.id) || !record) {
@@ -71,10 +71,15 @@ export function planRollover(input) {
     }
     if (validCompletion) return {status:'complete',selected:currentRows,own:[],delegated:[],followUp:[],unresolved:[]};
   }
-  // Existing membership (including an explicit selected:false removal) wins over carry.
-  const retainedIds = new Set([...currentRows.map(row => row.id).filter(isUuid7),...(input.removedIds ?? []),...(state?.removedIds ?? [])]);
-  const carry = carryForward(previousRows.filter(row => !retainedIds.has(row.id)),records,userEmail,{inventory,today});
-  const carried = rows => rows.map(row => ({...row,carriedFrom:previousDate}));
+  // In-progress work survives old deselections; only a future allocation or closure stops carry.
+  const startedIds = new Set(records.filter(record => record.state === 'in-progress').map(record => record.id));
+  const retainedIds = new Set([...currentRows.filter(row => row.selected !== false || !startedIds.has(row.id)).map(row => row.id).filter(isUuid7),
+    ...[...(input.removedIds ?? []),...(state?.removedIds ?? [])].filter(id => !startedIds.has(id))]);
+  const priorIds = new Set(previousRows.map(row => row.id));
+  const startedRows = (inventory?.tasks ?? records).filter(task => task.state === 'in-progress' && !priorIds.has(task.id))
+    .map(task => ({id:task.id,title:task.title,path:task.path,selected:true}));
+  const carry = carryForward([...previousRows,...startedRows].filter(row => !retainedIds.has(row.id)),records,userEmail,{inventory,today});
+  const carried = rows => rows.map(row => priorIds.has(row.id) ? {...row,carriedFrom:previousDate} : row);
   const own = carried(carry.own), delegated = carried(carry.delegated), followUp = carried(carry.followUp);
   const unresolved = carried(carry.unresolved);
   return {status:'due',selected:[...currentRows.filter(row => row.selected !== false),...own,...delegated,...followUp,...unresolved],

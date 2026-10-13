@@ -6,6 +6,8 @@ document-maturity: reviewed
 ---
 Open projects: {open project count}          Open tasks: {open task count}          Late tasks: {late task count}
 
+Page {page number} of {page count}
+
 <!-- if: first_run_today -->
 This is your first check-in today. Review the work carried forward, then choose
 which available tasks to add. Status marks show progress; the sections indicate
@@ -23,7 +25,7 @@ whether work is selected for today. [x] means completed, never merely selected.
 | # | Status | Project | Milestone | Task | Owner | Assignee | Due Date |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
-| 3 | [ ] | PROJECT_2_TITLE | MILESTONE_2_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | OWNER_2_EMAIL | ASSIGNEE_2_OR_DASH | TARGET_2_DATE_OR_DASH |
+| 3 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | OWNER_2_EMAIL | ASSIGNEE_2_OR_DASH | TARGET_2_DATE_OR_DASH |
 | 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_3_DATE_OR_DASH |
 
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward
@@ -37,7 +39,8 @@ Give an instruction and the item numbers, for example:
 - "Show details for 2, 4."
 - "Keep the current selections."
 - "2, 4, 6 are in progress."
-- "Show more tasks."
+- "Next page."
+- "Previous page."
 - "Show all milestones."
 
 A bare list of numbers requires clarification about the intended action.
@@ -54,6 +57,7 @@ Before status/record writes or recovery, load ../references/operations.md.
 For supplied/configured formatting load ../references/templates.md; this asset is
 the bundled default, not an override of user formatting.
 
+When reviewComplete is true, replace the page indicator with "Review complete".
 The count line is the first visible line after frontmatter. Preserve its labels.
 Conditional comments instruct the rendering skill, not executable Markdown syntax.
 Render the introduction only for first_run_today, then omit conditional comments.

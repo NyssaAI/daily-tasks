@@ -67,10 +67,22 @@ PARA/file-management conventions are optional and configurable. No plugin cache 
 mandatory Personal CoS bootstrap, cloud account or external task-service dependency.
 `document-maturity` is separate from each record's operational state.
 
+An ordinary folder can be your workspace; no PARA or Obsidian vault is required.
+Personal preferences alone use your home directory without asking for work storage.
+When you first manage work, setup reuses known locations or asks where to keep the
+workspace, project records and daily plans. It can use an existing PARA layout;
+otherwise it offers `projects/` and `daily-plans/` in your chosen workspace without
+creating a PARA structure.
+
 ## Runtime and packaging
 
 You can provide Markdown templates or completed examples for project indexes,
-daily plans, milestones and tasks. Ask the agent to use the example as your template; it stores the
+daily plans, milestones and tasks. In a recognized PARA vault, setup or first use
+places missing active templates in the vault's Resources/templates folder, using
+its existing directory names, and links those editable files. The plugin reads
+registered files on subsequent use and preserves explicit existing template paths.
+
+For a supplied example, ask the agent to use it as your template. It stores the
 preference in your existing profile and uses it for new documents. Each format
 can be customized independently, including the interactive planning review screen.
 Existing documents are reformatted only on request.
@@ -81,12 +93,13 @@ the agent compares a changed template, offers a preview, and lets you use the ne
 layout, keep the current revision, or postpone. The default is **Ask about updates**;
 you can explicitly select **Always use latest** for compatible updates or **Keep
 current** for each template kind. Declining one revision does not change that policy.
-Selected layouts are retained outside the plugin cache. Accepting a layout applies
-to new documents; reformatting today's plan is a separate choice.
+Comparisons retain the original bundled version alongside your edited template.
+Accepted upgrades update the visible file after checking for intervening edits.
+The layout applies to new documents; reformatting today's plan is a separate choice.
 See [template updates](skills/daily-tasks/references/template-updates.md).
 
-The planning review shows owned work, preserves stable numbered choices, and offers at
-most 15 additions per page from each project's first incomplete milestone. Future
+The planning review shows owned work, preserves stable numbered choices, and offers
+one project per page, with ordered additions from its first incomplete milestone. Future
 selections use dated daily-plan files and disappear from today's available additions.
 The person chooses execution order. See [planning flow](skills/daily-tasks/references/planning-flow.md).
 

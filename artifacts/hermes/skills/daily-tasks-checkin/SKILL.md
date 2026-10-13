@@ -40,7 +40,11 @@ identity or disposition of unresolved decisions.
    Write it under `<vaultRoot>/<dailyPlansRelative>` from the profile. Only resumable
    progress belongs in stateRoot; the daily Markdown plan must be outside that directory.
    Follow Plan's ordered recovery, rollover and review-save checkpoints, including
-   carry into pre-created plans and the distinct no-change receipt path. Reprepare
+   carry into pre-created plans and the distinct no-change receipt path. Follow
+   Plan's screen gate before presenting options or a planning recap: use
+   `packet.templates.templates.planDayReview.active.content`, save the complete
+   `reviewMarkdown` draft through `save-review`, and display the returned
+   `value.screen.markdown` unchanged. A check-in summary is not a substitute screen. Reprepare
    after writes invalidate packet hashes. An existing file proves neither rollover
    nor successful check-in. Separate personal/delegated saved work; leave execution
    order to the person. No requirement to allocate every task; no timeframe fitting.
@@ -52,4 +56,7 @@ Task uncheck or task-DoD uncheck reopens that task and closed parents; uncheckin
 milestone DoD/reopening blocker reopens closed parents but leaves completed tasks.
 Invalid task or parent close requests explain unmet
 conditions. Lost time precision uses now and retains reported wording. Completed and
-cancelled items remain visible today and don't carry; removed open items stay deselected.
+cancelled items remain visible today and don't carry; removed not-started items stay
+deselected. In-progress work always reaches the next plan unless completed, cancelled
+or explicitly rescheduled, even when absent from the preceding plan. Keep it out of
+the available-options list; it belongs with ongoing selections.

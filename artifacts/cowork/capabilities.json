@@ -218,7 +218,7 @@
     {
       "name": "planning-state",
       "path": "scripts/daily-tasks.mjs",
-      "purpose": "planning state; see skills/daily-tasks/references/cli.md",
+      "purpose": "Validate and retain the active-template review draft or complete verified rollover; see skills/daily-tasks/references/cli.md",
       "inputSchema": {
         "type": "object",
         "required": [
@@ -227,6 +227,15 @@
           "expectedPreviousHash",
           "expectedStateHash",
           "expectedInventoryHash"
+        ],
+        "allOf": [
+          {
+            "if": { "properties": { "action": { "const": "save-review" } }, "required": ["action"] },
+            "then": {
+              "required": ["expectedReviewHash", "reviewMarkdown"],
+              "properties": { "reviewMarkdown": { "type": "string", "minLength": 1 } }
+            }
+          }
         ]
       },
       "outputSchema": {

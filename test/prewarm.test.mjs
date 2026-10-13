@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
-import { mkdir, mkdtemp, readFile, realpath, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, realpath, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { promisify } from 'node:util';
 import { warmProjectIndex } from '../lib/inventory/warm.mjs';
@@ -119,13 +119,32 @@ test('OpenClaw declaration is hourly by default, exact-argv, silent, idempotent,
 });
 
 test('concurrent warm attempts preserve a valid reusable cache', async () => {
+  for (let round=0;round<5;round++) {
+    const input = await fixture();
+    const results = await Promise.allSettled(Array.from({length:8},() => warmProjectIndex({...input,now})));
+    for (const result of results) {
+      assert.equal(result.status,'fulfilled',result.reason?.stack);
+      assert.ok(['rebuilt','reused'].includes(result.value.status));
+    }
+    const directory = path.join(input.vaultRoot,'.temp/daily-tasks');
+    const cache = JSON.parse(await readFile(path.join(directory,'project-index.json'),'utf8'));
+    assert.equal(cache.projects.length,1);
+    assert.equal((await warmProjectIndex({...input,now:'2026-10-13T13:00:00.000Z'})).status,'reused');
+    assert.deepEqual((await readdir(directory)).filter(name => name.endsWith('.tmp')),[]);
+  }
+});
+
+test('separate warm processes preserve a reusable cache and remove temporary writes', async () => {
   const input = await fixture();
-  const results = await Promise.all([
-    warmProjectIndex({...input,now}),
-    warmProjectIndex({...input,now}),
-  ]);
-  assert.ok(results.every(result => ['rebuilt','reused'].includes(result.status)));
-  const cache = JSON.parse(await readFile(path.join(input.vaultRoot,'.temp/daily-tasks/project-index.json'),'utf8'));
-  assert.equal(cache.projects.length,1);
+  const moduleUrl = new URL('../lib/inventory/warm.mjs',import.meta.url).href;
+  const source = 'const {warmProjectIndex} = await import(process.argv[1]); console.log(JSON.stringify(await warmProjectIndex(JSON.parse(process.argv[2]))));';
+  const results = await Promise.allSettled(Array.from({length:8},() => exec(process.execPath,
+    ['--input-type=module','-e',source,moduleUrl,JSON.stringify({...input,now})],{cwd:input.root})));
+  for (const result of results) {
+    assert.equal(result.status,'fulfilled',result.reason?.stack);
+    assert.ok(['rebuilt','reused'].includes(JSON.parse(result.value.stdout).status));
+  }
   assert.equal((await warmProjectIndex({...input,now:'2026-10-13T13:00:00.000Z'})).status,'reused');
+  const directory = path.join(input.vaultRoot,'.temp/daily-tasks');
+  assert.deepEqual((await readdir(directory)).filter(name => name.endsWith('.tmp')),[]);
 });
