@@ -10,6 +10,7 @@ import { uuid7 } from '../lib/identity/identity.mjs';
 import { resolveContext } from '../lib/profile/context.mjs';
 import { appendDecision, queryDecisions } from '../lib/log/decision-log.mjs';
 import { verifyOperation, completeOperation, completeChangedRollover, inspectMigrationRetirement, completeMigration } from '../lib/operations/verification.mjs';
+import { inspectNavigation } from '../lib/records/navigation.mjs';
 
 const hash = text => createHash('sha256').update(text).digest('hex');
 const execute = promisify(execFile);
@@ -195,6 +196,108 @@ test('migration retirement sees live legacy copies pointing to headings', async 
   assert.ok((await inspectMigrationRetirement(f.input)).issues.some(issue=>issue.reason === 'live-incoming-link'));
   await unlink(path.join(projectNamedInputs,'legacy.md'));
   await rmdir(f.context.dailyPlansRoot);
+  assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
+});
+
+test('migration shares navigation resolution in project records and daily plans before and after retirement', async () => {
+  const f = await fixture(), criterionId = uuid7(), name = 'definition-of-done.2026.10';
+  f.event.action = 'workspace.migration';
+  const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  const retiringPath = path.join(f.context.projectsRoot,'alpha',`${name}.md`);
+  const recordPath = path.join(f.context.projectsRoot,'alpha','nested','t1-live.md');
+  const planPath = path.join(f.context.dailyPlansRoot,'2026.10.09-daily-plan.md');
+  await mkdir(path.dirname(recordPath),{recursive:true});
+  await writeFile(retiringPath,source); await writeFile(f.file,destination);
+  f.operation.files = [{path:retiringPath,before:hash(source),after:null},{path:f.file,before:hash('before'),after:hash(destination)}];
+  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:false}]};
+  f.operation.sourceSnapshot = {retiringMarkdown:source}; await f.save();
+  const append = {...f.input,projectsRoot:f.context.projectsRoot,entry:f.event};
+  const nav = {projectsRoot:f.context.projectsRoot,dailyPlansRoot:f.context.dailyPlansRoot,vaultRoot:f.context.vaultRoot};
+  const issueAt = (issues,filename) => issues.some(issue=>issue.reason === 'live-incoming-link' && issue.path === filename);
+  for (const filename of [recordPath,planPath]) {
+    const relative = path.relative(path.dirname(filename),retiringPath).split(path.sep).join('/');
+    const vault = `projects/alpha/${name}`;
+    const links = [
+      `[[${vault}]]`, `[[${vault}.md#Definition of Done|Done]]`,
+      `[[${vault.replaceAll('.', '%2E')}.md%23Definition%20of%20Done]]`,
+      `[[${relative.slice(0,-3)}#definition-of-done]]`, `[[${relative}]]`,
+      `[Done](${relative}#definition-of-done)`,
+      `[Done](<${relative}#Definition%20of%20Done> "Title")`,
+      `[Done](${relative.replaceAll('/', '%2F').replaceAll('.', '%2E')}%23Definition%20of%20Done)`,
+      `[Done][dod]\n[dod]: <${relative}#definition-of-done> "Title"`,
+      `![[${vault}#Definition of Done]]`
+    ];
+    for (const link of links) {
+      await writeFile(filename,`---\ntype: ${filename === recordPath ? 'task' : 'daily-plan'}\n---\n${link}\n`);
+      const navigation = await inspectNavigation(nav);
+      assert.deepEqual(navigation.diagnostics,[],link);
+      assert.ok(navigation.targets.some(target=>target.path === retiringPath),link);
+      const retirement = await inspectMigrationRetirement(f.input);
+      assert.equal(retirement.allowed,false,link);
+      assert.ok(issueAt(retirement.issues,filename),link);
+      await unlink(retiringPath);
+      const completion = await completeMigration(f.input);
+      assert.equal(completion.status,'conflict',link);
+      assert.ok(issueAt(completion.conflicts,filename),link);
+      await assert.rejects(appendDecision(append),/live-incoming-link/,link);
+      await access(f.input.operationPath);
+      await writeFile(retiringPath,source);
+      await writeFile(filename,'[[projects/task#Definition of Done]]');
+      assert.deepEqual((await inspectNavigation(nav)).diagnostics,[]);
+      assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
+    }
+  }
+  assert.equal((await queryDecisions({projectsRoot:f.context.projectsRoot,dryRun:true})).total,0);
+  await unlink(retiringPath);
+  assert.equal((await appendDecision(append)).duplicate,false);
+  assert.equal((await completeMigration(f.input)).status,'completed');
+  assert.equal((await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event})).duplicate,true);
+});
+
+test('migration resolves actual targets while preserving collision and hidden-state safeguards', async () => {
+  const f = await fixture(), criterionId = uuid7();
+  const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  const retiringPath = path.join(f.context.projectsRoot,'definition-of-done.md');
+  const unrelated = path.join(f.context.projectsRoot,'other');
+  await mkdir(unrelated);
+  await writeFile(retiringPath,source); await writeFile(f.file,destination);
+  await writeFile(path.join(unrelated,'definition-of-done.md'),'# Unrelated DoD');
+  await writeFile(path.join(unrelated,'t1-link.md'),'---\ntype: task\n---\n[[definition-of-done]]');
+  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:false}]};
+  await f.save();
+  assert.deepEqual((await inspectNavigation({projectsRoot:f.context.projectsRoot,vaultRoot:f.context.vaultRoot})).diagnostics,[]);
+  assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
+  for (const directory of [path.join(f.context.projectsRoot,'.temp'),path.join(f.context.dailyPlansRoot,'.state')]) {
+    await mkdir(directory);
+    await writeFile(path.join(directory,'recovery.md'),destination+'\n[[projects/definition-of-done]]');
+  }
+  assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
+  const collision = path.join(unrelated,'collision.md');
+  await writeFile(collision,destination);
+  const result = await inspectMigrationRetirement(f.input);
+  assert.equal(result.allowed,false);
+  for (const reason of ['destination-identity-collision','criterion-identity-collision']) assert.ok(result.issues.some(issue=>issue.reason === reason && issue.path === collision));
+  await unlink(collision);
+  const incoming = path.join(unrelated,'t1-link.md');
+  const hidden = path.join(f.context.projectsRoot,'.temp','recovery.md');
+  const outside = path.resolve(f.context.vaultRoot,'..','excluded.md');
+  for (const target of [hidden,outside]) {
+    for (const markdown of [`[[${target}]]`,`[Unsafe](${target})`]) {
+      await writeFile(incoming,markdown);
+      const inspection = await inspectMigrationRetirement(f.input);
+      assert.equal(inspection.allowed,false);
+      assert.ok(inspection.issues.some(issue=>issue.reason === 'unreadable-link' && issue.path === incoming));
+    }
+  }
+  await writeFile(incoming,'No retired links.');
+  const linked = path.join(unrelated,'linked.md');
+  await symlink(retiringPath,linked);
+  const unscannable = await inspectMigrationRetirement(f.input);
+  assert.equal(unscannable.allowed,false);
+  assert.ok(unscannable.issues.some(issue=>issue.reason === 'unscannable-link' && issue.path === linked));
+  await unlink(linked);
   assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
 });
 

@@ -1,0 +1,37 @@
+{
+  "argv": [
+    "node",
+    "/srv/agent-work/openclaw/projects/daily-tasks/artifacts/portable/bin/daily-tasks.mjs",
+    "log-append",
+    "--input",
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/native-stage-0-append.json"
+  ],
+  "input": {
+    "projectsRoot": "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/1-projects",
+    "entry": {
+      "id": "01a1359b-4505-7536-8706-cc7084282c1b",
+      "operation_id": "01a1359b-4505-7020-9115-64681945e87a",
+      "action": "selection-move",
+      "record_ids": [
+        "01a1359b-4505-78dd-94c6-d5fa3f52b77f"
+      ],
+      "actor": {
+        "kind": "person",
+        "id": "fixture@example.test"
+      },
+      "activity_at": "2026-10-13T14:12:10.627Z",
+      "recorded_at": "2026-10-13T14:12:10.627Z",
+      "time_defaulted": false,
+      "original_words": "Move Recovery task to tomorrow (synthetic acceptance test).",
+      "before": {
+        "date": "2026.10.13"
+      },
+      "after": {
+        "date": "2026.10.14"
+      }
+    }
+  },
+  "exitCode": 0,
+  "stdout": "{\"entry\":{\"id\":\"01a1359b-4505-7536-8706-cc7084282c1b\",\"operation_id\":\"01a1359b-4505-7020-9115-64681945e87a\",\"action\":\"selection-move\",\"record_ids\":[\"01a1359b-4505-78dd-94c6-d5fa3f52b77f\"],\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"activity_at\":\"2026-10-13T14:12:10.627Z\",\"recorded_at\":\"2026-10-13T14:12:10.627Z\",\"time_defaulted\":false,\"original_words\":\"Move Recovery task to tomorrow (synthetic acceptance test).\",\"before\":{\"date\":\"2026.10.13\"},\"after\":{\"date\":\"2026.10.14\"}},\"duplicate\":false,\"file\":\"/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/1-projects/.daily-tasks/2026.10.13-decisions.json\",\"dryRun\":false}\n",
+  "stderr": ""
+}

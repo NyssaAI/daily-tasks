@@ -1,0 +1,26 @@
+{
+  "runId": "2026-10-13T13-31-07-496Z-final-gate-codex",
+  "target": "codex",
+  "suite": "workflow-v4",
+  "platform": "win32/x64",
+  "configuration": "default",
+  "candidate": "3b8c8904519d1ddc0a6328a3e403ce95d425c483d6e1ced241da5e7c1561cbdd",
+  "suite_revision": "a0e679a941d47f0443f5b963bbfb09722d5919d9",
+  "started_at": "2026-10-13T13:31:08.859Z",
+  "completed_at": "2026-10-13T13:33:18.642Z",
+  "status": "Not run / unverified",
+  "last_completed_stage": "read-only host availability inspection",
+  "last_completed_case": null,
+  "attempted_action": "OpenClaw nodes status",
+  "exit_status": null,
+  "diagnostic": {
+    "windows_node_connected": true,
+    "approvalState": "pending-approval",
+    "advertised_active_caps": [],
+    "advertised_active_commands": [],
+    "sessionHost": false
+  },
+  "cause": "external execution blocker: pending node access; no access-control changes authorized or performed",
+  "next_check": "After the node owner independently restores approved execution access, register this exact artifacts/portable in a fresh isolated Codex profile on Windows x64; verify loaded skill paths/hashes and execute all nine workflow-v4 scenarios from evals/README.md, retaining native actions and artifacts for verifyResult.",
+  "redactions": "Node name, network address, device/request identifiers omitted; no private records or credentials accessed."
+}

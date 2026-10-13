@@ -95,7 +95,7 @@ hashes refresh during rebuild. Cache JSON is written atomically.
 An external assigned projects root uses `@projectsRoot` in portable cache scope.
 Operation results carry `planningBinding` separately from inventory JSON.
 
-`planning-review` computes owner-focused counts/options and stable pages of at most
+`planning-review` computes all-owner scoped counts/options and stable pages of at most
 15 additions. `plan-selection` returns explicit add/move/remove effects; the skill
 creates dated plans and applies transfers through checkpoints/logging.
 CLI `planning-review`, `plan-selection`, `carry-forward` and `plan-rollover` require
@@ -106,13 +106,35 @@ fail before planning. Review results retain the mapping binding. Pure
 library helpers do not establish host sessions or authorize Markdown writes.
 `maintenance-status` separates four-hour CLI inspection freshness from worker
 execution evidence. No trusted host worker adapter is supplied, so worker success
-remains unrecorded. `maintenance-inspect` checks actual files, navigation, baselines
+remains unrecorded. It returns `workerEvidence` as
+`{status:"unsupported",reason:"trusted-worker-adapter-unavailable"}` and retains
+`fullReconcileDue` as `null` (unassessable, neither overdue nor verified complete)
+in every status branch. Callers must not treat that field's falsiness as success.
+Boolean `inspectionDue` remains the actionable CLI check gate; `alwaysCheck` still
+applies on every request. Unsupported capability does not require a worker run or
+block independent planning; direct checks are the supported fallback.
+The pure `maintenanceStatus` interval helper in `lib/planning/review.mjs` derives
+an age from supplied timestamps only; it is not worker-evidence ingestion or trust.
+`maintenance-inspect` rejects caller-authored worker claims, checks actual files, navigation, baselines
 and pending operations and saves only `maintenance-inspection.json` with its own
 clock. It never changes worker-success timestamps.
+Retained legacy operation receipts whose bound operation ID and status prove
+completion are historical evidence, not pending checkpoints. Maintenance diagnostics
+remain path/record scoped; their presence does not turn an otherwise valid planning
+packet into a global recovery requirement.
 
 SchemaV2 completion checkpoints bind exact file hashes, context, protected sources
 and log payloads. `operation-verify` reads actual effects and queries the event;
-`operation-complete` saves checked baselines and clears checkpoints. Specialized
+`operation-complete` saves checked baselines and clears checkpoints. A narrow
+`selectionState` add/remove/move intent binds dates, plan IDs/paths, task IDs,
+recoverable before Markdown and exact rollover-state before bytes/hash or absence.
+It derives removal-history deltas only, preserves unrelated IDs and receipt fields,
+initializes absent dated state without a rollover receipt, and preflights every
+state/baseline before optimistic atomic writes. Verification separates persisted
+Markdown/event checks from pending/conflicting owned JSON; partial completion
+resumes at exact before/derived-after bytes and clears the checkpoint last. See
+[selection-state schema](../skills/daily-tasks/references/verification.md#selection-removal-history).
+Specialized
 `rollover-complete`, `migration-retirement` and `migration-complete` add selection,
 identity and retirement-preservation checks. See the canonical
 [verification contract](../skills/daily-tasks/references/verification.md).
@@ -120,7 +142,9 @@ New `workspace.migration` log appends require resolved profile/vault scope and a
 bound `operationPath`; actual retirement, preservation, references and declared
 effects must be verified before the event is persisted. Exact recorded retries
 remain idempotent after checkpoint clearance.
-`inspect-navigation` checks local headings and attachments. `next-record-number`
+`inspect-navigation` checks local headings and attachments, resolves extensionless
+wiki links (including dotted date names) to Markdown, and supports explicit
+vault-relative targets when vaultRoot is supplied. `next-record-number`
 queries retirement history through the log API and fails closed on ambiguous
 labels. Supported scans exclude hidden log directories; unrestricted host file
 tools remain outside the CLI's enforcement boundary.

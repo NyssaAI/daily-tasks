@@ -10,6 +10,7 @@ import { parseChecklist } from '../lib/planning/planning.mjs';
 import { recoverOperation } from '../lib/reconciliation/reconciliation.mjs';
 import { appendDecision, queryDecisions } from '../lib/log/decision-log.mjs';
 import { projectInventory } from '../lib/inventory/inventory.mjs';
+import { completeOperation, verifyOperation } from '../lib/operations/verification.mjs';
 
 export const planningHash = text => createHash('sha256').update(text).digest('hex');
 const json = value => JSON.stringify(value,null,2)+'\n';
@@ -24,7 +25,7 @@ export async function seedPlanningFixture(parent, stopAfter = 0, now = new Date(
   const stateRoot = path.join(vaultRoot,'.nyssaai/daily-tasks');
   const project = path.join(projectsRoot,'2026.01.01-fixture');
   for (const dir of [path.join(project,'first'),dailyPlansRoot,path.join(stateRoot,'operations')]) await mkdir(dir,{recursive:true});
-  const ids = Object.fromEntries(['project','milestone','task','other','source','destination','operation','event','rollover','history'].map(key => [key,uuid7()]));
+  const ids = Object.fromEntries(['project','milestone','task','other','source','destination','operation','event','rollover','destinationRollover','unrelatedRemoval','history'].map(key => [key,uuid7()]));
   const userEmail = 'fixture@example.test', timezone = 'America/Chicago';
   const today = localDay(now,timezone);
   const nextDay = localDay(new Date(Date.parse(today.replaceAll('.','-')+'T12:00:00Z')+86400000).toISOString(),timezone);
@@ -51,36 +52,43 @@ export async function seedPlanningFixture(parent, stopAfter = 0, now = new Date(
   const baseline = (moved) => ({schemaVersion:1,records:{[ids.task]:{canonical:{state:'not-started'},views:{
     [source]:{selected:!moved,hash:planningHash(moved ? sourceAfter : sourceBefore)},
     ...(moved ? {[destination]:{selected:true,hash:planningHash(destinationAfter)}} : {})
-  }}}});
+  }},[ids.other]:{canonical:{state:'not-started'},views:{}}}});
   const baselineBefore = json(baseline(false)), baselineAfter = json(baseline(true));
   await mkdir(path.join(stateRoot,'rollover'),{recursive:true});
   const sourceRolloverPath = path.join(stateRoot,'rollover',today+'.json');
   const destinationRolloverPath = path.join(stateRoot,'rollover',nextDay+'.json');
-  const sourceRolloverBefore = {schemaVersion:1,date:today,planId:ids.source,operationId:ids.rollover,completedAt:now,removedIds:[]};
-  const sourceRolloverAfter = {...sourceRolloverBefore,removedIds:[ids.task]};
-  const destinationRollover = {schemaVersion:1,date:nextDay,planId:ids.destination,removedIds:[]};
+  const sourceRolloverBefore = {schemaVersion:1,date:today,planId:ids.source,operationId:ids.rollover,completedAt:now,removedIds:[ids.unrelatedRemoval]};
+  const sourceRolloverAfter = {...sourceRolloverBefore,removedIds:[ids.unrelatedRemoval,ids.task]};
+  const destinationRolloverBefore = {schemaVersion:1,date:nextDay,planId:ids.destination,operationId:ids.destinationRollover,completedAt:now,removedIds:[ids.task,ids.unrelatedRemoval]};
+  const destinationRollover = {...destinationRolloverBefore,removedIds:[ids.unrelatedRemoval]};
   await writeFile(sourceRolloverPath,json(sourceRolloverBefore));
-  await writeFile(destinationRolloverPath,json(destinationRollover));
+  await writeFile(destinationRolloverPath,json(destinationRolloverBefore));
   const event = {id:ids.event,operation_id:ids.operation,action:'selection-move',record_ids:[ids.task],actor:{kind:'person',id:userEmail},activity_at:now,recorded_at:now,time_defaulted:false,
     original_words:'Move Recovery task to tomorrow (synthetic acceptance test).',before:{date:today},after:{date:nextDay}};
-  const changes = [
-    {key:'destinationMember',before:{present:true,value:false},after:{present:true,value:true}},
-    {key:'sourceMember',before:{present:true,value:true},after:{present:true,value:false}},
-    {key:'logRecorded',before:{present:true,value:false},after:{present:true,value:true}},
-    {key:'baselineHash',before:{present:true,value:planningHash(baselineBefore)},after:{present:true,value:planningHash(baselineAfter)}},
-    {key:'sourceRolloverHash',before:{present:true,value:planningHash(json(sourceRolloverBefore))},after:{present:true,value:planningHash(json(sourceRolloverAfter))}}
-  ];
-  const operation = {operation_id:ids.operation,contextBinding:planningBinding({vaultRoot,projectsRoot,dailyPlansRoot}),changes,event,
+  const planEvidence = (date,planPath,planId,beforeMarkdown,state) => ({date,planPath,planId,beforeMarkdown,stateBeforeHash:planningHash(json(state)),stateBeforeText:json(state)});
+  const operation = {schemaVersion:2,operation_id:ids.operation,contextBinding:planningBinding({vaultRoot,projectsRoot,dailyPlansRoot}),event,
     files:[{path:source,before:planningHash(sourceBefore),after:planningHash(sourceAfter)},
-      {path:destination,before:null,after:planningHash(destinationAfter)}]};
+      {path:destination,before:null,after:planningHash(destinationAfter)}],
+    protectedFiles:[...Object.entries(canonicalHashes).map(([path,sha256]) => ({path,sha256})),{path:historyPath,sha256:planningHash(historyText)}],
+    baseline:{beforeHash:planningHash(baselineBefore),beforeText:baselineBefore,value:baseline(true)},
+    selectionState:{direction:'move',taskIds:[ids.task],
+      source:planEvidence(today,source,ids.source,sourceBefore,sourceRolloverBefore),
+      destination:planEvidence(nextDay,destination,ids.destination,null,destinationRolloverBefore)}};
   const checkpointPath = path.join(stateRoot,'operations',ids.operation+'.json');
   await writeFile(source,stopAfter >= 2 ? sourceAfter : sourceBefore);
   if (stopAfter >= 1) await writeFile(destination,destinationAfter);
-  await writeFile(baselinePath,stopAfter >= 4 ? baselineAfter : baselineBefore);
+  await writeFile(baselinePath,baselineBefore);
   await writeFile(path.join(stateRoot,'profile.json'),json({schema_version:1,user:{name:'Fixture',email:userEmail},timezone,priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',projectIndex:{ttlSeconds:14400}}));
   await writeFile(checkpointPath,json(operation));
   if (stopAfter >= 3) await appendDecision({projectsRoot,entry:event});
-  const manifest = {vaultRoot,projectsRoot,dailyPlansRoot,stateRoot,timezone,now,userEmail,today,nextDay,ids,canonicalHashes,source,destination,sourceBefore,sourceAfter,destinationAfter,historyPath,historyHash:planningHash(historyText),baselinePath,baselineBefore,baselineAfter,sourceRolloverPath,destinationRolloverPath,sourceRolloverBefore,sourceRolloverAfter,destinationRollover,checkpointPath,operation,stopAfter};
+  if (stopAfter >= 4) {
+    // Seed an interrupted clear after production persisted all owned state.
+    // Only restore the identical checkpoint, never manufacture completed state.
+    const completed = await completeOperation({vaultRoot,stateRoot,now,operationPath:checkpointPath});
+    if (completed.status !== 'completed') throw new Error('Stage4 production completion failed');
+    await writeFile(checkpointPath,json(operation));
+  }
+  const manifest = {vaultRoot,projectsRoot,dailyPlansRoot,stateRoot,timezone,now,userEmail,today,nextDay,ids,canonicalHashes,source,destination,sourceBefore,sourceAfter,destinationAfter,historyPath,historyHash:planningHash(historyText),baselinePath,baselineBefore,baselineAfter,sourceRolloverPath,destinationRolloverPath,sourceRolloverBefore,sourceRolloverAfter,destinationRolloverBefore,destinationRollover,checkpointPath,operation,stopAfter};
   await writeFile(path.join(vaultRoot,'fixture.json'),json(manifest));
   return manifest;
 }
@@ -93,14 +101,22 @@ export async function inspectPlanningFixture(fixture) {
   try { destinationText = await readFile(destination,'utf8'); } catch (error) { if (error.code !== 'ENOENT') throw error; }
   const baselineText = await readFile(baselinePath,'utf8');
   const sourceRolloverText = await readFile(fixture.sourceRolloverPath,'utf8');
-  const destinationRollover = JSON.parse(await readFile(fixture.destinationRolloverPath,'utf8'));
+  const destinationRolloverText = await readFile(fixture.destinationRolloverPath,'utf8');
+  const destinationRollover = JSON.parse(destinationRolloverText);
   const historyPreserved = fixture.historyPath ? planningHash(await readFile(fixture.historyPath,'utf8')) === fixture.historyHash : false;
   // Query the whole bounded fixture history: a changed record_ids must not hide
   // an operation/event collision from the exact-payload comparison.
   const log = await queryDecisions({projectsRoot,limit:1000});
   const recorded = log.entries.find(entry => entry.operation_id === ids.operation);
-  const actual = {sourceMember:parseChecklist(sourceText).some(row => row.id === ids.task),destinationMember:parseChecklist(destinationText ?? '').some(row => row.id === ids.task),logRecorded:recorded ? isDeepStrictEqual(recorded,operation.event) ? true : 'conflicting-event' : false,baselineHash:planningHash(baselineText),sourceRolloverHash:planningHash(sourceRolloverText)};
-  const recovery = recoverOperation(operation,actual);
+  const actual = {sourceMember:parseChecklist(sourceText).some(row => row.id === ids.task),destinationMember:parseChecklist(destinationText ?? '').some(row => row.id === ids.task),logRecorded:recorded ? isDeepStrictEqual(recorded,operation.event) ? true : 'conflicting-event' : false,baselineHash:planningHash(baselineText),sourceRolloverHash:planningHash(sourceRolloverText),destinationRolloverHash:planningHash(destinationRolloverText)};
+  // Independent read-only oracle; field snapshots are not production checkpoints.
+  const expected = {
+    destinationMember:[false,true],sourceMember:[true,false],logRecorded:[false,true],
+    baselineHash:[planningHash(fixture.baselineBefore),planningHash(fixture.baselineAfter)],
+    sourceRolloverHash:[planningHash(json(fixture.sourceRolloverBefore)),planningHash(json(fixture.sourceRolloverAfter))],
+    destinationRolloverHash:[planningHash(json(fixture.destinationRolloverBefore)),planningHash(json(fixture.destinationRollover))]
+  };
+  const recovery = recoverOperation({changes:Object.entries(expected).map(([key,[before,after]]) => ({key,before:{present:true,value:before},after:{present:true,value:after}}))},actual);
   const unexpectedFiles = operation.files.filter(file => {
     const text = file.path === source ? sourceText : destinationText;
     const hash = text === undefined ? null : planningHash(text);
@@ -121,11 +137,12 @@ export async function inspectPlanningFixture(fixture) {
   // fixture intent still supplies the comparison, but absence is safe only when
   // every persisted effect is already applied; it cannot excuse pending work.
   const checkpointRemoved = !checkpoint && recovery.status === 'already-applied';
-  const checkpointIntentPreserved = checkpointRemoved || !!checkpoint && isDeepStrictEqual(Object.fromEntries(Object.keys(operation).map(key => [key,checkpoint[key]])),operation);
+  const checkpointIntentPreserved = checkpointRemoved || !!checkpoint && isDeepStrictEqual(checkpoint,operation);
   if (!checkpointIntentPreserved) unexpectedFiles.push(fixture.checkpointPath);
   let completionValid = completion === undefined;
   if (completion !== undefined) { try { utcTimestamp(completion); completionValid = true; } catch { /* Invalid completion is not evidence. */ } }
-  return {recovery,unexpectedFiles,actual,logCount:log.entries.length,active,
+  const productionVerification = checkpoint ? await verifyOperation({vaultRoot:fixture.vaultRoot,stateRoot:fixture.stateRoot,homeRoot:fixture.vaultRoot,now:fixture.now,operationPath:fixture.checkpointPath}).catch(error => ({status:'conflict',error:error.message})) : null;
+  return {recovery,productionVerification,unexpectedFiles,actual,logCount:log.entries.length,active,
     otherPreserved:parseChecklist(sourceText).some(row => row.id === ids.other),
     prosePreserved:sourceText.includes('Preserve this unrelated note.') && (!destinationText || destinationText.includes('Preserve this unrelated note.')),
     planIdentityPreserved:!destinationText || destinationText.includes(`id: ${ids.destination}`),completion,

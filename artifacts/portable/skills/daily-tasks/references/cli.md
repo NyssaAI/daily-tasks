@@ -57,12 +57,12 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
-| planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | Owner-focused counts, selected/available rows, stable mapping, diagnostics; max 15 addition rows |
+| planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | All-owner scoped counts, selected/available rows with ownership metadata, stable mapping, diagnostics; max 15 addition rows |
 | plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
-| maintenance-status | resolved context inputs | Separate inspection freshness and unavailable trusted worker evidence; no write |
+| maintenance-status | resolved context inputs | Boolean inspectionDue, alwaysCheck; workerEvidence.status unsupported and fullReconcileDue null (not overdue/success); no write |
 | maintenance-inspect | resolved context inputs, dryRun? | Actual graph/navigation/baseline checks; saves CLI inspection JSON only; no worker success |
-| operation-verify | resolved context inputs, operationPath absolute | Actual effects/protected sources/exact event checks; no write |
-| operation-complete | same, dryRun? | Verified baseline save and checkpoint removal |
+| operation-verify | resolved context inputs, operationPath absolute | Actual effects/protected sources/exact event checks; typed selection intent also reports persistedStatus and pending/conflicting owned state; no write |
+| operation-complete | same, dryRun? | Verified baseline save, typed selection removal-history derivation across dates, checkpoint removal last |
 | rollover-complete | same, schemaV2 rollover checkpoint | Recomputed selections and identity checks before receipt/baseline/checkpoint completion |
 | migration-retirement | same, schemaV2 migration checkpoint | Pre-removal content and live incoming-reference checks; allowed/ issues; no deletion |
 | migration-complete | same, retained source snapshot, dryRun? | Post-removal effect/event/baseline checks; no chronological attestation |
@@ -77,8 +77,8 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | reconcile-record | base, current, views | Proposed record, conflicts and changes; no write |
 | reopen-ancestors | records, changedIds | Proposed records and changedIds; no write |
 | recover-operation | operation:{changes:[{key,before,after}]}, actual:{key:value} | pending/already-applied/conflict |
-| carry-forward | rows, records, userEmail; inventory? with today | own/delegated/unresolved selection, excludes terminal/future-selected work |
-| plan-rollover | today, planId, userEmail; currentRows?, state?, previousDate?, previousRows?, records?, inventory?, removedIds? | due/complete/conflict and merged selected rows with carry provenance; no writes |
+| carry-forward | rows, records, userEmail; inventory? with today | own/delegated/follow-up/unresolved selection, excludes terminal/future-selected work |
+| plan-rollover | today, planId, userEmail; currentRows?, state?, previousDate?, previousRows?, records?, inventory?, removedIds? | due/complete/conflict and merged selected rows with own/delegated/follow-up carry provenance; no writes |
 | log-append | projectsRoot, entry, dryRun?; new workspace.migration also requires vaultRoot (or captured initialCwd), profile scope and operationPath | Append decision; migration checks actual retirement against bound checkpoint; identical operation retry deduplicated |
 | log-query | projectsRoot, recordId?, action?, since?, until?, limit?, offset? | Matching entries across active/archive files |
 | log-archive | projectsRoot, dryRun? | Preserve current file in archives; next append starts new dated segment |
@@ -129,6 +129,15 @@ remains fingerprinted in its disposable freshness sidecar.
 Counts, lateness, eligibility and first incomplete milestone are computed on read.
 Refresh hashes on rebuild; reuse checks source membership/metadata. The sidecar
 is derived freshness evidence, not authoritative state. See [planning flow](planning-flow.md).
+
+Maintenance status retains `fullReconcileDue` but returns `null` while trusted worker
+evidence is unsupported; do not interpret falsiness as verified worker completion.
+`workerEvidence` is `{status:"unsupported",reason:"trusted-worker-adapter-unavailable"}`
+even when an inspection receipt is missing or invalid. `inspectionDue` alone tracks
+the actionable four-hour CLI inspection interval. Use direct checks when a worker
+cannot run, and always perform `alwaysCheck` on requested use. Neither unsupported
+worker evidence nor unrelated inspection diagnostics impose a global planning stop.
+Caller-authored worker claims are rejected; `maintenance-inspect` is not worker evidence.
 
 Concurrency uses a lock. A stale lock is surfaced with its path; confirm the recorded
 process is stopped before removing only that lock directory through deliberate recovery.

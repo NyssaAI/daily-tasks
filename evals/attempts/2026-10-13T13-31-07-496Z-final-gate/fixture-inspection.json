@@ -1,0 +1,88 @@
+{
+  "recovery": {
+    "status": "pending",
+    "pending": [
+      {
+        "key": "destinationMember",
+        "before": {
+          "present": true,
+          "value": false
+        },
+        "after": {
+          "present": true,
+          "value": true
+        }
+      },
+      {
+        "key": "sourceMember",
+        "before": {
+          "present": true,
+          "value": true
+        },
+        "after": {
+          "present": true,
+          "value": false
+        }
+      },
+      {
+        "key": "logRecorded",
+        "before": {
+          "present": true,
+          "value": false
+        },
+        "after": {
+          "present": true,
+          "value": true
+        }
+      },
+      {
+        "key": "baselineHash",
+        "before": {
+          "present": true,
+          "value": "545a40bb6057b239f9ab51d11c14db7cefd3b0adcd064442da66d74097fe551c"
+        },
+        "after": {
+          "present": true,
+          "value": "a3e6b28ac2f2fc1a91808d7413f4d888c0d7d6f474b5a21304986630d85ef9ab"
+        }
+      },
+      {
+        "key": "sourceRolloverHash",
+        "before": {
+          "present": true,
+          "value": "32f571d48642dd712de4d2277f2fdbf2e63f20fea9de8fb23684375f59456a0f"
+        },
+        "after": {
+          "present": true,
+          "value": "a3c67aaf050edb6b594a0743e87c950bd44e9445161b6556fd3c36b74433f866"
+        }
+      }
+    ],
+    "conflicts": []
+  },
+  "unexpectedFiles": [],
+  "actual": {
+    "sourceMember": true,
+    "destinationMember": false,
+    "logRecorded": false,
+    "baselineHash": "545a40bb6057b239f9ab51d11c14db7cefd3b0adcd064442da66d74097fe551c",
+    "sourceRolloverHash": "32f571d48642dd712de4d2277f2fdbf2e63f20fea9de8fb23684375f59456a0f"
+  },
+  "logCount": 0,
+  "active": [
+    {
+      "date": "2026.10.13",
+      "source": "2-areas/daily-plans/2026.10.13-daily-plan.md"
+    }
+  ],
+  "otherPreserved": true,
+  "prosePreserved": true,
+  "planIdentityPreserved": true,
+  "canonicalPreserved": true,
+  "checkpointIntentPreserved": true,
+  "checkpointRemoved": false,
+  "completionValid": true,
+  "historyPreserved": true,
+  "rolloverPreserved": true,
+  "verified": false
+}

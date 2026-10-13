@@ -6,7 +6,7 @@ skills still interpret requests, obtain acceptance and author Markdown.
 
 | Boundary | Enforced check |
 | --- | --- |
-| Maintenance | Separate CLI inspection freshness from worker execution. Actual files, navigation, baselines and pending operations must pass before saving inspection state. No trusted host worker adapter is supplied, so worker success remains unrecorded. |
+| Maintenance | Separate CLI inspection freshness from worker execution. Actual files, navigation, baselines and pending operations must pass before saving inspection state. No trusted host worker adapter is supplied: workerEvidence.status is unsupported and fullReconcileDue is null, never a permanently-due worker action or a success claim. Use inspectionDue and alwaysCheck for direct checks; independent planning remains available. |
 | Operation completion | Read actual before/after effects and protected sources; query and compare the complete exact event; validate proposed baselines and preserve unrelated entries before checkpoint removal. |
 | Changed rollover | Check current/prior plan identities, nearest earlier plan, actual selected membership, task sources, removals and dated-state before hash. Support new plans, absent history and next-day recovery. |
 | Migration retirement | Check copied criteria/content and remaining live path/UUID references before skill-owned deletion. Post-deletion completion requires retained source bytes, exact effects/event and checked baselines. It cannot prove earlier action order. |

@@ -1,0 +1,26 @@
+{
+  "runId": "2026-10-13T13-31-07-496Z-final-gate-node-local",
+  "target": "node-local",
+  "suite": "deterministic-v1",
+  "platform": "win32/x64",
+  "configuration": "node-22-plus",
+  "candidate": "3b8c8904519d1ddc0a6328a3e403ce95d425c483d6e1ced241da5e7c1561cbdd",
+  "suite_revision": "a0e679a941d47f0443f5b963bbfb09722d5919d9",
+  "started_at": "2026-10-13T13:31:08.859Z",
+  "completed_at": "2026-10-13T13:33:18.640Z",
+  "status": "Not run / unverified",
+  "last_completed_stage": "read-only host availability inspection",
+  "last_completed_case": null,
+  "attempted_action": "OpenClaw nodes status",
+  "exit_status": null,
+  "diagnostic": {
+    "windows_node_connected": true,
+    "approvalState": "pending-approval",
+    "advertised_active_caps": [],
+    "advertised_active_commands": [],
+    "sessionHost": false
+  },
+  "cause": "external execution blocker: pending node access; no access-control changes authorized or performed",
+  "next_check": "After the node owner independently restores approved system.run access, check Node >=22 and Windows x64, transfer this exact frozen candidate, and run node evals/run.mjs. Verify exported result with evals/evidence.mjs.",
+  "redactions": "Node name, network address, device/request identifiers omitted; no private records or credentials accessed."
+}

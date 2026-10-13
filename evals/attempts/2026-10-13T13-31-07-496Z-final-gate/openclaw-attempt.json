@@ -1,0 +1,76 @@
+{
+  "runId": "2026-10-13T13-31-07-496Z-final-gate-openclaw",
+  "target": "openclaw",
+  "suite": "workflow-v4",
+  "platform": "linux/x64",
+  "configuration": "default",
+  "candidate": "3b8c8904519d1ddc0a6328a3e403ce95d425c483d6e1ced241da5e7c1561cbdd",
+  "suite_revision": "a0e679a941d47f0443f5b963bbfb09722d5919d9",
+  "started_at": "2026-10-13T13:31:08.859Z",
+  "completed_at": "2026-10-13T13:35:24.981Z",
+  "status": "Unverified",
+  "hostVersion": "2026.10.2 (b8952d4)",
+  "last_completed_stage": "fresh isolated headless host execution attempted; failed before model turn and native skill discovery",
+  "last_completed_case": null,
+  "attempts": [
+    {
+      "sessionId": "b438031c-ea7b-4bfd-9eb2-ed37ab497081",
+      "model": "openai-codex/gpt-6",
+      "exit": 1,
+      "cause": "Evaluator invocation used legacy provider ID; retained, not scored."
+    },
+    {
+      "sessionId": "ecffaacf-cdd2-4da4-a2b1-3f4b56e1c3b2",
+      "model": "openai/gpt-6",
+      "exit": 1,
+      "cause": "Model resolution failed in fresh headless state. The API 2026.9.4 warning concerns unrelated personal-cos, not Daily Tasks; it does not establish a Daily Tasks discovery blocker."
+    }
+  ],
+  "command": "openclaw agent exec --config ABSOLUTE/native-config.json --cwd ABSOLUTE/native-workspace --state-dir ABSOLUTE/fresh-native-state --model openai/gpt-6 --no-auth-env-only --message-file ABSOLUTE/native-prompt.txt --timeout 180 --json",
+  "evidence": [
+    {
+      "path": "native-config.json",
+      "sha256": "d37d136409d56263fabe8d30dcf22dd26ba6a21d955e6ef2b26133b2722a00fa"
+    },
+    {
+      "path": "native-prompt.txt",
+      "sha256": "d5548830046ebf5c2a42fbb61a233c70f192fb0f98643d6b65176ea8125fae40"
+    },
+    {
+      "path": "native-output.json",
+      "sha256": "4f0e3bb67ff69a158b17c8e6c13ec72e3ec0a01a86f58e9f8032669eecfca458"
+    },
+    {
+      "path": "native-stderr.txt",
+      "sha256": "7e0171d4f8297bf62ed812817e98a996eb6a6ac8074027e2395ef87e41322241"
+    },
+    {
+      "path": "native-output-2.json",
+      "sha256": "8fff242109f3dc30fcfa5d51611f3f524a0dd600cf8c9b21417ae2140f842540"
+    },
+    {
+      "path": "native-stderr-2.txt",
+      "sha256": "49180d60ebdf02bc9b80046b3cbb517d0cfa8ced62dacc79f2a62547c564bb00"
+    }
+  ],
+  "classification": "Evaluator headless model/configuration blocker before any behavioral assertion. Prior API warning attribution corrected: unrelated personal-cos, not Daily Tasks. Authenticated Gateway Astra retry is recorded separately.",
+  "fixture": {
+    "path": "synthetic-fixture/",
+    "inspection": "fixture-inspection.json",
+    "result": "Pending unchanged operation, zero events, preserved canonical/history/intent; verified=false. No native output documents."
+  },
+  "next_check": "Builder must reconcile declared planning fixture with schema-2 operation protocol and calibrate a known-valid checkpoint; adversarial delta review and fresh affected evaluation required after repair. Then run fresh isolated native recovery and all nine workflow-v4 scenarios, inspect fixture, retry after successful completion and verify exactly one event. Required Windows x64 node evals/run.mjs and isolated Codex nine-scenario acceptance remain outstanding; do not approve access here.",
+  "omissions": "Ephemeral SQLite host runtime databases omitted; no raw private session transcripts or auth files exported. Synthetic fixture and exact native stdout/stderr retained.",
+  "correction": {
+    "at": "2026-10-13T13:40:29.763144+00:00",
+    "original_receipt": "../2026-10-13T13-39-27-openclaw-astra-retry/original-openclaw-attempt.json",
+    "followup": "../2026-10-13T13-39-27-openclaw-astra-retry/",
+    "basis": "Lead read-only diagnostics; local confirmation retained in followup diagnostics.json"
+  },
+  "followup_result": {
+    "receipt": "../2026-10-13T13-39-27-openclaw-astra-retry/openclaw-attempt.json",
+    "status": "Unverified",
+    "classification": "Evaluation fixture/protocol incompatibility: evals/planning-fixture.mjs:73 creates a checkpoint without schemaVersion; lib/operations/verification.mjs:53 requires schemaVersion 2. This is not an authentication/plugin API blocker and does not establish incorrect recovery on a valid schema-2 operation. Frozen fixture and verifier were not repaired.",
+    "nativeRunId": "bb8e2bbd-5f7b-48cf-a611-ba729d3e79b2"
+  }
+}

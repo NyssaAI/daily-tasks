@@ -14,17 +14,17 @@ whether work is selected for today. [x] means completed, never merely selected.
 
 ## Already selected
 
-| #  | Status | Project | Milestone | Task | Due Date |
-| --- | --- | --- | --- | --- | --- |
-| 1  | [ ] | PROJECT_TITLE | MILESTONE_TITLE | ↺ [[RELATIVE_SELECTED_TASK_PATH\|TASK_TITLE]] <!-- ref: SELECTED_TASK_UUID --> | TARGET_DATE_OR_DASH |
+| #  | Status | Project | Milestone | Task | Owner | Assignee | Due Date |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1  | [ ] | PROJECT_TITLE | MILESTONE_TITLE | ↺ [[RELATIVE_SELECTED_TASK_PATH\|TASK_TITLE]] <!-- ref: SELECTED_TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
 
 ## Available tasks
 
-| # | Status | Project | Milestone | Task | Due Date |
-| --- | --- | --- | --- | --- | --- |
-| 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | TARGET_DATE_OR_DASH |
-| 3 | [ ] | PROJECT_2_TITLE | MILESTONE_2_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | TARGET_2_DATE_OR_DASH |
-| 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | TARGET_3_DATE_OR_DASH |
+| # | Status | Project | Milestone | Task | Owner | Assignee | Due Date |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
+| 3 | [ ] | PROJECT_2_TITLE | MILESTONE_2_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | OWNER_2_EMAIL | ASSIGNEE_2_OR_DASH | TARGET_2_DATE_OR_DASH |
+| 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_3_DATE_OR_DASH |
 
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward
 
@@ -56,14 +56,14 @@ true, then omit the conditional comments from the screen. Resolve first_run_toda
 from whether a planning session was already started on the configured local day;
 do not repeat the introduction on same-day calls or resumed screens. Keep this
 distinct from successful check-in completion, which remains separately tracked.
-Counts describe user-owned records in the scoped inventory, not only selected rows:
-- Open projects: unique projects owned by the user in not-started or in-progress state.
-- Open tasks: unique tasks owned by the user in not-started or in-progress state.
-- Late tasks: user-owned open tasks with an explicit target_date earlier than the configured
+Counts describe all valid records in the bound projects collection, not only selected rows:
+- Open projects: unique projects in not-started or in-progress state.
+- Open tasks: unique tasks in not-started or in-progress state, regardless of owner.
+- Late tasks: open tasks with an explicit target_date earlier than the configured
   local day. Tasks due today are not late. Never infer a due date.
-Filter this view by canonical owner matching the current user's email, regardless
-of assignee. Do not split delegated work or display assignees. Ownership permits
-the user to select work and decide delegation separately; it does not start execution.
+Show canonical owner and assignee for every row. A missing assignee renders as an em
+dash and means owner is the effective assignee. Visibility supports planning and
+follow-up; it does not change ownership, assignment or execution state.
 Do not show blockers, blocker counts or a Needs clarification section in this view.
 Keep reconciliation conflicts in their own workflow, preserving affected selections
 without presenting uncertain state as resolved. Identify incomplete/stale inventory;
@@ -102,22 +102,20 @@ Show at most 15 available addition rows per screen/page. This cap does not limit
 already-selected rows or change the inventory counts. Offer Show more when further
 eligible rows remain; preserve stable item numbers and decisions across pages.
 Remove example rows and render concise empty-state text for empty sections.
-Use only #, Status, Project, Milestone, Task and Due Date columns. Group rows under project/milestone
-headings. Render explicit due dates as yyyy.mm.dd (for example 2026.11.12), or an
+Use only #, Status, Project, Milestone, Task, Owner, Assignee and Due Date columns.
+Group rows under project/milestone headings. Render explicit due dates as yyyy.mm.dd (for example 2026.11.12), or an
 em dash when absent. Keep the Due Date column compact, sized for ten date characters
 when the host allows width control. Preserve canonical target_date storage format;
 this is a display-only conversion.
 Keep task labels short and descriptive; full descriptions stay in task files.
-Do not remove selections outside this ownership view from the underlying plan
-merely because they are not displayed here.
-Assign one continuous sequence across selected and available user-owned tasks.
+Assign one continuous sequence across all selected and available tasks.
 Prefix carried-forward task titles with ↺ in the Task cell, outside the link.
 Carry-forward means an unresolved selection brought from the most recent earlier
 daily plan, not a task merely retained during another check-in on the same day.
 Persist its source plan/date in review state so the marker survives follow-up
 renders. Do not mark newly selected tasks as carried forward. The marker describes
 selection provenance, not task status, priority or execution assignment.
-After a response batch, recap with the same #, Status, Project, Milestone, Task and Due Date
+After a response batch, recap with the same #, Status, Project, Milestone, Task, Owner, Assignee and Due Date
 columns and original row numbers. In the daily view show today's selected work
 and available unselected work only. Do not render tomorrow or other future-day
 tables unless the user explicitly requests the week view. Tasks explicitly moved

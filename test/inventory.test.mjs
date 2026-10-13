@@ -50,8 +50,17 @@ test('maintained preparation binds actual plan identity and state writes reject 
     user:{name:'Owner',email:owner},timezone:input.timezone,priorities:[],vaultRoot:'./',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
   const plan = path.join(input.dailyPlansRoot,'2026.10.06-daily-plan.md');
   await writeFile(plan,`---\nid: ${id(21)}\ntype: daily-plan\n---\n- [ ] [[../../1-projects/2026.01.01-alpha/first/a|A]] <!-- ref: ${id(3)} -->\n`);
+  const operations = path.join(input.vaultRoot,'.nyssaai/daily-tasks/operations');
+  await mkdir(operations);
+  await writeFile(path.join(operations,`${id(30)}.json`),JSON.stringify({operation_id:id(30),status:'completed',files:[]}));
   const prepared = await preparePlanning(input);
   assert.equal(prepared.status,'prepared');
+  assert.deepEqual(prepared.pendingOperations,[]);
+  await writeFile(path.join(operations,`${id(31)}.json`),JSON.stringify({schemaVersion:2,operation_id:id(31)}));
+  const interrupted = await preparePlanning(input);
+  assert.equal(interrupted.status,'recovery-required');
+  assert.deepEqual(interrupted.pendingOperations,[`${id(31)}.json`]);
+  await unlink(path.join(operations,`${id(31)}.json`));
   await writeFile(path.join(input.vaultRoot,'.nyssaai/daily-tasks/planning-review.json'),JSON.stringify({date:prepared.context.localDate,
     mappingBinding:prepared.context.planningBinding,mapping:{[id(3)]:7}}));
   const legacy = await preparePlanning(input);
@@ -147,7 +156,7 @@ test('conflicting active dates are diagnosed, historical selections do not confl
   assert.ok(!planningReview({inventory:result.inventory,userEmail:owner,timezone:input.timezone,now,allMilestones:true}).available.some(t => t.id === id(4)));
 });
 
-test('review pages keep stable handles, preserve later selections, owner filtering and day calculations', async () => {
+test('review pages keep stable handles, preserve later selections and day calculations', async () => {
   const input = await fixture();
   const {inventory} = await projectInventory(input);
   const task = inventory.tasks[0];
@@ -212,7 +221,7 @@ test('invalidation, corrupt cache and failed sidecar read preserve truthful fres
   assert.equal(await readFile(cold.path,'utf8'),before);
 });
 
-test('selected rows retain allocation, terminal work and out-of-view responsibility', async () => {
+test('selected rows retain allocation, terminal work and other-owner responsibility', async () => {
   const input = await fixture();
   const {inventory} = await projectInventory(input);
   const canonical = {id:id(4),project_id:id(1),milestone_id:id(2),owner,state:'not-started',title:'B'};
@@ -222,11 +231,24 @@ test('selected rows retain allocation, terminal work and out-of-view responsibil
     selected:[{id:id(4)},{id:id(80)},{id:id(90)}],selectedRecords:[canonical,completed]});
   assert.deepEqual(screen.selected[0].planned,inventory.tasks[1].planned);
   assert.equal(screen.selected[1].state,'completed');
-  assert.deepEqual(screen.outOfViewSelectedIds,[id(90)]);
+  assert.equal(screen.selected[2].owner,'someone@example.test');
+  assert.deepEqual(screen.outOfViewSelectedIds,[]);
   assert.equal(carryForward([{id:id(4)}],[canonical],owner,{inventory,today:'2026.10.06'}).own.length,0);
   inventory.milestones[0].state = 'completed';
   const all = planningReview({inventory,userEmail:owner,timezone:input.timezone,now,allMilestones:true});
   assert.deepEqual(all.available.map(t => t.id),[id(6)]);
+});
+
+test('review counts and offers all scoped work regardless of profile email or task owner', async () => {
+  const input = await fixture();
+  const {inventory} = await projectInventory(input);
+  const otherOwner = 'someone@example.test';
+  inventory.projects[0].owner = otherOwner;
+  for (const task of inventory.tasks) task.owner = otherOwner;
+  const screen = planningReview({inventory,userEmail:'profile@example.test',timezone:input.timezone,now,allMilestones:true});
+  assert.equal(screen.counts.openProjects,1);
+  assert.equal(screen.counts.openTasks,3);
+  assert.deepEqual(screen.available.map(task => task.owner),[otherOwner,otherOwner]);
 });
 
 test('manual future status edits remain affected work until reconciled, notes are not allocations', async () => {

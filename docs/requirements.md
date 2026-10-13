@@ -245,6 +245,9 @@ refresh must not present stale data as current or advance generatedAt. An explic
 refresh completes only after a successful rebuild. Changed editable views must be surfaced
 for reconciliation before their affected task statuses inform planning; indexing
 does not resolve conflicts or update canonical Markdown. No background scheduling.
+Completed legacy operation receipts do not count as pending recovery. Maintenance
+findings are scoped to their affected records and paths: unrelated legacy enrollment,
+navigation and baseline issues do not block independent planning state or plan saves.
 Routine inventory access uses the CLI directly. A broader reconciliation pass may
 use one shared maintenance subagent to refresh inventory and propose reconciliation
 changes, with separate inventory and reconciliation freshness timestamps. Prefer
@@ -265,12 +268,12 @@ review follows a process defined by screen templates. Screen sequence, fields,
 navigation and decision handling remain to be specified with the user. These
 interaction templates are distinct from the saved daily-plan document template;
 no graphical UI or screen implementation is implied by this requirement.
-The first local-day check-in includes an ownership-focused task-addition review
-screen beginning with user-owned open project, open task and late task counts.
-Show tasks owned by the user regardless of assignee, without delegated categories,
-assignee details, blockers, blocker counts or a Needs clarification section.
-Delegation remains the owner's subsequent choice; reconciliation conflicts remain
-in their separate workflow. Selections outside this view are preserved in the plan.
+The first local-day check-in includes a scoped task-addition review beginning with
+all valid open project, open task and late task counts. Show every eligible task in
+the bound projects collection regardless of owner or assignee, retaining both fields
+so personal, delegated and follow-up responsibility remain visible. Do not show
+blockers, blocker counts or a Needs clarification section. Delegation remains the
+owner's separate choice; reconciliation conflicts remain in their separate workflow.
 Existing selections are
 preserved; the broader eligible inventory is offered for explicit additions, with
 no requirement to add work. First-check-in status comes from successful check-in
@@ -294,7 +297,8 @@ tables require an explicit week-view request. Preserve original item numbering a
 the screen's table layout in recaps. Mark unresolved selections carried from the
 most recent earlier plan with ↺ in the task cell and explain it in the legend;
 carry-forward provenance is distinct from canonical state and day selection.
-Selection-screen and recap columns are #, Status, Project, Milestone, Task and Due Date.
+Selection-screen and recap columns are #, Status, Project, Milestone, Task, Owner,
+Assignee and Due Date.
 Status symbols reflect canonical progress; selected/available sections indicate
 day membership. `[x]` never means selected. Adding work does not mark it started
 or completed, and carried-forward work retains its actual canonical status.

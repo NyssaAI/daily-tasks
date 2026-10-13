@@ -1,0 +1,45 @@
+{
+  "files": {
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/2-areas/daily-plans/2026.10.13-daily-plan.md": {
+      "sha256": "2e87701d72b87712663d297c8fc7a3e1096faadb0bf790def5d78af4afe12419",
+      "text": "---\nid: 01a1359b-4505-720a-b313-74f321550d94\ntype: daily-plan\ntitle: \"Daily plan 2026.10.13\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-13T14:12:10.627Z\"\nupdated_at: \"2026-10-13T14:12:10.627Z\"\n---\n# Daily plan \u2014 2026.10.13\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/other-task|Other task]] <!-- ref: 01a1359b-4505-71d5-a1b6-1c59fa45bf8d -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/2-areas/daily-plans/2026.10.14-daily-plan.md": {
+      "sha256": "2e06a8bcd97d3c9695e985f48be898058234d75970d882c83c384f24203686f4",
+      "text": "---\nid: 01a1359b-4505-7ba4-82dd-e51dddaddee5\ntype: daily-plan\ntitle: \"Daily plan 2026.10.14\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-13T14:12:10.627Z\"\nupdated_at: \"2026-10-13T14:12:10.627Z\"\n---\n# Daily plan \u2014 2026.10.14\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1359b-4505-78dd-94c6-d5fa3f52b77f -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/1-projects/2026.01.01-fixture/project-index.md": {
+      "sha256": "da9e745f51937dbe8e75a4f736c0a31665713df52e9161c3df48fbcdbd230a7a",
+      "text": "---\nid: 01a1359b-4504-7b93-b34c-242058b99c16\ntype: project\ntitle: \"Fixture\"\nowner: fixture@example.test\nproject-state: not-started\ncreated_at: 2026-10-13T14:12:10.627Z\nupdated_at: 2026-10-13T14:12:10.627Z\n---\n# Fixture\n| Milestone | Task |\n| --- | --- |\n| [ ] [[first/milestone\\|First]] <!-- ref: 01a1359b-4505-72a5-b6bc-5df1a2021424 --> | |\n| | [ ] [[first/recovery-task\\|Recovery task]] <!-- ref: 01a1359b-4505-78dd-94c6-d5fa3f52b77f --> |\n| | [ ] [[first/other-task\\|Other task]] <!-- ref: 01a1359b-4505-71d5-a1b6-1c59fa45bf8d --> |\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/1-projects/2026.01.01-fixture/first/milestone.md": {
+      "sha256": "17a0968d2c0c83712847a8afc3273fb6359b1376b5cfb859df473d6b48952ee4",
+      "text": "---\nid: 01a1359b-4505-72a5-b6bc-5df1a2021424\ntype: milestone\ntitle: \"First\"\nowner: fixture@example.test\nmilestone-state: not-started\ncreated_at: 2026-10-13T14:12:10.627Z\nupdated_at: 2026-10-13T14:12:10.627Z\nproject_id: 01a1359b-4504-7b93-b34c-242058b99c16\n---\n# First\n\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/1-projects/2026.01.01-fixture/first/recovery-task.md": {
+      "sha256": "d0a353fc70c7fe678579259d3fa2ec79002e1f1ecc87b99aba678b27c44e18d6",
+      "text": "---\nid: 01a1359b-4505-78dd-94c6-d5fa3f52b77f\ntype: task\ntitle: \"Recovery task\"\nowner: fixture@example.test\ntask-state: not-started\ncreated_at: 2026-10-13T14:12:10.627Z\nupdated_at: 2026-10-13T14:12:10.627Z\nproject_id: 01a1359b-4504-7b93-b34c-242058b99c16\nmilestone_id: 01a1359b-4505-72a5-b6bc-5df1a2021424\n---\n# Recovery task\n\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/1-projects/2026.01.01-fixture/first/other-task.md": {
+      "sha256": "752b9cf7158f64e3fc7f1070daab161082aa8a2b493b8efcc489dfee3ae421ed",
+      "text": "---\nid: 01a1359b-4505-71d5-a1b6-1c59fa45bf8d\ntype: task\ntitle: \"Other task\"\nowner: fixture@example.test\ntask-state: not-started\ncreated_at: 2026-10-13T14:12:10.627Z\nupdated_at: 2026-10-13T14:12:10.627Z\nproject_id: 01a1359b-4504-7b93-b34c-242058b99c16\nmilestone_id: 01a1359b-4505-72a5-b6bc-5df1a2021424\n---\n# Other task\n\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/2-areas/daily-plans/2026.10.12-daily-plan.md": {
+      "sha256": "2ffa7fc22abc0d1ef588411e53d95800f0830e73830884b21b7d041cb57a54bf",
+      "text": "---\nid: 01a1359b-4505-7dfb-97e4-cc5250d106f5\ntype: daily-plan\ntitle: \"Daily plan 2026.10.12\"\ndocument-maturity: reviewed\ntimezone: \"America/Chicago\"\ncreated_at: \"2026-10-13T14:12:10.627Z\"\nupdated_at: \"2026-10-13T14:12:10.627Z\"\n---\n# Daily plan \u2014 2026.10.12\n\n**Timezone:** America/Chicago\n\n## My work\n\n- [ ] [[../../1-projects/2026.01.01-fixture/first/recovery-task|Recovery task]] <!-- ref: 01a1359b-4505-78dd-94c6-d5fa3f52b77f -->\n\n## Notes\n\nPreserve this unrelated note.\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/.nyssaai/daily-tasks/reconciliation.json": {
+      "sha256": "efbf8b6d572868e444e2546705203cbcd221c8dcb88db65d2066c0a5947af6c8",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"records\": {\n    \"01a1359b-4505-78dd-94c6-d5fa3f52b77f\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {\n        \"/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/2-areas/daily-plans/2026.10.13-daily-plan.md\": {\n          \"selected\": false,\n          \"hash\": \"2e87701d72b87712663d297c8fc7a3e1096faadb0bf790def5d78af4afe12419\"\n        },\n        \"/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/2-areas/daily-plans/2026.10.14-daily-plan.md\": {\n          \"selected\": true,\n          \"hash\": \"2e06a8bcd97d3c9695e985f48be898058234d75970d882c83c384f24203686f4\"\n        }\n      }\n    },\n    \"01a1359b-4505-71d5-a1b6-1c59fa45bf8d\": {\n      \"canonical\": {\n        \"state\": \"not-started\"\n      },\n      \"views\": {}\n    }\n  }\n}\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/.nyssaai/daily-tasks/rollover/2026.10.13.json": {
+      "sha256": "09df248d390c7ddbac2664e1d50075bed45728015935cce32dbc93955aaacdf9",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"date\": \"2026.10.13\",\n  \"planId\": \"01a1359b-4505-720a-b313-74f321550d94\",\n  \"operationId\": \"01a1359b-4505-7f14-998a-808db00d7d64\",\n  \"completedAt\": \"2026-10-13T14:12:10.627Z\",\n  \"removedIds\": [\n    \"01a1359b-4505-7254-a33b-f98c285d2b2d\",\n    \"01a1359b-4505-78dd-94c6-d5fa3f52b77f\"\n  ]\n}\n"
+    },
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-0/planning-OYV6tJ/.nyssaai/daily-tasks/rollover/2026.10.14.json": {
+      "sha256": "14ce58ac0e4c4d22d9d758d530668aedeb95786fa0e060e9d88c6a7a163c95dd",
+      "text": "{\n  \"schemaVersion\": 1,\n  \"date\": \"2026.10.14\",\n  \"planId\": \"01a1359b-4505-7ba4-82dd-e51dddaddee5\",\n  \"operationId\": \"01a1359b-4505-7688-913b-b2c310e17a09\",\n  \"completedAt\": \"2026-10-13T14:12:10.627Z\",\n  \"removedIds\": [\n    \"01a1359b-4505-7254-a33b-f98c285d2b2d\"\n  ]\n}\n"
+    }
+  },
+  "checkpointExists": false
+}

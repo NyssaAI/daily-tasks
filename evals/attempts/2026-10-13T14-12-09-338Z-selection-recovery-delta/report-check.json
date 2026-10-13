@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "evals/report.mjs",
+    "check"
+  ],
+  "exit": 1,
+  "stdout": "",
+  "stderr": "file:///srv/agent-work/openclaw/projects/daily-tasks/evals/report.mjs:45\n  if (!latest.size || [...latest.values()].some(result => result.candidate.hash !== candidate.hash)) throw new Error('Evaluation evidence is absent or stale');\n                                                                                                           ^\n\nError: Evaluation evidence is absent or stale\n    at file:///srv/agent-work/openclaw/projects/daily-tasks/evals/report.mjs:45:108\n\nNode.js v24.19.0\n"
+}

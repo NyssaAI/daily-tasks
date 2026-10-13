@@ -81,10 +81,9 @@ function markdownDestination(text) {
   return target || undefined;
 }
 
-/** Visible local-link syntax shared by navigation and retirement checks. */
-export function navigationLinks(markdown) {
-  const links = [];
+function* navigationLineLinks(markdown) {
   for (const line of visibleLines(markdown)) {
+    const links = [];
     for (const match of line.matchAll(/!?\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g)) links.push({target:match[1].replace(/\\$/,''),wiki:true});
     for (const match of line.matchAll(/!?\[[^\]]*\]\(\s*/g)) {
       const target = markdownDestination(line.slice(match.index + match[0].length));
@@ -93,22 +92,105 @@ export function navigationLinks(markdown) {
     const definition = /^\s{0,3}\[[^\]]+\]:\s*(.*)$/.exec(line);
     const target = definition && markdownDestination(definition[1]);
     if (target) links.push({target,wiki:false});
+    yield {line,links};
   }
-  return links;
+}
+
+/** Visible local-link syntax shared by navigation and retirement checks. */
+export function navigationLinks(markdown) {
+  return [...navigationLineLinks(markdown)].flatMap(({links})=>links);
+}
+
+const referenceLabel = text => text.trim().replace(/\s+/g,' ').toLowerCase();
+
+function criterionNavigationLinks(record) {
+  const criteria = new Set((record.criteria ?? []).map(criterion=>criterion.text));
+  const evidenceReferences = new Set();
+  for (const text of criteria) {
+    for (const match of text.matchAll(/!?(?<!\[)\[([^\[\]]+)\](?:\[([^\[\]]*)\])?(?![\[(\]])/g)) {
+      evidenceReferences.add(referenceLabel(match[2] || match[1]));
+    }
+  }
+  let dodDepth, relationship = false;
+  return [...navigationLineLinks(record.markdown)].flatMap(({line,links})=>{
+    const heading = /^(#{1,6})\s+(.+?)\s*#*\s*$/.exec(line);
+    if (heading) {
+      const title = heading[2].trim().toLowerCase();
+      relationship = ['depends on','required by','blocks','blocked by'].includes(title);
+      if (dodDepth && heading[1].length <= dodDepth) dodDepth = undefined;
+      if (['task','milestone'].includes(record.type) && title === 'definition of done') dodDepth = heading[1].length;
+    }
+    const criterion = /^\s*[-*]\s+\[[ xX]\]\s+(.+)$/.exec(line)?.[1].trim();
+    const definition = /^\s{0,3}\[([^\]]+)\]:/.exec(line)?.[1];
+    // Use the criterion occurrence, not its filename suffix or a document-wide
+    // target set: the same directory may still be ordinary navigation elsewhere.
+    const requiredFile = ((record.type === 'dod' || dodDepth !== undefined) && !relationship && criteria.has(criterion)) ||
+      (definition !== undefined && evidenceReferences.has(referenceLabel(definition)));
+    return links.map(link=>({...link,requiredFile}));
+  });
+}
+
+/** Resolve local targets identically for navigation and migration backlinks.
+ * Wiki links prefer source-relative files, then vault-relative files, trying
+ * the exact name before adding .md (including dotted extensionless names).
+ * Retired files may stand in for their verified pre-retirement presence so
+ * deletion cannot make a surviving backlink resolve somewhere else.
+ */
+export async function resolveNavigationTarget(link, {sourcePath,projectsRoot,dailyPlansRoot,vaultRoot,retiredFiles = []}) {
+  if ((/^[a-z][a-z\d+.-]*:/i.test(link.target) && !/^[a-z]:[\\/]/i.test(link.target)) || link.target.startsWith('//')) return null;
+  const fail = (code,message) => { throw Object.assign(new Error(message),{code}); };
+  let decoded;
+  try { decoded = decodeURIComponent(link.target); } catch { fail('invalid-link','Invalid URL encoding'); }
+  const [file,fragment] = decoded.split('#');
+  const roots = [...new Set([projectsRoot,dailyPlansRoot,vaultRoot].filter(Boolean))].map(root=>{
+    if (!path.isAbsolute(root)) throw new TypeError('Navigation roots must be absolute');
+    return path.resolve(root);
+  });
+  const check = filename => {
+    const root = roots.find(root=>within(root,filename));
+    if (!root || path.relative(root,filename).split(path.sep).some(part=>part.startsWith('.'))) fail('unsafe-link','Target is outside allowed roots or inside hidden state');
+  };
+  const stat = async filename => {
+    check(filename);
+    try { return await safePath(filename); }
+    catch (error) { if (error.code !== 'ENOENT') fail('unsafe-link',error.message); }
+  };
+  let filename = file ? path.resolve(path.dirname(sourcePath),file) : sourcePath;
+  if (link.wiki && file) {
+    const bases = [filename];
+    if (vaultRoot && !path.isAbsolute(file) && !file.split(/[\\/]/).some(part=>part === '..')) {
+      const vaultCandidate = path.resolve(vaultRoot,file);
+      if (!bases.includes(vaultCandidate)) bases.push(vaultCandidate);
+    }
+    let found;
+    for (const base of bases) {
+      for (const candidate of [base,`${base}.md`]) {
+        const stats = await stat(candidate);
+        if (stats?.isFile() || (stats && candidate === base) || retiredFiles.includes(candidate)) { found = candidate; break; }
+      }
+      if (found) break;
+    }
+    filename = found ?? `${bases[0]}.md`;
+  }
+  await stat(filename);
+  return {filename,fragment};
 }
 
 /** Inspect local wiki and Markdown navigation, including criterion evidence and attachments. */
 export async function inspectNavigation(input) {
-  const roots = [input.projectsRoot,...(input.dailyPlansRoot ? [input.dailyPlansRoot] : [])].map(root=>{
+  const projectsRoot = input.projectsRoot;
+  const dailyPlansRoot = input.dailyPlansRoot;
+  const vaultRoot = input.vaultRoot;
+  for (const root of [projectsRoot,dailyPlansRoot,vaultRoot].filter(Boolean)) {
     if (!path.isAbsolute(root ?? '')) throw new TypeError('Navigation roots must be absolute');
-    return path.resolve(root);
-  });
-  const records = await collectManagedRecords(roots[0]);
-  if (roots[1]) {
-    await safePath(roots[1]);
-    for (const name of await readdir(roots[1])) {
+  }
+  const records = await collectManagedRecords(path.resolve(projectsRoot));
+  if (dailyPlansRoot) {
+    const plans = path.resolve(dailyPlansRoot);
+    await safePath(plans);
+    for (const name of await readdir(plans)) {
       if (!/^\d{4}\.\d{2}\.\d{2}-daily-plan\.md$/.test(name)) continue;
-      const filename = path.join(roots[1],name);
+      const filename = path.join(plans,name);
       if ((await safePath(filename)).isFile()) records.push({path:filename,markdown:await readFile(filename,'utf8')});
     }
   }
@@ -116,33 +198,31 @@ export async function inspectNavigation(input) {
   const targets = new Map();
   let checkedLinks = 0;
   for (const record of records) {
-      for (const link of navigationLinks(record.markdown)) {
+      for (const link of criterionNavigationLinks(record)) {
         if ((/^[a-z][a-z\d+.-]*:/i.test(link.target) && !/^[a-z]:[\\/]/i.test(link.target)) || link.target.startsWith('//')) continue;
         checkedLinks++;
         const emit = (code,message)=>diagnostics.push({code,message,source:record.path,target:link.target});
-        let decoded;
-        try { decoded = decodeURIComponent(link.target); } catch { emit('invalid-link','Invalid URL encoding'); continue; }
-        const [file,fragment] = decoded.split('#');
-        let filename = file ? path.resolve(path.dirname(record.path),file) : record.path;
-        if (link.wiki && file && !path.extname(file)) filename += '.md';
-        const root = roots.find(root=>within(root,filename));
-        if (!root || path.relative(root,filename).split(path.sep).some(part=>part.startsWith('.'))) {
-          emit('unsafe-link','Target is outside allowed roots or inside hidden state'); continue;
-        }
         try {
+          const {filename,fragment} = await resolveNavigationTarget(link,{sourcePath:record.path,projectsRoot,dailyPlansRoot,vaultRoot});
           const stats = await safePath(filename);
-          if (!stats.isFile()) { emit('invalid-link-target','Target is not a regular file'); continue; }
-          if (!targets.has(filename)) targets.set(filename,{path:filename,sha256:null});
+          const kind = stats.isFile() ? 'file' : stats.isDirectory() ? 'directory' : null;
+          if (!kind || (kind === 'directory' && link.requiredFile)) {
+            emit('invalid-link-target','Target is not a regular file'); continue;
+          }
+          if (!targets.has(filename)) targets.set(filename,{path:filename,kind,sha256:null});
+          if (kind === 'directory' && fragment !== undefined) {
+            emit('invalid-link-target','Heading targets require a regular file'); continue;
+          }
           if (fragment) {
             if (!/\.md$/i.test(filename)) emit('unverifiable-anchor','Anchors on non-Markdown attachments are not inspected');
             else {
               const text = await readFile(filename,'utf8');
-              targets.set(filename,{path:filename,sha256:createHash('sha256').update(text).digest('hex')});
+              targets.set(filename,{path:filename,kind,sha256:createHash('sha256').update(text).digest('hex')});
               if (!headings(text).has(fragment.toLowerCase())) emit('missing-heading','Heading target does not exist');
             }
           }
         } catch (error) {
-          emit(error.code === 'ENOENT' ? 'missing-link-target' : 'unsafe-link',error.message);
+          emit(error.code === 'ENOENT' ? 'missing-link-target' : error.code === 'invalid-link' ? 'invalid-link' : 'unsafe-link',error.message);
         }
       }
   }

@@ -14,17 +14,17 @@ whether work is selected for today. [x] means completed, never merely selected.
 
 ## Already selected
 
-| #  | Status | Project | Milestone | Task | Due Date |
-| --- | --- | --- | --- | --- | --- |
-| 1  | [ ] | PROJECT_TITLE | MILESTONE_TITLE | ↺ [[RELATIVE_SELECTED_TASK_PATH\|TASK_TITLE]] <!-- ref: SELECTED_TASK_UUID --> | TARGET_DATE_OR_DASH |
+| #  | Status | Project | Milestone | Task | Owner | Assignee | Due Date |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1  | [ ] | PROJECT_TITLE | MILESTONE_TITLE | ↺ [[RELATIVE_SELECTED_TASK_PATH\|TASK_TITLE]] <!-- ref: SELECTED_TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
 
 ## Available tasks
 
-| # | Status | Project | Milestone | Task | Due Date |
-| --- | --- | --- | --- | --- | --- |
-| 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | TARGET_DATE_OR_DASH |
-| 3 | [ ] | PROJECT_2_TITLE | MILESTONE_2_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | TARGET_2_DATE_OR_DASH |
-| 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | TARGET_3_DATE_OR_DASH |
+| # | Status | Project | Milestone | Task | Owner | Assignee | Due Date |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
+| 3 | [ ] | PROJECT_2_TITLE | MILESTONE_2_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | OWNER_2_EMAIL | ASSIGNEE_2_OR_DASH | TARGET_2_DATE_OR_DASH |
+| 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_3_DATE_OR_DASH |
 
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward
 
@@ -59,8 +59,9 @@ Conditional comments instruct the rendering skill, not executable Markdown synta
 Render the introduction only for first_run_today, then omit conditional comments.
 Use the planning-flow review state, not plan existence or completed-check-in state.
 Remove example rows and render concise empty-state sentences for empty sections.
-Use only #, Status, Project, Milestone, Task and Due Date columns. Group rows under
-project/milestone headings; never restart numbering at section boundaries.
+Use only #, Status, Project, Milestone, Task, Owner, Assignee and Due Date columns.
+Group rows under project/milestone headings; never restart numbering at section
+boundaries. Include every owner; render a missing assignee as an em dash.
 Show each task's owning milestone as plain text, even under grouped headings;
 it is not a separate selectable/status row. Task links/hidden refs identify tasks.
 Keep task labels short and descriptive; full descriptions remain in task files.

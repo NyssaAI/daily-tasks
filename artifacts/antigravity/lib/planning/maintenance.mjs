@@ -1,4 +1,4 @@
-import { readFile, readdir, lstat, mkdir, writeFile, rename, unlink } from 'node:fs/promises';
+import { readFile, lstat, mkdir, writeFile, rename, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash, randomUUID } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
@@ -8,6 +8,7 @@ import { parseRecord } from '../records/records.mjs';
 import { maintenanceStatus } from './review.mjs';
 import { parseChecklist } from './planning.mjs';
 import { inspectNavigation } from '../records/navigation.mjs';
+import { pendingOperationNames } from '../operations/checkpoints.mjs';
 
 const hash = bytes => bytes === null ? null : createHash('sha256').update(bytes).digest('hex');
 const within = (root, target) => {
@@ -26,14 +27,7 @@ async function ordinary(filename) {
   return readFile(filename, 'utf8');
 }
 
-async function pending(context) {
-  const directory = path.join(context.stateRoot, 'operations');
-  try {
-    // Check ancestors through an ordinary absent sentinel before listing state.
-    await ordinary(path.join(directory, '.maintenance-path-check'));
-    return (await readdir(directory)).filter(name => name.endsWith('.json')).sort();
-  } catch (error) { if (error.code === 'ENOENT') return []; throw error; }
-}
+const pending = context => pendingOperationNames(context.stateRoot);
 
 function baselinePath(context, filename) {
   if (!path.isAbsolute(filename) || ![context.projectsRoot, context.dailyPlansRoot].some(root => within(root, filename))) throw new Error('Baseline view is outside the bound projects/plans');
@@ -48,18 +42,20 @@ async function navigationTargetsMatch(context, targets) {
   for (const target of targets) {
     if (!target || typeof target.path !== 'string' || !path.isAbsolute(target.path) ||
         path.resolve(target.path) !== target.path || seen.has(target.path) ||
+        !['file', 'directory'].includes(target.kind) ||
         !(target.sha256 === null || /^[a-f0-9]{64}$/.test(target.sha256 ?? ''))) return false;
     seen.add(target.path);
-    const root = [context.projectsRoot, context.dailyPlansRoot].find(root => within(root, target.path));
+    const root = [context.projectsRoot, context.dailyPlansRoot, context.vaultRoot].find(root => within(root, target.path));
     if (!root || path.relative(root, target.path).split(path.sep).some(part => part.startsWith('.')) ||
-        (target.sha256 !== null && !/\.md$/i.test(target.path))) return false;
+        (target.sha256 !== null && (target.kind !== 'file' || !/\.md$/i.test(target.path)))) return false;
     try {
       let current = path.parse(target.path).root;
       for (const part of target.path.slice(current.length).split(path.sep).filter(Boolean)) {
         current = path.join(current, part);
         if ((await lstat(current)).isSymbolicLink()) return false;
       }
-      if (!(await lstat(target.path)).isFile()) return false;
+      const stats = await lstat(target.path);
+      if (target.kind === 'file' ? !stats.isFile() : !stats.isDirectory()) return false;
       if (target.sha256 !== null && hash(await readFile(target.path, 'utf8')) !== target.sha256) return false;
     } catch (error) {
       if (['ENOENT', 'ENOTDIR'].includes(error.code)) return false;
@@ -69,15 +65,17 @@ async function navigationTargetsMatch(context, targets) {
   return true;
 }
 
-/** Report inspection freshness separately from unavailable trusted worker evidence. */
+/** Unsupported worker evidence has no due state; CLI inspection remains actionable. */
 export async function verifiedMaintenanceStatus(input, indexed) {
   const context = await resolveContext(input);
-  if (!context.configured || context.preferenceOnly) return { fullReconcileDue: true, inspectionDue: true, reason: 'setup-required' };
+  const status = { ...maintenanceStatus({ now: context.now }), fullReconcileDue: null,
+    workerEvidence: { status: 'unsupported', reason: 'trusted-worker-adapter-unavailable' } };
+  if (!context.configured || context.preferenceOnly) return { ...status, inspectionDue: true, reason: 'setup-required' };
   const inventory = indexed ?? await projectInventory({ ...context, dryRun: true });
   const filename = path.join(context.stateRoot, 'maintenance-inspection.json');
   const text = await ordinary(filename);
   let value;
-  try { value = text === null ? null : JSON.parse(text.replace(/^\uFEFF/, '')); } catch { return { ...maintenanceStatus({ now: context.now }), inspectionDue: true, reason: 'invalid-maintenance-receipt' }; }
+  try { value = text === null ? null : JSON.parse(text.replace(/^\uFEFF/, '')); } catch { return { ...status, inspectionDue: true, reason: 'invalid-maintenance-receipt' }; }
   const baseline = await ordinary(path.join(context.stateRoot, 'reconciliation.json'));
   const valid = value?.schemaVersion === 2 && value.execution?.kind === 'cli-inspection' &&
     value.execution.model === null && value.contextBinding === context.planningBinding &&
@@ -85,7 +83,7 @@ export async function verifiedMaintenanceStatus(input, indexed) {
     await navigationTargetsMatch(context, value.navigationTargets) &&
     !Object.hasOwn(value, 'model') && !Object.hasOwn(value, 'executionEvidence') && !(await pending(context)).length;
   const inspection = maintenanceStatus({ now: context.now, lastFullReconcileAt: valid ? value.completedAt : undefined });
-  return { ...maintenanceStatus({ now: context.now }), inspectionDue: inspection.fullReconcileDue,
+  return { ...status, inspectionDue: inspection.fullReconcileDue,
     reason: 'trusted-worker-evidence-unavailable', inspectionReason: valid ? 'verified-cli-inspection' : 'missing-stale-or-untrusted-receipt', path: filename };
 }
 
@@ -104,7 +102,7 @@ export async function inspectMaintenance(input) {
   let planRoot;
   try { if ((await lstat(context.dailyPlansRoot)).isDirectory()) planRoot = context.dailyPlansRoot; }
   catch (error) { if (error.code !== 'ENOENT') throw error; }
-  const navigation = await inspectNavigation({ projectsRoot: context.projectsRoot, dailyPlansRoot: planRoot });
+  const navigation = await inspectNavigation({ vaultRoot: context.vaultRoot, projectsRoot: context.projectsRoot, dailyPlansRoot: planRoot });
   diagnostics.push(...navigation.diagnostics);
   if (operations.length) diagnostics.push({ code: 'pending-operations', paths: operations });
   let baseline;

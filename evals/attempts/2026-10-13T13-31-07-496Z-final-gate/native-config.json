@@ -1,0 +1,18 @@
+{
+  "plugins": {
+    "enabled": true,
+    "allow": [
+      "daily-tasks"
+    ],
+    "load": {
+      "paths": [
+        "/srv/agent-work/openclaw/projects/daily-tasks/artifacts/portable"
+      ]
+    },
+    "entries": {
+      "daily-tasks": {
+        "enabled": true
+      }
+    }
+  }
+}

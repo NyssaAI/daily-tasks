@@ -1,0 +1,146 @@
+{
+  "recovery": {
+    "status": "pending",
+    "pending": [
+      {
+        "key": "logRecorded",
+        "before": {
+          "present": true,
+          "value": false
+        },
+        "after": {
+          "present": true,
+          "value": true
+        }
+      },
+      {
+        "key": "baselineHash",
+        "before": {
+          "present": true,
+          "value": "bef086df8398e11225399c7a47a17563dd270a7f38a9080095d1e51d5ad2841e"
+        },
+        "after": {
+          "present": true,
+          "value": "b9bd7ac2aca39e6136f4b34cd8013c55166d2c18d9802689c9d0f018fb66c538"
+        }
+      },
+      {
+        "key": "sourceRolloverHash",
+        "before": {
+          "present": true,
+          "value": "62f904c8b468bfb9d29a68113657538751ca23ca2f689b72aa77bb02b5ecaad6"
+        },
+        "after": {
+          "present": true,
+          "value": "d16423bac6f3359c316d77fd2627000d4b83b9f7a7dad332a5e2335a36ac29c5"
+        }
+      },
+      {
+        "key": "destinationRolloverHash",
+        "before": {
+          "present": true,
+          "value": "275f646d16e107ccddc44fecafd41c40e20b0196a5692213f8521d291353d041"
+        },
+        "after": {
+          "present": true,
+          "value": "7d25f78b01014bcc7038aed5d8da0e158a1f669e7653470a383d26e108aa2f6e"
+        }
+      }
+    ],
+    "conflicts": []
+  },
+  "productionVerification": {
+    "status": "pending",
+    "persistedStatus": "pending",
+    "operationId": "01a1359b-45a4-792f-b000-1be2b6c6eb68",
+    "pending": [
+      {
+        "reason": "event-missing"
+      },
+      {
+        "path": "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-2/planning-X0HCyh/.nyssaai/daily-tasks/rollover/2026.10.13.json",
+        "kind": "owned-state",
+        "reason": "selection-state-pending",
+        "actual": "62f904c8b468bfb9d29a68113657538751ca23ca2f689b72aa77bb02b5ecaad6",
+        "before": "62f904c8b468bfb9d29a68113657538751ca23ca2f689b72aa77bb02b5ecaad6",
+        "after": "d16423bac6f3359c316d77fd2627000d4b83b9f7a7dad332a5e2335a36ac29c5"
+      },
+      {
+        "path": "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-2/planning-X0HCyh/.nyssaai/daily-tasks/rollover/2026.10.14.json",
+        "kind": "owned-state",
+        "reason": "selection-state-pending",
+        "actual": "275f646d16e107ccddc44fecafd41c40e20b0196a5692213f8521d291353d041",
+        "before": "275f646d16e107ccddc44fecafd41c40e20b0196a5692213f8521d291353d041",
+        "after": "7d25f78b01014bcc7038aed5d8da0e158a1f669e7653470a383d26e108aa2f6e"
+      },
+      {
+        "path": "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-2/planning-X0HCyh/.nyssaai/daily-tasks/reconciliation.json",
+        "kind": "owned-state",
+        "reason": "baseline-pending",
+        "actual": "bef086df8398e11225399c7a47a17563dd270a7f38a9080095d1e51d5ad2841e",
+        "before": "bef086df8398e11225399c7a47a17563dd270a7f38a9080095d1e51d5ad2841e",
+        "after": "b9bd7ac2aca39e6136f4b34cd8013c55166d2c18d9802689c9d0f018fb66c538"
+      }
+    ],
+    "conflicts": [],
+    "ownedState": {
+      "pending": [
+        {
+          "path": "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-2/planning-X0HCyh/.nyssaai/daily-tasks/rollover/2026.10.13.json",
+          "kind": "owned-state",
+          "reason": "selection-state-pending",
+          "actual": "62f904c8b468bfb9d29a68113657538751ca23ca2f689b72aa77bb02b5ecaad6",
+          "before": "62f904c8b468bfb9d29a68113657538751ca23ca2f689b72aa77bb02b5ecaad6",
+          "after": "d16423bac6f3359c316d77fd2627000d4b83b9f7a7dad332a5e2335a36ac29c5"
+        },
+        {
+          "path": "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-2/planning-X0HCyh/.nyssaai/daily-tasks/rollover/2026.10.14.json",
+          "kind": "owned-state",
+          "reason": "selection-state-pending",
+          "actual": "275f646d16e107ccddc44fecafd41c40e20b0196a5692213f8521d291353d041",
+          "before": "275f646d16e107ccddc44fecafd41c40e20b0196a5692213f8521d291353d041",
+          "after": "7d25f78b01014bcc7038aed5d8da0e158a1f669e7653470a383d26e108aa2f6e"
+        },
+        {
+          "path": "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-2/planning-X0HCyh/.nyssaai/daily-tasks/reconciliation.json",
+          "kind": "owned-state",
+          "reason": "baseline-pending",
+          "actual": "bef086df8398e11225399c7a47a17563dd270a7f38a9080095d1e51d5ad2841e",
+          "before": "bef086df8398e11225399c7a47a17563dd270a7f38a9080095d1e51d5ad2841e",
+          "after": "b9bd7ac2aca39e6136f4b34cd8013c55166d2c18d9802689c9d0f018fb66c538"
+        }
+      ],
+      "conflicts": []
+    },
+    "verifiedPaths": [
+      "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-2/planning-X0HCyh/2-areas/daily-plans/2026.10.13-daily-plan.md",
+      "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-2/planning-X0HCyh/2-areas/daily-plans/2026.10.14-daily-plan.md"
+    ]
+  },
+  "unexpectedFiles": [],
+  "actual": {
+    "sourceMember": false,
+    "destinationMember": true,
+    "logRecorded": false,
+    "baselineHash": "bef086df8398e11225399c7a47a17563dd270a7f38a9080095d1e51d5ad2841e",
+    "sourceRolloverHash": "62f904c8b468bfb9d29a68113657538751ca23ca2f689b72aa77bb02b5ecaad6",
+    "destinationRolloverHash": "275f646d16e107ccddc44fecafd41c40e20b0196a5692213f8521d291353d041"
+  },
+  "logCount": 0,
+  "active": [
+    {
+      "date": "2026.10.14",
+      "source": "2-areas/daily-plans/2026.10.14-daily-plan.md"
+    }
+  ],
+  "otherPreserved": true,
+  "prosePreserved": true,
+  "planIdentityPreserved": true,
+  "canonicalPreserved": true,
+  "checkpointIntentPreserved": true,
+  "checkpointRemoved": false,
+  "completionValid": true,
+  "historyPreserved": true,
+  "rolloverPreserved": false,
+  "verified": false
+}
