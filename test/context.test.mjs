@@ -52,9 +52,17 @@ test('completed legacy state remains authoritative and divergent completed copie
   await writeFile(path.join(legacy,'rollover','2026.10.11.json'),JSON.stringify({completedAt:'2026-10-11T00:00:00Z',removedIds:['synthetic']}));
   const bound = await resolveContext({vaultRoot,homeRoot:vaultRoot});
   assert.equal(bound.stateRoot,legacy);
+  const before = await readdir(vaultRoot,{recursive:true});
+  for (const stateRoot of [canonical,path.join(vaultRoot,'custom-state')]) {
+    await assert.rejects(resolveContext({vaultRoot,homeRoot:vaultRoot,stateRoot}),error =>
+      /explicit.*state|state.*explicit/i.test(error.message) && error.message.includes(stateRoot) && error.message.includes(legacy));
+  }
+  assert.deepEqual(await readdir(vaultRoot,{recursive:true}),before);
+  assert.equal((await resolveContext({vaultRoot,homeRoot:vaultRoot,stateRoot:legacy})).stateRoot,legacy);
   await mkdir(path.join(canonical,'rollover'));
   await writeFile(path.join(canonical,'rollover','2026.10.11.json'),JSON.stringify({completedAt:'2026-10-11T00:00:00Z',removedIds:['synthetic']}));
   assert.equal((await resolveContext({vaultRoot,homeRoot:vaultRoot})).stateRoot,canonical,'Identical authoritative copies use canonical precedence');
+  assert.equal((await resolveContext({vaultRoot,homeRoot:vaultRoot,stateRoot:legacy})).stateRoot,legacy,'Identical copies preserve the explicit binding');
   await writeFile(path.join(canonical,'rollover','2026.10.11.json'),JSON.stringify({removedIds:[]}));
   await assert.rejects(resolveContext({vaultRoot,homeRoot:vaultRoot}),/reconciliation|conflicting.*state/i);
   await assert.rejects(resolveContext({vaultRoot,homeRoot:vaultRoot,
