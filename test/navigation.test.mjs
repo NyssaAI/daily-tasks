@@ -66,3 +66,53 @@ test('vault-relative wiki links resolve outside the project collection when vaul
   assert.deepEqual(result.diagnostics,[]);
   assert.ok(result.targets.some(target=>target.path.endsWith('resources/evidence.md')));
 });
+
+test('ordinary Markdown and wiki folder links coexist with specific file evidence',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  await mkdir(path.join(directory,'outputs'));
+  await mkdir(path.join(directory,'inputs','v1.0'));
+  await mkdir(path.join(directory,'inputs','2026.10.13-notes'));
+  await writeFile(path.join(directory,'inputs','proof.pdf'),'proof');
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[Inputs](inputs/)\n[[outputs|Outputs]]\n[Version](inputs/v1.0)\n[[inputs/v1.0]]\n[[inputs/2026.10.13-notes]]\n## Definition of Done\n- [x] [Proof](inputs/proof.pdf)\n');
+  const result = await inspectNavigation({projectsRoot});
+  assert.deepEqual(result.diagnostics,[]);
+  assert.equal(result.checkedLinks,6);
+  assert.deepEqual(result.targets.map(target=>[path.relative(directory,target.path),target.kind,target.sha256]),[
+    ['inputs','directory',null],['outputs','directory',null],['inputs/v1.0','directory',null],['inputs/2026.10.13-notes','directory',null],['inputs/proof.pdf','file',null]
+  ]);
+});
+
+test('directories cannot supply headings or named required file evidence and missing files stay diagnostic',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  await mkdir(path.join(directory,'inputs','proof.pdf'));
+  await mkdir(path.join(directory,'inputs','proof.md'));
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[Folder heading](inputs/#result)\n[[inputs#Result]]\n[Empty fragment](inputs/#)\n## Definition of Done\n- [x] [Proof](inputs/proof.pdf)\n- [x] [[inputs/proof.md]]\n- [x] [Missing](inputs/missing.pdf)\n- [x] [[inputs/missing.md]]\n');
+  const result = await inspectNavigation({projectsRoot});
+  assert.deepEqual(result.diagnostics.map(issue=>issue.code),[
+    'invalid-link-target','invalid-link-target','invalid-link-target','invalid-link-target','invalid-link-target','missing-link-target','missing-link-target'
+  ]);
+  assert.ok(!result.targets.some(target=>/proof\.(pdf|md)$/.test(target.path)));
+});
+
+test('folder links preserve hidden, escaped and symlink target protection',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  await mkdir(path.join(directory,'inputs','.hidden'));
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[Hidden](inputs/.hidden/)\n[[inputs/.hidden]]\n[Escaped](../../../)\n[[../../../]]\n');
+  const result = await inspectNavigation({projectsRoot});
+  assert.deepEqual(result.diagnostics.map(issue=>issue.code),Array(4).fill('unsafe-link'));
+  await symlink(path.join(directory,'inputs'),path.join(directory,'inputs','linked'),'junction');
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[Linked](inputs/linked/)\n');
+  assert.deepEqual((await inspectNavigation({projectsRoot})).diagnostics.map(issue=>issue.code),['unsafe-link']);
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[[inputs/linked]]\n');
+  await assert.rejects(inspectNavigation({projectsRoot}),/Symbolic link/);
+});
+
+test('ordinary file attachments retain non-Markdown fragment diagnostics',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  const attachment = path.join(directory,'inputs','proof.pdf');
+  await writeFile(attachment,'proof');
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[Proof](inputs/proof.pdf#page=1)\n');
+  const result = await inspectNavigation({projectsRoot});
+  assert.deepEqual(result.diagnostics.map(issue=>issue.code),['unverifiable-anchor']);
+  assert.deepEqual(result.targets,[{path:attachment,kind:'file',sha256:null}]);
+});
