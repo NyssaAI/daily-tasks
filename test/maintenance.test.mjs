@@ -169,6 +169,8 @@ test('unsupported worker evidence and scoped failed direct checks do not block i
     assert.equal(JSON.parse(await readFile(saved.path, 'utf8')).planId, packet.current.id);
   }
   await assert.rejects(stat(path.join(input.stateRoot, 'maintenance-inspection.json')), { code: 'ENOENT' });
+});
+
 test('directory and file observations become stale after deletion or target kind changes', async t => {
   const input = await fixture();
   t.after(() => rm(input.vaultRoot, { recursive: true, force: true }));

@@ -1,7 +1,7 @@
 # Package and execution coverage
 
-The 0.3.4 release acceptance scope is Codex on Windows x64. The current release
-gate requires verified Node checks and all eight native Codex workflow scenarios;
+The 0.5.0 release acceptance scope is Codex on Windows x64. The current release
+gate requires verified Node checks and all nine native Codex workflow-v4 scenarios;
 see [evaluation evidence](../evals/LATEST.md). Phone continuation remains unverified.
 Other host packages are retained for evaluation and are not verified release targets.
 

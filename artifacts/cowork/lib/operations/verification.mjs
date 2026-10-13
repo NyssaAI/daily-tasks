@@ -9,7 +9,7 @@ import { parseRecord } from '../records/records.mjs';
 import { parseChecklist, planRollover } from '../planning/planning.mjs';
 import { projectInventory, calendarDate } from '../inventory/inventory.mjs';
 import { utcTimestamp } from '../time/time.mjs';
-import { navigationLinks } from '../records/navigation.mjs';
+import { navigationLinks, resolveNavigationTarget } from '../records/navigation.mjs';
 import { recordDirectoryIsHoldingArea } from '../records/records.mjs';
 
 const hash = bytes => bytes === null ? null : createHash('sha256').update(bytes).digest('hex');
@@ -262,12 +262,10 @@ async function inspectMigration(loaded, retired = false) {
           for (const criterion of record.criteria) if (destination.criteria.some(item => item.id === criterion.id)) issues.push({reason:'criterion-identity-collision',path:filename,id:criterion.id});
         }
         for (const link of navigationLinks(markdown)) {
-          let target = link.target.split('#')[0];
-          try { target = decodeURIComponent(target); } catch { issues.push({reason:'unreadable-link',path:filename}); continue; }
-          if (/^[a-z]+:/i.test(target)) continue;
-          const resolved = path.resolve(path.dirname(filename),target);
-          if (resolved === sourcePath || `${resolved}.md` === sourcePath ||
-              (link.wiki && !target.includes('/') && !target.includes('\\') && path.basename(target,'.md') === path.basename(sourcePath,'.md'))) issues.push({reason:'live-incoming-link',path:filename,target});
+          try {
+            const target = await resolveNavigationTarget(link,{...context,sourcePath:filename,retiredFiles:retired ? [sourcePath] : []});
+            if (target?.filename === sourcePath) issues.push({reason:'live-incoming-link',path:filename,target:link.target});
+          } catch { issues.push({reason:'unreadable-link',path:filename,target:link.target}); }
         }
       }
     }

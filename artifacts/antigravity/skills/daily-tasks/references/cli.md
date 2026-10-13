@@ -59,7 +59,7 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
 | planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | All-owner scoped counts, selected/available rows with ownership metadata, stable mapping, diagnostics; max 15 addition rows |
 | plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
-| maintenance-status | resolved context inputs | Separate inspection freshness and unavailable trusted worker evidence; no write |
+| maintenance-status | resolved context inputs | Boolean inspectionDue, alwaysCheck; workerEvidence.status unsupported and fullReconcileDue null (not overdue/success); no write |
 | maintenance-inspect | resolved context inputs, dryRun? | Actual graph/navigation/baseline checks; saves CLI inspection JSON only; no worker success |
 | operation-verify | resolved context inputs, operationPath absolute | Actual effects/protected sources/exact event checks; no write |
 | operation-complete | same, dryRun? | Verified baseline save and checkpoint removal |
@@ -129,6 +129,15 @@ remains fingerprinted in its disposable freshness sidecar.
 Counts, lateness, eligibility and first incomplete milestone are computed on read.
 Refresh hashes on rebuild; reuse checks source membership/metadata. The sidecar
 is derived freshness evidence, not authoritative state. See [planning flow](planning-flow.md).
+
+Maintenance status retains `fullReconcileDue` but returns `null` while trusted worker
+evidence is unsupported; do not interpret falsiness as verified worker completion.
+`workerEvidence` is `{status:"unsupported",reason:"trusted-worker-adapter-unavailable"}`
+even when an inspection receipt is missing or invalid. `inspectionDue` alone tracks
+the actionable four-hour CLI inspection interval. Use direct checks when a worker
+cannot run, and always perform `alwaysCheck` on requested use. Neither unsupported
+worker evidence nor unrelated inspection diagnostics impose a global planning stop.
+Caller-authored worker claims are rejected; `maintenance-inspect` is not worker evidence.
 
 Concurrency uses a lock. A stale lock is surfaced with its path; confirm the recorded
 process is stopped before removing only that lock directory through deliberate recovery.
