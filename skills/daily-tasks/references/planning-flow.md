@@ -84,8 +84,13 @@ computed eligibility/count fields there. Each vault retains its own cache.
 Read current plan and the most recent earlier plan when needed, inspect their edits,
 and recover applicable pending operations on every request, even with fresh inventory.
 Call `maintenance-status` with the resolved context, not a supplied success timestamp.
-Its `inspectionDue` gate concerns CLI checks; `fullReconcileDue` remains true when
-trusted host worker evidence is unavailable. If inspection is due, optionally run one read-only maintenance subagent
+Its boolean `inspectionDue` gate concerns CLI checks. The current portable CLI reports
+`workerEvidence.status: "unsupported"` with reason `trusted-worker-adapter-unavailable`
+and `fullReconcileDue: null`: worker freshness is not assessable, not overdue or
+successfully completed. This capability limitation is neither a runnable worker action
+nor a global planning stop. Use `inspectionDue` and `alwaysCheck` for direct-check
+fallback; fresh inspection still requires the per-request checks above.
+If inspection is due, optionally run one read-only maintenance subagent
 using explicit `gpt-6-luna` on Codex, Haiku on Claude, or another supported lightweight
 model. Use the host's actual subagent tool with that model parameter; a Markdown
 declaration is not evidence that the model ran. Use `fork_turns: "none"` with Codex

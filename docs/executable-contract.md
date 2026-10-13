@@ -106,7 +106,16 @@ fail before planning. Review results retain the mapping binding. Pure
 library helpers do not establish host sessions or authorize Markdown writes.
 `maintenance-status` separates four-hour CLI inspection freshness from worker
 execution evidence. No trusted host worker adapter is supplied, so worker success
-remains unrecorded. `maintenance-inspect` checks actual files, navigation, baselines
+remains unrecorded. It returns `workerEvidence` as
+`{status:"unsupported",reason:"trusted-worker-adapter-unavailable"}` and retains
+`fullReconcileDue` as `null` (unassessable, neither overdue nor verified complete)
+in every status branch. Callers must not treat that field's falsiness as success.
+Boolean `inspectionDue` remains the actionable CLI check gate; `alwaysCheck` still
+applies on every request. Unsupported capability does not require a worker run or
+block independent planning; direct checks are the supported fallback.
+The pure `maintenanceStatus` interval helper in `lib/planning/review.mjs` derives
+an age from supplied timestamps only; it is not worker-evidence ingestion or trust.
+`maintenance-inspect` rejects caller-authored worker claims, checks actual files, navigation, baselines
 and pending operations and saves only `maintenance-inspection.json` with its own
 clock. It never changes worker-success timestamps.
 Retained legacy operation receipts whose bound operation ID and status prove
