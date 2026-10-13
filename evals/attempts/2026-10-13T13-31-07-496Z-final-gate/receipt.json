@@ -1,0 +1,53 @@
+{
+  "runId": "2026-10-13T13-31-07-496Z-final-gate",
+  "completed_at": "2026-10-13T13:35:26.181Z",
+  "candidate": "3b8c8904519d1ddc0a6328a3e403ce95d425c483d6e1ced241da5e7c1561cbdd",
+  "source_unchanged": true,
+  "result": "evals/results/2026-10-13T13-31-23-537Z-693741/result.json",
+  "deterministic": {
+    "status": "pass",
+    "tests": 219,
+    "passed": 218,
+    "failed": 0,
+    "skipped": 1,
+    "scoring": "binary test assertions; no overall agent score",
+    "verification": "verifyResult accepted export; known-valid/invalid verifier calibration included in node --test"
+  },
+  "gates": [
+    {
+      "command": "node evals/report.mjs write",
+      "exit": 0
+    },
+    {
+      "command": "node evals/report.mjs check",
+      "exit": 1,
+      "diagnostic": "Evaluation evidence is absent or stale"
+    },
+    {
+      "command": "node evals/report.mjs release",
+      "exit": 1,
+      "diagnostic": "Evaluation evidence is absent or stale"
+    }
+  ],
+  "release": "Incomplete",
+  "available_environment_completeness": "Linux deterministic suite complete and unchanged. Requested native recovery retry and reproducibility check executed; blocked at fixture/protocol validation. Full native workflow-v4 coverage incomplete.",
+  "host_availability": {
+    "windows": "connected but pending-approval, no active execution commands",
+    "hermes": "command -v hermes unavailable",
+    "codex": "Linux CLI present; required Windows runtime unavailable",
+    "macos": "no macOS node present"
+  },
+  "report_limitation": "Declared writer links attempts directory only, not newer individual attempts per row. Output retained exactly; report/scoring code was not repaired.",
+  "next_checks": "See per-target attempt receipts and matrix for exact remaining commands.",
+  "correction": {
+    "original_receipt": "../2026-10-13T13-39-27-openclaw-astra-retry/original-receipt.json",
+    "followup": "../2026-10-13T13-39-27-openclaw-astra-retry/",
+    "classification": "API warning belongs to personal-cos; authenticated Astra native retry executed but was blocked by fixture/protocol mismatch. See followup_result."
+  },
+  "followup_result": {
+    "receipt": "../2026-10-13T13-39-27-openclaw-astra-retry/openclaw-attempt.json",
+    "status": "Unverified",
+    "classification": "Evaluation fixture/protocol incompatibility: evals/planning-fixture.mjs:73 creates a checkpoint without schemaVersion; lib/operations/verification.mjs:53 requires schemaVersion 2. This is not an authentication/plugin API blocker and does not establish incorrect recovery on a valid schema-2 operation. Frozen fixture and verifier were not repaired.",
+    "nativeRunId": "bb8e2bbd-5f7b-48cf-a611-ba729d3e79b2"
+  }
+}

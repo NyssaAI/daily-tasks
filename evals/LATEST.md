@@ -16,7 +16,7 @@ Direct code and package checks are separate from native-host activation.
 | hermes / workflow-v4 | No | linux/x64 / default | Not run / unverified | Enable generated native Hermes package; verify six skills and execute scenarios. |
 | openclaw / workflow-v4 | No | linux/x64 / default | Not run / unverified | Register portable bundle, verify winning format and run scenarios through active Gateway. |
 | muse / workflow-v4 | No | win32/x64 / default | Not run / unverified | Obtain verified first-party loader/schema before claiming implementation or runtime support. |
-| node-linux / deterministic-v1 | No | linux/x64 / node-22-plus | pass; current | [2026-10-13T00-01-13-151Z-662051](results/2026-10-13T00-01-13-151Z-662051/result.json) |
+| node-linux / deterministic-v1 | No | linux/x64 / node-22-plus | pass; current | [2026-10-13T14-12-37-504Z-701037](results/2026-10-13T14-12-37-504Z-701037/result.json) |
 | node-macos / deterministic-v1 | No | darwin/arm64 / node-22-plus | Not run / unverified | Run node evals/run.mjs on macOS arm64. |
 
 Release acceptance: **Incomplete**. Every required matrix row needs current, verified passing evidence.

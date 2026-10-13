@@ -1,0 +1,128 @@
+{
+  "attemptId": "2026-10-13T14-12-09-338Z-selection-recovery-delta",
+  "completedAt": "2026-10-13T14:23:42.220735+00:00",
+  "candidate": "5b0b886e1b7d9e05897767b1b0eb9c022c5ec3aa",
+  "finalHeadObserved": "19241856e8b93b0f81e2f758ec0feb3e5ca45135",
+  "inventory": "e14f994cfba4563f5ba0ab542b4d1252567919b505145fbaa836e2fa22e5ae47",
+  "inventoryFiles": 384,
+  "artifacts": {
+    "portable": "59dc41e88f6c3ad33f51276681a13d19270d9b5aa99650c5c744c7a048640582",
+    "cowork": "cfa307d4d52bc6c7d5afcc9e81533b4adb569e4a1c0bbd8b10f0ca95dafc0d1d",
+    "antigravity": "e173e84ab034716b53971869f6b6810f3ae1b9638bca4bad6b0309cb34d858ac",
+    "hermes": "2f7518f626dc31a06a95a53882d955b74164ee8f2c2ee7f7aeab53a8f37fe6e8"
+  },
+  "deterministic": {
+    "runId": "2026-10-13T14-12-37-504Z-701037",
+    "invocation": "node evals/run.mjs",
+    "exit": 0,
+    "status": "pass",
+    "verifiedResult": true,
+    "candidate": "e14f994cfba4563f5ba0ab542b4d1252567919b505145fbaa836e2fa22e5ae47",
+    "summary": [
+      "\u2139 tests 232",
+      "\u2139 suites 0",
+      "\u2139 pass 231",
+      "\u2139 fail 0",
+      "\u2139 cancelled 0",
+      "\u2139 skipped 1",
+      "\u2139 todo 0",
+      "\u2139 duration_ms 33622.059274"
+    ],
+    "commands": [
+      {
+        "command": [
+          "node",
+          "--test"
+        ],
+        "exit": 0
+      },
+      {
+        "command": [
+          "node",
+          "scripts/assemble.mjs",
+          "check"
+        ],
+        "exit": 0
+      },
+      {
+        "command": [
+          "node",
+          "scripts/validate.mjs"
+        ],
+        "exit": 0
+      }
+    ],
+    "counts": {
+      "tests": 232,
+      "pass": 231,
+      "fail": 0,
+      "skipped": 1,
+      "cancelled": 0
+    }
+  },
+  "native": {
+    "verdict": "PASS",
+    "passedStages": 5,
+    "failedStages": 0,
+    "stages": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "runId": "de3029b8-20b9-449b-b8a0-a068cd5d048b",
+    "sessionKey": "agent:main:subagent:f58b0b5f-9993-4320-b489-45432bcd3fd2",
+    "provider": "openai",
+    "model": "gpt-6-astra",
+    "scope": "bounded recovery/idempotency only; not nine-scenario workflow-v4"
+  },
+  "report": {
+    "write": {
+      "recordedAt": "2026-10-13T14:21:34.413404+00:00",
+      "command": [
+        "node",
+        "evals/report.mjs",
+        "write"
+      ],
+      "exit": 0,
+      "stdout": "write: report and recorded evidence verified\n",
+      "stderr": ""
+    },
+    "check": {
+      "recordedAt": "2026-10-13T14:21:35.892737+00:00",
+      "command": [
+        "node",
+        "evals/report.mjs",
+        "check"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "file:///srv/agent-work/openclaw/projects/daily-tasks/evals/report.mjs:45\n  if (!latest.size || [...latest.values()].some(result => result.candidate.hash !== candidate.hash)) throw new Error('Evaluation evidence is absent or stale');\n                                                                                                           ^\n\nError: Evaluation evidence is absent or stale\n    at file:///srv/agent-work/openclaw/projects/daily-tasks/evals/report.mjs:45:108\n\nNode.js v24.19.0\n"
+    },
+    "release": {
+      "recordedAt": "2026-10-13T14:21:37.351122+00:00",
+      "command": [
+        "node",
+        "evals/report.mjs",
+        "release"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "file:///srv/agent-work/openclaw/projects/daily-tasks/evals/report.mjs:45\n  if (!latest.size || [...latest.values()].some(result => result.candidate.hash !== candidate.hash)) throw new Error('Evaluation evidence is absent or stale');\n                                                                                                           ^\n\nError: Evaluation evidence is absent or stale\n    at file:///srv/agent-work/openclaw/projects/daily-tasks/evals/report.mjs:45:108\n\nNode.js v24.19.0\n"
+    }
+  },
+  "release": "Incomplete",
+  "blockers": [
+    "Required Windows x64 deterministic result stale",
+    "Required Codex Windows workflow-v4 nine-scenario evidence absent"
+  ],
+  "provenanceQualification": "External documentation-only HEAD advance; all frozen implementation/suite/artifact hashes unchanged. See independent-verification-final.json.",
+  "adversarialReview": "docs/2026.10.13-plugin-review-adversarial.md \u2014 Recovery delta review 2026-10-13 14:15 UTC; exact candidate PASS",
+  "reviewReceipt": "docs/2026.10.13-plugin-review.md",
+  "reviewPriorBytes": 14029,
+  "reviewPriorSha256": "716a4ee71de65fbd9b67f9b9a19562b63da0a092eb67832e105fc61ca813612f",
+  "reviewPrefixPreserved": true,
+  "implementationChanged": false,
+  "committed": false
+}

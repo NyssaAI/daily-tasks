@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "node",
+    "/srv/agent-work/openclaw/projects/daily-tasks/artifacts/portable/bin/daily-tasks.mjs",
+    "log-query",
+    "--input",
+    "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/native-stage-4-query.json"
+  ],
+  "input": {
+    "projectsRoot": "/srv/agent-work/openclaw/projects/daily-tasks/.temp/2026-10-13T14-12-09-338Z-selection-recovery-delta/stage-4/planning-yr4Q9D/1-projects",
+    "limit": 1000
+  },
+  "exitCode": 0,
+  "stdout": "{\"entries\":[{\"id\":\"01a1359b-463f-7122-afec-5c14bd88c1a8\",\"operation_id\":\"01a1359b-463f-7239-aa27-fd978a32eaa4\",\"action\":\"selection-move\",\"record_ids\":[\"01a1359b-463f-7e98-98c3-fbe9e798367d\"],\"actor\":{\"kind\":\"person\",\"id\":\"fixture@example.test\"},\"activity_at\":\"2026-10-13T14:12:10.942Z\",\"recorded_at\":\"2026-10-13T14:12:10.942Z\",\"time_defaulted\":false,\"original_words\":\"Move Recovery task to tomorrow (synthetic acceptance test).\",\"before\":{\"date\":\"2026.10.13\"},\"after\":{\"date\":\"2026.10.14\"}}],\"total\":1,\"offset\":0,\"limit\":1000,\"nextOffset\":null}\n",
+  "stderr": ""
+}

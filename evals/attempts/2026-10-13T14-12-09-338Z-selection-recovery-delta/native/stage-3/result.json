@@ -1,0 +1,80 @@
+{
+  "stage": 3,
+  "outcome": "PASS",
+  "initialStage": "Plans and event applied; owned-state pending",
+  "operationId": "01a1359b-45ec-7219-989d-473211fd8a29",
+  "eventId": "01a1359b-45ec-7153-bce4-ed351630f6f7",
+  "completedStatus": "completed",
+  "activeDates": [
+    "2026.10.14"
+  ],
+  "oneIntendedActiveDate": true,
+  "exactEventOnce": true,
+  "checkpointRemoved": true,
+  "planAfterHashesMatch": true,
+  "protectedFilesUnchanged": true,
+  "baselineExact": true,
+  "selectionState": {
+    "source": {
+      "receiptPreserved": true,
+      "removedIdsCorrect": true,
+      "before": {
+        "schemaVersion": 1,
+        "date": "2026.10.13",
+        "planId": "01a1359b-45ec-7872-bef5-66ca84a3b663",
+        "operationId": "01a1359b-45ec-7737-b405-8240be4efd56",
+        "completedAt": "2026-10-13T14:12:10.858Z",
+        "removedIds": [
+          "01a1359b-45ec-7ef1-9a35-e0c13e640e5a"
+        ]
+      },
+      "after": {
+        "schemaVersion": 1,
+        "date": "2026.10.13",
+        "planId": "01a1359b-45ec-7872-bef5-66ca84a3b663",
+        "operationId": "01a1359b-45ec-7737-b405-8240be4efd56",
+        "completedAt": "2026-10-13T14:12:10.858Z",
+        "removedIds": [
+          "01a1359b-45ec-7ef1-9a35-e0c13e640e5a",
+          "01a1359b-45ec-7ce2-bc27-6bae13c3eb00"
+        ]
+      }
+    },
+    "destination": {
+      "receiptPreserved": true,
+      "removedIdsCorrect": true,
+      "before": {
+        "schemaVersion": 1,
+        "date": "2026.10.14",
+        "planId": "01a1359b-45ec-7c46-9920-327cd4d3b5b5",
+        "operationId": "01a1359b-45ec-7459-aa6d-3c4826d3ea97",
+        "completedAt": "2026-10-13T14:12:10.858Z",
+        "removedIds": [
+          "01a1359b-45ec-7ce2-bc27-6bae13c3eb00",
+          "01a1359b-45ec-7ef1-9a35-e0c13e640e5a"
+        ]
+      },
+      "after": {
+        "schemaVersion": 1,
+        "date": "2026.10.14",
+        "planId": "01a1359b-45ec-7c46-9920-327cd4d3b5b5",
+        "operationId": "01a1359b-45ec-7459-aa6d-3c4826d3ea97",
+        "completedAt": "2026-10-13T14:12:10.858Z",
+        "removedIds": [
+          "01a1359b-45ec-7ef1-9a35-e0c13e640e5a"
+        ]
+      }
+    }
+  },
+  "retry": {
+    "planSelection": {
+      "effects": [],
+      "conflicts": []
+    },
+    "authoritativeFilesUnchanged": true,
+    "eventCountBefore": 1,
+    "eventCountAfter": 1,
+    "logQueryExit": 0
+  },
+  "limitations": "Bounded five-stage recovery/idempotency probe only; not full nine-scenario workflow-v4 acceptance."
+}

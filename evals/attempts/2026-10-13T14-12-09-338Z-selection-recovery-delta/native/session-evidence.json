@@ -1,0 +1,94 @@
+{
+  "observedAt": "2026-10-13T14:20:42.096Z",
+  "source": "OpenClaw sessions_history sanitized bounded tail",
+  "sessionKey": "agent:main:subagent:f58b0b5f-9993-4320-b489-45432bcd3fd2",
+  "truncated": true,
+  "contentTruncated": true,
+  "messages": [
+    {
+      "id": "72dc93b5-84aa-410a-bcb5-6ff0e12365b4",
+      "role": "assistant",
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "api": "openai-responses",
+      "timestamp": 1791901076741,
+      "runId": "de3029b8-20b9-449b-b8a0-a068cd5d048b",
+      "mirrorOrigin": "codex-app-server",
+      "stopReason": "toolUse",
+      "tools": [
+        "exec"
+      ]
+    },
+    {
+      "id": "51584d68-60cf-496d-85c5-5986d64b126f",
+      "role": "assistant",
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "api": "openai-responses",
+      "timestamp": 1791901134743,
+      "runId": "de3029b8-20b9-449b-b8a0-a068cd5d048b",
+      "mirrorOrigin": "codex-app-server",
+      "stopReason": "toolUse",
+      "tools": [
+        "write"
+      ]
+    },
+    {
+      "id": "e14aa977-116f-4fb0-90f3-10826e63ae01",
+      "role": "assistant",
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "api": "openai-responses",
+      "timestamp": 1791901134864,
+      "runId": "de3029b8-20b9-449b-b8a0-a068cd5d048b",
+      "mirrorOrigin": "codex-app-server",
+      "stopReason": "toolUse",
+      "tools": [
+        "write"
+      ]
+    },
+    {
+      "id": "bba7fac9-470b-4b01-9a17-f82a39cd03cf",
+      "role": "assistant",
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "api": "openai-responses",
+      "timestamp": 1791901134984,
+      "runId": "de3029b8-20b9-449b-b8a0-a068cd5d048b",
+      "mirrorOrigin": "codex-app-server",
+      "stopReason": "toolUse",
+      "tools": [
+        "write"
+      ]
+    },
+    {
+      "id": "36439889-633f-41f2-a9d9-3a7b11cb1043",
+      "role": "assistant",
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "api": "openai-responses",
+      "timestamp": 1791901135095,
+      "runId": "de3029b8-20b9-449b-b8a0-a068cd5d048b",
+      "mirrorOrigin": "codex-app-server",
+      "stopReason": "toolUse",
+      "tools": [
+        "exec"
+      ]
+    },
+    {
+      "id": "ae7b72cc-8502-46ca-ab29-21c72cbbc946",
+      "role": "assistant",
+      "provider": "openai",
+      "model": "gpt-6-astra",
+      "api": "openai-responses",
+      "timestamp": 1791901153249,
+      "runId": "de3029b8-20b9-449b-b8a0-a068cd5d048b",
+      "mirrorOrigin": "codex-app-server",
+      "stopReason": "stop",
+      "tools": [],
+      "text": [
+        "Stages **0–4 passed** recovery and retry:\n\n- Original operation/event payloads preserved.\n- One active date, one exact event; no duplicates.\n- Receipts, unrelated content and removedIds preserved.\n- Production CLI completed owned state and cleared checkpoints.\n- Every retry returned empty effects; authoritative files remained unchanged.\n\n[Summary and evidence](/srv/agent-work/openclaw/projects/daily-tasks/evals/attempts/2026-10-13T14-12-09-338Z-selection-recovery-delta/native/summary.md) · [Structured results](/srv/agent-work/openclaw/projects/daily-tasks/evals/attempts/2026-10-13T14-12-09-338Z-selection-recovery-delta/native/results.json)\n\nLoaded installed `/var/lib/openclaw/plugin-skills/{daily-tasks,daily-tasks-plan}/SKILL.md`; realpaths/hashes recorded. Context identified GPT-6-based Codex; exact served model unavailable.\n\n**Provenance qualification:** another actor advanced HEAD to `1924185` during execution, documentation-only. Installed skill/CLI hashes and implementation remained unchanged. No commits made here.\n\nThis is **bounded recovery evidence**, not full nine-scenario workflow-v4 acceptance."
+      ]
+    }
+  ]
+}
