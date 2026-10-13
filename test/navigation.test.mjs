@@ -104,7 +104,7 @@ test('folder links preserve hidden, escaped and symlink target protection',async
   await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[Linked](inputs/linked/)\n');
   assert.deepEqual((await inspectNavigation({projectsRoot})).diagnostics.map(issue=>issue.code),['unsafe-link']);
   await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[[inputs/linked]]\n');
-  await assert.rejects(inspectNavigation({projectsRoot}),/Symbolic link/);
+  assert.deepEqual((await inspectNavigation({projectsRoot})).diagnostics.map(issue=>issue.code),['unsafe-link']);
 });
 
 test('ordinary file attachments retain non-Markdown fragment diagnostics',async t=>{
@@ -115,4 +115,23 @@ test('ordinary file attachments retain non-Markdown fragment diagnostics',async 
   const result = await inspectNavigation({projectsRoot});
   assert.deepEqual(result.diagnostics.map(issue=>issue.code),['unverifiable-anchor']);
   assert.deepEqual(result.targets,[{path:attachment,kind:'file',sha256:null}]);
+});
+
+test('target resolution excludes hidden state, outside roots and symlink attachments for both link syntaxes',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  const outside = await realpath(await mkdtemp(path.resolve('.temp/navigation-outside-')));
+  t.after(()=>rm(outside,{recursive:true,force:true}));
+  const hidden = path.join(projectsRoot,'.state','secret.md');
+  await mkdir(path.dirname(hidden)); await writeFile(hidden,'# Secret');
+  const external = path.join(outside,'secret.md'); await writeFile(external,'# Secret');
+  const attachment = path.join(directory,'inputs','linked.md');
+  await symlink(external,attachment);
+  const relative = path.relative(directory,external).split(path.sep).join('/');
+  await writeFile(path.join(directory,'t1-work.md'),`---\ntype: task\n---\n[[../../.state/secret]]\n[hidden](../../.state/secret.md)\n[[${relative}]]\n[outside](${relative})\n[[inputs/linked]]\n[symlink](inputs/linked.md)\n`);
+  const result = await inspectNavigation({projectsRoot});
+  assert.equal(result.diagnostics.length,6);
+  assert.ok(result.diagnostics.every(issue=>issue.code === 'unsafe-link'));
+  assert.ok(result.diagnostics.slice(0,4).every(issue=>issue.message === 'Target is outside allowed roots or inside hidden state'));
+  assert.ok(result.diagnostics.slice(4).every(issue=>/Symbolic link excluded/.test(issue.message)));
+  assert.deepEqual(result.targets,[]);
 });
