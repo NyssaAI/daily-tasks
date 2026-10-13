@@ -8,6 +8,21 @@ a planning mapping, deriving eligibility or applying rollover/future selections.
 Load [operations](operations.md) before record/status effects or recovery. Do not
 import another plugin's process.
 
+## Required screen validation
+
+Before displaying actual planning options or a recap, read the active screen from
+`packet.templates.templates.planDayReview.active.content`. Draft its visible layout
+with the prepared review's exact rows and hidden `ref` identities, then pass the
+complete draft as `reviewMarkdown` to `planning-state` action `save-review` with fresh
+packet hashes. Display the successful result's `value.screen.markdown` unchanged,
+outside a code fence. No prose-only, alternate-table, numbered-list or question-widget
+substitute is allowed unless that is the explicitly selected active template.
+Correct validation failures before requesting choices. Old mappings without a
+validated screen remain readable for stable numbering but are not display approval.
+Use this gate on first review, Show more, Show all milestones, resumed check-ins and
+post-decision recaps. Status-only acknowledgements need no full review screen.
+The CLI checks a draft and saves evidence; it cannot attest what the host displayed.
+
 ## Legends and meanings
 
 Every screen displays these two lines:
@@ -72,15 +87,20 @@ type, and retain blocker resolution conditions and timing.
 
 - **add / today:** Select identified accepted tasks for today. Do not change task
   state, target date, ownership or execution assignment.
-- **remove:** Deselect from the day, stopping automatic carry-forward; keep the task
-  open. Do not require another date or replacement selection.
+- **remove:** For not-started work, deselect from the day and stop automatic
+  carry-forward without requiring another date. In-progress work requires an explicit
+  reschedule date, completion or cancellation; ask for the missing disposition.
 - **keep:** Preserve current selections/state; omitted rows remain unchanged.
 - **show details:** Read and display the identified record's relevant context.
-- **show more:** Show the next page of eligible additions, at most 15 rows; preserve
-  project/task order, earlier decisions and stable numbers.
-- **show all milestones:** Expand addition eligibility to all incomplete milestones
-  while retaining project/task order, the 15-row page cap and future-selection exclusions.
-- **later / defer:** Remove from today's selection when clearly requested. If a
+- **next / next page / show more:** Show the next project page of eligible additions; keep each project together,
+  preserving task order, earlier decisions and stable numbers. Show page number and total pages.
+- **previous / previous page:** Show the preceding project page using the saved mapping.
+  Never wrap past the first or last page. Navigation changes no selections or statuses.
+  Offer Next only when hasMore is true, and Previous only when page is greater than zero.
+- **show all milestones:** Inspect later milestones without turning them into selection options.
+  Additions remain restricted to the lowest incomplete milestone.
+- **later / defer:** Remove not-started work from today's selection when clearly
+  requested. In-progress work requires a supplied future date. If a
   future day is explicitly supplied, resolve and echo its local date and follow
   the [future-selection transaction](planning-flow.md#future-selection-transaction).
   Create that day's missing daily plan and preserve one active date per task.

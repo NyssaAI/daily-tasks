@@ -93,7 +93,9 @@ automatically reclosed. Reopening cancelled work requires an explicit dispositio
 R12. Check-in is anytime, resumable, scoped to configured local day. Create only today's
 missing plan; never backfill skipped days. Carry from most recent earlier plan,
 including delegated work. Completed/cancelled items stay visible that day, don't carry.
-Removing a selected task keeps its task open and stops carry-forward until selected again.
+Removing a selected not-started task keeps it open and stops carry-forward until
+selected again. In-progress work requires rescheduling, completion or cancellation
+and otherwise carries into the next plan, even when previously omitted.
 Rollover runs once per local day regardless of whether future selection pre-created
 today's plan. Merge prior unfinished selections by UUID, preserve existing rows and
 explicit removals/future allocations, and persist dated completion only after
@@ -107,7 +109,7 @@ vault root and projects root. Use `timezone: "system"` to resolve the host zone
 on each run, or an explicit IANA override. New profiles
 default to system detection, report the detected zone, and preserve the sentinel
 in configuration. Existing explicit zones remain overrides. First-use setup asks
-only preference scope and missing name/email routinely; timezone questions are
+only missing name/email routinely; timezone questions are
 reserved for detection failure and priorities are optional.
 Preferences use user and project `.nyssa-ai/daily-tasks/` layers, independent of installation;
 legacy `.nyssaai`, `.nyssa` and explicit locations remain supported. Schema version 2
@@ -126,10 +128,17 @@ asking questions. Resolve absolute paths from context; do not require the user t
 them or separately approve state initialization. The host may capture its initial
 vault-root working directory once as an explicit binding. Later subprocess cwd,
 plugin cache paths and daily-plan directories must never determine resolved roots.
-On first use without existing configuration or an explicitly chosen scope, ask:
-"Configure Daily Tasks for this vault only, or for all vaults you access?"
-The answer selects vault-local or user-level preferences using conventional locations;
-do not ask for internal storage paths or repeat the scope question on routine use.
+Reuse accepted preference scope. Explicit personal/all-projects requests use user
+scope; otherwise use project scope with an established workspace and user scope
+without one. Do not ask routine scope questions or ask for internal storage paths.
+An ordinary folder is a supported workspace (`vaultRoot`); PARA and Obsidian are
+not prerequisites. Personal-only setup asks no work-storage questions. When project
+records or daily plans are requested, reuse accepted bindings; ask for the workspace
+only if missing. Infer missing output locations from an unambiguous established PARA
+layout using its actual directory names. Otherwise ask only for unresolved output
+locations, offering `projects/` and `daily-plans/` under the chosen workspace together.
+Persist the user's choices in project bindings and resume the original request.
+Do not create a PARA structure or replace existing output bindings during this flow.
 Personal preference reuse must preserve independent vault output and operating state.
 Each planning session binds exactly one vault, its assigned projects root and its
 daily-plan root. Shared user preferences do not permit cross-vault planning or ID
@@ -153,14 +162,24 @@ snapshot when available, otherwise require replacement or explicit reset; omitte
 preferences initially use bundled defaults. Registration does not
 authorize reformatting existing documents or accepting sample work.
 
+In a recognized PARA vault, setup or first relevant use places missing active
+templates in the actual Resources/templates directory and registers their paths.
+Link these editable files to the user and read subsequent edits directly. Preserve
+explicit existing template paths, null resets and unrelated files. Installation
+alone does not write into a vault; personal-only and non-PARA setup create no PARA
+structure. Skills own template and profile Markdown/configuration authoring.
+
 Template revisions are independent of plugin versions. On the next relevant request,
 offer changed layouts with a visible comparison and concrete preview. No answer or
 postponement retains the active layout. Remember accepted and declined revisions;
 code-only updates do not cause offers. Per-kind policies are ask (default), latest
 (explicit compatible updates for new documents), and keep (explicit pin). Declining
 one revision never changes policy. All five kinds are independent, with explicit
-batch decisions supported. Fingerprint verified old bundled copies; custom edits
-remain custom and their source files are never overwritten. Retain active content
+batch decisions supported. Fingerprint verified old bundled copies; preserve the
+bundled origin separately from local edits for upgrade comparisons. Custom edits
+remain active; replacing them requires explicit consent. Accepted upgrades retain
+their exact proposed file effect until the skill writes and verifies it; intervening
+edits must not be overwritten. Retain active content
 outside installed caches, recording first observation without inventing prior consent.
 Template choices use existing configuration scopes separately from vault operating
 state and preserve version 1/2, legacy paths, inheritance and reset behavior.
@@ -263,6 +282,15 @@ does not authorize another worker solely for deterministic indexing.
 
 R17. Plan review presents the broader available-work inventory, alongside existing
 daily selections, rather than limiting the user to a small recommended shortlist.
+Available options contain only not-started tasks without a later-day allocation or
+pending future selection. In-progress items are not open options. Open-task and late-task
+counts use that same definition; open-project counts cover unfinished projects with
+at least one open task, across all milestones before pagination.
+In-progress work always enters the next plan until completed, explicitly rescheduled
+or cancelled, including work omitted from the preceding plan or previously deselected.
+Plain removal requires a reschedule date or lifecycle decision for in-progress work.
+Future allocations suppress carry until their date; completed/cancelled rows remain
+historical. Not-started work retains explicit selection and removal behavior.
 Distinguish selected work from candidate additions, personal from delegated work,
 and blocked work from actionable work. Preserve stable display order and carry-forward
 rules; discovery never selects work implicitly. Do not rank today's tasks, ask for
@@ -272,6 +300,15 @@ review follows a process defined by screen templates. Screen sequence, fields,
 navigation and decision handling remain to be specified with the user. These
 interaction templates are distinct from the saved daily-plan document template;
 no graphical UI or screen implementation is implied by this requirement.
+Actual options screens and planning recaps must follow the resolved active review
+template on first use, pagination, resumption and after decisions. The agent drafts
+the screen; save-review validates and retains that draft against the active template
+and current review before choices are requested. Wrong headings/columns, omitted or
+invented task rows, wrong response numbers/statuses and stale template revisions fail
+before saving. Display the returned validated text unchanged instead of substituting
+prose, another table or question widgets. Custom templates remain authoritative;
+status-only acknowledgements and explanations of the plugin need no planning screen.
+Validation of a draft never claims proof of what a host actually displayed.
 The first local-day check-in includes a scoped task-addition review beginning with
 all valid open project, open task and late task counts. Show every eligible task in
 the bound projects collection regardless of owner or assignee, retaining both fields
@@ -312,11 +349,11 @@ parent effects/project views before projecting their state into the daily plan,
 under the recovery/log protocol. Status updates do not implicitly select work.
 Clarify ambiguous commands before their affected writes. Addition options follow
 project directory date/name order and task order within each project, using only the first
-incomplete milestone in its authoritative sequence unless all milestones are
-explicitly requested. Skip completed/cancelled milestones; retain already selected
+incomplete milestone in its authoritative sequence, including when all milestones are
+inspected. Skip completed/cancelled milestones; retain already selected
 later-milestone work. Unknown milestone ordering must be resolved, not replaced with
-priority or UUID sorting. Limit each page to 15 addition options, exposing remaining
-eligible work via Show more without renumbering existing items. Counts remain full
+priority or UUID sorting. Show one project per page, keeping its eligible tasks together in source order. Expose
+remaining project pages via Show more without renumbering existing items. Counts remain full
 inventory totals. Exclude explicit future-day selections from addition options on
 all pages and recaps; a future target date alone is not a future selection.
 

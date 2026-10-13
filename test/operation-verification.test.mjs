@@ -301,8 +301,8 @@ test('migration resolves actual targets while preserving collision and hidden-st
   assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
 });
 
-test('rollover carries nonempty membership, preserves removals and finishes pending state next day', async () => {
-  const f = await fixture(), projectId = uuid7(), milestoneId = uuid7(), taskId = uuid7(), removedId = uuid7(), planId = uuid7(), previousPlanId = uuid7();
+test('rollover carries prior selections and omitted in-progress work, preserves removals and recovers next day', async () => {
+  const f = await fixture(), projectId = uuid7(), milestoneId = uuid7(), taskId = uuid7(), removedId = uuid7(), startedId = uuid7(), planId = uuid7(), previousPlanId = uuid7();
   const project = path.join(f.context.projectsRoot,'demo'), milestone = path.join(project,'m1-work');
   await mkdir(milestone,{recursive:true});
   const doc = (id,type,title,extra='',body='') => `---\nid: ${id}\ntype: ${type}\ntitle: ${title}\nowner: owner@example.test\n${type}-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\n${extra}---\n# ${title}\n${body}`;
@@ -313,9 +313,14 @@ test('rollover carries nonempty membership, preserves removals and finishes pend
     const filename = path.join(milestone,`${name}.md`), text = doc(id,'task',name,`project_id: ${projectId}\nmilestone_id: ${milestoneId}\n`);
     await writeFile(filename,text); taskSources.push({path:filename,sha256:hash(text)});
   }
+  const startedPath = path.join(milestone,'t3-started.md');
+  const startedText = doc(startedId,'task','Started',`project_id: ${projectId}\nmilestone_id: ${milestoneId}\nstarted_at: ${f.input.now}\n`)
+    .replace('task-state: not-started','task-state: in-progress');
+  await writeFile(startedPath,startedText);
+  taskSources.push({path:startedPath,sha256:hash(startedText)});
   const header = `---\nid: ${planId}\ntype: daily-plan\ncreated_at: ${f.input.now}\n---\n# Today\n`;
   const row = id => `- [ ] Work <!-- ref: ${id} -->\n`;
-  const after = header + row(taskId), currentPath = path.join(f.context.dailyPlansRoot,'2026.10.09-daily-plan.md');
+  const after = header + row(taskId) + row(startedId).replace('[ ]','[>]'), currentPath = path.join(f.context.dailyPlansRoot,'2026.10.09-daily-plan.md');
   const previousPath = path.join(f.context.dailyPlansRoot,'2026.10.08-daily-plan.md');
   const previous = `---\nid: ${previousPlanId}\ntype: daily-plan\n---\n# Yesterday\n${row(taskId)}${row(removedId)}`;
   await writeFile(currentPath,after); await writeFile(previousPath,previous);
@@ -325,6 +330,8 @@ test('rollover carries nonempty membership, preserves removals and finishes pend
   f.operation.rollover.expectedSelectedIds = []; await f.save();
   await assert.rejects(completeChangedRollover(f.input),/membership/); await access(f.input.operationPath);
   f.operation.rollover.expectedSelectedIds = [taskId]; await f.save();
+  await assert.rejects(completeChangedRollover(f.input),/membership/);
+  f.operation.rollover.expectedSelectedIds = [taskId,startedId]; await f.save();
   const target = path.join(f.context.stateRoot,'rollover','2026.10.09.json');
   await mkdir(path.dirname(target));
   const pendingState = JSON.stringify({schemaVersion:1,date:'2026.10.09',planId,removedIds:[removedId]});

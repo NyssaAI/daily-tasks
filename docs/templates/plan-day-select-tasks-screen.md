@@ -6,6 +6,8 @@ document-maturity: reviewed
 ---
 Open projects: {open project count}          Open tasks: {open task count}          Late tasks: {late task count}
 
+Page {page number} of {page count}
+
 <!-- if: first_run_today -->
 This is your first check-in today. Review the work carried forward, then choose
 which available tasks to add. Status marks show progress; the sections indicate
@@ -23,7 +25,7 @@ whether work is selected for today. [x] means completed, never merely selected.
 | # | Status | Project | Milestone | Task | Owner | Assignee | Due Date |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
-| 3 | [ ] | PROJECT_2_TITLE | MILESTONE_2_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | OWNER_2_EMAIL | ASSIGNEE_2_OR_DASH | TARGET_2_DATE_OR_DASH |
+| 3 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | OWNER_2_EMAIL | ASSIGNEE_2_OR_DASH | TARGET_2_DATE_OR_DASH |
 | 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_3_DATE_OR_DASH |
 
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward
@@ -37,7 +39,8 @@ Give an instruction and the item numbers, for example:
 - "Show details for 2, 4."
 - "Keep the current selections."
 - "2, 4, 6 are in progress."
-- "Show more tasks."
+- "Next page."
+- "Previous page."
 - "Show all milestones."
 
 A bare list of numbers requires clarification about the intended action.
@@ -49,6 +52,7 @@ Execution order is left to the person; do not add an ordering screen or prompt.
 Apply ../../skills/daily-tasks/references/response-conventions.md for numbered
 replies, status meanings, batch handling and durable screen mappings. Status cells
 reflect canonical work state; selection is represented by section membership.
+When reviewComplete is true, replace the page indicator with "Review complete".
 The count line is the first visible line after frontmatter. Preserve its labels.
 Conditional comments are instructions to the rendering skill, not executable
 Markdown syntax. Render the enclosed introduction only when first_run_today is
@@ -57,8 +61,9 @@ from whether a planning session was already started on the configured local day;
 do not repeat the introduction on same-day calls or resumed screens. Keep this
 distinct from successful check-in completion, which remains separately tracked.
 Counts describe all valid records in the bound projects collection, not only selected rows:
-- Open projects: unique projects in not-started or in-progress state.
-- Open tasks: unique tasks in not-started or in-progress state, regardless of owner.
+- Open projects: unique unfinished projects containing at least one open task.
+- Open tasks: unique not-started tasks without a later-day allocation or pending
+  future selection, regardless of owner. In-progress tasks are not open options.
 - Late tasks: open tasks with an explicit target_date earlier than the configured
   local day. Tasks due today are not late. Never infer a due date.
 Show canonical owner and assignee for every row. A missing assignee renders as an em
@@ -74,7 +79,9 @@ even when there has not yet been a completed check-in today. Carry unresolved pr
 selections once per local day under the planning-flow rollover protocol, including
 into an existing pre-created plan. Preserve that plan's selections and explicit
 removals. Only verified dated rollover state prevents repeat carry, not file existence.
-Keep already-selected tasks out of available rows. Adding work moves its row into
+Keep already-selected, in-progress and future-planned tasks out of available rows.
+In-progress work always enters the next plan unless completed, rescheduled or
+cancelled, including work omitted from the preceding plan. Adding work moves its row into
 today's selected section without changing its canonical status. New additions
 require the user's supplied planning decision.
 Status replies are accepted on both selected and available task rows. For example,
@@ -89,7 +96,7 @@ Offer additions in project directory date order, oldest first, with alphabetical
 name tie-breaking; undated directories follow alphabetically by name. Preserve
 task order within each project index. Do not rank by priority, due date or lateness. For each project show only its
 first incomplete milestone in the authoritative milestone sequence (skip completed
-and cancelled milestones), unless the user explicitly requests all milestones.
+and cancelled milestones). Inspecting all milestones does not expand selection eligibility.
 Do not advance to a later milestone merely because the first incomplete milestone
 has no eligible tasks. Existing daily selections from later milestones remain.
 If source milestone order cannot be established, resolve it before relying
@@ -98,7 +105,7 @@ Exclude tasks explicitly selected for future local dates from available addition
 including earlier review decisions and durable future selections. A future due date
 alone does not exclude a task. Moving work to a future date does not change its due
 date and does not cause it to reappear on a later page or recap today.
-Show at most 15 available addition rows per screen/page. This cap does not limit
+Show one project per screen/page, keeping its eligible tasks together in source order. Pagination does not limit
 already-selected rows or change the inventory counts. Offer Show more when further
 eligible rows remain; preserve stable item numbers and decisions across pages.
 Remove example rows and render concise empty-state text for empty sections.
@@ -133,9 +140,9 @@ gets a number; headings and contextual notes refer to items but are not selectio
 Validate supplied numbers and actions; retain clear decisions while clarifying
 ambiguous items. Selection never completes tasks or starts delegation.
 Use links suitable for the host; wiki links above exemplify readable labels.
-Show the broader eligible inventory through pages of at most 15 addition options.
+Show remaining projects on subsequent pages. Display page number and total pages.
 Make remaining eligible rows accessible via Show more and allow an explicit
-all-milestones request without lifting the per-page cap. No automatic shortlist.
+all-milestones inspection without offering later-milestone tasks. No automatic shortlist.
 On later same-day requests preserve the plan and follow the requested edit/check-in
 route; do not force this first-check-in selection screen again.
 This draft's maturity describes the template, not resulting plans. -->

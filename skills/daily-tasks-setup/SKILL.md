@@ -51,6 +51,31 @@ the user's reason. Do not fabricate work to complete setup.
 
 ## Stored preferences and project bindings
 
+### Establish storage when no PARA vault exists
+
+`vaultRoot` means the bound workspace folder; it does not require Obsidian or a
+PARA layout. An ordinary folder is supported. Personal-only setup uses the verified
+user home, leaves project configuration absent and asks no workspace/storage question.
+
+When the requested work needs project records or a daily plan, reuse accepted
+workspace and output locations first. If no workspace is established, ask where the
+user wants to keep that work; their chosen folder establishes the absolute vaultRoot.
+Do not use the plugin installation or an incidental current directory as that choice.
+In a recognized PARA workspace, reuse its actual Projects and Areas directory names
+for missing output bindings. In an ordinary workspace, ask only for unresolved
+project-record and daily-plan locations, together when both are missing; offer
+`projects/` and `daily-plans/` under the chosen workspace as concrete choices.
+Persist the selected projectsRoot and dailyPlansRelative in the project layer and
+continue the original request. Explain that daily plans belong inside the workspace;
+an explicitly assigned projects collection may be outside it. Preserve existing
+bindings, including the packaged daily-plan default when already accepted.
+
+Do not require a PARA conversion or create Projects/Areas/Resources/Archives folders
+to complete ordinary-folder setup. Bundled templates remain usable; user-supplied
+templates follow the non-PARA storage rules in [custom templates](../daily-tasks/references/templates.md).
+Configuration and operating-state locations remain conventional; ask about the
+user's work storage, not internal profile/cache/state paths.
+
 New profiles use schema version 2 and may contain only the selected scope's values:
 
 ```json
@@ -95,6 +120,15 @@ tools. Validate the effective task context separately before continuing vault wo
 Missing project bindings do not prevent personal setup. Do not persist credentials,
 private message copies or cache paths. Keep configuration outside installed source.
 Check Node >=22 and CLI --help before invoking scripts.
+
+After vault configuration resolves, follow
+[visible template placement](../daily-tasks/references/templates.md#visible-templates-in-a-para-vault)
+for all five template kinds. In an established PARA vault, place missing active
+templates in its actual Resources/templates directory and register the paths.
+Skills own those Markdown/profile writes; the CLI proposes placement and records
+baselines. Preserve existing pointers, null resets and destination files. Link the
+directory and registered files in setup results so the user can inspect/edit them.
+Personal-only setup needs no vault templates. Installation itself never selects a vault.
 
 ## Operating state and output
 

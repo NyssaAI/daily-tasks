@@ -8,6 +8,16 @@ description: Create or edit the user's local-day Markdown plan across personal a
 Follow these checkpoints in order. A directly activated Plan uses the same contracts
 as router-led planning; no earlier router load is required.
 
+**Screen gate:** Every actual task-selection screen, page, resumed review and planning
+recap must use the active review template. Do not replace it with a prose summary,
+plain numbered list, question widget or the saved daily-plan layout. Before asking
+for choices, draft the screen, pass it as `reviewMarkdown` to `planning-state`
+`save-review`, and display the successful result's `value.screen.markdown` unchanged.
+A prepared packet or saved number mapping alone is not a validated screen. This gate
+does not apply to explanations of how the plugin works or a status-only reply that
+presents no planning options. Explicit user formatting changes go through template
+selection/overrides; never silently substitute a different layout.
+
 ## 1. Resolve and prepare
 
 Load [context and planning flow](../daily-tasks/references/planning-flow.md#resolve-once)
@@ -77,8 +87,11 @@ with UUIDv7 and GMT creation/update timestamps. Never backfill skipped days. A p
 still needs verified rollover for today. Find and reconcile the most recent earlier
 plan when dated rollover is incomplete, even if today's file already exists.
 
-Merge only unfinished prior selections by UUID into existing selections. Honor
-explicit removals/future allocations; never populate from all open tasks. Terminal
+Merge unfinished prior selections and all valid in-progress tasks by UUID into
+existing selections, including in-progress work omitted from the previous plan.
+Honor explicit removals of not-started work and future allocations. In-progress
+work carries until completed, rescheduled or cancelled; plain removal requires a
+new date or lifecycle decision. Never populate from all not-started tasks. Terminal
 rows remain historical and missing records remain unresolved. Carry-forward is
 already authorized; it needs no new acceptance. Recover interrupted checkpoints
 before reconsidering effects, and carry only once after verified dated completion.
@@ -96,18 +109,27 @@ Load [review scope](../daily-tasks/references/planning-flow.md#review-scope),
 [durable mapping](../daily-tasks/references/planning-flow.md#build-and-review)
 and [response conventions](../daily-tasks/references/response-conventions.md) before
 rendering or waiting for numbered replies. Use the prepared all-owner scoped review,
-its full scoped counts, stable ordering, first incomplete milestones, future
-exclusions and pages of at most 15 additions. Preserve owner and assignee metadata.
-Persist the displayed UUID/number mapping, binding and local date with `planning-state`
-action `save-review` before waiting. Load the [CLI inputs](../daily-tasks/references/cli.md)
+its full scoped counts, stable ordering, lowest incomplete milestones, future
+exclusions and one project per page, keeping its eligible tasks together in source order. Preserve owner and assignee metadata.
+Read `packet.templates.templates.planDayReview.active.content` from `planning-prepare`
+and author the complete chat draft from that exact content. Preserve its section
+headings and column order; replace example rows with the prepared selected/available
+rows, including hidden `ref` comments, stable numbers, status marks and carry markers.
+Use concise empty-state sentences instead of sample rows. Preserve the required legend.
+Persist the draft as `reviewMarkdown`, UUID/number mapping, binding and local date
+with `planning-state` action `save-review` before displaying it or waiting. A validation
+error requires correcting the draft against the active template and retrying; do not
+ask for choices using a fallback layout. Display `value.screen.markdown` unchanged
+after successful saving, outside code fences. Load the [CLI inputs](../daily-tasks/references/cli.md)
 for the packet's complete hashes and matching page/allMilestones options. A changed
 inventory/mapping requires a fresh screen; never reinterpret old numbers. Reprepare
 using saved mappings, preserving unchanged identities' numbers across writes, pages
 and follow-ups.
 
 When authoring either document, use its prepared `active.content` following
-[custom templates](../daily-tasks/references/templates.md). `templates.planDayReview`
-controls chat; `templates.dailyPlan` controls saved output independently. The active
+[custom templates](../daily-tasks/references/templates.md). In the preparation packet,
+`templates.templates.planDayReview` controls chat; `templates.templates.dailyPlan`
+controls saved output independently. The active
 content may retain an earlier bundled revision; do not bypass it with the newest
 installed asset. Use the [saved-plan contract](../daily-tasks/references/planning-flow.md#saved-daily-plan)
 for personal/delegated responsibility and retaining only selected work. Existing
@@ -119,8 +141,10 @@ rewriting records or accepting sample work.
 Resolve replies against the saved screen using response conventions. A bare number
 needs an action; clarify only affected items, retain clear batch decisions and save
 progress before waiting. Silence and omitted rows never supply acceptance.
-Adding previously unselected work requires a supplied planning decision. Removing
-a row deselects it, leaves its task open and stops future carry until selected.
+Adding previously unselected not-started work requires a supplied planning decision.
+Removing a not-started row deselects it and stops future carry until selected.
+For an in-progress row, request rescheduling, completion or cancellation instead;
+apply only the explicit decision. It cannot silently drop from future plans.
 Log changed selection/deselection once; never log unchanged reads/check-ins.
 
 Status/ownership/closure changes go through [Records](../daily-tasks-records/SKILL.md):
@@ -150,7 +174,8 @@ Verify rollover completion separately from first review and successful check-in.
 Compare newly authored or explicitly reformatted output with the selected template's
 visible layout. Acceptance alone never authorizes reformatting today's existing file.
 
-Link the saved plan first; summarize applied changes, outstanding decisions and exact
-failed effects without reprinting the entire plan unless requested. Use the review's
-same layout/numbers for today's recap. Future tables require an explicit week-view
-request. A preview or fictional example cannot claim saved output.
+For an options screen or planning recap, show the freshly validated screen first,
+then the saved-plan link and any concise change/error notes. A status-only reply can
+lead with the saved-plan link without reprinting the plan. Use the review's
+same layout/numbers for today's recap, including the screen gate above. Future tables require an explicit week-view
+request. A preview or fictional example must use the same pagination, milestone eligibility and task ordering as a real review; it cannot claim saved output.

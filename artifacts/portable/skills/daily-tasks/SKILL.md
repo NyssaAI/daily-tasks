@@ -41,6 +41,10 @@ use normal Markdown links to actual files; wiki links belong in vault documents.
 For planning/review screens and numbered replies, use
 [response conventions](references/response-conventions.md), including the shared
 work-status legend and stable row mappings. Keep selection and work state separate.
+Before showing planning options or recaps, follow [Plan's screen gate](../daily-tasks-plan/SKILL.md):
+save the active-template draft with `planning-state save-review`, then display the
+returned `value.screen.markdown` unchanged. Routing through this skill never waives
+that check; prose summaries and question widgets cannot replace the planning screen.
 
 Projects, milestones and tasks require explicit user acceptance, including batches.
 An explicit instruction to create named work (including a named batch) supplies

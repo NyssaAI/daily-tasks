@@ -9,6 +9,10 @@ Resolve configured scope through [setup](../daily-tasks-setup/SKILL.md). Read on
 user-supplied/authorized sources and [record conventions](../daily-tasks/references/records.md).
 Distinguish requests, promises, ideas and updates. Match existing UUID/source references
 before proposing a new item. A repeated mention adds context, not another task.
+When the request is choosing existing work for a daily plan, route that presentation
+through [Plan](../daily-tasks-plan/SKILL.md): only not-started work without a later-day
+allocation is offered as an option. In-progress work belongs in ongoing selections,
+not the acceptance queue; it carries until completed, rescheduled or cancelled.
 
 Present a compact candidate list with proposed title, parent milestone/project, owner,
 assignee if specified, target_date only if explicit, source reference and unresolved facts.

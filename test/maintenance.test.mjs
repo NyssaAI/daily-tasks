@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { planningScreen } from './fixtures/planning-screen.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, mkdtemp, readFile, writeFile, stat, unlink, rm, symlink } from 'node:fs/promises';
 import path from 'node:path';
@@ -161,7 +162,7 @@ test('unsupported worker evidence and scoped failed direct checks do not block i
     assert.equal(packet.maintenance.workerEvidence.status, 'unsupported');
     assert.equal(packet.maintenance.fullReconcileDue, null);
     assert.equal(packet.maintenance.inspectionDue, true);
-    const saved = await savePlanningState({ ...input, action,
+    const saved = await savePlanningState({ ...input, action, reviewMarkdown:planningScreen(packet),
       expectedPlanHash: packet.current.sha256, expectedPreviousHash: packet.previous?.sha256 ?? null,
       expectedStateHash: packet.state[action === 'save-review' ? 'review' : 'rollover'].sha256,
       expectedInventoryHash: packet.inventoryHash, expectedReviewHash: packet.reviewHash });

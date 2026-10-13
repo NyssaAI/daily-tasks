@@ -52,14 +52,14 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | format-time | time GMT ISO, timezone | Local display with explicit zone |
 | validate-profile | profile object | valid/errors/resolvedTimezone; no save |
 | resolve-context | absolute vaultRoot or captured initialCwd for vault work; homeRoot for personal-only setup; configurationSources?, legacy profilePath?/configRoot?, preferenceOverrides?, stateRoot?, now? | Layered preferences, versioned source selections, provenance/writableScopes, independent absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
-| template-prepare | context inputs above, kinds (nonempty distinct supported kinds), scope? user/project/legacy, review? | Active/available content, revisions, policy, comparison, offer decision, token and storage hashes; no writes |
-| template-state | same context/kinds/scope, expectedToken, action baseline/decide/recover, decisions? (one per kind), originalWords for decide, dryRun? | Retained JSON snapshots and choices; atomic checkpoint/recovery; project decisions logged exactly once; never writes Markdown |
+| template-prepare | context inputs above, kinds (nonempty distinct supported kinds), scope? user/project/legacy, review? | Active file/available/upstream content, three-way comparison, PARA placement proposals, pending file updates, policy, offer decision, token and storage hashes; no writes |
+| template-state | same context/kinds/scope, expectedToken, action baseline/decide/recover, decisions? (one per kind), originalWords for decide, dryRun? | Retained JSON snapshots and choices; file-update-required until skill-owned Markdown effects are verified by a fresh baseline; project decisions logged exactly once; never writes Markdown |
 | planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, active dailyPlan/planDayReview template packet, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
-| planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
+| planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash and reviewMarkdown for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares and checks sources, validates and saves the review draft/mapping or a no-change rollover receipt; rejects invalid screen layout/rows, stale template, pending carry/operations, wrong plan type, stale state |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
 | warm-project-index | dedicated flags: vault-root required; home-root/profile-path optional; dry-run optional | Resolves configured context and calls project-index without forceRefresh; compact status/counts/metrics only, disposable cache write at most |
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
-| planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | All-owner scoped counts, selected/available rows with ownership metadata, stable mapping, diagnostics; max 15 addition rows |
+| planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, position?, page?, allMilestones?, pendingFutureIds? | All-owner scoped counts, selected/available rows with ownership metadata, stable mapping, diagnostics; one project per page; page/pageCount, position and reviewComplete; lowest incomplete milestone only (allMilestones does not expand selection) |
 | plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
 | maintenance-status | resolved context inputs | Boolean inspectionDue, alwaysCheck; workerEvidence.status unsupported and fullReconcileDue null (not overdue/success); no write |
 | maintenance-inspect | resolved context inputs, dryRun? | Actual graph/navigation/baseline checks; saves CLI inspection JSON only; no worker success |
@@ -178,7 +178,8 @@ const reviewInput = {
   ...shared,
   action: 'save-review',
   expectedStateHash: packet.state.review.sha256,
-  expectedReviewHash: packet.reviewHash
+  expectedReviewHash: packet.reviewHash,
+  reviewMarkdown: draftedScreenMarkdown
 };
 const rolloverInput = {
   ...shared,
@@ -192,6 +193,12 @@ then invoke `node PACKAGE_ROOT/scripts/daily-tasks.mjs planning-state --input AB
 `undefined` options are omitted by JSON serialization; explicit options must match
 preparation. These are alternative inputs, not a sequence using one stale packet.
 Reprepare after a state or source write before constructing another input.
+`draftedScreenMarkdown` is authored from
+`packet.templates.templates.planDayReview.active.content` using the exact prepared
+review rows. It is required for save-review, including dry-run; missing or malformed
+drafts fail before state writes. Display the saved `value.screen.markdown` unchanged.
+The stored screen includes its content hash and active template revision; the CLI
+validates supplied text but does not render Markdown or certify host presentation.
 `complete-rollover` is only for an eligible no-change rollover. Pending membership
 changes require the [rollover operation protocol](planning-flow.md#once-per-day-rollover).
 A rejected hash or failed state save remains pending; never report it complete.

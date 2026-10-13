@@ -147,21 +147,41 @@ It returns selected/available rows, counts, hasMore, diagnostics and an updated 
 Persist the mapping together with mappingBinding from the result and the local date
 in stateRoot before waiting. Pass mappingBinding when reusing a nonempty mapping;
 a different binding invalidates the numbered screen, never reinterprets its numbers.
-With a preparation packet, use `planning-state` action `save-review` and its current
+With a preparation packet, use `planning-state` action `save-review`, the complete
+agent-authored `reviewMarkdown` draft, and its current
 plan hash, previous-plan hash (null if absent), and state.review.sha256. This rereads
 and verifies the actual files and saves the mapping in stateRoot/review/DATE.json.
+The same review file stores position: current project ID, page index, ordered project
+IDs and whether review navigation is complete. After recovering pending operations,
+omit page on resume to restore the project anchor against refreshed eligibility. If
+that project has no options, preparation selects the next surviving project from the
+saved order; if none remains, it returns reviewComplete. Earlier projects are not
+silently revisited. Existing state without position starts at the first page and
+preserves its numbers. Explicit page navigation overrides the saved anchor.
+Show "Review complete" instead of a page indicator when reviewComplete is true;
+this ends the options sequence, not pending operations or unresolved decisions.
+The user can explicitly return to an earlier page. Refresh before navigating after
+writes so a disappeared project cannot cause Next to skip its successor.
 An existing same-day planning-review.json is reused without discarding its numbers.
 Also pass inventoryHash as expectedInventoryHash and reviewHash as expectedReviewHash,
-and reuse context.now plus the same page/allMilestones options. A changed inventory or
-numbering requires a fresh screen; never silently save different numbers from those shown.
+and reuse context.now plus the same page/allMilestones options. `reviewHash` binds the
+full review and active screen-template revision/selector, not just row numbers. A
+changed template, inventory or numbering requires a fresh screen; never silently save
+different numbers from those shown. Saving validates the draft's template headings,
+table columns, task identities/numbers/statuses/order, carry markers, standard counts
+and legend. It retains the validated Markdown and template hash alongside the mapping.
+Display the saved result's `value.screen.markdown` unchanged; fix rejected drafts
+before asking for choices. This is a draft check, not evidence of host display.
 Show more increments page and reuses
-that mapping. All-milestones requests set allMilestones without lifting the 15-row cap.
+that mapping. All-milestones inspection does not expand task-selection eligibility.
 Pending future selections pass pendingFutureIds to suppress repeat suggestions.
 Out-of-view selections are preserved in the daily plan, not displayed in this owner view.
 
-Resolve planDayReview through [template updates](template-updates.md) and apply its
-active content. The current bundled layout has six columns (#, Status, Project,
-Milestone, Task, Due Date); retained/custom layouts keep their own presentation.
+Resolve planDayReview through [template updates](template-updates.md) and apply
+`packet.templates.templates.planDayReview.active.content`. The current bundled layout
+has eight columns (#, Status, Project, Milestone, Task, Owner, Assignee, Due Date);
+retained/custom layouts keep their own presentation. Apply the same screen-validation
+gate to first review, later pages, resumed sessions and post-decision recaps.
 Preserve the facts, counts, stable response handles, status meanings, carry provenance
 and today-only recap in the selected layout. If incomplete is true, add a
 short factual note that counts/options are incomplete and route affected diagnostics
@@ -185,26 +205,29 @@ handles uncertain facts separately. Visibility permits planning and check-in
 decisions; it never reassigns ownership, changes assignment or starts execution.
 
 Counts describe the full scoped inventory at the recorded update time:
-unique open projects/tasks are not-started or in-progress; late tasks are open tasks
+open tasks are not-started tasks with no later-day allocation or pending future
+selection. In-progress tasks are ongoing selections, never new options. Open projects
+are unfinished projects containing at least one such open task; late tasks are open tasks
 with an explicit target_date before the configured local day. Due today is not late.
 Never infer dates/counts; identify stale/incomplete inventory rather than claiming
-verified exact totals. The addition-page cap does not limit selected rows or counts.
+verified exact totals. Project pagination does not limit selected rows or counts.
 
 Order projects by directory date, oldest first, with alphabetical name tie-breaking;
 undated directories follow alphabetically. Preserve indexed task order, then place
 valid unlisted tasks by filename. Missing index links do not make accepted work
 ineligible. This is stable presentation, never priority/due-date ranking or execution
 order. Show only the first incomplete milestone in authoritative sequence, skipping
-completed/cancelled milestones, unless all milestones are explicitly requested.
+completed/cancelled milestones, even when inspecting all milestones.
 An empty first incomplete milestone does not advance eligibility to the next.
 Resolve unknown sequence before relying on "first"; never use UUID ordering.
 Preserve existing selections from later milestones.
 
-Keep selected tasks out of available rows. Exclude explicit future-day selections,
+Show only open tasks as available options. Keep selected and in-progress tasks out
+of available rows. Exclude explicit future-day selections,
 including durable allocations and pending review decisions; a future due date alone
 does not exclude a task. Work moved to another day does not return on later pages or
-today's recap. Offer at most 15 available additions per page with Show more for the
-remainder; all-milestones requests keep this cap. Never make an automatic shortlist.
+today's recap. Show one project per page, keeping all its eligible additions together in source
+order. Show the page number and total pages; Show more advances to the next project. Never make an automatic shortlist.
 First review introduction, plan-file existence, rollover completion and successful
 check-in are separate states. On resumed/same-day requests preserve the plan and
 follow the requested route rather than forcing the first-check-in screen again.
@@ -269,8 +292,16 @@ UUID and the actual previous date/rows, canonical records, inventory and explici
 removals before checkpointing the selected IDs.
 
 The command proposes a UUID merge: existing rows/prose are preserved, unfinished
-personal/delegated rows are carried, terminal and future-selected work is skipped,
+personal/delegated/follow-up rows are carried, terminal and future-selected work is skipped,
 and unresolved references stay visible. Carry provenance records previousDate.
+Include every valid in-progress task from the bound inventory, even if omitted from
+the previous plan or previously deselected. Do not invent previous-plan provenance
+for those additions; use the canonical task path/title to render their links.
+In-progress work continues into the next plan until completed, cancelled or explicitly
+rescheduled. Plain removal is not a disposition for in-progress work: ask for the
+new date or a lifecycle decision. Preserve future allocations until their date arrives.
+Include the canonical sources of all such tasks in rollover checkpoint taskSources.
+This standing carry rule is authorized; not-started tasks still need selection.
 Invalid ancestor facts withhold affected additions through `invalid-planning-scope`;
 they never turn a later milestone into the first eligible milestone.
 

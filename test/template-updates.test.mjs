@@ -108,16 +108,19 @@ test('custom templates remain intact and block unattended replacement even under
   assert.equal(checked.templates.dailyPlan.active.content,content);
   assert.equal(checked.templates.dailyPlan.automaticBlocked,true);
   await save(input,checked,'decide',[{kind:'dailyPlan',action:'accept'}],options);
-  assert.equal((await prepareTemplates(input,options)).templates.dailyPlan.active.content,options.catalog.dailyPlan.content);
+  assert.equal((await prepareTemplates(input,options)).templates.dailyPlan.fileUpdate.status,'pending');
   assert.equal(await readFile(customPath,'utf8'),content);
-  // A user's subsequent edit establishes a new custom source, rather than being hidden by an old receipt.
+  // The skill writes the approved file; only then can the runtime complete the choice.
+  await writeFile(customPath,options.catalog.dailyPlan.content);
+  await save(input,await prepareTemplates(input,options),'baseline',undefined,options);
+  // A user's subsequent edit remains visible and does not erase their lasting preference.
   await writeFile(customPath,content+'A new personal note.\n');
   const edited = await prepareTemplates(input,options);
   assert.match(edited.templates.dailyPlan.active.content,/personal note/);
   await save(input,edited,'baseline',undefined,options);
   const retainedEdit = await prepareTemplates(input,options);
-  assert.equal(retainedEdit.templates.dailyPlan.policy,'ask');
-  assert.deepEqual(retainedEdit.templates.dailyPlan.decisions,{});
+  assert.equal(retainedEdit.templates.dailyPlan.policy,'latest');
+  assert.equal(retainedEdit.templates.dailyPlan.shouldOffer,false);
 });
 
 test('unchanged template content across plugin releases causes no offer or repeated baseline write', async () => {

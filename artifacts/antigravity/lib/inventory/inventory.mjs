@@ -2,6 +2,7 @@ import { readFile, writeFile, readdir, lstat, realpath, mkdir, rename, unlink } 
 import { createHash, randomUUID } from 'node:crypto';
 import path from 'node:path';
 import { homedir } from 'node:os';
+import { setTimeout as delay } from 'node:timers/promises';
 import { parseRecord, validateRecords, checkLinks, recordIssueIsInvalid, recordMarkdownIsManaged, recordDirectoryIsHoldingArea } from '../records/records.mjs';
 import { parseViewRows } from '../records/views.mjs';
 import { isUuid7 } from '../identity/identity.mjs';
@@ -114,7 +115,18 @@ async function cacheDirectory(vaultRoot,create) {
 async function atomicJson(filename,value) {
   try { await ordinary(filename); } catch (error) { if (error.code !== 'ENOENT') throw error; }
   const temporary = `${filename}.${randomUUID()}.tmp`;
-  try { await writeFile(temporary,JSON.stringify(value,null,2) + '\n',{flag:'wx'}); await rename(temporary,filename); }
+  try {
+    await writeFile(temporary,JSON.stringify(value,null,2) + '\n',{flag:'wx'});
+    for (let attempt=0;;attempt++) {
+      try { await rename(temporary,filename); break; }
+      catch (error) {
+        // Windows can briefly deny replacement while another cache reader/writer holds the file.
+        if (process.platform !== 'win32' || !['EPERM','EACCES','EBUSY'].includes(error.code) || attempt >= 9) throw error;
+        await delay(25 * (attempt + 1));
+        try { await ordinary(filename); } catch (checkError) { if (checkError.code !== 'ENOENT') throw checkError; }
+      }
+    }
+  }
   finally { await unlink(temporary).catch(error => { if (error.code !== 'ENOENT') throw error; }); }
 }
 

@@ -7,6 +7,7 @@ import { planningReview, planSelection, maintenanceStatus } from '../lib/plannin
 import { carryForward } from '../lib/planning/planning.mjs';
 import { resolveContext, planningBinding } from '../lib/profile/context.mjs';
 import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
+import { planningScreen } from './fixtures/planning-screen.mjs';
 
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12,'0')}`;
 const now = '2026-10-06T14:00:00.000Z';
@@ -65,7 +66,7 @@ test('maintained preparation binds actual plan identity and state writes reject 
     mappingBinding:prepared.context.planningBinding,mapping:{[id(3)]:7}}));
   const legacy = await preparePlanning(input);
   assert.equal(legacy.review.selected[0].number,7);
-  const savedReview = await savePlanningState({...input,action:'save-review',expectedPlanHash:legacy.current.sha256,
+  const savedReview = await savePlanningState({...input,action:'save-review',reviewMarkdown:planningScreen(legacy),expectedPlanHash:legacy.current.sha256,
     expectedPreviousHash:null,expectedStateHash:legacy.state.review.sha256,expectedInventoryHash:legacy.inventoryHash,expectedReviewHash:legacy.reviewHash});
   const reopenedReview = JSON.parse(await readFile(savedReview.path,'utf8'));
   assert.equal(reopenedReview.planId,id(21));
@@ -125,7 +126,7 @@ test('inventory uses agreed shape, table order and one planned source, then reus
   assert.equal(reuse.metrics.sourceReads,0);
   const view = planningReview({inventory:reuse.inventory,userEmail:owner,timezone:input.timezone,now});
   assert.deepEqual(view.available.map(t => t.id),[id(3)]);
-  assert.deepEqual(view.counts,{openProjects:1,openTasks:3,lateTasks:3});
+  assert.deepEqual(view.counts,{openProjects:1,openTasks:2,lateTasks:2});
   await unlink(input.future);
   const changed = await projectInventory({...input,now:'2026-10-06T15:10:00Z'});
   assert.equal(changed.status,'rebuilt');
@@ -156,6 +157,56 @@ test('conflicting active dates are diagnosed, historical selections do not confl
   assert.ok(!planningReview({inventory:result.inventory,userEmail:owner,timezone:input.timezone,now,allMilestones:true}).available.some(t => t.id === id(4)));
 });
 
+test('review offers only not-started tasks without future allocations or pending future decisions', async () => {
+  const input = await fixture();
+  const {inventory} = await projectInventory(input);
+  inventory.tasks[0].state = 'in-progress';
+  const request = {inventory,userEmail:owner,timezone:input.timezone,now,allMilestones:true};
+  const review = planningReview(request);
+  assert.deepEqual(review.available,[]);
+  assert.deepEqual(review.counts,{openProjects:1,openTasks:1,lateTasks:1});
+  const pending = planningReview({...request,pendingFutureIds:[id(6)]});
+  assert.deepEqual(pending.available,[]);
+  assert.deepEqual(pending.counts,{openProjects:0,openTasks:0,lateTasks:0});
+  const selected = planningReview({...request,selected:[{id:id(3)}]});
+  assert.equal(selected.selected[0].state,'in-progress');
+  assert.deepEqual(selected.available,[]);
+});
+
+test('preparation carries omitted in-progress follow-up work and refuses an unpersisted rollover', async () => {
+  const input = await fixture();
+  const config = path.join(input.vaultRoot,'.nyssa-ai/daily-tasks');
+  await mkdir(config,{recursive:true});
+  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:2,user:{name:'Owner',email:owner},
+    timezone:input.timezone,projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
+  const task = path.join(input.project,'second/c.md');
+  await writeFile(task,(await readFile(task,'utf8')).replace(`owner: ${owner}`,'owner: someone@example.test')
+    .replace('task-state: not-started','task-state: in-progress\nstarted_at: 2026-10-06T13:00:00Z'));
+  const index = path.join(input.project,'project-index.md');
+  await writeFile(index,(await readFile(index,'utf8')).replace('[ ] [[second/c','[>] [[second/c'));
+  const plan = path.join(input.dailyPlansRoot,'2026.10.06-daily-plan.md');
+  await writeFile(plan,`---\nid: ${id(21)}\ntype: daily-plan\n---\n`);
+  const prepared = await preparePlanning(input);
+  assert.deepEqual(prepared.rollover.followUp.map(row => row.id),[id(6)]);
+  assert.ok(prepared.review.selected.some(row => row.id === id(6)));
+  assert.ok(!prepared.review.available.some(row => row.id === id(6)));
+  await assert.rejects(savePlanningState({...input,action:'complete-rollover',expectedPlanHash:prepared.current.sha256,
+    expectedPreviousHash:null,expectedStateHash:null,expectedInventoryHash:prepared.inventoryHash}),/pending membership/);
+});
+
+test('in-progress selections require rescheduling or a lifecycle change instead of plain removal', async () => {
+  const input = await fixture();
+  const {inventory} = await projectInventory(input);
+  inventory.tasks[1].state = 'in-progress';
+  const request = {inventory,taskIds:[id(4)],today:'2026.10.06',dailyPlansRoot:input.dailyPlansRoot};
+  const removal = planSelection({...request,action:'remove',date:'2026.10.07'});
+  assert.deepEqual(removal.effects,[]);
+  assert.deepEqual(removal.conflicts,[{id:id(4),reason:'in-progress-requires-reschedule-or-closure'}]);
+  const moved = planSelection({...request,action:'move',date:'2026.10.08'});
+  assert.deepEqual(moved.conflicts,[]);
+  assert.equal(moved.effects[0].to.date,'2026.10.08');
+});
+
 test('review pages keep stable handles, preserve later selections and day calculations', async () => {
   const input = await fixture();
   const {inventory} = await projectInventory(input);
@@ -164,9 +215,10 @@ test('review pages keep stable handles, preserve later selections and day calcul
   inventory.tasks.push({...task,id:id(70),milestoneId:id(5),planned:[]});
   let screen = planningReview({inventory,userEmail:owner,timezone:input.timezone,now,selected:[{id:id(70),carriedFrom:'2026.10.05'}]});
   assert.equal(screen.selected[0].number,1);
-  assert.equal(screen.available.length,15);
+  assert.equal(screen.available.length,18);
   const next = planningReview({inventory,userEmail:owner,timezone:input.timezone,now,selected:[{id:id(70),carriedFrom:'2026.10.05'}],page:1,mapping:screen.mapping});
-  assert.deepEqual(next.available.map(t => t.number),[17,18,19]);
+  assert.deepEqual(next.available,[]);
+  assert.equal(screen.pageCount,1);
   assert.equal(next.selected[0].carriedFrom,'2026.10.05');
   assert.equal(maintenanceStatus({now,lastFullReconcileAt:'2026-10-06T10:00:00Z'}).fullReconcileDue,true);
   assert.equal(maintenanceStatus({now,lastFullReconcileAt:'2026-10-06T11:00:00Z'}).fullReconcileDue,false);
@@ -247,8 +299,8 @@ test('review counts and offers all scoped work regardless of profile email or ta
   for (const task of inventory.tasks) task.owner = otherOwner;
   const screen = planningReview({inventory,userEmail:'profile@example.test',timezone:input.timezone,now,allMilestones:true});
   assert.equal(screen.counts.openProjects,1);
-  assert.equal(screen.counts.openTasks,3);
-  assert.deepEqual(screen.available.map(task => task.owner),[otherOwner,otherOwner]);
+  assert.equal(screen.counts.openTasks,2);
+  assert.deepEqual(screen.available.map(task => task.owner),[otherOwner]);
 });
 
 test('manual future status edits remain affected work until reconciled, notes are not allocations', async () => {
@@ -331,7 +383,8 @@ test('invalid ancestor text blocks affected additions uniformly, preserving sele
   assert.deepEqual(planningReview({inventory:duplicate.inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(102)]);
   await unlink(path.join(input.project,'first/duplicate.md'));
   const fixed = await projectInventory({...input,forceRefresh:true});
-  assert.deepEqual(planningReview({inventory:fixed.inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(3),id(102)]);
+  assert.deepEqual(planningReview({inventory:fixed.inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(3)]);
+  assert.deepEqual(planningReview({inventory:fixed.inventory,userEmail:owner,timezone:input.timezone,now,page:1}).available.map(t => t.id),[id(102)]);
 });
 
 test('invalid task metadata isolates that task without blocking other tasks or hiding a selection', async () => {
@@ -402,4 +455,28 @@ test('following-line selections are allocated and legacy future cancellation rea
   await writeFile(index,(await readFile(index,'utf8')) + `\n- [ ] ~~[[first/b|B]]~~ Cancelled <!-- ref: ${id(4)} -->\n`);
   const projectEdit = await projectInventory(input);
   assert.ok(projectEdit.inventory.diagnostics.some(d => d.code === 'view-state-difference' && d.recordId === id(4)));
+});
+
+test('saved review restores the project cursor without a page argument', async () => {
+  const input = await fixture();
+  const config = path.join(input.vaultRoot,'.nyssaai/daily-tasks');
+  await mkdir(config,{recursive:true});
+  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:1,user:{name:'Owner',email:owner},timezone:input.timezone,priorities:[],vaultRoot:'./',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
+  await writeFile(path.join(input.dailyPlansRoot,'2026.10.06-daily-plan.md'),`---\nid: ${id(21)}\ntype: daily-plan\n---\n`);
+  const beta = path.join(input.projectsRoot,'2026.02.01-beta');
+  await mkdir(beta);
+  await writeFile(path.join(beta,'project-index.md'),doc(100,'project','Beta','',`- [ ] [[milestone|Milestone]] <!-- ref: ${id(101)} -->\n- [ ] [[task|Task]] <!-- ref: ${id(102)} -->`));
+  await writeFile(path.join(beta,'milestone.md'),doc(101,'milestone','Milestone',`project_id: ${id(100)}\n`));
+  await writeFile(path.join(beta,'task.md'),doc(102,'task','Task',`project_id: ${id(100)}\nmilestone_id: ${id(101)}\n`));
+  const packet = await preparePlanning({...input,page:1});
+  assert.equal(packet.review.position.projectId,id(100));
+  const saved = await savePlanningState({...input,page:1,action:'save-review',reviewMarkdown:planningScreen(packet),expectedPlanHash:packet.current.sha256,expectedPreviousHash:null,expectedStateHash:packet.state.review.sha256,expectedInventoryHash:packet.inventoryHash,expectedReviewHash:packet.reviewHash});
+  assert.deepEqual(saved.value.position,packet.review.position);
+  const restored = await preparePlanning(input);
+  assert.deepEqual(restored.review.position,packet.review.position);
+  assert.deepEqual(restored.review.mapping,packet.review.mapping);
+  await writeFile(path.join(beta,'task.md'),(await readFile(path.join(beta,'task.md'),'utf8')).replace('task-state: not-started','task-state: in-progress'));
+  const finished = await preparePlanning({...input,forceRefresh:true});
+  assert.equal(finished.review.reviewComplete,true);
+  assert.deepEqual(finished.review.available,[]);
 });

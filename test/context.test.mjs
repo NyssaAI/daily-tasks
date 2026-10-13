@@ -5,6 +5,7 @@ import path from 'node:path';
 import { resolveContext, planningBinding, assertPlanningScope } from '../lib/profile/context.mjs';
 import { validateProfile } from '../lib/profile/profile.mjs';
 import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
+import { planningScreen } from './fixtures/planning-screen.mjs';
 import { uuid7 } from '../lib/identity/identity.mjs';
 import { verifiedMaintenanceStatus, inspectMaintenance } from '../lib/planning/maintenance.mjs';
 import { verifyOperation } from '../lib/operations/verification.mjs';
@@ -161,7 +162,7 @@ test('preparation and saved review use the same custom personal and partial proj
   assert.deepEqual(prepared.context.configurationSources,configurationSources);
   assert.deepEqual(prepared.context.templates,{});
   const bound = Object.fromEntries(['vaultRoot','homeRoot','configurationSources','preferenceOverrides','stateRoot','now'].map(key => [key,prepared.context[key]]));
-  const saved = await savePlanningState({...bound,action:'save-review',expectedPlanHash:prepared.current.sha256,
+  const saved = await savePlanningState({...bound,action:'save-review',reviewMarkdown:planningScreen(prepared),expectedPlanHash:prepared.current.sha256,
     expectedPreviousHash:null,expectedStateHash:null,expectedInventoryHash:prepared.inventoryHash,expectedReviewHash:prepared.reviewHash});
   assert.equal(saved.status,'saved');
   assert.equal(JSON.parse(await readFile(saved.path,'utf8')).mappingBinding,prepared.context.planningBinding);
