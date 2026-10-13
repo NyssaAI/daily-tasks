@@ -142,8 +142,8 @@ test('extensionless criterion files pass while contextual and typed relationship
   await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n- [x] [[outputs]]\n## Definition of Done\n- [x] [[outputs]]\n- [x] [[inputs/proof]] and [Proof](inputs/proof) and [[inputs/result]]\n### Depends on\n- [x] [[outputs]]\n- [[t2-related]] <!-- ref: 019a1234-5678-7abc-8def-000000000001 -->\n## Output\n- [x] [[outputs]]\n');
   const result = await inspectNavigation({projectsRoot});
   assert.deepEqual(result.diagnostics.map(({code,target})=>({code,target})),[{code:'invalid-link-target',target:'outputs'}]);
-  assert.equal(result.targets.find(target=>target.path.endsWith('inputs/proof')).kind,'file');
-  assert.equal(result.targets.find(target=>target.path.endsWith('inputs/result.md')).kind,'file');
+  assert.equal(result.targets.find(target=>target.path.endsWith(path.join('inputs','proof'))).kind,'file');
+  assert.equal(result.targets.find(target=>target.path.endsWith(path.join('inputs','result.md'))).kind,'file');
   assert.ok(result.targets.some(target=>target.path.endsWith('t2-related.md')));
 });
 
