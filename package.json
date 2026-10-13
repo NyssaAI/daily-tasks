@@ -1,6 +1,6 @@
 {
   "name": "@nyssaai/daily-tasks",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Personal task and daily planning skills with Markdown records and deterministic integrity tools",
   "type": "module",
   "private": true,
@@ -8,11 +8,14 @@
     "node": ">=22"
   },
   "scripts": {
+    "pretest": "npm run assemble",
     "test": "node --test",
     "assemble": "node scripts/assemble.mjs write",
+    "precheck": "npm run assemble",
     "check": "node scripts/assemble.mjs check && node scripts/validate.mjs",
+    "preeval": "npm run assemble",
     "eval": "node evals/run.mjs",
     "eval:check": "node evals/report.mjs check"
   },
-  "license": "MIT"
+  "license": "PolyForm-Small-Business-1.0.0"
 }

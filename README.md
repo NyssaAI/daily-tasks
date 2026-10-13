@@ -118,7 +118,11 @@ node bin/warm-project-index.mjs --vault-root /absolute/vault --home-root /absolu
 See [CLI contract](skills/daily-tasks/references/cli.md), [record conventions](skills/daily-tasks/references/records.md)
 and [reconciliation](skills/daily-tasks/references/operations.md).
 
-Build generated packages with `npm run assemble`; `artifacts/portable` contains the
+Install a host bundle from the [latest release](https://github.com/NyssaAI/daily-tasks/releases/latest),
+or build from source with Node >=22 and `npm run assemble`. Generated bundles and
+dot-prefixed directories are not tracked in Git; a source checkout must be assembled
+before host installation. `npm test`, `npm run check`, and `npm run eval` assemble automatically.
+`artifacts/portable` contains the
 portable/Codex/Claude/Cursor bundle, `artifacts/cowork` relocates the executable for
 Cowork, and Antigravity/Hermes have their own thin adapters. `artifacts/openclaw-native`
 is a separate optional OpenClaw adapter. After installing it, project setup can reconcile
@@ -133,7 +137,7 @@ Use `--every 30m` (or another OpenClaw duration) to configure the interval and
 agent or chat delivery. Disabling or deleting it only removes the latency optimization;
 every consumer still checks staleness on demand. Register the appropriate package
 through the host's supported plugin flow. A directory or manifest alone does not
-activate it. [Host coverage](docs/host-support.md) records remaining runtime checks.
+activate it. [Evaluation coverage](evals/LATEST.md) records remaining runtime checks.
 
 For Codex Windows with phone access, the Windows app runs the plugin and accesses the
 vault; the phone connects to that host. Native activation and remote pairing need
@@ -149,7 +153,7 @@ node evals/report.mjs write
 npm run eval:check
 ```
 
-[Requirements](docs/requirements.md) preserve the accepted behavior.
+Canonical procedures and templates live under [skills/](skills/).
 [Evaluation](evals/LATEST.md) records deterministic checks and native-host evidence
 for each frozen candidate. Release acceptance requires current passing evidence
 for Node and Codex on Windows x64. Other hosts and phone continuation remain

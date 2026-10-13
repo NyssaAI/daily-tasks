@@ -256,7 +256,7 @@ test('migration shares navigation resolution in project records and daily plans 
   assert.equal((await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event})).duplicate,true);
 });
 
-test('migration resolves actual targets while preserving collision and hidden-state safeguards', async () => {
+test('migration resolves actual targets while preserving collision and hidden-state safeguards', async t => {
   const f = await fixture(), criterionId = uuid7();
   const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
   const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
@@ -294,11 +294,17 @@ test('migration resolves actual targets while preserving collision and hidden-st
   }
   await writeFile(incoming,'No retired links.');
   const linked = path.join(unrelated,'linked.md');
-  await symlink(retiringPath,linked);
+  await t.test('symlink targets block retirement',async st=>{
+  try { await symlink(retiringPath,linked); }
+  catch (error) {
+    if (process.platform === 'win32' && error.code === 'EPERM') return st.skip('Windows file symlinks require permission');
+    throw error;
+  }
   const unscannable = await inspectMigrationRetirement(f.input);
   assert.equal(unscannable.allowed,false);
   assert.ok(unscannable.issues.some(issue=>issue.reason === 'unscannable-link' && issue.path === linked));
   await unlink(linked);
+  });
   assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
 });
 

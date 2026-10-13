@@ -1,9 +1,9 @@
-.temp/
+# Generated distribution bundles
+/artifacts/
+
+# Dot-prefixed directories at any depth
+.*/
+
 node_modules/
-.nyssa/
-.nyssaai/
-.nyssa-ai/
-.daily-tasks/
 .DS_Store
-.obsidian/
 *.tmp

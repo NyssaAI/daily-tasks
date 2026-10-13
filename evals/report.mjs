@@ -36,8 +36,7 @@ for (const target of matrix.targets) {
 }
 const ready = releaseReady(matrix.targets,latest,candidate.hash);
 text += `\nRelease acceptance: **${ready ? 'Pass' : 'Incomplete'}**. Every required matrix row needs current, verified passing evidence.\n`;
-text += '\nOlder development receipts without matrix coordinates are retained but do not establish acceptance.\n';
-text += '\nIncomplete attempts and independent evaluation receipts are retained in [attempts/](attempts/).\n';
+text += '\nOnly the latest evaluation run is retained; older results and attempts have been removed.\n';
 const destination = path.join(root,'evals/LATEST.md');
 if (mode === 'write') await writeFile(destination,text);
 else {
