@@ -36,13 +36,28 @@ export async function buildPackages() {
   const portable = new Map([...shared,...manifests]);
   const agy = new Map(shared); agy.set('plugin.json',encode({name:identity.name,description:identity.description}));
   const cowork = new Map(portable);
-  cowork.set('scripts/daily-tasks.mjs',cowork.get('bin/daily-tasks.mjs')); cowork.delete('bin/daily-tasks.mjs');
-  for (const [key,value] of cowork) if (key.startsWith('skills/') || key === 'capabilities.json') cowork.set(key,value.replaceAll('bin/daily-tasks.mjs','scripts/daily-tasks.mjs'));
+  for (const [key,value] of [...cowork]) if (key.startsWith('bin/')) {
+    cowork.set('scripts/'+path.basename(key),value);
+    cowork.delete(key);
+  }
+  for (const [key,value] of cowork) if (key.startsWith('skills/') || key === 'capabilities.json') {
+    cowork.set(key,value.replaceAll('bin/daily-tasks.mjs','scripts/daily-tasks.mjs').replaceAll('bin/warm-project-index.mjs','scripts/warm-project-index.mjs'));
+  }
   const hermes = new Map(shared);
   hermes.delete('plugin.json');
   hermes.set('plugin.yaml',`name: daily-tasks\nversion: "${identity.version}"\ndescription: ${JSON.stringify(identity.description)}\n`);
   hermes.set('__init__.py',`from pathlib import Path\n\ndef register(ctx):\n    for skill in sorted((Path(__file__).resolve().parent / "skills").glob("*/SKILL.md")):\n        ctx.register_skill(skill.parent.name, skill)\n`);
-  const packages = new Map([['portable',portable],['antigravity',agy],['cowork',cowork],['hermes',hermes]]);
+  const openclawNative = new Map([
+    ['LICENSE',shared.get('LICENSE')],
+    ['capabilities.json',shared.get('capabilities.json')],
+    ['package.json',(await readFile(path.join(root,'adapters/openclaw/package.json'),'utf8')).replaceAll('\r\n','\n')],
+    ['openclaw.plugin.json',(await readFile(path.join(root,'adapters/openclaw/openclaw.plugin.json'),'utf8')).replaceAll('\r\n','\n')],
+  ]);
+  for (const prefix of ['lib/','bin/']) for (const [key,value] of shared) if (key.startsWith(prefix)) openclawNative.set(key,value);
+  for (const [key,value] of await tree(path.join(root,'adapters/openclaw'),'adapters/openclaw/',true)) {
+    if (!key.endsWith('/package.json') && !key.endsWith('/openclaw.plugin.json')) openclawNative.set(key,value);
+  }
+  const packages = new Map([['portable',portable],['antigravity',agy],['cowork',cowork],['hermes',hermes],['openclaw-native',openclawNative]]);
   for (const [format,files] of packages) files.set('assembly.json',encode({format,version:identity.version,source_sha256:digest(files)}));
   return {manifests,packages};
 }

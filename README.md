@@ -24,9 +24,10 @@ carries unfinished selected work forward and reconciles manual checkbox edits.
 
 These six skills form the minimal composition: the router selects or combines sibling
 workflows, and each child can also activate directly. Shared references, templates and
-the Node CLI support those skills. The CLI is executable support, not a command
-component. No additional rules, commands, lifecycle hooks or MCP server are needed;
-maintenance runs during requested workflows.
+the Node CLI support those skills. The portable CLI is executable support, not an
+autonomous command component. Requested workflows retain stale-on-demand correctness.
+OpenClaw users may separately install a thin native adapter that registers an optional
+deterministic prewarm command job; no hook, background agent or MCP server is required.
 
 ## Storage and authority
 
@@ -45,6 +46,8 @@ maintenance runs during requested workflows.
 - Project inventory: `<vault root>/.temp/daily-tasks/project-index.json`. It is disposable,
   refreshed on request or when source checks, local-day rollover or the configurable
   four-hour TTL require it. Cache reuse reads file metadata and no Markdown contents.
+  `bin/warm-project-index.mjs` resolves configured context and invokes that same
+  stale-on-demand path without forcing a rebuild or returning the full inventory.
 - Decision log: `{projects root}/.daily-tasks/yyyy.mm.dd-decisions.json`; date means
   file creation. Append-only logical history, script-only access, explicit rotation.
 - Daily plans: `{vault root}/2-areas/daily-plans/yyyy.mm.dd-daily-plan.md` by default.
@@ -90,12 +93,13 @@ The person chooses execution order. See [planning flow](skills/daily-tasks/refer
 Node.js 22 or later is required for log operations and integrity checks. No npm packages
 or credentials are required. Skills need a host that can read/write the selected files
 and execute Node. Without those capabilities, proposals are possible but persistence
-is unavailable. This is not a background scheduler or a full task database engine.
+is unavailable. This is not a task scheduler or a full task database engine.
 
 ```text
 node bin/daily-tasks.mjs --help
 node bin/daily-tasks.mjs new-id
 node bin/daily-tasks.mjs log-query --input /absolute/query.json
+node bin/warm-project-index.mjs --vault-root /absolute/vault --home-root /absolute/home
 ```
 
 See [CLI contract](skills/daily-tasks/references/cli.md), [record conventions](skills/daily-tasks/references/records.md)
@@ -103,9 +107,20 @@ and [reconciliation](skills/daily-tasks/references/operations.md).
 
 Build generated packages with `npm run assemble`; `artifacts/portable` contains the
 portable/Codex/Claude/Cursor bundle, `artifacts/cowork` relocates the executable for
-Cowork, and Antigravity/Hermes have their own thin adapters. Register the appropriate
-package through the host's supported plugin flow. A directory or manifest alone does
-not activate it. [Host coverage](docs/host-support.md) records remaining runtime checks.
+Cowork, and Antigravity/Hermes have their own thin adapters. `artifacts/openclaw-native`
+is a separate optional OpenClaw adapter. After installing it, project setup can reconcile
+a silent hourly command automation with:
+
+```text
+openclaw daily-tasks setup-prewarm --vault-root /absolute/vault --home-root /absolute/home
+```
+
+Use `--every 30m` (or another OpenClaw duration) to configure the interval and
+`--dry-run` to inspect the declaration. The job runs exact Node argv with no model,
+agent or chat delivery. Disabling or deleting it only removes the latency optimization;
+every consumer still checks staleness on demand. Register the appropriate package
+through the host's supported plugin flow. A directory or manifest alone does not
+activate it. [Host coverage](docs/host-support.md) records remaining runtime checks.
 
 For Codex Windows with phone access, the Windows app runs the plugin and accesses the
 vault; the phone connects to that host. Native activation and remote pairing need

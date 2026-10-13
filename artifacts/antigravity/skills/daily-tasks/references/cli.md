@@ -7,6 +7,7 @@ the installed skill's actual location, never assume a cache path. The portable e
 node PACKAGE_ROOT/bin/daily-tasks.mjs --help
 node PACKAGE_ROOT/bin/daily-tasks.mjs new-id
 node PACKAGE_ROOT/bin/daily-tasks.mjs OPERATION --input ABSOLUTE_JSON_FILE
+node PACKAGE_ROOT/bin/warm-project-index.mjs --vault-root ABSOLUTE_VAULT [--home-root ABSOLUTE_HOME] [--profile-path ABSOLUTE_PROFILE] [--dry-run]
 ```
 
 For Cowork's generated package the entry is `scripts/daily-tasks.mjs` (same implementation).
@@ -56,6 +57,7 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, active dailyPlan/planDayReview template packet, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
 | planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares and checks sources, then atomically saves derived review mapping or a no-change rollover receipt; rejects pending carry/operations, wrong plan type, stale state |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
+| warm-project-index | dedicated flags: vault-root required; home-root/profile-path optional; dry-run optional | Resolves configured context and calls project-index without forceRefresh; compact status/counts/metrics only, disposable cache write at most |
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
 | planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, page?, allMilestones?, pendingFutureIds? | All-owner scoped counts, selected/available rows with ownership metadata, stable mapping, diagnostics; max 15 addition rows |
 | plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
@@ -129,6 +131,10 @@ remains fingerprinted in its disposable freshness sidecar.
 Counts, lateness, eligibility and first incomplete milestone are computed on read.
 Refresh hashes on rebuild; reuse checks source membership/metadata. The sidecar
 is derived freshness evidence, not authoritative state. See [planning flow](planning-flow.md).
+Scheduled prewarming is only a latency optimization. A host adapter may invoke
+`warm-project-index` periodically, but every consumer must continue calling
+`project-index` through its ordinary stale-on-demand path. The warm command never
+forces a rebuild and never starts an agent.
 
 Maintenance status retains `fullReconcileDue` but returns `null` while trusted worker
 evidence is unsupported; do not interpret falsiness as verified worker completion.

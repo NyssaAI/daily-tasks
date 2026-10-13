@@ -244,7 +244,11 @@ Detect additions/deletions/moves during refresh and write atomically. A failed
 refresh must not present stale data as current or advance generatedAt. An explicit
 refresh completes only after a successful rebuild. Changed editable views must be surfaced
 for reconciliation before their affected task statuses inform planning; indexing
-does not resolve conflicts or update canonical Markdown. No background scheduling.
+does not resolve conflicts or update canonical Markdown. Every consumer retains this
+stale-on-demand operation as the correctness boundary. A host may optionally run the
+same deterministic operation on a configurable schedule to reduce first-use latency;
+the prewarm must not force refresh, start an agent, select work or make stale data
+trusted when the schedule is disabled or fails.
 Completed legacy operation receipts do not count as pending recovery. Maintenance
 findings are scoped to their affected records and paths: unrelated legacy enrollment,
 navigation and baseline issues do not block independent planning state or plan saves.

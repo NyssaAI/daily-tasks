@@ -135,9 +135,13 @@
       "purpose": "Resolve retained templates, compare available revisions and determine relevant offers",
       "inputSchema": {
         "type": "object",
-        "required": ["kinds"]
+        "required": [
+          "kinds"
+        ]
       },
-      "outputSchema": { "type": "object" },
+      "outputSchema": {
+        "type": "object"
+      },
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
@@ -149,13 +153,51 @@
       "purpose": "Retain template snapshots and explicit choices with recoverable project logging",
       "inputSchema": {
         "type": "object",
-        "required": ["kinds", "action", "expectedToken"]
+        "required": [
+          "kinds",
+          "action",
+          "expectedToken"
+        ]
       },
-      "outputSchema": { "type": "object" },
+      "outputSchema": {
+        "type": "object"
+      },
       "sideEffects": "template-preferences-and-log",
       "requiredEnvironment": [],
       "dryRun": true,
       "invocation": "node scripts/daily-tasks.mjs template-state --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "warm-project-index",
+      "path": "scripts/warm-project-index.mjs",
+      "purpose": "Resolve configured context and invoke stale-on-demand project-index prewarming",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "vaultRoot"
+        ],
+        "properties": {
+          "vaultRoot": {
+            "type": "string"
+          },
+          "homeRoot": {
+            "type": "string"
+          },
+          "profilePath": {
+            "type": "string"
+          },
+          "dryRun": {
+            "type": "boolean"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "derived-cache",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node scripts/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH] [--dry-run]"
     },
     {
       "name": "planning-prepare",
