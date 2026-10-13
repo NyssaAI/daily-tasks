@@ -4,8 +4,10 @@ import { execFile } from 'node:child_process';
 import { mkdir, mkdtemp, readFile, readdir, realpath, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { promisify } from 'node:util';
+import { createHash } from 'node:crypto';
 import { warmProjectIndex } from '../lib/inventory/warm.mjs';
 import { buildPrewarmAutomation, prewarmDeclarationKey } from '../adapters/openclaw/automation.mjs';
+import { registerDailyTasksCli } from '../adapters/openclaw/cli.mjs';
 
 const exec = promisify(execFile);
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12,'0')}`;
@@ -42,6 +44,129 @@ async function fixture() {
   await writeFile(path.join(project,'project-index.md'),record(1,'project','Alpha'));
   return {root,homeRoot,vaultRoot,project};
 }
+
+async function layeredFixture() {
+  const input = await fixture();
+  const directory = path.join(input.root,'accepted settings with spaces');
+  await mkdir(directory);
+  const user = path.join(directory,'personal.json'), project = path.join(directory,'workspace.json');
+  await writeFile(user,JSON.stringify({schema_version:2,user:{name:'Owner',email:'owner@example.test'},timezone:'UTC'}));
+  await writeFile(project,JSON.stringify({schema_version:2,projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
+  const stateRoot = path.join(input.root,'established state');
+  await mkdir(stateRoot);
+  await writeFile(path.join(stateRoot,'review.json'),JSON.stringify({preserved:true}));
+  return {...input,stateRoot,configurationSources:{schemaVersion:1,user:{profilePath:user},project:{profilePath:project}}};
+}
+
+function setupAction(run) {
+  let action;
+  const program = {
+    command() { return this; }, description() { return this; }, requiredOption() { return this; }, option() { return this; },
+    action(callback) { action = callback; return this; },
+  };
+  registerDailyTasksCli({program,pluginRoot:path.resolve('.'),openclawEntry:path.resolve('openclaw-test.mjs'),run});
+  return action;
+}
+
+test('layered context survives portable argv and native registration with its established state root', async () => {
+  const input = await layeredFixture();
+  const command = path.resolve('bin/warm-project-index.mjs');
+  const before = await readFile(path.join(input.project,'project-index.md'),'utf8');
+  const expected = await warmProjectIndex({...input,dryRun:true});
+  const direct = JSON.parse((await exec(process.execPath,[command,'--vault-root',input.vaultRoot,'--home-root',input.homeRoot,
+    '--configuration-sources',JSON.stringify(input.configurationSources),'--state-root',input.stateRoot,'--dry-run'],{cwd:input.root})).stdout);
+  assert.equal(direct.planningBinding,expected.planningBinding);
+  let registered;
+  await setupAction(async (_entry,args) => { registered = args; return {id:'synthetic'}; })({
+    ...input,configurationSources:JSON.stringify(input.configurationSources),every:'1h',disabled:true,
+    preferenceOverrides:{timezone:'Asia/Tokyo'},now:'2000-01-01T00:00:00.000Z',localDate:'2000-01-01',profile:{secret:'excluded'},
+  });
+  const argv = JSON.parse(registered[registered.indexOf('--command-argv')+1]);
+  assert.deepEqual(JSON.parse(argv[argv.indexOf('--configuration-sources')+1]),input.configurationSources);
+  assert.equal(argv[argv.indexOf('--state-root')+1],input.stateRoot);
+  assert.ok(registered.includes('--disabled'));
+  assert.doesNotMatch(JSON.stringify(argv),/Asia\/Tokyo|2000-01-01|excluded|preferenceOverrides|localDate/);
+  const actual = JSON.parse((await exec(argv[0],[...argv.slice(1),'--dry-run'],{cwd:input.homeRoot})).stdout);
+  assert.equal(actual.planningBinding,expected.planningBinding);
+  assert.deepEqual(actual.counts,expected.counts);
+  assert.equal(await readFile(path.join(input.project,'project-index.md'),'utf8'),before);
+  assert.deepEqual(JSON.parse(await readFile(path.join(input.stateRoot,'review.json'),'utf8')),{preserved:true});
+});
+
+test('prewarm keeps explicit source absences and canonical new identities while preserving legacy keys', async () => {
+  const input = await layeredFixture();
+  const base = {...input,every:'1h',nodePath:process.execPath,warmCommandPath:path.resolve('bin/warm-project-index.mjs')};
+  const descriptor = {schemaVersion:1,user:{profilePath:null},project:{profilePath:path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/profile.json')}};
+  const first = buildPrewarmAutomation({...base,configurationSources:descriptor});
+  const reordered = {project:{profilePath:descriptor.project.profilePath},user:{profilePath:null},schemaVersion:1};
+  assert.equal(first.declarationKey,buildPrewarmAutomation({...base,configurationSources:reordered,every:'30m'}).declarationKey);
+  assert.notEqual(first.declarationKey,buildPrewarmAutomation({...base,configurationSources:input.configurationSources}).declarationKey);
+  assert.notEqual(first.declarationKey,buildPrewarmAutomation({...base,configurationSources:descriptor,stateRoot:path.join(input.root,'different state')}).declarationKey);
+  if (process.platform === 'win32') assert.equal(first.declarationKey,buildPrewarmAutomation({...base,
+    vaultRoot:base.vaultRoot.toUpperCase(),homeRoot:base.homeRoot.toUpperCase(),stateRoot:base.stateRoot.toUpperCase(),
+    configurationSources:{...descriptor,project:{profilePath:descriptor.project.profilePath.toUpperCase()}},
+  }).declarationKey);
+  const homeSettings = path.join(input.homeRoot,'.nyssa-ai/daily-tasks');
+  await mkdir(homeSettings,{recursive:true});
+  await writeFile(path.join(homeSettings,'profile.json'),'malformed source that must remain absent');
+  const actual = JSON.parse((await exec(first.commandArgv[0],[...first.commandArgv.slice(1),'--dry-run'],{cwd:input.root})).stdout);
+  assert.equal(actual.counts.projects,1);
+  const legacy = {vaultRoot:input.vaultRoot,homeRoot:input.homeRoot,every:'1h'};
+  const normalized = value => process.platform === 'win32' ? path.normalize(value).toLowerCase() : path.normalize(value);
+  for (const profilePath of [undefined,input.configurationSources.project.profilePath]) {
+    const hash = createHash('sha256').update(JSON.stringify([normalized(legacy.vaultRoot),normalized(legacy.homeRoot),profilePath ? normalized(profilePath) : null])).digest('hex').slice(0,24);
+    assert.equal(prewarmDeclarationKey({...legacy,profilePath}),`daily-tasks:project-index-prewarm:${hash}`);
+  }
+});
+
+test('prewarm rejects invalid or missing durable selectors before registering', async () => {
+  const input = await layeredFixture();
+  let calls = 0;
+  const action = setupAction(async () => { calls++; return {}; });
+  const base = {vaultRoot:input.vaultRoot,homeRoot:input.homeRoot,every:'1h',stateRoot:input.stateRoot};
+  const cases = [
+    [{configurationSources:'{'},/JSON/],
+    [{configurationSources:JSON.stringify(input.configurationSources),profilePath:input.configurationSources.project.profilePath},/exclusive/],
+    [{configurationSources:JSON.stringify({...input.configurationSources,user:{profilePath:path.join(input.root,'missing.json')}})},/source missing/],
+    [{configurationSources:JSON.stringify({...input.configurationSources,user:{profilePath:'relative.json'}})},/absolute profilePath/],
+    [{configurationSources:JSON.stringify({...input.configurationSources,extra:'invalid'})},/schemaVersion/],
+    [{profilePath:path.join(input.root,'missing-legacy.json')},/Configured vault context/],
+  ];
+  const legacyState = path.join(input.vaultRoot,'.nyssaai/daily-tasks');
+  await mkdir(legacyState,{recursive:true});
+  await writeFile(path.join(legacyState,'review.json'),JSON.stringify({preserved:true}));
+  cases.push([{stateRoot:path.join(input.root,'empty state')},/no authoritative history/]);
+  for (const [change,expected] of cases) await assert.rejects(action({...base,...change}),expected);
+  assert.equal(calls,0);
+  const command = path.resolve('bin/warm-project-index.mjs');
+  for (const [args,expected] of [
+    [['--configuration-sources','{'],/JSON/],
+    [['--configuration-sources',JSON.stringify(input.configurationSources),'--profile-path',input.configurationSources.project.profilePath],/exclusive/],
+  ]) await assert.rejects(exec(process.execPath,[command,'--vault-root',input.vaultRoot,'--home-root',input.homeRoot,...args],{cwd:input.root}),error => {
+    assert.match(error.stderr,expected); return true;
+  });
+});
+
+test('new-form registration captures resolved state and dry-run does not register', async t => {
+  const input = await fixture();
+  const legacyState = path.join(input.vaultRoot,'.nyssaai/daily-tasks');
+  await mkdir(legacyState,{recursive:true});
+  await writeFile(path.join(legacyState,'review.json'),JSON.stringify({preserved:true}));
+  const configurationSources = {schemaVersion:1,user:{profilePath:null},project:{profilePath:path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/profile.json')}};
+  let calls = 0;
+  const action = setupAction(async () => { calls++; return {}; });
+  const output = [];
+  t.mock.method(console,'log',value => output.push(JSON.parse(value)));
+  await action({...input,configurationSources:JSON.stringify(configurationSources),every:'1h',dryRun:true});
+  assert.equal(calls,0);
+  assert.equal(output[0].status,'preview');
+  assert.equal(output[0].commandArgv[output[0].commandArgv.indexOf('--state-root')+1],legacyState);
+  assert.deepEqual(JSON.parse(output[0].commandArgv[output[0].commandArgv.indexOf('--configuration-sources')+1]),configurationSources);
+  await action({...input,every:'1h',dryRun:true});
+  assert.equal(output[1].declarationKey,prewarmDeclarationKey({...input,every:'1h'}));
+  assert.equal(output[1].commandArgv.includes('--state-root'),false);
+  assert.equal(calls,0);
+});
 
 test('portable warm resolves configured context, rebuilds cold and reuses fresh without returning inventory', async () => {
   const input = await fixture();

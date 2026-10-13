@@ -3,17 +3,37 @@ import path from 'node:path';
 
 const duration = /^[1-9]\d*(?:ms|s|m|h|d|w)$/;
 const normalized = value => process.platform === 'win32' ? path.normalize(value).toLowerCase() : path.normalize(value);
+const sourceIdentity = sources => [sources.schemaVersion,...['user','project'].map(scope => sources[scope].profilePath === null ? null : normalized(path.resolve(sources[scope].profilePath)))];
 
 export function validatePrewarmOptions(input) {
   if (!path.isAbsolute(input.vaultRoot ?? '')) throw new TypeError('vaultRoot must be absolute');
   if (!path.isAbsolute(input.homeRoot ?? '')) throw new TypeError('homeRoot must be absolute');
   if (input.profilePath !== undefined && !path.isAbsolute(input.profilePath)) throw new TypeError('profilePath must be absolute');
+  if (input.stateRoot !== undefined && !path.isAbsolute(input.stateRoot)) throw new TypeError('stateRoot must be absolute');
+  if (input.configurationSources !== undefined) {
+    if (input.profilePath !== undefined) throw new TypeError('configurationSources and legacy selectors are exclusive');
+    const sources = input.configurationSources;
+    if (!sources || sources.schemaVersion !== 1 || Object.keys(sources).some(key => !['schemaVersion','user','project'].includes(key))) throw new TypeError('Invalid configurationSources schemaVersion');
+    for (const scope of ['user','project']) {
+      const selection = sources[scope];
+      if (!selection || Object.keys(selection).length !== 1 || !Object.hasOwn(selection,'profilePath') ||
+          (selection.profilePath !== null && (typeof selection.profilePath !== 'string' || !path.isAbsolute(selection.profilePath)))) {
+        throw new TypeError(`configurationSources.${scope} requires absolute profilePath or explicit null absence`);
+      }
+    }
+  }
   if (!duration.test(input.every ?? '')) throw new TypeError('every must be one positive OpenClaw duration such as 30m, 1h, or 1d');
 }
 
 export function prewarmDeclarationKey(input) {
   validatePrewarmOptions(input);
-  const scope = JSON.stringify([normalized(input.vaultRoot),normalized(input.homeRoot),input.profilePath ? normalized(input.profilePath) : null]);
+  // Keep the original identity byte-for-byte for existing declarations.
+  const scope = JSON.stringify(input.configurationSources === undefined && input.stateRoot === undefined
+    ? [normalized(input.vaultRoot),normalized(input.homeRoot),input.profilePath ? normalized(input.profilePath) : null]
+    : ['context-v1',normalized(path.resolve(input.vaultRoot)),normalized(path.resolve(input.homeRoot)),
+      input.profilePath ? normalized(path.resolve(input.profilePath)) : null,
+      input.configurationSources === undefined ? null : sourceIdentity(input.configurationSources),
+      input.stateRoot === undefined ? null : normalized(path.resolve(input.stateRoot))]);
   return `daily-tasks:project-index-prewarm:${createHash('sha256').update(scope).digest('hex').slice(0,24)}`;
 }
 
@@ -37,6 +57,8 @@ export function buildPrewarmAutomation(input) {
     '--vault-root',input.vaultRoot,
     '--home-root',input.homeRoot,
     ...(input.profilePath ? ['--profile-path',input.profilePath] : []),
+    ...(input.configurationSources === undefined ? [] : ['--configuration-sources',JSON.stringify(input.configurationSources)]),
+    ...(input.stateRoot === undefined ? [] : ['--state-root',input.stateRoot]),
   ];
   const connectionArgs = input.gatewayUrl
     ? ['--url',input.gatewayUrl]
