@@ -64,7 +64,7 @@ test('vault-relative wiki links resolve outside the project collection when vaul
   await writeFile(path.join(projectsRoot,'resources/evidence.md'),'# Vault evidence\n');
   const result = await inspectNavigation({vaultRoot:projectsRoot,projectsRoot});
   assert.deepEqual(result.diagnostics,[]);
-  assert.ok(result.targets.some(target=>target.path.endsWith('resources/evidence.md')));
+  assert.ok(result.targets.some(target=>target.path.endsWith(path.join('resources','evidence.md'))));
 });
 
 test('ordinary Markdown and wiki folder links coexist with specific file evidence',async t=>{
@@ -78,7 +78,7 @@ test('ordinary Markdown and wiki folder links coexist with specific file evidenc
   assert.deepEqual(result.diagnostics,[]);
   assert.equal(result.checkedLinks,6);
   assert.deepEqual(result.targets.map(target=>[path.relative(directory,target.path),target.kind,target.sha256]),[
-    ['inputs','directory',null],['outputs','directory',null],['inputs/v1.0','directory',null],['inputs/2026.10.13-notes','directory',null],['inputs/proof.pdf','file',null]
+    ['inputs','directory',null],['outputs','directory',null],[path.join('inputs','v1.0'),'directory',null],[path.join('inputs','2026.10.13-notes'),'directory',null],[path.join('inputs','proof.pdf'),'file',null]
   ]);
 });
 
