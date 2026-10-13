@@ -8,7 +8,7 @@ function help(version) {
   return {
     name:'warm-project-index',
     version,
-    usage:'node <installed-entry-path> --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH] [--dry-run]',
+    usage:'node <installed-entry-path> --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH | --configuration-sources JSON] [--state-root ABSOLUTE_PATH] [--dry-run]',
     effect:'Resolves configured Daily Tasks context and invokes stale-on-demand project-index refresh. It never forces refresh and writes only disposable derived cache files.',
     scope:'vaultRoot is required and must be absolute. homeRoot defaults to the current user home; cwd never selects a vault.',
     exits:'0: one compact JSON result. 1: one JSON error on stderr.',
@@ -26,10 +26,15 @@ function parse(argv) {
       input.dryRun = true;
       continue;
     }
-    const key = {'--vault-root':'vaultRoot','--home-root':'homeRoot','--profile-path':'profilePath'}[flag];
+    const key = {'--vault-root':'vaultRoot','--home-root':'homeRoot','--profile-path':'profilePath','--configuration-sources':'configurationSources','--state-root':'stateRoot'}[flag];
     if (!key || seen.has(flag)) throw new Error(`Unknown or duplicate argument: ${flag}`);
     seen.add(flag);
     const value = argv.shift();
+    if (key === 'configurationSources') {
+      if (!value) throw new Error('--configuration-sources requires one JSON argument');
+      input[key] = JSON.parse(value);
+      continue;
+    }
     if (!value || !path.isAbsolute(value)) throw new Error(`${flag} requires an absolute path`);
     input[key] = value;
   }

@@ -1,6 +1,8 @@
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { root, tree } from './assemble.mjs';
+import { isDeepStrictEqual } from 'node:util';
+import { profileInputSchema } from '../lib/profile/schema.mjs';
 
 const files = await tree(path.join(root,'skills'),'skills/');
 const errors = [];
@@ -24,6 +26,10 @@ const packageInfo = JSON.parse(await readFile(path.join(root,'package.json'),'ut
 if (identity.version !== packageInfo.version || names.size !== 6) errors.push('Version or skill inventory mismatch');
 const capabilities = JSON.parse(await readFile(path.join(root,'capabilities.json'),'utf8'));
 if (!capabilities.operations?.length) errors.push('Missing executable contract');
+const profileOperations = capabilities.operations?.filter(operation => operation.name === 'validate-profile') ?? [];
+if (profileOperations.length !== 1 || !isDeepStrictEqual(profileOperations[0].inputSchema,profileInputSchema)) {
+  errors.push('Invalid profile input contract: regenerate the supported v1/v2 schema');
+}
 const nativePackage = JSON.parse(await readFile(path.join(root,'adapters/openclaw/package.json'),'utf8'));
 const nativeManifest = JSON.parse(await readFile(path.join(root,'adapters/openclaw/openclaw.plugin.json'),'utf8'));
 if (nativePackage.version !== identity.version || nativeManifest.id !== 'daily-tasks-openclaw' ||

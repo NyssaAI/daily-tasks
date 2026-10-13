@@ -1,10 +1,15 @@
 import { writeFile } from 'node:fs/promises';
 import { root } from './assemble.mjs';
 import path from 'node:path';
+import { profileInputSchema } from '../lib/profile/schema.mjs';
+
+const sourceSelection = {type:'object',required:['profilePath'],additionalProperties:false,properties:{
+  profilePath:{type:['string','null'],description:'Accepted absolute profile path, or null for deliberate absence.'},
+}};
 
 const definitions = {
   'new-id':[], 'activity-time':[], 'local-day':['timezone'], 'format-time':['time','timezone'],
-  'validate-profile':['user','timezone','priorities','vaultRoot','projectsRoot'],
+  'validate-profile':[],
   'resolve-context':[], 'project-index':['vaultRoot','projectsRoot','dailyPlansRoot','timezone'],
   'planning-prepare':[], 'planning-state':['action','expectedPlanHash','expectedPreviousHash','expectedStateHash','expectedInventoryHash'],
   'invalidate-project-index':['vaultRoot'], 'planning-review':['inventory','userEmail','timezone','contextBinding','inventoryBinding'],
@@ -21,7 +26,12 @@ const definitions = {
 };
 const operations = Object.entries(definitions).map(([name,required]) => ({name,path:'bin/daily-tasks.mjs',
   purpose:`${name.replaceAll('-',' ')}; see skills/daily-tasks/references/cli.md`,
-  inputSchema:{type:'object',required:[...new Set([...required,...(['planning-review','plan-selection','carry-forward','plan-rollover'].includes(name) ? ['vaultRoot','projectsRoot','dailyPlansRoot'] : [])])]},outputSchema:{type:'object'},
+  inputSchema:name === 'validate-profile' ? profileInputSchema : {type:'object',required:[...new Set([...required,...(['planning-review','plan-selection','carry-forward','plan-rollover'].includes(name) ? ['vaultRoot','projectsRoot','dailyPlansRoot'] : [])])],
+    ...(name === 'planning-state' ? {allOf:[{
+      if:{properties:{action:{const:'save-review'}},required:['action']},
+      then:{required:['expectedReviewHash','reviewMarkdown'],properties:{reviewMarkdown:{type:'string',minLength:1}}},
+    }]} : {}),
+  },outputSchema:{type:'object'},
   sideEffects:name === 'log-append' ? 'append-log' : name === 'log-archive' ? 'archive-log' : name === 'log-query' ? 'temporary-lock' : name === 'planning-state' ? 'planning-state' : name === 'maintenance-inspect' ? 'inspection-state' : ['operation-complete','rollover-complete','migration-complete'].includes(name) ? 'verified-state' : ['project-index','invalidate-project-index','planning-prepare'].includes(name) ? 'derived-cache' : 'none',
   requiredEnvironment:[],dryRun:['log-append','log-archive','log-query','project-index','invalidate-project-index','planning-prepare','planning-state','maintenance-inspect','operation-complete','rollover-complete','migration-complete'].includes(name),
   invocation:`node bin/daily-tasks.mjs ${name}${name === 'new-id' ? '' : ' --input ABSOLUTE_JSON_FILE'}` }));
@@ -52,14 +62,17 @@ operations.splice(operations.findIndex(operation => operation.name === 'project-
     name:'warm-project-index',
     path:'bin/warm-project-index.mjs',
     purpose:'Resolve configured context and invoke stale-on-demand project-index prewarming',
-    inputSchema:{type:'object',required:['vaultRoot'],properties:{
-      vaultRoot:{type:'string'},homeRoot:{type:'string'},profilePath:{type:'string'},dryRun:{type:'boolean'},
+    inputSchema:{type:'object',required:['vaultRoot'],not:{required:['profilePath','configurationSources']},properties:{
+      vaultRoot:{type:'string'},homeRoot:{type:'string'},profilePath:{type:'string'},stateRoot:{type:'string'},dryRun:{type:'boolean'},
+      configurationSources:{type:'object',required:['schemaVersion','user','project'],additionalProperties:false,
+        description:'Durable source selections serialized as one JSON argv value; paths and bound scopes are validated by the resolver.',
+        properties:{schemaVersion:{const:1},user:sourceSelection,project:sourceSelection}},
     }},
     outputSchema:{type:'object'},
     sideEffects:'derived-cache',
     requiredEnvironment:[],
     dryRun:true,
-    invocation:'node bin/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH] [--dry-run]',
+    invocation:'node bin/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH | --configuration-sources JSON] [--state-root ABSOLUTE_PATH] [--dry-run]',
   },
 );
 await writeFile(path.join(root,'capabilities.json'),JSON.stringify({schemaVersion:1,operations},null,2)+'\n');

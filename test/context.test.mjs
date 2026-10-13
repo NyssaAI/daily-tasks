@@ -11,6 +11,35 @@ import { verifiedMaintenanceStatus, inspectMaintenance } from '../lib/planning/m
 import { verifyOperation } from '../lib/operations/verification.mjs';
 
 const profile = {schema_version:1,user:{name:'Example',email:'owner@example.test'},timezone:'system',priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',templates:{task:'~/templates/task.md'},projectIndex:{ttlSeconds:14400}};
+test('shared v2 sources project preferences without leaking bindings on reentry', async () => {
+  await mkdir('.temp',{recursive:true});
+  const homeRoot = await realpath(await mkdtemp(path.resolve('.temp/shared-profile-')));
+  const conventional = path.join(homeRoot,'.nyssa-ai/daily-tasks/profile.json');
+  await mkdir(path.dirname(conventional),{recursive:true});
+  for (const profilePath of [conventional,path.join(homeRoot,'accepted-settings/custom.json')]) {
+    await mkdir(path.dirname(profilePath),{recursive:true});
+    const stored = {schema_version:2,user:profile.user,timezone:'UTC',vaultRoot:homeRoot,projectsRoot:'./projects',dailyPlansRelative:'daily'};
+    await writeFile(profilePath,JSON.stringify(stored));
+    const configurationSources = {schemaVersion:1,user:{profilePath},project:{profilePath}};
+    const bound = await resolveContext({homeRoot,vaultRoot:homeRoot,configurationSources});
+    assert.equal(bound.configured,true);
+    assert.equal(bound.projectsRoot,path.join(homeRoot,'projects'));
+    assert.deepEqual(bound.sharedScopes,[{scopes:['user','project'],directory:path.dirname(profilePath)}]);
+    assert.deepEqual((await resolveContext({homeRoot,vaultRoot:homeRoot,configurationSources:bound.configurationSources})).profile,bound.profile);
+    const userOnly = {...configurationSources,project:{profilePath:null}};
+    const personal = await resolveContext({homeRoot,configurationSources:userOnly});
+    assert.equal(personal.preferenceOnly,true);
+    assert.equal(personal.profile.projectsRoot,undefined);
+    const other = path.join(homeRoot,'other');
+    const foreign = await resolveContext({homeRoot,vaultRoot:other,configurationSources:userOnly});
+    assert.equal(foreign.configured,false,'A different workspace still needs its own project binding');
+    assert.equal(foreign.profile.projectsRoot,undefined);
+    await writeFile(profilePath,JSON.stringify({...stored,projectsRoot:'../unsafe'}));
+    await assert.rejects(resolveContext({homeRoot,configurationSources:userOnly}),/invalid projectsRoot/);
+    await writeFile(profilePath,JSON.stringify(stored));
+  }
+  assert.equal((await resolveContext({homeRoot,vaultRoot:homeRoot})).configured,true);
+});
 test('partial scoped preferences round-trip explicit sources and bundled resets without selecting another layer', async () => {
   await mkdir('.temp',{recursive:true});
   const root = await realpath(await mkdtemp(path.resolve('.temp/layers-')));
@@ -52,9 +81,17 @@ test('completed legacy state remains authoritative and divergent completed copie
   await writeFile(path.join(legacy,'rollover','2026.10.11.json'),JSON.stringify({completedAt:'2026-10-11T00:00:00Z',removedIds:['synthetic']}));
   const bound = await resolveContext({vaultRoot,homeRoot:vaultRoot});
   assert.equal(bound.stateRoot,legacy);
+  const before = await readdir(vaultRoot,{recursive:true});
+  for (const stateRoot of [canonical,path.join(vaultRoot,'custom-state')]) {
+    await assert.rejects(resolveContext({vaultRoot,homeRoot:vaultRoot,stateRoot}),error =>
+      /explicit.*state|state.*explicit/i.test(error.message) && error.message.includes(stateRoot) && error.message.includes(legacy));
+  }
+  assert.deepEqual(await readdir(vaultRoot,{recursive:true}),before);
+  assert.equal((await resolveContext({vaultRoot,homeRoot:vaultRoot,stateRoot:legacy})).stateRoot,legacy);
   await mkdir(path.join(canonical,'rollover'));
   await writeFile(path.join(canonical,'rollover','2026.10.11.json'),JSON.stringify({completedAt:'2026-10-11T00:00:00Z',removedIds:['synthetic']}));
   assert.equal((await resolveContext({vaultRoot,homeRoot:vaultRoot})).stateRoot,canonical,'Identical authoritative copies use canonical precedence');
+  assert.equal((await resolveContext({vaultRoot,homeRoot:vaultRoot,stateRoot:legacy})).stateRoot,legacy,'Identical copies preserve the explicit binding');
   await writeFile(path.join(canonical,'rollover','2026.10.11.json'),JSON.stringify({removedIds:[]}));
   await assert.rejects(resolveContext({vaultRoot,homeRoot:vaultRoot}),/reconciliation|conflicting.*state/i);
   await assert.rejects(resolveContext({vaultRoot,homeRoot:vaultRoot,

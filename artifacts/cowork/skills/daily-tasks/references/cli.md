@@ -7,7 +7,7 @@ the installed skill's actual location, never assume a cache path. The portable e
 node PACKAGE_ROOT/scripts/daily-tasks.mjs --help
 node PACKAGE_ROOT/scripts/daily-tasks.mjs new-id
 node PACKAGE_ROOT/scripts/daily-tasks.mjs OPERATION --input ABSOLUTE_JSON_FILE
-node PACKAGE_ROOT/scripts/warm-project-index.mjs --vault-root ABSOLUTE_VAULT [--home-root ABSOLUTE_HOME] [--profile-path ABSOLUTE_PROFILE] [--dry-run]
+node PACKAGE_ROOT/scripts/warm-project-index.mjs --vault-root ABSOLUTE_VAULT [--home-root ABSOLUTE_HOME] [--profile-path ABSOLUTE_PROFILE | --configuration-sources JSON] [--state-root ABSOLUTE_STATE] [--dry-run]
 ```
 
 For Cowork's generated package the entry is `scripts/daily-tasks.mjs` (same implementation).
@@ -54,13 +54,13 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | resolve-context | absolute vaultRoot or captured initialCwd for vault work; homeRoot for personal-only setup; configurationSources?, legacy profilePath?/configRoot?, preferenceOverrides?, stateRoot?, now? | Layered preferences, versioned source selections, provenance/writableScopes, independent absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
 | template-prepare | context inputs above, kinds (nonempty distinct supported kinds), scope? user/project/legacy, review? | Active file/available/upstream content, three-way comparison, PARA placement proposals, pending file updates, policy, offer decision, token and storage hashes; no writes |
 | template-state | same context/kinds/scope, expectedToken, action baseline/decide/recover, decisions? (one per kind), originalWords for decide, dryRun? | Retained JSON snapshots and choices; file-update-required until skill-owned Markdown effects are verified by a fresh baseline; project decisions logged exactly once; never writes Markdown |
-| planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, active dailyPlan/planDayReview template packet, state hashes, pending operations, maintenance gate, enrollment issues; cache writes only |
-| planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash and reviewMarkdown for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares and checks sources, validates and saves the review draft/mapping or a no-change rollover receipt; rejects invalid screen layout/rows, stale template, pending carry/operations, wrong plan type, stale state |
+| planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, dryRun? | Actual plan identities/hashes, scoped inventory, rollover proposal, review, active dailyPlan/planDayReview template packet, state hashes, pendingOperations names and recovery impacts, maintenance gate, enrollment issues; cache writes only |
+| planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash and reviewMarkdown for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares sources/checkpoint evidence and validates the review draft/mapping or no-change rollover receipt; unrelated recovery permits review saves, affected/unknown recovery blocks the action; rejects invalid screens, stale templates/state, unresolved carry and wrong plan type |
 | project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
-| warm-project-index | dedicated flags: vault-root required; home-root/profile-path optional; dry-run optional | Resolves configured context and calls project-index without forceRefresh; compact status/counts/metrics only, disposable cache write at most |
+| warm-project-index | dedicated flags: vault-root required; home-root optional; configuration-sources JSON or exclusive profile-path; state-root and dry-run optional | Replays selected sources/null absences and established state, calls project-index without forceRefresh; compact status/counts/metrics only, disposable cache write at most |
 | invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
 | planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, position?, page?, allMilestones?, pendingFutureIds? | All-owner scoped counts, selected/available rows with ownership metadata, stable mapping, diagnostics; one project per page; page/pageCount, position and reviewComplete; lowest incomplete milestone only (allMilestones does not expand selection) |
-| plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
+| plan-selection | resolved context including stateRoot, inventory and recovery from planning-prepare, taskIds, action add/move/remove, today; date for add/move | Proposed selection transfers/file targets and conflicts, including suspended records and overlapping source/destination plans or dated state; skill writes Markdown |
 | maintenance-status | resolved context inputs | Boolean inspectionDue, alwaysCheck; workerEvidence.status unsupported and fullReconcileDue null (not overdue/success); no write |
 | maintenance-inspect | resolved context inputs, dryRun? | Actual graph/navigation/baseline checks; saves CLI inspection JSON only; no worker success |
 | operation-verify | resolved context inputs, operationPath absolute | Actual effects/protected sources/exact event checks; typed selection intent also reports persistedStatus and pending/conflicting owned state; no write |
@@ -90,6 +90,14 @@ Template decisions have `{kind,action}` with action `accept`, `decline`, `postpo
 Reuse `template-prepare`'s returned context and token, reprepare after every write,
 and author from `templates[kind].active.content`. A baseline records observation,
 not consent. See [template updates](template-updates.md) for scope and recovery.
+
+The `validate-profile` capability describes supported version-1 complete profiles and
+version-2 partial layers, including supported null resets. Runtime validation remains
+authoritative for timezone and host path semantics; a valid layer does not imply a
+complete workspace. Shared source views and `sharedScopes` follow the
+[setup rules](../../daily-tasks-setup/SKILL.md).
+For prewarm, serialize configurationSources as one argv element using the host's
+argument-array API, never shell interpolation. Omit transient overrides and clocks.
 
 Log entry: id and operation_id UUIDv7; action string; record_ids array (empty for profile
 decisions); actor `{kind:"person"|"agent",id:email-or-agent-name}`; activity_at and

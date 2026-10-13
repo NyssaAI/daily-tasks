@@ -13,6 +13,11 @@ not by itself authorize an upgrade.
 
 ## Prepare, preserve, then offer
 
+When `sharedScopes` identifies user/project aliases, both names refer to one retained
+store. Explain that a choice affects both views before presenting it; save once in
+the requested scope. An explicit personal action still creates no project event.
+Relative template pointers keep their existing vault/home-relative interpretation.
+
 1. Preserve the packet's context through continuation. It reports scope, token,
    active/available content and revisions, policy, comparison, offer decision and
    pending recovery. Recover pending template decisions before affected authoring;

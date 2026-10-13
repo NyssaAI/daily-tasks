@@ -14,7 +14,17 @@ alongside configurationSources. Its packet includes
 context, current/previous plan identities and hashes, inventory, rollover, review,
 pending operations, maintenance gate and explicit enrollment issues. It validates the
 complete inventory graph; selected-record fragments are not a validation universe.
-Inspect pending/reconciliation issues before applying the proposals. After recovery,
+Inspect pending/reconciliation issues before applying the proposals. The `recovery`
+packet distinguishes blocking or unknown checkpoints from scoped/unrelated work.
+Continue an independent review when preparation permits it; keep suspended records
+visible and unresolved, and withhold affected additions. A current-plan or required
+planning-state overlap blocks the save. Unknown checkpoint scope requires recovery.
+The existing inventory hash includes checkpoint evidence; a changed checkpoint requires
+a fresh preparation. Whole-vault maintenance remains pending even when this review saves.
+Pass the fresh `recovery` packet along with its inventory to `plan-selection` proposals;
+affected add/move/remove requests return `pending-operation` conflicts. These proposals
+do not themselves recover checkpoints or authorize Markdown writes.
+After recovery,
 reconciliation, plan or state writes change packet hashes, run planning-prepare again
 before a dependent state action or review save; never reuse stale fingerprints.
 Preserve saved mapping numbers for unchanged identities when preparing again.
