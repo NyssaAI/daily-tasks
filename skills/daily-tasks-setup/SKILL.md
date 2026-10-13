@@ -35,6 +35,14 @@ Explicit current-task choices override project preferences, which override user
 preferences. Pass supported one-off leaves in optional `preferenceOverrides` (without
 schema_version); preserve them through that request's continuation and never save them.
 The resolver reports winning preferenceSources and scoped writableScopes.
+When home and workspace share storage, `sharedScopes` identifies the aliased
+destinations. A stored v2 document can supply both views: user reads use only
+preference leaves; binding fields apply only to its selected project view. This
+also applies to accepted custom pointers on personal-only or other-workspace reentry.
+Validate the complete stored document, then merge only the requested scope's changed
+leaves, preserving project bindings and unrelated personal values. Shared preference
+changes affect every session using that source; explain this before an update choice.
+Independent project overrides need a distinct accepted source, never an automatic move.
 Ordinary reads and one-off choices never save preferences. For writes,
 reuse an accepted scope. An explicit personal/all-projects request uses user scope,
 even in a project session. Otherwise new setup uses project scope when a vault is

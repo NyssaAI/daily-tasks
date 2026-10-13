@@ -33,6 +33,26 @@ async function save(input, packet, action = 'baseline', decisions, options = {})
   return saveTemplateState({...input,action,expectedToken:packet.token,...(decisions ? {decisions,originalWords:'Synthetic explicit template choice'} : {})},options);
 }
 
+test('shared home template storage preserves personal ownership and one saved choice', async () => {
+  const {input,profilePath} = await fixture();
+  const request = {...input,homeRoot:input.vaultRoot,scope:'user'};
+  const old = {catalog:catalog(1)}, next = {catalog:catalog(2)};
+  const initial = await prepareTemplates(request,old);
+  assert.equal(initial.sharedScopes.length,1);
+  assert.equal(initial.storage.user.path,initial.storage.project.path);
+  await save(request,initial,'baseline',undefined,old);
+  const prepared = await prepareTemplates(request,next);
+  assert.equal(prepared.templates.dailyPlan.activeScope,'user');
+  const profileBefore = await readFile(profilePath,'utf8');
+  const projectFiles = await readdir(path.join(input.vaultRoot,'projects'),{recursive:true});
+  await save(request,prepared,'decide',[{kind:'dailyPlan',action:'accept'}],next);
+  const again = await prepareTemplates(request,next);
+  assert.equal(again.templates.dailyPlan.active.content,next.catalog.dailyPlan.content);
+  assert.equal((await save(request,prepared,'decide',[{kind:'dailyPlan',action:'accept'}],next)).status,'unchanged');
+  assert.equal(await readFile(profilePath,'utf8'),profileBefore);
+  assert.deepEqual(await readdir(path.join(input.vaultRoot,'projects'),{recursive:true}),projectFiles);
+});
+
 test('template updates preserve observed layout across releases and remember revision-specific declines', async () => {
   const {input} = await fixture();
   const old = {catalog:catalog(1)}, next = {catalog:catalog(2)};
