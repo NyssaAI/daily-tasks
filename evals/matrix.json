@@ -1,5 +1,5 @@
 {
-  "suite_version": "0.3.5",
+  "suite_version": "0.3.6",
   "targets": [
     {
       "id": "node-local",
@@ -95,7 +95,7 @@
       "id": "openclaw",
       "kind": "host",
       "required": false,
-      "next": "Register portable bundle, verify winning format and run scenarios through active Gateway.",
+      "next": "Native prewarm setup and execution are verified in isolated OpenClaw 2026.10.2; register the portable bundle and execute the workflow scenarios through an isolated active Gateway.",
       "suite": "workflow-v4",
       "platform": "linux/x64",
       "configuration": "default"

@@ -96,6 +96,10 @@ None yet.
 - Surface changed editable views for reconciliation before affected statuses inform
   planning. Within TTL the inventory remains a dated snapshot; consequential
   changes still require current canonical checks and reconciliation.
+- Expose a compact portable warm command that resolves configured context and invokes
+  the same stale-on-demand operation without forceRefresh. A thin host adapter may
+  schedule that command as an optional latency optimization. The default OpenClaw
+  interval is one hour and remains configurable; the scheduled path uses no agent.
 
 ## Out of Scope
 
@@ -103,7 +107,8 @@ None yet.
 - Completing tasks, resolving conflicts or writing canonical Markdown.
 - Owning durable selections, pending operations, decision history or reconciliation
   baselines; deleting the inventory loses none of these.
-- Background refresh, monitoring, automatic scheduling or fitting work into time.
+- Background agents, filesystem monitoring, selecting work, or fitting work into time.
+  An optional deterministic host command schedule may prewarm the disposable cache.
 - Full task execution instructions and reference contents in the summary.
 - The portable-path resolver, personal/vault preference layering, frontmatter ID
   migration and baseline reconciliation. Related resolver, frontmatter-ID parsing
@@ -190,7 +195,8 @@ None yet.
 - Reuse below TTL checks for source changes first. Detectable external edits and
   directory membership changes invalidate cached data; plugin writes invalidate
   immediately. A source-check failure cannot be reported as confirmed freshness.
-- TTL zero rebuilds whenever needed. No operation runs solely because time passes.
+- TTL zero rebuilds whenever needed. The portable core does not run solely because
+  time passes; an explicitly configured host schedule may invoke the same operation.
 - Missing, malformed, incompatible, known-stale or incorrectly scoped cache and
   missing/future timestamps trigger rebuild when needed; invalid TTL is diagnosed.
 - Added/deleted/moved records and duplicate/missing IDs produce current inventory

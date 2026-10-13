@@ -7,7 +7,7 @@ binary criterion; report actual test counts, not a fabricated general agent scor
 
 `node evals/report.mjs write` generates LATEST.md; `check` validates evidence hashes,
 candidate freshness and exact report contents without changing it. `release` additionally
-requires every required matrix target verified. The 0.5.1 release is scoped to
+requires every required matrix target verified. The 0.6.1 release is scoped to
 Codex on Windows x64: `node-local` and `codex` are required. Other targets remain
 in the matrix as optional, unverified coverage; packaging does not establish support.
 Results preserve failures, not only passes. Source files and generated runtime artifacts
@@ -184,3 +184,7 @@ parent closure/reopening, malformed/empty DoD, duplicate numbering, mixed legacy
 DoD, criterion link repairs, and flat holding-area exclusion through CLI and inventory.
 Verifier calibration: unit tests include valid/invalid metadata, precise timestamps,
 corrupt JSON, conflicting operation reuse and valid closure; reject-all is not acceptable.
+Prewarm coverage in `test/prewarm.test.mjs` exercises cold rebuild, fresh zero-source-read
+reuse, source membership invalidation, TTL expiry, cwd-independent CLI scope, compact
+output, concurrent cache creation, configurable hourly OpenClaw declaration, exact argv,
+idempotent declaration keys, no delivery and no agent payload.

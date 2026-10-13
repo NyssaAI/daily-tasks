@@ -99,7 +99,15 @@ async function cacheDirectory(vaultRoot,create) {
   for (const part of ['.temp','daily-tasks']) {
     current = path.join(current,part);
     try { if (!(await ordinary(current)).isDirectory()) throw new Error('Cache ancestor must be a directory'); }
-    catch (error) { if (error.code !== 'ENOENT') throw error; if (create) await mkdir(current); }
+    catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+      if (create) {
+        try { await mkdir(current); }
+        catch (mkdirError) {
+          if (mkdirError.code !== 'EEXIST' || !(await ordinary(current)).isDirectory()) throw mkdirError;
+        }
+      }
+    }
   }
   return current;
 }

@@ -31,7 +31,7 @@ test('CLI accepts Windows UTF-8 BOM input and reports the package version', asyn
 });
 test('assembled packages and source hashes are identical for LF and CRLF source files', async () => {
   const directory = await workspace();
-  for (const name of ['skills','lib','bin','plugin.json','LICENSE','package.json','capabilities.json']) {
+  for (const name of ['skills','lib','bin','adapters','plugin.json','LICENSE','package.json','capabilities.json']) {
     await cp(path.join(root,name),path.join(directory,name),{recursive:true});
   }
   await mkdir(path.join(directory,'scripts'));
@@ -152,6 +152,15 @@ test('assembled portable and Cowork CLI surfaces preserve operation behavior', a
   assert.equal(cowork.status,0,JSON.stringify(cowork.error));
   assert.ok(isUuid7(portable.output.id));
   assert.ok(isUuid7(cowork.output.id));
+  for (const relative of [
+    'artifacts/portable/bin/warm-project-index.mjs',
+    'artifacts/cowork/scripts/warm-project-index.mjs',
+    'artifacts/openclaw-native/bin/warm-project-index.mjs',
+  ]) {
+    const help = call(path.join(root,relative),'--help');
+    assert.equal(help.status,0,JSON.stringify(help.error));
+    assert.equal(help.output.name,'warm-project-index');
+  }
 });
 
 test('packaged rollover CLI merges a pre-created plan and preserves a later same-day removal', async () => {

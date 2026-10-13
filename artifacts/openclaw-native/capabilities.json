@@ -1,0 +1,740 @@
+{
+  "schemaVersion": 1,
+  "operations": [
+    {
+      "name": "new-id",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "new id; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs new-id"
+    },
+    {
+      "name": "activity-time",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "activity time; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs activity-time --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "local-day",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "local day; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "timezone"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs local-day --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "format-time",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "format time; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "time",
+          "timezone"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs format-time --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "validate-profile",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "validate profile; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "user",
+          "timezone",
+          "priorities",
+          "vaultRoot",
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs validate-profile --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "resolve-context",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "resolve context; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs resolve-context --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "project-index",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "project index; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "vaultRoot",
+          "projectsRoot",
+          "dailyPlansRoot",
+          "timezone"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "derived-cache",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs project-index --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "template-prepare",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "Resolve retained templates, compare available revisions and determine relevant offers",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "kinds"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs template-prepare --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "template-state",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "Retain template snapshots and explicit choices with recoverable project logging",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "kinds",
+          "action",
+          "expectedToken"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "template-preferences-and-log",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs template-state --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "warm-project-index",
+      "path": "bin/warm-project-index.mjs",
+      "purpose": "Resolve configured context and invoke stale-on-demand project-index prewarming",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "vaultRoot"
+        ],
+        "properties": {
+          "vaultRoot": {
+            "type": "string"
+          },
+          "homeRoot": {
+            "type": "string"
+          },
+          "profilePath": {
+            "type": "string"
+          },
+          "dryRun": {
+            "type": "boolean"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "derived-cache",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH] [--dry-run]"
+    },
+    {
+      "name": "planning-prepare",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "planning prepare; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "derived-cache",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs planning-prepare --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "planning-state",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "planning state; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "action",
+          "expectedPlanHash",
+          "expectedPreviousHash",
+          "expectedStateHash",
+          "expectedInventoryHash"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "planning-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs planning-state --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "invalidate-project-index",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "invalidate project index; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "vaultRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "derived-cache",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs invalidate-project-index --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "planning-review",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "planning review; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "inventory",
+          "userEmail",
+          "timezone",
+          "contextBinding",
+          "inventoryBinding",
+          "vaultRoot",
+          "projectsRoot",
+          "dailyPlansRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs planning-review --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "plan-selection",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "plan selection; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "inventory",
+          "taskIds",
+          "action",
+          "today",
+          "dailyPlansRoot",
+          "contextBinding",
+          "inventoryBinding",
+          "vaultRoot",
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs plan-selection --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "maintenance-status",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "maintenance status; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs maintenance-status --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "maintenance-inspect",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "maintenance inspect; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "inspection-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs maintenance-inspect --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "operation-verify",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "operation verify; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs operation-verify --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "operation-complete",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "operation complete; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "verified-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs operation-complete --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "rollover-complete",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "rollover complete; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "verified-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs rollover-complete --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "migration-retirement",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "migration retirement; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs migration-retirement --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "migration-complete",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "migration complete; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operationPath"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "verified-state",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs migration-complete --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "inspect-navigation",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "inspect navigation; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs inspect-navigation --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "next-record-number",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "next record number; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot",
+          "type",
+          "parentId"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs next-record-number --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "parse-record",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "parse record; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "markdown"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs parse-record --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "parse-checklist",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "parse checklist; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "markdown"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs parse-checklist --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "inspect-records",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "inspect records; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs inspect-records --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "validate-records",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "validate records; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "records"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs validate-records --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "check-links",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "check links; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "records"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs check-links --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "check-closure",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "check closure; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "recordId",
+          "records"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs check-closure --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "reconcile-record",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "reconcile record; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "base",
+          "current",
+          "views"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs reconcile-record --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "reopen-ancestors",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "reopen ancestors; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "records",
+          "changedIds"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs reopen-ancestors --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "recover-operation",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "recover operation; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "operation",
+          "actual"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs recover-operation --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "carry-forward",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "carry forward; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "rows",
+          "records",
+          "userEmail",
+          "contextBinding",
+          "vaultRoot",
+          "projectsRoot",
+          "dailyPlansRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs carry-forward --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "plan-rollover",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "plan rollover; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "today",
+          "planId",
+          "userEmail",
+          "contextBinding",
+          "vaultRoot",
+          "projectsRoot",
+          "dailyPlansRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs plan-rollover --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "log-append",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "log append; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot",
+          "entry"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "append-log",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs log-append --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "log-query",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "log query; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "temporary-lock",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs log-query --input ABSOLUTE_JSON_FILE"
+    },
+    {
+      "name": "log-archive",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "log archive; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": [
+          "projectsRoot"
+        ]
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "archive-log",
+      "requiredEnvironment": [],
+      "dryRun": true,
+      "invocation": "node bin/daily-tasks.mjs log-archive --input ABSOLUTE_JSON_FILE"
+    }
+  ]
+}

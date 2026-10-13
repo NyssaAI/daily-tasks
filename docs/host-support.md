@@ -1,6 +1,6 @@
 # Package and execution coverage
 
-The 0.5.1 release acceptance scope is Codex on Windows x64. The current release
+The 0.6.1 release acceptance scope is Codex on Windows x64. The current release
 gate requires verified Node checks and all nine native Codex workflow-v4 scenarios;
 see [evaluation evidence](../evals/LATEST.md). Phone continuation remains unverified.
 Other host packages are retained for evaluation and are not verified release targets.
@@ -18,7 +18,8 @@ for durable operations; unavailable runtimes can only discuss proposals.
 | Antigravity 2.0 / CLI / IDE | artifacts/antigravity minimal manifest; install/register through selected surface | Each surface needs independent runtime verification |
 | Cursor / Grok Bot | portable .cursor-plugin and skills/ | Grok has no SessionStart; on-demand only, runtime unverified |
 | Hermes | artifacts/hermes plugin.yaml and generated register(ctx); enable project plugins or personal plugin explicitly | Runtime unverified |
-| OpenClaw | portable compatible bundle; verify detected format and enable | Runtime unverified |
+| OpenClaw portable | portable compatible bundle; verify detected format and enable | Runtime unverified |
+| OpenClaw native prewarm | `artifacts/openclaw-native`; install/enable separately, then run `openclaw daily-tasks setup-prewarm` | Isolated OpenClaw 2026.10.2 install, CLI discovery, idempotent setup, command execution, fresh reuse and disabled-schedule fallback verified on Linux x64 |
 | Muse | Source inventory only | Provisional; no verified loader/schema, not supported runtime |
 
 Local source build: `node scripts/assemble.mjs write`. Copies contain only runtime
@@ -27,7 +28,7 @@ Python is needed only by the Hermes registration adapter. No bundled platform bi
 portable Node source is used on Windows/Linux/macOS. CI validates available runners;
 do not infer ARM/native-host support from x64 CLI tests. No MCP server is claimed.
 
-Checked official packaging sources 2026-10-05:
+Checked official packaging sources 2026-10-13:
 [Codex](https://developers.openai.com/plugins/build/plugins),
 [Claude](https://code.claude.com/docs/en/plugins-reference),
 [Antigravity](https://antigravity.google/docs/plugins),

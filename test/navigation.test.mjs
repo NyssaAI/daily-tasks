@@ -64,7 +64,7 @@ test('vault-relative wiki links resolve outside the project collection when vaul
   await writeFile(path.join(projectsRoot,'resources/evidence.md'),'# Vault evidence\n');
   const result = await inspectNavigation({vaultRoot:projectsRoot,projectsRoot});
   assert.deepEqual(result.diagnostics,[]);
-  assert.ok(result.targets.some(target=>target.path.endsWith('resources/evidence.md')));
+  assert.ok(result.targets.some(target=>target.path.endsWith(path.join('resources','evidence.md'))));
 });
 
 test('ordinary Markdown and wiki folder links coexist with specific file evidence',async t=>{
@@ -78,7 +78,7 @@ test('ordinary Markdown and wiki folder links coexist with specific file evidenc
   assert.deepEqual(result.diagnostics,[]);
   assert.equal(result.checkedLinks,6);
   assert.deepEqual(result.targets.map(target=>[path.relative(directory,target.path),target.kind,target.sha256]),[
-    ['inputs','directory',null],['outputs','directory',null],['inputs/v1.0','directory',null],['inputs/2026.10.13-notes','directory',null],['inputs/proof.pdf','file',null]
+    ['inputs','directory',null],['outputs','directory',null],[path.join('inputs','v1.0'),'directory',null],[path.join('inputs','2026.10.13-notes'),'directory',null],[path.join('inputs','proof.pdf'),'file',null]
   ]);
 });
 
@@ -142,8 +142,8 @@ test('extensionless criterion files pass while contextual and typed relationship
   await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n- [x] [[outputs]]\n## Definition of Done\n- [x] [[outputs]]\n- [x] [[inputs/proof]] and [Proof](inputs/proof) and [[inputs/result]]\n### Depends on\n- [x] [[outputs]]\n- [[t2-related]] <!-- ref: 019a1234-5678-7abc-8def-000000000001 -->\n## Output\n- [x] [[outputs]]\n');
   const result = await inspectNavigation({projectsRoot});
   assert.deepEqual(result.diagnostics.map(({code,target})=>({code,target})),[{code:'invalid-link-target',target:'outputs'}]);
-  assert.equal(result.targets.find(target=>target.path.endsWith('inputs/proof')).kind,'file');
-  assert.equal(result.targets.find(target=>target.path.endsWith('inputs/result.md')).kind,'file');
+  assert.equal(result.targets.find(target=>target.path.endsWith(path.join('inputs','proof'))).kind,'file');
+  assert.equal(result.targets.find(target=>target.path.endsWith(path.join('inputs','result.md'))).kind,'file');
   assert.ok(result.targets.some(target=>target.path.endsWith('t2-related.md')));
 });
 

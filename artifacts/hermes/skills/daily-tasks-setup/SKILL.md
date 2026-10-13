@@ -118,3 +118,23 @@ the log CLI behavior with empty record_ids. Report resolved timezone and separat
 configuration/state/output roots when applicable. Create state only when needed.
 Setup authorizes no work creation, ownership changes or schema migration. When reached
 from another request, continue that already-authorized work after resolving its scope.
+
+## Optional OpenClaw prewarm
+
+After project setup succeeds, an OpenClaw host with the separate
+`daily-tasks-openclaw` native adapter may offer project-index prewarming. Register it
+only when the user accepts the optional automation; setup of ordinary preferences does
+not imply consent. Default to one hour and use the user's explicit interval when given:
+
+```text
+openclaw daily-tasks setup-prewarm --vault-root ABSOLUTE_VAULT --home-root ABSOLUTE_HOME [--profile-path ABSOLUTE_PROFILE] [--every 1h]
+```
+
+Run `--dry-run` first when inspecting the declaration. The adapter reconciles by a
+scope-derived declaration key, uses exact command argv, starts no agent or model, and
+delivers no chat output. Verify the returned automation and its command payload.
+Re-running with another `--every` value updates the declaration; routine reconciliation
+preserves an operator-disabled job unless `--disabled` is explicitly supplied.
+Other hosts continue with on-demand behavior and need no adapter. Failure, disablement
+or removal of the automation never changes correctness: every inventory consumer still
+performs the TTL, local-date, scope, source-membership and metadata checks itself.
