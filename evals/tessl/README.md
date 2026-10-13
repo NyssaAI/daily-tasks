@@ -24,28 +24,37 @@ Sandbox absolute paths, context bindings and hashes of path-bearing JSON necessa
 depend on the sandbox location. Compare normalized paths and corresponding bindings,
 along with identical IDs, source bytes, clock and operation intent.
 
-Each scenario transports only `lib/`, `bin/`, `package.json` and the existing
+Each scenario transports `lib/`, `bin/`, `package.json`, the five runtime-required
+Markdown templates under `skills/daily-tasks/assets/`, and the existing
 `evals/planning-fixture.mjs` plus the shared `evals/tessl/fixture.mjs` initializer
 as common executable fixture support. All comparison
 arms receive this same tooling, including the no-instruction baseline. This measures
-instruction value with executable support held constant. No source skills, reviewer
-rubrics or expected final fixture manifest are copied into the agent's workspace.
+instruction value with executable support and template content held constant.
+No `SKILL.md` files, reviewer rubrics or expected final fixture manifest are copied
+into the agent's workspace.
 The existing recovery seed creates the interrupted operation at stopAfter 2; setup
 removes its oracle-rich `fixture.json` before the agent starts. Every setup also
 removes both fixture source files, including the recovery inspector, so expected
 outcomes cannot leak through executable setup code. Only production executable
-support remains agent-visible. Setup creates initial state only and never resumes
-the operation.
+support and its required templates remain agent-visible. Setup creates initial
+state only and never resumes the operation.
 
 `ENVIRONMENT.md` supplies neutral session facts and the executable locator. Both
 instruction contexts use the same evaluation-only runtime adaptation under
 `skills/daily-tasks/assets/runtime/`; canonical skill bytes stay unchanged. Lint,
 pack, every required member's SHA256 and unrelated-cwd CLI smoke are prerequisites.
+The initializer loads the template catalog and runs read-only planning preparation;
+`--help` alone is insufficient. Fresh setup fixtures may return `setup-required`;
+configured fixtures must prepare successfully, retaining pending operations unchanged.
+Evaluation wrappers must also include the five assets beneath their runtime root at
+`skills/daily-tasks/assets/`, matching the production catalog's relative paths.
+Run `node --test test/tessl-fixtures.test.mjs` to verify each scenario's declared
+transport through template and planning CLI preparation from an unrelated cwd.
 
 Use a disposable Tessl project and an absolute scenario source path. The installed
 CLI requires its project link to resolve from the scenario source, and currently
 rejects some relative source paths. Stage this tree at `evals/tessl/` in that project,
-with the four common support paths at its root; preserve the relative fixture layout.
+with the declared common support paths at its root; preserve the relative fixture layout.
 Create the scratch Git boundary before linking the project so parent `.temp` ignores
 cannot silently exclude package members. No index or canonical project writes are
 needed. No registry publication is part of this protocol.

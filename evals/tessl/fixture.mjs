@@ -6,6 +6,8 @@ import {uuid7} from '../../lib/identity/identity.mjs';
 import {localDay} from '../../lib/time/time.mjs';
 import {planningBinding} from '../../lib/profile/context.mjs';
 import {seedPlanningFixture} from '../planning-fixture.mjs';
+import {loadTemplateCatalog} from '../../lib/templates/catalog.mjs';
+import {preparePlanning} from '../../lib/planning/session.mjs';
 const mode=process.argv[2];
 const now='2026-10-09T15:00:00Z', timezone='America/Chicago';
 // Fixture construction only: repeat identities without changing production code.
@@ -46,3 +48,10 @@ if(mode==='recovery') {
   }
   await writeFile('ENVIRONMENT.md',JSON.stringify({vaultRoot,...(mode==='scoped'?{homeRoot}:{}),now,timezone,runtimePackageRoot:path.resolve('support'),runtimeEntry:path.resolve('support/bin/daily-tasks.mjs'),knownPeople:{Casey:'casey@example.test',Alex:'alex@example.test'},...(mode==='mapping'||mode==='mixed'?{activeScreen:{date:today,rows:{2:'Draft landing copy',4:'Review launch checklist'}}}:{})},null,2));
 }
+
+// Exercise required runtime assets before exposing the fixture to an agent.
+// Preparation is read-only: preserve pending recovery, selections and template decisions.
+await loadTemplateCatalog();
+const environment=JSON.parse(await readFile('ENVIRONMENT.md','utf8'));
+const prepared=await preparePlanning({...environment,homeRoot:environment.homeRoot ?? path.resolve('synthetic-home'),dryRun:true});
+if(mode!=='fresh' && prepared.status==='setup-required')throw new Error('Configured fixture cannot prepare planning');
