@@ -172,9 +172,42 @@ test('protected dependencies suspend their record and checkpoint changes invalid
   const prepared = await preparePlanning(f.input);
   assert.equal(prepared.status,'prepared');
   assert.equal(prepared.review.pageCount,1);
+  assert.ok(prepared.recovery.suspendedRecordIds.includes(f.records.beta.taskId));
+  assert.deepEqual(prepared.review.available.map(row => row.id),[f.records.alpha.taskId]);
+  const selection = planSelection({...prepared.context,inventory:prepared.inventory,recovery:prepared.recovery,
+    action:'add',today:prepared.context.localDate,date:prepared.context.localDate,taskIds:[f.records.alpha.taskId,f.records.beta.taskId]});
+  assert.deepEqual(selection.effects.map(effect => effect.id),[f.records.alpha.taskId]);
+  assert.deepEqual(selection.conflicts,[{id:f.records.beta.taskId,reason:'pending-operation'}]);
   pending.operation.files[0].after = hash('changed checkpoint');
   await writeFile(pending.operationPath,JSON.stringify(pending.operation));
   await assert.rejects(savePlanningState(request(f,prepared)),/changed|prepare/i);
   const refreshed = await preparePlanning(f.input);
   assert.equal((await savePlanningState(request(f,refreshed))).status,'saved');
+});
+
+test('selection footprints reject pending future plan and dated state overlaps while disjoint destinations remain available',async () => {
+  const f = await fixture(), destination = path.join(f.input.vaultRoot,'daily/2026.10.15-daily-plan.md');
+  await f.checkpoint(destination);
+  const packet = await preparePlanning(f.input);
+  assert.equal(packet.status,'prepared');
+  assert.equal(packet.recovery.operations[0].status,'unrelated');
+  const select = (action,date,inventory=packet.inventory,recovery=packet.recovery) => planSelection({...packet.context,
+    inventory,recovery,taskIds:[f.records.alpha.taskId],action,today:packet.context.localDate,date});
+  const blocked = result => {
+    assert.deepEqual(result.effects,[]);
+    assert.deepEqual(result.conflicts,[{id:f.records.alpha.taskId,reason:'pending-operation'}]);
+  };
+  blocked(select('add','2026.10.15'));
+  assert.equal(select('add','2026.10.16').effects.length,1);
+  const planned = structuredClone(packet.inventory);
+  planned.tasks.find(task => task.id === f.records.alpha.taskId).planned = [{date:'2026.10.14',source:'daily/2026.10.14-daily-plan.md'}];
+  blocked(select('move','2026.10.15',planned));
+  const sourcePending = {...packet.recovery,operations:[{paths:[path.join(f.input.vaultRoot,'daily/2026.10.14-daily-plan.md')],statePaths:[]}]};
+  blocked(select('move','2026.10.16',planned,sourcePending));
+  blocked(select('remove','2026.10.14',planned,sourcePending));
+  const statePending = day => ({...packet.recovery,operations:[{paths:[],statePaths:[path.join(f.state,'rollover',`${day}.json`)]}]});
+  blocked(select('add','2026.10.15',packet.inventory,statePending('2026.10.15')));
+  blocked(select('move','2026.10.16',planned,statePending('2026.10.14')));
+  blocked(select('remove','2026.10.14',planned,statePending('2026.10.14')));
+  assert.equal(select('move','2026.10.16',planned,statePending('2026.10.17')).effects.length,1);
 });

@@ -26,7 +26,12 @@ const definitions = {
 };
 const operations = Object.entries(definitions).map(([name,required]) => ({name,path:'bin/daily-tasks.mjs',
   purpose:`${name.replaceAll('-',' ')}; see skills/daily-tasks/references/cli.md`,
-  inputSchema:name === 'validate-profile' ? profileInputSchema : {type:'object',required:[...new Set([...required,...(['planning-review','plan-selection','carry-forward','plan-rollover'].includes(name) ? ['vaultRoot','projectsRoot','dailyPlansRoot'] : [])])]},outputSchema:{type:'object'},
+  inputSchema:name === 'validate-profile' ? profileInputSchema : {type:'object',required:[...new Set([...required,...(['planning-review','plan-selection','carry-forward','plan-rollover'].includes(name) ? ['vaultRoot','projectsRoot','dailyPlansRoot'] : [])])],
+    ...(name === 'planning-state' ? {allOf:[{
+      if:{properties:{action:{const:'save-review'}},required:['action']},
+      then:{required:['expectedReviewHash','reviewMarkdown'],properties:{reviewMarkdown:{type:'string',minLength:1}}},
+    }]} : {}),
+  },outputSchema:{type:'object'},
   sideEffects:name === 'log-append' ? 'append-log' : name === 'log-archive' ? 'archive-log' : name === 'log-query' ? 'temporary-lock' : name === 'planning-state' ? 'planning-state' : name === 'maintenance-inspect' ? 'inspection-state' : ['operation-complete','rollover-complete','migration-complete'].includes(name) ? 'verified-state' : ['project-index','invalidate-project-index','planning-prepare'].includes(name) ? 'derived-cache' : 'none',
   requiredEnvironment:[],dryRun:['log-append','log-archive','log-query','project-index','invalidate-project-index','planning-prepare','planning-state','maintenance-inspect','operation-complete','rollover-complete','migration-complete'].includes(name),
   invocation:`node bin/daily-tasks.mjs ${name}${name === 'new-id' ? '' : ' --input ABSOLUTE_JSON_FILE'}` }));

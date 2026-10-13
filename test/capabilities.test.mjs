@@ -119,6 +119,17 @@ test('warm metadata exposes durable layered selectors and their exclusive legacy
   for (const transient of ['preferenceOverrides','profile','now','today']) assert.equal(schema.properties[transient],undefined);
 });
 
+test('generated save-review contract retains required screen evidence without imposing it on rollover', () => {
+  const schema = capabilities.operations.find(operation => operation.name === 'planning-state').inputSchema;
+  const conditional = schema.allOf?.find(rule => rule.if?.properties?.action?.const === 'save-review');
+  assert.ok(conditional,'save-review needs action-specific requirements');
+  assert.deepEqual(conditional.if.required,['action']);
+  assert.deepEqual(conditional.then.required,['expectedReviewHash','reviewMarkdown']);
+  assert.deepEqual(conditional.then.properties.reviewMarkdown,{type:'string',minLength:1});
+  assert.ok(!schema.required.includes('reviewMarkdown'));
+  assert.ok(!schema.required.includes('expectedReviewHash'));
+});
+
 test('repository validation rejects missing or drifted versioned profile metadata', async () => {
   execFileSync(process.execPath,['scripts/validate.mjs'],{cwd:fixture});
   for (const mutate of [
