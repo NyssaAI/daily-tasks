@@ -7,7 +7,7 @@ Never add automatic scheduling, time fitting, or implicit acceptance.
 JavaScript is ESM, Node >=22, dependency-free unless a concrete need requires one.
 Feature modules live under `lib/<feature>/`; CLI under `bin/`. No generic utils.
 Use `node --test` for behavior and integration checks. Keep scratch in `.temp/`.
-Public requirements live in `docs/`; never include personal records or credentials.
+Public behavior is documented in `README.md` and `skills/`; never include personal records or credentials.
 Regenerate manifests/artifacts with `node scripts/assemble.mjs write`, then check.
 Do not claim host activation from packaging or direct CLI tests.
 

@@ -165,13 +165,23 @@ test('target resolution excludes hidden state, outside roots and symlink attachm
   await mkdir(path.dirname(hidden)); await writeFile(hidden,'# Secret');
   const external = path.join(outside,'secret.md'); await writeFile(external,'# Secret');
   const attachment = path.join(directory,'inputs','linked.md');
-  await symlink(external,attachment);
   const relative = path.relative(directory,external).split(path.sep).join('/');
-  await writeFile(path.join(directory,'t1-work.md'),`---\ntype: task\n---\n[[../../.state/secret]]\n[hidden](../../.state/secret.md)\n[[${relative}]]\n[outside](${relative})\n[[inputs/linked]]\n[symlink](inputs/linked.md)\n`);
+  await writeFile(path.join(directory,'t1-work.md'),`---\ntype: task\n---\n[[../../.state/secret]]\n[hidden](../../.state/secret.md)\n[[${relative}]]\n[outside](${relative})\n`);
   const result = await inspectNavigation({projectsRoot});
-  assert.equal(result.diagnostics.length,6);
+  assert.equal(result.diagnostics.length,4);
   assert.ok(result.diagnostics.every(issue=>issue.code === 'unsafe-link'));
   assert.ok(result.diagnostics.slice(0,4).every(issue=>issue.message === 'Target is outside allowed roots or inside hidden state'));
-  assert.ok(result.diagnostics.slice(4).every(issue=>/Symbolic link excluded/.test(issue.message)));
   assert.deepEqual(result.targets,[]);
+  await t.test('symlink attachments are excluded',async st=>{
+    try { await symlink(external,attachment); }
+    catch (error) {
+      if (process.platform === 'win32' && error.code === 'EPERM') return st.skip('Windows file symlinks require permission');
+      throw error;
+    }
+    await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[[inputs/linked]]\n[symlink](inputs/linked.md)\n');
+    const linked = await inspectNavigation({projectsRoot});
+    assert.equal(linked.diagnostics.length,2);
+    assert.ok(linked.diagnostics.every(issue=>issue.code === 'unsafe-link' && /Symbolic link excluded/.test(issue.message)));
+    assert.deepEqual(linked.targets,[]);
+  });
 });
