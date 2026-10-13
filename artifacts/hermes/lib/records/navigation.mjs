@@ -99,16 +99,20 @@ export function navigationLinks(markdown) {
 
 /** Inspect local wiki and Markdown navigation, including criterion evidence and attachments. */
 export async function inspectNavigation(input) {
-  const roots = [input.projectsRoot,...(input.dailyPlansRoot ? [input.dailyPlansRoot] : [])].map(root=>{
+  const projectsRoot = input.projectsRoot;
+  const dailyPlansRoot = input.dailyPlansRoot;
+  const vaultRoot = input.vaultRoot;
+  const roots = [...new Set([projectsRoot,dailyPlansRoot,vaultRoot].filter(Boolean))].map(root=>{
     if (!path.isAbsolute(root ?? '')) throw new TypeError('Navigation roots must be absolute');
     return path.resolve(root);
   });
-  const records = await collectManagedRecords(roots[0]);
-  if (roots[1]) {
-    await safePath(roots[1]);
-    for (const name of await readdir(roots[1])) {
+  const records = await collectManagedRecords(path.resolve(projectsRoot));
+  if (dailyPlansRoot) {
+    const plans = path.resolve(dailyPlansRoot);
+    await safePath(plans);
+    for (const name of await readdir(plans)) {
       if (!/^\d{4}\.\d{2}\.\d{2}-daily-plan\.md$/.test(name)) continue;
-      const filename = path.join(roots[1],name);
+      const filename = path.join(plans,name);
       if ((await safePath(filename)).isFile()) records.push({path:filename,markdown:await readFile(filename,'utf8')});
     }
   }
@@ -124,7 +128,24 @@ export async function inspectNavigation(input) {
         try { decoded = decodeURIComponent(link.target); } catch { emit('invalid-link','Invalid URL encoding'); continue; }
         const [file,fragment] = decoded.split('#');
         let filename = file ? path.resolve(path.dirname(record.path),file) : record.path;
-        if (link.wiki && file && !path.extname(file)) filename += '.md';
+        if (link.wiki && file) {
+          const bases = [filename];
+          if (vaultRoot && !path.isAbsolute(file) && !file.split(/[\\/]/).some(part=>part === '..')) {
+            const vaultCandidate = path.resolve(vaultRoot,file);
+            if (!bases.includes(vaultCandidate)) bases.push(vaultCandidate);
+          }
+          let found;
+          for (const base of bases) {
+            for (const candidate of [base,`${base}.md`]) {
+              try {
+                const stats = await safePath(candidate);
+                if (stats.isFile() || candidate === base) { found = candidate; break; }
+              } catch (error) { if (error.code !== 'ENOENT') throw error; }
+            }
+            if (found) break;
+          }
+          filename = found ?? `${bases[0]}.md`;
+        }
         const root = roots.find(root=>within(root,filename));
         if (!root || path.relative(root,filename).split(path.sep).some(part=>part.startsWith('.'))) {
           emit('unsafe-link','Target is outside allowed roots or inside hidden state'); continue;

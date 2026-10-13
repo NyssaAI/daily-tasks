@@ -9,6 +9,7 @@ import { parseChecklist, planRollover } from './planning.mjs';
 import { planningReview } from './review.mjs';
 import { verifiedMaintenanceStatus } from './maintenance.mjs';
 import { prepareTemplates } from '../templates/templates.mjs';
+import { pendingOperationNames } from '../operations/checkpoints.mjs';
 
 const fingerprint = text => text === null ? null : createHash('sha256').update(text).digest('hex');
 
@@ -76,7 +77,7 @@ export async function preparePlanning(input) {
     const legacy = await stateFile(path.join(context.stateRoot,'planning-review.json'));
     if (legacy.value?.date === today) reviewState = legacy;
   }
-  const pendingOperations = (await names(path.join(context.stateRoot,'operations'))).filter(name => name.endsWith('.json'));
+  const pendingOperations = await pendingOperationNames(context.stateRoot);
   const indexed = await projectInventory({...context,forceRefresh:input.forceRefresh,dryRun:input.dryRun});
   let records = indexed.inventory.tasks.map(task => ({...task,type:'task',project_id:task.projectId,milestone_id:task.milestoneId}));
   let previous = null;

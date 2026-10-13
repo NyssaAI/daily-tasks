@@ -56,13 +56,14 @@ test('UUIDv7 carries timestamp/version/variant without conflating identities', (
   assert.ok(ids.every(isUuid7));
   assert.equal(parseInt(ids[0].replaceAll('-','').slice(0,12),16),1791217800000);
 });
-test('carry-forward retains selected own/delegated work but not terminal or removed work', () => {
-  const ids = Array.from({length:6}, () => uuid7());
-  const records = ids.slice(0,5).map((id,index) => ({id,owner,state:['not-started','in-progress','completed','cancelled','not-started'][index],...(index === 1 ? {assignee:'research-agent'} : {})}));
+test('carry-forward retains selected own, delegated and follow-up work but not terminal or removed work', () => {
+  const ids = Array.from({length:7}, () => uuid7());
+  const records = ids.slice(0,6).map((id,index) => ({id,owner:index === 5 ? 'someone@example.test' : owner,state:['not-started','in-progress','completed','cancelled','not-started','not-started'][index],...(index === 1 ? {assignee:'research-agent'} : {})}));
   const rows = ids.map((id,index) => ({id,selected:index !== 4}));
   const next = carryForward(rows,records,owner);
   assert.deepEqual(next.own.map(row => row.id),[ids[0]]);
   assert.deepEqual(next.delegated.map(row => row.id),[ids[1]]);
+  assert.deepEqual(next.followUp.map(row => row.id),[ids[5]]);
   assert.equal(next.unresolved[0].reason,'missing-record');
   assert.equal(records[0].state,'not-started');
   const parsed = parseChecklist(`- [ ] New manual candidate\n- [x] [[task|Done]] <!-- ref: ${ids[0]} -->`);

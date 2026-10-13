@@ -95,7 +95,7 @@ hashes refresh during rebuild. Cache JSON is written atomically.
 An external assigned projects root uses `@projectsRoot` in portable cache scope.
 Operation results carry `planningBinding` separately from inventory JSON.
 
-`planning-review` computes owner-focused counts/options and stable pages of at most
+`planning-review` computes all-owner scoped counts/options and stable pages of at most
 15 additions. `plan-selection` returns explicit add/move/remove effects; the skill
 creates dated plans and applies transfers through checkpoints/logging.
 CLI `planning-review`, `plan-selection`, `carry-forward` and `plan-rollover` require
@@ -109,6 +109,10 @@ execution evidence. No trusted host worker adapter is supplied, so worker succes
 remains unrecorded. `maintenance-inspect` checks actual files, navigation, baselines
 and pending operations and saves only `maintenance-inspection.json` with its own
 clock. It never changes worker-success timestamps.
+Retained legacy operation receipts whose bound operation ID and status prove
+completion are historical evidence, not pending checkpoints. Maintenance diagnostics
+remain path/record scoped; their presence does not turn an otherwise valid planning
+packet into a global recovery requirement.
 
 SchemaV2 completion checkpoints bind exact file hashes, context, protected sources
 and log payloads. `operation-verify` reads actual effects and queries the event;
@@ -120,7 +124,9 @@ New `workspace.migration` log appends require resolved profile/vault scope and a
 bound `operationPath`; actual retirement, preservation, references and declared
 effects must be verified before the event is persisted. Exact recorded retries
 remain idempotent after checkpoint clearance.
-`inspect-navigation` checks local headings and attachments. `next-record-number`
+`inspect-navigation` checks local headings and attachments, resolves extensionless
+wiki links (including dotted date names) to Markdown, and supports explicit
+vault-relative targets when vaultRoot is supplied. `next-record-number`
 queries retirement history through the log API and fails closed on ambiguous
 labels. Supported scans exclude hidden log directories; unrestricted host file
 tools remain outside the CLI's enforcement boundary.

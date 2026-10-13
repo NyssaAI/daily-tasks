@@ -47,3 +47,22 @@ test('navigation checks reference-style images and links, titled destinations an
   assert.deepEqual(result.diagnostics.map(issue=>issue.code),['missing-link-target']);
   assert.ok(result.targets.some(target=>target.path.endsWith('evidence.md') && target.sha256));
 });
+
+test('extensionless wiki links with dotted date names resolve to Markdown files',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[[2026.10.07-evidence|Dated evidence]]\n');
+  await writeFile(path.join(directory,'2026.10.07-evidence.md'),'# Dated evidence\n');
+  const result = await inspectNavigation({projectsRoot});
+  assert.deepEqual(result.diagnostics,[]);
+  assert.ok(result.targets.some(target=>target.path.endsWith('2026.10.07-evidence.md')));
+});
+
+test('vault-relative wiki links resolve outside the project collection when vaultRoot is explicit',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  await mkdir(path.join(projectsRoot,'resources'));
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n[[resources/evidence|Vault evidence]]\n');
+  await writeFile(path.join(projectsRoot,'resources/evidence.md'),'# Vault evidence\n');
+  const result = await inspectNavigation({vaultRoot:projectsRoot,projectsRoot});
+  assert.deepEqual(result.diagnostics,[]);
+  assert.ok(result.targets.some(target=>target.path.endsWith('resources/evidence.md')));
+});

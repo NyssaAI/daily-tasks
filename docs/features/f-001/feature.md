@@ -82,6 +82,9 @@ None yet.
 - Write atomically. A failed refresh reports failure and does not advance the
   successful refresh timestamp or represent old data as current.
 - Supply available work to planning separately from already selected work.
+- Derive planning counts and available work across every valid record in the bound
+  projects collection regardless of owner; preserve owner/assignee metadata so the
+  review can distinguish personal, delegated and follow-up responsibility.
 - Use direct CLI execution for routine inventory reuse or refresh. When the broader
   reconciliation pass requires a subagent, let that same worker obtain/refresh this
   inventory; do not spawn a separate worker solely for deterministic indexing.
@@ -150,6 +153,8 @@ None yet.
 
 - Open tasks across multiple projects appear even if never selected in a daily plan.
   Completed/cancelled tasks do not appear as open work.
+- Open tasks owned by someone other than the configured user still contribute to
+  counts and eligible additions; discovery never changes their owner or assignee.
 - Owner/assignee, milestone/project relationships, explicit target dates,
   dependencies and blockers reflect canonical sources without inferred acceptance.
 - A task selected for tomorrow or another future date retains its open-task summary

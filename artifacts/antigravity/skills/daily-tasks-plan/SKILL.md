@@ -57,6 +57,13 @@ continue independent changes. Manual status edits update canonical records throu
 checkpoint, event or rewritten baseline. Batch independent reads/checks; keep
 writes and log appends ordered.
 
+A blocked maintenance inspection is not a global planning stop. Map diagnostics to
+their affected records and paths. Missing navigation targets, baseline enrollment,
+invalid legacy projects and unrelated view differences remain maintenance work; they
+do not block independent rollover, review mapping or plan saves whose selected and
+carried records validate. Suspend only a proposed write that depends on the affected
+record or view, and report the remaining maintenance scope separately.
+
 After reconciled writes, invalidate/refresh affected inventory and run
 `planning-prepare` again. Any write changing the packet's source or state hashes
 requires a fresh packet before a dependent state action or review is saved.
@@ -88,9 +95,9 @@ Reprepare after changed Markdown or state writes before preparing the review.
 Load [review scope](../daily-tasks/references/planning-flow.md#review-scope),
 [durable mapping](../daily-tasks/references/planning-flow.md#build-and-review)
 and [response conventions](../daily-tasks/references/response-conventions.md) before
-rendering or waiting for numbered replies. Use the prepared owner-focused review,
+rendering or waiting for numbered replies. Use the prepared all-owner scoped review,
 its full scoped counts, stable ordering, first incomplete milestones, future
-exclusions and pages of at most 15 additions. Existing out-of-view selections survive.
+exclusions and pages of at most 15 additions. Preserve owner and assignee metadata.
 Persist the displayed UUID/number mapping, binding and local date with `planning-state`
 action `save-review` before waiting. Load the [CLI inputs](../daily-tasks/references/cli.md)
 for the packet's complete hashes and matching page/allMilestones options. A changed

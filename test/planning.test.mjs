@@ -8,7 +8,7 @@ const today = '2026.10.07', previousDate = '2026.10.06', planId = id(20);
 const open = n => ({id:id(n),owner:userEmail,state:'not-started'});
 
 test('rollover merges yesterday into a pre-created plan while preserving future, terminal and removed work', () => {
-  const records = [open(1),open(2),open(3),{...open(4),state:'completed'},open(5),{...open(6),assignee:'research-agent'}];
+  const records = [open(1),open(2),open(3),{...open(4),state:'completed'},open(5),{...open(6),assignee:'research-agent'},{...open(7),owner:'someone@example.test'}];
   const currentRows = [{id:id(2),title:'Already selected B',customNote:'retain this edit'}];
   const previousRows = records.map(record => ({id:record.id,selected:record.id !== id(5)}));
   const inventory = {tasks:records.map(record => ({id:record.id,planned:record.id === id(3) ? [{date:'2026.10.08'}] : []})),diagnostics:[]};
@@ -16,10 +16,11 @@ test('rollover merges yesterday into a pre-created plan while preserving future,
   const before = structuredClone(input);
   const proposal = planRollover(input);
   assert.equal(proposal.status,'due');
-  assert.deepEqual(proposal.selected.map(row => row.id),[id(2),id(1),id(6)]);
+  assert.deepEqual(proposal.selected.map(row => row.id),[id(2),id(1),id(6),id(7)]);
   assert.deepEqual(proposal.selected[0],currentRows[0]);
   assert.equal(proposal.own[0].carriedFrom,previousDate);
   assert.equal(proposal.delegated[0].carriedFrom,previousDate);
+  assert.equal(proposal.followUp[0].carriedFrom,previousDate);
   assert.deepEqual(proposal.unresolved,[]);
   assert.deepEqual(input,before);
 });

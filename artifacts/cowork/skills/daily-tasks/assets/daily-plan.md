@@ -36,6 +36,14 @@ FOCUS_DESCRIPTION
 | --- | --- | --- | --- | --- | --- |
 | 2 | [ ] | DELEGATED_PROJECT_TITLE | DELEGATED_MILESTONE_TITLE | [[RELATIVE_DELEGATED_TASK_PATH\|DELEGATED_TASK_TITLE]] <!-- ref: DELEGATED_TASK_UUID --> | TARGET_DATE_OR_DASH |
 
+### Follow-up work
+
+#### FOLLOW_UP_PROJECT_TITLE / FOLLOW_UP_MILESTONE_TITLE
+
+| # | Status | Project | Milestone | Task | Due Date |
+| --- | --- | --- | --- | --- | --- |
+| 3 | [ ] | FOLLOW_UP_PROJECT_TITLE | FOLLOW_UP_MILESTONE_TITLE | [[RELATIVE_FOLLOW_UP_TASK_PATH\|FOLLOW_UP_TASK_TITLE]] <!-- ref: FOLLOW_UP_TASK_UUID --> | TARGET_DATE_OR_DASH |
+
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward
 
 ## Blockers
@@ -55,7 +63,8 @@ formatting load ../references/templates.md. Replace sample content/placeholders
 with actual selected work; template examples never create/select work.
 
 Use #, Status, Project, Milestone, Task and Due Date columns. Group by project and
-milestone within My work and Delegated work. Each task's owning milestone is plain
+milestone within My work, Delegated work and Follow-up work. Follow-up work is owned
+by someone else and not effectively assigned to the current user. Each task's owning milestone is plain
 text in the Milestone cell, even under grouped headings; it is not a separate
 selection/status row. One status cell and hidden ref identify each task row.
 Keep task labels short, escape wiki label pipes and keep the hidden ref in Task.

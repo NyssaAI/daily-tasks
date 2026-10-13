@@ -123,6 +123,13 @@ Navigation-only links do not need managed IDs. Report unidentified legacy record
 as enrollment work, with their paths and missing metadata. Do not assign identities,
 owners or states, or accept their checklist candidates without the user's decision.
 
+Treat a blocked maintenance inspection as scoped evidence, not a global planning
+failure. Map each diagnostic to affected identities and paths. Navigation-only
+missing targets, baseline enrollment, invalid legacy projects and unrelated view
+differences do not block an independent no-change rollover, review mapping or plan
+save when all selected/carried identities and their required sources validate.
+Suspend only dependent writes and report the remaining maintenance work separately.
+
 ## Build and review
 
 Before building the review, finish the once-per-day rollover below. An existing
@@ -164,14 +171,15 @@ No execution ordering, scheduling/time fitting, implicit acceptance or automatic
 
 ## Review scope
 
-Load this contract before deriving review rows or inventory counts. The review is
-owner-only: canonical owner must match the current user's email, regardless of
-assignee. Do not split delegated rows or show assignees, blockers, blocker counts
+Load this contract before deriving review rows or inventory counts. The review covers
+every valid task in the bound projects collection regardless of owner or assignee.
+Retain owner and assignee on each row so the user can distinguish personal work,
+delegated work and work that needs follow-up. Do not show blockers, blocker counts
 or a Needs clarification section. Preserve affected selections while reconciliation
-handles uncertain facts separately. This filter never removes out-of-view selections
-from the saved plan. Ownership permits planning/delegation decisions, not execution.
+handles uncertain facts separately. Visibility permits planning and check-in
+decisions; it never reassigns ownership, changes assignment or starts execution.
 
-Counts describe the full user-owned scoped inventory at the recorded update time:
+Counts describe the full scoped inventory at the recorded update time:
 unique open projects/tasks are not-started or in-progress; late tasks are open tasks
 with an explicit target_date before the configured local day. Due today is not late.
 Never infer dates/counts; identify stale/incomplete inventory rather than claiming
@@ -198,17 +206,18 @@ follow the requested route rather than forcing the first-check-in screen again.
 
 ## Saved daily plan
 
-Load this contract when authoring saved output, independently of the owner-only
+Load this contract when authoring saved output, independently of the all-owner
 review. Separate **My work** (effective assignee is current user's email, including
 work owned by someone else) from **Delegated work** (owner is current user, effective
-assignee is another human/agent). Missing assignee falls back to owner; there is no
-unassigned category. Delegated completion belongs to its doer. Suggested follow-up
-is a Capture candidate, never a silently created obligation; ownership does not
-authorize external messages or taking over execution.
+assignee is another human/agent), and **Follow-up work** (owner is someone else and
+the effective assignee is not the current user). Missing assignee falls back to
+owner. Delegated completion belongs to its doer. Suggested follow-up is a Capture
+candidate, never a silently created obligation; visibility does not authorize
+external messages, ownership changes or taking over execution.
 
 Only selected work belongs in the saved plan; available options/prompts stay on the
-review screen. Preserve selections outside its ownership filter, stable display
-order, existing prose and terminal/unresolved rows. Do not silently reorder work.
+review screen. Preserve stable display order, existing prose and terminal/unresolved
+rows. Do not silently reorder work.
 Resolve dailyPlan through [template updates](template-updates.md) and author new
 plans from its prepared `active.content`; use [custom templates](templates.md) for
 adaptation. The review independently uses planDayReview's prepared active content.

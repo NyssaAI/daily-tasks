@@ -43,6 +43,9 @@ test('unsupported worker claims and pending operations cannot advance maintenanc
   assert.equal((await verifiedMaintenanceStatus(input)).fullReconcileDue, true);
   await assert.rejects(inspectMaintenance({ ...input, verified: true }), /Caller-authored/);
   await mkdir(path.join(input.stateRoot, 'operations'));
+  const completed = '019a1234-5678-7abc-8def-000000000009';
+  await writeFile(path.join(input.stateRoot, `operations/${completed}.json`), JSON.stringify({ operation_id: completed, status: 'completed', files: [] }));
+  assert.equal((await inspectMaintenance(input)).status, 'inspected');
   await writeFile(path.join(input.stateRoot, 'operations/pending.json'), '{}');
   const blocked = await inspectMaintenance(input);
   assert.equal(blocked.status, 'blocked');
