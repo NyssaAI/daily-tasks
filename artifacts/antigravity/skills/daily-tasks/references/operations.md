@@ -50,8 +50,9 @@ For a consequential change:
    and source values in the checkpoint. Call `operation-verify`, then
    `operation-complete` (or the specialized rollover/migration completion).
    The CLI independently checks actual files and the exact event, writes verified
-   baseline state and clears the checkpoint. Do not hand-write success, advance a
-   baseline or remove a schemaV2 checkpoint when the result is pending/conflict.
+   baseline state and, for a typed selection-state intent, derives dated removal
+   history across source/destination before clearing the checkpoint. Do not
+   hand-write success, advance a baseline or remove a schemaV2 checkpoint when the result is pending/conflict.
    Checkpoints aren't retained history.
 
 Minimal reconciliation state keyed by record UUID contains canonical field baseline,
@@ -63,10 +64,13 @@ view's own prior snapshot. Normalize each changed view delta against common cano
 baseline before calling `reconcile-record`; unchanged stale values contribute no edit.
 This prevents a stale unchecked box reopening a completed task unintentionally.
 
-Persist field effects as `{key,before,after}` where before/after are presence snapshots:
+For legacy field-level recovery, persist effects as `{key,before,after}` where
+before/after are presence snapshots:
 `{"present":false}` means absent and `{"present":true,"value":...}` means present.
 The reconcile CLI returns this encoding with `field`; map field to the checkpoint's
-unique key. Actual recovery values remain a plain object. Do not serialize JavaScript
+unique key. Schema-v2 completion instead verifies file evidence and supported
+typed intents; it rejects legacy `changes` arrays. Actual field-recovery values
+remain a plain object. Do not serialize JavaScript
 undefined or conflate absence with null. A partial view can explicitly clear optional
 assignee/target/start/resolution fields with null; omitted view fields mean no proposed edit.
 

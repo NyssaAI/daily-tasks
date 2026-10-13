@@ -125,7 +125,16 @@ packet into a global recovery requirement.
 
 SchemaV2 completion checkpoints bind exact file hashes, context, protected sources
 and log payloads. `operation-verify` reads actual effects and queries the event;
-`operation-complete` saves checked baselines and clears checkpoints. Specialized
+`operation-complete` saves checked baselines and clears checkpoints. A narrow
+`selectionState` add/remove/move intent binds dates, plan IDs/paths, task IDs,
+recoverable before Markdown and exact rollover-state before bytes/hash or absence.
+It derives removal-history deltas only, preserves unrelated IDs and receipt fields,
+initializes absent dated state without a rollover receipt, and preflights every
+state/baseline before optimistic atomic writes. Verification separates persisted
+Markdown/event checks from pending/conflicting owned JSON; partial completion
+resumes at exact before/derived-after bytes and clears the checkpoint last. See
+[selection-state schema](../skills/daily-tasks/references/verification.md#selection-removal-history).
+Specialized
 `rollover-complete`, `migration-retirement` and `migration-complete` add selection,
 identity and retirement-preservation checks. See the canonical
 [verification contract](../skills/daily-tasks/references/verification.md).

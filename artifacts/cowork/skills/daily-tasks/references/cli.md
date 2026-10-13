@@ -61,8 +61,8 @@ saved activity-time result; syntactically valid GMT text alone cannot detect a s
 | plan-selection | inventory, taskIds, action add/move/remove, today, dailyPlansRoot; date for add/move | Proposed selection transfers/file targets and conflicts; skill writes Markdown |
 | maintenance-status | resolved context inputs | Boolean inspectionDue, alwaysCheck; workerEvidence.status unsupported and fullReconcileDue null (not overdue/success); no write |
 | maintenance-inspect | resolved context inputs, dryRun? | Actual graph/navigation/baseline checks; saves CLI inspection JSON only; no worker success |
-| operation-verify | resolved context inputs, operationPath absolute | Actual effects/protected sources/exact event checks; no write |
-| operation-complete | same, dryRun? | Verified baseline save and checkpoint removal |
+| operation-verify | resolved context inputs, operationPath absolute | Actual effects/protected sources/exact event checks; typed selection intent also reports persistedStatus and pending/conflicting owned state; no write |
+| operation-complete | same, dryRun? | Verified baseline save, typed selection removal-history derivation across dates, checkpoint removal last |
 | rollover-complete | same, schemaV2 rollover checkpoint | Recomputed selections and identity checks before receipt/baseline/checkpoint completion |
 | migration-retirement | same, schemaV2 migration checkpoint | Pre-removal content and live incoming-reference checks; allowed/ issues; no deletion |
 | migration-complete | same, retained source snapshot, dryRun? | Post-removal effect/event/baseline checks; no chronological attestation |

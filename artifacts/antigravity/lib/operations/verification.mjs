@@ -13,6 +13,8 @@ import { navigationLinks, resolveNavigationTarget } from '../records/navigation.
 import { recordDirectoryIsHoldingArea } from '../records/records.mjs';
 
 const hash = bytes => bytes === null ? null : createHash('sha256').update(bytes).digest('hex');
+const jsonBytes = value => Buffer.from(JSON.stringify(value,null,2)+'\n');
+const plain = value => value && typeof value === 'object' && !Array.isArray(value);
 const validHash = value => value === null || /^[a-f0-9]{64}$/.test(value ?? '');
 const within = (root, target) => { const relative = path.relative(root,target); return relative === '' || (!path.isAbsolute(relative) && relative !== '..' && !relative.startsWith(`..${path.sep}`)); };
 
@@ -51,6 +53,7 @@ async function load(input) {
   if (bytes === null) throw new Error('Operation checkpoint missing');
   const operation = JSON.parse(bytes.toString('utf8'));
   if (operation.schemaVersion !== 2 || operation.operation_id !== path.basename(filename,'.json') || operation.contextBinding !== context.planningBinding || !Array.isArray(operation.files) || !operation.files.length || operation.event?.operation_id !== operation.operation_id) throw new Error('Invalid bound schemaV2 operation checkpoint');
+  if (Object.hasOwn(operation,'changes')) throw new Error('Legacy changes are not schemaV2 completion evidence');
   const seen = new Set();
   for (const file of operation.files) {
     file.path = effectPath(context,file.path);
@@ -58,13 +61,13 @@ async function load(input) {
     seen.add(file.path);
   }
   for (const file of operation.protectedFiles ?? []) {
-    effectPath(context,file.path);
+    file.path = effectPath(context,file.path);
     if (!validHash(file.sha256)) throw new Error('Protection hash required');
   }
   return {context,operation,filename,checkpointHash:hash(bytes)};
 }
 
-async function verifyLoaded(loaded) {
+async function verifyLoaded(loaded, stateWrites) {
   const {context,operation} = loaded;
   const pending = [], conflicts = [];
   for (const file of operation.files) {
@@ -81,7 +84,13 @@ async function verifyLoaded(loaded) {
   }
   if (event && !isDeepStrictEqual(event,operation.event)) conflicts.push({reason:'event-conflict'});
   if (!event) pending.push({reason:'event-missing'});
-  return {status:conflicts.length ? 'conflict' : pending.length ? 'pending' : 'verified',operationId:operation.operation_id,pending,conflicts,verifiedPaths:operation.files.map(file => file.path)};
+  const persistedStatus = conflicts.length ? 'conflict' : pending.length ? 'pending' : 'verified';
+  if (!Object.hasOwn(operation,'selectionState')) return {status:persistedStatus,operationId:operation.operation_id,pending,conflicts,verifiedPaths:operation.files.map(file => file.path)};
+  const owned = await selectionStateWork(loaded,persistedStatus === 'verified');
+  stateWrites?.push(...owned.writes);
+  return {status:conflicts.length || owned.conflicts.length ? 'conflict' : pending.length || owned.pending.length ? 'pending' : 'verified',
+    persistedStatus,operationId:operation.operation_id,pending:[...pending,...owned.pending],conflicts:[...conflicts,...owned.conflicts],
+    ownedState:{pending:owned.pending,conflicts:owned.conflicts},verifiedPaths:operation.files.map(file => file.path)};
 }
 
 /** Verify only declared effects; this does not claim unobserved files are unchanged. */
@@ -99,16 +108,107 @@ async function atomic(filename, value, expectedHash) {
   } finally { await unlink(temporary).catch(error => { if (error.code !== 'ENOENT') throw error; }); }
 }
 
-async function validateBaseline(loaded) {
-  const {context,operation} = loaded, baseline = operation.baseline;
-  if (!baseline) return;
-  const plain = value => value && typeof value === 'object' && !Array.isArray(value);
+// Selection completion owns only dated removal history; it never accepts an after-state payload.
+async function selectionStateWork(loaded, persisted) {
+  const {context,operation} = loaded, intent = operation.selectionState;
+  const uniqueIds = ids => Array.isArray(ids) && ids.every(isUuid7) && new Set(ids).size === ids.length;
+  if (!plain(intent) || Object.keys(intent).some(key => !['direction','taskIds','source','destination'].includes(key)) ||
+      !['add','remove','move'].includes(intent.direction) || !uniqueIds(intent.taskIds) || !intent.taskIds.length ||
+      operation.rollover || operation.migration || !operation.baseline ||
+      (intent.direction === 'add' ? Object.hasOwn(intent,'source') : !plain(intent.source)) ||
+      (intent.direction === 'remove' ? Object.hasOwn(intent,'destination') : !plain(intent.destination))) throw new Error('Unsupported typed selection-state intent');
+  if (!isUuid7(operation.event.id) || operation.event.action !== `selection-${intent.direction}` ||
+      !uniqueIds(operation.event.record_ids) || !isDeepStrictEqual([...operation.event.record_ids].sort(),[...intent.taskIds].sort()) ||
+      operation.event.before?.date !== (intent.source?.date ?? null) || operation.event.after?.date !== (intent.destination?.date ?? null)) throw new Error('Selection event does not match bound direction, task IDs and dates');
+  if (intent.source && intent.destination && (intent.source.date === intent.destination.date || intent.source.planId === intent.destination.planId)) throw new Error('Selection move requires distinct dates and plans');
+  const plans = [intent.source,intent.destination].filter(Boolean);
+  if (operation.files.length !== plans.length) throw new Error('Selection effects must be exactly the affected plans');
+  const pending = [], conflicts = [], writes = [];
+  const classify = async (filename,beforeHash,value,reason) => {
+    const afterHash = hash(jsonBytes(value)), actual = hash(await ordinary(filename));
+    if (actual === afterHash) return;
+    const item = {path:filename,kind:'owned-state',reason,actual,before:beforeHash,after:afterHash};
+    if (actual !== beforeHash) { conflicts.push({...item,reason:`${reason}-conflict`}); return; }
+    pending.push(item); writes.push({path:filename,value,beforeHash});
+  };
+  for (const plan of plans) {
+    if (!plain(plan) || Object.keys(plan).some(key => !['date','planPath','planId','beforeMarkdown','stateBeforeHash','stateBeforeText'].includes(key)) ||
+        !calendarDate(plan.date) || !isUuid7(plan.planId) || plan.planPath !== path.join(context.dailyPlansRoot,`${plan.date}-daily-plan.md`) ||
+        !(plan.beforeMarkdown === null || typeof plan.beforeMarkdown === 'string') ||
+        !validHash(plan.stateBeforeHash) || !(plan.stateBeforeText === null || typeof plan.stateBeforeText === 'string')) throw new Error('Selection plan requires bound identity and exact before evidence');
+    const effect = operation.files.find(file => file.path === plan.planPath);
+    const beforeBytes = plan.beforeMarkdown === null ? null : Buffer.from(plan.beforeMarkdown);
+    if (!effect || effect.before !== hash(beforeBytes) || effect.after === null || effect.after === effect.before) throw new Error('Selection plan before evidence or declared effect differs');
+    const identity = markdown => {
+      const record = parseRecord(markdown,plan.planPath);
+      if (record.type !== 'daily-plan' || record.id !== plan.planId || record.parse_errors.length) throw new Error('Selection plan identity or type changed');
+      utcTimestamp(record.created_at);
+      return record;
+    };
+    const before = beforeBytes === null ? null : identity(plan.beforeMarkdown);
+    const membership = markdown => {
+      const rows = parseChecklist(markdown);
+      const ids = rows.filter(row => row.selected !== false && row.id).map(row => row.id);
+      if (rows.some(row => row.referenceError) || !uniqueIds(ids)) throw new Error('Selection membership has invalid or duplicate identities');
+      return ids;
+    };
+    const beforeIds = membership(plan.beforeMarkdown ?? ''), removing = plan === intent.source;
+    if (intent.taskIds.some(id => beforeIds.includes(id) !== removing)) throw new Error('Selection direction does not match before membership');
+    const current = await ordinary(plan.planPath);
+    if (hash(current) === effect.after) {
+      const after = identity(current.toString());
+      if (before && after.created_at !== before.created_at) throw new Error('Selection plan creation time changed');
+      const expected = removing ? beforeIds.filter(id => !intent.taskIds.includes(id)) : [...beforeIds,...intent.taskIds];
+      if (!isDeepStrictEqual(membership(current.toString()).sort(),expected.sort())) throw new Error('Selection membership does not match intended delta');
+    }
+    const stateBytes = plan.stateBeforeText === null ? null : Buffer.from(plan.stateBeforeText);
+    if (hash(stateBytes) !== plan.stateBeforeHash) throw new Error('Selection state beforeText must prove its beforeHash');
+    const state = stateBytes === null ? {schemaVersion:1,date:plan.date,planId:plan.planId,removedIds:[]} : JSON.parse(plan.stateBeforeText);
+    if (!plain(state) || state.schemaVersion !== 1 || state.date !== plan.date || state.planId !== plan.planId || !uniqueIds(state.removedIds === undefined ? [] : state.removedIds) ||
+        Object.hasOwn(state,'operationId') !== Object.hasOwn(state,'completedAt')) throw new Error('Unsupported selection rollover before state');
+    if (Object.hasOwn(state,'operationId')) { if (!isUuid7(state.operationId)) throw new Error('Invalid original rollover receipt'); utcTimestamp(state.completedAt); }
+    const previousRemoved = state.removedIds ?? [];
+    const removedIds = removing ? [...previousRemoved,...intent.taskIds.filter(id => !previousRemoved.includes(id))] : previousRemoved.filter(id => !intent.taskIds.includes(id));
+    await classify(path.join(context.stateRoot,'rollover',`${plan.date}.json`),plan.stateBeforeHash,{...state,removedIds},'selection-state-pending');
+  }
+  // Bind intended tasks to unchanged canonical records, never to caller assertions.
+  const indexed = await projectInventory({...context,dryRun:true,forceRefresh:true});
+  const tasks = new Map();
+  for (const source of indexed.inventory.sources.filter(source => source.anchor === 'projectsRoot')) {
+    const filename = effectPath(context,path.resolve(context.projectsRoot,source.path));
+    const bytes = await ordinary(filename);
+    const record = parseRecord(bytes?.toString() ?? '',filename);
+    if (!intent.taskIds.includes(record.id)) continue;
+    if (record.type !== 'task' || record.parse_errors.length || tasks.has(record.id) ||
+        !operation.protectedFiles?.some(file => file.path === filename && file.sha256 === hash(bytes) && file.sha256 === source.sha256)) conflicts.push({path:filename,reason:'selection-canonical-conflict'});
+    tasks.set(record.id,record);
+  }
+  if (tasks.size !== intent.taskIds.length) conflicts.push({reason:'selection-canonical-missing'});
+  baselineEvidence(operation.baseline);
+  for (const id of intent.taskIds) for (const plan of plans) {
+    const view = operation.baseline.value.records[id]?.views?.[plan.planPath];
+    const selected = plan === intent.destination;
+    if ((!view && selected) || (view && (view.hash !== operation.files.find(file => file.path === plan.planPath).after || view.selected !== selected))) throw new Error('Selection baseline must reflect intended membership and after hashes');
+  }
+  await classify(path.join(context.stateRoot,'reconciliation.json'),operation.baseline.beforeHash,operation.baseline.value,'baseline-pending');
+  if (persisted && !conflicts.length) await validateBaseline(loaded);
+  return {pending,conflicts,writes};
+}
+
+function baselineEvidence(baseline) {
   const shape = value => plain(value) && value.schemaVersion === 1 && plain(value.records) && Object.keys(value).every(key => ['schemaVersion','records'].includes(key));
   if (!validHash(baseline.beforeHash) || !shape(baseline.value)) throw new Error('Baseline requires schemaVersion1 records map and beforeHash');
   const beforeText = baseline.beforeText ?? null;
-  if (hash(beforeText === null ? null : Buffer.from(beforeText)) !== baseline.beforeHash) throw new Error('Baseline beforeText must prove the beforeHash');
+  if (!(beforeText === null || typeof beforeText === 'string') || hash(beforeText === null ? null : Buffer.from(beforeText)) !== baseline.beforeHash) throw new Error('Baseline beforeText must prove the beforeHash');
   const before = beforeText === null ? {schemaVersion:1,records:{}} : JSON.parse(beforeText);
   if (!shape(before)) throw new Error('Unsupported baseline before shape');
+  return before;
+}
+
+async function validateBaseline(loaded) {
+  const {context,operation} = loaded, baseline = operation.baseline;
+  if (!baseline) return;
+  const before = baselineEvidence(baseline);
   const affected = new Set(operation.files.map(file => file.path));
   const indexed = await projectInventory({...context,dryRun:true,forceRefresh:true});
   const records = new Map();
@@ -173,7 +273,22 @@ async function finish(input, loaded, rollover) {
 export async function completeOperation(input) {
   const loaded = await load(input);
   if (loaded.operation.rollover || loaded.operation.migration) throw new Error('Specialized completion required');
-  return finish(input,loaded);
+  if (!Object.hasOwn(loaded.operation,'selectionState')) return finish(input,loaded);
+  let result = await verifyLoaded(loaded);
+  if (result.status === 'conflict' || result.persistedStatus !== 'verified') return result;
+  if (input.dryRun) return {...result,status:'preview'};
+  if (hash(await ordinary(loaded.filename)) !== loaded.checkpointHash) throw new Error('Checkpoint changed');
+  // All dates and baseline preflight together before any owned-state write.
+  const writes = [];
+  result = await verifyLoaded(loaded,writes);
+  if (result.status === 'conflict' || result.persistedStatus !== 'verified') return result;
+  if (hash(await ordinary(loaded.filename)) !== loaded.checkpointHash) throw new Error('Checkpoint changed before state writes');
+  for (const write of writes) await atomic(write.path,write.value,write.beforeHash);
+  result = await verifyLoaded(loaded);
+  if (result.status !== 'verified') return result;
+  if (hash(await ordinary(loaded.filename)) !== loaded.checkpointHash) throw new Error('Checkpoint changed before clear');
+  await unlink(loaded.filename);
+  return {...result,status:'completed'};
 }
 
 export async function completeChangedRollover(input) {

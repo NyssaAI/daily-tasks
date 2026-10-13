@@ -29,9 +29,12 @@ Its standalone receipt does not replace or promote historical workflow receipts.
 `node evals/planning-fixture.mjs seed ABSOLUTE_SCRATCH_DIR STAGE` creates an isolated
 synthetic vault and returns its manifest path. STAGE 0 is before writes; 1 is after
 destination persistence; 2 after source removal; 3 after decision append; 4 after
-baseline update. All start with a pending checkpoint. Generated UUIDs, exact hashes,
+production owned-state persistence just before checkpoint clearance. All retain a
+schema-v2 checkpoint; stage4 restores the original checkpoint after production
+completion to model an interrupted clear. Generated UUIDs, exact hashes,
 accepted move intent, unrelated rows/prose, historical plan and dated rollover state
-are retained in the manifest. This initializer does not resume operations.
+are retained in the manifest. Destination removal history is seeded to exercise
+clearing; unrelated removal IDs and existing receipts are preserved.
 
 In a native skill run, give the agent that vault and ask it to resume its existing
 pending move using the installed operation protocol. Observe each file-tool write,
@@ -42,8 +45,11 @@ prose/rows and history must survive, and rollover removal state must preserve pr
 receipts. Retry again without another event. Inject an unexpected file/baseline edit
 or mismatched event payload and require conflict without a completion receipt.
 
-`node --test test/recovery-flow.test.mjs` exercises every stage through a test-only
-writer and public integrity/log/cache APIs. It is cross-feature regression evidence,
+`node --test test/recovery-flow.test.mjs` exercises every stage through
+Markdown-only test file tools and production operation verification/completion plus public log/cache APIs.
+Tests never hand-write the baseline or dated state that completion claims to own;
+Partial-write recovery, exact-byte conflicts and protected-source edits are covered.
+This is cross-feature regression evidence,
 not native discovery. Current-chat file-tool runs and real model-worker runs also
 remain separate from fresh isolated host acceptance.
 

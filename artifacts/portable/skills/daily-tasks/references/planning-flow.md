@@ -237,6 +237,14 @@ empty-state sentences. Blockers are informational, without task checkbox/ref row
 Completed rows remain checked and cancelled rows visibly marked for today. Do not
 infer focus, deadlines, estimates or slots; no scheduling/timeframe fitting.
 
+Accepted add/remove/move transactions use the narrow `selectionState` evidence in
+[verified completion](verification.md#selection-removal-history). Capture every
+affected dated rollover file's exact before bytes/hash or absence, alongside plan
+before bytes, membership deltas, protected canonical/history hashes and the
+supported baseline proposal before changing Markdown. `operation-complete`
+derives removal-history updates for every affected date, preserving existing
+rollover receipts. Do not manually patch these states during schemaV2 recovery.
+
 ## Once-per-day rollover
 
 Open/create today's plan with its stable UUID. Read
