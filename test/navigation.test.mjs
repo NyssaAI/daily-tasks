@@ -117,6 +117,46 @@ test('ordinary file attachments retain non-Markdown fragment diagnostics',async 
   assert.deepEqual(result.targets,[{path:attachment,kind:'file',sha256:null}]);
 });
 
+test('task and milestone criterion evidence requires files even without extensions or with trailing slashes',async t=>{
+  for (const type of ['task','milestone']) {
+    await t.test(type,async t=>{
+      const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+      await mkdir(path.join(directory,'outputs'));
+      const source = path.join(directory,type === 'task' ? 't1-work.md' : 'm1-work.md');
+      const links = ['[[outputs]]','[Evidence folder](outputs/)','[[outputs/]]','[Evidence folder](outputs)'];
+      await writeFile(source,`---\ntype: ${type}\n---\n${links.join('\n')}\n## Definition of Done\n${links.map(link=>`- [x] ${link}`).join('\n')}\n## Output\n${links.join('\n')}\n`);
+      const result = await inspectNavigation({projectsRoot});
+      assert.equal(result.checkedLinks,12);
+      assert.deepEqual(result.diagnostics.map(({code,target})=>({code,target})),['outputs','outputs/','outputs/','outputs'].map(target=>({code:'invalid-link-target',target})));
+      assert.deepEqual(result.targets,[{path:path.join(directory,'outputs'),kind:'directory',sha256:null}]);
+    });
+  }
+});
+
+test('extensionless criterion files pass while contextual and typed relationship links remain navigation',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  await mkdir(path.join(directory,'outputs'));
+  await writeFile(path.join(directory,'inputs','proof'),'proof');
+  await writeFile(path.join(directory,'inputs','result.md'),'# Result\n');
+  await writeFile(path.join(directory,'t2-related.md'),'---\ntype: task\n---\n# Related task\n');
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n- [x] [[outputs]]\n## Definition of Done\n- [x] [[outputs]]\n- [x] [[inputs/proof]] and [Proof](inputs/proof) and [[inputs/result]]\n### Depends on\n- [x] [[outputs]]\n- [[t2-related]] <!-- ref: 019a1234-5678-7abc-8def-000000000001 -->\n## Output\n- [x] [[outputs]]\n');
+  const result = await inspectNavigation({projectsRoot});
+  assert.deepEqual(result.diagnostics.map(({code,target})=>({code,target})),[{code:'invalid-link-target',target:'outputs'}]);
+  assert.equal(result.targets.find(target=>target.path.endsWith('inputs/proof')).kind,'file');
+  assert.equal(result.targets.find(target=>target.path.endsWith('inputs/result.md')).kind,'file');
+  assert.ok(result.targets.some(target=>target.path.endsWith('t2-related.md')));
+});
+
+test('reference-style criterion evidence also requires regular files',async t=>{
+  const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
+  await mkdir(path.join(directory,'outputs'));
+  await writeFile(path.join(directory,'inputs','proof'),'proof');
+  await writeFile(path.join(directory,'t1-work.md'),'---\ntype: task\n---\n## Definition of Done\n- [x] [Evidence folder][folder] and ![Image][] and [Shortcut]\n- [x] [Proof][file]\n## Output\n[folder]: outputs/\n[image]: outputs\n[shortcut]: outputs/\n[file]: inputs/proof\n[ordinary]: outputs/\n');
+  const result = await inspectNavigation({projectsRoot});
+  assert.deepEqual(result.diagnostics.map(issue=>issue.code),Array(3).fill('invalid-link-target'));
+  assert.deepEqual(result.targets,[{path:path.join(directory,'inputs','proof'),kind:'file',sha256:null},{path:path.join(directory,'outputs'),kind:'directory',sha256:null}]);
+});
+
 test('target resolution excludes hidden state, outside roots and symlink attachments for both link syntaxes',async t=>{
   const projectsRoot = await fixture(t), directory = path.join(projectsRoot,'project','milestone');
   const outside = await realpath(await mkdtemp(path.resolve('.temp/navigation-outside-')));
