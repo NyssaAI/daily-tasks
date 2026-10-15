@@ -24,7 +24,7 @@ Sandbox absolute paths, context bindings and hashes of path-bearing JSON necessa
 depend on the sandbox location. Compare normalized paths and corresponding bindings,
 along with identical IDs, source bytes, clock and operation intent.
 
-Each scenario transports `lib/`, `bin/`, `package.json`, the five runtime-required
+Each scenario transports `src/core/`, `src/cli/`, `package.json`, the five runtime-required
 Markdown templates under `skills/daily-tasks/assets/`, and the existing
 `evals/planning-fixture.mjs` plus the shared `evals/tessl/fixture.mjs` initializer
 as common executable fixture support. All comparison
