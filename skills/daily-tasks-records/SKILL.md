@@ -68,7 +68,7 @@ For an authorized conversion of existing work, follow
 record update does not authorize bulk migration or inventing task criteria.
 
 After a committed batch changes canonical records or project/daily-plan projections,
-call `invalidate-project-index` with the resolved vaultRoot immediately, including
+call `invalidate-project-index` with the resolved workspaceRoot immediately, including
 when a later effect fails. The next planning request rebuilds before using that cache.
 Rebuild now only when the current workflow needs inventory; no background refresh.
 

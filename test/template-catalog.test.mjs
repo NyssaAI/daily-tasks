@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { templateKinds, templateFingerprint, loadTemplateCatalog, identifyTemplate, compareTemplates } from '../lib/templates/catalog.mjs';
+import { templateKinds, templateFingerprint, loadTemplateCatalog, identifyTemplate, compareTemplates } from '#core/templates/catalog.mjs';
 
 test('template fingerprints normalize line endings while preserving formatting differences', () => {
   const lf = '# Plan\n\nWork  \n';
@@ -26,7 +26,7 @@ test('bundled catalog loads all template kinds relative to the module instead of
     assert.equal(catalog[kind].revision, templateFingerprint(await readFile(catalog[kind].path, 'utf8')));
     assert.equal(identifyTemplate(kind, catalog[kind].content, catalog).source, 'bundled');
   }
-  const moduleUrl = new URL('../lib/templates/catalog.mjs', import.meta.url).href;
+  const moduleUrl = new URL('../src/core/templates/catalog.mjs', import.meta.url).href;
   const elsewhere = execFileSync(process.execPath, ['--input-type=module', '-e', `import { loadTemplateCatalog } from ${JSON.stringify(moduleUrl)}; process.stdout.write(JSON.stringify(Object.keys(await loadTemplateCatalog())));`], {
     cwd: fileURLToPath(new URL('../skills/', import.meta.url)), encoding: 'utf8'
   });
@@ -34,7 +34,7 @@ test('bundled catalog loads all template kinds relative to the module instead of
 });
 
 test('verified retained history recognizes old bundled copies independently of a plugin checkout', async () => {
-  const history = JSON.parse(await readFile(new URL('../lib/templates/history.json', import.meta.url), 'utf8'));
+  const history = JSON.parse(await readFile(new URL('../src/core/templates/history.json', import.meta.url), 'utf8'));
   const catalog = await loadTemplateCatalog();
   assert.equal(history.schemaVersion, 1);
   for (const kind of templateKinds) {

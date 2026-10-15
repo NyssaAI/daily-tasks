@@ -1,102 +1,50 @@
 # Applying and reconciling changes
 
-The skill owns Markdown writes. JS does not own task CRUD.
+> [!IMPORTANT]
+> **Scope Directive**: This document defines the transactional write-ahead protocol, checkpoint lifecycle, and baseline reconciliation mechanics for all consequential Markdown modifications. It is strictly an operational integrity specification. Domain record definitions, schemas, planning flows, and CLI flag syntax belong in their respective references (`records.md`, `planning-flow.md`, `cli.md`).
 
-Keep the active vault/projects/daily-plan binding fixed. Validate checkpoint paths
-against that context before recovery or writes: canonical/project views belong to
-its projectsRoot, daily views to its dailyPlansRoot, and operating state to its
-stateRoot. A checkpoint for another binding is suspended for a separate vault
-session; never widen the active roots or search another vault to make an ID resolve.
-Include the context planningBinding in new checkpoints and resumable screen state.
-For legacy checkpoints without it, verify their explicit paths/identities before
-enrollment; absence is not permission to cross vaults.
+The calling skill authors Markdown; deterministic JS tools validate integrity and baselines.
 
-Load this protocol before consequential Markdown writes or recovery. When applying
-status changes, write canonical tasks and required parent effects, then project
-views, and only then daily-plan projections. If a project effect fails, preserve
-the daily projection and retain the checkpoint; never report a completed batch.
-Load [Records](../../daily-tasks-records/SKILL.md) before ownership, lifecycle or
-closure/reopening changes. Planning receipts/mappings follow
-[planning flow](planning-flow.md); they never replace a changed-Markdown transaction.
+Keep the active workspace/projects/daily-plan binding fixed. Validate checkpoint paths against this context: canonical/project views belong to `projectsRoot`, daily views to `dailyPlansRoot`, and operating state to `stateRoot`. Checkpoints for other bindings must remain suspended for their respective workspace sessions; never widen active roots or search another workspace to resolve an ID. Include `planningBinding` in new checkpoints.
 
-For a consequential change:
+## Consequential change protocol
 
-1. Read relevant records and stored per-view baselines in stateRoot/reconciliation.json.
-   Validate identities/metadata/links using the CLI. Surface duplicate/missing records;
-   preserve their references and continue unrelated items. New unidentified checkboxes
-   become capture candidates, not records with fabricated IDs.
-2. Establish user acceptance/authority where required. Build an operation with UUIDv7
-   operation_id and event id; exact affected file paths, before/after content hashes,
-   intended field changes, actor and timing. Save this pending operation under
-   stateRoot/operations/<operation-id>.json BEFORE any Markdown write. This is a
-   recoverable pending action, not a second decision log. Preserve original words,
-   reason, acceptance source and existing event ID/times across retries.
-   New checkpoints use schemaVersion: 2 and the [verified completion contract](verification.md).
-   Preserve legacy checkpoints for their existing recovery; never assert a new receipt
-   merely by relabeling their schema.
-3. Compare expected before values with actual values immediately before each write.
-   Re-read the file if it changed. Merge independent edits or suspend that item on
-   conflict; don't use modification time as a winner. Write only the agreed delta,
-   retaining prose and unrelated fields. Validate the proposed/actual records.
-4. Append the corresponding decision through `log-append`. A retry uses exactly the
-   same event and operation IDs/payload. Never directly inspect or patch the log;
-   `log-query` verifies whether the operation was recorded. A failure leaves the
-   checkpoint pending, not a false success.
-   Compare the queried event's entire payload with the checkpoint's saved event;
-   matching operation/event IDs alone do not prove the intended decision was logged.
-   A differing payload is a conflict and must not advance baselines or completion.
-5. Refresh affected views AFTER reconciliation; preserve cancelled/completed daily
-   rows for the day. Propose per-view snapshots with exact rendered field values
-   and source values in the checkpoint. Call `operation-verify`, then
-   `operation-complete` (or the specialized rollover/migration completion).
-   The CLI independently checks actual files and the exact event, writes verified
-   baseline state and, for a typed selection-state intent, derives dated removal
-   history across source/destination before clearing the checkpoint. Do not
-   hand-write success, advance a baseline or remove a schemaV2 checkpoint when the result is pending/conflict.
-   Checkpoints aren't retained history.
+Follow this 5-step protocol before any consequential Markdown write or recovery:
 
-Minimal reconciliation state keyed by record UUID contains canonical field baseline,
-each projection path's last-rendered field values, and exact file fingerprints for
-optimistic checks. Store only needed fields/hashes, not hidden competing task definitions.
-Do not invent a baseline for existing divergent files: initial enrollment reads both,
-asks about differences, then establishes it. For a stale view compare against THAT
-view's own prior snapshot. Normalize each changed view delta against common canonical
-baseline before calling `reconcile-record`; unchanged stale values contribute no edit.
-This prevents a stale unchecked box reopening a completed task unintentionally.
+### 1. Inspect baselines and records
+- Read relevant records and stored per-view baselines from `stateRoot/reconciliation.json`.
+- Validate identities, frontmatter, and reciprocal links using CLI tools.
+- Surface duplicate or missing records as conflicts and suspend affected work; continue unrelated items.
+- Unidentified checkboxes encountered in source text become capture candidates, never fabricated task IDs.
 
-For legacy field-level recovery, persist effects as `{key,before,after}` where
-before/after are presence snapshots:
-`{"present":false}` means absent and `{"present":true,"value":...}` means present.
-The reconcile CLI returns this encoding with `field`; map field to the checkpoint's
-unique key. Schema-v2 completion instead verifies file evidence and supported
-typed intents; it rejects legacy `changes` arrays. Actual field-recovery values
-remain a plain object. Do not serialize JavaScript
-undefined or conflate absence with null. A partial view can explicitly clear optional
-assignee/target/start/resolution fields with null; omitted view fields mean no proposed edit.
+### 2. Write-ahead checkpoint
+- Save a pending operation file at `stateRoot/operations/<operation-id>.json` **before** modifying any Markdown file.
+- Use Schema Version 2: include UUIDv7 `operation_id` and `event_id`, declared file targets, expected before/after content hashes, typed intent, actor, and GMT timestamps.
+- Checkpoints are transient recoverable write-ahead receipts, not permanent logs. Retain original event IDs and timestamps across retries.
 
-For safe changes to different fields, retain both. Incompatible edits to the same
-field preserve both values and become a durable pending conflict. Continue other
-items; never refresh the conflicting representation away or call the check-in fully
-reconciled while conflicts remain. Choosing a winner is an explicit supplied decision.
+### 3. Compare and apply Markdown deltas
+- Re-check current file contents against expected `before` hashes immediately before writing.
+- Apply status and metadata changes in strict order:
+  1. Canonical task documents and required parent effects (milestones/projects).
+  2. Project view projections.
+  3. Daily-plan view projections.
+- If an earlier effect fails, retain the checkpoint and stop; never apply partial downstream projections. Write only agreed deltas; preserve existing prose and unrelated fields.
 
-Planning preparation classifies validated checkpoint effects, protected dependencies,
-and typed state impacts in its `recovery` packet. Use that classification for the
-current action; never bypass a recovery block merely because an operation looks
-unrelated by name. Independent review saves retain suspended selections and never
-complete or delete their checkpoints. Reprepare if checkpoint evidence changes.
+### 4. Append decision log
+- Append the corresponding event via `log-append` using the exact `operation_id`, `event_id`, and payload from the checkpoint.
+- Do not edit or patch log files directly. Query with `log-query` on retry to confirm whether the event was already appended.
+- Matching IDs alone do not verify logging; the recorded payload must match the checkpoint. A differing payload is a conflict that blocks completion.
 
-File hashes below mean the declared non-log operation files only. Never hash or
-read a whole workspace or scratch tree for verification: nested `.daily-tasks`
-logs remain query-only, including evidence capture. Use `operation-verify` for
-supported effect comparisons and `log-query` output for event evidence.
-Recovery examines existing checkpoints first at check-in. `recover-operation`
-classifies field-level effects as pending, already-applied or conflict. Supplement
-with file hashes and `log-query` before applying. Finish missing unambiguous effects
-with the original operation/event IDs; do not replay already-applied effects. Unexpected
-edits remain conflicts. A missing file is not implied deletion authorization. Preserve
-the unresolved pointer until explicit restore/cancel/move resolution. Log script lock
-or corruption errors require its documented recovery, never hand-edit its JSON.
+### 5. Verify and complete
+- Propose updated per-view baselines in the checkpoint.
+- Execute `operation-verify`, followed by `operation-complete` (or specialized `rollover-complete` / `migration-complete`).
+- The CLI independently verifies actual file contents and the recorded log event, writes verified baseline state to `stateRoot/reconciliation.json`, and atomically removes the checkpoint file.
+- Never manually delete a checkpoint file or advance a baseline when verification returns pending or conflict.
 
-Shared files can be changed by multiple actors. JS validation is not a distributed
-transaction or authentication boundary. Keep operations short, re-read before writes,
-and surface races; don't claim conflict-free background multi-agent editing.
+## Reconciliation and conflict resolution
+
+- **Baseline structure**: Minimal reconciliation state in `stateRoot/reconciliation.json` tracks canonical fields, last-rendered projection fields, and file fingerprints keyed by record UUID.
+- **Normalization**: Compare changed views against that view's prior snapshot, normalized against the canonical baseline. Unchanged stale fields contribute no edit, preventing a stale unchecked box from inadvertently reopening a completed task.
+- **Independent field edits**: Safe changes to distinct fields are merged.
+- **Conflicting field edits**: Conflicting edits to the same field preserve both values as a durable conflict requiring explicit user resolution. Do not silently overwrite edits using file modification times.
+- **Lock recovery**: If a process terminates mid-operation leaving an active `.lock` directory, verify the owning process has exited before removing only that specific lock directory.

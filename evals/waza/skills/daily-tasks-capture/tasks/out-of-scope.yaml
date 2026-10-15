@@ -1,0 +1,16 @@
+id: daily-tasks-capture-out-of-scope
+name: Summarize a news article
+description: A request for a plain summary does not ask to extract or manage work.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Summarize this news article in three sentences."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: capture-negative-trigger
+    config:
+      skill_path: skills/daily-tasks-capture/SKILL.md
+      mode: negative

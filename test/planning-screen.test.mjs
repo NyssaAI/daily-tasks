@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { loadTemplateCatalog } from '../lib/templates/catalog.mjs';
-import { validateReviewScreen } from '../lib/planning/screen.mjs';
+import { loadTemplateCatalog } from '#core/templates/catalog.mjs';
+import { validateReviewScreen } from '#core/planning/screen.mjs';
 import { planningScreen } from './fixtures/planning-screen.mjs';
 import { mkdir, mkdtemp, writeFile, readFile, realpath } from 'node:fs/promises';
 import path from 'node:path';
-import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
+import { preparePlanning, savePlanningState } from '#core/planning/session.mjs';
 
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12,'0')}`;
 const review = {counts:{openProjects:1,openTasks:1,lateTasks:0},selected:[

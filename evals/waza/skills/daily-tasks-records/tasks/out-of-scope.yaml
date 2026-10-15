@@ -1,0 +1,16 @@
+id: daily-tasks-records-out-of-scope
+name: Explain relational database keys
+description: A database explanation is not a request to manage a personal work record.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Explain the difference between a primary key and a foreign key in SQL."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: records-negative-trigger
+    config:
+      skill_path: skills/daily-tasks-records/SKILL.md
+      mode: negative

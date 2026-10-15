@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { prepareTemplates, saveTemplateState } from '../lib/templates/templates.mjs';
-import { templateFingerprint } from '../lib/templates/catalog.mjs';
-import { queryDecisions } from '../lib/log/decision-log.mjs';
+import { prepareTemplates, saveTemplateState } from '#core/templates/templates.mjs';
+import { templateFingerprint } from '#core/templates/catalog.mjs';
+import { queryDecisions } from '#core/log/decision-log.mjs';
 
 const kinds = ['dailyPlan','planDayReview','projectIndex','milestone','task'];
 function catalog(version) {

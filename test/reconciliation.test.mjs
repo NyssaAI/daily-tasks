@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { reconcileRecord, reopenAncestors, recoverOperation } from '../lib/reconciliation/reconciliation.mjs';
-import { parseChecklist } from '../lib/planning/planning.mjs';
+import { reconcileRecord, reopenAncestors, recoverOperation } from '#core/reconciliation/reconciliation.mjs';
+import { parseChecklist } from '#core/planning/planning.mjs';
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12, '0')}`;
 
 test('stale checkbox never reopens changed task; independent edits merge', () => {

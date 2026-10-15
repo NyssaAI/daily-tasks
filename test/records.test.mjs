@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseRecord, validateRecords, checkClosure, checkLinks } from '../lib/records/records.mjs';
-import { parseChecklist } from '../lib/planning/planning.mjs';
+import { parseRecord, validateRecords, checkClosure, checkLinks } from '#core/records/records.mjs';
+import { parseChecklist } from '#core/planning/planning.mjs';
 
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12, '0')}`;
 const record = (n, type, extra = {}) => ({ id: id(n), type, path: `/project/${n}.md`, title: `Record ${n}`,
@@ -155,7 +155,7 @@ test('frontmatter identity and table projections retain separate link identities
 });
 
 test('separate table status cells and Markdown examples are parsed without accepting prose', async () => {
-  const {parseViewRows} = await import('../lib/records/views.mjs');
+  const {parseViewRows} = await import('#core/records/views.mjs');
   const rows = parseViewRows(`Legend: [ ] not started\n| # | Status | Task |\n| --- | --- | --- |\n| 1 | [x] | [[task\\|Task]] <!-- ref: ${id(3)} --> |\n\`\`\`md\n- [ ] Fake\n\`\`\`\n`);
   assert.equal(rows.length,1);
   assert.equal(rows[0].checked,true);
@@ -163,7 +163,7 @@ test('separate table status cells and Markdown examples are parsed without accep
 });
 
 test('literal HTML comments inside a fence cannot swallow following real rows', async () => {
-  const {parseViewRows} = await import('../lib/records/views.mjs');
+  const {parseViewRows} = await import('#core/records/views.mjs');
   const body = `\`\`\`html\n<!--\n\`\`\`\n- [ ] [[task|Real]] <!-- ref: ${id(3)} -->\n`;
   assert.deepEqual(parseViewRows(body).map(row => row.id),[id(3)]);
   const parsed = parseRecord(`---\nid: ${id(1)}\ntype: project\n---\n${body}`);
@@ -172,7 +172,7 @@ test('literal HTML comments inside a fence cannot swallow following real rows', 
 });
 
 test('statusless reference tables preserve links without requesting work-state edits', async () => {
-  const {parseChecklist} = await import('../lib/planning/planning.mjs');
+  const {parseChecklist} = await import('#core/planning/planning.mjs');
   const table = `| Reference | Use |\n| --- | --- |\n| [[done\\|Completed input]] <!-- ref: ${id(3)} --> | Read only |\n`;
   const parsed = parseRecord(`---\nid: ${id(1)}\ntype: task\n---\n## References\n${table}`);
   assert.deepEqual(parsed.refs.map(ref => ref.id),[id(3)]);

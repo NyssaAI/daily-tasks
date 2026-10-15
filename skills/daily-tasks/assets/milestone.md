@@ -16,8 +16,7 @@ updated_at: "GMT_TIMESTAMP"
 
 ## Outcome
 
-Describe the specific result and how it advances the project. Include scope
-boundaries when they help make the work clear.
+Describe the concrete result and how it advances the project.
 
 ## Definition of Done
 
@@ -25,27 +24,19 @@ boundaries when they help make the work clear.
 
 ## Tasks
 
-- [ ] [[TASK_SLUG|TASK_TITLE]] <!-- ref: TASK_UUID -->
+- [[TASK_SLUG|TASK_TITLE]] <!-- ref: TASK_UUID -->
 
-Tasks own their requirements and task-level acceptance criteria. Link them in the
-accepted order; the numeric labels are stable names, not priorities or schedules.
+## Deliverables & Evidence
+
+<!-- Link overall milestone deliverables and verification evidence:
+- Milestone outputs: [[outputs/MILESTONE_DELIVERABLE]]
+- Verification evidence: test results, deployed URLs, or review artifacts
+-->
 
 ## Decisions
 
-- **Decision needed:** State the specific choice, who must make it, and what it affects.
+- **Decision:** Pending or resolved milestone decisions.
 
-## Notes and references
+## Blocked by
 
-Keep milestone-level context and supporting links here. Detailed task instructions
-belong in the individual task files.
-
-<!-- Formatting example for <project>/m1-milestone-name/m1-milestone-name.md.
-Task files t1-task-name.md and flat inputs/ and outputs/ holding folders live beside
-this file; project-index.md and blockers/ live one level above.
-Replace sample content and placeholders with accepted records.
-M1 is a readable label, not record identity. Retain UUID refs and links.
-The project index displays the task/blocker summary and owner/state/date projections.
-Milestone criteria are owned by this file. Task criteria are owned by task files.
-Keep decisions and notes specific to this milestone; omit empty optional sections.
-If this milestone itself has a canonical blocker relationship, retain its required
-Blocked by link without copying the project-wide blocker table. -->
+<!-- - [[../blockers/bBLOCKER_NUMBER-BLOCKER_SLUG|BLOCKER_TITLE]] ref: BLOCKER_UUID -->

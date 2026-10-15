@@ -3,13 +3,13 @@ import { planningScreen } from './fixtures/planning-screen.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, mkdtemp, readFile, writeFile, stat, unlink, rm, symlink } from 'node:fs/promises';
 import path from 'node:path';
-import { inspectMaintenance, verifiedMaintenanceStatus } from '../lib/planning/maintenance.mjs';
-import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
+import { inspectMaintenance, verifiedMaintenanceStatus } from '#core/planning/maintenance.mjs';
+import { preparePlanning, savePlanningState } from '#core/planning/session.mjs';
 
 async function fixture() {
   await mkdir('.temp', { recursive: true });
   const vaultRoot = await mkdtemp(path.resolve('.temp/maintenance-'));
-  const stateRoot = path.join(vaultRoot, '.nyssaai/daily-tasks');
+  const stateRoot = path.join(vaultRoot, '.nyssa-ai/daily-tasks');
   const projectsRoot = path.join(vaultRoot, '1-projects');
   await mkdir(path.join(projectsRoot, 'alpha'), { recursive: true });
   await mkdir(stateRoot, { recursive: true });

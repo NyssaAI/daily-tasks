@@ -1,0 +1,16 @@
+id: daily-tasks-plan-out-of-scope
+name: Suggest a walking route
+description: A request for a route through town is not daily work selection.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Suggest a pleasant walking route through downtown."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: plan-negative-trigger
+    config:
+      skill_path: skills/daily-tasks-plan/SKILL.md
+      mode: negative

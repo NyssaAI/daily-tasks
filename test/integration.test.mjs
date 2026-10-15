@@ -4,11 +4,11 @@ import { mkdir, mkdtemp, readFile, writeFile, readdir, symlink, cp } from 'node:
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { uuid7, isUuid7 } from '../lib/identity/identity.mjs';
-import { parseRecord, validateRecords, checkClosure } from '../lib/records/records.mjs';
-import { carryForward, parseChecklist } from '../lib/planning/planning.mjs';
-import { validateProfile } from '../lib/profile/profile.mjs';
-import { planningBinding } from '../lib/profile/context.mjs';
+import { uuid7, isUuid7 } from '#core/identity/identity.mjs';
+import { parseRecord, validateRecords, checkClosure } from '#core/records/records.mjs';
+import { carryForward, parseChecklist } from '#core/planning/planning.mjs';
+import { validateProfile } from '#core/profile/profile.mjs';
+import { planningBinding } from '#core/profile/context.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const owner = 'user@example.com';
@@ -25,13 +25,13 @@ const call = (entry,operation,inputPath,...flags) => callFrom(root,entry,operati
 test('CLI accepts Windows UTF-8 BOM input and reports the package version', async () => {
   const directory = await workspace(), input = path.join(directory,'input.json');
   await writeFile(input,'\uFEFF' + JSON.stringify({time,timezone:'America/Chicago'}));
-  const entry = path.join(root,'bin/daily-tasks.mjs');
+  const entry = path.join(root,'src/cli/daily-tasks.mjs');
   assert.equal(call(entry,'local-day',input).status,0);
   assert.equal(call(entry,'--help').output.version,JSON.parse(await readFile(path.join(root,'package.json'),'utf8')).version);
 });
 test('assembled packages and source hashes are identical for LF and CRLF source files', async () => {
   const directory = await workspace();
-  for (const name of ['skills','lib','bin','adapters','plugin.json','LICENSE','package.json','capabilities.json']) {
+  for (const name of ['skills','src','plugin.json','LICENSE','package.json','capabilities.json']) {
     await cp(path.join(root,name),path.join(directory,name),{recursive:true});
   }
   await mkdir(path.join(directory,'scripts'));
@@ -77,7 +77,7 @@ test('inspection discovers uppercase Markdown and suggests a descriptive lowerca
   await writeFile(path.join(directory,'Task.MD'),`---\nid: ${taskId}\ntype: task\ntitle: Prepare budget\nowner: ${owner}\ntask-state: not-started\ncreated_at: ${time}\nupdated_at: ${time}\nproject_id: ${projectId}\nmilestone_id: ${milestoneId}\n---\n# Prepare budget\n`);
   const inputPath = path.join(directory,'input.json');
   await writeFile(inputPath,JSON.stringify({projectsRoot:directory}));
-  const result = call(path.join(root,'bin/daily-tasks.mjs'),'inspect-records',inputPath);
+  const result = call(path.join(root,'src/cli/daily-tasks.mjs'),'inspect-records',inputPath);
   assert.equal(result.status,0);
   assert.equal(result.output.records[0].id,taskId);
   assert.equal(result.output.diagnostics.find(d => d.code === 'noncanonical-filename').suggestedFilename,'prepare-budget.md');
@@ -129,7 +129,7 @@ test('published templates become valid related records and gate milestone closur
 });
 test('CLI logs explicit acceptance, retries once, queries archive, rejects invalid input and previews without writes', async () => {
   const directory = await workspace();
-  const entryPath = path.join(root,'bin/daily-tasks.mjs');
+  const entryPath = path.join(root,'src/cli/daily-tasks.mjs');
   const inputPath = path.join(directory,'input.json');
   const entry = {id:uuid7(),operation_id:uuid7(),action:'task.accepted',record_ids:[uuid7()],actor:{kind:'person',id:owner},activity_at:time,recorded_at:time,time_defaulted:false,original_words:'Accept all'};
   await writeFile(inputPath,JSON.stringify({projectsRoot:directory,entry}));
@@ -190,7 +190,7 @@ test('packaged rollover CLI merges a pre-created plan and preserves a later same
 test('packaged planning CLI resolves portable scope independently of cwd and reuses inventory', async () => {
   const directory = await workspace();
   const unrelated = await workspace();
-  const config = path.join(directory,'.nyssaai/daily-tasks');
+  const config = path.join(directory,'.nyssa-ai/daily-tasks');
   const project = path.join(directory,'1-projects/example');
   await mkdir(config,{recursive:true});
   await mkdir(path.join(project,'first'),{recursive:true});
@@ -249,7 +249,7 @@ test('inspect-records scans nested records, skips hidden directories and rejects
   await writeFile(path.join(outside,'external.md'),markdown);
   await writeFile(path.join(projectsRoot,'ordinary.md'),'# Not a task record\n');
   const inputPath = path.join(directory,'input.json');
-  const entryPath = path.join(root,'bin/daily-tasks.mjs');
+  const entryPath = path.join(root,'src/cli/daily-tasks.mjs');
   await writeFile(inputPath,JSON.stringify({projectsRoot}));
   const scan = call(entryPath,'inspect-records',inputPath);
   assert.equal(scan.status,0,JSON.stringify(scan.error));

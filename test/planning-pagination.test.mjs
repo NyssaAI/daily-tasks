@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { planningReview } from '../lib/planning/review.mjs';
+import { planningReview } from '#core/planning/review.mjs';
 
 test('four projects keep three ordered options per page from only the lowest incomplete milestone', () => {
   const inventory = {schemaVersion:1,projects:[],milestones:[],tasks:[],diagnostics:[]};

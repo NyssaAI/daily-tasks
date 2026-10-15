@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtemp, realpath, mkdir, writeFile, rm, symlink } from 'node:fs/promises';
 import path from 'node:path';
-import { inspectNavigation } from '../lib/records/navigation.mjs';
+import { inspectNavigation } from '#core/records/navigation.mjs';
 
 async function fixture(t) {
   await mkdir(path.resolve('.temp'),{recursive:true});

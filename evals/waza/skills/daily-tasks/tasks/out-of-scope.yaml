@@ -1,0 +1,16 @@
+id: daily-tasks-router-out-of-scope
+name: Do not route an unrelated programming question
+description: A general JavaScript explanation does not request personal task management.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Can you explain how async functions work in JavaScript?"
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: router-negative-trigger
+    config:
+      skill_path: skills/daily-tasks/SKILL.md
+      mode: negative

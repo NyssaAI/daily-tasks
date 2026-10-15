@@ -4,11 +4,11 @@ import fs, { mkdir, mkdtemp, realpath, readFile, writeFile } from 'node:fs/promi
 import { syncBuiltinESMExports } from 'node:module';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
-import { uuid7 } from '../lib/identity/identity.mjs';
-import { resolveContext } from '../lib/profile/context.mjs';
-import { preparePlanning, savePlanningState } from '../lib/planning/session.mjs';
-import { planSelection } from '../lib/planning/review.mjs';
-import { inspectMaintenance } from '../lib/planning/maintenance.mjs';
+import { uuid7 } from '#core/identity/identity.mjs';
+import { resolveContext } from '#core/profile/context.mjs';
+import { preparePlanning, savePlanningState } from '#core/planning/session.mjs';
+import { planSelection } from '#core/planning/review.mjs';
+import { inspectMaintenance } from '#core/planning/maintenance.mjs';
 import { planningScreen } from './fixtures/planning-screen.mjs';
 import { seedPlanningFixture } from '../evals/planning-fixture.mjs';
 

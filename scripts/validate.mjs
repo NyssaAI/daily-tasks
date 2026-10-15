@@ -2,7 +2,7 @@ import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { root, tree } from './assemble.mjs';
 import { isDeepStrictEqual } from 'node:util';
-import { profileInputSchema } from '../lib/profile/schema.mjs';
+import { profileInputSchema } from '#core/profile/schema.mjs';
 
 const files = await tree(path.join(root,'skills'),'skills/');
 const errors = [];
@@ -30,8 +30,8 @@ const profileOperations = capabilities.operations?.filter(operation => operation
 if (profileOperations.length !== 1 || !isDeepStrictEqual(profileOperations[0].inputSchema,profileInputSchema)) {
   errors.push('Invalid profile input contract: regenerate the supported v1/v2 schema');
 }
-const nativePackage = JSON.parse(await readFile(path.join(root,'adapters/openclaw/package.json'),'utf8'));
-const nativeManifest = JSON.parse(await readFile(path.join(root,'adapters/openclaw/openclaw.plugin.json'),'utf8'));
+const nativePackage = JSON.parse(await readFile(path.join(root,'src/adapters/openclaw/package.json'),'utf8'));
+const nativeManifest = JSON.parse(await readFile(path.join(root,'src/adapters/openclaw/openclaw.plugin.json'),'utf8'));
 if (nativePackage.version !== identity.version || nativeManifest.id !== 'daily-tasks-openclaw' ||
     !nativePackage.openclaw?.extensions?.includes('./adapters/openclaw/index.mjs')) errors.push('OpenClaw adapter identity or version mismatch');
 if (errors.length) throw new Error(errors.join('\n'));

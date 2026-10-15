@@ -1,0 +1,16 @@
+id: daily-tasks-checkin-out-of-scope
+name: Ask about hotel check-in
+description: A hotel arrival-time question is not a personal planning check-in.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "At a hotel, what time does check-in begin?"
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: checkin-negative-trigger
+    config:
+      skill_path: skills/daily-tasks-checkin/SKILL.md
+      mode: negative

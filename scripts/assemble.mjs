@@ -31,17 +31,22 @@ export async function buildPackages() {
     ['.codex-plugin/plugin.json', encode({...host,skills:'./skills/',interface:{displayName:'Daily Tasks',shortDescription:'Personal tasks and daily planning',developerName:'NyssaAI',category:'Productivity'}})],
   ]);
   const shared = new Map([['plugin.json',encode(identity)],['LICENSE',(await readFile(path.join(root,'LICENSE'),'utf8')).replaceAll('\r\n','\n')]]);
-  for (const folder of ['skills','lib','bin']) for (const [key,value] of await tree(path.join(root,folder),folder+'/',true)) shared.set(key,value);
+  for (const folder of ['skills','src']) for (const [key,value] of await tree(path.join(root,folder),folder+'/',true)) shared.set(key,value);
   for (const name of ['package.json','capabilities.json']) shared.set(name,(await readFile(path.join(root,name),'utf8')).replaceAll('\r\n','\n'));
   const portable = new Map([...shared,...manifests]);
+  // Maintain backward-compatible portable/bin and portable/lib in bundled artifacts
+  for (const [key,value] of shared) {
+    if (key.startsWith('src/cli/')) portable.set('bin/' + key.slice('src/cli/'.length), value);
+    if (key.startsWith('src/core/')) portable.set('lib/' + key.slice('src/core/'.length), value);
+  }
   const agy = new Map(shared); agy.set('plugin.json',encode({name:identity.name,description:identity.description}));
   const cowork = new Map(portable);
-  for (const [key,value] of [...cowork]) if (key.startsWith('bin/')) {
+  for (const [key,value] of [...cowork]) if (key.startsWith('bin/') || key.startsWith('src/cli/')) {
     cowork.set('scripts/'+path.basename(key),value);
     cowork.delete(key);
   }
   for (const [key,value] of cowork) if (key.startsWith('skills/') || key === 'capabilities.json') {
-    cowork.set(key,value.replaceAll('bin/daily-tasks.mjs','scripts/daily-tasks.mjs').replaceAll('bin/warm-project-index.mjs','scripts/warm-project-index.mjs'));
+    cowork.set(key,value.replaceAll('bin/daily-tasks.mjs','scripts/daily-tasks.mjs').replaceAll('bin/warm-project-index.mjs','scripts/warm-project-index.mjs').replaceAll('src/cli/daily-tasks.mjs','scripts/daily-tasks.mjs').replaceAll('src/cli/warm-project-index.mjs','scripts/warm-project-index.mjs'));
   }
   const hermes = new Map(shared);
   hermes.delete('plugin.json');
@@ -50,11 +55,20 @@ export async function buildPackages() {
   const openclawNative = new Map([
     ['LICENSE',shared.get('LICENSE')],
     ['capabilities.json',shared.get('capabilities.json')],
-    ['package.json',(await readFile(path.join(root,'adapters/openclaw/package.json'),'utf8')).replaceAll('\r\n','\n')],
-    ['openclaw.plugin.json',(await readFile(path.join(root,'adapters/openclaw/openclaw.plugin.json'),'utf8')).replaceAll('\r\n','\n')],
+    ['package.json',(await readFile(path.join(root,'src/adapters/openclaw/package.json'),'utf8')).replaceAll('\r\n','\n')],
+    ['openclaw.plugin.json',(await readFile(path.join(root,'src/adapters/openclaw/openclaw.plugin.json'),'utf8')).replaceAll('\r\n','\n')],
   ]);
-  for (const prefix of ['lib/','bin/']) for (const [key,value] of shared) if (key.startsWith(prefix)) openclawNative.set(key,value);
-  for (const [key,value] of await tree(path.join(root,'adapters/openclaw'),'adapters/openclaw/',true)) {
+  for (const [key,value] of shared) {
+    if (key.startsWith('src/core/')) {
+      openclawNative.set(key,value);
+      openclawNative.set('lib/' + key.slice('src/core/'.length), value);
+    }
+    if (key.startsWith('src/cli/')) {
+      openclawNative.set(key,value);
+      openclawNative.set('bin/' + key.slice('src/cli/'.length), value);
+    }
+  }
+  for (const [key,value] of await tree(path.join(root,'src/adapters/openclaw'),'adapters/openclaw/',true)) {
     if (!key.endsWith('/package.json') && !key.endsWith('/openclaw.plugin.json')) openclawNative.set(key,value);
   }
   const packages = new Map([['portable',portable],['antigravity',agy],['cowork',cowork],['hermes',hermes],['openclaw-native',openclawNative]]);

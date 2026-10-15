@@ -4,13 +4,13 @@ import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
-import { validateProfile } from '../lib/profile/profile.mjs';
+import { validateProfile } from '#core/profile/profile.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 await mkdir(path.join(root, '.temp'), { recursive:true });
 const fixture = await mkdtemp(path.join(root, '.temp/capabilities-test-'));
 after(() => rm(fixture, { recursive:true, force:true }));
-for (const name of ['scripts','skills','lib','bin','adapters','plugin.json','package.json']) {
+for (const name of ['scripts','skills','src','plugin.json','package.json']) {
   await cp(path.join(root,name),path.join(fixture,name),{recursive:true});
 }
 execFileSync(process.execPath,['scripts/write-capabilities.mjs'],{cwd:fixture});

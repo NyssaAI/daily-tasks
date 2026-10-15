@@ -5,9 +5,10 @@ import { root, tree, digest } from '../scripts/assemble.mjs';
 
 export async function inventory() {
   const files = new Map();
-  for (const folder of ['skills','lib','bin','adapters','scripts','test','evals','artifacts','.claude-plugin','.codex-plugin','.cursor-plugin']) {
+  for (const folder of ['skills','src','scripts','test','evals','artifacts','.claude-plugin','.codex-plugin','.cursor-plugin']) {
     for (const [name,value] of await tree(path.join(root,folder),folder+'/',true)) {
       if (/^evals\/(results|attempts)\//.test(name) || name === 'evals/LATEST.md') continue;
+      if (/^test\/results\//.test(name)) continue;
       files.set(name,value);
     }
   }

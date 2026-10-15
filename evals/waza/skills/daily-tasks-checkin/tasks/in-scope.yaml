@@ -1,0 +1,16 @@
+id: daily-tasks-checkin-in-scope
+name: Resume and reconcile a check-in
+description: The user asks to resume a Daily Tasks session and reconcile plan edits.
+tags:
+  - trigger
+  - positive
+inputs:
+  prompt: "Resume my Daily Tasks check-in, reconcile the edits I made to yesterday's plan, and help me open today's plan."
+expected:
+  should_trigger: true
+graders:
+  - type: trigger
+    name: checkin-positive-trigger
+    config:
+      skill_path: skills/daily-tasks-checkin/SKILL.md
+      mode: positive

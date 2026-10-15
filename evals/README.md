@@ -4,6 +4,9 @@
 raw stdout/stderr, exit codes, source inventory, platform and Node version. It never
 claims native skill discovery or behavioral host acceptance. Each test assertion is a
 binary criterion; report actual test counts, not a fabricated general agent score.
+`npm test` runs the Node test suite and saves its TAP output and summary to
+`test/results/YYYY.MM.DD-test-result-summary.md`; another run on the same day replaces
+that day's summary. These generated summaries are excluded from candidate source hashes.
 
 `node evals/report.mjs write` generates LATEST.md; `check` validates evidence hashes,
 candidate freshness and exact report contents without changing it. `release` additionally
@@ -12,6 +15,35 @@ Codex on Windows x64: `node-local` and `codex` are required. Other targets remai
 in the matrix as optional, unverified coverage; packaging does not establish support.
 Results preserve failures, not only passes. Source files and generated runtime artifacts
 are frozen before evaluation; results/attempts/LATEST and dated review receipts are excluded.
+
+## Fast local Waza trigger checks
+
+`evals/waza/skills/daily-tasks/` and `evals/waza/skills/daily-tasks-*/` mirror the six canonical skill
+directories: the router, setup, capture, records, plan and check-in. Each Waza
+suite has one in-scope and one out-of-scope prompt with the local `trigger`
+grader. The mock executor avoids model calls, credentials and external services,
+so these small suites are suitable for quick repeatable checks while editing
+skill descriptions and routing language.
+The grader's default threshold is 0.6: positive cases need a score of at least 0.6,
+and negative cases must stay below it. Relevance scores are diagnostic, not a
+standalone measure of end-to-end workflow quality.
+
+Install the Waza CLI separately, then run every suite from the repository root:
+
+```text
+npm run eval:waza
+```
+
+Run just one skill's two prompts for a faster focused check:
+
+```text
+waza run evals/waza/skills/daily-tasks-plan
+waza run evals/waza/skills/daily-tasks-capture
+```
+
+These are heuristic activation checks only. A pass does not show that an agent
+followed the workflow, persisted records, or activated a skill in a native host.
+Use the separate Tessl content and native-host procedures below for those claims.
 
 ## Native skill scenarios
 

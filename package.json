@@ -7,14 +7,20 @@
   "engines": {
     "node": ">=22"
   },
+  "imports": {
+    "#core/*": "./src/core/*",
+    "#cli/*": "./src/cli/*",
+    "#adapters/*": "./src/adapters/*"
+  },
   "scripts": {
     "pretest": "npm run assemble",
-    "test": "node --test",
+    "test": "node scripts/run-tests.mjs",
     "assemble": "node scripts/assemble.mjs write",
     "precheck": "npm run assemble",
     "check": "node scripts/assemble.mjs check && node scripts/validate.mjs",
     "preeval": "npm run assemble",
     "eval": "node evals/run.mjs",
+    "eval:waza": "waza run evals/waza",
     "eval:check": "node evals/report.mjs check"
   },
   "license": "PolyForm-Small-Business-1.0.0"

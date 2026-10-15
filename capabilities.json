@@ -172,6 +172,51 @@
                   }
                 }
               },
+              "sources": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "autoScan": {
+                    "type": "boolean"
+                  },
+                  "directories": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "mcps": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "tool"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "tool": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "params": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "workspaceRoot": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+              },
               "vaultRoot": {
                 "type": "string",
                 "minLength": 1,
@@ -295,6 +340,54 @@
                     "maximum": 9007199254740991
                   }
                 }
+              },
+              "sources": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "autoScan": {
+                    "type": "boolean"
+                  },
+                  "directories": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "mcps": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "name",
+                        "tool"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "tool": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "params": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "workspaceRoot": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
               },
               "vaultRoot": {
                 "type": "string",
