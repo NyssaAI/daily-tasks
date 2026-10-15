@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseRecord, validateRecords, checkClosure, checkLinks, recordMarkdownIsManaged } from '../lib/records/records.mjs';
-import { reopenAncestors } from '../lib/reconciliation/reconciliation.mjs';
+import { parseRecord, validateRecords, checkClosure, checkLinks, recordMarkdownIsManaged } from '#core/records/records.mjs';
+import { reopenAncestors } from '#core/reconciliation/reconciliation.mjs';
 import { mkdir, mkdtemp, writeFile, readFile, rename } from 'node:fs/promises';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { projectInventory } from '../lib/inventory/inventory.mjs';
+import { projectInventory } from '#core/inventory/inventory.mjs';
 
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12,'0')}`;
 const doc = (n,type,body,extra='') => `---\nid: ${id(n)}\ntype: ${type}\nrecord_version: 2\ntitle: Example\nowner: owner@example.test\n${type}-state: completed\ncreated_at: 2026-10-08T12:00:00Z\nupdated_at: 2026-10-08T12:00:00Z\n${extra}---\n# Example\n${body}`;
@@ -115,7 +115,7 @@ test('flat holding folders cannot introduce phantom tasks in either inventory or
   assert.deepEqual(first.inventory.diagnostics,[]);
   const inputPath = path.join(vaultRoot,'inspection.json');
   await writeFile(inputPath,JSON.stringify({projectsRoot}));
-  const scan = spawnSync(process.execPath,[path.resolve('bin/daily-tasks.mjs'),'inspect-records','--input',inputPath],{cwd:vaultRoot,encoding:'utf8'});
+  const scan = spawnSync(process.execPath,[path.resolve('src/cli/daily-tasks.mjs'),'inspect-records','--input',inputPath],{cwd:vaultRoot,encoding:'utf8'});
   assert.equal(scan.status,0,scan.stderr);
   const inspected = JSON.parse(scan.stdout);
   assert.equal(inspected.records.length,3);
@@ -154,7 +154,7 @@ test('canonical and generated skill bundles do not ship a standalone DoD templat
 
 
 test('task table templates include milestone context without adding selectable milestone rows', async () => {
-  const {parseViewRows} = await import('../lib/records/views.mjs');
+  const {parseViewRows} = await import('#core/records/views.mjs');
   for (const name of ['daily-plan.md','plan-day-select-tasks-screen.md']) {
     const markdown = await readFile(`skills/daily-tasks/assets/${name}`,'utf8');
     const review = name === 'plan-day-select-tasks-screen.md';

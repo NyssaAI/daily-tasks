@@ -1,0 +1,18 @@
+name: daily-tasks-records-eval
+description: Fast local trigger checks for creating and updating accepted Daily Tasks records.
+skill: daily-tasks-records
+schemaVersion: "1.4"
+version: "1.0"
+config:
+  trials_per_task: 1
+  timeout_seconds: 10
+  parallel: false
+  executor: mock
+  model: mock
+metrics:
+  - name: trigger_quality
+    weight: 1.0
+    threshold: 1.0
+    description: Does record management match explicit create and update requests without matching unrelated data questions?
+tasks:
+  - "tasks/*.yaml"

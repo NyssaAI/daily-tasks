@@ -1,0 +1,16 @@
+id: daily-tasks-setup-in-scope
+name: Set up Daily Tasks preferences
+description: A first-use setup request belongs to the setup skill.
+tags:
+  - trigger
+  - positive
+inputs:
+  prompt: "Set up Daily Tasks for me. My timezone is America/Chicago, and I want to choose where projects and daily plans are stored."
+expected:
+  should_trigger: true
+graders:
+  - type: trigger
+    name: setup-positive-trigger
+    config:
+      skill_path: skills/daily-tasks-setup/SKILL.md
+      mode: positive

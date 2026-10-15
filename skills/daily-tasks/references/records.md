@@ -1,37 +1,21 @@
 # Records, identity and views
 
-## Scope and paths
+> [!IMPORTANT]
+> **Scope Directive**: This document defines the canonical schemas, identity model, directory structures, reference links, and closure/reopening lifecycle for Daily Tasks project, milestone, task, and blocker records. It is strictly a record domain specification. Low-level CLI commands and signatures belong in [`cli.md`](cli.md), transactional write-ahead checkpointing and reconciliation in [`operations.md`](operations.md), daily planning flows and rollover in [`planning-flow.md`](planning-flow.md), and interactive review formatting and legends in [`response-conventions.md`](response-conventions.md).
 
-Setup resolves both scoped preference sources from accepted pointers or canonical
-`.nyssa-ai` locations, with `.nyssaai`/`.nyssa` compatibility. It reuses
-known vaultRoot and projectsRoot rather than asking for them again; see
-[setup discovery](../../daily-tasks-setup/SKILL.md#read-and-select-a-write-scope).
-configRoot holds `profile.json` and optional copied templates. stateRoot holds
-reconciliation baselines, pending operations, candidates and check-in progress.
-`resolve-context` discovers authoritative state independently of profile storage,
-including completed rollover/removal history, and initializes `.nyssa-ai/daily-tasks`
-only when none exists. Reuse a verified state binding; reconcile divergent copies.
-Preserve configurationSources through planning and recovery. Keep these outside the
-installed plugin. Daily plans and accepted task documents are user output and must stay
-outside configRoot, including legacy `.nyssa/daily-tasks` state directories.
-Daily plans resolve from the profile's `vaultRoot` and `dailyPlansRelative`, never from
-the profile file's parent directory. Resolve missing output settings through setup's
-accepted conventions and defaults; clarify only unresolved scope or invalid destinations.
-Never fall back into configuration storage. Default daily plans:
-`vaultRoot/2-areas/daily-plans/YYYY.MM.DD-daily-plan.md`.
-The prefix is the user's local day, not UTC. Configuration may override that convention.
-Log is projectsRoot/.daily-tasks/YYYY.MM.DD-decisions.json, named at creation, with
-rotation suffixes as needed. One logical history, archives included by the log CLI.
-Never read or edit those JSON logs directly from a skill.
-This includes checksums, hashes, backups, integrity comparisons and evidence
-manifests. A recursive walk beneath `.temp/` can contain a nested vault's logs;
-scratch location does not exempt them. Exclude `.daily-tasks` log directories at
-every depth before reading bytes. Capture log evidence through `log-query` output,
-including paginated/archive results, never by reading or hashing raw decision JSON.
+## Workspace structure and paths
 
-Project content belongs below the chosen projectsRoot. For a PARA vault follow its
-accepted project naming conventions, with this required milestone workspace layout.
-Its depth takes precedence over PARA suggestions to flatten projects:
+Daily Tasks operates on a bound workspace context with defined logical roots:
+- `workspaceRoot`: Base directory for the active workspace.
+- `projectsRoot`: Root containing all project folders (can be external storage bound to the workspace).
+- `dailyPlansRoot`: Root for persisted daily plans (e.g. `<dailyPlansRoot>/YYYY.MM.DD-daily-plan.md` using the user's local day).
+- `stateRoot`: Workspace-isolated operational state (`.nyssa-ai/daily-tasks`), holding checkpoints, baselines, and review states.
+
+A planning or record session binds exactly one workspace context. Never mix inventories, search other workspaces for IDs, or apply numbered replies across workspaces.
+
+### Project directory layout
+
+Project content resides strictly under `projectsRoot` using the standard layout:
 
 ```text
 project/
@@ -46,227 +30,69 @@ project/
     b1-approval-needed.md
 ```
 
-Every planning/records request uses one vault's fixed resolved context. Its configured
-projectsRoot can be external storage explicitly assigned to that vault. Do not look
-up missing IDs in other vaults, combine project roots, or apply numbered replies to
-another vault. Preserve unresolved cross-vault pointers for clarification and use
-a separate planning session for other vault work. Shared home preferences do not
-make records, plans, checkpoints or screen mappings shared.
+- **Index and milestone files**: `project-index.md` owns project metadata and links milestones. Each milestone file owns its description, milestone DoD, and child task navigation.
+- **Task files**: Each task file owns its requirements, embedded DoD, inputs, and outputs.
+- **Holding areas**: Flat `inputs/` and `outputs/` directories reside beside task files for attachments and deliverables. They contain no nested subfolders or task definitions, and are excluded from record discovery.
+- **Blockers**: Stored under `blockers/b{number}-{name}.md` within their owning project. A blocker has exactly one owning project, but may link to work in other projects via reciprocal references.
 
-`project-index.md` owns project metadata and links milestones. Each milestone file
-owns its explanation, milestone DoD and task navigation. Each task file owns its
-requirements, task DoD, input links and output links. Daily/project/milestone task
-checklists are editable views, not copies of task definitions. Individual blocker
-files own their facts. Do not silently rename existing files to match defaults.
-New managed filenames use lowercase letters, lowercase `.md`, and descriptive
-kebab-case words: `m1-launch-readiness.md`, `t1-prepare-budget.md`, `b1-approval-needed.md`. Match the milestone
-folder and file stems. Allocate milestone numbers within a project and task numbers
-within a milestone. Allocate blocker numbers within their owning project, storing new
-blockers as `blockers/b{number}-{name}.md`. A shared blocker has one owning project
-and may link work in other projects; do not copy it or allocate a new number per link.
-Legacy unnumbered blockers remain readable; rename only when explicitly requested.
-Use the next unused positive integer above existing and recorded
-retired numbers; check files and history through `log-query`, never read log JSON.
-Use `next-record-number` with type and parent UUID; it scans actual records and
-queried history. For label-changing decisions (cancellation, rename, move,
-retirement or migration), retain concrete before/after snapshots with id, type,
-path and project_id or milestone_id as appropriate. Missing historical labels
-can be enriched by an append-only event using `corrects` with the original event
-UUID and complete, consistent affected-record facts. Direct snapshots, arrays and
-`{records:[snapshots]}` wrappers are supported. Every known historical label stays
-reserved; a correction cannot erase one or silently replace contradictory facts.
-Ordinary cancellation, retirement and migration events require observed before
-snapshots for every affected record. For a compound task cancellation and new
-acceptance, use action `task.cancel-and-accept`: existing records have before
-snapshots, newly created UUIDs appear only after. Choose this action before logging;
-an arbitrary compound action does not establish which records are new. Never put
-a newly created record, planned destination or inferred label into before to pass
-allocation. An optional `snapshot_kind` on before must be `observed`; this label
-does not prove authenticity. If prior observations are unavailable, keep allocation
-blocked and report the missing evidence. Correct only facts supported by retained
-observations, never fabricate history.
-For artifact-only moves/renames, log actual before/after file paths in holding
-areas instead of unrelated task snapshots. Artifact events do not retire record labels.
-Missing facts cannot be reconstructed from prose. Legitimate unversioned records
-without a prior numeric label can receive their first label during migration. The CLI scans
-paginated log history. Recheck before creating because its number is a proposal,
-not a reservation. A null number with history diagnostics requires resolution of
-missing concrete path/parent facts; never replace it with a guessed number.
-Never reuse a cancelled/deleted record's number, renumber for sorting, or treat numbers
-as schedule/priority. A move keeps its number unless it collides in the destination;
-then allocate a destination-local number and log the old/new mapping. Keep its stable
-UUID in frontmatter; a title change does not require a filename change. Use a
-descriptive qualifier for collisions and avoid Windows reserved device names.
-Fixed document names and dated daily-plan filenames keep their established forms.
-Legacy uppercase Markdown is still discovered and receives `noncanonical-filename`
-advice with a proposed name. It remains usable; rename only through the move protocol,
-checking collisions and updating links without changing identity or lifecycle.
-The explicit project-index.md product convention takes precedence over PARA's dated
-index default. PARA is optional; never import its installed paths or require its loader.
+### File and record numbering
+- Filenames use lowercase kebab-case: `m{N}-{name}.md`, `t{N}-{name}.md`, `b{N}-{name}.md`.
+- Allocate sequential positive integers using CLI `next-record-number` (scans active records and decision history). Numbers are scoped locally: milestones within a project, tasks within a milestone, blockers within a project.
+- Never reuse a retired/cancelled number, renumber files for sorting, or infer priority from numbers.
+- Stable identity is governed by frontmatter UUIDv7, not filenames. Title changes do not require filename changes. Moves retain the original number unless colliding at destination.
 
-### Files and navigation
+## Document and metadata contract
 
-Create `inputs/` and `outputs/` directly beside the milestone/task files, even when
-empty. They are flat holding areas: no task subfolders, shared/ folders, or extra
-index files inside them. All local project work stays in the project; disposable
-scratch belongs in its `.temp/`. Requirements and DoD stay in task/milestone files.
-Put supplied files directly in inputs/, preserving native formats and source details
-in the consuming task's Inputs section. Use descriptive filenames; when names collide,
-compare identity/content and use a meaningful qualifier for distinct files. Never
-overwrite an unrelated file or duplicate a shared working input for each task.
-Put deliverables directly in outputs/ and link them from the producing task's Result
-and Output sections. When another task consumes that output, link its existing home
-from that task's Inputs section. Replacing a deliverable requires explicit task scope;
-otherwise preserve the earlier version with a meaningful version qualifier.
-External source links retain provenance; imported working copies live in inputs/.
-External delivery requires its own authority and a receipt linked in the task.
+### Frontmatter schema
+Every tracked Markdown record must have scalar YAML frontmatter with a unique UUIDv7:
+- **Task / Milestone / Project**:
+  - Required: `id` (UUIDv7), `type` (`task` | `milestone` | `project`), `title` (string), `owner` (human email), `created_at` (GMT ISO ending in `Z`), `updated_at` (GMT ISO), and state (`task-state` / `milestone-state` / `project-state`: `not-started` | `in-progress` | `completed` | `cancelled`).
+  - Optional: `assignee` (human email or agent name; defaults to owner if omitted), `started_at` (GMT ISO), `resolved_at` (GMT ISO), `target_date` (`YYYY-MM-DD`), `tags` (JSON array of strings).
+  - Tasks and milestones use scalar `record_version: 2` and hide parent IDs (`project_id`, `milestone_id`) in frontmatter metadata.
+- **Blocker**:
+  - Required: `id` (UUIDv7), `type: blocker`, `title`, `owner`, `created_at`, `updated_at`, `blocker-state` (`open` | `resolved`).
 
-The navigation chain is project index -> milestone -> task -> relevant files.
-Maintain it during ordinary work: add accepted tasks to their milestone and project
-views, update task input/output links as files arrive, and repair affected incoming
-and outgoing links on moves. Use relative links resolved from the containing note.
-File links are ordinary navigation, without managed UUID refs. Before removing a
-source after a move, verify target content, task links, milestone/project navigation,
-and affected daily-plan links. Preserve historical references with clear provenance.
-Holding areas are excluded from managed-record discovery even if an attachment looks
-like a task document; they cannot create phantom tasks or duplicate live identities.
+Frontmatter allows only single scalar key-value pairs (strings, booleans, null) and `tags` as a JSON array of strings. Nested YAML, anchors, and multiline scalars are prohibited.
 
-## Metadata and Markdown contract
+### Definition of Done (DoD)
+- Tasks and milestones must have exactly one embedded `## Definition of Done` section. Standalone DoD files are obsolete.
+- DoD items are markdown checkboxes (`- [ ]` or `- [x]`) followed by a unique UUIDv7 comment (`<!-- id: UUIDv7 -->`) on the same line or immediately following comment line.
+- Criteria use `id`; task projections in views use `ref`.
 
-Resolve task, milestone, projectIndex and dailyPlan through
-[template updates](template-updates.md) and use each kind's prepared `active.content`.
-Use the [blocker](../assets/blocker.md) asset for blockers. Installed task, milestone,
-project and daily-plan assets are current-default examples and never override a
-retained layout.
-Definitions of done must be embedded in their milestone or task file only. Never
-create a standalone DoD file or template. Existing standalone records are readable
-solely for explicit legacy migration; they are not an authoring option.
-Replace placeholders before writing. Generate IDs with CLI `new-id`, never fabricate them.
-For project indexes, daily plans, milestones and tasks, configured user examples take precedence over
-bundled visible formatting; follow [custom templates](templates.md). The metadata,
-identity and editable-reference contract below still applies.
-Each tracked document has one scalar frontmatter `id: UUIDv7`. Legacy document
-`<!-- id: UUIDv7 -->` comments remain readable; if both exist they must agree.
-Preserve existing IDs and move their representation only during an authorized
-document update/migration. DoD criteria retain `<!-- id: UUIDv7 -->` comments.
-Projections and links use
-`<!-- ref: UUIDv7 -->`. UUIDs must not appear in the readable body. Raw source comments
-are necessarily visible to a source editor. Preserve IDs through rename, reorder, move.
+### Projection formatting and references
+- Checklists and tables in daily plans or project indexes are views, not task definitions.
+- Projections link to records using readable aliases and UUID comments:
+  `[[relative-path|Task title]] <!-- ref: UUIDv7 -->`
+- Task state indicators: `[ ]` not-started, `[>]` in-progress, `[x]` completed, `[-]` cancelled.
+- Blocker state indicators: `[ ]` open, `[x]` resolved.
+- Inter-record relations live in body sections:
+  - Dependencies: `## Depends on` / `## Required by`
+  - Blockers: `## Blocked by` / `## Blocks`
+- Contextual wiki links to notes or attachments do not use UUID `ref` tags.
 
-Only managed references require UUIDs: an explicit ref comment, a checkbox projection,
-or a link inside a typed relationship section. Ordinary contextual wiki links to notes,
-research or attachments are navigation and may share a line without task identities.
-Missing or malformed managed IDs remain errors; they never join other missing IDs.
+## Closure and reopening lifecycle
 
-Frontmatter uses one scalar per line: strings, JSON-quoted strings, booleans or null.
-Only `tags` may use a JSON array of strings. No nested YAML, anchors, multiline
-scalars or other YAML arrays in managed metadata v1.
-Keep arbitrary rich text below frontmatter. Relations live in body sections, not lists
-inside YAML. Unsupported metadata is reported, never discarded or silently rewritten.
-Validation handles invalid structured text uniformly: retain the offending source,
-report its path/field and do not invent an accepted value. An invalid task is excluded
-from additions; an invalid project/milestone prevents establishing additions for that
-project, including later milestones. Preserve existing selections and unresolved
-references, continue unrelated projects, and restore eligibility after correction
-and refreshed validation. Ordinary free-text prose is not restricted to state values.
-Filename advice is separate from invalid record facts and does not block planning
-or closure.
+### Closure rules
+Evaluated via CLI `check-closure`:
+- **Task**: Satisfies its own non-empty DoD (all criteria checked) and has no open preventing blockers.
+- **Milestone**: All milestone DoD criteria satisfied, all child tasks terminal (`completed` or `cancelled`), and no open preventing blockers.
+- **Project**: All milestones terminal (`completed` or `cancelled`) and no open preventing blockers.
+- Parent cancellation requires explicit child dispositions (batch cancellation or move); cancellation never silently cascades.
 
-Required: `type`, `title`, `owner` (email), `created_at`, `updated_at`, plus the named
-state field for project/milestone/task/blocker. Optional `assignee`, `started_at`,
-`resolved_at`, `target_date`, `document-maturity`. Parent IDs `project_id`, `milestone_id`
-are metadata, hidden in rendered frontmatter. New tasks and milestones use scalar
-`record_version: 2` and exactly one `## Definition of Done` section in their own file.
-Use list criteria with `[ ]` or `[x]` and a unique `<!-- id: UUIDv7 -->` on the same
-or immediately following comment-only line. Subheadings may group criteria; a heading
-at the DoD level or above ends the section. Criteria may link evidence files. Criteria
-use `id`, task projections use `ref`; do not use table checkboxes for DoD criteria.
-Standalone type `dod` and unversioned tasks remain readable for existing work only;
-see [workspace migration](workspace-migration.md). Never create a separate DoD file
-for a new milestone or infer missing legacy task criteria from its completion state.
-When PARA conventions apply, retain its `created` date and `document-maturity` as
-separate note metadata; never interpret legacy `status` as execution state.
+### Reopening protocol
+Evaluated via CLI `reopen-ancestors` and applied via the operations protocol:
+- **Task reopened**: Automatically reopens completed parent milestone and project.
+  - If reopening via DoD uncheck: sets task to `in-progress` if `started_at` exists, otherwise `not-started`.
+  - Explicit user-requested state takes precedence over defaults.
+- **Milestone DoD unchecked**: Reopens milestone and project without modifying completed child tasks.
+- **Preventing blocker reopened**: Reopens completed affected parent milestones and projects; child tasks remain completed.
+- Reopening clears `resolved_at` on the active record (historical completion preserved in log).
 
-Projects/milestones/tasks: `not-started`, `in-progress`, `completed`, `cancelled`.
-Blockers: `open`, `resolved`. No paused state, deadline or review_on.
-For blocker responses/display, completed (`[x]`) means resolved, and open (`[ ]`)
-means unresolved. Persist `blocker-state: resolved` for completion; do not introduce
-a separate blocker completed state or complete blocked tasks implicitly.
+## Time and actor conventions
 
-Task display: `[x]` completed, `[ ]` not-started, `[>]` in-progress, `[-]` cancelled.
-Legacy unchecked in-progress rows and struck-through cancelled rows remain readable.
-List and table cells retain adjacent UUID refs; escape wiki label pipes in tables.
-For list rows, a hidden ref may be on the row or on the immediately following
-comment-only line. Both locations must agree if supplied together. Blank lines,
-headings, ordinary comments and fenced examples break that adjacency. Conflicting
-refs are identity errors requiring resolution, not candidates for new task creation;
-never pick an ID or create replacement work. Table refs stay in their own linked cell.
-The shared association rule applies to project views, plans and inventory allocations.
-Legacy unchecked struck-through Cancelled rows parse as state cancelled with checked
-false; reconcile them through their baseline before changing canonical work. Explicit
-`[x]` still means completed, even when an old cancellation caption has not been refreshed.
-The projection parser also accepts a separate Status cell on a task table row.
-Unchecking completed task -> in-progress if started_at exists, otherwise not-started.
-Distinguish source row removal (deselect daily work) from file deletion (missing record).
-
-## References
-
-```markdown
-## Depends on
-- [[other-task|Other task]] <!-- ref: UUIDv7 -->
-
-## Blocked by
-- [[../blockers/b1-approval-needed|Approval needed]] <!-- ref: UUIDv7 -->
-```
-
-Dependency counterparts use `## Required by`; blocker counterpart `## Blocks`.
-Use paths relative to the containing document, slash separators, optional `.md`,
-and readable aliases. UUID reference is the identity; path is navigation. Never repair
-identity from a similar title. Duplicate IDs or missing targets stay unresolved and
-do not prevent independent work. `check-links` identifies mismatches before repairs.
-Dependencies are visible context only. Cancelled prerequisite stays linked and flagged
-"prerequisite cancelled"; it does not satisfy a prerequisite or prohibit starting work.
-
-## Closure and reopening
-
-Task completion requires its own nonempty DoD to be satisfied and no open preventing
-blocker. A new task with missing criteria stays incomplete; obtain its accepted criteria.
-Milestone closes only with every milestone DoD criterion satisfied, all children explicitly
-completed/moved/cancelled, and no open preventing blocker. Project closes only when
-all milestones are completed/cancelled and no open preventing blocker. Use `check-closure`.
-DoD satisfaction is a supplied decision with evidence where available, not an inference
-from completed tasks. A checked parent with unmet conditions is a closure request;
-leave it open, explain reasons. Parent cancellation likewise requires explicit child
-dispositions; offer batch cancellation, never silently cascade cancellation.
-
-Reopening a task reopens completed parents. Unchecking its task DoD reopens that task
-(in-progress if it has started_at, otherwise not-started) and completed parents.
-An explicitly requested supported task state, such as "reopen as not-started", takes
-precedence over that checkbox fallback. Put the requested state in the proposed
-records passed to `reopen-ancestors`; an old started_at does not override the user's
-state decision. Verify the saved task state as well as the required parent effects.
-Unchecking milestone DoD reopens that milestone and project, leaving completed tasks
-alone. Reopening a preventing blocker reopens completed affected parents, while
-completed tasks stay completed. Cancelled work requires an explicit reopening decision.
-Use `reopen-ancestors` to calculate changes, then the operation protocol to apply.
-Do not erase old completion history. Clear current resolved_at on reopening; the old
-value remains in history. Reopening cancelled work requires an explicit desired state.
-Moving a task preserves IDs and lifecycle facts; updates parents and all references;
-unresolved incoming work reopens completed destinations. Moving is not resolution of
-the task itself, but resolves its membership in the original milestone.
-
-## Time and people
-
-Store all event and recorded timestamps in GMT ISO strings ending Z. Render every
-time with the user's local timezone explicitly named (use CLI `format-time`).
-target_date is optional explicit input, never inherited or calculated. Explicit start
-report required; assignment/edit isn't a start. Retrospective start/completion/cancel/
-blocker resolution retain activity time and recorded time in the log; when unclear
-use now and `time_defaulted: true` with original wording. Interpret a precise local
-report using configured timezone; ask if a DST fold makes the specific instant ambiguous,
-or use the user-authorized current-time fallback rather than inventing an instant.
-
-Owner must be human email, defaults configured user; only human direction can change it.
-An agent can execute that person's instruction, never autonomously choose a new owner.
-Assignee may be human email or named agent, either actor may change it; absent = owner.
-The parser can check syntax, not authenticate a human; caller supplies actual authority.
+- **Timestamps**: All stored and recorded event timestamps use GMT ISO format ending in `Z` (e.g. `2026-10-15T13:49:39Z`). User display renders timestamps in the user's explicit local timezone.
+- **Target dates**: `target_date` is strictly an explicit user input; never infer, inherit, or calculate it.
+- **Execution start**: Moving or assigning a task does not mark it `in-progress`; execution requires an explicit start report.
+- **Actors**:
+  - `owner`: Must be a valid human email. Only explicit human instruction can change an owner; agents never alter ownership autonomously.
+  - `assignee`: Human email or named agent. Either human or agent can change assignment. Defaults to `owner` when absent.

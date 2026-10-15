@@ -3,10 +3,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
-import { uuid7, isUuid7 } from '../lib/identity/identity.mjs';
-import { localDay } from '../lib/time/time.mjs';
-import { parseRecord } from '../lib/records/records.mjs';
-import { parseViewRows } from '../lib/records/views.mjs';
+import { uuid7, isUuid7 } from '#core/identity/identity.mjs';
+import { localDay } from '#core/time/time.mjs';
+import { parseRecord } from '#core/records/records.mjs';
+import { parseViewRows } from '#core/records/views.mjs';
 import { inventory } from './inventory.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,7 +27,7 @@ export async function seedTemplateUpdateFixture(parent, now = new Date().toISOSt
   if (!relative || relative === '..' || relative.startsWith('..' + path.sep) || path.isAbsolute(relative)) {
     throw new TypeError('Choose a fixture parent below this repository’s .temp directory');
   }
-  const history = JSON.parse(await readFile(path.join(root, 'lib/templates/history.json'), 'utf8'));
+  const history = JSON.parse(await readFile(path.join(root, 'src/core/templates/history.json'), 'utf8'));
   const legacy = history.templates.dailyPlan.find(entry => entry.provenance.release === '0.2.0');
   if (!legacy?.content || !legacy.content.includes('**Next action:**')) throw new Error('Verified historical checklist template unavailable');
   await mkdir(parent, {recursive: true});

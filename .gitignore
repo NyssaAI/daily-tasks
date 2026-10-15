@@ -1,9 +1,38 @@
 # Generated distribution bundles
 /artifacts/
 
-# Dot-prefixed directories at any depth
+# Dot-prefixed directories at any depth, except required host plugin manifests
 .*/
+!/.claude-plugin/
+!/.codex-plugin/
+!/.cursor-plugin/
 
 node_modules/
 .DS_Store
 *.tmp
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.venv/
+venv/
+ENV/
+env/
+
+# Visual Studio and VS Code
+.vs/
+*.sln.docstates
+*.suo
+*.user
+*.userosscache
+*.sln.ide
+*.vcxproj.user
+.vscode/

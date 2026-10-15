@@ -1,7 +1,7 @@
 import { writeFile } from 'node:fs/promises';
 import { root } from './assemble.mjs';
 import path from 'node:path';
-import { profileInputSchema } from '../lib/profile/schema.mjs';
+import { profileInputSchema } from '#core/profile/schema.mjs';
 
 const sourceSelection = {type:'object',required:['profilePath'],additionalProperties:false,properties:{
   profilePath:{type:['string','null'],description:'Accepted absolute profile path, or null for deliberate absence.'},

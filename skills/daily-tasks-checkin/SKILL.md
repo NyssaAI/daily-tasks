@@ -8,9 +8,9 @@ description: Run or resume an anytime personal check-in, reconcile Markdown edit
 Resolve and reuse the existing profile/context using [Setup](../daily-tasks-setup/SKILL.md)
 when settings are unresolved or explicitly changed; configured users need no repeated
 setup. Load [planning flow](../daily-tasks/references/planning-flow.md) when preparing
-context/inventory and checking requested-use maintenance. Bind one vault, projects
+context/inventory and checking requested-use maintenance. Bind one workspace, projects
 root and daily-plan root throughout recovery and follow-up replies; shared personal
-preferences never combine vault inventories/state. No router load is required.
+preferences never combine workspace inventories/state. No router load is required.
 
 Load [operations](../daily-tasks/references/operations.md) before reconciliation,
 recovery or consequential writes, [CLI](../daily-tasks/references/cli.md) when invoking
@@ -28,7 +28,9 @@ identity or disposition of unresolved decisions.
    files/duplicate IDs and their references for explicit resolution. No global freeze.
 3. Capture progress reports: distinguish actual start/completion from assignment,
    enforce explicit creation acceptance and owner authority, keep activity and record
-   time. A direct instruction to create named work can supply acceptance; quoted
+   time. If configured for `sources.autoScan` and the daily scan is due (no receipt
+   in `stateRoot/source-scans/YYYY.MM.DD.json`), run the daily source scan via
+   [Capture](../daily-tasks-capture/SKILL.md). A direct instruction to create named work can supply acceptance; quoted
    requests, inferred promises and new text-only checkboxes go to
    [Capture](../daily-tasks-capture/SKILL.md) as candidates. Apply safe accepted changes
    through [Records](../daily-tasks-records/SKILL.md).
@@ -37,7 +39,7 @@ identity or disposition of unresolved decisions.
    each decision; never interpret interruption or silence as acceptance. Allow skipping
    unresolved items while processing independent ones. Do not ask resolved questions again.
 5. Open/create today's local-day plan using [daily planning](../daily-tasks-plan/SKILL.md).
-   Write it under `<vaultRoot>/<dailyPlansRelative>` from the profile. Only resumable
+   Write it under `<workspaceRoot>/<dailyPlansRelative>` from the profile. Only resumable
    progress belongs in stateRoot; the daily Markdown plan must be outside that directory.
    Follow Plan's ordered recovery, rollover and review-save checkpoints, including
    carry into pre-created plans and the distinct no-change receipt path. Follow

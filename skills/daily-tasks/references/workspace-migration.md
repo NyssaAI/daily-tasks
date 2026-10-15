@@ -1,77 +1,58 @@
 # Migrate an existing milestone workspace
 
-Migration is a skill-owned Markdown operation, using the existing operation protocol.
-The CLI inspects, validates and proposes; it does not move or rewrite user documents.
-An installation/update alone does not authorize conversion. Use the user's requested
-scope, resolved roots and existing identities; never discover personal data elsewhere.
+> [!IMPORTANT]
+> **Scope Directive**: This document defines the protocol for migrating legacy milestone workspaces to current standards (embedding standalone Definition of Done files into milestones, upgrading task/milestone records to `record_version: 2`, and restructuring project directories into standard layouts). It is strictly a migration procedure specification. Low-level CLI commands and signatures belong in [`cli.md`](cli.md), general write-ahead checkpointing and reconciliation in [`operations.md`](operations.md), checkpoint completion rules in [`verification.md`](verification.md), and record schemas in [`records.md`](records.md).
 
-1. Inspect the milestone, standalone DoD, tasks, backlinks and current per-view
-   baselines. Reconcile outstanding edits before migration. Inventory all affected
-   files, including attachments and old navigation paths. Reuse recorded milestone
-   and task numbers when unambiguous; otherwise allocate unused parent-local numbers
-   as described in records. Compare destination paths case-insensitively on Windows.
-   Existing unrelated destinations or duplicate identities are conflicts, not overwrite
-   permission. Legacy records stay usable while conflicts are resolved.
-2. Prepare the concrete file/path and identity mapping. Preserve milestone/task UUIDs,
-   lifecycle, owner, assignee, timestamps and relationships. Copy existing milestone
-   criterion text, checked state, evidence and criterion UUIDs into its own DoD section.
-   If both embedded and standalone criteria already exist, reconcile their authority
-   explicitly; never combine them blindly or let closure choose one source.
-3. Review each task's requirements and task-specific DoD. Retain an already accepted
-   criterion; request missing acceptance facts without manufacturing checked criteria
-   from completed status. Do not copy milestone criteria into every task. Legacy tasks
-   without accepted criteria remain unversioned until this is resolved; report them
-   as pending migration. Completed history stays intact. When newly accepted criteria
-   are unsatisfied, propose the required reopening explicitly through the protocol.
-4. Checkpoint exact before/after file bytes or recoverable references, content hashes,
-   path mappings, retired standalone DoD identity, criterion IDs, relationship changes,
-   timestamps, event/operation IDs and intended log payload before writing. Recovery
-   copies stay in the project's .temp/ so scanners do not see duplicate live records.
-   Include file absence/presence in effects. Recovery must distinguish a completed
-   move from a missing file; do not treat disappearance as authorization.
-5. Write the milestone and prepared task files with record_version: 2. Create flat
-   inputs/ and outputs/; move task files beside the milestone, not into task folders.
-   File task-owned inputs/deliverables in those holding areas and link them from tasks.
-   Preserve shared originals by reference, without making duplicate working copies.
-   Verify destination bytes before removing old working files. Intermediate duplicate
-   IDs require pending recovery; do not run planning or publish completion mid-move.
-6. Retarget live references to the retired DoD document to the milestone's
-   `#Definition of Done` heading using the milestone UUID. Keep criterion references
-   on their original criterion UUIDs. Transfer any standalone DoD blocker relationship
-   to the milestone and update reciprocal blocker links. Preserve notes and provenance;
-   do not discard non-criteria content. Retain the old DoD UUID in migration history,
-   not as a second active record. Do not rewrite historical decision-log entries.
-7. Update incoming and outgoing relative links across maintained records and views,
-   including task input/output links and links within moved notes. Project index links
-   milestone; milestone links tasks; tasks link relevant files. Verify heading targets
-   and attachment links in addition to CLI identity/link diagnostics. Before retiring
-   the old standalone DoD, retarget or remove every still-live legacy source copy
-   that links to it, verifying each destination before source removal. Immediately
-   before deleting the DoD, re-read all remaining live affected source/destination
-   records and views and verify copied content and incoming links. Final destination
-   checks alone do not cover old source copies awaiting removal; recovery backups
-   and evidence snapshots in .temp/ are not live references. Any unresolved link
-   keeps the DoD and checkpoint pending. Validate affected
-   records through `migration-retirement` immediately before removal, using the
-   schemaV2 migration evidence in [verified completion](verification.md). Its
-   `allowed:false` result prohibits retirement. The CLI checks content/criteria and
-   still-live incoming links; it does not delete anything. After skill-owned retirement,
-   use `migration-complete` for actual file/event/baseline verification. A post-deletion
-   check cannot prove the chronological order of earlier actions.
-   Validate final
-   records, closure/reopening effects and navigation; append and query the exact
-   `workspace.migration` event via log CLI, passing the same resolved profile/vault
-   scope, `projectsRoot` and `operationPath` used by `migration-retirement`.
-   `log-append` rejects a new migration event until actual retirement, preserved
-   criteria/content, live references and all declared effects match the checkpoint.
-   A refusal keeps the event unrecorded and the checkpoint pending; do not blindly
-   append on retry. Refresh views/baselines, invalidate inventory, then
-   finish the checkpoint. Keep unchanged history and unrelated prose intact.
-8. On retry, compare each checkpoint effect to its actual before/after value and skip
-   applied effects. Reuse the event IDs and payload, checking through log-query so
-   there is one event. Unexpected edits remain conflicts. Report migrated records,
-   legacy tasks awaiting criteria, and remaining conflicts with exact links.
+Migration is an explicit, skill-owned Markdown operation. Plugin installation or updates never trigger automatic migration. The CLI validates preconditions and retires legacy references; it does not rewrite or delete user files directly.
 
-Use `inspect-navigation` for heading and attachment targets as well as managed
-identity links. Use supported Markdown scanners for bounded reads; never recursively
-read all file types or include the script-owned decision-log directories.
+## Pre-migration inspection and reconciliation
+
+1. **Reconcile baselines**: Inspect the target milestone, standalone DoD file, child tasks, backlinks, and existing per-view baselines in `stateRoot/reconciliation.json`. Reconcile uncommitted manual edits before migrating.
+2. **Path and numbering audit**:
+   - Inventory all affected files, attachments, and navigation links.
+   - Reuse existing milestone and task numbers when unambiguous; allocate unused positive integers via `next-record-number` if unassigned.
+   - On Windows, compare paths case-insensitively. Path collisions or duplicate UUIDs are conflicts that halt migration; legacy records remain untouched until resolved.
+
+## Milestone and task upgrade contract
+
+1. **Embed milestone DoD**:
+   - Copy existing standalone DoD criterion text, checked states, and unique criterion UUID comments (`<!-- id: UUIDv7 -->`) into the milestone's embedded `## Definition of Done` section.
+   - Retain the milestone's scalar frontmatter, lifecycle state, owner, assignee, and timestamps.
+   - If both standalone and embedded criteria already exist, resolve contradictory authority explicitly before modifying files.
+2. **Upgrade to `record_version: 2`**:
+   - Milestone and task records must include scalar `record_version: 2` and hide parent IDs (`project_id`, `milestone_id`) in frontmatter.
+   - Retain existing task-specific criteria. Never fabricate checked criteria from completed status; unaccepted legacy tasks remain unversioned pending user acceptance.
+   - Unsatisfied newly-accepted criteria on completed tasks require explicit reopening via `reopen-ancestors`.
+
+## Filesystem restructuring
+
+- **Directory layout**: Ensure task files sit directly inside the milestone directory beside the milestone Markdown file (not nested inside task subfolders).
+- **Holding areas**: Create flat `inputs/` and `outputs/` folders beside the milestone file. Move task attachments and deliverables into these folders and link them from task records. Shared assets are referenced in place; never duplicate files per task.
+
+## Checkpoint, retirement, and completion protocol
+
+Follow the 5-step operational protocol with migration-specific gates:
+
+1. **Write-ahead checkpoint**:
+   - Save Schema Version 2 checkpoint at `stateRoot/operations/<operation-id>.json` declaring all before/after file bytes, hashes, and retiring paths under the `migration` intent.
+   - Keep backup before-bytes in the project's `.temp/` directory (excluded from record discovery).
+2. **Apply Markdown updates**:
+   - Write updated milestone and task files.
+   - Retarget live links pointing to the retired standalone DoD file to the milestone's `## Definition of Done` heading (`[[m1-milestone#Definition of Done|Milestone DoD]] <!-- ref: MILESTONE_UUID -->`).
+   - Criteria references retain their original criterion UUIDs.
+   - Transfer any blocker relationships targeting the standalone DoD to the milestone file.
+3. **Pre-retirement validation gate (`migration-retirement`)**:
+   - Run `migration-retirement` **while the standalone DoD file still exists**.
+   - If `allowed: false` is returned (e.g. unmigrated criteria or remaining live incoming links), stop and resolve remaining references; do not delete the file.
+4. **Delete retired file**:
+   - Once `migration-retirement` passes, delete the legacy standalone DoD file.
+5. **Log event and completion (`migration-complete`)**:
+   - Record the `workspace.migration` event via `log-append` passing the active `operationPath`.
+   - Run `migration-complete` to verify destination preservation, proven file absence, zero remaining references, and updated baselines.
+   - Invalidate inventory cache via `invalidate-project-index`.
+
+## Failure recovery
+
+- If interrupted, re-verify existing file hashes against the checkpoint.
+- Applied effects are skipped; do not duplicate log events on retry.
+- Any unexpected external edit during migration produces a conflict and suspends the operation safely.

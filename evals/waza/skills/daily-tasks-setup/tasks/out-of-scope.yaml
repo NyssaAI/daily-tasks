@@ -1,0 +1,16 @@
+id: daily-tasks-setup-out-of-scope
+name: Explain container timezones
+description: A Docker timezone question is not a request to configure Daily Tasks.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "How do timezones work inside a Docker container?"
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: setup-negative-trigger
+    config:
+      skill_path: skills/daily-tasks-setup/SKILL.md
+      mode: negative

@@ -4,8 +4,8 @@ import { mkdtemp, realpath, readFile, readdir, rm, writeFile, mkdir, rename, sym
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
-import { appendDecision, queryDecisions, archiveDecisions } from '../lib/log/decision-log.mjs';
-import { uuid7 } from '../lib/identity/identity.mjs';
+import { appendDecision, queryDecisions, archiveDecisions } from '#core/log/decision-log.mjs';
+import { uuid7 } from '#core/identity/identity.mjs';
 const makeEntry = (overrides = {}) => ({ id: uuid7(), operation_id: uuid7(), action: 'task.accepted', record_ids: [uuid7()], actor: {kind:'person',id:'user@example.test'}, activity_at:'2026-10-05T14:00:00Z', recorded_at:'2026-10-05T14:30:00Z', time_defaulted:false, ...overrides });
 // macOS temporary paths can contain /var, a symlink; log roots must use the real directory.
 async function fixture(t) { const root = await realpath(await mkdtemp(path.join(tmpdir(),'daily-log-'))); t.after(() => rm(root,{recursive:true,force:true})); return root; }
@@ -53,7 +53,7 @@ test('person actors require email identity while named agents remain valid', asy
  assert.equal(result.entry.actor.id,'release-reviewer');
 });
 test('separate processes serialize appends without losing entries', async t => {
- const projectsRoot=await fixture(t); const moduleUrl=new URL('../lib/log/decision-log.mjs',import.meta.url).href;
+ const projectsRoot=await fixture(t); const moduleUrl=new URL('../src/core/log/decision-log.mjs',import.meta.url).href;
  await Promise.all(Array.from({length:8},()=>new Promise((resolve,reject)=>{
   const code=`import {appendDecision} from ${JSON.stringify(moduleUrl)}; await appendDecision(${JSON.stringify({projectsRoot,entry:makeEntry()})});`;
   const child=spawn(process.execPath,['--input-type=module','-e',code]); let errors=''; child.stderr.on('data',x=>errors+=x); child.on('error',reject); child.on('close',c=>c===0?resolve():reject(new Error(errors)));

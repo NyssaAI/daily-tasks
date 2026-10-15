@@ -4,10 +4,10 @@ import { mkdtemp, mkdir, writeFile, readFile, access, unlink, readdir } from 'no
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
-import { prepareTemplates, saveTemplateState } from '../lib/templates/templates.mjs';
-import { templateFingerprint } from '../lib/templates/catalog.mjs';
-import { resolveContext } from '../lib/profile/context.mjs';
-import { queryDecisions } from '../lib/log/decision-log.mjs';
+import { prepareTemplates, saveTemplateState } from '#core/templates/templates.mjs';
+import { templateFingerprint } from '#core/templates/catalog.mjs';
+import { resolveContext } from '#core/profile/context.mjs';
+import { queryDecisions } from '#core/log/decision-log.mjs';
 
 const kinds = ['dailyPlan','planDayReview','projectIndex','milestone','task'];
 function catalog(version) {
@@ -20,7 +20,7 @@ async function fixture() {
   await mkdir('.temp',{recursive:true});
   const directory = await mkdtemp(path.resolve('.temp/template-updates-'));
   const homeRoot = path.join(directory,'home'), vaultRoot = path.join(directory,'vault');
-  const config = path.join(vaultRoot,'.nyssa/daily-tasks');
+  const config = path.join(vaultRoot,'.nyssa-ai/daily-tasks');
   await mkdir(config,{recursive:true});
   await mkdir(homeRoot,{recursive:true});
   await mkdir(path.join(vaultRoot,'projects'));
@@ -244,7 +244,7 @@ test('interrupted acquisition publishes a complete owner; competing recoveries c
   const {input,config} = await fixture();
   const options = {catalog:catalog(1)};
   const storePath = path.join(config,'templates/updates.json');
-  const storageModule = pathToFileURL(path.resolve('lib/templates/storage.mjs')).href;
+  const storageModule = pathToFileURL(path.resolve('src/core/templates/storage.mjs')).href;
   const child = spawnSync(process.execPath,['--input-type=module','-e',
     `import {withTemplateLock} from ${JSON.stringify(storageModule)}; await withTemplateLock({path:process.argv[1]},async () => process.exit(29));`,storePath],{encoding:'utf8'});
   assert.equal(child.status,29,child.stderr);
@@ -298,7 +298,7 @@ test('legacy exclusive profiles, source resets and one-off formatting retain the
 test('CLI preparation exposes only requested templates, records baselines, and planning includes the two relevant layouts', async () => {
   const {input,config,directory} = await fixture();
   const filename = path.join(directory,'input.json');
-  const entry = path.resolve('bin/daily-tasks.mjs');
+  const entry = path.resolve('src/cli/daily-tasks.mjs');
   async function call(operation,value) {
     await writeFile(filename,JSON.stringify(value));
     const result = spawnSync(process.execPath,[entry,operation,'--input',filename],{cwd:directory,encoding:'utf8'});

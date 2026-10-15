@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { planRollover } from '../lib/planning/planning.mjs';
+import { planRollover } from '#core/planning/planning.mjs';
 
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12,'0')}`;
 const userEmail = 'owner@example.test';

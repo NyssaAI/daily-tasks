@@ -16,43 +16,28 @@ run a personal operating system. One authoritative record per item. Select one r
 | Select daily work or change today's list | [Daily plan](../daily-tasks-plan/SKILL.md) |
 | Report progress, reconcile edits, resume or check in | [Check-in](../daily-tasks-checkin/SKILL.md) |
 
-Load only that route and references it needs. Resolve configuration using
-[setup's scoped discovery rules](../daily-tasks-setup/SKILL.md#read-and-select-a-write-scope):
-reuse accepted pointers or discover user and project `.nyssa-ai` preference layers,
-with legacy `.nyssaai`/`.nyssa` compatibility. Preserve configurationSources through
-continuation. A missing explicit configRoot is not a reason to ask for a path.
-Resolve preferences and independent authoritative vault state through setup, then
-continue the requested work. Ask only for genuinely missing scope/data or conflicting
-settings. Do not scan home directories or infer vault scope from later process cwd
-or installed code. A host-captured initial vault-root workspace is an explicit
-binding for resolve-context; see [planning flow](references/planning-flow.md).
-No startup foundation, background monitoring or autonomous scheduling.
+## Configuration and storage
+
+Configuration is stored in persistent JSON files under canonical `.nyssa-ai/daily-tasks/profile.json`:
+- **User scope**: `~/.nyssa-ai/daily-tasks/profile.json` for personal preferences (name, email, timezone, personal priorities).
+- **Workspace scope**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` for workspace bindings (`projectsRoot`, `dailyPlansRelative`).
+
+When loaded, reuse existing accepted pointers or discover persistent `.nyssa-ai` preference layers without re-running setup:
+1. Load persistent preferences from canonical profile layers.
+2. Resolve `workspaceRoot`, `projectsRoot`, and `dailyPlansRoot` from the profile.
+3. Access independent workspace operating state under `<workspaceRoot>/.nyssa-ai/daily-tasks/`.
+4. Continue with the requested work. Run [Setup](../daily-tasks-setup/SKILL.md) only on first use when configuration is missing or when the user explicitly requests configuration changes.
+
+Preserve configurationSources through continuation. Do not scan home directories or infer workspace scope from a later process cwd or installed code. If the user provides an invalid path or command, explain the error and request clarification. No startup foundation, background monitoring or autonomous scheduling.
 
 ## Present results
 
-Lead with the requested result and a clickable file link when an artifact exists.
-Use short paragraphs and compact bullets for changes and decisions. Show readable
-task titles; keep UUIDs, JSON, checkpoints, CLI transcripts and internal state paths
-out of ordinary replies. Show resolved directories when setting up or changing
-storage, not on every task request. Report only changes, unresolved decisions and
-the next input actually needed; omit repeated capability explanations.
-Use standard Markdown with a blank line before lists and after headings. In chat,
-use normal Markdown links to actual files; wiki links belong in vault documents.
-For planning/review screens and numbered replies, use
-[response conventions](references/response-conventions.md), including the shared
-work-status legend and stable row mappings. Keep selection and work state separate.
-Before showing planning options or recaps, follow [Plan's screen gate](../daily-tasks-plan/SKILL.md):
-save the active-template draft with `planning-state save-review`, then display the
-returned `value.screen.markdown` unchanged. Routing through this skill never waives
-that check; prose summaries and question widgets cannot replace the planning screen.
-
-Projects, milestones and tasks require explicit user acceptance, including batches.
-An explicit instruction to create named work (including a named batch) supplies
-acceptance; do not ask the user to accept it again. Research, quoted third-party
-requests, inferred promises and manual new checkboxes alone do not supply acceptance.
-Human owner defaults to current user; only user direction changes it. Optional
-assignee is a person email or agent name; absent means owner does the work. Either
-people or agents can assign/reassign. Assignment never means work has started.
+- Lead with the requested result and a clickable file link when an artifact exists.
+- Keep output concise: use readable titles, compact bullets, and standard Markdown.
+- Keep internal details (UUIDs, raw JSON, checkpoints, CLI transcripts, internal state paths) out of ordinary chat replies.
+- Projects, milestones, and tasks require explicit user acceptance. A direct instruction to create named work supplies acceptance; notes, quotes, or bare checkboxes do not.
+- For interactive planning/review screens, follow [Daily plan](../daily-tasks-plan/SKILL.md) and [response conventions](references/response-conventions.md). Do not substitute freeform prose or widgets for the validated planning screen.
+- Route formatting, template choices, and updates to [templates](references/templates.md) and [template updates](references/template-updates.md).
 
 Use [records and views](references/records.md), [operation protocol](references/operations.md)
 and [CLI](references/cli.md) when their operations are needed. Executables perform

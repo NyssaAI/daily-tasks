@@ -2,9 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtemp, realpath, mkdir, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
-import { nextRecordNumber } from '../lib/records/numbering.mjs';
-import { appendDecision } from '../lib/log/decision-log.mjs';
-import { uuid7 } from '../lib/identity/identity.mjs';
+import { nextRecordNumber } from '#core/records/numbering.mjs';
+import { appendDecision } from '#core/log/decision-log.mjs';
+import { uuid7 } from '#core/identity/identity.mjs';
 
 async function fixture(t) {
   await mkdir(path.resolve('.temp'),{recursive:true});

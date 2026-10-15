@@ -6,12 +6,12 @@ import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { tmpdir } from 'node:os';
-import { uuid7 } from '../lib/identity/identity.mjs';
-import { resolveContext } from '../lib/profile/context.mjs';
-import { appendDecision, queryDecisions } from '../lib/log/decision-log.mjs';
-import { verifyOperation, completeOperation, completeChangedRollover, inspectMigrationRetirement, completeMigration } from '../lib/operations/verification.mjs';
-import { inspectNavigation } from '../lib/records/navigation.mjs';
-import { preparePlanning } from '../lib/planning/session.mjs';
+import { uuid7 } from '#core/identity/identity.mjs';
+import { resolveContext } from '#core/profile/context.mjs';
+import { appendDecision, queryDecisions } from '#core/log/decision-log.mjs';
+import { verifyOperation, completeOperation, completeChangedRollover, inspectMigrationRetirement, completeMigration } from '#core/operations/verification.mjs';
+import { inspectNavigation } from '#core/records/navigation.mjs';
+import { preparePlanning } from '#core/planning/session.mjs';
 
 const hash = text => createHash('sha256').update(text).digest('hex');
 const execute = promisify(execFile);
@@ -19,8 +19,8 @@ async function fixture() {
   await mkdir('.temp',{recursive:true});
   const root = await realpath(await mkdtemp(path.resolve('.temp/operation-verification-')));
   const input = {vaultRoot:root,homeRoot:root,now:'2026-10-09T15:00:00Z'};
-  const state = path.join(root,'.nyssaai/daily-tasks');
-  input.stateRoot = state; // Established legacy fixture binding survives checkpoint removal.
+  const state = path.join(root,'.nyssa-ai/daily-tasks');
+  input.stateRoot = state;
   await mkdir(path.join(state,'operations'),{recursive:true});
   await mkdir(path.join(root,'projects'),{recursive:true});
   await mkdir(path.join(root,'daily'),{recursive:true});
@@ -196,7 +196,6 @@ test('migration retirement sees live legacy copies pointing to headings', async 
   await writeFile(path.join(projectNamedInputs,'legacy.md'),'[Done](../definition-of-done.md)');
   assert.ok((await inspectMigrationRetirement(f.input)).issues.some(issue=>issue.reason === 'live-incoming-link'));
   await unlink(path.join(projectNamedInputs,'legacy.md'));
-  await rmdir(f.context.dailyPlansRoot);
   assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
 });
 

@@ -5,9 +5,9 @@ import { mkdir, mkdtemp, readFile, readdir, realpath, writeFile } from 'node:fs/
 import path from 'node:path';
 import { promisify } from 'node:util';
 import { createHash } from 'node:crypto';
-import { warmProjectIndex } from '../lib/inventory/warm.mjs';
-import { buildPrewarmAutomation, prewarmDeclarationKey } from '../adapters/openclaw/automation.mjs';
-import { registerDailyTasksCli } from '../adapters/openclaw/cli.mjs';
+import { warmProjectIndex } from '#core/inventory/warm.mjs';
+import { buildPrewarmAutomation, prewarmDeclarationKey } from '#adapters/openclaw/automation.mjs';
+import { registerDailyTasksCli } from '#adapters/openclaw/cli.mjs';
 
 const exec = promisify(execFile);
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12,'0')}`;
@@ -70,7 +70,7 @@ function setupAction(run) {
 
 test('layered context survives portable argv and native registration with its established state root', async () => {
   const input = await layeredFixture();
-  const command = path.resolve('bin/warm-project-index.mjs');
+  const command = path.resolve('src/cli/warm-project-index.mjs');
   const before = await readFile(path.join(input.project,'project-index.md'),'utf8');
   const expected = await warmProjectIndex({...input,dryRun:true});
   const direct = JSON.parse((await exec(process.execPath,[command,'--vault-root',input.vaultRoot,'--home-root',input.homeRoot,
@@ -95,7 +95,7 @@ test('layered context survives portable argv and native registration with its es
 
 test('prewarm keeps explicit source absences and canonical new identities while preserving legacy keys', async () => {
   const input = await layeredFixture();
-  const base = {...input,every:'1h',nodePath:process.execPath,warmCommandPath:path.resolve('bin/warm-project-index.mjs')};
+  const base = {...input,every:'1h',nodePath:process.execPath,warmCommandPath:path.resolve('src/cli/warm-project-index.mjs')};
   const descriptor = {schemaVersion:1,user:{profilePath:null},project:{profilePath:path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/profile.json')}};
   const first = buildPrewarmAutomation({...base,configurationSources:descriptor});
   const reordered = {project:{profilePath:descriptor.project.profilePath},user:{profilePath:null},schemaVersion:1};
@@ -132,13 +132,13 @@ test('prewarm rejects invalid or missing durable selectors before registering', 
     [{configurationSources:JSON.stringify({...input.configurationSources,extra:'invalid'})},/schemaVersion/],
     [{profilePath:path.join(input.root,'missing-legacy.json')},/Configured vault context/],
   ];
-  const legacyState = path.join(input.vaultRoot,'.nyssaai/daily-tasks');
-  await mkdir(legacyState,{recursive:true});
-  await writeFile(path.join(legacyState,'review.json'),JSON.stringify({preserved:true}));
+  const canonicalState = path.join(input.vaultRoot,'.nyssa-ai/daily-tasks');
+  await mkdir(canonicalState,{recursive:true});
+  await writeFile(path.join(canonicalState,'review.json'),JSON.stringify({preserved:true}));
   cases.push([{stateRoot:path.join(input.root,'empty state')},/no authoritative history/]);
   for (const [change,expected] of cases) await assert.rejects(action({...base,...change}),expected);
   assert.equal(calls,0);
-  const command = path.resolve('bin/warm-project-index.mjs');
+  const command = path.resolve('src/cli/warm-project-index.mjs');
   for (const [args,expected] of [
     [['--configuration-sources','{'],/JSON/],
     [['--configuration-sources',JSON.stringify(input.configurationSources),'--profile-path',input.configurationSources.project.profilePath],/exclusive/],
@@ -149,9 +149,9 @@ test('prewarm rejects invalid or missing durable selectors before registering', 
 
 test('new-form registration captures resolved state and dry-run does not register', async t => {
   const input = await fixture();
-  const legacyState = path.join(input.vaultRoot,'.nyssaai/daily-tasks');
-  await mkdir(legacyState,{recursive:true});
-  await writeFile(path.join(legacyState,'review.json'),JSON.stringify({preserved:true}));
+  const canonicalState = path.join(input.vaultRoot,'.nyssa-ai/daily-tasks');
+  await mkdir(canonicalState,{recursive:true});
+  await writeFile(path.join(canonicalState,'review.json'),JSON.stringify({preserved:true}));
   const configurationSources = {schemaVersion:1,user:{profilePath:null},project:{profilePath:path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/profile.json')}};
   let calls = 0;
   const action = setupAction(async () => { calls++; return {}; });
@@ -160,7 +160,7 @@ test('new-form registration captures resolved state and dry-run does not registe
   await action({...input,configurationSources:JSON.stringify(configurationSources),every:'1h',dryRun:true});
   assert.equal(calls,0);
   assert.equal(output[0].status,'preview');
-  assert.equal(output[0].commandArgv[output[0].commandArgv.indexOf('--state-root')+1],legacyState);
+  assert.equal(output[0].commandArgv[output[0].commandArgv.indexOf('--state-root')+1],canonicalState);
   assert.deepEqual(JSON.parse(output[0].commandArgv[output[0].commandArgv.indexOf('--configuration-sources')+1]),configurationSources);
   await action({...input,every:'1h',dryRun:true});
   assert.equal(output[1].declarationKey,prewarmDeclarationKey({...input,every:'1h'}));
@@ -190,7 +190,7 @@ milestone_id: ${id(3)}
 
 test('portable CLI is independent of cwd, compact, and rejects missing explicit vault scope', async () => {
   const input = await fixture();
-  const command = path.resolve('bin/warm-project-index.mjs');
+  const command = path.resolve('src/cli/warm-project-index.mjs');
   const help = JSON.parse((await exec(process.execPath,[command,'--help'],{cwd:input.root})).stdout);
   assert.equal(help.name,'warm-project-index');
   assert.match(help.effect,/never forces refresh/);
@@ -217,7 +217,7 @@ test('OpenClaw declaration is hourly by default, exact-argv, silent, idempotent,
     homeRoot:input.homeRoot,
     every:'1h',
     nodePath:process.execPath,
-    warmCommandPath:path.resolve('bin/warm-project-index.mjs'),
+    warmCommandPath:path.resolve('src/cli/warm-project-index.mjs'),
     gatewayPort:19091,
   };
   const first = buildPrewarmAutomation(base);
@@ -227,7 +227,7 @@ test('OpenClaw declaration is hourly by default, exact-argv, silent, idempotent,
   assert.equal(first.every,'1h');
   assert.equal(first.delivery,'none');
   assert.equal(first.usesAgent,false);
-  assert.deepEqual(first.commandArgv.slice(0,2),[process.execPath,path.resolve('bin/warm-project-index.mjs')]);
+  assert.deepEqual(first.commandArgv.slice(0,2),[process.execPath,path.resolve('src/cli/warm-project-index.mjs')]);
   assert.ok(first.args.includes('--command-argv'));
   assert.deepEqual(first.args.slice(0,4),['automations','--port','19091','add']);
   assert.ok(first.args.includes('--no-deliver'));
@@ -261,7 +261,7 @@ test('concurrent warm attempts preserve a valid reusable cache', async () => {
 
 test('separate warm processes preserve a reusable cache and remove temporary writes', async () => {
   const input = await fixture();
-  const moduleUrl = new URL('../lib/inventory/warm.mjs',import.meta.url).href;
+  const moduleUrl = new URL('../src/core/inventory/warm.mjs',import.meta.url).href;
   const source = 'const {warmProjectIndex} = await import(process.argv[1]); console.log(JSON.stringify(await warmProjectIndex(JSON.parse(process.argv[2]))));';
   const results = await Promise.allSettled(Array.from({length:8},() => exec(process.execPath,
     ['--input-type=module','-e',source,moduleUrl,JSON.stringify({...input,now})],{cwd:input.root})));

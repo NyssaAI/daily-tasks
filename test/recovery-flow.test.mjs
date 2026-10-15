@@ -7,9 +7,9 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { tmpdir } from 'node:os';
 import { seedPlanningFixture, inspectPlanningFixture, planningHash } from '../evals/planning-fixture.mjs';
-import { appendDecision, queryDecisions } from '../lib/log/decision-log.mjs';
-import { invalidateInventory } from '../lib/inventory/inventory.mjs';
-import { completeOperation, verifyOperation } from '../lib/operations/verification.mjs';
+import { appendDecision, queryDecisions } from '#core/log/decision-log.mjs';
+import { invalidateInventory } from '#core/inventory/inventory.mjs';
+import { completeOperation, verifyOperation } from '#core/operations/verification.mjs';
 
 const input = fixture => ({vaultRoot:fixture.vaultRoot,stateRoot:fixture.stateRoot,homeRoot:fixture.vaultRoot,now:fixture.now,operationPath:fixture.checkpointPath});
 

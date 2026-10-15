@@ -1,0 +1,18 @@
+name: daily-tasks-eval
+description: Fast local trigger checks for the Daily Tasks router.
+skill: daily-tasks
+schemaVersion: "1.4"
+version: "1.0"
+config:
+  trials_per_task: 1
+  timeout_seconds: 10
+  parallel: false
+  executor: mock
+  model: mock
+metrics:
+  - name: trigger_quality
+    weight: 1.0
+    threshold: 1.0
+    description: Does the router match Daily Tasks requests without matching unrelated requests?
+tasks:
+  - "tasks/*.yaml"

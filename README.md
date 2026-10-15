@@ -46,7 +46,7 @@ deterministic prewarm command job; no hook, background agent or MCP server is re
 - Project inventory: `<vault root>/.temp/daily-tasks/project-index.json`. It is disposable,
   refreshed on request or when source checks, local-day rollover or the configurable
   four-hour TTL require it. Cache reuse reads file metadata and no Markdown contents.
-  `bin/warm-project-index.mjs` resolves configured context and invokes that same
+  `src/cli/warm-project-index.mjs` resolves configured context and invokes that same
   stale-on-demand path without forcing a rebuild or returning the full inventory.
 - Decision log: `{projects root}/.daily-tasks/yyyy.mm.dd-decisions.json`; date means
   file creation. Append-only logical history, script-only access, explicit rotation.
@@ -109,10 +109,10 @@ and execute Node. Without those capabilities, proposals are possible but persist
 is unavailable. This is not a task scheduler or a full task database engine.
 
 ```text
-node bin/daily-tasks.mjs --help
-node bin/daily-tasks.mjs new-id
-node bin/daily-tasks.mjs log-query --input /absolute/query.json
-node bin/warm-project-index.mjs --vault-root /absolute/vault --home-root /absolute/home
+node src/cli/daily-tasks.mjs --help
+node src/cli/daily-tasks.mjs new-id
+node src/cli/daily-tasks.mjs log-query --input /absolute/query.json
+node src/cli/warm-project-index.mjs --vault-root /absolute/vault --home-root /absolute/home
 ```
 
 See [CLI contract](skills/daily-tasks/references/cli.md), [record conventions](skills/daily-tasks/references/records.md)
@@ -152,6 +152,10 @@ npm run eval
 node evals/report.mjs write
 npm run eval:check
 ```
+
+`npm test` also saves the TAP output and a summary to
+`test/results/YYYY.MM.DD-test-result-summary.md`, replacing that date's file on
+subsequent runs.
 
 Canonical procedures and templates live under [skills/](skills/).
 [Evaluation](evals/LATEST.md) records deterministic checks and native-host evidence

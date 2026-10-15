@@ -8,7 +8,12 @@ const mode = process.argv[2];
 if (!['write','check','release'].includes(mode)) throw new Error('Use report.mjs write|check|release');
 const matrix = JSON.parse(await readFile(path.join(root,'evals/matrix.json'),'utf8'));
 let runs = [];
-try { runs = (await readdir(path.join(root,'evals/results'))).sort(); } catch (error) { if (error.code !== 'ENOENT') throw error; }
+try {
+  runs = (await readdir(path.join(root,'evals/results'), { withFileTypes: true }))
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name)
+    .sort();
+} catch (error) { if (error.code !== 'ENOENT') throw error; }
 const candidate = await inventory();
 const latest = new Map();
 for (const runId of runs) {

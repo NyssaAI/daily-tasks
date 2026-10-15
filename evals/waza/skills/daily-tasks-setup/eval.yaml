@@ -1,0 +1,18 @@
+name: daily-tasks-setup-eval
+description: Fast local trigger checks for Daily Tasks setup and preferences.
+skill: daily-tasks-setup
+schemaVersion: "1.4"
+version: "1.0"
+config:
+  trials_per_task: 1
+  timeout_seconds: 10
+  parallel: false
+  executor: mock
+  model: mock
+metrics:
+  - name: trigger_quality
+    weight: 1.0
+    threshold: 1.0
+    description: Does setup match preference and storage setup requests without matching unrelated technical questions?
+tasks:
+  - "tasks/*.yaml"

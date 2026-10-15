@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { activityTime, localDay, displayTime, resolveTimezone } from '../lib/time/time.mjs';
+import { activityTime, localDay, displayTime, resolveTimezone } from '#core/time/time.mjs';
 
 test('system timezone resolves to the host zone and displays the actual zone', () => {
   const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;

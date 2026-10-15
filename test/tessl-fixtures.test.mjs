@@ -29,7 +29,7 @@ for (const group of ['activation','content']) {
       const environment = JSON.parse(await readFile(path.join(sandbox,'ENVIRONMENT.md'),'utf8'));
       const inputPath = path.join(sandbox,'input.json');
       await writeFile(inputPath,JSON.stringify({...environment,homeRoot:environment.homeRoot ?? path.join(sandbox,'synthetic-home'),kinds:['dailyPlan','planDayReview']}));
-      const command = path.join(sandbox,'support/bin/daily-tasks.mjs');
+      const command = path.join(sandbox,'support/src/cli/daily-tasks.mjs');
       const planning = JSON.parse((await exec(process.execPath,[command,'planning-prepare','--input',inputPath,'--dry-run'],{cwd:repo,maxBuffer:4*1024*1024})).stdout);
       if (mode === 'fresh') assert.equal(planning.status,'setup-required');
       else {

@@ -2,12 +2,12 @@ import {mkdir,writeFile,readFile,rm} from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {syncBuiltinESMExports} from 'node:module';
-import {uuid7} from '../../lib/identity/identity.mjs';
-import {localDay} from '../../lib/time/time.mjs';
-import {planningBinding} from '../../lib/profile/context.mjs';
+import {uuid7} from '#core/identity/identity.mjs';
+import {localDay} from '#core/time/time.mjs';
+import {planningBinding} from '#core/profile/context.mjs';
 import {seedPlanningFixture} from '../planning-fixture.mjs';
-import {loadTemplateCatalog} from '../../lib/templates/catalog.mjs';
-import {preparePlanning} from '../../lib/planning/session.mjs';
+import {loadTemplateCatalog} from '#core/templates/catalog.mjs';
+import {preparePlanning} from '#core/planning/session.mjs';
 const mode=process.argv[2];
 const now='2026-10-09T15:00:00Z', timezone='America/Chicago';
 // Fixture construction only: repeat identities without changing production code.
@@ -19,9 +19,9 @@ const today=localDay(now,timezone), previous='2026.10.08';
 if(mode==='recovery') {
   const manifest=await seedPlanningFixture(path.resolve('vaults'),2,now);
   await rm(path.join(manifest.vaultRoot,'fixture.json'));
-  await writeFile('ENVIRONMENT.md',JSON.stringify({vaultRoot:manifest.vaultRoot,now,timezone,runtimePackageRoot:path.resolve('support'),runtimeEntry:path.resolve('support/bin/daily-tasks.mjs'),user:{name:'Fixture',email:'fixture@example.test'},operationInterruptedAfter:'source selection removed; remaining effects unfinished'},null,2));
+  await writeFile('ENVIRONMENT.md',JSON.stringify({vaultRoot:manifest.vaultRoot,now,timezone,runtimePackageRoot:path.resolve('support'),runtimeEntry:path.resolve('support/src/cli/daily-tasks.mjs'),user:{name:'Fixture',email:'fixture@example.test'},operationInterruptedAfter:'source selection removed; remaining effects unfinished'},null,2));
 } else {
-  const vaultRoot=path.resolve('vault'),projectsRoot=path.join(vaultRoot,'1-projects'), stateRoot=path.join(vaultRoot,'.nyssaai/daily-tasks'),dailyPlansRoot=path.join(vaultRoot,'2-areas/daily-plans');
+  const vaultRoot=path.resolve('vault'),projectsRoot=path.join(vaultRoot,'1-projects'), stateRoot=path.join(vaultRoot,'.nyssa-ai/daily-tasks'),dailyPlansRoot=path.join(vaultRoot,'2-areas/daily-plans');
   const project=path.join(projectsRoot,'website'), milestone=path.join(project,'m1-launch');
   for(const dir of [milestone,path.join(milestone,'inputs'),path.join(milestone,'outputs'),stateRoot,dailyPlansRoot])await mkdir(dir,{recursive:true});
   const ids=Object.fromEntries(['project','milestone','copy','review','criterion','milestoneCriterion','plan','priorPlan'].map(key=>[key,uuid7()]));

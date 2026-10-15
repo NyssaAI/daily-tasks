@@ -7,6 +7,14 @@ description: Capture possible tasks, projects and milestones as candidates, dedu
 
 Resolve configured scope through [setup](../daily-tasks-setup/SKILL.md). Read only the
 user-supplied/authorized sources and [record conventions](../daily-tasks/references/records.md).
+When configured with `sources` in profile (`autoScan`, `directories`, `mcps`), scanning
+runs on explicit command ("scan my sources", "check inbox") or, when `autoScan: true`,
+on the first call in the current timezone day. The daily scan gate checks
+`stateRoot/source-scans/YYYY.MM.DD.json`. If that receipt is absent for today's local date,
+the scan executes across authorized workspace directories and connected MCP tools, writes
+the receipt, and extracts potential candidates. Subsequent calls on the same local date
+skip automatic scanning.
+
 Distinguish requests, promises, ideas and updates. Match existing UUID/source references
 before proposing a new item. A repeated mention adds context, not another task.
 When the request is choosing existing work for a daily plan, route that presentation
