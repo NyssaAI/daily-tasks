@@ -46,7 +46,7 @@ if(mode==='recovery') {
     await mkdir(path.join(stateRoot,'review'),{recursive:true});
     await writeFile(path.join(stateRoot,'review',today+'.json'),JSON.stringify({schemaVersion:1,date:today,planId:ids.plan,mappingBinding:planningBinding({vaultRoot,projectsRoot,dailyPlansRoot}),mapping:{[ids.copy]:2,[ids.review]:4}},null,2));
   }
-  await writeFile('ENVIRONMENT.md',JSON.stringify({vaultRoot,...(mode==='scoped'?{homeRoot}:{}),now,timezone,runtimePackageRoot:path.resolve('support'),runtimeEntry:path.resolve('support/bin/daily-tasks.mjs'),knownPeople:{Casey:'casey@example.test',Alex:'alex@example.test'},...(mode==='mapping'||mode==='mixed'?{activeScreen:{date:today,rows:{2:'Draft landing copy',4:'Review launch checklist'}}}:{})},null,2));
+  await writeFile('ENVIRONMENT.md',JSON.stringify({vaultRoot,...(mode==='scoped'?{homeRoot}:{}),now,timezone,runtimePackageRoot:path.resolve('support'),runtimeEntry:path.resolve('support/src/cli/daily-tasks.mjs'),knownPeople:{Casey:'casey@example.test',Alex:'alex@example.test'},...(mode==='mapping'||mode==='mixed'?{activeScreen:{date:today,rows:{2:'Draft landing copy',4:'Review launch checklist'}}}:{})},null,2));
 }
 
 // Exercise required runtime assets before exposing the fixture to an agent.
