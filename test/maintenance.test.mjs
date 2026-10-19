@@ -14,7 +14,7 @@ async function fixture() {
   await mkdir(path.join(projectsRoot, 'alpha'), { recursive: true });
   await mkdir(stateRoot, { recursive: true });
   await mkdir(path.join(vaultRoot, '2-areas/daily-plans'), { recursive: true });
-  await writeFile(path.join(stateRoot, 'profile.json'), JSON.stringify({ schema_version: 1,
+  await writeFile(path.join(stateRoot, 'profile.json'), JSON.stringify({ schema_version: 2,
     user: { name: 'Owner', email: 'owner@example.test' }, timezone: 'America/Chicago', priorities: [],
     vaultRoot: './', projectsRoot: './1-projects', dailyPlansRelative: '2-areas/daily-plans' }));
   const project = path.join(projectsRoot, 'alpha/project-index.md');
@@ -49,8 +49,6 @@ test('unsupported worker claims and pending operations cannot advance maintenanc
     await assert.rejects(inspectMaintenance({ ...input, [key]: unsupported }), /Caller-authored/);
   }
   await mkdir(path.join(input.stateRoot, 'operations'));
-  const completed = '019a1234-5678-7abc-8def-000000000009';
-  await writeFile(path.join(input.stateRoot, `operations/${completed}.json`), JSON.stringify({ operation_id: completed, status: 'completed', files: [] }));
   assert.equal((await inspectMaintenance(input)).status, 'inspected');
   await writeFile(path.join(input.stateRoot, 'operations/pending.json'), '{}');
   const blocked = await inspectMaintenance(input);

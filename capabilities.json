@@ -2,6 +2,22 @@
   "schemaVersion": 1,
   "operations": [
     {
+      "name": "health-check",
+      "path": "bin/daily-tasks.mjs",
+      "purpose": "health check; see skills/daily-tasks/references/cli.md",
+      "inputSchema": {
+        "type": "object",
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object"
+      },
+      "sideEffects": "none",
+      "requiredEnvironment": [],
+      "dryRun": false,
+      "invocation": "node bin/daily-tasks.mjs health-check --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
+    },
+    {
       "name": "new-id",
       "path": "bin/daily-tasks.mjs",
       "purpose": "new id; see skills/daily-tasks/references/cli.md",
@@ -15,7 +31,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs new-id"
+      "invocation": "node bin/daily-tasks.mjs new-id [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "activity-time",
@@ -31,7 +47,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs activity-time --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs activity-time --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "local-day",
@@ -49,7 +65,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs local-day --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs local-day --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "format-time",
@@ -68,7 +84,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs format-time --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs format-time --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "validate-profile",
@@ -77,336 +93,175 @@
       "inputSchema": {
         "type": "object",
         "description": "Supported structural profile inputs. Runtime validation remains authoritative for timezone validity and host-specific path safety. Partial v2 preference layers do not establish a complete workspace; context resolution checks effective identity and bindings separately.",
-        "oneOf": [
-          {
+        "additionalProperties": false,
+        "required": [
+          "schema_version"
+        ],
+        "properties": {
+          "schema_version": {
+            "const": 2
+          },
+          "user": {
             "type": "object",
-            "required": [
-              "schema_version",
-              "user",
-              "timezone",
-              "priorities",
-              "vaultRoot",
-              "projectsRoot",
-              "dailyPlansRelative"
-            ],
+            "additionalProperties": false,
             "properties": {
-              "schema_version": {
-                "const": 1
-              },
-              "user": {
-                "type": "object",
-                "required": [
-                  "name",
-                  "email"
-                ],
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "email": {
-                    "type": "string",
-                    "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
-                  }
-                }
-              },
-              "timezone": {
+              "name": {
                 "type": "string",
-                "pattern": "\\S",
-                "description": "IANA timezone name or system; runtime validates against the host timezone database."
+                "pattern": "\\S"
               },
-              "priorities": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "pattern": "\\S"
-                }
-              },
-              "templates": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "projectIndex": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  },
-                  "dailyPlan": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  },
-                  "milestone": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  },
-                  "task": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  },
-                  "planDayReview": {
-                    "type": "string",
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  }
-                }
-              },
-              "projectIndex": {
-                "type": "object",
-                "additionalProperties": false,
-                "required": [
-                  "ttlSeconds"
-                ],
-                "properties": {
-                  "ttlSeconds": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 9007199254740991
-                  }
-                }
-              },
-              "sources": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "autoScan": {
-                    "type": "boolean"
-                  },
-                  "directories": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  },
-                  "mcps": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "tool"
-                      ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "minLength": 1
-                        },
-                        "tool": {
-                          "type": "string",
-                          "minLength": 1
-                        },
-                        "params": {
-                          "type": "object"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "workspaceRoot": {
+              "email": {
                 "type": "string",
-                "minLength": 1,
-                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
-              },
-              "vaultRoot": {
-                "type": "string",
-                "minLength": 1,
-                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
-              },
-              "projectsRoot": {
-                "type": "string",
-                "minLength": 1,
-                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
-              },
-              "dailyPlansRelative": {
-                "type": "string",
-                "minLength": 1,
-                "description": "Relative directory beneath the vault; runtime rejects absolute paths and empty, . or .. segments."
+                "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
               }
             }
           },
-          {
+          "timezone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "\\S",
+            "description": "IANA timezone name or system; runtime validates against the host timezone database."
+          },
+          "priorities": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "pattern": "\\S"
+            }
+          },
+          "templates": {
             "type": "object",
             "additionalProperties": false,
-            "required": [
-              "schema_version"
-            ],
             "properties": {
-              "schema_version": {
-                "const": 2
-              },
-              "user": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "name": {
-                    "type": "string",
-                    "pattern": "\\S"
-                  },
-                  "email": {
-                    "type": "string",
-                    "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
-                  }
-                }
-              },
-              "timezone": {
+              "projectIndex": {
                 "type": [
                   "string",
                   "null"
                 ],
-                "pattern": "\\S",
-                "description": "IANA timezone name or system; runtime validates against the host timezone database."
+                "minLength": 1,
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                "pattern": "\\.[mM][dD]$"
               },
-              "priorities": {
+              "dailyPlan": {
                 "type": [
-                  "array",
+                  "string",
                   "null"
                 ],
-                "items": {
-                  "type": "string",
-                  "pattern": "\\S"
-                }
+                "minLength": 1,
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                "pattern": "\\.[mM][dD]$"
               },
-              "templates": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "projectIndex": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  },
-                  "dailyPlan": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  },
-                  "milestone": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  },
-                  "task": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  },
-                  "planDayReview": {
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "minLength": 1,
-                    "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
-                    "pattern": "\\.[mM][dD]$"
-                  }
-                }
-              },
-              "projectIndex": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "ttlSeconds": {
-                    "type": [
-                      "integer",
-                      "null"
-                    ],
-                    "minimum": 0,
-                    "maximum": 9007199254740991
-                  }
-                }
-              },
-              "sources": {
+              "milestone": {
                 "type": [
-                  "object",
+                  "string",
                   "null"
                 ],
-                "additionalProperties": false,
-                "properties": {
-                  "autoScan": {
-                    "type": "boolean"
-                  },
-                  "directories": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  },
-                  "mcps": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "required": [
-                        "name",
-                        "tool"
-                      ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "minLength": 1
-                        },
-                        "tool": {
-                          "type": "string",
-                          "minLength": 1
-                        },
-                        "params": {
-                          "type": "object"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "workspaceRoot": {
-                "type": "string",
                 "minLength": 1,
-                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                "pattern": "\\.[mM][dD]$"
               },
-              "vaultRoot": {
-                "type": "string",
+              "task": {
+                "type": [
+                  "string",
+                  "null"
+                ],
                 "minLength": 1,
-                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                "pattern": "\\.[mM][dD]$"
               },
-              "projectsRoot": {
-                "type": "string",
+              "planDayReview": {
+                "type": [
+                  "string",
+                  "null"
+                ],
                 "minLength": 1,
-                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
-              },
-              "dailyPlansRelative": {
-                "type": "string",
-                "minLength": 1,
-                "description": "Relative directory beneath the vault; runtime rejects absolute paths and empty, . or .. segments."
+                "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics.",
+                "pattern": "\\.[mM][dD]$"
               }
             }
+          },
+          "projectIndex": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ttlSeconds": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0,
+                "maximum": 9007199254740991
+              }
+            }
+          },
+          "sources": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "autoScan": {
+                "type": "boolean"
+              },
+              "directories": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "mcps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "tool"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "tool": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "params": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "workspaceRoot": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+          },
+          "vaultRoot": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+          },
+          "projectsRoot": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Absolute, ./ vault-relative, or ~/ home-relative path; runtime rejects traversal and applies host path semantics."
+          },
+          "dailyPlansRelative": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Relative directory beneath the vault; runtime rejects absolute paths and empty, . or .. segments."
           }
-        ]
+        }
       },
       "outputSchema": {
         "type": "object"
@@ -414,7 +269,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs validate-profile --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs validate-profile --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "resolve-context",
@@ -430,7 +285,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs resolve-context --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs resolve-context --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "project-index",
@@ -451,7 +306,7 @@
       "sideEffects": "derived-cache",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs project-index --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs project-index --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "template-prepare",
@@ -469,7 +324,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs template-prepare --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs template-prepare --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "template-state",
@@ -489,7 +344,7 @@
       "sideEffects": "template-preferences-and-log",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs template-state --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs template-state --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "warm-project-index",
@@ -500,20 +355,11 @@
         "required": [
           "vaultRoot"
         ],
-        "not": {
-          "required": [
-            "profilePath",
-            "configurationSources"
-          ]
-        },
         "properties": {
           "vaultRoot": {
             "type": "string"
           },
           "homeRoot": {
-            "type": "string"
-          },
-          "profilePath": {
             "type": "string"
           },
           "stateRoot": {
@@ -577,7 +423,7 @@
       "sideEffects": "derived-cache",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH | --configuration-sources JSON] [--state-root ABSOLUTE_PATH] [--dry-run]"
+      "invocation": "node bin/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--configuration-sources JSON] [--state-root ABSOLUTE_PATH] [--dry-run]"
     },
     {
       "name": "planning-prepare",
@@ -593,7 +439,7 @@
       "sideEffects": "derived-cache",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs planning-prepare --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs planning-prepare --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "planning-state",
@@ -641,7 +487,7 @@
       "sideEffects": "planning-state",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs planning-state --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs planning-state --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "invalidate-project-index",
@@ -659,7 +505,7 @@
       "sideEffects": "derived-cache",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs invalidate-project-index --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs invalidate-project-index --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "planning-review",
@@ -684,7 +530,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs planning-review --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs planning-review --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "plan-selection",
@@ -710,7 +556,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs plan-selection --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs plan-selection --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "maintenance-status",
@@ -726,7 +572,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs maintenance-status --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs maintenance-status --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "maintenance-inspect",
@@ -742,7 +588,7 @@
       "sideEffects": "inspection-state",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs maintenance-inspect --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs maintenance-inspect --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "operation-verify",
@@ -760,7 +606,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs operation-verify --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs operation-verify --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "operation-complete",
@@ -778,7 +624,7 @@
       "sideEffects": "verified-state",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs operation-complete --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs operation-complete --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "rollover-complete",
@@ -796,43 +642,7 @@
       "sideEffects": "verified-state",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs rollover-complete --input ABSOLUTE_JSON_FILE"
-    },
-    {
-      "name": "migration-retirement",
-      "path": "bin/daily-tasks.mjs",
-      "purpose": "migration retirement; see skills/daily-tasks/references/cli.md",
-      "inputSchema": {
-        "type": "object",
-        "required": [
-          "operationPath"
-        ]
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "sideEffects": "none",
-      "requiredEnvironment": [],
-      "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs migration-retirement --input ABSOLUTE_JSON_FILE"
-    },
-    {
-      "name": "migration-complete",
-      "path": "bin/daily-tasks.mjs",
-      "purpose": "migration complete; see skills/daily-tasks/references/cli.md",
-      "inputSchema": {
-        "type": "object",
-        "required": [
-          "operationPath"
-        ]
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "sideEffects": "verified-state",
-      "requiredEnvironment": [],
-      "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs migration-complete --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs rollover-complete --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "inspect-navigation",
@@ -850,7 +660,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs inspect-navigation --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs inspect-navigation --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "next-record-number",
@@ -870,7 +680,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs next-record-number --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs next-record-number --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "parse-record",
@@ -888,7 +698,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs parse-record --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs parse-record --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "parse-checklist",
@@ -906,7 +716,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs parse-checklist --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs parse-checklist --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "inspect-records",
@@ -924,7 +734,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs inspect-records --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs inspect-records --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "validate-records",
@@ -942,7 +752,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs validate-records --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs validate-records --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "check-links",
@@ -960,7 +770,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs check-links --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs check-links --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "check-closure",
@@ -979,7 +789,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs check-closure --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs check-closure --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "reconcile-record",
@@ -999,7 +809,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs reconcile-record --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs reconcile-record --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "reopen-ancestors",
@@ -1018,7 +828,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs reopen-ancestors --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs reopen-ancestors --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "recover-operation",
@@ -1037,7 +847,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs recover-operation --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs recover-operation --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "carry-forward",
@@ -1061,7 +871,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs carry-forward --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs carry-forward --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "plan-rollover",
@@ -1085,7 +895,7 @@
       "sideEffects": "none",
       "requiredEnvironment": [],
       "dryRun": false,
-      "invocation": "node bin/daily-tasks.mjs plan-rollover --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs plan-rollover --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "log-append",
@@ -1104,7 +914,7 @@
       "sideEffects": "append-log",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs log-append --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs log-append --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "log-query",
@@ -1122,7 +932,7 @@
       "sideEffects": "temporary-lock",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs log-query --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs log-query --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
       "name": "log-archive",
@@ -1140,7 +950,7 @@
       "sideEffects": "archive-log",
       "requiredEnvironment": [],
       "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs log-archive --input ABSOLUTE_JSON_FILE"
+      "invocation": "node bin/daily-tasks.mjs log-archive --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     }
   ]
 }

@@ -136,12 +136,12 @@ Deterministic carry-forward of active work from the most recent prior plan into 
 - **Unresolved records**: Unresolved or missing task identities remain visible in the plan to avoid silent data loss.
 
 ### Execution transaction
-1. Call `plan-rollover` with today, `planId`, user email, current rows, previous plan rows, records, inventory, and known `removedIds`.
-2. For an existing plan, preserve its original `id` and `created_at` frontmatter. For a missing plan, allocate a new UUIDv7 and GMT timestamps.
-3. If changes are proposed:
-   - Checkpoint the write-ahead operation (Schema Version 2) before modifying Markdown.
-   - Update the plan Markdown, append selection events via the log CLI, and finalize via `rollover-complete`.
-4. If no changes are needed:
+1. Use the pre-computed `packet.rollover` from `planning-prepare` (which includes `selected`, `own`, `delegated`, `followUp`, `unresolved`, and `taskSources`).
+2. For an existing plan, preserve its original `id` and `created_at` frontmatter. For a missing plan, use `packet.current.proposedId` and `packet.context.now` (`packet.displayNow` for display).
+3. If changes are proposed (or a missing plan is created):
+   - Checkpoint the write-ahead operation (Schema Version 2, using `packet.rollover.taskSources` for `sourceSnapshot.taskSources`) before modifying Markdown.
+   - Update the plan Markdown, append the `plan.rollover` event via `log-append`, and finalize via `rollover-complete`.
+4. If no changes are needed on an existing plan:
    - Finalize the rollover receipt via `planning-state` action `complete-rollover`.
 
 ## Future-selection transaction

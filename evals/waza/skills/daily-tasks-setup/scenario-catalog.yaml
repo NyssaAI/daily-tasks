@@ -1,0 +1,381 @@
+version: 1
+skill: daily-tasks-setup
+purpose: >
+  Human-readable acceptance catalog for setup behavior. Each scenario is one decision
+  with a stated starting state, user request, critical outcome, forbidden side effects,
+  and observable evidence. "copilot-sdk" cases require an isolated synthetic home and
+  workspace. "host" cases cannot be established by a Waza SDK run alone.
+implementation_status:
+  catalog_scenarios: 29
+  runnable_behavior_tasks:
+    - personal-only-first-setup
+  runnable_activation_cases:
+    - daily-tasks-setup-in-scope
+    - daily-tasks-setup-out-of-scope
+    - daily-tasks-setup-change-preference-in-scope
+    - daily-tasks-setup-personal-only-in-scope
+    - daily-tasks-setup-planning-request-out-of-scope
+    - daily-tasks-setup-general-timezone-out-of-scope
+  host_only:
+    - require-explicit-timezone-when-detection-fails
+    - prewarm-requires-explicit-opt-in
+  note: >
+    This file is an acceptance specification, not a Waza task file. Only the behavior
+    task and activation cases listed above are currently executable. Other catalog
+    scenarios need isolated fixtures and task-specific graders before they can count
+    as Waza results.
+scoring:
+  scenario: pass_only_if_all_critical_assertions_pass
+  critical_invariant_failure: fail_scenario
+  qualitative_response: diagnostic_only
+  unavailable: not_run_not_pass
+  aggregation: report_scenario_passes_over_attempted_scenarios; never_hide_critical_failure_in_average
+scenarios:
+  - id: personal-only-first-setup
+    execution: copilot-sdk
+    starting_state: Empty synthetic home; no workspace is in scope.
+    request: Set supplied identity, America/Chicago timezone, and empty priorities as personal preferences only.
+    must_pass:
+      - Save schema-v2 profile at the synthetic home canonical profile path.
+      - Store only supplied identity, timezone, and empty priorities.
+      - Confirm the saved settings and timezone in the response.
+    must_not:
+      - Ask where to store projects or daily plans.
+      - Create project bindings, templates, tasks, plans, workspace state, or extra home files.
+    evidence: Profile JSON, synthetic-home directory contents, invocation event, final response.
+    grader_plan: skill_invocation+program+text
+
+  - id: known-workspace-first-setup
+    execution: copilot-sdk
+    starting_state: Bound synthetic workspace with an existing project collection and no setup profile.
+    request: Set up Daily Tasks for this workspace.
+    must_pass:
+      - Reuse the bound workspace and existing project collection.
+      - Ask only for a storage location that remains genuinely unresolved.
+      - Save bindings at project scope.
+    must_not:
+      - Use the plugin or process working directory as the workspace.
+      - Create a duplicate project collection.
+    evidence: Profile JSON, directory inventory, final response.
+    grader_plan: skill_invocation+program+text
+
+  - id: unknown-workspace-ask-then-continue
+    execution: copilot-sdk-multiturn
+    starting_state: Synthetic home is known; no workspace or work-output locations are accepted.
+    request: Turn 1, configure setup for project work. Turn 2, after the agent asks, choose the supplied synthetic workspace, project path, and daily-plan path.
+    must_pass:
+      - Before the answer, ask for unresolved work-storage scope and make no project write.
+      - After the answer, use exactly the accepted paths and continue the original request.
+    must_not:
+      - Ask for internal profile, cache, or operating-state paths.
+      - Write using guessed or defaulted workspace paths before consent.
+    evidence: Turn-1 response checkpoint, final response, profile and filesystem inventory.
+    grader_plan: checkpoint+program+text
+
+  - id: personal-setup-without-workspace
+    execution: copilot-sdk
+    starting_state: Personal identity details supplied; no workspace context or profile.
+    request: Configure only personal name, email, timezone and priorities.
+    must_pass:
+      - Complete personal setup without a project or vault.
+      - Persist personal preferences and report the saved scope.
+    must_not:
+      - Require a workspace, project collection, or daily-plan directory.
+      - Create project scope or operating state.
+    evidence: Profile JSON, directory inventory, final response.
+    grader_plan: program+text
+
+  - id: project-session-selects-project-scope
+    execution: copilot-sdk
+    starting_state: Empty profile, verified synthetic home, and an established current workspace.
+    request: Set up Daily Tasks for work in the current workspace.
+    must_pass:
+      - Use project scope for new workspace bindings.
+      - Reuse the established workspace root.
+    must_not:
+      - Infer scope from plugin installation or a later command working directory.
+      - Ask a routine scope question already resolved by context.
+    evidence: User/project profile JSON and resolved paths in final response.
+    grader_plan: program+text
+
+  - id: reuse-existing-complete-profile
+    execution: copilot-sdk
+    starting_state: Valid complete profile with identity, timezone, priorities and storage bindings.
+    request: Continue setup and configure an additional setting without changing existing values.
+    must_pass:
+      - Reuse known identity and storage values.
+      - Preserve all unchanged profile bytes/values.
+    must_not:
+      - Ask again for already-known values.
+      - Reset unrelated settings to defaults.
+    evidence: Before/after profile comparison and final response.
+    grader_plan: program+text
+
+  - id: update-only-requested-preference
+    execution: copilot-sdk
+    starting_state: Valid profile containing multiple preferences and accepted project bindings.
+    request: Change exactly one named preference.
+    must_pass:
+      - Persist the requested field in the selected scope.
+      - Preserve every unrelated preference and binding.
+    must_not:
+      - Rewrite or reset unrelated configuration.
+      - Restart setup for known identity or paths.
+    evidence: Before/after semantic profile diff and response.
+    grader_plan: program+diff+text
+
+  - id: personal-update-from-project-session
+    execution: copilot-sdk
+    starting_state: Distinct user and project profiles; current session is in the project.
+    request: Explicitly update a personal preference for all projects.
+    must_pass:
+      - Write only the user profile and preserve both layers' unrelated fields.
+      - Report the user-level change.
+    must_not:
+      - Change the project profile or append a project decision-log event.
+    evidence: Both profile comparisons and log query.
+    grader_plan: program+text
+
+  - id: one-off-preference-not-persisted
+    execution: copilot-sdk
+    starting_state: Valid user and project profiles with stored timezone values.
+    request: Use a named timezone for this request only; explicitly do not save it.
+    must_pass:
+      - Apply the one-off preference to the current request.
+      - Leave both stored profiles unchanged.
+    must_not:
+      - Persist the override or claim that the profile was updated.
+    evidence: Response and exact before/after profile comparison.
+    grader_plan: program+text
+
+  - id: preference-precedence
+    execution: copilot-sdk
+    starting_state: User, project and current-request layers contain distinct values for one preference.
+    request: Make an explicit current-request choice and ask which value applies.
+    must_pass:
+      - Report current-request value over project value over user value.
+      - Preserve stored layers when the choice is one-off.
+    must_not:
+      - Report a lower-precedence value or silently persist the override.
+    evidence: Response and profile comparisons.
+    grader_plan: program+text
+
+  - id: default-timezone-and-priorities
+    execution: copilot-sdk
+    starting_state: New setup with supplied identity but no timezone or priorities.
+    request: Complete setup without specifying a timezone or priorities.
+    must_pass:
+      - Store timezone "system" and empty priorities without routine questions.
+      - Report the actual runtime-resolved timezone.
+    must_not:
+      - Store UTC as a silent fallback or invent priorities.
+    evidence: Profile JSON and response compared with the eval runtime timezone.
+    grader_plan: program+text
+
+  - id: preserve-explicit-iana-timezone
+    execution: copilot-sdk
+    starting_state: New personal setup, timezone explicitly given as America/Chicago.
+    request: Complete personal setup with the supplied IANA timezone.
+    must_pass:
+      - Store and report America/Chicago exactly.
+    must_not:
+      - Replace it with system, UTC, or a guessed local timezone.
+    evidence: Profile JSON and final response.
+    grader_plan: program+text
+
+  - id: isolate-two-workspaces
+    execution: copilot-sdk
+    starting_state: Shared user profile plus two workspaces; only workspace A has bindings and operating state.
+    request: Set up or use workspace B.
+    must_pass:
+      - Reuse user preferences while binding workspace B independently.
+      - Keep projects, daily plans, state and decisions isolated by workspace.
+    must_not:
+      - Reuse workspace A roots/state or operate on A's numbered/session state.
+    evidence: Both project profiles, both state trees and response.
+    grader_plan: program+text
+
+  - id: preserve-accepted-custom-profile-pointers
+    execution: copilot-sdk-multiturn
+    starting_state: Explicit user and project profile paths are accepted; a conventional profile appears after session binding.
+    request: Resolve settings, continue a setup change, and resume after a follow-up.
+    must_pass:
+      - Preserve the exact configurationSources descriptor and use the accepted pointers throughout.
+    must_not:
+      - Switch to a newly appearing conventional profile or mix legacy selectors with layered sources.
+    evidence: Tool/CLI arguments, profile diffs and final response.
+    grader_plan: program+tool_calls+text
+
+  - id: reuse-legacy-profile-without-migration
+    execution: copilot-sdk
+    starting_state: An accepted legacy profile pointer exists and no layered descriptor was accepted.
+    request: Update one preference using the existing configuration.
+    must_pass:
+      - Read and update the selected legacy profile in place.
+      - Preserve unrelated legacy values.
+    must_not:
+      - Migrate, duplicate or combine it with a layered profile.
+    evidence: Legacy profile diff and absence of a new profile.
+    grader_plan: program+text
+
+  - id: preserve-shared-home-workspace-profile
+    execution: copilot-sdk
+    starting_state: User and project scopes intentionally alias one schema-v2 profile file.
+    request: Update one preference in the requested scope.
+    must_pass:
+      - Recognize the shared destination and preserve fields from both logical scopes.
+      - Change only the requested leaves.
+    must_not:
+      - Truncate the shared document or erase project bindings/personal preferences.
+    evidence: Before/after profile comparison and response.
+    grader_plan: program+diff
+
+  - id: malformed-profile-fails-explicitly
+    execution: copilot-sdk
+    starting_state: Selected profile contains malformed JSON.
+    request: Update a preference.
+    must_pass:
+      - Explain that the selected profile cannot be parsed and request resolution.
+      - Leave the malformed file and all alternate profile paths unchanged.
+    must_not:
+      - Fall back, overwrite, or claim successful setup.
+    evidence: Exact profile bytes, alternate-path inventory and response.
+    grader_plan: program+text
+
+  - id: reject-invalid-timezone
+    execution: copilot-sdk-multiturn
+    starting_state: Setup requires a timezone; user first supplies an invalid zone, then a valid IANA zone.
+    request: Attempt setup with invalid timezone, then correct it in a follow-up.
+    must_pass:
+      - Reject the invalid timezone without writing a success profile.
+      - Save the corrected valid timezone only after correction.
+    must_not:
+      - Silently substitute UTC or another timezone.
+    evidence: First-turn checkpoint, final profile and final response.
+    grader_plan: checkpoint+program+text
+
+  - id: reject-unsafe-storage-path
+    execution: copilot-sdk
+    starting_state: Workspace context is known; requested project path contains traversal outside its accepted root.
+    request: Configure the unsafe path.
+    must_pass:
+      - Explain/reject the unsafe path and ask for a safe correction.
+      - Leave outside-root directories untouched.
+    must_not:
+      - Normalize traversal silently or write outside the selected root.
+    evidence: Filesystem diff, tool calls and response.
+    grader_plan: program+tool_calls+text
+
+  - id: preserve-conflicting-profile-values
+    execution: copilot-sdk
+    starting_state: Applicable user/project profiles conflict on a preference without an explicit winning choice.
+    request: Set up using these profiles.
+    must_pass:
+      - Surface the conflict and ask the user to choose.
+      - Preserve both profile values until resolution.
+    must_not:
+      - Silently choose, merge destructively, or report success.
+    evidence: Profile byte comparison and response.
+    grader_plan: program+text
+
+  - id: require-explicit-timezone-when-detection-fails
+    execution: host
+    starting_state: Host timezone detection is forced to fail in a controlled test host.
+    request: Set up preferences without specifying an IANA timezone.
+    must_pass:
+      - Ask for an explicit IANA timezone before saving.
+    must_not:
+      - Fall back silently to UTC or claim a resolved timezone.
+    evidence: Host-controlled timezone failure, response and saved profile.
+    grader_plan: native-host-required
+
+  - id: place-missing-workspace-templates
+    execution: copilot-sdk
+    starting_state: Project setup is accepted; workspace template destinations are absent.
+    request: Complete workspace setup.
+    must_pass:
+      - Place/register required active templates and record initial baselines.
+      - Link the template directory/files in the response.
+    must_not:
+      - Put templates under operating state or silently reformat existing records.
+    evidence: Template files, registration/profile data and baseline state.
+    grader_plan: program+file+text
+
+  - id: preserve-custom-template-destination
+    execution: copilot-sdk
+    starting_state: Accepted template pointer targets an existing customized file.
+    request: Complete setup without changing that template.
+    must_pass:
+      - Preserve pointer and exact destination bytes.
+      - Place unrelated missing templates only where authorized.
+    must_not:
+      - Overwrite customized content or reformat existing records.
+    evidence: Exact template hash, profile diff and filesystem inventory.
+    grader_plan: program+diff
+
+  - id: personal-only-does-not-place-workspace-templates
+    execution: copilot-sdk
+    starting_state: Personal-only first setup with no workspace.
+    request: Configure personal preferences only.
+    must_pass:
+      - Save only the personal profile.
+    must_not:
+      - Create workspace templates, project files or template state.
+    evidence: Synthetic-home inventory.
+    grader_plan: program
+
+  - id: setup-does-not-create-work
+    execution: copilot-sdk
+    starting_state: Empty synthetic home/workspace.
+    request: Configure settings only.
+    must_pass:
+      - Save only the authorized setup configuration and required template assets/state.
+    must_not:
+      - Create projects, milestones, tasks, daily plans, change owners or migrate schemas.
+    evidence: Complete workspace diff and response.
+    grader_plan: program+diff
+
+  - id: keep-configuration-state-and-output-roots-separate
+    execution: copilot-sdk
+    starting_state: Distinct synthetic config, state, projects and daily-plan roots.
+    request: Configure workspace storage and continue the authorized setup workflow.
+    must_pass:
+      - Keep profile/templates, operating state, project records and daily plans in their accepted roots.
+    must_not:
+      - Write work outputs under configuration or operating-state directories.
+    evidence: Full tree inventory and resolved paths.
+    grader_plan: program+file
+
+  - id: project-preference-change-is-logged
+    execution: copilot-sdk
+    starting_state: Valid project profile and synthetic decision log.
+    request: Change one project-scoped preference.
+    must_pass:
+      - Persist the preference and append the documented project setup event with empty record_ids.
+    must_not:
+      - Claim success when profile write or log append failed; add unrelated record IDs.
+    evidence: Profile diff and CLI log query.
+    grader_plan: program+tool_calls
+
+  - id: personal-update-does-not-create-project-log
+    execution: copilot-sdk
+    starting_state: Project session with valid user profile and empty project decision log.
+    request: Explicitly update a personal preference.
+    must_pass:
+      - Update the user profile and preserve project settings.
+    must_not:
+      - Append a project decision-log entry or replay the personal change later.
+    evidence: User/project profile diffs and log query.
+    grader_plan: program+tool_calls
+
+  - id: prewarm-requires-explicit-opt-in
+    execution: host
+    starting_state: OpenClaw host and daily-tasks-openclaw adapter available; no prewarm declaration exists.
+    request: Perform ordinary project setup without mentioning automation.
+    must_pass:
+      - Complete ordinary setup without registering prewarm.
+      - In a separate explicit-opt-in run, dry-run and verify the accepted declaration.
+    must_not:
+      - Treat setup as consent or register automation automatically.
+    evidence: OpenClaw declaration inventory, command payload and user choice.
+    grader_plan: native-host-required

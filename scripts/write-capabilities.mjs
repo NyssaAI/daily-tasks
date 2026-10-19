@@ -8,14 +8,14 @@ const sourceSelection = {type:'object',required:['profilePath'],additionalProper
 }};
 
 const definitions = {
-  'new-id':[], 'activity-time':[], 'local-day':['timezone'], 'format-time':['time','timezone'],
+  'health-check':[], 'new-id':[], 'activity-time':[], 'local-day':['timezone'], 'format-time':['time','timezone'],
   'validate-profile':[],
   'resolve-context':[], 'project-index':['vaultRoot','projectsRoot','dailyPlansRoot','timezone'],
   'planning-prepare':[], 'planning-state':['action','expectedPlanHash','expectedPreviousHash','expectedStateHash','expectedInventoryHash'],
   'invalidate-project-index':['vaultRoot'], 'planning-review':['inventory','userEmail','timezone','contextBinding','inventoryBinding'],
   'plan-selection':['inventory','taskIds','action','today','dailyPlansRoot','contextBinding','inventoryBinding'], 'maintenance-status':[],
   'maintenance-inspect':[], 'operation-verify':['operationPath'], 'operation-complete':['operationPath'],
-  'rollover-complete':['operationPath'], 'migration-retirement':['operationPath'], 'migration-complete':['operationPath'],
+  'rollover-complete':['operationPath'],
   'inspect-navigation':['projectsRoot'], 'next-record-number':['projectsRoot','type','parentId'],
   'parse-record':['markdown'], 'parse-checklist':['markdown'], 'inspect-records':['projectsRoot'],
   'validate-records':['records'], 'check-links':['records'], 'check-closure':['recordId','records'],
@@ -32,9 +32,9 @@ const operations = Object.entries(definitions).map(([name,required]) => ({name,p
       then:{required:['expectedReviewHash','reviewMarkdown'],properties:{reviewMarkdown:{type:'string',minLength:1}}},
     }]} : {}),
   },outputSchema:{type:'object'},
-  sideEffects:name === 'log-append' ? 'append-log' : name === 'log-archive' ? 'archive-log' : name === 'log-query' ? 'temporary-lock' : name === 'planning-state' ? 'planning-state' : name === 'maintenance-inspect' ? 'inspection-state' : ['operation-complete','rollover-complete','migration-complete'].includes(name) ? 'verified-state' : ['project-index','invalidate-project-index','planning-prepare'].includes(name) ? 'derived-cache' : 'none',
-  requiredEnvironment:[],dryRun:['log-append','log-archive','log-query','project-index','invalidate-project-index','planning-prepare','planning-state','maintenance-inspect','operation-complete','rollover-complete','migration-complete'].includes(name),
-  invocation:`node bin/daily-tasks.mjs ${name}${name === 'new-id' ? '' : ' --input ABSOLUTE_JSON_FILE'}` }));
+  sideEffects:name === 'log-append' ? 'append-log' : name === 'log-archive' ? 'archive-log' : name === 'log-query' ? 'temporary-lock' : name === 'planning-state' ? 'planning-state' : name === 'maintenance-inspect' ? 'inspection-state' : ['operation-complete','rollover-complete'].includes(name) ? 'verified-state' : ['project-index','invalidate-project-index','planning-prepare'].includes(name) ? 'derived-cache' : 'none',
+  requiredEnvironment:[],dryRun:['log-append','log-archive','log-query','project-index','invalidate-project-index','planning-prepare','planning-state','maintenance-inspect','operation-complete','rollover-complete'].includes(name),
+  invocation:`node bin/daily-tasks.mjs ${name}${name === 'new-id' ? '' : ' --input ABSOLUTE_JSON_FILE'} [--output ABSOLUTE_JSON_FILE]` }));
 operations.splice(operations.findIndex(operation => operation.name === 'project-index') + 1,0,
   {
     name:'template-prepare',
@@ -45,7 +45,7 @@ operations.splice(operations.findIndex(operation => operation.name === 'project-
     sideEffects:'none',
     requiredEnvironment:[],
     dryRun:false,
-    invocation:'node bin/daily-tasks.mjs template-prepare --input ABSOLUTE_JSON_FILE',
+    invocation:'node bin/daily-tasks.mjs template-prepare --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]',
   },
   {
     name:'template-state',
@@ -56,14 +56,14 @@ operations.splice(operations.findIndex(operation => operation.name === 'project-
     sideEffects:'template-preferences-and-log',
     requiredEnvironment:[],
     dryRun:true,
-    invocation:'node bin/daily-tasks.mjs template-state --input ABSOLUTE_JSON_FILE',
+    invocation:'node bin/daily-tasks.mjs template-state --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]',
   },
   {
     name:'warm-project-index',
     path:'bin/warm-project-index.mjs',
     purpose:'Resolve configured context and invoke stale-on-demand project-index prewarming',
-    inputSchema:{type:'object',required:['vaultRoot'],not:{required:['profilePath','configurationSources']},properties:{
-      vaultRoot:{type:'string'},homeRoot:{type:'string'},profilePath:{type:'string'},stateRoot:{type:'string'},dryRun:{type:'boolean'},
+    inputSchema:{type:'object',required:['vaultRoot'],properties:{
+      vaultRoot:{type:'string'},homeRoot:{type:'string'},stateRoot:{type:'string'},dryRun:{type:'boolean'},
       configurationSources:{type:'object',required:['schemaVersion','user','project'],additionalProperties:false,
         description:'Durable source selections serialized as one JSON argv value; paths and bound scopes are validated by the resolver.',
         properties:{schemaVersion:{const:1},user:sourceSelection,project:sourceSelection}},
@@ -72,7 +72,7 @@ operations.splice(operations.findIndex(operation => operation.name === 'project-
     sideEffects:'derived-cache',
     requiredEnvironment:[],
     dryRun:true,
-    invocation:'node bin/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--profile-path ABSOLUTE_PATH | --configuration-sources JSON] [--state-root ABSOLUTE_PATH] [--dry-run]',
+    invocation:'node bin/warm-project-index.mjs --vault-root ABSOLUTE_PATH [--home-root ABSOLUTE_PATH] [--configuration-sources JSON] [--state-root ABSOLUTE_PATH] [--dry-run]',
   },
 );
 await writeFile(path.join(root,'capabilities.json'),JSON.stringify({schemaVersion:1,operations},null,2)+'\n');

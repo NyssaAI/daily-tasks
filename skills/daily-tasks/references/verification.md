@@ -1,7 +1,7 @@
 # Verified operation completion
 
 > [!IMPORTANT]
-> **Scope Directive**: This document defines the verification contracts, Schema Version 2 checkpoint structures, baseline assertions, and state completion requirements evaluated by `operation-verify`, `operation-complete`, `rollover-complete`, and `migration-complete`. It is strictly a verification and completion engine specification. Low-level CLI commands and signatures belong in [`cli.md`](cli.md), overall write-ahead operational workflows in [`operations.md`](operations.md), record schemas in [`records.md`](records.md), and planning/rollover domain rules in [`planning-flow.md`](planning-flow.md).
+> **Scope Directive**: This document defines the verification contracts, Schema Version 2 checkpoint structures, baseline assertions, and state completion requirements evaluated by `operation-verify`, `operation-complete`, and `rollover-complete`. It is strictly a verification and completion engine specification. Low-level CLI commands and signatures belong in [`cli.md`](cli.md), overall write-ahead operational workflows in [`operations.md`](operations.md), record schemas in [`records.md`](records.md), and planning/rollover domain rules in [`planning-flow.md`](planning-flow.md).
 
 The agent authors Markdown files and records checkpoints; the CLI deterministically verifies actual disk contents, checks log events via the log API, writes updated baselines, and clears checkpoints. Caller assertions of "verified" or "complete" are never accepted as proof.
 
@@ -9,7 +9,7 @@ The agent authors Markdown files and records checkpoints; the CLI deterministica
 
 Checkpoints reside at `stateRoot/operations/<operation-id>.json`. Every Schema Version 2 checkpoint requires:
 - `operation_id`: UUIDv7 identifying the operation.
-- `schemaVersion`: Literal integer `2`. Legacy `changes` arrays are rejected.
+- `schemaVersion`: Literal integer `2`.
 - `contextBinding`: Opaque normalized workspace root hash matching `resolve-context`.
 - `event`: Exact log entry object to be recorded via `log-append`.
 - `files`: Declared file effects `[{path: absolutePath, before: SHA256|null, after: SHA256|null}]`.
@@ -47,13 +47,6 @@ Used for carrying forward unfinished work into today's plan via `rollover-comple
 - **Validation**:
   - The CLI independently recomputes carry-forward facts from canonical records and verifies against the nearest preceding daily plan.
   - On success, finalizes the dated receipt (`stateRoot/rollover/YYYY.MM.DD.json`) with `operationId` and GMT `completedAt`, saves the updated baseline, and deletes the checkpoint.
-
-### 3. Record migration and retirement (`migration`)
-Used when migrating legacy structures (e.g. standalone DoD to embedded DoD) via `migration-complete`:
-- **Pre-removal gate**: Execute `migration-retirement` before deleting source files; `allowed: false` blocks removal.
-- **Payload extension**: Includes `migration` object:
-  `{retiringPath, destinationPath, sourceHash, expectedCriteria, preservedFields, sourceSnapshot}`
-- **Completion**: `migration-complete` verifies target preservation, proven file absence, zero remaining incoming references, and baseline accuracy before removing the retired entity.
 
 ## Failure and recovery rules
 

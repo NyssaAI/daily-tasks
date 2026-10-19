@@ -22,11 +22,17 @@ function callFrom(cwd, entry, operation, inputPath, ...flags) {
   return {status:result.status,output:result.stdout.trim() ? JSON.parse(result.stdout) : null,error:result.stderr.trim() ? JSON.parse(result.stderr) : null};
 }
 const call = (entry,operation,inputPath,...flags) => callFrom(root,entry,operation,inputPath,...flags);
-test('CLI accepts Windows UTF-8 BOM input and reports the package version', async () => {
-  const directory = await workspace(), input = path.join(directory,'input.json');
-  await writeFile(input,'\uFEFF' + JSON.stringify({time,timezone:'America/Chicago'}));
+test('CLI accepts Windows UTF-8/UTF-16LE BOM input, supports --output and reports the package version', async () => {
+  const directory = await workspace(), input = path.join(directory,'input.json'), utf16 = path.join(directory,'utf16.json'), output = path.join(directory,'output.json');
+  const payload = JSON.stringify({time,timezone:'America/Chicago'});
+  await writeFile(input,'\uFEFF' + payload);
+  await writeFile(utf16,Buffer.concat([Buffer.from([0xFF,0xFE]),Buffer.from(payload,'utf16le')]));
   const entry = path.join(root,'src/cli/daily-tasks.mjs');
   assert.equal(call(entry,'local-day',input).status,0);
+  const written = call(entry,'local-day',utf16,'--output',output);
+  assert.equal(written.status,0);
+  assert.equal(written.output.day,'2026.10.05');
+  assert.equal(JSON.parse(await readFile(output,'utf8')).day,'2026.10.05');
   assert.equal(call(entry,'--help').output.version,JSON.parse(await readFile(path.join(root,'package.json'),'utf8')).version);
 });
 test('assembled packages and source hashes are identical for LF and CRLF source files', async () => {
@@ -85,7 +91,7 @@ test('inspection discovers uppercase Markdown and suggests a descriptive lowerca
 });
 test('profile validates explicit identity timezone and safe independently chosen roots', async () => {
   const directory = await workspace();
-  const profile = {schema_version:1,user:{name:'Example',email:owner},timezone:'America/Chicago',priorities:[],vaultRoot:directory,projectsRoot:directory,dailyPlansRelative:'2-areas/daily-plans'};
+  const profile = {schema_version:2,user:{name:'Example',email:owner},timezone:'America/Chicago',priorities:[],vaultRoot:directory,projectsRoot:directory,dailyPlansRelative:'2-areas/daily-plans'};
   assert.equal(validateProfile(profile).valid,true);
   const systemProfile = validateProfile({...profile,timezone:'system'});
   assert.equal(systemProfile.valid,true);
@@ -100,7 +106,7 @@ test('profile validates explicit identity timezone and safe independently chosen
   for (const templates of [null, [], 'example.md', {dailyPlan:'relative.md'}, {projectIndex:42}, {unknown:path.join(directory,'example.md')}]) {
     assert.equal(validateProfile({...profile,templates}).valid,false);
   }
-  for (const change of [{timezone:'not-a-zone'},{projectsRoot:'relative'},{dailyPlansRelative:'../outside'},{user:{name:'Example'}}]) assert.equal(validateProfile({...profile,...change}).valid,false);
+  for (const change of [{timezone:'not-a-zone'},{projectsRoot:'relative'},{dailyPlansRelative:'../outside'},{user:{name:''}}]) assert.equal(validateProfile({...profile,...change}).valid,false);
 });
 test('published templates become valid related records and gate milestone closure', async () => {
   const directory = await workspace();
@@ -199,7 +205,7 @@ test('packaged planning CLI resolves portable scope independently of cwd and reu
   await writeFile(path.join(project,'project-index.md'),doc(projectId,'project','Example','',`| Milestone | Task |\n| --- | --- |\n| [ ] [[first/milestone\\|First]] <!-- ref: ${milestoneId} --> | [ ] [[first/task\\|Task]] <!-- ref: ${taskId} --> |`));
   await writeFile(path.join(project,'first/milestone.md'),doc(milestoneId,'milestone','First',`project_id: ${projectId}\n`));
   await writeFile(path.join(project,'first/task.md'),doc(taskId,'task','Task',`project_id: ${projectId}\nmilestone_id: ${milestoneId}\n`));
-  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:1,user:{name:'Example',email:owner},timezone:'system',priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',projectIndex:{ttlSeconds:14400}}));
+  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:2,user:{name:'Example',email:owner},timezone:'system',priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',projectIndex:{ttlSeconds:14400}}));
   const inputPath = path.join(unrelated,'input.json');
   for (const relative of ['artifacts/portable/bin/daily-tasks.mjs','artifacts/cowork/scripts/daily-tasks.mjs']) {
     const entry = path.join(root,relative);

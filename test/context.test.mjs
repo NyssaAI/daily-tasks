@@ -10,7 +10,7 @@ import { uuid7 } from '#core/identity/identity.mjs';
 import { verifiedMaintenanceStatus, inspectMaintenance } from '#core/planning/maintenance.mjs';
 import { verifyOperation } from '#core/operations/verification.mjs';
 
-const profile = {schema_version:1,user:{name:'Example',email:'owner@example.test'},timezone:'system',priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',templates:{task:'~/templates/task.md'},projectIndex:{ttlSeconds:14400}};
+const profile = {schema_version:2,user:{name:'Example',email:'owner@example.test'},timezone:'system',priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',templates:{task:'~/templates/task.md'},projectIndex:{ttlSeconds:14400}};
 test('shared v2 sources project preferences without leaking bindings on reentry', async () => {
   await mkdir('.temp',{recursive:true});
   const homeRoot = await realpath(await mkdtemp(path.resolve('.temp/shared-profile-')));
@@ -63,7 +63,6 @@ test('partial scoped preferences round-trip explicit sources and bundled resets 
   assert.deepEqual(overridden.profile.priorities,['only this request']);
   assert.equal(overridden.preferenceSources.timezone,'current-task');
   assert.deepEqual((await resolveContext({vaultRoot,homeRoot})).profile.priorities,[]);
-  await assert.rejects(resolveContext({vaultRoot,homeRoot,configurationSources:context.configurationSources,profilePath:userPath}),/exclusive|simultaneous/);
   const personal = await resolveContext({homeRoot});
   assert.equal(personal.configured,true);
   assert.equal(personal.vaultRoot,undefined);
@@ -139,13 +138,13 @@ test('existing scalar profiles cannot fall through, and malformed profiles fail 
   await writeFile(canonical,JSON.stringify(profile));
   const context = await resolveContext({vaultRoot,homeRoot});
   assert.equal(context.configured,true);
-  assert.equal(context.profilePath,canonical);
+  assert.equal(context.configurationSources.project.profilePath,canonical);
 });
 
-test('schema-2 null markers are leaf-only, user bindings are rejected, and schema-1 validation remains strict', () => {
+test('schema-2 null markers are leaf-only, user bindings are rejected, and schema-1 is rejected', () => {
   for (const layer of [{user:null},{user:{name:null}},{templates:null},{projectIndex:null},{vaultRoot:null},{projectsRoot:null},{dailyPlansRelative:null},{templates:{unknown:null}}]) assert.equal(validateProfile({schema_version:2,...layer}).valid,false,JSON.stringify(layer));
   assert.equal(validateProfile({schema_version:2,timezone:null,priorities:null,templates:{task:null},projectIndex:{ttlSeconds:null}}).valid,true);
-  assert.equal(validateProfile({...profile,templates:{task:null}}).valid,false);
+  assert.equal(validateProfile({...profile,schema_version:1}).valid,false);
   // sources validation in schema 2
   assert.equal(validateProfile({schema_version:2,sources:{autoScan:true,directories:['inbox','notes/meeting'],mcps:[{name:'email',tool:'search'}]}}).valid,true);
   assert.equal(validateProfile({schema_version:2,sources:{autoScan:false}}).valid,true);
@@ -250,9 +249,10 @@ test('one home profile shares preferences while two vaults retain independent pl
   for (const name of ['personal','work']) {
     const vaultRoot = path.join(root,name);
     await mkdir(path.join(vaultRoot,'.nyssa-ai/daily-tasks'),{recursive:true});
+    await writeFile(path.join(vaultRoot,'.nyssa-ai/daily-tasks/profile.json'),JSON.stringify({schema_version:2,projectsRoot:'./projects',dailyPlansRelative:'plans'}));
     contexts.push(await resolveContext({vaultRoot,homeRoot}));
   }
-  assert.equal(contexts[0].configRoot,contexts[1].configRoot);
+  assert.equal(contexts[0].configurationSources.user.profilePath,contexts[1].configurationSources.user.profilePath);
   assert.notEqual(contexts[0].stateRoot,contexts[1].stateRoot);
   assert.notEqual(contexts[0].dailyPlansRoot,contexts[1].dailyPlansRoot);
   assert.notEqual(contexts[0].projectsRoot,contexts[1].projectsRoot);
@@ -261,7 +261,7 @@ test('one home profile shares preferences while two vaults retain independent pl
   assert.doesNotThrow(() => assertPlanningScope(first));
   assert.throws(() => assertPlanningScope({...first,dailyPlansRoot:contexts[1].dailyPlansRoot}),/roots differ/);
   assert.throws(() => planningBinding({...first,vaultRoot:[contexts[0].vaultRoot,contexts[1].vaultRoot]}),/one absolute root/);
-  const wrongProfile = path.join(contexts[0].vaultRoot,'profile.json');
+  const wrongProfile = path.join(contexts[0].vaultRoot,'.nyssa-ai/daily-tasks/profile.json');
   await writeFile(wrongProfile,JSON.stringify({...profile,vaultRoot:contexts[0].vaultRoot}));
-  await assert.rejects(resolveContext({vaultRoot:contexts[1].vaultRoot,homeRoot,profilePath:wrongProfile}),/vaultRoot conflicts/);
+  await assert.rejects(resolveContext({vaultRoot:contexts[1].vaultRoot,homeRoot,configurationSources:{schemaVersion:1,user:{profilePath:null},project:{profilePath:wrongProfile}}}),/bound scope/);
 });

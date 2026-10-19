@@ -1,0 +1,20 @@
+name: daily-tasks-setup-personal-only
+description: Verify first-use personal setup saves only the requested preferences in an isolated home.
+skill: daily-tasks-setup
+schemaVersion: "1.4"
+version: "1.0"
+config:
+  trials_per_task: 1
+  timeout_seconds: 300
+  parallel: false
+  executor: copilot-sdk
+  model: claude-sonnet-4.6
+  skill_directories:
+    - skills
+metrics:
+  - name: task_completion
+    weight: 1.0
+    threshold: 1.0
+    description: All personal-only setup assertions pass with no workspace configuration or artifacts.
+tasks:
+  - "tasks/behavior/personal-only.yaml"

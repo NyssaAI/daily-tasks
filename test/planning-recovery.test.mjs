@@ -149,18 +149,17 @@ test('current and rollover-source plans block saves while a disjoint future plan
   }
 });
 
-test('unknown, malformed and unsafe checkpoints fail closed; legacy completion receipts are ignored',async () => {
-  for (const kind of ['malformed','unsafe','unknown','foreign','completed']) {
+test('unknown, malformed and unsafe checkpoints fail closed',async () => {
+  for (const kind of ['malformed','unsafe','unknown','foreign']) {
     const f = await fixture(), pending = await f.checkpoint(f.records.beta.task);
     if (kind === 'malformed') await writeFile(pending.operationPath,'{');
     else {
       if (kind === 'unsafe') pending.operation.files[0].path = path.join(f.state,'review/2026.10.13.json');
       if (kind === 'unknown') pending.operation.ownedState = {path:'unknown'};
       if (kind === 'foreign') pending.operation.contextBinding = 'other-vault';
-      if (kind === 'completed') pending.operation.status = 'completed';
       await writeFile(pending.operationPath,JSON.stringify(pending.operation));
     }
-    assert.equal((await preparePlanning(f.input)).status,kind === 'completed' ? 'prepared' : 'recovery-required',kind);
+    assert.equal((await preparePlanning(f.input)).status,'recovery-required',kind);
   }
 });
 

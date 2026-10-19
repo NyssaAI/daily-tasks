@@ -45,6 +45,27 @@ These are heuristic activation checks only. A pass does not show that an agent
 followed the workflow, persisted records, or activated a skill in a native host.
 Use the separate Tessl content and native-host procedures below for those claims.
 
+The setup activation suite also has positive cases for personal-only setup and
+preference changes, plus negative cases for general timezone questions and daily-plan
+selection. The
+[setup acceptance catalog](waza/skills/daily-tasks-setup/scenario-catalog.yaml)
+specifies 29 behavior scenarios. It is a specification, not a runnable Waza suite:
+only personal-only first setup currently has a behavior task; the catalog tracks this
+implementation status and identifies host-only checks separately.
+
+The setup suite also has a separate real-agent personal-only scenario. It needs an
+authenticated Copilot SDK executor and directs setup to a synthetic home fixture
+rather than the machine's actual user configuration:
+
+```text
+waza run evals/waza/skills/daily-tasks-setup/behavior.yaml --context-dir evals/waza/skills/daily-tasks-setup/fixtures/personal-only --session-log
+```
+
+The scenario checks the invoked skill, saved profile, forbidden workspace artifacts,
+and response timezone. Copilot SDK runs execute an agent and are not a security
+sandbox; run only with workspace/tool permissions suitable for an isolated test. It
+is not host-discovery evidence.
+
 ## Native skill scenarios
 
 ### Template update adoption

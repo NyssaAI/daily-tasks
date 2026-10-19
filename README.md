@@ -31,15 +31,14 @@ deterministic prewarm command job; no hook, background agent or MCP server is re
 
 ## Storage and authority
 
-- Preferences: partial version-2 layers at `<vault root>/.nyssa-ai/daily-tasks/profile.json`
+- Preferences: version-2 layers at `<vault root>/.nyssa-ai/daily-tasks/profile.json`
   and `~/.nyssa-ai/daily-tasks/profile.json`. Project leaves override user defaults;
   omission inherits and documented null leaves select packaged defaults. Reuse accepted
-  explicit pointers and legacy `.nyssaai`/`.nyssa` profiles without automatic migration.
+  explicit pointers.
   Portable `.` and `./...` paths resolve against the explicitly
   captured vault binding; `~/...` resolves against the current host's home directory.
 - Operating state: `<vault root>/.nyssa-ai/daily-tasks/`, independent of shared
-  preferences. Content-based discovery preserves existing completed and pending legacy
-  state; divergent stores require reconciliation. Reuse a verified established binding.
+  preferences. Divergent stores require reconciliation. Reuse a verified established binding.
   Preserve configurationSources and vault/home/state roots through continuation.
 - Personal setup needs no vault or decision-log entry. Project bindings and outputs
   remain vault-specific; project preference updates retain their existing decision log.
@@ -55,10 +54,8 @@ deterministic prewarm command job; no hook, background agent or MCP server is re
   Each milestone and task owns its own Definition of Done; tasks also own requirements.
   Flat milestone `inputs/` and `outputs/` hold files linked by tasks. Navigation follows
   project -> milestone -> task -> files. Project-wide blockers stay in `blockers/`.
-  All local work stays in the project, including `.temp/` scratch. Existing records
-  remain readable; [migration](skills/daily-tasks/references/workspace-migration.md)
-  converts them on request while preserving identity and history.
-- UUIDv7 document IDs use frontmatter `id`; legacy hidden IDs remain readable.
+  All local work stays in the project, including `.temp/` scratch.
+- UUIDv7 document IDs use frontmatter `id`.
   DoD criterion IDs and projection `ref` IDs use hidden comments. Wiki links use readable labels.
 - Store GMT, present configured local time with timezone. Human email owner; optional
   person/agent assignee, falling back to owner. Target dates are optional and explicit.

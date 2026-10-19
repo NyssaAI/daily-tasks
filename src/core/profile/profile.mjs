@@ -13,9 +13,8 @@ export function expandStoredPath(value, workspaceRoot, homeRoot) {
   return path.isAbsolute(value) ? path.normalize(value) : path.resolve(workspaceRoot,value);
 }
 
-export function validateProfile(profile) {
-  if (profile?.schema_version === 2) return validatePreferenceLayer(profile);
-  return validateEffectiveProfile(profile);
+export function validateProfile(profile, scope) {
+  return validatePreferenceLayer(profile, scope);
 }
 
 export function validatePreferenceLayer(profile, scope) {
@@ -73,7 +72,7 @@ export function validatePreferenceLayer(profile, scope) {
 
 export function validateEffectiveProfile(profile) {
   const errors = [];
-  if (profile?.schema_version !== 1) errors.push('schema_version must be 1');
+  if (profile?.schema_version !== 2) errors.push('schema_version must be 2');
   if (!profile?.user?.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profile?.user?.email || '')) errors.push('user name and email required');
   let resolvedTimezone;
   try { resolvedTimezone = resolveTimezone(profile?.timezone); }

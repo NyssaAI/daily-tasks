@@ -47,13 +47,12 @@ test('context navigation and unidentified legacy projects cannot erase unrelated
 test('maintained preparation binds actual plan identity and state writes reject stale or task-shaped inputs', async () => {
   const input = await fixture();
   await mkdir(path.join(input.vaultRoot,'.nyssa-ai/daily-tasks'),{recursive:true});
-  await writeFile(path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/profile.json'),'\uFEFF'+JSON.stringify({schema_version:1,
+  await writeFile(path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/profile.json'),'\uFEFF'+JSON.stringify({schema_version:2,
     user:{name:'Owner',email:owner},timezone:input.timezone,priorities:[],vaultRoot:'./',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
   const plan = path.join(input.dailyPlansRoot,'2026.10.06-daily-plan.md');
   await writeFile(plan,`---\nid: ${id(21)}\ntype: daily-plan\n---\n- [ ] [[../../1-projects/2026.01.01-alpha/first/a|A]] <!-- ref: ${id(3)} -->\n`);
   const operations = path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/operations');
   await mkdir(operations);
-  await writeFile(path.join(operations,`${id(30)}.json`),JSON.stringify({operation_id:id(30),status:'completed',files:[]}));
   const prepared = await preparePlanning(input);
   assert.equal(prepared.status,'prepared');
   assert.deepEqual(prepared.pendingOperations,[]);
@@ -62,12 +61,13 @@ test('maintained preparation binds actual plan identity and state writes reject 
   assert.equal(interrupted.status,'recovery-required');
   assert.deepEqual(interrupted.pendingOperations,[`${id(31)}.json`]);
   await unlink(path.join(operations,`${id(31)}.json`));
-  await writeFile(path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/planning-review.json'),JSON.stringify({date:prepared.context.localDate,
+  await mkdir(path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/review'),{recursive:true});
+  await writeFile(path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/review',`${prepared.context.localDate}.json`),JSON.stringify({schemaVersion:1,date:prepared.context.localDate,planId:id(21),
     mappingBinding:prepared.context.planningBinding,mapping:{[id(3)]:7}}));
-  const legacy = await preparePlanning(input);
-  assert.equal(legacy.review.selected[0].number,7);
-  const savedReview = await savePlanningState({...input,action:'save-review',reviewMarkdown:planningScreen(legacy),expectedPlanHash:legacy.current.sha256,
-    expectedPreviousHash:null,expectedStateHash:legacy.state.review.sha256,expectedInventoryHash:legacy.inventoryHash,expectedReviewHash:legacy.reviewHash});
+  const existingReview = await preparePlanning(input);
+  assert.equal(existingReview.review.selected[0].number,7);
+  const savedReview = await savePlanningState({...input,action:'save-review',reviewMarkdown:planningScreen(existingReview),expectedPlanHash:existingReview.current.sha256,
+    expectedPreviousHash:null,expectedStateHash:existingReview.state.review.sha256,expectedInventoryHash:existingReview.inventoryHash,expectedReviewHash:existingReview.reviewHash});
   const reopenedReview = JSON.parse(await readFile(savedReview.path,'utf8'));
   assert.equal(reopenedReview.planId,id(21));
   assert.equal(reopenedReview.mapping[id(3)],7);
@@ -88,7 +88,7 @@ test('preparation cannot complete pending carry or unresolved current rows', asy
   const input = await fixture();
   const config = path.join(input.vaultRoot,'.nyssa-ai/daily-tasks');
   await mkdir(config,{recursive:true});
-  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:1,user:{name:'Owner',email:owner},
+  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:2,user:{name:'Owner',email:owner},
     timezone:input.timezone,priorities:[],vaultRoot:'./',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
   await writeFile(path.join(input.dailyPlansRoot,'2026.10.05-daily-plan.md'),`---\nid: ${id(22)}\ntype: daily-plan\n---\n- [ ] [[../../1-projects/2026.01.01-alpha/first/a|A]] <!-- ref: ${id(3)} -->\n`);
   const today = path.join(input.dailyPlansRoot,'2026.10.06-daily-plan.md');
@@ -406,7 +406,7 @@ test('accepted independent projects storage indexes through a logical anchor wit
   await cp(input.projectsRoot,projectsRoot,{recursive:true});
   const configRoot = path.join(input.vaultRoot,'.nyssa-ai/daily-tasks');
   await mkdir(configRoot,{recursive:true});
-  await writeFile(path.join(configRoot,'profile.json'),JSON.stringify({schema_version:1,
+  await writeFile(path.join(configRoot,'profile.json'),JSON.stringify({schema_version:2,
     user:{name:'Example',email:owner},timezone:input.timezone,priorities:[],vaultRoot:'.',projectsRoot,dailyPlansRelative:'2-areas/daily-plans'}));
   const context = await resolveContext({vaultRoot:input.vaultRoot,homeRoot,now});
   const cold = await projectInventory(context);
@@ -461,7 +461,7 @@ test('saved review restores the project cursor without a page argument', async (
   const input = await fixture();
   const config = path.join(input.vaultRoot,'.nyssa-ai/daily-tasks');
   await mkdir(config,{recursive:true});
-  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:1,user:{name:'Owner',email:owner},timezone:input.timezone,priorities:[],vaultRoot:'./',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
+  await writeFile(path.join(config,'profile.json'),JSON.stringify({schema_version:2,user:{name:'Owner',email:owner},timezone:input.timezone,priorities:[],vaultRoot:'./',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans'}));
   await writeFile(path.join(input.dailyPlansRoot,'2026.10.06-daily-plan.md'),`---\nid: ${id(21)}\ntype: daily-plan\n---\n`);
   const beta = path.join(input.projectsRoot,'2026.02.01-beta');
   await mkdir(beta);

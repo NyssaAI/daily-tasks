@@ -20,6 +20,7 @@
     "check": "node scripts/assemble.mjs check && node scripts/validate.mjs",
     "preeval": "npm run assemble",
     "eval": "node evals/run.mjs",
+    "eval:startup": "node evals/startup-benchmark.mjs",
     "eval:waza": "waza run evals/waza",
     "eval:check": "node evals/report.mjs check"
   },

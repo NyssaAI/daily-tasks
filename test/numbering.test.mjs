@@ -72,23 +72,23 @@ test('concrete project cancellation and rename history leaves numbering availabl
   assert.equal((await nextRecordNumber({...input,type:'milestone',parentId:projectId})).number,1);
 });
 
-test('legacy live and retired unnumbered records permit first label allocation',async t=>{
+test('retired records in history permit label allocation when numbered live records exist',async t=>{
   const input = await fixture(t);
   const id = uuid7();
-  await writeFile(path.join(input.projectsRoot,'legacy-task.md'),`---\nid: ${id}\ntype: task\nmilestone_id: ${input.parentId}\n---\n`);
-  const snapshot = {id:uuid7(),type:'task',milestone_id:input.parentId,path:'legacy-retired-task.md'};
+  await writeFile(path.join(input.projectsRoot,'t1-task.md'),`---\nid: ${id}\ntype: task\nmilestone_id: ${input.parentId}\n---\n`);
+  const snapshot = {id:uuid7(),type:'task',milestone_id:input.parentId,path:'t2-retired.md'};
   const entry = event(snapshot);
-  entry.action = 'task.migrated';
-  entry.after = {...snapshot,path:'t3-migrated.md',record_version:'2'};
+  entry.action = 'task.renamed';
+  entry.after = {...snapshot,path:'t3-renamed.md',record_version:'2'};
   await appendDecision({projectsRoot:input.projectsRoot,entry});
   const result = await nextRecordNumber(input);
   assert.equal(result.number,4);
-  assert.deepEqual(result.usedNumbers,[3]);
+  assert.deepEqual(result.usedNumbers,[1,2,3]);
 });
 
-test('versioned unnumbered and malformed numeric labels still block allocation',async t=>{
+test('unnumbered and malformed numeric labels block allocation',async t=>{
   const input = await fixture(t);
-  for (const [name,version] of [['unnumbered.md','record_version: 2\n'],['t0-invalid.md','']]) {
+  for (const [name,version] of [['unnumbered.md','record_version: 2\n'],['legacy-task.md',''],['t0-invalid.md','']]) {
     const filename = path.join(input.projectsRoot,name);
     await writeFile(filename,`---\nid: ${uuid7()}\ntype: task\nmilestone_id: ${input.parentId}\n${version}---\n`);
     const result = await nextRecordNumber(input);
@@ -165,7 +165,7 @@ test('mixed cancellation and acceptance reserves existing and newly allocated la
 });
 
 test('ordinary retirement batches cannot substitute after-only identities for prior labels',async t=>{
-  for (const action of ['task.cancelled','task.migrated']) {
+  for (const action of ['task.cancelled','task.renamed']) {
     const input = await fixture(t);
     const existing = {id:uuid7(),type:'task',milestone_id:input.parentId,path:'t1-old.md'};
     const omitted = {...existing,id:uuid7(),path:'t3-after.md'};
@@ -183,28 +183,6 @@ test('ordinary retirement batches cannot substitute after-only identities for pr
     const corrected = await nextRecordNumber(input);
     assert.equal(corrected.number,5);
     assert.deepEqual(corrected.usedNumbers,[1,3,4]);
-  }
-});
-
-test('concrete unnumbered legacy DoD retirement does not poison parent-local allocation',async t=>{
-  for (const kind of ['valid','missing-parent','numeric-path']) {
-    const input = await fixture(t);
-    const task = {id:uuid7(),type:'task',milestone_id:input.parentId,path:'t7-existing.md'};
-    const dod = {id:uuid7(),type:'dod',milestone_id:input.parentId,path:'legacy/definition-of-done.md'};
-    if (kind === 'missing-parent') delete dod.milestone_id;
-    if (kind === 'numeric-path') dod.path = 'legacy/t8-ambiguous.md';
-    const entry = {...event(task),action:'workspace.migration',record_ids:[task.id,dod.id],
-      before:{records:[task,dod]},after:{records:[task],retired_dod_id:dod.id}};
-    // Historical fixture: new migration events now require a retirement checkpoint.
-    const directory = path.join(input.projectsRoot,'.daily-tasks');
-    await mkdir(directory);
-    await writeFile(path.join(directory,'2026.10.09-decisions.json'),JSON.stringify({schema_version:1,created_at:entry.recorded_at,entries:[entry]}));
-    const result = await nextRecordNumber(input);
-    assert.equal(result.number,kind === 'valid' ? 8 : null);
-    assert.deepEqual(result.usedNumbers,[7]);
-    const unrelated = uuid7();
-    await writeFile(path.join(input.projectsRoot,'other-milestone.md'),`---\nid: ${unrelated}\ntype: milestone\n---\n`);
-    assert.equal((await nextRecordNumber({...input,parentId:unrelated})).number,kind === 'valid' ? 1 : null);
   }
 });
 

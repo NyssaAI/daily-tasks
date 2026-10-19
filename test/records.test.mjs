@@ -4,14 +4,13 @@ import { parseRecord, validateRecords, checkClosure, checkLinks } from '#core/re
 import { parseChecklist } from '#core/planning/planning.mjs';
 
 const id = n => `019a1234-5678-7abc-8def-${String(n).padStart(12, '0')}`;
-const record = (n, type, extra = {}) => ({ id: id(n), type, path: `/project/${n}.md`, title: `Record ${n}`,
+const record = (n, type, extra = {}) => ({ id: id(n), type, path: `/project/${type === 'milestone' ? `m${n}-record/m${n}-record` : type === 'task' ? `m2-record/t${n}-record` : type === 'blocker' ? `blockers/b${n}-record` : 'project-index'}.md`, title: `Record ${n}`,
   owner: 'owner@example.test', state: type === 'blocker' ? 'open' : 'not-started',
   created_at: '2026-10-05T12:00:00Z', updated_at: '2026-10-05T12:00:00Z',
   depends_on: [], blocks: [], blocked_by: [], criteria: [], refs: [], ...extra });
-const graph = () => [record(1, 'project'), record(2, 'milestone', { project_id: id(1) }),
-  record(3, 'task', { project_id: id(1), milestone_id: id(2), state: 'completed' }),
-  record(4, 'dod', { project_id: id(1), milestone_id: id(2), state: undefined,
-    criteria: [{id: id(5), text: 'Installation verified', checked: true}] })];
+const graph = () => [record(1, 'project'),
+  record(2, 'milestone', { project_id: id(1), criteria: [{id: id(5), text: 'Installation verified', checked: true}] }),
+  record(3, 'task', { project_id: id(1), milestone_id: id(2), state: 'completed', criteria: [{id: id(7), text: 'Task verified', checked: true}] })];
 
 test('context links remain navigation while explicit and relationship links remain managed', () => {
   const parsed = parseRecord(`---\ntype: project\n---\n# Context\nRead [[research]] and [[brief.pdf]].\n| Resource |\n| --- |\n| [[notes]] |\n- [[milestone]]\n  <!-- ref: ${id(2)} -->\n## Depends on\n- [[missing-identity]]\n`, '/project/project-index.md');
@@ -40,8 +39,8 @@ test('explicit empty or malformed refs never become ordinary navigation', () => 
 });
 
 test('parse scalar frontmatter, hidden identity, relations and criterion IDs', () => {
-  const text = `---\ntype: dod\nowner: "owner@example.test"\ncreated_at: 2026-10-05T12:00:00Z\nupdated_at: 2026-10-05T12:00:00Z\nproject_id: ${id(1)}\nmilestone_id: ${id(2)}\n---\n<!-- id: ${id(4)} -->\n# Definition of Done\n- [x] Installation verified\n  <!-- id: ${id(5)} -->\n## Blocked by\n- [[../../blockers/access|Access approval]]\n  <!-- ref: ${id(6)} -->\n`;
-  const parsed = parseRecord(text, '/project/milestone/definition-of-done.md');
+  const text = `---\ntype: milestone\ntitle: "Milestone"\nmilestone-state: not-started\nowner: "owner@example.test"\ncreated_at: 2026-10-05T12:00:00Z\nupdated_at: 2026-10-05T12:00:00Z\nproject_id: ${id(1)}\n---\n<!-- id: ${id(4)} -->\n# Milestone\n## Definition of Done\n- [x] Installation verified\n  <!-- id: ${id(5)} -->\n## Blocked by\n- [[../../blockers/access|Access approval]]\n  <!-- ref: ${id(6)} -->\n`;
+  const parsed = parseRecord(text, '/project/m1-milestone/m1-milestone.md');
   assert.equal(parsed.id, id(4));
   assert.equal(parsed.criteria[0].id, id(5));
   assert.equal(parsed.criteria[0].checked, true);
@@ -66,7 +65,7 @@ test('filenames require lowercase descriptive task names without changing identi
     assert.equal(issue.suggestedFilename,'prepare-budget.md');
     assert.deepEqual(task,before);
   }
-  assert.ok(!validateRecords([record(3,'task',{path:'/project/prepare-budget.md'})]).some(d => d.code === 'noncanonical-filename'));
+  assert.ok(!validateRecords([record(3,'task',{path:'/project/t1-prepare-budget.md'})]).some(d => d.code === 'noncanonical-filename'));
   assert.equal(validateRecords([record(3,'task',{title:'CON',path:'/project/task.md'})]).find(d => d.code === 'noncanonical-filename').suggestedFilename,'task-con.md');
 });
 
@@ -82,7 +81,7 @@ test('milestone closure needs DoD, resolved tasks and no open blocker; dependenc
   records.push(record(6, 'blocker', {blocks: [id(2)]}));
   records[1].blocked_by = [id(6)];
   assert.equal(checkClosure(id(2), records).allowed, false);
-  records[4].state = 'resolved';
+  records[3].state = 'resolved';
   assert.equal(checkClosure(id(2), records).allowed, true);
 });
 
@@ -91,9 +90,10 @@ test('missing or invalid closure relationships cannot falsely permit closure', (
   records[1].blocked_by = [id(99)];
   assert.equal(checkClosure(id(2), records).allowed, false);
   records[1].blocked_by = [];
-  records[3].criteria[0].checked = false;
+  records[1].criteria[0].checked = false;
   assert.equal(checkClosure(id(2), records).allowed, false);
-  assert.equal(checkClosure(id(2), records.slice(0, 3)).allowed, false);
+  records[1].criteria = [];
+  assert.equal(checkClosure(id(2), records).allowed, false);
   assert.equal(checkClosure(id(1), records).allowed, false);
   records[1].state = 'cancelled';
   assert.equal(checkClosure(id(1), records).allowed, true);
@@ -120,9 +120,9 @@ test('malformed collections diagnose rather than crash and missing index refs ga
 
 test('DoD identity collisions and parent mismatch cannot pass closure', () => {
   const records = graph();
-  records[3].criteria[0].id = records[2].id;
+  records[1].criteria[0].id = records[2].id;
   assert.equal(checkClosure(id(2), records).allowed, false);
-  records[3].criteria[0].id = id(5);
+  records[1].criteria[0].id = id(5);
   records[2].project_id = id(90);
   assert.equal(checkClosure(id(2), records).allowed, false);
 });

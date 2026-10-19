@@ -1,0 +1,16 @@
+id: daily-tasks-setup-planning-request-out-of-scope
+name: Do not route a daily task selection to setup
+description: A request to select work for today's plan belongs to planning, not preference setup.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Show me the available tasks and help me choose what goes on today's Daily Tasks plan."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: setup-planning-negative
+    config:
+      skill_path: skills/daily-tasks-setup/SKILL.md
+      mode: negative

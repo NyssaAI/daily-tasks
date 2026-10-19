@@ -2,9 +2,9 @@ import { isUuid7 } from '../identity/identity.mjs';
 import { utcTimestamp } from '../time/time.mjs';
 
 export const terminal = new Set(['completed','cancelled']);
-export const types = new Set(['project','milestone','task','blocker','dod']);
+export const types = new Set(['project','milestone','task','blocker']);
 const states = new Set(['not-started','in-progress',...terminal]);
-const relationTypes = {depends_on:['task'],required_by:['task'],blocks:['project','milestone','task','dod'],blocked_by:['blocker']};
+const relationTypes = {depends_on:['task'],required_by:['task'],blocks:['project','milestone','task'],blocked_by:['blocker']};
 export const diagnostic = (record, code, message, extra = {}) =>
   ({code, recordId:record?.id, path:record?.path, message, ...extra});
 
@@ -71,7 +71,7 @@ export function validateRecords(records) {
     if (typeof record.owner !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(record.owner)) emit(record,'invalid-owner','Owner must be a human email address');
     if (record.assignee !== undefined && (typeof record.assignee !== 'string' || !record.assignee.trim())) emit(record,'invalid-assignee','Assignee must be a human email or stable agent name');
     if (record.type === 'blocker' ? !['open','resolved'].includes(record.state)
-      : record.type !== 'dod' && !states.has(record.state)) emit(record,'invalid-state','Invalid type-specific state');
+      : !states.has(record.state)) emit(record,'invalid-state','Invalid type-specific state');
     for (const field of ['created_at','updated_at','started_at','resolved_at','target_date']) {
       if (!['created_at','updated_at'].includes(field) && record[field] === undefined) continue;
       try { utcTimestamp(record[field]); } catch { emit(record,'invalid-time',`${field} must be a valid GMT timestamp`); }
@@ -82,7 +82,7 @@ export function validateRecords(records) {
       addIdentity(criterion?.id,record,'DoD criterion');
       if (typeof criterion?.checked !== 'boolean' || typeof criterion?.text !== 'string' || !criterion.text.trim()) emit(record,'invalid-criterion','DoD criterion requires text and a checked boolean');
     }
-    if (!['dod','milestone','task'].includes(record.type) && record.criteria?.length) emit(record,'invalid-criterion','Only tasks, milestones and legacy DoD records hold criteria');
+    if (!['milestone','task'].includes(record.type) && record.criteria?.length) emit(record,'invalid-criterion','Only tasks and milestones hold criteria');
     if (record.refs !== undefined && !Array.isArray(record.refs)) emit(record,'invalid-reference','refs must be an array');
     for (const reference of Array.isArray(record.refs) ? record.refs : []) {
       if (!isUuid7(reference?.id)) emit(record,'invalid-reference','Wiki link requires an adjacent UUIDv7 ref');
@@ -110,7 +110,7 @@ export function validateRecords(records) {
       }
     }
     for (const [field,type] of [['project_id','project'],['milestone_id','milestone']]) {
-      const required = field === 'milestone_id' ? ['task','dod'].includes(record.type) : ['milestone','task','dod'].includes(record.type);
+      const required = field === 'milestone_id' ? record.type === 'task' : ['milestone','task'].includes(record.type);
       if (record[field] === undefined && !required) continue;
       if (!isUuid7(record[field])) { emit(record,'invalid-parent',`${field} requires a UUIDv7 parent`); continue; }
       const parent = index.get(record[field]);
@@ -118,7 +118,7 @@ export function validateRecords(records) {
       else if (parent.type !== type) emit(record,'invalid-parent',`${field} points to the wrong record type`);
     }
     const milestone = isUuid7(record.milestone_id) ? index.get(record.milestone_id) : undefined;
-    if (milestone && record.project_id !== milestone.project_id) emit(record,'invalid-parent','Task/DoD project does not match its milestone');
+    if (milestone && record.project_id !== milestone.project_id) emit(record,'invalid-parent','Task project does not match its milestone');
   }
   return diagnostics;
 }

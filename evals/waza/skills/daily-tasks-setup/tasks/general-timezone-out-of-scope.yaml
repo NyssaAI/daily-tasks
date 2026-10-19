@@ -1,0 +1,16 @@
+id: daily-tasks-setup-general-timezone-out-of-scope
+name: Do not route a general timezone question to setup
+description: A general question about timezones does not ask to change Daily Tasks preferences.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Why do timezones have daylight-saving changes, and how does UTC differ from local time?"
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: setup-general-timezone-negative
+    config:
+      skill_path: skills/daily-tasks-setup/SKILL.md
+      mode: negative

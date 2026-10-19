@@ -16,56 +16,39 @@ for (const name of ['scripts','skills','src','plugin.json','package.json']) {
 execFileSync(process.execPath,['scripts/write-capabilities.mjs'],{cwd:fixture});
 const capabilities = JSON.parse(await readFile(path.join(fixture,'capabilities.json'),'utf8'));
 const profileSchema = capabilities.operations.find(operation => operation.name === 'validate-profile').inputSchema;
-const branches = () => {
-  assert.equal(profileSchema.oneOf?.length,2,'profile inputs need separate v1 and partial v2 branches');
-  return profileSchema.oneOf;
-};
-const fullProfile = {schema_version:1,user:{name:'Example',email:'example@example.test'},timezone:'UTC',
+const fullProfile = {schema_version:2,user:{name:'Example',email:'example@example.test'},timezone:'UTC',
   priorities:['Work'],vaultRoot:root,projectsRoot:'./Projects',dailyPlansRelative:'Daily'};
 
-test('generated profile contract accepts partial v2 and requires complete v1', () => {
-  const [v1,v2] = branches();
-  assert.equal(v1.properties.schema_version.const,1);
-  assert.equal(v2.properties.schema_version.const,2);
-  assert.deepEqual(v1.required,['schema_version','user','timezone','priorities','vaultRoot','projectsRoot','dailyPlansRelative']);
-  assert.deepEqual(v2.required,['schema_version']);
+test('generated profile contract accepts partial v2 and rejects v1 or unknown versions', () => {
+  assert.equal(profileSchema.properties.schema_version.const,2);
+  assert.deepEqual(profileSchema.required,['schema_version']);
   assert.equal(validateProfile(fullProfile).valid,true);
   assert.equal(validateProfile({schema_version:2,timezone:'UTC'}).valid,true);
   assert.equal(validateProfile({schema_version:2}).valid,true);
-  for (const key of v1.required) {
-    const incomplete = {...fullProfile}; delete incomplete[key];
-    assert.equal(validateProfile(incomplete).valid,false,`v1 requires ${key}`);
-  }
-  for (const schema_version of [undefined,null,0,3,'2']) {
+  for (const schema_version of [undefined,null,0,1,3,'2']) {
     assert.equal(validateProfile({...fullProfile,schema_version}).valid,false);
-    assert.ok(![v1,v2].some(branch => branch.properties.schema_version.const === schema_version));
+    assert.notEqual(profileSchema.properties.schema_version.const,schema_version);
   }
 });
 
-test('profile branches describe nested leaves and v2 reset semantics', () => {
-  const [v1,v2] = branches();
+test('profile schema describes nested leaves and v2 reset semantics', () => {
+  const v2 = profileSchema;
   const resets = {schema_version:2,timezone:null,priorities:null,templates:{task:null},projectIndex:{ttlSeconds:null}};
   assert.equal(validateProfile(resets).valid,true);
   for (const key of ['timezone','priorities']) {
     assert.ok(v2.properties[key].type.includes('null'));
-    assert.ok(![].concat(v1.properties[key].type).includes('null'));
-    assert.equal(validateProfile({...fullProfile,[key]:null}).valid,false);
   }
   for (const key of ['projectIndex','dailyPlan','milestone','task','planDayReview']) {
     assert.deepEqual(v2.properties.templates.properties[key].type,['string','null']);
-    assert.equal(v1.properties.templates.properties[key].type,'string');
   }
   assert.deepEqual(v2.properties.projectIndex.properties.ttlSeconds.type,['integer','null']);
-  assert.equal(v1.properties.projectIndex.properties.ttlSeconds.type,'integer');
   assert.equal(v2.additionalProperties,false);
   for (const key of ['user','templates','projectIndex']) assert.equal(v2.properties[key].additionalProperties,false);
   for (const key of ['user','vaultRoot','projectsRoot','dailyPlansRelative','templates','projectIndex']) {
     assert.ok(![].concat(v2.properties[key].type).includes('null'));
     assert.equal(validateProfile({schema_version:2,[key]:null}).valid,false);
   }
-  assert.deepEqual(v1.properties.user.required,['name','email']);
   assert.equal(v2.properties.user.required,undefined);
-  assert.deepEqual(v1.properties.projectIndex.required,['ttlSeconds']);
   assert.equal(v2.properties.projectIndex.required,undefined);
   assert.equal(validateProfile({schema_version:2,user:{email:'example@example.test'},templates:{},projectIndex:{}}).valid,true);
   assert.equal(validateProfile({schema_version:2,templates:{task:'~/task.MD'},projectIndex:{ttlSeconds:0}}).valid,true);
@@ -79,7 +62,7 @@ test('profile branches describe nested leaves and v2 reset semantics', () => {
 });
 
 test('metadata supplies structural constraints and identifies runtime semantic checks', () => {
-  const [,v2] = branches();
+  const v2 = profileSchema;
   for (const value of ['', '  ']) {
     assert.equal(new RegExp(v2.properties.user.properties.name.pattern).test(value),false);
     assert.equal(validateProfile({schema_version:2,user:{name:value}}).valid,false);
@@ -99,11 +82,11 @@ test('metadata supplies structural constraints and identifies runtime semantic c
   assert.equal(validateProfile({schema_version:2,dailyPlansRelative:'../outside'}).valid,false);
 });
 
-test('warm metadata exposes durable layered selectors and their exclusive legacy alternative', () => {
+test('warm metadata exposes durable layered selectors', () => {
   const warm = capabilities.operations.find(operation => operation.name === 'warm-project-index');
   const schema = warm.inputSchema;
   assert.equal(schema.properties.stateRoot?.type,'string');
-  assert.deepEqual(schema.not,{required:['profilePath','configurationSources']});
+  assert.equal(schema.properties.profilePath,undefined);
   const sources = schema.properties.configurationSources;
   assert.equal(sources.type,'object');
   assert.equal(sources.properties.schemaVersion.const,1);
@@ -133,10 +116,9 @@ test('generated save-review contract retains required screen evidence without im
 test('repository validation rejects missing or drifted versioned profile metadata', async () => {
   execFileSync(process.execPath,['scripts/validate.mjs'],{cwd:fixture});
   for (const mutate of [
-    schema => { delete schema.oneOf; },
-    schema => { schema.oneOf = [schema.oneOf[0]]; },
-    schema => { schema.oneOf[1].required.push('user'); },
-    schema => { schema.oneOf[0].required = schema.oneOf[0].required.filter(key => key !== 'dailyPlansRelative'); },
+    schema => { delete schema.required; },
+    schema => { schema.required.push('user'); },
+    schema => { schema.properties.schema_version.const = 1; },
   ]) {
     const changed = structuredClone(capabilities);
     mutate(changed.operations.find(operation => operation.name === 'validate-profile').inputSchema);

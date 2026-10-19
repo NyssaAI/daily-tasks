@@ -15,8 +15,8 @@ export function recordDirectoryIsHoldingArea(relativePath) {
 export function recordMarkdownIsManaged(markdown, filename = '') {
   const metadata = /^\uFEFF?---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(markdown)?.[1] ?? '';
   const basename = filename.split(/[\\/]/).at(-1).toLowerCase();
-  const conventional = ['project-index.md','milestone.md','definition-of-done.md'].includes(basename) || /^[mtb][1-9]\d*-.+\.md$/.test(basename);
-  return conventional || /^type:\s*["']?(project|milestone|task|blocker|dod)["']?\s*$/m.test(metadata) ||
+  const conventional = ['project-index.md','milestone.md'].includes(basename) || /^[mtb][1-9]\d*-.+\.md$/.test(basename);
+  return conventional || /^type:\s*["']?(project|milestone|task|blocker)["']?\s*$/m.test(metadata) ||
     /^(project_id|milestone_id):/m.test(metadata);
 }
 
@@ -135,11 +135,11 @@ export function parseRecord(markdown, path) {
       pendingCriterion = undefined;
       pendingProjection = undefined;
       pendingLink = undefined;
-      if ((record.type === 'dod' || dodDepth) && !relation) {
+      if (dodDepth && !relation) {
         if (![' ','x','X'].includes(checklist[1])) errors.push('DoD criteria require an open or completed checkbox');
         pendingCriterion = {id:undefined, text:checklist[2].replace(/<!--.*?-->/g, '').trim(), checked:checklist[1].toLowerCase() === 'x'};
         record.criteria.push(pendingCriterion);
-      } else if (record.type !== 'dod') {
+      } else {
         const row = parseViewRows(line)[0];
         pendingProjection = {id:undefined,text:row.title,checked:row.checked,
           ...(row.state ? {state:row.state} : {})};

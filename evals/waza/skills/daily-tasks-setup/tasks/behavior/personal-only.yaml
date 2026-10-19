@@ -1,0 +1,43 @@
+id: personal-only-first-setup
+name: Set up personal preferences without workspace configuration
+description: Save known personal preferences without asking for project or daily-plan storage.
+tags:
+  - behavior
+  - personal-setup
+inputs:
+  prompt: >-
+    This is an isolated evaluation. Treat the synthetic-home/ folder in your current
+    workspace as my verified user home. Do not inspect or modify the real machine home
+    or any other workspace. There is no existing Daily Tasks profile and no project
+    workspace in scope.
+    Set up personal preferences only: my name is Alex Example, my email is
+    alex@example.test, my timezone is America/Chicago, and I have no priorities to add.
+    Do not ask where to store projects or daily plans, do not create project bindings,
+    templates, tasks, or plans, and do not configure a workspace. Save the personal
+    preferences in synthetic-home and confirm when they are saved, including the
+    timezone stored.
+expected:
+  should_trigger: true
+graders:
+  - type: skill_invocation
+    name: invoke-setup-skill
+    config:
+      required_skills:
+        - daily-tasks-setup
+      mode: any_order
+      allow_extra: true
+  - type: program
+    name: personal-profile-and-scope
+    config:
+      command: node
+      args:
+        - evals/waza/skills/daily-tasks-setup/graders/validate-personal-only.mjs
+      timeout: 10
+  - type: text
+    name: confirm-saved-timezone
+    config:
+      contains:
+        - America/Chicago
+      regex_not_match:
+        - '(?i)(where|which).{0,50}(project|daily plan).{0,50}\?'
+        - '(?i)(project|daily plan).{0,50}(folder|directory|storage|store).{0,30}\?'

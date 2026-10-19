@@ -79,7 +79,7 @@ export async function seedTemplateUpdateFixture(parent, now = new Date().toISOSt
   await writeFile(paths.history, plan(previous, ids.history, [taskRows[0]]));
   await writeFile(paths.oldTemplate, legacy.content);
   await writeFile(paths.customReview, '# My compact review\n\n## Chosen work\n\n- [ ] [[RELATIVE_TASK_PATH|TASK_TITLE]] <!-- ref: TASK_UUID -->\n\n## Other available work\n\n- [ ] [[RELATIVE_AVAILABLE_TASK_PATH|AVAILABLE_TASK_TITLE]] <!-- ref: AVAILABLE_TASK_UUID -->\n\nReply with an explicit action and task numbers.\n');
-  await writeFile(path.join(stateRoot, 'profile.json'), json({schema_version: 1, user: {name: 'Fixture', email: userEmail}, timezone, priorities: [], vaultRoot: '.', projectsRoot: './1-projects', dailyPlansRelative: '2-areas/daily-plans', projectIndex: {ttlSeconds: 14400}, templates: {dailyPlan: paths.oldTemplate, planDayReview: paths.customReview}}));
+  await writeFile(path.join(stateRoot, 'profile.json'), json({schema_version: 2, user: {name: 'Fixture', email: userEmail}, timezone, priorities: [], vaultRoot: '.', projectsRoot: './1-projects', dailyPlansRelative: '2-areas/daily-plans', projectIndex: {ttlSeconds: 14400}, templates: {dailyPlan: paths.oldTemplate, planDayReview: paths.customReview}}));
   const unchangedFiles = Object.fromEntries(await Promise.all([...canonicalFiles, paths.history, paths.oldTemplate, paths.customReview].map(async filename => [filename, hash(await readFile(filename))])));
   const candidate = await inventory();
   const fixture = {schemaVersion: 1, directory, vaultRoot, projectsRoot, dailyPlansRoot, stateRoot, evidenceRoot, now, today, future, timezone, ids, paths,

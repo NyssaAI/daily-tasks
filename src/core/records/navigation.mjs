@@ -124,19 +124,17 @@ function criterionNavigationLinks(record) {
     const definition = /^\s{0,3}\[([^\]]+)\]:/.exec(line)?.[1];
     // Use the criterion occurrence, not its filename suffix or a document-wide
     // target set: the same directory may still be ordinary navigation elsewhere.
-    const requiredFile = ((record.type === 'dod' || dodDepth !== undefined) && !relationship && criteria.has(criterion)) ||
+    const requiredFile = (dodDepth !== undefined && !relationship && criteria.has(criterion)) ||
       (definition !== undefined && evidenceReferences.has(referenceLabel(definition)));
     return links.map(link=>({...link,requiredFile}));
   });
 }
 
-/** Resolve local targets identically for navigation and migration backlinks.
+/** Resolve local targets for navigation links.
  * Wiki links prefer source-relative files, then vault-relative files, trying
  * the exact name before adding .md (including dotted extensionless names).
- * Retired files may stand in for their verified pre-retirement presence so
- * deletion cannot make a surviving backlink resolve somewhere else.
  */
-export async function resolveNavigationTarget(link, {sourcePath,projectsRoot,dailyPlansRoot,workspaceRoot,vaultRoot,retiredFiles = []}) {
+export async function resolveNavigationTarget(link, {sourcePath,projectsRoot,dailyPlansRoot,workspaceRoot,vaultRoot}) {
   if ((/^[a-z][a-z\d+.-]*:/i.test(link.target) && !/^[a-z]:[\\/]/i.test(link.target)) || link.target.startsWith('//')) return null;
   const fail = (code,message) => { throw Object.assign(new Error(message),{code}); };
   let decoded;
@@ -167,7 +165,7 @@ export async function resolveNavigationTarget(link, {sourcePath,projectsRoot,dai
     for (const base of bases) {
       for (const candidate of [base,`${base}.md`]) {
         const stats = await stat(candidate);
-        if (stats?.isFile() || (stats && candidate === base) || retiredFiles.includes(candidate)) { found = candidate; break; }
+        if (stats?.isFile() || (stats && candidate === base)) { found = candidate; break; }
       }
       if (found) break;
     }

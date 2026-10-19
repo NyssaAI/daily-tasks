@@ -17,7 +17,6 @@ export function checkClosure(recordId, records) {
   const criteria = item => {
     if (!item.criteria.length || item.criteria.some(criterion => criterion.checked !== true)) addReason(`Unsatisfied Definition of Done ${item.id}`);
   };
-  const embedded = item => item.record_version === '2' || item.dod_section === true || item.criteria.length > 0;
   const blockers = target => {
     for (const blockerId of target.blocked_by || []) {
       const blocker = byId.get(blockerId);
@@ -40,21 +39,12 @@ export function checkClosure(recordId, records) {
       scope.add(task.id);
       if (!terminal.has(task.state)) addReason(`Unresolved task ${task.id}`);
       if (task.state !== 'cancelled' && !cancelled) {
-        if (embedded(task)) criteria(task);
+        criteria(task);
         blockers(task);
       }
     }
     if (!cancelled) {
-      const dods = children.filter(child => child.type === 'dod');
-      if (embedded(item)) {
-        criteria(item);
-        if (dods.length) addReason(`Milestone ${item.id} has both embedded and standalone Definition of Done sources`);
-      } else if (dods.length !== 1) addReason(`Milestone ${item.id} needs exactly one Definition of Done record`);
-      for (const dod of dods) {
-        scope.add(dod.id);
-        criteria(dod);
-        blockers(dod);
-      }
+      criteria(item);
       blockers(item);
     }
   };
@@ -69,11 +59,7 @@ export function checkClosure(recordId, records) {
     blockers(record);
   } else if (record.type === 'milestone') milestone(record);
   else if (record.type === 'task') {
-    if (embedded(record)) criteria(record);
-    blockers(record);
-  }
-  else if (record.type === 'dod') {
-    if (!record.criteria?.length || record.criteria.some(item => item.checked !== true)) addReason('Definition of Done criteria are not all satisfied');
+    criteria(record);
     blockers(record);
   } else if (record.type === 'blocker') addReason('Blocker resolution requires an explicit recorded condition decision');
   else addReason('Unknown record type');

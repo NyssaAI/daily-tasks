@@ -33,7 +33,6 @@ Save portable paths in the profile's optional `templates` map:
 - **Inheritance & resets (Schema v2)**:
   - Omitting a key inherits the template setting from the parent/user layer.
   - Setting a key to `null` resets to the bundled default formatting, masking inherited user templates.
-  - In Schema v1: omitted keys use bundled defaults; `null` is invalid.
 - **Missing files**: If a configured file is missing, the system falls back to its retained baseline snapshot if available; otherwise, report the missing path and prompt for replacement or reset.
 
 ### 3. Template kinds

@@ -9,7 +9,7 @@ async function operationBytes(filename) {
   return readFile(filename,'utf8');
 }
 
-/** Return resumable checkpoints while ignoring retained legacy completion receipts. */
+/** Return resumable operation checkpoints under stateRoot/operations. */
 export async function pendingOperationNames(stateRoot) {
   const directory = path.join(stateRoot,'operations');
   let names;
@@ -21,16 +21,11 @@ export async function pendingOperationNames(stateRoot) {
   const pending = [];
   for (const name of names.filter(candidate => candidate.endsWith('.json')).sort()) {
     const filename = path.join(directory,name);
-    let operation;
-    try { operation = JSON.parse((await operationBytes(filename)).replace(/^\uFEFF/,'')); }
+    try { await operationBytes(filename); }
     catch (error) {
       if (error.code === 'ENOENT') continue;
-      pending.push(name);
-      continue;
     }
-    const historicalCompletion = operation.status === 'completed' &&
-      operation.operation_id === path.basename(name,'.json') && Array.isArray(operation.files);
-    if (!historicalCompletion) pending.push(name);
+    pending.push(name);
   }
   return pending;
 }
@@ -42,7 +37,7 @@ export async function planningOperationImpacts(input, {context,current,previous,
   const names = await pendingOperationNames(context.stateRoot), operations = [], diagnostics = [];
   const suspendedRecordIds = new Set(), suspendedProjectIds = new Set();
   const requiredPaths = new Set([current.path,previous?.path,state.review.path,state.rollover.path,
-    path.join(context.stateRoot,'review',`${context.localDate}.json`),path.join(context.stateRoot,'planning-review.json')].filter(Boolean).map(pathKey));
+    path.join(context.stateRoot,'review',`${context.localDate}.json`)].filter(Boolean).map(pathKey));
   const sources = [...inventory.projects.map(record => ({...record,type:'project'})),
     ...inventory.milestones.map(record => ({...record,type:'milestone'})),
     ...inventory.tasks.map(record => ({...record,type:'task'})),...records];
