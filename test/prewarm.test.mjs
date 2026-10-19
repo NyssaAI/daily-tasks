@@ -93,7 +93,7 @@ test('layered context survives portable argv and native registration with its es
   assert.deepEqual(JSON.parse(await readFile(path.join(input.stateRoot,'review.json'),'utf8')),{preserved:true});
 });
 
-test('prewarm keeps explicit source absences and canonical new identities while preserving legacy keys', async () => {
+test('prewarm keeps explicit source absences and canonical identities', async () => {
   const input = await layeredFixture();
   const base = {...input,every:'1h',nodePath:process.execPath,warmCommandPath:path.resolve('src/cli/warm-project-index.mjs')};
   const descriptor = {schemaVersion:1,user:{profilePath:null},project:{profilePath:path.join(input.vaultRoot,'.nyssa-ai/daily-tasks/profile.json')}};
@@ -111,12 +111,10 @@ test('prewarm keeps explicit source absences and canonical new identities while 
   await writeFile(path.join(homeSettings,'profile.json'),'malformed source that must remain absent');
   const actual = JSON.parse((await exec(first.commandArgv[0],[...first.commandArgv.slice(1),'--dry-run'],{cwd:input.root})).stdout);
   assert.equal(actual.counts.projects,1);
-  const legacy = {vaultRoot:input.vaultRoot,homeRoot:input.homeRoot,every:'1h'};
+  const conventional = {vaultRoot:input.vaultRoot,homeRoot:input.homeRoot,every:'1h'};
   const normalized = value => process.platform === 'win32' ? path.normalize(value).toLowerCase() : path.normalize(value);
-  for (const profilePath of [undefined,input.configurationSources.project.profilePath]) {
-    const hash = createHash('sha256').update(JSON.stringify([normalized(legacy.vaultRoot),normalized(legacy.homeRoot),profilePath ? normalized(profilePath) : null])).digest('hex').slice(0,24);
-    assert.equal(prewarmDeclarationKey({...legacy,profilePath}),`daily-tasks:project-index-prewarm:${hash}`);
-  }
+  const hash = createHash('sha256').update(JSON.stringify([normalized(conventional.vaultRoot),normalized(conventional.homeRoot),null])).digest('hex').slice(0,24);
+  assert.equal(prewarmDeclarationKey(conventional),`daily-tasks:project-index-prewarm:${hash}`);
 });
 
 test('prewarm rejects invalid or missing durable selectors before registering', async () => {
@@ -126,11 +124,9 @@ test('prewarm rejects invalid or missing durable selectors before registering', 
   const base = {vaultRoot:input.vaultRoot,homeRoot:input.homeRoot,every:'1h',stateRoot:input.stateRoot};
   const cases = [
     [{configurationSources:'{'},/JSON/],
-    [{configurationSources:JSON.stringify(input.configurationSources),profilePath:input.configurationSources.project.profilePath},/exclusive/],
     [{configurationSources:JSON.stringify({...input.configurationSources,user:{profilePath:path.join(input.root,'missing.json')}})},/source missing/],
     [{configurationSources:JSON.stringify({...input.configurationSources,user:{profilePath:'relative.json'}})},/absolute profilePath/],
     [{configurationSources:JSON.stringify({...input.configurationSources,extra:'invalid'})},/schemaVersion/],
-    [{profilePath:path.join(input.root,'missing-legacy.json')},/Configured vault context/],
   ];
   const canonicalState = path.join(input.vaultRoot,'.nyssa-ai/daily-tasks');
   await mkdir(canonicalState,{recursive:true});
@@ -141,7 +137,7 @@ test('prewarm rejects invalid or missing durable selectors before registering', 
   const command = path.resolve('src/cli/warm-project-index.mjs');
   for (const [args,expected] of [
     [['--configuration-sources','{'],/JSON/],
-    [['--configuration-sources',JSON.stringify(input.configurationSources),'--profile-path',input.configurationSources.project.profilePath],/exclusive/],
+    [['--unknown-flag'],/Unknown or duplicate argument/],
   ]) await assert.rejects(exec(process.execPath,[command,'--vault-root',input.vaultRoot,'--home-root',input.homeRoot,...args],{cwd:input.root}),error => {
     assert.match(error.stderr,expected); return true;
   });

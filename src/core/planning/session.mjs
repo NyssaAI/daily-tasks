@@ -11,6 +11,7 @@ import { verifiedMaintenanceStatus } from './maintenance.mjs';
 import { prepareTemplates } from '../templates/templates.mjs';
 import { validateReviewScreen } from './screen.mjs';
 import { planningOperationImpacts } from '../operations/checkpoints.mjs';
+import { displayTime } from '../time/time.mjs';
 
 const fingerprint = text => text === null ? null : createHash('sha256').update(text).digest('hex');
 
@@ -30,7 +31,7 @@ async function stateFile(filename) {
 async function dailyPlan(context,date) {
   const filename = path.join(context.dailyPlansRoot,`${date}-daily-plan.md`);
   const markdown = await readOrdinary(filename);
-  if (markdown === null) return {path:filename,date,sha256:null,id:null,rows:[]};
+  if (markdown === null) return {path:filename,date,sha256:null,id:null,proposedId:uuid7(),rows:[]};
   const record = parseRecord(markdown,filename);
   if (record.type !== 'daily-plan' || !isUuid7(record.id) || record.parse_errors.length) {
     throw new Error(`Invalid daily-plan identity or frontmatter: ${filename}`);
@@ -73,13 +74,10 @@ export async function preparePlanning(input) {
   const today = context.localDate;
   const current = await dailyPlan(context,today);
   const rolloverState = await stateFile(path.join(context.stateRoot,'rollover',`${today}.json`));
-  let reviewState = await stateFile(path.join(context.stateRoot,'review',`${today}.json`));
-  if (reviewState.value === null) {
-    const legacy = await stateFile(path.join(context.stateRoot,'planning-review.json'));
-    if (legacy.value?.date === today) reviewState = legacy;
-  }
+  const reviewState = await stateFile(path.join(context.stateRoot,'review',`${today}.json`));
   const indexed = await projectInventory({...context,forceRefresh:input.forceRefresh,dryRun:input.dryRun});
   let records = indexed.inventory.tasks.map(task => ({...task,type:'task',project_id:task.projectId,milestone_id:task.milestoneId}));
+  const planId = current.id ?? current.proposedId;
   let previous = null;
   let rollover = current.id ? planRollover({today,planId:current.id,userEmail:context.profile.user.email,
     currentRows:current.rows,state:rolloverState.value,records,inventory:indexed.inventory}) : {status:'missing-plan',selected:[],unresolved:[]};
@@ -88,10 +86,31 @@ export async function preparePlanning(input) {
       .filter(date => calendarDate(date) && date < today).sort();
     if (dates.length) previous = await dailyPlan(context,dates.at(-1));
     records = await selectedRecords(context,[current,previous],records,indexed.inventory.sources);
-    if (current.id) rollover = planRollover({today,planId:current.id,userEmail:context.profile.user.email,
-      currentRows:current.rows,state:rolloverState.value,previousDate:previous?.date,previousRows:previous?.rows ?? [],records,inventory:indexed.inventory});
+    rollover = planRollover({today,planId,userEmail:context.profile.user.email,
+      currentRows:current.rows,state:current.id ? rolloverState.value : null,previousDate:previous?.date,previousRows:previous?.rows ?? [],records,inventory:indexed.inventory});
   }
   else records = await selectedRecords(context,[current],records,indexed.inventory.sources);
+  const sourceHashes = new Map(indexed.inventory.sources.filter(source => source.anchor === 'projectsRoot')
+    .map(source => [path.resolve(context.projectsRoot,source.path),source.sha256]));
+  const relevantTaskIds = new Set([
+    ...current.rows.map(row => row.id),
+    ...(previous?.rows ?? []).map(row => row.id),
+    ...rollover.selected.map(row => row.id),
+    ...records.filter(record => record.state === 'in-progress').map(record => record.id),
+  ].filter(isUuid7));
+  const taskSources = [];
+  const seenTaskPaths = new Set();
+  for (const record of records) {
+    if (!relevantTaskIds.has(record.id) || !record.path) continue;
+    const absolutePath = path.resolve(context.projectsRoot,record.path);
+    if (seenTaskPaths.has(absolutePath)) continue;
+    const sha256 = sourceHashes.get(absolutePath) ?? fingerprint(await readOrdinary(absolutePath));
+    if (sha256) {
+      seenTaskPaths.add(absolutePath);
+      taskSources.push({path:absolutePath,sha256});
+    }
+  }
+  rollover = {...rollover,taskSources};
   const saved = reviewState.value;
   if (saved && (saved.date !== today || saved.mappingBinding !== context.planningBinding || (saved.planId !== undefined && saved.planId !== current.id))) {
     throw new Error('Saved review belongs to another date, plan or vault; recover it before reusing numbers');
@@ -107,6 +126,7 @@ export async function preparePlanning(input) {
     issuesByPath.get(issue.path).push(issue);
   }
   return {status:recovery.blocked || rollover.status === 'conflict' ? 'recovery-required' : current.id ? 'prepared' : 'create-plan',
+    displayNow:displayTime(context.now,context.timezone),
     context,current,previous,rollover,review,templates,maintenance:await verifiedMaintenanceStatus(input,indexed),
     pendingOperations:recovery.names,recovery,inventory:indexed.inventory,inventoryStatus:indexed.status,metrics:indexed.metrics,
     enrollment:indexed.inventory.diagnostics.filter(issue => issue.code === 'invalid-id').map(issue => ({path:issue.path,

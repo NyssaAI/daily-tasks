@@ -280,14 +280,14 @@ test('retained snapshots survive deleted source installations and incompatible l
   assert.equal(retained.templates.dailyPlan.compatibility,'record-contract-changed');
 });
 
-test('legacy exclusive profiles, source resets and one-off formatting retain their existing scope contracts', async () => {
+test('custom configurationSources, source resets and one-off formatting retain their scope contracts', async () => {
   const {input,profile,profilePath} = await fixture();
-  await writeFile(profilePath,JSON.stringify({...profile,schema_version:1,priorities:[],vaultRoot:'.',dailyPlansRelative:'plans'}));
-  const request = {...input,profilePath};
+  await writeFile(profilePath,JSON.stringify({...profile,schema_version:2,priorities:[],vaultRoot:'.',dailyPlansRelative:'plans'}));
+  const request = {...input,configurationSources:{schemaVersion:1,user:{profilePath:null},project:{profilePath}}};
   const options = {catalog:catalog(1)};
-  const legacy = await prepareTemplates(request,options);
-  assert.equal(legacy.scope,'legacy');
-  await save(request,legacy,'baseline',undefined,options);
+  const projectScoped = await prepareTemplates(request,options);
+  assert.equal(projectScoped.scope,'project');
+  await save(request,projectScoped,'baseline',undefined,options);
   const once = {...request,preferenceOverrides:{templates:{dailyPlan:null}}};
   const transient = await prepareTemplates(once,options);
   assert.equal(transient.templates.dailyPlan.transient,true);

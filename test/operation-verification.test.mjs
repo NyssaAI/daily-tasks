@@ -9,9 +9,9 @@ import { tmpdir } from 'node:os';
 import { uuid7 } from '#core/identity/identity.mjs';
 import { resolveContext } from '#core/profile/context.mjs';
 import { appendDecision, queryDecisions } from '#core/log/decision-log.mjs';
-import { verifyOperation, completeOperation, completeChangedRollover, inspectMigrationRetirement, completeMigration } from '#core/operations/verification.mjs';
-import { inspectNavigation } from '#core/records/navigation.mjs';
-import { preparePlanning } from '#core/planning/session.mjs';
+import { verifyOperation, completeOperation, completeChangedRollover } from '#core/operations/verification.mjs';
+import { preparePlanning, savePlanningState } from '#core/planning/session.mjs';
+import { planningScreen } from './fixtures/planning-screen.mjs';
 
 const hash = text => createHash('sha256').update(text).digest('hex');
 const execute = promisify(execFile);
@@ -24,7 +24,7 @@ async function fixture() {
   await mkdir(path.join(state,'operations'),{recursive:true});
   await mkdir(path.join(root,'projects'),{recursive:true});
   await mkdir(path.join(root,'daily'),{recursive:true});
-  await writeFile(path.join(state,'profile.json'),JSON.stringify({schema_version:1,user:{name:'Example',email:'owner@example.test'},timezone:'America/Chicago',priorities:[],vaultRoot:'.',projectsRoot:'./projects',dailyPlansRelative:'daily'}));
+  await writeFile(path.join(state,'profile.json'),JSON.stringify({schema_version:2,user:{name:'Example',email:'owner@example.test'},timezone:'America/Chicago',priorities:[],vaultRoot:'.',projectsRoot:'./projects',dailyPlansRelative:'daily'}));
   const context = await resolveContext(input), id = uuid7();
   input.operationPath = path.join(state,'operations',`${id}.json`);
   const file = path.join(root,'projects','task.md');
@@ -51,21 +51,22 @@ test('packaged completion checks actual evidence from an unrelated working direc
   await assert.rejects(access(f.input.operationPath),{code:'ENOENT'});
 });
 
-test('actual bytes and exact event determine pending, conflict and completion', async () => {
+test('actual bytes and exact event determine pending, conflict and completion (including forward-slash operationPath)', async () => {
   const f = await fixture();
+  const slashInput = {...f.input,operationPath:f.input.operationPath.replaceAll('\\','/')};
   await writeFile(f.file,'before');
-  assert.equal((await verifyOperation(f.input)).status,'pending');
+  assert.equal((await verifyOperation(slashInput)).status,'pending');
   await writeFile(f.file,'unexpected');
-  assert.equal((await completeOperation(f.input)).status,'conflict');
+  assert.equal((await completeOperation(slashInput)).status,'conflict');
   await access(f.input.operationPath);
   await writeFile(f.file,'after');
-  assert.equal((await verifyOperation(f.input)).status,'pending');
+  assert.equal((await verifyOperation(slashInput)).status,'pending');
   await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event});
-  assert.equal((await completeOperation({...f.input,dryRun:true})).status,'preview');
+  assert.equal((await completeOperation({...slashInput,dryRun:true})).status,'preview');
   await access(f.input.operationPath);
   f.operation.baseline = {beforeHash:null,value:{schemaVersion:1,records:{}}};
   await f.save();
-  assert.equal((await completeOperation(f.input)).status,'completed');
+  assert.equal((await completeOperation(slashInput)).status,'completed');
   assert.deepEqual(JSON.parse(await readFile(path.join(f.context.stateRoot,'reconciliation.json'),'utf8')),f.operation.baseline.value);
   await assert.rejects(access(f.input.operationPath),{code:'ENOENT'});
 });
@@ -168,145 +169,6 @@ test('already-written matching baseline permits completion retry', async () => {
   assert.equal((await completeOperation(f.input)).status,'completed');
 });
 
-test('migration retirement sees live legacy copies pointing to headings', async () => {
-  const f = await fixture(), criterionId = uuid7();
-  const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [x] Criterion\n  <!-- id: ${criterionId} -->\n\nHistory preserved.\n`;
-  const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [x] Criterion\n  <!-- id: ${criterionId} -->\n\nHistory preserved.\n`;
-  const retiringPath = path.join(f.context.projectsRoot,'definition-of-done.md');
-  await writeFile(retiringPath,source);
-  await writeFile(f.file,destination);
-  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:true}],preservedFields:{}};
-  await f.save();
-  const legacy = path.join(f.context.projectsRoot,'legacy-copy.md');
-  await writeFile(legacy,'[Done](definition-of-done.md#criterion)');
-  const result = await inspectMigrationRetirement(f.input);
-  assert.equal(result.allowed,false);
-  assert.ok(result.issues.some(issue => issue.reason === 'live-incoming-link' && issue.path === legacy));
-  await access(retiringPath);
-  for (const markdown of ['[Done](definition-of-done.md "title")','[Done](<definition-of-done.md#criterion> "title")','[Done][done]\n[done]: <definition-of-done.md> "title"']) {
-    await writeFile(legacy,markdown);
-    assert.ok((await inspectMigrationRetirement(f.input)).issues.some(issue=>issue.reason === 'live-incoming-link'));
-  }
-  await writeFile(legacy,`- [ ] [[task|Done]] <!-- ref: ${source.match(/id: ([^\n]+)/)[1]} -->`);
-  assert.ok((await inspectMigrationRetirement(f.input)).issues.some(issue=>issue.reason === 'live-incoming-reference'));
-  await writeFile(legacy,'No retired links.');
-  const projectNamedInputs = path.join(f.context.projectsRoot,'inputs');
-  await mkdir(projectNamedInputs);
-  // The project-root inputs folder is ordinary storage, not a milestone holding area.
-  await writeFile(path.join(projectNamedInputs,'legacy.md'),'[Done](../definition-of-done.md)');
-  assert.ok((await inspectMigrationRetirement(f.input)).issues.some(issue=>issue.reason === 'live-incoming-link'));
-  await unlink(path.join(projectNamedInputs,'legacy.md'));
-  assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
-});
-
-test('migration shares navigation resolution in project records and daily plans before and after retirement', async () => {
-  const f = await fixture(), criterionId = uuid7(), name = 'definition-of-done.2026.10';
-  f.event.action = 'workspace.migration';
-  const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
-  const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
-  const retiringPath = path.join(f.context.projectsRoot,'alpha',`${name}.md`);
-  const recordPath = path.join(f.context.projectsRoot,'alpha','nested','t1-live.md');
-  const planPath = path.join(f.context.dailyPlansRoot,'2026.10.09-daily-plan.md');
-  await mkdir(path.dirname(recordPath),{recursive:true});
-  await writeFile(retiringPath,source); await writeFile(f.file,destination);
-  f.operation.files = [{path:retiringPath,before:hash(source),after:null},{path:f.file,before:hash('before'),after:hash(destination)}];
-  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:false}]};
-  f.operation.sourceSnapshot = {retiringMarkdown:source}; await f.save();
-  const append = {...f.input,projectsRoot:f.context.projectsRoot,entry:f.event};
-  const nav = {projectsRoot:f.context.projectsRoot,dailyPlansRoot:f.context.dailyPlansRoot,vaultRoot:f.context.vaultRoot};
-  const issueAt = (issues,filename) => issues.some(issue=>issue.reason === 'live-incoming-link' && issue.path === filename);
-  for (const filename of [recordPath,planPath]) {
-    const relative = path.relative(path.dirname(filename),retiringPath).split(path.sep).join('/');
-    const vault = `projects/alpha/${name}`;
-    const links = [
-      `[[${vault}]]`, `[[${vault}.md#Definition of Done|Done]]`,
-      `[[${vault.replaceAll('.', '%2E')}.md%23Definition%20of%20Done]]`,
-      `[[${relative.slice(0,-3)}#definition-of-done]]`, `[[${relative}]]`,
-      `[Done](${relative}#definition-of-done)`,
-      `[Done](<${relative}#Definition%20of%20Done> "Title")`,
-      `[Done](${relative.replaceAll('/', '%2F').replaceAll('.', '%2E')}%23Definition%20of%20Done)`,
-      `[Done][dod]\n[dod]: <${relative}#definition-of-done> "Title"`,
-      `![[${vault}#Definition of Done]]`
-    ];
-    for (const link of links) {
-      await writeFile(filename,`---\ntype: ${filename === recordPath ? 'task' : 'daily-plan'}\n---\n${link}\n`);
-      const navigation = await inspectNavigation(nav);
-      assert.deepEqual(navigation.diagnostics,[],link);
-      assert.ok(navigation.targets.some(target=>target.path === retiringPath),link);
-      const retirement = await inspectMigrationRetirement(f.input);
-      assert.equal(retirement.allowed,false,link);
-      assert.ok(issueAt(retirement.issues,filename),link);
-      await unlink(retiringPath);
-      const completion = await completeMigration(f.input);
-      assert.equal(completion.status,'conflict',link);
-      assert.ok(issueAt(completion.conflicts,filename),link);
-      await assert.rejects(appendDecision(append),/live-incoming-link/,link);
-      await access(f.input.operationPath);
-      await writeFile(retiringPath,source);
-      await writeFile(filename,'[[projects/task#Definition of Done]]');
-      assert.deepEqual((await inspectNavigation(nav)).diagnostics,[]);
-      assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
-    }
-  }
-  assert.equal((await queryDecisions({projectsRoot:f.context.projectsRoot,dryRun:true})).total,0);
-  await unlink(retiringPath);
-  assert.equal((await appendDecision(append)).duplicate,false);
-  assert.equal((await completeMigration(f.input)).status,'completed');
-  assert.equal((await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event})).duplicate,true);
-});
-
-test('migration resolves actual targets while preserving collision and hidden-state safeguards', async t => {
-  const f = await fixture(), criterionId = uuid7();
-  const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
-  const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
-  const retiringPath = path.join(f.context.projectsRoot,'definition-of-done.md');
-  const unrelated = path.join(f.context.projectsRoot,'other');
-  await mkdir(unrelated);
-  await writeFile(retiringPath,source); await writeFile(f.file,destination);
-  await writeFile(path.join(unrelated,'definition-of-done.md'),'# Unrelated DoD');
-  await writeFile(path.join(unrelated,'t1-link.md'),'---\ntype: task\n---\n[[definition-of-done]]');
-  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:false}]};
-  await f.save();
-  assert.deepEqual((await inspectNavigation({projectsRoot:f.context.projectsRoot,vaultRoot:f.context.vaultRoot})).diagnostics,[]);
-  assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
-  for (const directory of [path.join(f.context.projectsRoot,'.temp'),path.join(f.context.dailyPlansRoot,'.state')]) {
-    await mkdir(directory);
-    await writeFile(path.join(directory,'recovery.md'),destination+'\n[[projects/definition-of-done]]');
-  }
-  assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
-  const collision = path.join(unrelated,'collision.md');
-  await writeFile(collision,destination);
-  const result = await inspectMigrationRetirement(f.input);
-  assert.equal(result.allowed,false);
-  for (const reason of ['destination-identity-collision','criterion-identity-collision']) assert.ok(result.issues.some(issue=>issue.reason === reason && issue.path === collision));
-  await unlink(collision);
-  const incoming = path.join(unrelated,'t1-link.md');
-  const hidden = path.join(f.context.projectsRoot,'.temp','recovery.md');
-  const outside = path.resolve(f.context.vaultRoot,'..','excluded.md');
-  for (const target of [hidden,outside]) {
-    for (const markdown of [`[[${target}]]`,`[Unsafe](${target})`]) {
-      await writeFile(incoming,markdown);
-      const inspection = await inspectMigrationRetirement(f.input);
-      assert.equal(inspection.allowed,false);
-      assert.ok(inspection.issues.some(issue=>issue.reason === 'unreadable-link' && issue.path === incoming));
-    }
-  }
-  await writeFile(incoming,'No retired links.');
-  const linked = path.join(unrelated,'linked.md');
-  await t.test('symlink targets block retirement',async st=>{
-  try { await symlink(retiringPath,linked); }
-  catch (error) {
-    if (process.platform === 'win32' && error.code === 'EPERM') return st.skip('Windows file symlinks require permission');
-    throw error;
-  }
-  const unscannable = await inspectMigrationRetirement(f.input);
-  assert.equal(unscannable.allowed,false);
-  assert.ok(unscannable.issues.some(issue=>issue.reason === 'unscannable-link' && issue.path === linked));
-  await unlink(linked);
-  });
-  assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
-});
-
 test('rollover carries prior selections and omitted in-progress work, preserves removals and recovers next day', async () => {
   const f = await fixture(), projectId = uuid7(), milestoneId = uuid7(), taskId = uuid7(), removedId = uuid7(), startedId = uuid7(), planId = uuid7(), previousPlanId = uuid7();
   const project = path.join(f.context.projectsRoot,'demo'), milestone = path.join(project,'m1-work');
@@ -348,6 +210,37 @@ test('rollover carries prior selections and omitted in-progress work, preserves 
   assert.equal((await completeChangedRollover({...f.input,now:'2026-10-10T15:00:00Z'})).status,'completed');
   assert.deepEqual(JSON.parse(await readFile(target,'utf8')).removedIds,[removedId]);
   assert.equal(await readFile(currentPath,'utf8'),after);
+});
+
+test('create-plan prepares rollover, taskSources and carried review rows before today plan exists, and preserves carriedFrom after writing ↺', async () => {
+  const f = await fixture(), projectId = uuid7(), milestoneId = uuid7(), taskId = uuid7(), previousPlanId = uuid7();
+  await unlink(f.input.operationPath);
+  const project = path.join(f.context.projectsRoot,'demo'), milestone = path.join(project,'m1-work');
+  await mkdir(milestone,{recursive:true});
+  const doc = (id,type,title,extra='',body='') => `---\nid: ${id}\ntype: ${type}\ntitle: ${title}\nowner: owner@example.test\n${type}-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\n${extra}---\n# ${title}\n${body}`;
+  await writeFile(path.join(project,'project-index.md'),doc(projectId,'project','Demo','',`- [ ] [[m1-work/m1-work|Work]] <!-- ref: ${milestoneId} -->\n`));
+  await writeFile(path.join(milestone,'m1-work.md'),doc(milestoneId,'milestone','Work',`project_id: ${projectId}\n`,`- [ ] [[t1-work|A]] <!-- ref: ${taskId} -->\n`));
+  const taskFile = path.join(milestone,'t1-work.md'), taskText = doc(taskId,'task','A',`project_id: ${projectId}\nmilestone_id: ${milestoneId}\n`);
+  await writeFile(taskFile,taskText);
+  const previousPath = path.join(f.context.dailyPlansRoot,'2026.10.08-daily-plan.md');
+  await writeFile(previousPath,`---\nid: ${previousPlanId}\ntype: daily-plan\n---\n# Yesterday\n- [ ] [[../projects/demo/m1-work/t1-work|A]] <!-- ref: ${taskId} -->\n`);
+  const prepared = await preparePlanning(f.input);
+  assert.equal(prepared.status,'create-plan');
+  assert.ok(prepared.current.proposedId);
+  assert.equal(prepared.rollover.selected.length,1);
+  assert.equal(prepared.rollover.selected[0].carriedFrom,'2026.10.08');
+  assert.deepEqual(prepared.rollover.taskSources,[{path:taskFile,sha256:hash(taskText)}]);
+  assert.equal(prepared.review.selected[0].carriedFrom,'2026.10.08');
+  const currentPath = prepared.current.path;
+  const planMarkdown = `---\nid: ${prepared.current.proposedId}\ntype: daily-plan\ncreated_at: ${f.input.now}\n---\n# Today\n- [ ] ↺ [[../projects/demo/m1-work/t1-work|A]] <!-- ref: ${taskId} -->\n`;
+  await writeFile(currentPath,planMarkdown);
+  const reopened = await preparePlanning(f.input);
+  assert.equal(reopened.status,'prepared');
+  assert.equal(reopened.review.selected[0].carriedFrom,'2026.10.08');
+  const savedReview = await savePlanningState({...f.input,action:'save-review',reviewMarkdown:planningScreen(reopened),
+    expectedPlanHash:reopened.current.sha256,expectedPreviousHash:reopened.previous.sha256,expectedStateHash:null,
+    expectedInventoryHash:reopened.inventoryHash,expectedReviewHash:reopened.reviewHash});
+  assert.equal(savedReview.status,'saved');
 });
 
 test('first-plan rollover proves absence of earlier plans', async () => {
@@ -395,30 +288,28 @@ test('planning classifies typed rollover dependencies without completing checkpo
   assert.deepEqual(await Promise.all(paths.map(filename => readFile(filename))),before);
 });
 
-test('planning classifies typed migration records and protected plan dependencies without changing recovery evidence', async () => {
-  const f = await fixture(), retiringId = uuid7(), destinationId = uuid7(), criterionId = uuid7(), projectId = uuid7();
-  const retiringPath = path.join(f.context.projectsRoot,'definition-of-done.md');
+test('planning classifies typed record checkpoints and protected plan dependencies without changing recovery evidence', async () => {
+  const f = await fixture(), destinationId = uuid7(), criterionId = uuid7(), projectId = uuid7(), milestoneId = uuid7();
   const currentPath = path.join(f.context.dailyPlansRoot,'2026.10.09-daily-plan.md');
-  const source = `---\nid: ${retiringId}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
-  const destination = `---\nid: ${destinationId}\ntype: task\ntitle: Task\nowner: owner@example.test\ntask-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\nproject_id: ${projectId}\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
-  await writeFile(path.join(f.context.projectsRoot,'project-index.md'),`---\nid: ${projectId}\ntype: project\ntitle: Project\nowner: owner@example.test\nproject-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\n---\n`);
+  const destination = `---\nid: ${destinationId}\ntype: task\ntitle: Task\nowner: owner@example.test\ntask-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\nproject_id: ${projectId}\nmilestone_id: ${milestoneId}\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
+  await writeFile(path.join(f.context.projectsRoot,'project-index.md'),`---\nid: ${projectId}\ntype: project\ntitle: Project\nowner: owner@example.test\nproject-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\n---\n- [ ] [[m1-work|Work]] <!-- ref: ${milestoneId} -->\n`);
+  await writeFile(path.join(f.context.projectsRoot,'m1-work.md'),`---\nid: ${milestoneId}\ntype: milestone\ntitle: Work\nowner: owner@example.test\nmilestone-state: not-started\ncreated_at: ${f.input.now}\nupdated_at: ${f.input.now}\nproject_id: ${projectId}\n---\n- [ ] [[task|Task]] <!-- ref: ${destinationId} -->\n`);
   await writeFile(currentPath,`---\nid: ${uuid7()}\ntype: daily-plan\n---\n`);
-  await writeFile(retiringPath,source); await writeFile(f.file,destination);
-  f.operation.files = [{path:retiringPath,before:hash(source),after:null},{path:f.file,before:hash('before'),after:hash(destination)}];
-  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:false}]};
-  f.operation.sourceSnapshot = {retiringMarkdown:source};
+  await writeFile(f.file,destination);
+  f.event.record_ids = [destinationId];
+  f.operation.files = [{path:f.file,before:hash('before'),after:hash(destination)}];
   const baselinePath = path.join(f.context.stateRoot,'reconciliation.json');
-  const baseline = JSON.stringify({schemaVersion:1,records:{[retiringId]:{canonical:{type:'dod'},views:{}}}});
+  const baseline = JSON.stringify({schemaVersion:1,records:{}});
   await writeFile(baselinePath,baseline);
-  f.operation.baseline = {beforeHash:hash(baseline),beforeText:baseline,value:{schemaVersion:1,records:{[destinationId]:{canonical:{type:'task'},views:{}}}}};
+  f.operation.baseline = {beforeHash:hash(baseline),beforeText:baseline,value:{schemaVersion:1,records:{[destinationId]:{canonical:{state:'not-started'},views:{}}}}};
   await f.save();
   const history = await appendDecision({projectsRoot:f.context.projectsRoot,entry:{...f.event,id:uuid7(),operation_id:uuid7(),action:'note.recorded'}});
-  const paths = [f.input.operationPath,baselinePath,history.file,retiringPath,f.file,currentPath];
+  const paths = [f.input.operationPath,baselinePath,history.file,f.file,currentPath];
   let before = await Promise.all(paths.map(filename => readFile(filename)));
   const disjoint = await preparePlanning({...f.input,dryRun:true});
   assert.equal(disjoint.status,'prepared');
   assert.equal(disjoint.recovery.operations[0].status,'scoped');
-  assert.deepEqual(disjoint.recovery.suspendedRecordIds,[retiringId,destinationId].sort());
+  assert.deepEqual(disjoint.recovery.suspendedRecordIds,[destinationId]);
   assert.ok(!disjoint.review.available.some(row => row.id === destinationId));
   assert.deepEqual(await Promise.all(paths.map(filename => readFile(filename))),before);
   f.operation.protectedFiles = [{path:currentPath,sha256:hash(await readFile(currentPath))}];
@@ -520,82 +411,5 @@ test('baseline checks actual canonical fields, view hashes and preserves unrelat
   f.operation.baseline.value.records[unrelatedId] = JSON.parse(beforeText).records[unrelatedId];
   await f.save();
   assert.equal((await completeOperation(f.input)).status,'completed');
-});
-
-test('migration decisions require actual retirement before log append and retain completed retry idempotency', async () => {
-  const f = await fixture(), criterionId = uuid7();
-  f.event.action = 'workspace.migration';
-  const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
-  const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [ ] Criterion\n  <!-- id: ${criterionId} -->\n`;
-  const retiringPath = path.join(f.context.projectsRoot,'definition-of-done.md');
-  await writeFile(retiringPath,source); await writeFile(f.file,destination);
-  f.operation.files = [{path:retiringPath,before:hash(source),after:null},{path:f.file,before:hash('before'),after:hash(destination)}];
-  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:false}]};
-  f.operation.sourceSnapshot = {retiringMarkdown:source}; await f.save();
-  const append = {...f.input,projectsRoot:f.context.projectsRoot,entry:f.event};
-  const prior = await appendDecision({projectsRoot:f.context.projectsRoot,entry:{...f.event,id:uuid7(),operation_id:uuid7(),action:'note.recorded'}});
-  const priorBytes = await readFile(prior.file,'utf8');
-  for (const dryRun of [true,false]) await assert.rejects(appendDecision({...append,dryRun}),/retirement/i);
-  assert.equal(await readFile(prior.file,'utf8'),priorBytes);
-  assert.equal((await queryDecisions({projectsRoot:f.context.projectsRoot,dryRun:true})).total,1);
-  await unlink(retiringPath);
-  await assert.rejects(appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event}),/vaultRoot|operation/i);
-  await assert.rejects(appendDecision({...append,operationPath:path.join(f.context.stateRoot,'operations',`${uuid7()}.json`)}),/checkpoint missing/i);
-  await assert.rejects(appendDecision({...append,entry:{...f.event,original_words:'changed event'}}),/event/i);
-  const protectedPath = path.join(f.context.projectsRoot,'protected.md');
-  await writeFile(protectedPath,'changed');
-  f.operation.protectedFiles = [{path:protectedPath,sha256:hash('original')}]; await f.save();
-  await assert.rejects(appendDecision(append),/protected source/i);
-  delete f.operation.protectedFiles; await f.save();
-  await writeFile(f.file,destination+'\nUnexpected edit.\n');
-  await assert.rejects(appendDecision(append),/retirement|effect/i);
-  await writeFile(f.file,destination);
-  await writeFile(path.join(f.context.projectsRoot,'incoming.md'),'[Old DoD](definition-of-done.md)');
-  await assert.rejects(appendDecision(append),/retirement/i);
-  await unlink(path.join(f.context.projectsRoot,'incoming.md'));
-  const changed = destination.replace('[ ] Criterion','[x] Criterion');
-  await writeFile(f.file,changed); f.operation.files[1].after = hash(changed); await f.save();
-  await assert.rejects(appendDecision(append),/retirement/i);
-  await writeFile(f.file,destination); f.operation.files[1].after = hash(destination); await f.save();
-  assert.equal(await readFile(prior.file,'utf8'),priorBytes);
-  assert.equal((await appendDecision({...append,dryRun:true})).duplicate,false);
-  assert.equal((await appendDecision(append)).duplicate,false);
-  assert.equal((await completeMigration(f.input)).status,'completed');
-  assert.equal((await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event})).duplicate,true);
-});
-
-test('migration post-delete completion verifies snapshot preservation and clears checkpoint only', async () => {
-  const f = await fixture(), criterionId = uuid7();
-  const source = `---\nid: ${uuid7()}\ntype: dod\n---\n# Definition of Done\n- [x] Criterion\n  <!-- id: ${criterionId} -->\n\nHistory preserved.\n`;
-  const destination = `---\nid: ${uuid7()}\ntype: task\n---\n# Task\n## Definition of Done\n- [x] Criterion\n  <!-- id: ${criterionId} -->\n\nHistory preserved.\n`;
-  const retiringPath = path.join(f.context.projectsRoot,'definition-of-done.md');
-  await writeFile(retiringPath,source);
-  await writeFile(f.file,destination);
-  f.operation.files = [{path:retiringPath,before:hash(source),after:null},{path:f.file,before:hash('before'),after:hash(destination)}];
-  f.operation.migration = {retiringPath,destinationPath:f.file,sourceHash:hash(source),expectedCriteria:[{id:criterionId,text:'Criterion',checked:true}],preservedFields:{}};
-  f.operation.sourceSnapshot = {retiringMarkdown:source};
-  const retiringId = source.match(/id: ([^\n]+)/)[1], destinationId = destination.match(/id: ([^\n]+)/)[1], unrelatedId = uuid7();
-  const beforeText = JSON.stringify({schemaVersion:1,records:{[retiringId]:{canonical:{type:'dod'},views:{}},[unrelatedId]:{canonical:{type:'project'},views:{}}}});
-  await writeFile(path.join(f.context.stateRoot,'reconciliation.json'),beforeText);
-  f.operation.baseline = {beforeHash:hash(beforeText),beforeText,value:{schemaVersion:1,records:{[destinationId]:{canonical:{type:'task'},views:{}},[unrelatedId]:JSON.parse(beforeText).records[unrelatedId]}}};
-  await f.save();
-  assert.equal((await inspectMigrationRetirement(f.input)).allowed,true);
-  await unlink(retiringPath);
-  await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event});
-  for (const changed of [destination.replace('[x] Criterion','[ ] Criterion'),destination.replace('Criterion','Different'),destination.replace('History preserved.','')]) {
-    await writeFile(f.file,changed);
-    f.operation.files.find(file=>file.path === f.file).after = hash(changed); await f.save();
-    assert.equal((await completeMigration(f.input)).status,'conflict');
-    await access(f.input.operationPath);
-  }
-  await writeFile(f.file,destination);
-  f.operation.files.find(file=>file.path === f.file).after = hash(destination); await f.save();
-  assert.equal((await completeMigration({...f.input,dryRun:true})).status,'preview');
-  await access(f.input.operationPath);
-  assert.equal((await completeMigration(f.input)).status,'completed');
-  assert.equal(await readFile(f.file,'utf8'),destination);
-  const baseline = JSON.parse(await readFile(path.join(f.context.stateRoot,'reconciliation.json'),'utf8'));
-  assert.equal(Object.hasOwn(baseline.records,retiringId),false);
-  assert.deepEqual(baseline.records[unrelatedId],JSON.parse(beforeText).records[unrelatedId]);
 });
 

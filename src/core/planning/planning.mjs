@@ -60,6 +60,7 @@ export function planRollover(input) {
       (input.removedIds !== undefined && (!Array.isArray(input.removedIds) || !input.removedIds.every(isUuid7))) ||
       (previousDate !== undefined && (!calendarDate(previousDate) || previousDate >= today)) ||
       (previousRows.length && previousDate === undefined)) throw new TypeError('Current date, plan UUID, userEmail and valid earlier-plan rows required');
+  const markCurrent = rows => rows.map(row => row.carried && !row.carriedFrom ? {...row,carriedFrom:previousDate ?? 'carried'} : row);
   if (state !== undefined && state !== null) {
     const validState = state.schemaVersion === 1 && state.date === today && state.planId === planId &&
       (state.removedIds === undefined || (Array.isArray(state.removedIds) && state.removedIds.every(isUuid7)));
@@ -67,9 +68,9 @@ export function planRollover(input) {
     try { validCompletion = isUuid7(state.operationId) && !!utcTimestamp(state.completedAt); }
     catch { /* Corrupt completion evidence must not reintroduce removed selections. */ }
     if (!validState || (Object.hasOwn(state,'completedAt') && !validCompletion)) {
-      return {status:'conflict',selected:currentRows,own:[],delegated:[],followUp:[],unresolved:[{reason:'invalid-rollover-state'}]};
+      return {status:'conflict',selected:markCurrent(currentRows),own:[],delegated:[],followUp:[],unresolved:[{reason:'invalid-rollover-state'}]};
     }
-    if (validCompletion) return {status:'complete',selected:currentRows,own:[],delegated:[],followUp:[],unresolved:[]};
+    if (validCompletion) return {status:'complete',selected:markCurrent(currentRows),own:[],delegated:[],followUp:[],unresolved:[]};
   }
   // In-progress work survives old deselections; only a future allocation or closure stops carry.
   const startedIds = new Set(records.filter(record => record.state === 'in-progress').map(record => record.id));
@@ -82,7 +83,7 @@ export function planRollover(input) {
   const carried = rows => rows.map(row => priorIds.has(row.id) ? {...row,carriedFrom:previousDate} : row);
   const own = carried(carry.own), delegated = carried(carry.delegated), followUp = carried(carry.followUp);
   const unresolved = carried(carry.unresolved);
-  return {status:'due',selected:[...currentRows.filter(row => row.selected !== false),...own,...delegated,...followUp,...unresolved],
+  return {status:'due',selected:[...markCurrent(currentRows.filter(row => row.selected !== false)),...own,...delegated,...followUp,...unresolved],
     own,delegated,followUp,unresolved};
 }
 

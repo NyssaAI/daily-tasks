@@ -2,7 +2,7 @@ import { readFile, readdir, lstat } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
-import { expandStoredPath, validateProfile, validatePreferenceLayer, validateEffectiveProfile } from './profile.mjs';
+import { expandStoredPath, validatePreferenceLayer, validateEffectiveProfile } from './profile.mjs';
 import { localDay, utcTimestamp } from '../time/time.mjs';
 
 /** Bind one planning session to explicitly resolved roots, never a subprocess cwd. */
@@ -30,8 +30,7 @@ export async function resolveContext(input) {
   const homeRoot = input.homeRoot ?? homedir();
   if ((boundWorkspace !== undefined && !path.isAbsolute(boundWorkspace)) || !path.isAbsolute(homeRoot)) throw new TypeError('Absolute workspaceRoot/vaultRoot or captured initialCwd and homeRoot required');
   if (!boundWorkspace && !input.homeRoot) throw new TypeError('Explicit homeRoot required for personal preferences without workspaceRoot/vaultRoot or initialCwd');
-  const exclusive = input.profilePath !== undefined || input.configRoot !== undefined;
-  if (input.configurationSources !== undefined && exclusive) throw new TypeError('configurationSources and legacy selectors are exclusive; simultaneous selectors rejected');
+  if (input.profilePath !== undefined || input.configRoot !== undefined) throw new TypeError('profilePath and configRoot legacy selectors are not supported; use configurationSources');
   const candidates = [], diagnostics = [];
   const documents = new Map();
   const loadProfile = async filename => {
@@ -40,55 +39,46 @@ export async function resolveContext(input) {
     if (!documents.has(key)) documents.set(key,await readProfile(filename));
     return documents.get(key);
   };
-  let configurationSources;
+  const descriptor = input.configurationSources;
+  if (descriptor !== undefined && (!descriptor || descriptor.schemaVersion !== 1 || Object.keys(descriptor).some(key => !['schemaVersion','user','project'].includes(key)))) throw new TypeError('Invalid configurationSources schemaVersion');
+  const configurationSources = {schemaVersion:1};
   const layers = [];
-  if (exclusive) {
-    const filename = input.profilePath ?? path.join(input.configRoot,'profile.json');
-    if (!path.isAbsolute(filename)) throw new TypeError('profilePath/configRoot must be absolute');
-    candidates.push(filename);
-    const value = await loadProfile(filename);
-    if (value) layers.push({scope:'project',profilePath:filename,value});
-  } else {
-    const descriptor = input.configurationSources;
-    if (descriptor !== undefined && (!descriptor || descriptor.schemaVersion !== 1 || Object.keys(descriptor).some(key => !['schemaVersion','user','project'].includes(key)))) throw new TypeError('Invalid configurationSources schemaVersion');
-    configurationSources = {schemaVersion:1};
-    for (const [scope,root] of [['user',homeRoot],['project',boundWorkspace]]) {
-      let filename = null;
-      let selectedProfile;
-      if (descriptor !== undefined) {
-        const selection = descriptor[scope];
-        if (!selection || Object.keys(selection).length !== 1 || !Object.hasOwn(selection,'profilePath') || (selection.profilePath !== null && (typeof selection.profilePath !== 'string' || !path.isAbsolute(selection.profilePath)))) throw new TypeError(`configurationSources.${scope} requires absolute profilePath or explicit null absence`);
-        filename = selection.profilePath;
-        if (filename && !root) throw new TypeError(`Bound ${scope} root required for configurationSources`);
-        // Custom accepted pointers are allowed, but conventional paths cannot select another scope.
-        if (filename && /[\\/]\.nyssa(?:-ai|ai)?[\\/]daily-tasks[\\/]profile\.json$/i.test(filename) && !configurationPaths(root).some(candidate => samePath(candidate,filename))) throw new Error(`configurationSources.${scope} conflicts with the bound scope`);
-      } else if (root) {
-        for (const candidate of configurationPaths(root)) {
-          candidates.push(candidate);
-          if (!filename) {
-            selectedProfile = await loadProfile(candidate);
-            if (selectedProfile) filename = candidate;
-          }
-          else {
-            try {
-              await lstat(candidate);
-              diagnostics.push({code:'shadowed-configuration',scope,path:candidate,selected:filename});
-            } catch (error) { if (error.code !== 'ENOENT') throw error; }
-          }
+  for (const [scope,root] of [['user',homeRoot],['project',boundWorkspace]]) {
+    let filename = null;
+    let selectedProfile;
+    if (descriptor !== undefined) {
+      const selection = descriptor[scope];
+      if (!selection || Object.keys(selection).length !== 1 || !Object.hasOwn(selection,'profilePath') || (selection.profilePath !== null && (typeof selection.profilePath !== 'string' || !path.isAbsolute(selection.profilePath)))) throw new TypeError(`configurationSources.${scope} requires absolute profilePath or explicit null absence`);
+      filename = selection.profilePath;
+      if (filename && !root) throw new TypeError(`Bound ${scope} root required for configurationSources`);
+      // Custom accepted pointers are allowed, but conventional paths cannot select another scope.
+      if (filename && /[\\/]\.nyssa-ai[\\/]daily-tasks[\\/]profile\.json$/i.test(filename) && !configurationPaths(root).some(candidate => samePath(candidate,filename))) throw new Error(`configurationSources.${scope} conflicts with the bound scope`);
+    } else if (root) {
+      for (const candidate of configurationPaths(root)) {
+        candidates.push(candidate);
+        if (!filename) {
+          selectedProfile = await loadProfile(candidate);
+          if (selectedProfile) filename = candidate;
+        }
+        else {
+          try {
+            await lstat(candidate);
+            diagnostics.push({code:'shadowed-configuration',scope,path:candidate,selected:filename});
+          } catch (error) { if (error.code !== 'ENOENT') throw error; }
         }
       }
-      configurationSources[scope] = {profilePath:filename};
-      if (filename) {
-        let value = selectedProfile ?? await loadProfile(filename);
-        if (!value) throw new Error(`Bound configuration source missing: ${filename}`);
-        if (value.schema_version === 2 && scope === 'user') {
-          const validation = validatePreferenceLayer(value);
-          if (!validation.valid) throw new TypeError(`${filename}: ${validation.errors.join('; ')}`);
-          // Stored documents may serve both scopes; user views never inherit bindings.
-          value = Object.fromEntries(Object.entries(value).filter(([key]) => ['schema_version','user','timezone','priorities','templates','projectIndex'].includes(key)));
-        }
-        layers.push({scope,profilePath:filename,value});
+    }
+    configurationSources[scope] = {profilePath:filename};
+    if (filename) {
+      let value = selectedProfile ?? await loadProfile(filename);
+      if (!value) throw new Error(`Bound configuration source missing: ${filename}`);
+      if (scope === 'user') {
+        const validation = validatePreferenceLayer(value);
+        if (!validation.valid) throw new TypeError(`${filename}: ${validation.errors.join('; ')}`);
+        // Stored documents may serve both scopes; user views never inherit bindings.
+        value = Object.fromEntries(Object.entries(value).filter(([key]) => ['schema_version','user','timezone','priorities','templates','projectIndex'].includes(key)));
       }
+      layers.push({scope,profilePath:filename,value});
     }
   }
   if (input.preferenceOverrides !== undefined) {
@@ -98,13 +88,11 @@ export async function resolveContext(input) {
     if (!validation.valid) throw new TypeError(validation.errors.join('; '));
     layers.push({scope:'user',profilePath:null,value});
   }
-  let profile = {schema_version:1,timezone:'system',priorities:[],vaultRoot:'.',dailyPlansRelative:'2-areas/daily-plans',templates:{},projectIndex:{ttlSeconds:14400},sources:{autoScan:false,directories:[],mcps:[]}};
+  let profile = {schema_version:2,timezone:'system',priorities:[],vaultRoot:'.',dailyPlansRelative:'2-areas/daily-plans',templates:{},projectIndex:{ttlSeconds:14400},sources:{autoScan:false,directories:[],mcps:[]}};
   const preferenceSources = {};
   for (const layer of layers) {
-    const validation = layer.value.schema_version === 2 ? validatePreferenceLayer(layer.value,exclusive ? undefined : layer.scope) : validateProfile(layer.value);
+    const validation = validatePreferenceLayer(layer.value,layer.scope);
     if (!validation.valid) throw new TypeError(`${layer.profilePath}: ${validation.errors.join('; ')}`);
-    const layerRoot = layer.value.workspaceRoot ?? layer.value.vaultRoot;
-    if (layer.value.schema_version === 1 && boundWorkspace && !samePath(expandStoredPath(layerRoot,boundWorkspace,homeRoot),boundWorkspace)) throw new Error('Profile vaultRoot conflicts with the supplied vault binding');
     for (const [key,value] of Object.entries(layer.value)) {
       if (key === 'schema_version') continue;
       if (['user','templates','projectIndex'].includes(key)) {
@@ -126,8 +114,8 @@ export async function resolveContext(input) {
   }
   const profilePath = layers.filter(layer => layer.profilePath).at(-1)?.profilePath;
   const configRoot = profilePath ? path.dirname(profilePath) : path.join(boundWorkspace ?? homeRoot,'.nyssa-ai/daily-tasks');
-  const writableScopes = exclusive ? {legacy:configRoot} : {user:path.dirname(configurationSources?.user.profilePath ?? path.join(homeRoot,'.nyssa-ai/daily-tasks/profile.json')),
-    ...(boundWorkspace ? {project:path.dirname(configurationSources?.project.profilePath ?? path.join(boundWorkspace,'.nyssa-ai/daily-tasks/profile.json'))} : {})};
+  const writableScopes = {user:path.dirname(configurationSources.user.profilePath ?? path.join(homeRoot,'.nyssa-ai/daily-tasks/profile.json')),
+    ...(boundWorkspace ? {project:path.dirname(configurationSources.project.profilePath ?? path.join(boundWorkspace,'.nyssa-ai/daily-tasks/profile.json'))} : {})};
   const sharedScopes = writableScopes.project && samePath(writableScopes.user,writableScopes.project)
     ? [{scopes:['user','project'],directory:writableScopes.user}] : [];
   const base = {configurationSources,preferenceOverrides:input.preferenceOverrides,profilePath,configRoot,writableScopes,sharedScopes,candidates,diagnostics,preferenceSources,homeRoot,vaultRoot:boundWorkspace,workspaceRoot:boundWorkspace,profile};
@@ -142,7 +130,7 @@ export async function resolveContext(input) {
   if (!validation.valid) return {...base,configured:false,missing:validation.errors};
   const workspaceRoot = expandStoredPath(profile.workspaceRoot ?? profile.vaultRoot,boundWorkspace,homeRoot);
   if (!samePath(workspaceRoot,boundWorkspace)) throw new Error('Profile vaultRoot conflicts with the supplied vault binding');
-  const stateRoot = await resolveStateRoot(workspaceRoot,input.stateRoot,exclusive && layers[0]?.value.schema_version === 1 ? configRoot : undefined);
+  const stateRoot = await resolveStateRoot(workspaceRoot,input.stateRoot);
   const projectsRoot = expandStoredPath(profile.projectsRoot,workspaceRoot,homeRoot);
   const dailyPlansRoot = path.join(workspaceRoot,profile.dailyPlansRelative);
   const within = (root,target) => {
@@ -188,7 +176,7 @@ async function stateContents(directory,prefix = '') {
   return contents;
 }
 
-async function resolveStateRoot(vaultRoot,explicit,legacyConfigRoot) {
+async function resolveStateRoot(vaultRoot,explicit) {
   if (explicit !== undefined && !path.isAbsolute(explicit)) throw new TypeError('stateRoot must be absolute');
   const roots = configurationPaths(vaultRoot).map(filename => path.dirname(filename));
   if (explicit && !roots.some(root => samePath(root,explicit))) roots.unshift(explicit);
@@ -203,8 +191,5 @@ async function resolveStateRoot(vaultRoot,explicit,legacyConfigRoot) {
   }
   if (explicit) return explicit;
   if (stores.length) return stores[0].root;
-  // Empty legacy locations remain compatible for existing v1 clients.
-  const legacy = legacyConfigRoot;
-  if (legacy && roots.some(root => samePath(root,legacy))) return legacy;
   return roots[0];
 }

@@ -46,7 +46,7 @@ async function inspect(input,options = {}) {
     stores[scope] = await readTemplateStore(directory);
     for (const [kind,entry] of Object.entries(stores[scope].value.templates)) validateEntry(kind,entry);
   }
-  const scope = input.scope ?? (stores.legacy ? 'legacy' : stores.project ? 'project' : 'user');
+  const scope = input.scope ?? (stores.project ? 'project' : 'user');
   if (!stores[scope]) throw new Error('Requested template scope is not available in this context');
   const uniqueStores = [...new Set(Object.values(stores))].reverse().map(store => [
     store === stores[scope] ? scope : Object.keys(stores).find(key => stores[key] === store),store,
@@ -118,7 +118,7 @@ async function inspect(input,options = {}) {
   const packet = {status:pendingScopes.length ? 'recovery-required' : 'prepared',scope,token,templates,storage,pendingScopes,
     sharedScopes:context.sharedScopes,
     placement:await templatePlacement(context,templates),
-    context:{configurationSources:context.configurationSources,profilePath:context.configurationSources ? undefined : context.profilePath,
+    context:{configurationSources:context.configurationSources,
       homeRoot:context.homeRoot,vaultRoot:context.vaultRoot,stateRoot:context.stateRoot,preferenceOverrides:context.preferenceOverrides}};
   return {packet,context,stores};
 }

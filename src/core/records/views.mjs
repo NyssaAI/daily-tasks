@@ -50,8 +50,10 @@ export function parseViewRows(markdown) {
       const title = text.replace(/<!--.*?-->/g,'').trim();
       const symbol = (mark?.[1] ?? (linkOnly && statusCell ? /\[([ xX>\-])\]/.exec(statusCell)[1] : undefined))?.toLowerCase();
       const cancelled = symbol === '-' || (symbol === ' ' && /~~.+~~.*\bCancelled\b/i.test(title));
+      const carried = /^↺(?:\s|$)/.test(title);
       const row = {id:null,title,target:link?.[1],label:link?.[2] ?? link?.[1],
         checked:symbol === 'x',mark:symbol,cancelled,
+        ...(carried ? {carried:true} : {}),
         ...(cancelled ? {state:'cancelled'} : symbol === '>' ? {state:'in-progress'} : {})};
       associateViewReferences(row,references);
       row.candidate = !row.id && !row.referenceError;

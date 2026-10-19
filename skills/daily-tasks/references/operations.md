@@ -37,7 +37,7 @@ Follow this 5-step protocol before any consequential Markdown write or recovery:
 
 ### 5. Verify and complete
 - Propose updated per-view baselines in the checkpoint.
-- Execute `operation-verify`, followed by `operation-complete` (or specialized `rollover-complete` / `migration-complete`).
+- Execute `operation-verify`, followed by `operation-complete` (or specialized `rollover-complete`).
 - The CLI independently verifies actual file contents and the recorded log event, writes verified baseline state to `stateRoot/reconciliation.json`, and atomically removes the checkpoint file.
 - Never manually delete a checkpoint file or advance a baseline when verification returns pending or conflict.
 

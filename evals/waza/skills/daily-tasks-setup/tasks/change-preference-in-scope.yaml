@@ -1,0 +1,16 @@
+id: daily-tasks-setup-change-preference-in-scope
+name: Route a request to change a Daily Tasks preference
+description: An explicit timezone preference change belongs to setup.
+tags:
+  - trigger
+  - positive
+inputs:
+  prompt: "Change my Daily Tasks timezone preference to America/Chicago."
+expected:
+  should_trigger: true
+graders:
+  - type: trigger
+    name: setup-preference-change-positive
+    config:
+      skill_path: skills/daily-tasks-setup/SKILL.md
+      mode: positive

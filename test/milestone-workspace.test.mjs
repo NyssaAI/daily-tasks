@@ -25,7 +25,7 @@ test('embedded criteria stay distinct from navigation and allow evidence links a
   assert.deepEqual(record.refs.map(r => r.id),[id(3)]);
 });
 
-test('task and milestone closure require their own criteria, while legacy task closure stays readable', () => {
+test('task and milestone closure require their own embedded criteria', () => {
   const records = graph();
   assert.deepEqual(validateRecords(records),[]);
   for (const n of [1,2,3]) assert.equal(checkClosure(id(n),records).allowed,true);
@@ -35,8 +35,8 @@ test('task and milestone closure require their own criteria, while legacy task c
   assert.equal(checkClosure(id(2),records).allowed,true);
   records[1].criteria[0].checked = false;
   assert.equal(checkClosure(id(2),records).allowed,false);
-  const legacy = parseRecord(doc(3,'task','',`project_id: ${id(1)}\nmilestone_id: ${id(2)}\n`).replace('record_version: 2\n',''),'/p/legacy.md');
-  assert.equal(checkClosure(id(3),[records[0],records[1],legacy]).allowed,true);
+  const missingDod = parseRecord(doc(3,'task','',`project_id: ${id(1)}\nmilestone_id: ${id(2)}\n`).replace('record_version: 2\n',''),'/p/legacy.md');
+  assert.equal(checkClosure(id(3),[records[0],records[1],missingDod]).allowed,false);
 });
 
 test('new tasks missing DoD or containing duplicate criterion IDs cannot complete', () => {
@@ -70,11 +70,9 @@ test('numbered records remain discoverable with broken metadata and duplicate nu
   assert.ok(validateRecords(records).some(d => d.code === 'invalid-number'));
 });
 
-test('legacy milestone conversion preserves criterion references and rejects competing DoD sources', () => {
+test('milestone criterion references resolve to the embedded Definition of Done section', () => {
   const records = graph();
-  const legacy = parseRecord(doc(9,'dod',`## Definition of Done\n${criterion(4)}`,`project_id: ${id(1)}\nmilestone_id: ${id(2)}\n`).replace('record_version: 2\n',''),'/p/m1-example/definition-of-done.md');
-  assert.equal(checkClosure(id(2),[...records,legacy]).allowed,false);
-  const projection = {...records[0],refs:[{id:id(4),target:'m1-example/definition-of-done#Definition of Done'}]};
+  const projection = {...records[0],refs:[{id:id(4),target:'m1-example/old-path#Definition of Done'}]};
   const repair = checkLinks([projection,...records.slice(1)]).find(d => d.code === 'path-mismatch');
   assert.equal(repair.proposedTarget,'m1-example/m1-example#Definition of Done');
   projection.refs[0].target = repair.proposedTarget;
@@ -128,7 +126,7 @@ test('flat holding folders cannot introduce phantom tasks in either inventory or
 });
 
 
-test('blocker labels are project-local, discoverable and compatible with legacy names', () => {
+test('blocker labels are project-local and discoverable', () => {
   const project = graph()[0];
   const blocker = (n, filename, projectId=id(1), version=true) => parseRecord(
     doc(n,'blocker','',`project_id: ${projectId}\n`).replace('blocker-state: completed','blocker-state: open')

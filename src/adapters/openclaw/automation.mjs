@@ -8,10 +8,9 @@ const sourceIdentity = sources => [sources.schemaVersion,...['user','project'].m
 export function validatePrewarmOptions(input) {
   if (!path.isAbsolute(input.vaultRoot ?? '')) throw new TypeError('vaultRoot must be absolute');
   if (!path.isAbsolute(input.homeRoot ?? '')) throw new TypeError('homeRoot must be absolute');
-  if (input.profilePath !== undefined && !path.isAbsolute(input.profilePath)) throw new TypeError('profilePath must be absolute');
+  if (input.profilePath !== undefined) throw new TypeError('profilePath legacy selector is not supported; use configurationSources');
   if (input.stateRoot !== undefined && !path.isAbsolute(input.stateRoot)) throw new TypeError('stateRoot must be absolute');
   if (input.configurationSources !== undefined) {
-    if (input.profilePath !== undefined) throw new TypeError('configurationSources and legacy selectors are exclusive');
     const sources = input.configurationSources;
     if (!sources || sources.schemaVersion !== 1 || Object.keys(sources).some(key => !['schemaVersion','user','project'].includes(key))) throw new TypeError('Invalid configurationSources schemaVersion');
     for (const scope of ['user','project']) {
@@ -27,11 +26,10 @@ export function validatePrewarmOptions(input) {
 
 export function prewarmDeclarationKey(input) {
   validatePrewarmOptions(input);
-  // Keep the original identity byte-for-byte for existing declarations.
   const scope = JSON.stringify(input.configurationSources === undefined && input.stateRoot === undefined
-    ? [normalized(input.vaultRoot),normalized(input.homeRoot),input.profilePath ? normalized(input.profilePath) : null]
+    ? [normalized(input.vaultRoot),normalized(input.homeRoot),null]
     : ['context-v1',normalized(path.resolve(input.vaultRoot)),normalized(path.resolve(input.homeRoot)),
-      input.profilePath ? normalized(path.resolve(input.profilePath)) : null,
+      null,
       input.configurationSources === undefined ? null : sourceIdentity(input.configurationSources),
       input.stateRoot === undefined ? null : normalized(path.resolve(input.stateRoot))]);
   return `daily-tasks:project-index-prewarm:${createHash('sha256').update(scope).digest('hex').slice(0,24)}`;
@@ -56,7 +54,6 @@ export function buildPrewarmAutomation(input) {
     input.warmCommandPath,
     '--vault-root',input.vaultRoot,
     '--home-root',input.homeRoot,
-    ...(input.profilePath ? ['--profile-path',input.profilePath] : []),
     ...(input.configurationSources === undefined ? [] : ['--configuration-sources',JSON.stringify(input.configurationSources)]),
     ...(input.stateRoot === undefined ? [] : ['--state-root',input.stateRoot]),
   ];

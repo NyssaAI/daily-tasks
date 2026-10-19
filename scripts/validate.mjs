@@ -28,7 +28,7 @@ const capabilities = JSON.parse(await readFile(path.join(root,'capabilities.json
 if (!capabilities.operations?.length) errors.push('Missing executable contract');
 const profileOperations = capabilities.operations?.filter(operation => operation.name === 'validate-profile') ?? [];
 if (profileOperations.length !== 1 || !isDeepStrictEqual(profileOperations[0].inputSchema,profileInputSchema)) {
-  errors.push('Invalid profile input contract: regenerate the supported v1/v2 schema');
+  errors.push('Invalid profile input contract: regenerate the supported v2 schema');
 }
 const nativePackage = JSON.parse(await readFile(path.join(root,'src/adapters/openclaw/package.json'),'utf8'));
 const nativeManifest = JSON.parse(await readFile(path.join(root,'src/adapters/openclaw/openclaw.plugin.json'),'utf8'));

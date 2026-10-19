@@ -27,37 +27,43 @@ settings or an explicit configuration change; do not restart setup for a configu
 Bind one workspace, its assigned projectsRoot and dailyPlansRoot throughout this session,
 numbered replies and recovery. Shared preferences never combine workspaces.
 
-Start with `planning-prepare`, passing the captured absolute workspace binding. On
+Start with `planning-prepare`, passing the captured absolute workspace binding and
+`--output <workspaceRoot>/.temp/daily-tasks/prep.json` (never shell `>` redirection). On
 continuation preserve configurationSources, preferenceOverrides and stateRoot from
-the accepted context. Use profilePath only for an explicitly accepted legacy
-exclusive profile, never alongside configurationSources. It resolves actual dated plan identities/hashes, full-graph
-inventory, rollover/review proposals, pending operations, maintenance and enrollment
-issues. Use this packet instead of temporary orchestration or hand-assembled parse
-results. Selected records alone are not the validation universe. Preparation does
-not reconcile edits, complete rollover or finish check-in.
+the accepted context. `planning-prepare` resolves actual dated plan identities/hashes,
+`current.proposedId` (for a missing plan), `displayNow`, full-graph inventory,
+pre-computed `rollover` (including `selected`, `own`, `delegated`, `followUp`,
+`unresolved`, and `taskSources`), pre-computed `review` (including carried selections
+and stable numbering), `templates`, `pendingOperations`, `maintenance`, and `enrollment`
+issues in one call. Use this packet directly instead of running separate `resolve-context`,
+`template-prepare`, `project-index`, `new-id`, `format-time`, `plan-rollover`, or
+`planning-review` calls. Selected records alone are not the validation universe.
+Preparation does not reconcile edits, complete rollover or finish check-in.
 
-Use the packet's localDate and actual resolved timezone. Load the [CLI](../daily-tasks/references/cli.md)
-when invoking operations, `local-day` or `format-time`; identify the actual local zone
-in the heading and rendered times, never the profile value `"system"`.
+Use the packet's `context.localDate`, `displayNow`, and actual resolved `context.timezone`.
+Load the [CLI](../daily-tasks/references/cli.md) when invoking operations; identify the actual
+local zone in the heading and rendered times, never the profile value `"system"`.
 Daily output is `<workspaceRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md`, normally
 `daily-plans`, resolved from the profile. Never use configRoot, operating
 state or a later cwd as output. Setup resolves its known default; ask only if
 scope remains unknown or points into configuration/state storage.
 
 Before authoring the plan or review, follow the packet's `templates` through
-[template updates](../daily-tasks/references/template-updates.md). Retain an observed
-baseline, offer relevant changes and continue with the active layout while an update
-is undecided. Saved-plan and chat-review choices are independent.
+[template updates](../daily-tasks/references/template-updates.md). When `templates` have
+no unbaselined observations or pending update offers (`shouldOffer: false`), proceed
+without calling `template-state`. Otherwise retain an observed baseline, offer relevant
+changes and continue with the active layout while an update is undecided. Saved-plan and
+chat-review choices are independent.
 
 ## 2. Recover and reconcile
 
 Load [operations](../daily-tasks/references/operations.md) before recovery,
 reconciliation or consequential writes, and [record conventions](../daily-tasks/references/records.md)
-when validating affected records/links. Inspect current-plan edits and per-view
-baselines; recover applicable pending operations before applying affected changes.
-Read selected canonical records and needed parents, blockers/dependencies without
-repeating a full history query merely to open/carry a plan. Preserve unresolved
-references instead of guessing identity. A fresh cache never skips these checks.
+when validating affected records/links. When `pendingOperations` is empty and no manual
+edits or conflicts are reported in `recovery` or `review.diagnostics`, skip directly to
+Step 3 without re-reading task files or querying the decision log. Otherwise inspect
+current-plan edits and per-view baselines; recover applicable pending operations before
+applying affected changes. Preserve unresolved references instead of guessing identity.
 
 Apply the [requested-use maintenance gate](../daily-tasks/references/planning-flow.md#load-and-maintain).
 Compare edits before regenerating any view; suspend only conflicting items and
@@ -71,7 +77,7 @@ writes and log appends ordered.
 
 A blocked maintenance inspection is not a global planning stop. Map diagnostics to
 their affected records and paths. Missing navigation targets, baseline enrollment,
-invalid legacy projects and unrelated view differences remain maintenance work; they
+and unrelated view differences remain maintenance work; they
 do not block independent rollover, review mapping or plan saves whose selected and
 carried records validate. Suspend only a proposed write that depends on the affected
 record or view, and report the remaining maintenance scope separately.
@@ -83,16 +89,12 @@ requires a fresh packet before a dependent state action or review is saved.
 ## 3. Verify rollover
 
 Apply [once-per-day rollover](../daily-tasks/references/planning-flow.md#once-per-day-rollover)
-before opening/creating or merging today's plan. Preserve an existing plan's UUID,
-original `created_at`, selections, prose and valid edits; create only a missing plan
-with UUIDv7 and GMT timestamps. Never backfill skipped days. A pre-created future plan
-still requires today's verified dated rollover.
-
-Merge unfinished prior selections and all valid in-progress tasks by UUID into
-today's selections, honoring carry-forward rules, explicit removals, and future-day exclusions.
-In-progress work carries until completed, rescheduled or cancelled. Changed rollover
-uses the write-ahead checkpoint and completion protocol; an eligible no-change rollover
-finalizes via `planning-state` action `complete-rollover`. Reprepare before the review.
+using the pre-computed `packet.rollover` from `planning-prepare`:
+- Preserve an existing plan's UUID (`current.id`), original `created_at`, selections, prose and valid edits.
+- For a missing plan (`status: "create-plan"`), use `current.proposedId`, `context.now` for `created_at`/`updated_at`, `displayNow` for the visible timestamp, and `templates.templates.dailyPlan.active.content` for the layout. Never backfill skipped days.
+- Merge unfinished prior selections and all valid in-progress tasks from `rollover.selected` (`rollover.own`, `rollover.delegated`, `rollover.followUp`), prefixing carried rows (`carriedFrom` present) with `↺ ` before the wiki link (`- [ ] ↺ [[relative-path|Task title]] <!-- ref: UUID -->`).
+- If `rollover` creates or modifies today's plan file, use the write-ahead checkpoint (`rollover.taskSources` supplies `sourceSnapshot.taskSources`), write the plan Markdown, append the `plan.rollover` decision via `log-append`, and finalize via `rollover-complete`, then run `planning-prepare` once to refresh hashes before `save-review`.
+- If today's plan already exists and `rollover` requires no membership change, finalize via `planning-state` action `complete-rollover`.
 
 ## 4. Render and save the review mapping
 

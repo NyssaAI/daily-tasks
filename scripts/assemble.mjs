@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const encode = value => JSON.stringify(value, null, 2) + '\n';
-const privateDirectories = new Set(['.nyssa-ai','.nyssaai','.nyssa','.temp']);
+const privateDirectories = new Set(['.nyssa-ai','.temp']);
 export async function tree(directory, prefix = '', excludePrivate = false) {
   const files = new Map();
   for (const item of (await readdir(directory, { withFileTypes: true })).sort((a,b) => a.name.localeCompare(b.name))) {

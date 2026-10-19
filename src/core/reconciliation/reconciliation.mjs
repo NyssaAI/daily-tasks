@@ -16,7 +16,6 @@ function translate(view, base, current) {
   for (const field of optionalFields) if (result[field] === null) result[field] = undefined;
   if (Object.hasOwn(result,'checked')) {
     if (typeof result.checked !== 'boolean') throw new TypeError('checked must be boolean');
-    if (base.type === 'dod') throw new TypeError('Reconcile individual DoD criteria, not a document completion checkbox');
     const done = base.type === 'blocker' ? 'resolved' : 'completed';
     const baselineChecked = base.state === done;
     if (result.state !== undefined) {
@@ -116,15 +115,14 @@ export function reopenAncestors(records, changedIds) {
       const targets = new Set([...(record.blocks || []),...cloned.filter(item => item.blocked_by?.includes(id)).map(item => item.id)]);
       for (const target of targets) reopen(target);
     } else if (['task','milestone'].includes(record.type) && record.state !== 'cancelled' &&
-      ((record.record_version === '2' || record.dod_section === true) && !record.criteria?.length || record.criteria?.some(item => !item.checked))) {
+      (!record.criteria?.length || record.criteria?.some(item => !item.checked))) {
       if (record.type === 'task' && record.state === 'completed') {
         record.state = record.started_at ? 'in-progress' : 'not-started';
         delete record.resolved_at;
         changed.add(record.id);
       }
       reopen(record.id);
-    } else if ((record.type === 'dod' && record.criteria?.some(item => !item.checked)) ||
-      (['task','milestone'].includes(record.type) && !['completed','cancelled'].includes(record.state))) {
+    } else if (['task','milestone'].includes(record.type) && !['completed','cancelled'].includes(record.state)) {
       if (record.milestone_id) reopen(record.milestone_id);
       if (record.project_id) reopen(record.project_id);
     }

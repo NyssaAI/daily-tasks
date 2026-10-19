@@ -56,7 +56,6 @@ function correctedSnapshots(entries) {
   }
   const concrete = record=>isUuid7(record.id) && typeof record.path === 'string' && record.path.length > 0 &&
     (record.type === 'project' && !/^[mtb]\d/i.test(path.basename(record.path)) ||
-      record.type === 'dod' && isUuid7(record.milestone_id) && !/^[mtb]\d/i.test(path.basename(record.path)) ||
       Object.hasOwn(prefixes,record.type) && isUuid7(record[parentField(record.type)]));
   const before = [...sides.before.values()];
   const after = [...sides.after.values()];
@@ -90,11 +89,6 @@ export async function nextRecordNumber(input) {
     if (record.type !== type || record[parentField(type)] !== parentId) return;
     const label = /^([mtb])([1-9]\d*)-/i.exec(path.basename(record.path ?? ''));
     const number = Number(label?.[2]);
-    // Unversioned legacy records can receive their first label during migration.
-    // A numeric-looking filename is evidence of a label even when malformed.
-    if (!label && record.record_version === undefined &&
-        !/^[mtb]\d/i.test(path.basename(record.path ?? '')) && isUuid7(record.id) &&
-        !(record.parse_errors?.length)) return;
     if (!label || label[1].toLowerCase() !== prefixes[type] || !Number.isSafeInteger(number)) {
       diagnostics.push({code:'invalid-numbering-label',source,recordId:record.id,message:'Record has no valid parent-local numeric label'});
     } else used.add(number);
@@ -141,7 +135,7 @@ export async function nextRecordNumber(input) {
     // Locate the original independently of file/page order; the log API validates linkage.
     const original = group.find(entry=>!entry.corrects);
     const ordered = [original,...group.filter(entry=>entry !== original)];
-    if (/(?:selection|deselection|plan\.)/i.test(original.action) || !/(?:mov|renam|retir|delet|cancel|migrat)/i.test(original.action)) continue;
+    if (/(?:selection|deselection|plan\.)/i.test(original.action) || !/(?:mov|renam|retir|delet|cancel)/i.test(original.action)) continue;
     if (group.length === 1 && artifactOnly(original,projectsRoot)) continue;
     const resolved = correctedSnapshots(ordered);
     for (const record of [...resolved.before,...resolved.after]) collect(record,original.id);

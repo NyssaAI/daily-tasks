@@ -24,9 +24,7 @@ Read exact paths without recursively scanning home. Diagnose malformed selected 
 {profilePath: ABSOLUTE_PATH_OR_NULL}, project: {profilePath: ABSOLUTE_PATH_OR_NULL}}`.
 Null records deliberate absence. Preserve this descriptor unchanged, together with
 workspaceRoot, homeRoot and stateRoot, for preparation, save, maintenance and recovery.
-Revalidate those roots on continuation. New layered flows pass the descriptor;
-legacy `profilePath` or `configRoot` selects one exclusive profile. Never pass legacy
-selectors alongside the descriptor. The returned configRoot can identify a write
+Revalidate those roots on continuation. The returned configRoot can identify a write
 destination but cannot represent the complete layered read context.
 
 Explicit current-task choices override project preferences, which override user
@@ -78,7 +76,7 @@ templates follow the rules in [custom templates](../daily-tasks/references/templ
 Configuration and operating-state locations remain conventional; ask about the
 user's work storage, not internal profile/cache/state paths.
 
-New profiles use schema version 2 and may contain only the selected scope's values:
+Profiles use schema version 2 and may contain only the selected scope's values:
 
 ```json
 {
@@ -90,13 +88,11 @@ New profiles use schema version 2 and may contain only the selected scope's valu
 ```
 
 For a project layer, add accepted project bindings, for example `workspaceRoot: "."`
-(with `vaultRoot: "."` as an accepted backward-compatible alias),
+(with `vaultRoot: "."` as an accepted alias),
 `projectsRoot: "./1-projects"`, and `dailyPlansRelative: "2-areas/daily-plans"`.
 These are project-only bindings, never reusable user defaults. Resolve projectsRoot
 from an existing accepted collection; ask only if ambiguous. The default daily-plan
-output is `2-areas/daily-plans`. Existing full version-1 profiles remain supported;
-a home version-1 absolute workspace binding remains limited to that workspace, while `.`
-uses the explicitly bound workspace.
+output is `2-areas/daily-plans`.
 
 Supported preferences are partial `user.name`/`user.email`, timezone, priorities,
 `templates.projectIndex`, `templates.dailyPlan`, `templates.milestone`,
@@ -134,14 +130,9 @@ pending operations, completed rollover/removal history, candidates, review progr
 and reconciliation baselines. Daily Markdown plans and project records belong to their
 resolved output roots, never below either configuration root or state storage.
 
-State discovery examines authoritative contents separately from preferences and
-caches. A canonical profile-only directory cannot hide legacy completed state.
-Reuse a verified established state binding; otherwise use the sole authoritative
-store. Divergent stores require explicit reconciliation even without pending work;
-an empty explicit target beside populated history is also an error. Use the reported
-established path or resolve the conflict explicitly; never silently redirect a session.
-Identical copies may use established binding or canonical precedence. Never combine
-stores or select by modification time. Create canonical state only when none exists.
+State uses canonical `<workspaceRoot>/.nyssa-ai/daily-tasks/` unless an explicit
+`stateRoot` is supplied and matches established history. Divergent stores require
+explicit reconciliation before writes. Never combine stores or select by modification time.
 A preference-scope change never authorizes moving state or outputs.
 
 Report changed settings and their path. **Personal setup and updates complete without
@@ -149,7 +140,7 @@ a project decision-log entry**, even in a workspace session; never replay them i
 later project log or create a separate audit system. Project preference changes retain
 the log CLI behavior with empty record_ids. Report resolved timezone and separate
 configuration/state/output roots when applicable. Create state only when needed.
-Setup authorizes no work creation, ownership changes or schema migration. When reached
+Setup authorizes no work creation or ownership changes. When reached
 from another request, continue that already-authorized work after resolving its scope.
 
 ## Optional OpenClaw prewarm
@@ -160,9 +151,9 @@ only when the user accepts the optional automation; setup of ordinary preference
 not imply consent. Default to one hour and use the user's explicit interval when given:
 
 ```text
-openclaw daily-tasks setup-prewarm --workspace-root ABSOLUTE_WORKSPACE --home-root ABSOLUTE_HOME [--profile-path ABSOLUTE_PROFILE | --configuration-sources JSON] [--state-root ABSOLUTE_STATE] [--every 1h]
+openclaw daily-tasks setup-prewarm --workspace-root ABSOLUTE_WORKSPACE --home-root ABSOLUTE_HOME [--configuration-sources JSON] [--state-root ABSOLUTE_STATE] [--every 1h]
 ```
-(`--vault-root` remains supported as a backward-compatible alias).
+(`--vault-root` remains supported as an alias).
 
 Run `--dry-run` first when inspecting the declaration. The adapter reconciles by a
 scope-derived declaration key, uses exact command argv, starts no agent or model, and
@@ -172,7 +163,7 @@ preserves an operator-disabled job unless `--disabled` is explicitly supplied.
 For layered settings pass the returned `configurationSources` as one exact JSON argv
 value and the established `stateRoot`. Preserve explicit null source absences. Do not
 serialize effective preferences, one-off overrides, dates or clocks into the job.
-Legacy profile selectors remain exclusive. Changing source bindings creates a different
+Changing source bindings creates a different
 declaration, not an update to the old job. When replacing a known job, show both scopes
 and obtain the user's explicit replacement choice; use OpenClaw's supported
 [disable/remove controls](https://docs.openclaw.ai/automation/cron-jobs/managing-jobs)

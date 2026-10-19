@@ -78,7 +78,7 @@ export async function seedPlanningFixture(parent, stopAfter = 0, now = new Date(
   await writeFile(source,stopAfter >= 2 ? sourceAfter : sourceBefore);
   if (stopAfter >= 1) await writeFile(destination,destinationAfter);
   await writeFile(baselinePath,baselineBefore);
-  await writeFile(path.join(stateRoot,'profile.json'),json({schema_version:1,user:{name:'Fixture',email:userEmail},timezone,priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',projectIndex:{ttlSeconds:14400}}));
+  await writeFile(path.join(stateRoot,'profile.json'),json({schema_version:2,user:{name:'Fixture',email:userEmail},timezone,priorities:[],vaultRoot:'.',projectsRoot:'./1-projects',dailyPlansRelative:'2-areas/daily-plans',projectIndex:{ttlSeconds:14400}}));
   await writeFile(checkpointPath,json(operation));
   if (stopAfter >= 3) await appendDecision({projectsRoot,entry:event});
   if (stopAfter >= 4) {

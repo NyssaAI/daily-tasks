@@ -63,10 +63,6 @@ once required values are available.
    For task status replies, verify canonical tasks, required parent effects and project
    views before updating daily-plan views. A failed earlier effect retains the checkpoint.
 
-For an authorized conversion of existing work, follow
-[workspace migration](../daily-tasks/references/workspace-migration.md). An ordinary
-record update does not authorize bulk migration or inventing task criteria.
-
 After a committed batch changes canonical records or project/daily-plan projections,
 call `invalidate-project-index` with the resolved workspaceRoot immediately, including
 when a later effect fails. The next planning request rebuilds before using that cache.

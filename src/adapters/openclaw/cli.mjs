@@ -28,9 +28,8 @@ export function registerDailyTasksCli({program,pluginRoot,gatewayConfig = {},ope
     root.command('setup-prewarm')
     .description('Create or reconcile the optional project-index prewarm automation')
     .option('--workspace-root <path>','Absolute configured workspace root')
-    .option('--vault-root <path>','Absolute configured workspace root (legacy alias)')
+    .option('--vault-root <path>','Absolute configured workspace root')
     .option('--home-root <path>','Absolute user home used for personal preferences',homedir())
-    .option('--profile-path <path>','Absolute accepted legacy/custom profile path')
     .option('--configuration-sources <json>','Resolved user/project source descriptor as one JSON argument')
     .option('--state-root <path>','Absolute established operation state root')
     .option('--every <duration>','OpenClaw interval', '1h')
@@ -39,17 +38,17 @@ export function registerDailyTasksCli({program,pluginRoot,gatewayConfig = {},ope
     .action(async options => {
       const boundRoot = options.workspaceRoot ?? options.vaultRoot;
       if (!boundRoot) throw new Error('--workspace-root or --vault-root requires an absolute path');
-      for (const key of ['workspaceRoot','vaultRoot','homeRoot','profilePath','stateRoot']) {
+      for (const key of ['workspaceRoot','vaultRoot','homeRoot','stateRoot']) {
         if (options[key] !== undefined && !path.isAbsolute(options[key])) throw new Error(`--${key.replace(/[A-Z]/g,m => '-'+m.toLowerCase())} requires an absolute path`);
       }
       const selectors = {
-        workspaceRoot:boundRoot,vaultRoot:boundRoot,homeRoot:options.homeRoot,profilePath:options.profilePath,stateRoot:options.stateRoot,
+        workspaceRoot:boundRoot,vaultRoot:boundRoot,homeRoot:options.homeRoot,stateRoot:options.stateRoot,
         configurationSources:options.configurationSources === undefined ? undefined : JSON.parse(options.configurationSources),
       };
       const context = await resolveContext(selectors);
       if (!context.configured || !context.workspaceRoot || !context.projectsRoot || !context.dailyPlansRoot) throw new Error('Configured vault context required for project-index prewarm');
       const boundSelectors = selectors.configurationSources !== undefined || selectors.stateRoot !== undefined
-        ? {...selectors,configurationSources:selectors.profilePath === undefined ? context.configurationSources : undefined,stateRoot:context.stateRoot}
+        ? {...selectors,configurationSources:context.configurationSources,stateRoot:context.stateRoot}
         : selectors;
       const declaration = buildPrewarmAutomation({
         ...boundSelectors,every:options.every,disabled:options.disabled,
