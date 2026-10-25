@@ -42,42 +42,53 @@ export function planningReview(input) {
     return row(task,{...(source?.carriedFrom ? {carriedFrom:source.carriedFrom} : {}),
       ...(suspended.has(id) || suspendedProjects.has(task.projectId) ? {unresolved:true,suspended:true} : {})});
   }).filter(Boolean);
-  const first = new Map();
   const openMilestones = new Set(inventory.milestones.filter(m => unfinished(m.state)).map(m => m.id));
-  for (const m of inventory.milestones) if (!first.has(m.projectId) && unfinished(m.state)) first.set(m.projectId,m.id);
   const unsafeProjects = new Set(inventory.milestones.filter(m => excluded.has(m.id)).map(m => m.projectId));
   for (const id of suspendedProjects) unsafeProjects.add(id);
   for (const issue of diagnostics) if (issue.code === 'invalid-planning-scope') unsafeProjects.add(issue.projectId);
   const additions = unknownAllocation ? [] : openTasks.filter(t => !selectedIds.has(t.id) && !excluded.has(t.id) && !unsafeProjects.has(t.projectId) &&
-    openMilestones.has(t.milestoneId) && t.milestoneId === first.get(t.projectId));
+    openMilestones.has(t.milestoneId));
   // Assign all eligible handles before pagination so Show more cannot renumber earlier rows.
   const numbered = additions.map(t => row(t));
-  const projectPages = new Map();
+  const pageSize = Number.isSafeInteger(input.pageSize) && input.pageSize > 0 ? input.pageSize : 15;
+  const projectGroups = new Map();
   for (const task of numbered) {
-    if (!projectPages.has(task.projectId)) projectPages.set(task.projectId,[]);
-    projectPages.get(task.projectId).push(task);
+    if (!projectGroups.has(task.projectId)) projectGroups.set(task.projectId,[]);
+    projectGroups.get(task.projectId).push(task);
   }
-  const pages = [...projectPages.values()];
-  const projectIds = [...projectPages.keys()];
+  const pages = [], pageProjects = [];
+  for (const [projectId, list] of projectGroups) {
+    for (let i = 0; i < list.length; i += pageSize) {
+      pages.push(list.slice(i, i + pageSize));
+      pageProjects.push(projectId);
+    }
+  }
+  const projectIds = [...projectGroups.keys()];
   const savedPosition = input.position;
   let page = input.page;
   if (page === undefined) {
     page = 0;
     if (savedPosition?.complete) page = pages.length;
     else if (savedPosition?.projectId) {
-      page = projectIds.indexOf(savedPosition.projectId);
-      if (page < 0) {
+      const firstPage = pageProjects.indexOf(savedPosition.projectId);
+      if (firstPage >= 0) {
+        const offset = Number.isSafeInteger(savedPosition.projectPage) && savedPosition.projectPage >= 0 ? savedPosition.projectPage : 0;
+        const count = pageProjects.filter(id => id === savedPosition.projectId).length;
+        page = firstPage + Math.min(offset, count - 1);
+      } else {
         const previousIds = savedPosition.projectIds ?? [];
         const previousIndex = previousIds.indexOf(savedPosition.projectId);
-        const nextId = previousIndex < 0 ? undefined : previousIds.slice(previousIndex + 1).find(id => projectPages.has(id));
-        page = nextId === undefined ? pages.length : projectIds.indexOf(nextId);
+        const nextId = previousIndex < 0 ? undefined : previousIds.slice(previousIndex + 1).find(id => projectGroups.has(id));
+        page = nextId === undefined ? pages.length : pageProjects.indexOf(nextId);
       }
     }
   }
   if (!Number.isSafeInteger(page) || page < 0) throw new TypeError('page must be a nonnegative integer');
   page = Math.min(page,pages.length);
   const reviewComplete = page === pages.length;
-  const position = {projectId:projectIds[page] ?? null,page,projectIds,complete:reviewComplete};
+  const currentProjectId = pageProjects[page] ?? null;
+  const projectPage = currentProjectId ? page - pageProjects.indexOf(currentProjectId) : 0;
+  const position = {projectId:currentProjectId,page,...(projectPage > 0 ? {projectPage} : {}),projectIds,complete:reviewComplete};
   const openProjectIds = new Set(openTasks.map(task => task.projectId));
   return {today,counts:{openProjects:inventory.projects.filter(p => unfinished(p.state) && openProjectIds.has(p.id)).length,
     openTasks:openTasks.length,lateTasks:openTasks.filter(t => t.targetDate && localDay(t.targetDate,input.timezone) < today).length},

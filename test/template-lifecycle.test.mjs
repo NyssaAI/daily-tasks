@@ -1,10 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { prepareTemplates, saveTemplateState } from '#core/templates/templates.mjs';
 import { templateFingerprint } from '#core/templates/catalog.mjs';
-import { queryDecisions } from '#core/log/decision-log.mjs';
 
 const kinds = ['dailyPlan','planDayReview','projectIndex','milestone','task'];
 function catalog(version) {
@@ -266,7 +265,31 @@ test('resuming an approved file upgrade preserves its target across releases and
   assert.equal(finished.upstream.revision,next.catalog.dailyPlan.revision);
   assert.equal(finished.fileUpdate,null);
   assert.equal(finished.shouldOffer,true);
-  const log = await queryDecisions({projectsRoot:path.join(f.input.vaultRoot,'1-projects'),dryRun:true});
-  assert.equal(log.entries.length,1);
-  assert.equal(log.entries[0].after.dailyPlan.pendingRevision,next.catalog.dailyPlan.revision);
+  const logDir = path.join(f.input.vaultRoot,'1-projects','.daily-tasks');
+  const logFiles = (await readdir(logDir)).filter(name => name.endsWith('.json'));
+  const lines = (await readFile(path.join(logDir,logFiles[0]),'utf8')).trim().split('\n').map(line => JSON.parse(line));
+  assert.equal(lines.length,1);
+  assert.equal(lines[0].after.dailyPlan.pendingRevision,next.catalog.dailyPlan.revision);
+});
+
+
+test('unregistered templates in PARA resources/templates or workspace templates are automatically discovered as active', async () => {
+  const f = await fixture(), options = {catalog:catalog(1)};
+  const paraPath = path.join(f.input.vaultRoot,'3-resources/templates/daily-plan.md');
+  await mkdir(path.dirname(paraPath),{recursive:true});
+  await writeFile(paraPath,'# Auto-discovered PARA daily plan\n');
+  const paraPacket = await prepareTemplates(f.input,options);
+  assert.equal(paraPacket.templates.dailyPlan.discovered,true);
+  assert.equal(paraPacket.templates.dailyPlan.active.content,'# Auto-discovered PARA daily plan\n');
+  assert.equal(paraPacket.templates.dailyPlan.active.sourcePath,paraPath);
+  assert.equal(paraPacket.placement.templates.dailyPlan.status,'existing');
+
+  const nonPara = await fixture(false);
+  const rootTemplatePath = path.join(nonPara.input.vaultRoot,'templates/daily-plan.md');
+  await mkdir(path.dirname(rootTemplatePath),{recursive:true});
+  await writeFile(rootTemplatePath,'# Auto-discovered root templates daily plan\n');
+  const rootPacket = await prepareTemplates(nonPara.input,options);
+  assert.equal(rootPacket.templates.dailyPlan.discovered,true);
+  assert.equal(rootPacket.templates.dailyPlan.active.content,'# Auto-discovered root templates daily plan\n');
+  assert.equal(rootPacket.templates.dailyPlan.active.sourcePath,rootTemplatePath);
 });

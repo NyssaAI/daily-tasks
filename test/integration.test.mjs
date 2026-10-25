@@ -133,7 +133,7 @@ test('published templates become valid related records and gate milestone closur
   const closure = checkClosure(replacements.MILESTONE_UUID,records);
   assert.equal(closure.allowed,true,JSON.stringify(closure.reasons));
 });
-test('CLI logs explicit acceptance, retries once, queries archive, rejects invalid input and previews without writes', async () => {
+test('CLI logs explicit acceptance, archives segment, rejects invalid input and previews without writes', async () => {
   const directory = await workspace();
   const entryPath = path.join(root,'src/cli/daily-tasks.mjs');
   const inputPath = path.join(directory,'input.json');
@@ -144,12 +144,11 @@ test('CLI logs explicit acceptance, retries once, queries archive, rejects inval
   assert.deepEqual(await readdir(directory),['input.json']);
   const append = call(entryPath,'log-append',inputPath);
   assert.equal(append.status,0,JSON.stringify(append.error));
-  assert.equal(call(entryPath,'log-append',inputPath).output.duplicate,true);
+  assert.equal(append.output.duplicate,false);
   await writeFile(inputPath,JSON.stringify({projectsRoot:directory}));
   assert.equal(call(entryPath,'log-archive',inputPath).status,0);
-  assert.equal(call(entryPath,'log-query',inputPath).output.entries.length,1);
   assert.equal(call(entryPath,'unknown',inputPath).status,1);
-  assert.equal(call(entryPath,'log-query','relative.json').status,1);
+  assert.equal(call(entryPath,'log-append','relative.json').status,1);
 });
 test('assembled portable and Cowork CLI surfaces preserve operation behavior', async () => {
   const portable = call(path.join(root,'artifacts/portable/bin/daily-tasks.mjs'),'new-id');

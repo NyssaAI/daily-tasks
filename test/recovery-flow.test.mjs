@@ -7,7 +7,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { tmpdir } from 'node:os';
 import { seedPlanningFixture, inspectPlanningFixture, planningHash } from '../evals/planning-fixture.mjs';
-import { appendDecision, queryDecisions } from '#core/log/decision-log.mjs';
+import { appendDecision } from '#core/log/decision-log.mjs';
 import { invalidateInventory } from '#core/inventory/inventory.mjs';
 import { completeOperation, verifyOperation } from '#core/operations/verification.mjs';
 
@@ -34,9 +34,9 @@ for (const stage of [0,1,2,3,4]) test(`future move interrupted after stage ${sta
   const fixture = await seedPlanningFixture(path.resolve('.temp/recovery-flow'),stage);
   const before = await inspectPlanningFixture(fixture);
   assert.equal(before.completion,undefined);
-  assert.equal(before.productionVerification.persistedStatus,stage >= 3 ? 'verified' : 'pending');
+  assert.equal(before.productionVerification.persistedStatus,stage >= 2 ? 'verified' : 'pending');
   assert.equal(before.productionVerification.status,stage === 4 ? 'verified' : 'pending');
-  if (stage === 3) assert.equal(before.productionVerification.ownedState.pending.length,3);
+  if (stage === 2 || stage === 3) assert.equal(before.productionVerification.ownedState.pending.length,3);
   if (stage === 4) assert.equal(before.productionVerification.ownedState.pending.length,0);
   assert.equal((await resumeFixture(fixture)).status,'complete');
   const after = await inspectPlanningFixture(fixture);
@@ -51,8 +51,7 @@ for (const stage of [0,1,2,3,4]) test(`future move interrupted after stage ${sta
   await assert.rejects(access(fixture.checkpointPath),{code:'ENOENT'});
   assert.equal(after.checkpointRemoved,true);
   assert.equal((await resumeFixture(fixture)).status,'complete');
-  assert.equal((await queryDecisions({projectsRoot:fixture.projectsRoot})).total,1);
-  assert.equal((await appendDecision({projectsRoot:fixture.projectsRoot,entry:fixture.operation.event})).duplicate,true);
+  assert.equal(after.logCount,1);
 });
 
 test('recovery preserves unexpected prose and baseline edits without false completion',async () => {
@@ -64,8 +63,9 @@ test('recovery preserves unexpected prose and baseline edits without false compl
     await writeFile(filename,modified);
     assert.equal((await resumeFixture(fixture)).status,'conflict');
     assert.equal(await readFile(filename,'utf8'),modified);
-    assert.equal((await inspectPlanningFixture(fixture)).completion,undefined);
-    assert.equal((await queryDecisions({projectsRoot:fixture.projectsRoot})).total,0);
+    const inspected = await inspectPlanningFixture(fixture);
+    assert.equal(inspected.completion,undefined);
+    assert.equal(inspected.logCount,0);
   }
 });
 

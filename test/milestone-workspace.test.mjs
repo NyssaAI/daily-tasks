@@ -161,7 +161,7 @@ test('task table templates include milestone context without adding selectable m
       : /\| Status \| Project \| Milestone \| Task \| Due Date \|/);
     const rows = parseViewRows(markdown);
     assert.equal(rows.length, name === 'daily-plan.md' ? 3 : 4);
-    assert.ok(rows.every(row => row.mark === ' ' && row.id && row.target));
+    assert.ok(rows.every(row => row.mark === ' ' && row.id && (review ? !row.target && row.label : row.target)));
     for (const line of markdown.split('\n').filter(line => /^\| \d/.test(line))) {
       assert.equal(line.split(/(?<!\\)\|/).slice(1,-1).length,review ? 8 : 6);
       assert.match(line.split(/(?<!\\)\|/)[4], /MILESTONE/);

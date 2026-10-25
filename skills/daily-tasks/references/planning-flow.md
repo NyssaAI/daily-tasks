@@ -96,7 +96,7 @@ Rules governing task eligibility, ordering, and counts across the scoped invento
 
 ### Ordering and milestone eligibility
 - **Project ordering**: Projects are ordered by directory date (oldest first), with alphabetical name tie-breaking; undated directories follow alphabetically.
-- **Milestone eligibility**: Only tasks from the **first incomplete milestone** in sequence are eligible for selection. If the first incomplete milestone has no open tasks, eligibility does not skip to later milestones until the sequence is resolved. Existing selections from later milestones remain valid.
+- **Milestone eligibility**: Tasks from all incomplete milestones (`not-started` or `in-progress`) in a project are eligible for selection, presented in authoritative milestone sequence (`M1`, then `M2`, `M3`, …). Completed and cancelled milestones are skipped. Existing selections from any milestone remain valid.
 - **Task ordering**: Tasks appear in canonical index order, followed by unlisted valid tasks sorted by filename. This order is a stable display sequence, not a priority or execution order.
 - **Available tasks**: Only unselected open tasks appear in the available section. In-progress and already-selected tasks are excluded from available options. Explicit future-day allocations are excluded from today's available options.
 
@@ -113,10 +113,11 @@ Requirements and content structure for the persisted daily plan document.
 - Suggested follow-up is capture candidate material; it is never converted into an implicit obligation.
 
 ### Document structure
-- **Task link presentation**: Always provide the human-readable task title as the display label (`[[relative-path|Task title]] <!-- ref: UUID -->`). Never expose raw filesystem paths or bare UUIDs to the user.
-- Represent status using single status indicators matching the active template.
+- **Template layout**: Follow `packet.templates.templates.dailyPlan.active.content` for headings (`# Daily plan — LOCAL_DATE`, `## Selected for today`, `### My work`, `### Delegated work`, `### Follow-up work`, `## Blockers`, `## Decisions`, `## Notes and references`), counts (`Open projects: ... Open tasks: ... Late tasks: ...`), `**Timezone:**`, `**Updated:**`, `#### PROJECT_TITLE / MILESTONE_TITLE` group subheadings, 6-column tables (`| # | Status | Project | Milestone | Task | Due Date |`), and `Legend:`. Never replace table rows with `- [ ]` bullet lists unless the active `dailyPlan` template uses checklists.
+- **Task link presentation**: Always provide the human-readable task title as the display label (`[[relative-path\|Task title]] <!-- ref: UUID -->`, escaping the wiki-link pipe inside table cells). Prefix carried items with `↺ ` outside the wiki link. Never expose raw filesystem paths or bare UUIDs to the user.
+- Represent status using single status indicators matching the active template (`[ ]`, `[>]`, `[x]`, `[-]`).
 - Completed tasks remain checked and cancelled tasks remain marked for today.
-- Only selected work belongs in the plan; available options and interactive prompts stay in the review screen.
+- Only selected work belongs in the plan; available options and interactive prompts stay in the review screen. Use short empty-state sentences for empty sections and omit `## Focus` unless explicitly supplied.
 - Never add automatic scheduling, timeframe fitting, duration estimates, or focus tags unless explicitly provided.
 
 ## Once-per-day rollover
@@ -136,13 +137,13 @@ Deterministic carry-forward of active work from the most recent prior plan into 
 - **Unresolved records**: Unresolved or missing task identities remain visible in the plan to avoid silent data loss.
 
 ### Execution transaction
-1. Use the pre-computed `packet.rollover` from `planning-prepare` (which includes `selected`, `own`, `delegated`, `followUp`, `unresolved`, and `taskSources`).
+1. Use the pre-computed `packet.rollover` and `packet.drafts` from `planning-prepare` (which includes `dailyPlanMarkdown`, `reviewMarkdown`, `rolloverOperation`, `completeRolloverInput`, and `saveReviewInput`).
 2. For an existing plan, preserve its original `id` and `created_at` frontmatter. For a missing plan, use `packet.current.proposedId` and `packet.context.now` (`packet.displayNow` for display).
 3. If changes are proposed (or a missing plan is created):
-   - Checkpoint the write-ahead operation (Schema Version 2, using `packet.rollover.taskSources` for `sourceSnapshot.taskSources`) before modifying Markdown.
-   - Update the plan Markdown, append the `plan.rollover` event via `log-append`, and finalize via `rollover-complete`.
+   - Write `packet.drafts.rolloverOperation.checkpoint` to `packet.drafts.rolloverOperation.operationPath` and write `packet.drafts.dailyPlanMarkdown` to `packet.current.path`.
+   - Finalize in one call via `rollover-complete` using `packet.drafts.rolloverOperation.completeInput` (`validatePlanTemplate: true`, `appendEvent: true`, `prepareNext: true`, `saveReview: true`), which validates the plan layout, appends the `plan.rollover` event, completes the receipt, invalidates the cache, saves the first review screen, and returns `reviewSaved.value.screen.markdown`.
 4. If no changes are needed on an existing plan:
-   - Finalize the rollover receipt via `planning-state` action `complete-rollover`.
+   - Finalize the rollover receipt and save the review screen in one call via `planning-state` using `packet.drafts.completeRolloverInput` (`action: "complete-rollover"`, `saveReview: true`).
 
 ## Future-selection transaction
 
@@ -158,7 +159,5 @@ Protocol for scheduling tasks for explicit future dates.
 - **Move transaction**:
   1. Write and verify the target destination plan first.
   2. Remove the task from the source plan.
-  3. Update `removedIds` in both affected dated rollover states (`add` clears the ID at destination; `remove`/`move-from` records the ID at source).
-  4. Record the selection event in the decision log.
-  5. Invalidate the inventory cache, verify that exactly one active date exists, and complete the checkpoint.
+  3. Finalize in one call via `operation-complete` (`appendEvent: true`, `prepareNext: true`), which updates `removedIds` in both affected dated rollover states (`add` clears the ID at destination; `remove`/`move-from` records the ID at source), appends the selection event to the decision log, invalidates the inventory cache, and completes the checkpoint.
 - If interrupted, the write-ahead checkpoint ensures source removal and state cleanup resume deterministically without creating duplicate active dates or duplicate plans.

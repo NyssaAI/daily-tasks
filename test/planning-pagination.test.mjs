@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { planningReview } from '#core/planning/review.mjs';
 
-test('four projects keep three ordered options per page from only the lowest incomplete milestone', () => {
+test('four projects fill ordered options across incomplete milestones up to the per-page cap', () => {
   const inventory = {schemaVersion:1,projects:[],milestones:[],tasks:[],diagnostics:[]};
   for (let p = 1; p <= 4; p++) {
     inventory.projects.push({id:`p${p}`,state:'not-started'});
@@ -14,21 +14,21 @@ test('four projects keep three ordered options per page from only the lowest inc
   const input = {inventory,userEmail:'alex@example.test',timezone:'UTC',now:'2026-10-13T12:00:00Z'};
   let mapping;
   for (let page = 0; page < 4; page++) {
-    const review = planningReview({...input,page,mapping,allMilestones:true});
-    assert.deepEqual(review.available.map(t => t.id),[1,2,3].map(t => `p${page+1}m1t${t}`));
-    assert.deepEqual(review.available.map(t => t.number),[1,2,3].map(t => page*3+t));
+    const review = planningReview({...input,page,mapping});
+    assert.deepEqual(review.available.map(t => t.id),[1,2,3].flatMap(m => [1,2,3].map(t => `p${page+1}m${m}t${t}`)));
+    assert.deepEqual(review.available.map(t => t.number),Array.from({length:9},(_,i) => page*9+i+1));
     assert.equal(review.pageCount,4);
     assert.equal(review.hasMore,page < 3);
     assert.equal(review.counts.openTasks,36);
     mapping = review.mapping;
   }
   const previous = planningReview({...input,page:1,mapping});
-  assert.deepEqual(previous.available.map(t => t.number),[4,5,6]);
+  assert.deepEqual(previous.available.map(t => t.number),Array.from({length:9},(_,i) => 10+i));
   assert.deepEqual(previous.selected,[]);
   assert.deepEqual(previous.mapping,mapping);
   inventory.milestones[0].state = 'completed';
-  assert.deepEqual(planningReview(input).available.map(t => t.id),[1,2,3].map(t => `p1m2t${t}`));
-  inventory.tasks = inventory.tasks.filter(t => t.milestoneId !== 'p1m2');
+  assert.deepEqual(planningReview(input).available.map(t => t.id),[2,3].flatMap(m => [1,2,3].map(t => `p1m${m}t${t}`)));
+  inventory.tasks = inventory.tasks.filter(t => t.projectId !== 'p1');
   assert.ok(planningReview(input).available.every(t => t.projectId !== 'p1'));
 });
 

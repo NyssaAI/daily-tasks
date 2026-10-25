@@ -2,7 +2,7 @@
 import { readFile, readdir, lstat, realpath, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { uuid7 } from '#core/identity/identity.mjs';
-import { appendDecision, queryDecisions, archiveDecisions } from '#core/log/decision-log.mjs';
+import { appendDecision, archiveDecisions } from '#core/log/decision-log.mjs';
 import { parseRecord, validateRecords, checkClosure, checkLinks, recordMarkdownIsManaged, recordDirectoryIsHoldingArea } from '#core/records/records.mjs';
 import { reconcileRecord, reopenAncestors, recoverOperation } from '#core/reconciliation/reconciliation.mjs';
 import { activityTime, localDay, displayTime } from '#core/time/time.mjs';
@@ -53,7 +53,6 @@ const operations = {
   'plan-rollover': planRollover,
   'inspect-records': inspectRecords,
   'log-append': appendDecision,
-  'log-query': queryDecisions,
   'log-archive': archiveDecisions,
 };
 
@@ -145,6 +144,30 @@ async function main() {
   if (outputPath) {
     await mkdir(path.dirname(outputPath), { recursive: true });
     await writeFile(outputPath, `${JSON.stringify(result, null, 2)}\n`, 'utf8');
+    if (operation === 'planning-prepare' && !dryRun && result?.drafts) {
+      const outDir = path.dirname(outputPath);
+      if (result.drafts.rolloverOperation?.completeInput) {
+        await writeFile(path.join(outDir, 'rollover-complete-input.json'), `${JSON.stringify(result.drafts.rolloverOperation.completeInput, null, 2)}\n`, 'utf8');
+      }
+      if (result.drafts.completeRolloverInput) {
+        await writeFile(path.join(outDir, 'complete-rollover-input.json'), `${JSON.stringify(result.drafts.completeRolloverInput, null, 2)}\n`, 'utf8');
+      }
+      if (result.drafts.saveReviewInput) {
+        await writeFile(path.join(outDir, 'save-review-input.json'), `${JSON.stringify(result.drafts.saveReviewInput, null, 2)}\n`, 'utf8');
+      }
+      if (result.drafts.selectionOperation?.completeInput) {
+        await writeFile(path.join(outDir, 'selection-complete-input.json'), `${JSON.stringify(result.drafts.selectionOperation.completeInput, null, 2)}\n`, 'utf8');
+      }
+      await writeFile(path.join(outDir, 'prep-summary.json'), `${JSON.stringify({
+        status: result.status,
+        displayNow: result.displayNow,
+        pendingOperations: result.pendingOperations,
+        currentPath: result.current?.path,
+        rolloverStatus: result.rollover?.status,
+        shouldOfferTemplates: Boolean(result.templates?.templates?.dailyPlan?.shouldOffer || result.templates?.templates?.planDayReview?.shouldOffer),
+        drafts: result.drafts,
+      }, null, 2)}\n`, 'utf8');
+    }
   }
   console.log(serialized);
 }

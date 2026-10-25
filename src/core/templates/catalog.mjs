@@ -79,7 +79,7 @@ function templateLayout(content) {
 }
 
 export function tableColumns(line) {
-  return line.trim().replace(/^\|/, '').replace(/\|$/, '').split(/(?<!\\)\|/).map(cell => cell.trim());
+  return line.trim().replace(/^\|/, '').replace(/\|$/, '').replace(/\[\[([^\]]+?)\]\]/g, match => match.replace(/(?<!\\)\|/g, '\\|')).split(/(?<!\\)\|/).map(cell => cell.trim());
 }
 
 export function compareTemplates(activeContent, candidateContent) {

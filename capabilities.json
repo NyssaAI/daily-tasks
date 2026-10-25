@@ -917,24 +917,6 @@
       "invocation": "node bin/daily-tasks.mjs log-append --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
     },
     {
-      "name": "log-query",
-      "path": "bin/daily-tasks.mjs",
-      "purpose": "log query; see skills/daily-tasks/references/cli.md",
-      "inputSchema": {
-        "type": "object",
-        "required": [
-          "projectsRoot"
-        ]
-      },
-      "outputSchema": {
-        "type": "object"
-      },
-      "sideEffects": "temporary-lock",
-      "requiredEnvironment": [],
-      "dryRun": true,
-      "invocation": "node bin/daily-tasks.mjs log-query --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]"
-    },
-    {
       "name": "log-archive",
       "path": "bin/daily-tasks.mjs",
       "purpose": "log archive; see skills/daily-tasks/references/cli.md",

@@ -6,7 +6,7 @@ import { uuid7 } from '../identity/identity.mjs';
 import { activityTime } from '../time/time.mjs';
 import { templateKinds, templateFingerprint, loadTemplateCatalog, identifyTemplate, compareTemplates } from './catalog.mjs';
 import { storageHash, readTemplateFile, readTemplateStore, writeTemplateStore, withTemplateLock } from './storage.mjs';
-import { templatePlacement } from './placement.mjs';
+import { templatePlacement, discoverWorkspaceTemplate } from './placement.mjs';
 
 const policies = ['ask','latest','keep'];
 const revisionPattern = /^sha256:[a-f0-9]{64}$/;
@@ -58,9 +58,10 @@ async function inspect(input,options = {}) {
     const configured = context.profile.templates?.[kind];
     const boundWorkspace = context.workspaceRoot ?? context.vaultRoot;
     if (configured?.startsWith('./') && !boundWorkspace) throw new Error(`A bound workspace is required for templates.${kind}`);
-    const sourcePath = configured ? expandStoredPath(configured,boundWorkspace,context.homeRoot) : null;
+    const discovered = !configured && !preferenceSource && boundWorkspace ? await discoverWorkspaceTemplate(boundWorkspace,kind) : null;
+    const sourcePath = configured ? expandStoredPath(configured,boundWorkspace,context.homeRoot) : discovered?.path ?? null;
     const selector = digest({kind,preferenceSource,sourcePath});
-    const sourceContent = sourcePath ? await readTemplateFile(sourcePath) : null;
+    const sourceContent = configured ? await readTemplateFile(sourcePath) : discovered?.content ?? null;
     const observedRevision = sourceContent === null ? null : templateFingerprint(sourceContent);
     const transient = preferenceSource === 'current-task';
     const bundledSelector = digest({kind,preferenceSource:null,sourcePath:null});
@@ -99,7 +100,7 @@ async function inspect(input,options = {}) {
     const shouldOffer = changed && !automatic && !fileUpdate && (input.review === true ||
       ((policy === 'ask' || automaticBlocked) && decisions[available.revision] !== 'declined'));
     templates[kind] = {kind,selector,retainedSelector:chosen?.entry.selector ?? null,observedRevision:observedRevision ?? chosen?.entry.observedRevision ?? null,
-      active,available,upstream,sourcePath,fileUpdate,origin,policy,decisions,shouldOffer,automatic,automaticBlocked,
+      active,available,upstream,sourcePath,discovered:Boolean(discovered),fileUpdate,origin,policy,decisions,shouldOffer,automatic,automaticBlocked,
       compatibility:compatible ? 'compatible' : activeContract === null ? 'custom-review-required' : 'record-contract-changed',
       comparison:{...compareTemplates(active.content,available.content),
         customized:upstream ? active.revision !== upstream.revision : active.source === 'custom',

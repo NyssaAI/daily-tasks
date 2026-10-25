@@ -18,15 +18,15 @@ whether work is selected for today. [x] means completed, never merely selected.
 
 | #  | Status | Project | Milestone | Task | Owner | Assignee | Due Date |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1  | [ ] | PROJECT_TITLE | MILESTONE_TITLE | ↺ [[RELATIVE_SELECTED_TASK_PATH\|TASK_TITLE]] <!-- ref: SELECTED_TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
+| 1  | [ ] | PROJECT_TITLE | MILESTONE_TITLE | ↺ TASK_TITLE <!-- ref: SELECTED_TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
 
 ## Available tasks
 
 | # | Status | Project | Milestone | Task | Owner | Assignee | Due Date |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_PATH\|TASK_TITLE]] <!-- ref: TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
-| 3 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_2_PATH\|TASK_2_TITLE]] <!-- ref: TASK_2_UUID --> | OWNER_2_EMAIL | ASSIGNEE_2_OR_DASH | TARGET_2_DATE_OR_DASH |
-| 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | [[RELATIVE_TASK_3_PATH\|TASK_3_TITLE]] <!-- ref: TASK_3_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_3_DATE_OR_DASH |
+| 2 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | TASK_TITLE <!-- ref: TASK_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_DATE_OR_DASH |
+| 3 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | TASK_2_TITLE <!-- ref: TASK_2_UUID --> | OWNER_2_EMAIL | ASSIGNEE_2_OR_DASH | TARGET_2_DATE_OR_DASH |
+| 4 | [ ] | PROJECT_TITLE | MILESTONE_TITLE | TASK_3_TITLE <!-- ref: TASK_3_UUID --> | OWNER_EMAIL | ASSIGNEE_OR_DASH | TARGET_3_DATE_OR_DASH |
 
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled · ↺ carried forward
 
@@ -67,9 +67,9 @@ Use only #, Status, Project, Milestone, Task, Owner, Assignee and Due Date colum
 Group rows under project/milestone headings; never restart numbering at section
 boundaries. Include every owner; render a missing assignee as an em dash.
 Show each task's owning milestone as plain text, even under grouped headings;
-it is not a separate selectable/status row. Task links/hidden refs identify tasks.
+it is not a separate selectable/status row. Hidden refs identify tasks.
 Keep task labels short and descriptive; full descriptions remain in task files.
-Use host-suitable links with readable labels and escape wiki label pipes.
+Show readable task titles without file paths in the Task cell.
 Render explicit due dates as yyyy.mm.dd (for example 2026.11.12), or an em dash when
 absent. Keep Due Date compact, sized for ten date characters when supported.
 Canonical target_date format is unchanged; planned-day moves never change due dates.

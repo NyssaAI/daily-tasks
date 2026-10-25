@@ -21,7 +21,7 @@ IDs, processed source versions and next step. A new day changes plan target, not
 identity or disposition of unresolved decisions.
 
 1. Recover pending operations using expected before/after values, `recover-operation`
-   and `log-query`; finish unambiguous missing effects, never duplicate an event.
+   and `operation-verify`; finish unambiguous missing effects.
 2. Inspect relevant project/daily views and definitions against per-view baselines.
    Run record/link validation, compare changed fields with `reconcile-record`, and
    separate conflicts from safe deltas. Only affected items wait. Preserve missing

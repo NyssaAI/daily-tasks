@@ -96,7 +96,7 @@ The layout applies to new documents; reformatting today's plan is a separate cho
 See [template updates](skills/daily-tasks/references/template-updates.md).
 
 The planning review shows owned work, preserves stable numbered choices, and offers
-one project per page, with ordered additions from its first incomplete milestone. Future
+one project per page, with ordered additions across its incomplete milestones in sequence. Future
 selections use dated daily-plan files and disappear from today's available additions.
 The person chooses execution order. See [planning flow](skills/daily-tasks/references/planning-flow.md).
 
@@ -108,7 +108,6 @@ is unavailable. This is not a task scheduler or a full task database engine.
 ```text
 node src/cli/daily-tasks.mjs --help
 node src/cli/daily-tasks.mjs new-id
-node src/cli/daily-tasks.mjs log-query --input /absolute/query.json
 node src/cli/warm-project-index.mjs --vault-root /absolute/vault --home-root /absolute/home
 ```
 

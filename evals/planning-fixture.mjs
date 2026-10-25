@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
@@ -8,7 +8,7 @@ import { localDay, utcTimestamp } from '#core/time/time.mjs';
 import { planningBinding } from '#core/profile/context.mjs';
 import { parseChecklist } from '#core/planning/planning.mjs';
 import { recoverOperation } from '#core/reconciliation/reconciliation.mjs';
-import { appendDecision, queryDecisions } from '#core/log/decision-log.mjs';
+import { appendDecision } from '#core/log/decision-log.mjs';
 import { projectInventory } from '#core/inventory/inventory.mjs';
 import { completeOperation, verifyOperation } from '#core/operations/verification.mjs';
 
@@ -93,7 +93,7 @@ export async function seedPlanningFixture(parent, stopAfter = 0, now = new Date(
   return manifest;
 }
 
-/** Read-only workflow oracle apart from disposable inventory refresh and log-query locks. */
+/** Read-only workflow oracle apart from disposable inventory refresh. */
 export async function inspectPlanningFixture(fixture) {
   const {source,destination,ids,operation,baselinePath,projectsRoot} = fixture;
   const sourceText = await readFile(source,'utf8');
@@ -104,10 +104,16 @@ export async function inspectPlanningFixture(fixture) {
   const destinationRolloverText = await readFile(fixture.destinationRolloverPath,'utf8');
   const destinationRollover = JSON.parse(destinationRolloverText);
   const historyPreserved = fixture.historyPath ? planningHash(await readFile(fixture.historyPath,'utf8')) === fixture.historyHash : false;
-  // Query the whole bounded fixture history: a changed record_ids must not hide
-  // an operation/event collision from the exact-payload comparison.
-  const log = await queryDecisions({projectsRoot,limit:1000});
-  const recorded = log.entries.find(entry => entry.operation_id === ids.operation);
+  let entries = [];
+  try {
+    const logDir = path.join(projectsRoot,'.daily-tasks');
+    const files = (await readdir(logDir)).filter(name => name.endsWith('.json')).sort();
+    for (const file of files) {
+      const text = await readFile(path.join(logDir,file),'utf8');
+      entries.push(...text.trim().split('\n').filter(Boolean).map(line => JSON.parse(line)));
+    }
+  } catch (error) { if (error.code !== 'ENOENT') throw error; }
+  const recorded = entries.find(entry => entry.operation_id === ids.operation);
   const actual = {sourceMember:parseChecklist(sourceText).some(row => row.id === ids.task),destinationMember:parseChecklist(destinationText ?? '').some(row => row.id === ids.task),logRecorded:recorded ? isDeepStrictEqual(recorded,operation.event) ? true : 'conflicting-event' : false,baselineHash:planningHash(baselineText),sourceRolloverHash:planningHash(sourceRolloverText),destinationRolloverHash:planningHash(destinationRolloverText)};
   // Independent read-only oracle; field snapshots are not production checkpoints.
   const expected = {
@@ -142,12 +148,12 @@ export async function inspectPlanningFixture(fixture) {
   let completionValid = completion === undefined;
   if (completion !== undefined) { try { utcTimestamp(completion); completionValid = true; } catch { /* Invalid completion is not evidence. */ } }
   const productionVerification = checkpoint ? await verifyOperation({vaultRoot:fixture.vaultRoot,stateRoot:fixture.stateRoot,homeRoot:fixture.vaultRoot,now:fixture.now,operationPath:fixture.checkpointPath}).catch(error => ({status:'conflict',error:error.message})) : null;
-  return {recovery,productionVerification,unexpectedFiles,actual,logCount:log.entries.length,active,
+  return {recovery,productionVerification,unexpectedFiles,actual,logCount:entries.length,active,
     otherPreserved:parseChecklist(sourceText).some(row => row.id === ids.other),
     prosePreserved:sourceText.includes('Preserve this unrelated note.') && (!destinationText || destinationText.includes('Preserve this unrelated note.')),
     planIdentityPreserved:!destinationText || destinationText.includes(`id: ${ids.destination}`),completion,
     canonicalPreserved,checkpointIntentPreserved,checkpointRemoved,completionValid,historyPreserved,rolloverPreserved:JSON.parse(sourceRolloverText).operationId === fixture.ids.rollover && isDeepStrictEqual(destinationRollover,fixture.destinationRollover),
-    verified:recovery.status === 'already-applied' && !unexpectedFiles.length && canonicalPreserved && checkpointIntentPreserved && completionValid && log.entries.length === 1 && active.length === 1 && active[0].date === fixture.nextDay && historyPreserved && isDeepStrictEqual(destinationRollover,fixture.destinationRollover)};
+    verified:recovery.status === 'already-applied' && !unexpectedFiles.length && canonicalPreserved && checkpointIntentPreserved && completionValid && entries.length === 1 && active.length === 1 && active[0].date === fixture.nextDay && historyPreserved && isDeepStrictEqual(destinationRollover,fixture.destinationRollover)};
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

@@ -41,7 +41,7 @@ test('context navigation and unidentified legacy projects cannot erase unrelated
   const {inventory} = await projectInventory(input);
   assert.deepEqual(inventory.tasks.map(t => t.id),[id(3),id(4),id(6)]);
   assert.ok(!inventory.diagnostics.some(d => d.code === 'invalid-planning-scope' && d.projectId === id(1)));
-  assert.deepEqual(planningReview({inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(3)]);
+  assert.deepEqual(planningReview({inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(3),id(6)]);
 });
 
 test('maintained preparation binds actual plan identity and state writes reject stale or task-shaped inputs', async () => {
@@ -125,7 +125,7 @@ test('inventory uses agreed shape, table order and one planned source, then reus
   assert.equal(reuse.status,'reused');
   assert.equal(reuse.metrics.sourceReads,0);
   const view = planningReview({inventory:reuse.inventory,userEmail:owner,timezone:input.timezone,now});
-  assert.deepEqual(view.available.map(t => t.id),[id(3)]);
+  assert.deepEqual(view.available.map(t => t.id),[id(3),id(6)]);
   assert.deepEqual(view.counts,{openProjects:1,openTasks:2,lateTasks:2});
   await unlink(input.future);
   const changed = await projectInventory({...input,now:'2026-10-06T15:10:00Z'});
@@ -163,14 +163,14 @@ test('review offers only not-started tasks without future allocations or pending
   inventory.tasks[0].state = 'in-progress';
   const request = {inventory,userEmail:owner,timezone:input.timezone,now,allMilestones:true};
   const review = planningReview(request);
-  assert.deepEqual(review.available,[]);
+  assert.deepEqual(review.available.map(t => t.id),[id(6)]);
   assert.deepEqual(review.counts,{openProjects:1,openTasks:1,lateTasks:1});
   const pending = planningReview({...request,pendingFutureIds:[id(6)]});
   assert.deepEqual(pending.available,[]);
   assert.deepEqual(pending.counts,{openProjects:0,openTasks:0,lateTasks:0});
   const selected = planningReview({...request,selected:[{id:id(3)}]});
   assert.equal(selected.selected[0].state,'in-progress');
-  assert.deepEqual(selected.available,[]);
+  assert.deepEqual(selected.available.map(t => t.id),[id(6)]);
 });
 
 test('preparation carries omitted in-progress follow-up work and refuses an unpersisted rollover', async () => {
@@ -215,10 +215,10 @@ test('review pages keep stable handles, preserve later selections and day calcul
   inventory.tasks.push({...task,id:id(70),milestoneId:id(5),planned:[]});
   let screen = planningReview({inventory,userEmail:owner,timezone:input.timezone,now,selected:[{id:id(70),carriedFrom:'2026.10.05'}]});
   assert.equal(screen.selected[0].number,1);
-  assert.equal(screen.available.length,18);
+  assert.equal(screen.available.length,15);
   const next = planningReview({inventory,userEmail:owner,timezone:input.timezone,now,selected:[{id:id(70),carriedFrom:'2026.10.05'}],page:1,mapping:screen.mapping});
-  assert.deepEqual(next.available,[]);
-  assert.equal(screen.pageCount,1);
+  assert.equal(next.available.length,3);
+  assert.equal(screen.pageCount,2);
   assert.equal(next.selected[0].carriedFrom,'2026.10.05');
   assert.equal(maintenanceStatus({now,lastFullReconcileAt:'2026-10-06T10:00:00Z'}).fullReconcileDue,true);
   assert.equal(maintenanceStatus({now,lastFullReconcileAt:'2026-10-06T11:00:00Z'}).fullReconcileDue,false);
@@ -300,7 +300,7 @@ test('review counts and offers all scoped work regardless of profile email or ta
   const screen = planningReview({inventory,userEmail:'profile@example.test',timezone:input.timezone,now,allMilestones:true});
   assert.equal(screen.counts.openProjects,1);
   assert.equal(screen.counts.openTasks,2);
-  assert.deepEqual(screen.available.map(task => task.owner),[otherOwner]);
+  assert.deepEqual(screen.available.map(task => task.owner),[otherOwner,otherOwner]);
 });
 
 test('manual future status edits remain affected work until reconciled, notes are not allocations', async () => {
@@ -383,7 +383,7 @@ test('invalid ancestor text blocks affected additions uniformly, preserving sele
   assert.deepEqual(planningReview({inventory:duplicate.inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(102)]);
   await unlink(path.join(input.project,'first/duplicate.md'));
   const fixed = await projectInventory({...input,forceRefresh:true});
-  assert.deepEqual(planningReview({inventory:fixed.inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(3)]);
+  assert.deepEqual(planningReview({inventory:fixed.inventory,userEmail:owner,timezone:input.timezone,now}).available.map(t => t.id),[id(3),id(6)]);
   assert.deepEqual(planningReview({inventory:fixed.inventory,userEmail:owner,timezone:input.timezone,now,page:1}).available.map(t => t.id),[id(102)]);
 });
 
@@ -394,7 +394,7 @@ test('invalid task metadata isolates that task without blocking other tasks or h
   await unlink(input.future);
   const {inventory} = await projectInventory(input);
   const review = planningReview({inventory,userEmail:owner,timezone:input.timezone,now,selected:[{id:id(3)}]});
-  assert.deepEqual(review.available.map(t => t.id),[id(4)]);
+  assert.deepEqual(review.available.map(t => t.id),[id(4),id(6)]);
   assert.equal(review.selected[0].unresolved,true);
 });
 
@@ -421,7 +421,7 @@ test('accepted independent projects storage indexes through a logical anchor wit
   assert.equal(warm.metrics.sourceReads,0);
   const review = planningReview({...context,inventory:warm.inventory,userEmail:owner,
     contextBinding:context.planningBinding,inventoryBinding:warm.planningBinding});
-  assert.deepEqual(review.available.map(task => task.id),[id(3)]);
+  assert.deepEqual(review.available.map(task => task.id),[id(3),id(6)]);
 });
 
 test('planning rejects another vault inventory, destination roots or numbered screen even with matching task IDs', async () => {
@@ -443,7 +443,7 @@ test('following-line selections are allocated and legacy future cancellation rea
   await writeFile(input.future,`- [ ] [[task|B]]\n${reference}\n`);
   const active = await projectInventory(input);
   assert.equal(active.inventory.tasks[1].planned[0].date,'2026.10.07');
-  assert.deepEqual(planningReview({inventory:active.inventory,userEmail:owner,timezone:input.timezone,now}).available.map(task => task.id),[id(3)]);
+  assert.deepEqual(planningReview({inventory:active.inventory,userEmail:owner,timezone:input.timezone,now}).available.map(task => task.id),[id(3),id(6)]);
   await writeFile(input.future,`- [ ] ~~[[task|B]]~~ Cancelled\n${reference}\n`);
   const edited = await projectInventory(input);
   assert.ok(edited.inventory.diagnostics.some(d => d.code === 'view-state-difference' && d.recordId === id(4)));

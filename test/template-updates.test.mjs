@@ -7,7 +7,6 @@ import { pathToFileURL } from 'node:url';
 import { prepareTemplates, saveTemplateState } from '#core/templates/templates.mjs';
 import { templateFingerprint } from '#core/templates/catalog.mjs';
 import { resolveContext } from '#core/profile/context.mjs';
-import { queryDecisions } from '#core/log/decision-log.mjs';
 
 const kinds = ['dailyPlan','planDayReview','projectIndex','milestone','task'];
 function catalog(version) {
@@ -203,26 +202,30 @@ test('changed sources reject stale choices and dry runs create no template store
   await assert.rejects(save(input,before,'decide',[{kind:'dailyPlan',action:'set-policy',policy:'keep'}],options),/changed/);
 });
 
-test('an interrupted project log effect remains recoverable with the same event exactly once', async () => {
+test('an interrupted project log effect remains recoverable with the same event', async () => {
   const {input} = await fixture();
   const options = {catalog:catalog(1)};
   const prepared = await prepareTemplates(input,options);
   const logDirectory = path.join(input.vaultRoot,'projects/.daily-tasks');
   await mkdir(logDirectory,{recursive:true});
-  // A corrupt synthetic log prevents the second effect, after the choice checkpoint is saved.
-  const corrupt = path.join(logDirectory,'2026.10.12-decisions.json');
-  await writeFile(corrupt,'broken');
+  // Multiple active decision files prevent the second effect, after the choice checkpoint is saved.
+  const active1 = path.join(logDirectory,'2026.10.11-decisions.json');
+  const active2 = path.join(logDirectory,'2026.10.12-decisions.json');
+  await writeFile(active1,'');
+  await writeFile(active2,'');
   const decisions = [{kind:'dailyPlan',action:'set-policy',policy:'keep'}];
-  await assert.rejects(save(input,prepared,'decide',decisions,options),/Corrupt decision log/);
+  await assert.rejects(save(input,prepared,'decide',decisions,options),/Multiple active decision files/);
   const interrupted = await prepareTemplates(input,options);
   assert.equal(interrupted.status,'recovery-required');
   assert.deepEqual(interrupted.pendingScopes,['project']);
-  await unlink(corrupt);
+  await unlink(active1);
+  await unlink(active2);
   await save(input,interrupted,'recover',undefined,options);
   await save(input,prepared,'decide',decisions,options);
-  const events = await queryDecisions({projectsRoot:path.join(input.vaultRoot,'projects'),dryRun:true});
-  assert.equal(events.entries.length,1);
-  assert.equal(events.entries[0].action,'templates.changed');
+  const logFiles = (await readdir(logDirectory)).filter(name => name.endsWith('.json'));
+  const lines = (await readFile(path.join(logDirectory,logFiles[0]),'utf8')).trim().split('\n').map(line => JSON.parse(line));
+  assert.equal(lines.length,1);
+  assert.equal(lines[0].action,'templates.changed');
   assert.equal((await prepareTemplates(input,options)).status,'prepared');
 });
 

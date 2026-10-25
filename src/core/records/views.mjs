@@ -37,21 +37,22 @@ export function parseViewRows(markdown) {
     }
     const table = /^\s*\|/.test(line);
     if (!table && !/^\s*[-*]\s+/.test(line)) continue;
-    const cells = table ? line.split(/(?<!\\)\|/).filter(Boolean) : [line.replace(/^\s*[-*]\s+/,'')];
+    const cells = table ? line.replace(/\[\[([^\]]+?)\]\]/g, match => match.replace(/(?<!\\)\|/g, '\\|')).split(/(?<!\\)\|/).filter(Boolean) : [line.replace(/^\s*[-*]\s+/,'')];
     const statusCell = table && cells.find(cell => /^\s*\[[ xX>\-]\]\s*$/.test(cell));
     for (const cell of cells) {
       if (table && /^\s*\[[ xX>\-]\]\s*$/.test(cell)) continue;
       const mark = /^\s*\[([ xX>\-])\]\s*(.+)/.exec(cell);
-      const linkOnly = table && /\[\[/.test(cell);
-      if (!mark && !linkOnly) continue;
+      const linkOrRef = table && (/\[\[/.test(cell) || /<!--\s*ref:/.test(cell));
+      if (!mark && !linkOrRef) continue;
       const text = (mark?.[2] ?? cell).replaceAll('\\|','|');
       const references = [...text.matchAll(refComment)].map(match => match[1]);
       const link = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/.exec(text);
       const title = text.replace(/<!--.*?-->/g,'').trim();
-      const symbol = (mark?.[1] ?? (linkOnly && statusCell ? /\[([ xX>\-])\]/.exec(statusCell)[1] : undefined))?.toLowerCase();
+      const plainLabel = title.replace(/^↺\s*/,'').trim();
+      const symbol = (mark?.[1] ?? (linkOrRef && statusCell ? /\[([ xX>\-])\]/.exec(statusCell)[1] : undefined))?.toLowerCase();
       const cancelled = symbol === '-' || (symbol === ' ' && /~~.+~~.*\bCancelled\b/i.test(title));
       const carried = /^↺(?:\s|$)/.test(title);
-      const row = {id:null,title,target:link?.[1],label:link?.[2] ?? link?.[1],
+      const row = {id:null,title,target:link?.[1],label:link?.[2] ?? link?.[1] ?? (plainLabel || undefined),
         checked:symbol === 'x',mark:symbol,cancelled,
         ...(carried ? {carried:true} : {}),
         ...(cancelled ? {state:'cancelled'} : symbol === '>' ? {state:'in-progress'} : {})};

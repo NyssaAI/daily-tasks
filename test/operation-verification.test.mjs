@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdir, mkdtemp, realpath, writeFile, readFile, access, symlink, unlink, rmdir } from 'node:fs/promises';
+import { mkdir, mkdtemp, realpath, writeFile, readFile, readdir, access, symlink, unlink, rmdir } from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
@@ -8,7 +8,7 @@ import { promisify } from 'node:util';
 import { tmpdir } from 'node:os';
 import { uuid7 } from '#core/identity/identity.mjs';
 import { resolveContext } from '#core/profile/context.mjs';
-import { appendDecision, queryDecisions } from '#core/log/decision-log.mjs';
+import { appendDecision } from '#core/log/decision-log.mjs';
 import { verifyOperation, completeOperation, completeChangedRollover } from '#core/operations/verification.mjs';
 import { preparePlanning, savePlanningState } from '#core/planning/session.mjs';
 import { planningScreen } from './fixtures/planning-screen.mjs';
@@ -39,19 +39,20 @@ test('packaged completion checks actual evidence from an unrelated working direc
   const f = await fixture();
   const inputFile = path.join(f.context.vaultRoot,'input.json');
   await writeFile(inputFile,JSON.stringify(f.input));
-  await writeFile(f.file,'after');
+  await writeFile(f.file,'before');
   for (const entry of ['artifacts/portable/bin/daily-tasks.mjs','artifacts/cowork/scripts/daily-tasks.mjs']) {
     const result = await execute(process.execPath,[path.resolve(entry),'operation-complete','--input',inputFile],{cwd:tmpdir()});
     assert.equal(JSON.parse(result.stdout).status,'pending');
     await access(f.input.operationPath);
   }
+  await writeFile(f.file,'after');
   await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event});
   const result = await execute(process.execPath,[path.resolve('artifacts/portable/bin/daily-tasks.mjs'),'operation-complete','--input',inputFile],{cwd:tmpdir()});
   assert.equal(JSON.parse(result.stdout).status,'completed');
   await assert.rejects(access(f.input.operationPath),{code:'ENOENT'});
 });
 
-test('actual bytes and exact event determine pending, conflict and completion (including forward-slash operationPath)', async () => {
+test('actual bytes determine pending, conflict and completion (including forward-slash operationPath)', async () => {
   const f = await fixture();
   const slashInput = {...f.input,operationPath:f.input.operationPath.replaceAll('\\','/')};
   await writeFile(f.file,'before');
@@ -60,7 +61,7 @@ test('actual bytes and exact event determine pending, conflict and completion (i
   assert.equal((await completeOperation(slashInput)).status,'conflict');
   await access(f.input.operationPath);
   await writeFile(f.file,'after');
-  assert.equal((await verifyOperation(slashInput)).status,'pending');
+  assert.equal((await verifyOperation(slashInput)).status,'verified');
   await appendDecision({projectsRoot:f.context.projectsRoot,entry:f.event});
   assert.equal((await completeOperation({...slashInput,dryRun:true})).status,'preview');
   await access(f.input.operationPath);
@@ -89,7 +90,6 @@ test('recovery keeps custom personal and partial project sources through verific
   await writeFile(f.file,'after');
   await appendDecision({projectsRoot:context.projectsRoot,entry:f.event});
   assert.equal((await completeOperation({...input,configurationSources:context.configurationSources,stateRoot:context.stateRoot})).status,'completed');
-  assert.equal((await queryDecisions({projectsRoot:context.projectsRoot})).total,1);
   assert.deepEqual((await resolveContext(input)).configurationSources,configurationSources);
 });
 
@@ -105,12 +105,7 @@ test('verification rejects forged evidence, escaped effects and another binding'
   await assert.rejects(verifyOperation(f.input),/bound/);
 });
 
-test('conflicting event and changed baseline never clear checkpoint', async () => {
-  const f = await fixture();
-  await writeFile(f.file,'after');
-  await appendDecision({projectsRoot:f.context.projectsRoot,entry:{...f.event,action:'different'}});
-  assert.equal((await completeOperation(f.input)).status,'conflict');
-  await access(f.input.operationPath);
+test('changed baseline never clears checkpoint', async () => {
   const g = await fixture();
   await writeFile(g.file,'after');
   await appendDecision({projectsRoot:g.context.projectsRoot,entry:g.event});
@@ -127,17 +122,6 @@ test('changed rollover fails closed without original source evidence', async () 
   await f.save();
   await assert.rejects(completeOperation(f.input),/Specialized/);
   await assert.rejects(completeChangedRollover(f.input),/original plan/);
-});
-
-test('verification includes events after the first page without filtering record identities', async () => {
-  const f = await fixture();
-  await writeFile(f.file,'after');
-  const entries = Array.from({length:1000},() => ({...f.event,id:uuid7(),operation_id:uuid7()}));
-  entries.push({...f.event,record_ids:[uuid7()]});
-  const directory = path.join(f.context.projectsRoot,'.daily-tasks');
-  await mkdir(directory);
-  await writeFile(path.join(directory,'2026.10.09-decisions.json'),JSON.stringify({schema_version:1,created_at:f.input.now,entries}));
-  assert.equal((await verifyOperation(f.input)).status,'conflict');
 });
 
 test('symlink ancestors and changed protected files are rejected', async () => {
@@ -411,5 +395,23 @@ test('baseline checks actual canonical fields, view hashes and preserves unrelat
   f.operation.baseline.value.records[unrelatedId] = JSON.parse(beforeText).records[unrelatedId];
   await f.save();
   assert.equal((await completeOperation(f.input)).status,'completed');
+});
+
+test('operation-complete with appendEvent and prepareNext logs event, invalidates cache, and returns fresh prepared packet in one call', async () => {
+  const f = await fixture();
+  const planId = uuid7();
+  const currentPath = path.join(f.context.dailyPlansRoot,'2026.10.09-daily-plan.md');
+  await writeFile(currentPath,`---\nid: ${planId}\ntype: daily-plan\ncreated_at: ${f.input.now}\n---\n# Today\n`);
+  await writeFile(f.file,'after');
+  const completed = await completeOperation({...f.input,appendEvent:true,prepareNext:true});
+  assert.equal(completed.status,'completed');
+  assert.equal(completed.prepared?.status,'prepared');
+  assert.equal(completed.prepared?.current?.id,planId);
+  await assert.rejects(access(f.input.operationPath),{code:'ENOENT'});
+  const logDir = path.join(f.context.projectsRoot,'.daily-tasks');
+  const logFiles = (await readdir(logDir)).filter(name => name.endsWith('.json'));
+  assert.equal(logFiles.length,1);
+  const entry = JSON.parse((await readFile(path.join(logDir,logFiles[0]),'utf8')).trim());
+  assert.equal(entry.operation_id,f.operation.operation_id);
 });
 

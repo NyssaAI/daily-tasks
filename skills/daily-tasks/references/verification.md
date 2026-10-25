@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > **Scope Directive**: This document defines the verification contracts, Schema Version 2 checkpoint structures, baseline assertions, and state completion requirements evaluated by `operation-verify`, `operation-complete`, and `rollover-complete`. It is strictly a verification and completion engine specification. Low-level CLI commands and signatures belong in [`cli.md`](cli.md), overall write-ahead operational workflows in [`operations.md`](operations.md), record schemas in [`records.md`](records.md), and planning/rollover domain rules in [`planning-flow.md`](planning-flow.md).
 
-The agent authors Markdown files and records checkpoints; the CLI deterministically verifies actual disk contents, checks log events via the log API, writes updated baselines, and clears checkpoints. Caller assertions of "verified" or "complete" are never accepted as proof.
+The agent authors Markdown files and records checkpoints; the CLI deterministically verifies actual disk contents, writes updated baselines, and clears checkpoints. Caller assertions of "verified" or "complete" are never accepted as proof.
 
 ## Checkpoint Schema Version 2 contract
 
@@ -38,7 +38,7 @@ Used for explicit task selection adds, removals, or moves across daily plans via
   - The CLI derives updated `removedIds` in `stateRoot/rollover/YYYY.MM.DD.json`: destination clears `taskIds`; source adds `taskIds`.
   - Selection changes never fabricate or claim rollover completion (`operationId` and `completedAt` remain unset).
 - **Verification execution**:
-  `operation-verify` evaluates `persistedStatus` (Markdown effects, protected sources, and log event) and `ownedState` (pending rollover/baseline updates). `operation-complete` writes the owned state, verifies all evidence, and deletes the checkpoint last.
+  `operation-verify` evaluates `persistedStatus` (Markdown effects and protected sources) and `ownedState` (pending rollover/baseline updates). `operation-complete` (with `appendEvent: true`, and `prepareNext: true` during planning) appends the log event, writes the owned state, invalidates the inventory cache, verifies all evidence, deletes the checkpoint last, and returns the refreshed `prepared` packet.
 
 ### 2. Daily rollover completion (`rollover`)
 Used for carrying forward unfinished work into today's plan via `rollover-complete`:
@@ -46,7 +46,7 @@ Used for carrying forward unfinished work into today's plan via `rollover-comple
   `{date, planId, previousPlanId, expectedCreatedAt, removedIds, expectedSelectedIds, previousPath, previousHash, expectedStateHash, sourceSnapshot}`
 - **Validation**:
   - The CLI independently recomputes carry-forward facts from canonical records and verifies against the nearest preceding daily plan.
-  - On success, finalizes the dated receipt (`stateRoot/rollover/YYYY.MM.DD.json`) with `operationId` and GMT `completedAt`, saves the updated baseline, and deletes the checkpoint.
+  - On success, appends the log event (when `appendEvent: true`), finalizes the dated receipt (`stateRoot/rollover/YYYY.MM.DD.json`) with `operationId` and GMT `completedAt`, saves the updated baseline, invalidates the inventory cache, deletes the checkpoint, and returns `prepared` (when `prepareNext: true`).
 
 ## Failure and recovery rules
 

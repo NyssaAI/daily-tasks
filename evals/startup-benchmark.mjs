@@ -4,7 +4,7 @@ import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { uuid7 } from '#core/identity/identity.mjs';
-import { planningScreen } from '../test/fixtures/planning-screen.mjs';
+import { planningScreen, dailyPlanDocument } from '../test/fixtures/planning-screen.mjs';
 
 const execute = promisify(execFile);
 const LATENCY_BUDGET_MS = 1500;
@@ -159,7 +159,7 @@ export async function runStartupBenchmark() {
   const cliPath = path.resolve('src/cli/daily-tasks.mjs');
 
   try {
-    const { vaultRoot, taskRegistry, carriedTasks } = await createBenchmarkVault(tempRoot, now);
+    const { vaultRoot, taskRegistry } = await createBenchmarkVault(tempRoot, now);
     const inputFile = path.join(tempRoot, 'input.json');
     const outputFile = path.join(tempRoot, 'output.json');
     await writeFile(inputFile, JSON.stringify({ vaultRoot, now }), 'utf8');
@@ -225,19 +225,16 @@ export async function runStartupBenchmark() {
     // --- CHECK 4: Single-Pass Plan Authoring & Review Screen Validation ---
     const todayDate = '2026.10.19';
     const planPath = path.join(vaultRoot, '2-areas', 'daily-plans', `${todayDate}-daily-plan.md`);
-    const planRows = prepareData.rollover.selected.map(item => {
-      const reg = taskRegistry.find(t => t.id === item.id);
-      return `- [ ] ↺ [[${reg?.relativeLink ?? item.target ?? 'task'}|${item.title}]] <!-- ref: ${item.id} -->`;
+    const planMarkdown = dailyPlanDocument({
+      id: prepareData.current.proposedId,
+      date: todayDate,
+      timezone: prepareData.context.timezone,
+      now,
+      displayNow: prepareData.displayNow,
+      counts: prepareData.review.counts,
+      selected: prepareData.review.selected,
+      userEmail: 'owner@example.test',
     });
-    const planMarkdown = `---
-id: ${prepareData.current.proposedId}
-type: daily-plan
-created_at: ${now}
----
-# Today's Plan
-
-${planRows.join('\n')}
-`;
     await writeFile(planPath, planMarkdown, 'utf8');
 
     // Run planning-prepare again; should transition to 'prepared'

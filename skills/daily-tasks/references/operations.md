@@ -30,16 +30,11 @@ Follow this 5-step protocol before any consequential Markdown write or recovery:
   3. Daily-plan view projections.
 - If an earlier effect fails, retain the checkpoint and stop; never apply partial downstream projections. Write only agreed deltas; preserve existing prose and unrelated fields.
 
-### 4. Append decision log
-- Append the corresponding event via `log-append` using the exact `operation_id`, `event_id`, and payload from the checkpoint.
-- Do not edit or patch log files directly. Query with `log-query` on retry to confirm whether the event was already appended.
-- Matching IDs alone do not verify logging; the recorded payload must match the checkpoint. A differing payload is a conflict that blocks completion.
-
-### 5. Verify and complete
+### 4. Verify, log, and complete in one call
 - Propose updated per-view baselines in the checkpoint.
-- Execute `operation-verify`, followed by `operation-complete` (or specialized `rollover-complete`).
-- The CLI independently verifies actual file contents and the recorded log event, writes verified baseline state to `stateRoot/reconciliation.json`, and atomically removes the checkpoint file.
-- Never manually delete a checkpoint file or advance a baseline when verification returns pending or conflict.
+- Execute `operation-complete` (or specialized `rollover-complete`) with `appendEvent: true` (and `prepareNext: true` when continuing a planning session).
+- In a single call, the CLI verifies actual file contents, appends the checkpoint's event to the write-only decision log, writes verified baseline state to `stateRoot/reconciliation.json`, invalidates the project-index freshness sidecar, removes the checkpoint file, and (when `prepareNext: true`) returns the refreshed `prepared` planning packet.
+- Never manually delete a checkpoint file or advance a baseline when verification returns pending or conflict. (`log-append` and `operation-verify` remain available for standalone or read-only checks.)
 
 ## Reconciliation and conflict resolution
 

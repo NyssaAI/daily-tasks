@@ -1,7 +1,7 @@
-import { lstat, mkdir, readdir, readFile, open, rename, unlink, rmdir } from 'node:fs/promises';
+import { lstat, mkdir, readdir, open, rename, unlink, rmdir } from 'node:fs/promises';
 import path from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
-import { isUuid7, uuid7 } from '../identity/identity.mjs';
+import { isUuid7 } from '../identity/identity.mjs';
 import { utcTimestamp } from '../time/time.mjs';
 
 const filenamePattern = /^\d{4}\.\d{2}\.\d{2}-decisions(?:-\d{6})?\.json$/;
@@ -27,13 +27,8 @@ function validateEntry(entry) {
   if (!utc(entry.activity_at) || !utc(entry.recorded_at)) fail('INVALID_ENTRY','Activity and recorded timestamps must be valid GMT ISO timestamps');
   if (typeof entry.time_defaulted !== 'boolean') fail('INVALID_ENTRY','time_defaulted must be boolean');
   if ('original_words' in entry && typeof entry.original_words !== 'string') fail('INVALID_ENTRY','original_words must be a string');
-  if ('corrects' in entry && !isUuid7(entry.corrects)) fail('INVALID_ENTRY','Correction reference must be UUIDv7');
+  if ('corrects' in entry && (!isUuid7(entry.corrects) || entry.corrects === entry.id)) fail('INVALID_ENTRY','Correction reference must be a distinct UUIDv7');
   if (!jsonValue(entry)) fail('INVALID_ENTRY','Entry must contain only JSON values');
-}
-function canonical(value) {
-  if (Array.isArray(value)) return `[${value.map(canonical).join(',')}]`;
-  if (plain(value)) return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${canonical(value[key])}`).join(',')}}`;
-  return JSON.stringify(value);
 }
 async function statOrMissing(location) {
   try { return await lstat(location); } catch (error) { if (error.code === 'ENOENT') return null; throw error; }
@@ -98,10 +93,11 @@ async function writeNew(location,bytes) {
   const handle = await open(location,'wx');
   try { await handle.writeFile(bytes,'utf8'); await handle.sync(); } finally { await handle.close(); }
 }
-async function atomicWrite(location,value) {
-  const temporary = path.join(path.dirname(location),`.decision-${uuid7()}.tmp`);
-  try { await writeNew(temporary,`${JSON.stringify(value,null,2)}\n`); await rename(temporary,location); }
-  finally { await unlink(temporary).catch(error => { if (error.code !== 'ENOENT') throw error; }); }
+async function appendLine(location, line) {
+  const stat = await statOrMissing(location);
+  if (stat && (stat.isSymbolicLink() || !stat.isFile())) fail('UNSAFE_PATH',`Expected a regular decision file: ${location}`);
+  const handle = await open(location, 'a');
+  try { await handle.writeFile(line, 'utf8'); await handle.sync(); } finally { await handle.close(); }
 }
 async function filenames(directory) {
   if (!await safeDirectory(directory)) return [];
@@ -111,86 +107,46 @@ async function filenames(directory) {
     .sort((a,b)=>a.slice(0,10).localeCompare(b.slice(0,10)) || sequence(a)-sequence(b))
     .map(name=>path.join(directory,name));
 }
-async function history(dirs) {
+async function resolveActiveFile(dirs) {
   const activeFiles = await filenames(dirs.directory);
-  if (activeFiles.length>1) fail('CORRUPT_LOG','Multiple active decision files; explicit recovery required');
-  const files=[...await filenames(dirs.archive),...activeFiles];
-  const entries=[]; const ids=new Map(); const operations=new Map(); let active=null;
-  for (const file of files) {
-    const stat=await lstat(file);
+  if (activeFiles.length > 1) fail('CORRUPT_LOG','Multiple active decision files; explicit recovery required');
+  if (activeFiles.length === 1) {
+    const file = activeFiles[0];
+    const stat = await lstat(file);
     if (stat.isSymbolicLink() || !stat.isFile()) fail('UNSAFE_PATH',`Expected a regular decision file: ${file}`);
-    let data;
-    try {
-      data=JSON.parse(await readFile(file,'utf8'));
-      if (!plain(data) || data.schema_version !== 1 || !utc(data.created_at) || !Array.isArray(data.entries) || Object.keys(data).some(key=>!['schema_version','created_at','entries'].includes(key))) throw new Error('Invalid envelope');
-      for (const entry of data.entries) validateEntry(entry);
-    } catch (error) { fail('CORRUPT_LOG',`Corrupt decision log ${file}: ${error.message}`); }
-    for (const entry of data.entries) {
-      if (ids.has(entry.id) || operations.has(entry.operation_id)) fail('CORRUPT_LOG',`Duplicate decision or operation ID in ${file}`);
-      ids.set(entry.id,entry); operations.set(entry.operation_id,entry); entries.push(entry);
-    }
-    if (activeFiles.includes(file)) active={file,data};
+    return { active: file, file };
   }
-  for (const entry of entries) if (entry.corrects && (entry.corrects===entry.id || !ids.has(entry.corrects))) fail('CORRUPT_LOG',`Invalid correction reference in ${entry.id}`);
-  return {files,entries,ids,operations,active};
-}
-function nextFile(dirs, loaded) {
-  const date=new Date().toISOString().slice(0,10).replaceAll('-','.');
-  const names=new Set(loaded.files.map(file=>path.basename(file)));
-  for (let n=0;n<=999999;n++) {
-    const name=`${date}-decisions${n?`-${String(n).padStart(6,'0')}`:''}.json`;
-    if (!names.has(name)) return path.join(dirs.directory,name);
+  const archived = await filenames(dirs.archive);
+  const date = new Date().toISOString().slice(0,10).replaceAll('-','.');
+  const names = new Set(archived.map(file => path.basename(file)));
+  for (let n = 0; n <= 999999; n++) {
+    const name = `${date}-decisions${n ? `-${String(n).padStart(6,'0')}` : ''}.json`;
+    if (!names.has(name)) return { active: null, file: path.join(dirs.directory, name) };
   }
   fail('LOG_CAPACITY','No unused log filename available for today');
 }
 
+/** Write-only decision log append. Validates entry shape and appends directly to the end of the active log file without reading history. */
 export async function appendDecision(input) {
   validateEntry(input?.entry);
-  // Freeze the submitted JSON value before awaiting filesystem access.
-  const entry=JSON.parse(JSON.stringify(input.entry));
-  return withAccess(input,async dirs=>{
-    const loaded=await history(dirs);
-    const previous=loaded.operations.get(entry.operation_id);
-    if (previous) {
-      if (canonical(previous)!==canonical(entry)) fail('OPERATION_CONFLICT','Conflicting reuse of operation_id');
-      return {entry:previous,duplicate:true,dryRun:input.dryRun===true};
-    }
-    if (loaded.ids.has(entry.id)) fail('DUPLICATE_ID','Decision ID already exists');
-    if (entry.corrects && !loaded.ids.has(entry.corrects)) fail('INVALID_CORRECTION','Correction must reference a prior decision');
-    const file=loaded.active?.file ?? nextFile(dirs,loaded);
-    const data=loaded.active?.data ?? {schema_version:1,created_at:new Date().toISOString(),entries:[]};
-    data.entries.push(entry);
-    if (!input.dryRun) await atomicWrite(file,data);
-    return {entry,duplicate:false,file,dryRun:input.dryRun===true};
-  });
-}
-
-export async function queryDecisions(input) {
-  const limit=input?.limit ?? 100; const offset=input?.offset ?? 0;
-  if (!Number.isInteger(limit) || limit<1 || limit>1000) fail('INVALID_QUERY','limit must be between 1 and 1000');
-  if (!Number.isSafeInteger(offset) || offset<0) fail('INVALID_QUERY','offset must be a nonnegative safe integer');
-  if (input?.recordId !== undefined && !isUuid7(input.recordId)) fail('INVALID_QUERY','recordId must be UUIDv7');
-  if (input?.action !== undefined && (typeof input.action !== 'string' || !input.action.trim())) fail('INVALID_QUERY','action must be a nonempty string');
-  for (const key of ['since','until']) if (input?.[key] !== undefined && !utc(input[key])) fail('INVALID_QUERY',`${key} must be a GMT timestamp`);
-  if (input?.since && input?.until && Date.parse(input.since)>Date.parse(input.until)) fail('INVALID_QUERY','since must not be later than until');
-  return withAccess(input,async dirs=>{
-    const {entries}=await history(dirs);
-    const matches=entries.filter(entry=>(!input.recordId || entry.record_ids.includes(input.recordId)) && (!input.action || entry.action===input.action) && (!input.since || Date.parse(entry.recorded_at)>=Date.parse(input.since)) && (!input.until || Date.parse(entry.recorded_at)<=Date.parse(input.until)));
-    return {entries:matches.slice(offset,offset+limit),total:matches.length,offset,limit,nextOffset:offset+limit<matches.length?offset+limit:null};
+  const entry = JSON.parse(JSON.stringify(input.entry));
+  return withAccess(input, async dirs => {
+    const { file } = await resolveActiveFile(dirs);
+    if (!input.dryRun) await appendLine(file, `${JSON.stringify(entry)}\n`);
+    return { entry, duplicate: false, file, dryRun: input.dryRun === true };
   });
 }
 
 export async function archiveDecisions(input) {
-  return withAccess(input,async dirs=>{
-    const loaded=await history(dirs);
-    if (!loaded.active) return {archived:false,dryRun:input.dryRun===true};
-    const destination=path.join(dirs.archive,path.basename(loaded.active.file));
+  return withAccess(input, async dirs => {
+    const { active } = await resolveActiveFile(dirs);
+    if (!active) return { archived: false, dryRun: input.dryRun === true };
+    const destination = path.join(dirs.archive, path.basename(active));
     if (await statOrMissing(destination)) fail('ARCHIVE_CONFLICT',`Archive already exists: ${destination}`);
     if (!input.dryRun) {
       await mkdir(dirs.archive,{recursive:true}); await safeDirectory(dirs.archive,true);
-      // One same-volume rename preserves old bytes, including on an interrupted rotation.
-      await rename(loaded.active.file,destination);
+      await rename(active,destination);
     }
-    return {archived:true,file:destination,source:loaded.active.file,dryRun:input.dryRun===true};
+    return { archived: true, file: destination, source: active, dryRun: input.dryRun === true };
   });
 }
