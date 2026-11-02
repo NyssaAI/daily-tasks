@@ -1,0 +1,45 @@
+name: Publish release tag to marketplace
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify tag matches plugin.json and notify marketplaces
+        env:
+          GH_TOKEN: ${{ secrets.NYSSA_AI_MARKETPLACE_TOKEN }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "NYSSA_AI_MARKETPLACE_TOKEN is not set; ensure the organization secret is shared with this repository."
+            exit 1
+          fi
+          MANIFEST="plugin.json"
+          if [ ! -f "$MANIFEST" ] && [ -f ".claude-plugin/plugin.json" ]; then
+            MANIFEST=".claude-plugin/plugin.json"
+          fi
+          MANIFEST_VERSION=$(python3 -c "import json; print(json.load(open('$MANIFEST'))['version'])")
+          PLUGIN_NAME=$(python3 -c "import json; print(json.load(open('$MANIFEST'))['name'])")
+          if [[ "$REF_NAME" == v* ]]; then
+            TAG_VERSION="${REF_NAME#v}"
+            if [ "$TAG_VERSION" != "$MANIFEST_VERSION" ]; then
+              echo "Tag $REF_NAME ($TAG_VERSION) does not match $MANIFEST version ($MANIFEST_VERSION)"
+              exit 1
+            fi
+          fi
+          for REPO in NyssaAI/plugin-marketplace NyssaAI/plugin-marketplace-private; do
+            gh api "repos/$REPO/dispatches" \
+              -f event_type=plugin-release \
+              -f "client_payload[plugin]=$PLUGIN_NAME" \
+              -f "client_payload[version]=$MANIFEST_VERSION" \
+              -f "client_payload[ref]=v$MANIFEST_VERSION" || true
+          done
