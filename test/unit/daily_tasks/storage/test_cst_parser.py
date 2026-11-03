@@ -170,7 +170,7 @@ def test_parse_blocker_sample_reads_resolution_and_blocked_records() -> None:
 
 
 def test_parse_task_without_owner_returns_invalid_record() -> None:
-    text = _sample("4-sample-task.md").replace('owner: "jordan@example.com"\n', "")
+    text = _sample("4-sample-task.md").replace('owner: "jordan@example.com"\r\n', "").replace('owner: "jordan@example.com"\n', "")
     document = parse_markdown(text).unwrap()
 
     result = parse_task(document, RecordLocation(path="t1-x.md", source="markdown-projects"))

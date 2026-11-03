@@ -90,7 +90,7 @@ def test_render_daily_plan_sample_matches_sample_markdown() -> None:
 
     text = render_daily_plan(document)
 
-    assert text == _sample_text()
+    assert text.replace("\r\n", "\n") == _sample_text().replace("\r\n", "\n")
 
 
 def test_parse_daily_plan_sample_with_stored_plan_returns_equal_plan() -> None:
