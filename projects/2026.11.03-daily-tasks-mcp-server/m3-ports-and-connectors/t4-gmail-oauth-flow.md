@@ -9,7 +9,7 @@ assignee: "sarah@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
 milestone_id: "019a4b2c-2000-7000-8000-000000000004"
 created_at: "2026-11-03T11:30:00Z"
-updated_at: "2026-11-03T11:50:00Z"
+updated_at: "2026-11-03T12:55:00Z"
 started_at: null
 resolved_at: null
 target_date: "2026-11-19"
@@ -23,28 +23,28 @@ tags: ["gmail", "oauth", "auth", "security", "tokens"]
 
 ## Requirements
 
-Implement the interactive first-run OAuth 2.0 authorization flow and token lifecycle for the Gmail communication adapter:
-1. Implement local loopback server (`http://localhost:8080/callback`) to receive the OAuth authorization code from Google's consent screen.
-2. Exchange authorization code for refresh and access tokens enforcing read-only scope (`https://www.googleapis.com/auth/gmail.readonly`).
-3. Store tokens in `.nyssa-ai/daily-tasks/tokens/gmail.json` with strict file permissions (`0600`).
-4. Implement automatic token refresh logic so subsequent planning sessions execute headlessly without user intervention.
-5. Provide a CLI command `python -m daily_tasks.auth.gmail` and an MCP server helper to trigger first-run authorization when tokens are absent or expired.
+Implement the interactive first-run OAuth 2.0 authorization flow and token lifecycle for the Gmail communication adapter using `nyssa-ai-configuration`:
+1. Use `nyssa_ai_configuration.OAuthFlowClient` to execute the PKCE loopback authorization flow and exchange authorization codes for refresh and access tokens enforcing read-only scope (`https://www.googleapis.com/auth/gmail.readonly`).
+2. Manage and seal token grants in memory using `nyssa_ai_configuration.OAuthTokenProvider` backed by `KeyringDefault` (OS credential store) or `KeyringInMemory`. Tokens and secrets must never be saved as unencrypted files on disk.
+3. Automatically refresh expiring access tokens headlessly under lock so planning sessions execute without user intervention.
+4. Mask secrets and tokens from `repr()`, debug prints, and logging outputs to prevent credential leakage.
+5. Provide a CLI helper command `python -m daily_tasks.auth.gmail` and an MCP server helper to trigger first-run authorization when tokens are absent.
 
 ## Definition of Done
 
-- [ ] Loopback redirect server handles Google OAuth 2.0 callback and extracts authorization code <!-- id: 019a4b2c-2000-7000-8000-00000000103f -->
-- [ ] Token manager securely saves tokens to `.nyssa-ai/daily-tasks/tokens/gmail.json` and refreshes expired access tokens <!-- id: 019a4b2c-2000-7000-8000-000000001040 -->
+- [ ] `OAuthFlowClient` handles Google OAuth 2.0 PKCE callback and token exchange <!-- id: 019a4b2c-2000-7000-8000-00000000103f -->
+- [ ] `OAuthTokenProvider` securely retains token grants in memory/keyring and refreshes expired tokens headlessly without plain-text disk writes <!-- id: 019a4b2c-2000-7000-8000-000000001040 -->
 - [ ] Automated tests using mock OAuth endpoints verify token exchange and refresh flows <!-- id: 019a4b2c-2000-7000-8000-000000001041 -->
 
 ## Inputs
 
-- Google Cloud Console OAuth 2.0 client credentials (`client_id`, `client_secret`).
+- Google Cloud Console OAuth 2.0 client credentials (`client_id`, `client_secret`) resolved via `nyssa-ai-configuration`.
 - `docs/specs/port-config.json`.
 
 ## Work Product
 
-- Python files: `src/daily_tasks/auth/gmail_oauth.py`, `src/daily_tasks/auth/token_store.py`.
-- Unit tests: `tests/auth/test_gmail_oauth.py`.
+- Python files: `src/daily_tasks/adapters/communication/gmail_oauth.py`.
+- Unit tests: `test/unit/daily_tasks/adapters/test_gmail_oauth.py`.
 
 ## Depends on
 
