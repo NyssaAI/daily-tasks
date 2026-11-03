@@ -13,6 +13,9 @@ dependencies = [
     "langchain-core",
 ]
 
+[project.scripts]
+daily-tasks-mcp = "daily_tasks.cli:main"
+
 [dependency-groups]
 dev = [
     "mypy>=1.13",
