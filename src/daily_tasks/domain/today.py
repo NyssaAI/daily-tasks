@@ -8,8 +8,10 @@
 
 from collections.abc import Mapping
 from datetime import date
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.today_selection import TodaySelection
 
@@ -21,4 +23,3 @@ class Today:
     selected: TodaySelection
     available: tuple[UUID7, ...]
     future: Mapping[date, tuple[UUID7, ...]]
-

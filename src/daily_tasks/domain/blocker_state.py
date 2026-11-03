@@ -5,6 +5,4 @@
 
 from typing import Literal
 
-
 type BlockerState = Literal["open", "resolved"]
-

@@ -10,8 +10,10 @@
 
 from datetime import date
 from typing import Literal
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.item_type import ItemType
 
@@ -25,4 +27,3 @@ class AssignToDay:
     item_type: ItemType
     item_id: UUID7
     local_date: date
-

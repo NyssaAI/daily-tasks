@@ -13,8 +13,10 @@
 
 from collections.abc import Mapping
 from typing import Literal
+
 from pydantic import MISSING, UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.utc_timestamp import UtcTimestamp
 
@@ -31,4 +33,3 @@ class SetStatus:
     state: str
     activity_at: UtcTimestamp
     child_dispositions: Mapping[UUID7, str] | MISSING = MISSING
-

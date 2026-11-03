@@ -10,6 +10,7 @@
 
 from pydantic import MISSING
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -22,4 +23,3 @@ class MilestoneFacts:
     tasks_open: int
     tasks_total: int
     closable: bool
-

@@ -7,6 +7,7 @@
 """DailyPlanSummary DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -17,4 +18,3 @@ class DailyPlanSummary:
     open_projects: int
     open_tasks: int
     late_tasks: int
-

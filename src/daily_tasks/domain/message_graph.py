@@ -11,10 +11,12 @@
 """MessageGraph DTO."""
 
 from collections.abc import Mapping
-from pydantic import Field, MISSING
+
+from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
+
 from daily_tasks.domain.diagnostic import Diagnostic
+from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.message_graph_context import MessageGraphContext
 from daily_tasks.domain.message_graph_derived import MessageGraphDerived
 from daily_tasks.domain.message_graph_index import MessageGraphIndex
@@ -33,4 +35,3 @@ class MessageGraph:
     index: MessageGraphIndex
     derived: MessageGraphDerived
     diagnostics: tuple[Diagnostic, ...]
-

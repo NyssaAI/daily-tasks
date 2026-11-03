@@ -10,8 +10,10 @@
 """Diagnostic DTO."""
 
 from typing import Literal
+
 from pydantic import MISSING
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -25,4 +27,3 @@ class Diagnostic:
     source: str | MISSING = MISSING
     path: str | MISSING = MISSING
     attachment_id: str | MISSING = MISSING
-

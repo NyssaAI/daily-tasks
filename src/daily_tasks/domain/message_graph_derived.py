@@ -8,7 +8,9 @@
 """MessageGraphDerived DTO."""
 
 from collections.abc import Mapping
+
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.for_review_message import ForReviewMessage
 from daily_tasks.domain.message_facts import MessageFacts
@@ -24,4 +26,3 @@ class MessageGraphDerived:
     threads: Mapping[str, ThreadFacts]
     for_review: tuple[ForReviewMessage, ...]
     summary: MessageGraphSummary
-

@@ -6,6 +6,7 @@
 
 from pydantic import Field
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -14,4 +15,3 @@ class SpecRef:
     """Pointer (`{"$ref": ...}`) to another example document or JSON pointer."""
 
     ref: str = Field(alias="$ref")
-

@@ -6,6 +6,7 @@
 """DodProgress DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -15,4 +16,3 @@ class DodProgress:
 
     done: int
     total: int
-

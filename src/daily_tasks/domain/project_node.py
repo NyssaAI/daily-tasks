@@ -9,8 +9,10 @@
 """ProjectNode DTO."""
 
 from datetime import date
-from pydantic import Field, MISSING
+
+from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -23,4 +25,3 @@ class ProjectNode:
     state: str
     owner: str | MISSING = MISSING
     directory_date: date
-

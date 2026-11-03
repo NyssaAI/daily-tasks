@@ -9,8 +9,10 @@
 """SuggestionOrigin DTO."""
 
 from typing import Literal
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -23,4 +25,3 @@ class SuggestionOrigin:
     screen_id: str
     row: int
     message_ids: tuple[str, ...]
-

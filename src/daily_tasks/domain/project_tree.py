@@ -8,6 +8,7 @@
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.milestone_tree import MilestoneTree
 
@@ -19,4 +20,3 @@ class ProjectTree:
     project_id: UUID7
     milestones: tuple[MilestoneTree, ...]
     blocker_ids: tuple[UUID7, ...]
-

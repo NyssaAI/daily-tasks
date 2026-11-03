@@ -7,6 +7,7 @@
 
 from pydantic import MISSING, UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -16,4 +17,3 @@ class RecordChangeOrigin:
 
     kind: str
     suggestion_id: UUID7 | MISSING = MISSING
-

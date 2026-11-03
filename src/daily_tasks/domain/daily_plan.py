@@ -21,14 +21,16 @@
 
 from datetime import date
 from typing import Literal
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
-from daily_tasks.domain.utc_timestamp import UtcTimestamp
+
 from daily_tasks.domain.blocker_ref import BlockerRef
 from daily_tasks.domain.daily_plan_entry import DailyPlanEntry
 from daily_tasks.domain.daily_plan_summary import DailyPlanSummary
 from daily_tasks.domain.decision_ref import DecisionRef
+from daily_tasks.domain.dto_config import DTO_CONFIG
+from daily_tasks.domain.utc_timestamp import UtcTimestamp
 
 
 @dataclass(frozen=True, slots=True, kw_only=True, config=DTO_CONFIG)
@@ -51,4 +53,3 @@ class DailyPlan:
     decisions: tuple[DecisionRef, ...]
     notes: tuple[str, ...]
     source: str
-

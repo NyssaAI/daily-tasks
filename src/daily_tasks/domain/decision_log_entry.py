@@ -23,12 +23,14 @@
 
 from collections.abc import Mapping
 from typing import Literal
-from pydantic import JsonValue, UUID7
+
+from pydantic import UUID7, JsonValue
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
-from daily_tasks.domain.utc_timestamp import UtcTimestamp
+
 from daily_tasks.domain.actor import Actor
 from daily_tasks.domain.decision_origin import DecisionOrigin
+from daily_tasks.domain.dto_config import DTO_CONFIG
+from daily_tasks.domain.utc_timestamp import UtcTimestamp
 
 
 @dataclass(frozen=True, slots=True, kw_only=True, config=DTO_CONFIG)
@@ -53,4 +55,3 @@ class DecisionLogEntry:
     before: Mapping[str, JsonValue] | None
     after: Mapping[str, JsonValue] | None
     corrects: UUID7 | None
-

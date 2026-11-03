@@ -7,8 +7,9 @@
 #     `-- task_ids
 """PlanNode DTO."""
 
-from pydantic import Field, MISSING, UUID7
+from pydantic import MISSING, UUID7, Field
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -20,4 +21,3 @@ class PlanNode:
     path: str | MISSING = MISSING
     task_ids: tuple[UUID7, ...]
     completed_ids: tuple[UUID7, ...] | MISSING = MISSING
-

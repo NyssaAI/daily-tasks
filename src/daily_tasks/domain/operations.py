@@ -11,10 +11,12 @@
 """Operations DTO."""
 
 from collections.abc import Mapping
-from pydantic import Field, JsonValue, MISSING, UUID7
+
+from pydantic import MISSING, UUID7, Field, JsonValue
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
+
 from daily_tasks.domain.actor import Actor
+from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.operation import Operation
 
 
@@ -29,4 +31,3 @@ class Operations:
     actor: Actor
     operations: tuple[Operation, ...]
     rules: Mapping[str, JsonValue] | MISSING = Field(default=MISSING, alias="_rules")
-

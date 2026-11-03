@@ -10,10 +10,11 @@
 #     `-- tree
 """StateGraph DTO."""
 
-from pydantic import Field, MISSING
+from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
+
 from daily_tasks.domain.diagnostic import Diagnostic
+from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.project_tree import ProjectTree
 from daily_tasks.domain.state_graph_context import StateGraphContext
 from daily_tasks.domain.state_graph_derived import StateGraphDerived
@@ -32,4 +33,3 @@ class StateGraph:
     index: StateGraphIndex
     derived: StateGraphDerived
     diagnostics: tuple[Diagnostic, ...]
-

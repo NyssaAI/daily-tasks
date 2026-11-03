@@ -9,6 +9,7 @@
 """BackgroundSource DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -21,4 +22,3 @@ class BackgroundSource:
     fetched: int
     new: int
     error: str | None
-
