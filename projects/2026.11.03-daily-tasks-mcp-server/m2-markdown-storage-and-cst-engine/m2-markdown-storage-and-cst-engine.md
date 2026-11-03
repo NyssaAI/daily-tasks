@@ -3,16 +3,16 @@ id: 019a4b2c-2000-7000-8000-000000000003
 type: milestone
 record_version: 2
 title: "Markdown Storage & CST Engine"
-milestone-state: not-started
+milestone-state: in-progress
 project_id: "019a4b2c-2000-7000-8000-000000000001"
 created_at: "2026-11-03T11:30:00Z"
 updated_at: "2026-11-03T11:30:00Z"
-started_at: null
+started_at: "2026-11-03T12:25:00Z"
 resolved_at: null
 target_date: "2026-11-15"
 tags: ["cst", "markdown", "parser", "writer", "obsidian"]
 ---
-# [ ] M2: Markdown Storage & CST Engine · 2026-11-15
+# [>] M2: Markdown Storage & CST Engine · 2026-11-15
 
 **Project:** [[../project-index|Daily Tasks Python MCP Server]] <!-- ref: 019a4b2c-2000-7000-8000-000000000001 -->
 

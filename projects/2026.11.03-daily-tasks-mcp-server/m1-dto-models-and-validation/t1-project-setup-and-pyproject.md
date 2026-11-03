@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000008
 type: task
 record_version: 2
 title: "Project setup, pyproject.toml and library dependencies"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -11,7 +11,7 @@ milestone_id: "019a4b2c-2000-7000-8000-000000000002"
 created_at: "2026-11-03T11:30:00Z"
 updated_at: "2026-11-03T11:30:00Z"
 started_at: null
-resolved_at: null
+resolved_at: "2026-11-03T12:22:00Z"
 target_date: "2026-11-05"
 tags: ["setup", "python", "pyproject", "dependencies"]
 ---
@@ -27,9 +27,9 @@ Configure the root `pyproject.toml` file establishing package metadata, Python >
 
 ## Definition of Done
 
-- [ ] `pyproject.toml` created with package build metadata and dependencies <!-- id: 019a4b2c-2000-7000-8000-000000000004 -->
-- [ ] Source package directory `src/daily_tasks/` created with `__init__.py` <!-- id: 019a4b2c-2000-7000-8000-000000000005 -->
-- [ ] Pytest runs cleanly via `python -m pytest` <!-- id: 019a4b2c-2000-7000-8000-000000000006 -->
+- [x] `pyproject.toml` created with package build metadata and dependencies <!-- id: 019a4b2c-2000-7000-8000-000000000004 -->
+- [x] Source package directory `src/daily_tasks/` created with `__init__.py` <!-- id: 019a4b2c-2000-7000-8000-000000000005 -->
+- [x] Pytest runs cleanly via `python -m pytest` <!-- id: 019a4b2c-2000-7000-8000-000000000006 -->
 
 ## Inputs
 

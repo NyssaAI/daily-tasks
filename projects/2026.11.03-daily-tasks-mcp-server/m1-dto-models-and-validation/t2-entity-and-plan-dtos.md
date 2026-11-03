@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000009
 type: task
 record_version: 2
 title: "Core entity and daily plan DTO models"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -11,7 +11,7 @@ milestone_id: "019a4b2c-2000-7000-8000-000000000002"
 created_at: "2026-11-03T11:30:00Z"
 updated_at: "2026-11-03T11:30:00Z"
 started_at: null
-resolved_at: null
+resolved_at: "2026-11-03T12:22:00Z"
 target_date: "2026-11-06"
 tags: ["pydantic", "dto", "entities", "daily-plan"]
 ---
@@ -27,8 +27,8 @@ Implement Pydantic v2 models representing the core domain entities: `Project`, `
 
 ## Definition of Done
 
-- [ ] Pydantic models defined for `Project`, `Milestone`, `Task`, `Blocker`, and `DailyPlan` <!-- id: 019a4b2c-2000-7000-8000-000000000007 -->
-- [ ] Roundtrip tests serialize and deserialize `docs/specs/project.json`, `milestone.json`, `task.json`, `blocker.json`, and `daily-plan.json` <!-- id: 019a4b2c-2000-7000-8000-000000000008 -->
+- [x] Pydantic models defined for `Project`, `Milestone`, `Task`, `Blocker`, and `DailyPlan` <!-- id: 019a4b2c-2000-7000-8000-000000000007 -->
+- [x] Roundtrip tests serialize and deserialize `docs/specs/project.json`, `milestone.json`, `task.json`, `blocker.json`, and `daily-plan.json` <!-- id: 019a4b2c-2000-7000-8000-000000000008 -->
 
 ## Inputs
 
