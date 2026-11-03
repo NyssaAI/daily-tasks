@@ -7,9 +7,7 @@ import pytest
 from pydantic import JsonValue, TypeAdapter, ValidationError
 
 from conftest import load_spec
-from daily_tasks.domain import Operations, Project, ToolResults
-from daily_tasks.domain.operations.types import SetStatus
-from daily_tasks.domain.tool_results.types import ToolResultRefused
+from daily_tasks.domain import Operations, Project, SetStatus, ToolResultRefused, ToolResults
 
 _PROJECT: TypeAdapter[Project] = TypeAdapter(Project)
 
