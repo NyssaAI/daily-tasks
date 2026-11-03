@@ -8,7 +8,7 @@ record_version: 2
 
 title: "Pluggable Ports & Communication Adapters"
 
-milestone-state: in-progress
+milestone-state: completed
 
 project_id: "019a4b2c-2000-7000-8000-000000000001"
 
@@ -46,11 +46,11 @@ Establish the hexagonal port architecture (`ProjectPlanPort`, `DailyPlanPort`, `
 
 
 
-- [ ] Python `typing.Protocol` classes defined for `ProjectPlanPort`, `DailyPlanPort`, `CommunicationPort`, and `LocalFileStore` <!-- id: 019a4b2c-2000-7000-8000-000000000018 -->
+- [x] Python `typing.Protocol` classes defined for `ProjectPlanPort`, `DailyPlanPort`, `CommunicationPort`, and `LocalFileStore` <!-- id: 019a4b2c-2000-7000-8000-000000000018 -->
 
-- [ ] Gmail and Slack read-only adapters fetch messages and map to canonical `Message` DTOs without requiring LLM keys <!-- id: 019a4b2c-2000-7000-8000-000000000019 -->
+- [x] Gmail and Slack read-only adapters fetch messages and map to canonical `Message` DTOs without requiring LLM keys <!-- id: 019a4b2c-2000-7000-8000-000000000019 -->
 
-- [ ] Cursor persistence manager stores and reloads source watermarks conforming to `fetch-cursors.json` <!-- id: 019a4b2c-2000-7000-8000-00000000001a -->
+- [x] Cursor persistence manager stores and reloads source watermarks conforming to `fetch-cursors.json` <!-- id: 019a4b2c-2000-7000-8000-00000000001a -->
 
 
 
@@ -62,13 +62,13 @@ Establish the hexagonal port architecture (`ProjectPlanPort`, `DailyPlanPort`, `
 
 |---|---|---|---|---|
 
-| 7 | [[t1-port-protocols-and-file-sources\|Port protocol definitions and Markdown file sources]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000e --> | [ ] | jordan@example.com | 2026.11.18 |
+| 7 | [[t1-port-protocols-and-file-sources\|Port protocol definitions and Markdown file sources]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000e --> | [x] | jordan@example.com | 2026.11.18 |
 
-| 8 | [[t4-gmail-oauth-flow\|Gmail OAuth 2.0 authorization flow and token management]] <!-- ref: 019a4b2c-2000-7000-8000-000000000018 --> | [ ] | sarah@example.com | 2026.11.19 |
+| 8 | [[t4-gmail-oauth-flow\|Gmail OAuth 2.0 authorization flow and token management]] <!-- ref: 019a4b2c-2000-7000-8000-000000000018 --> | [x] | sarah@example.com | 2026.11.19 |
 
-| 9 | [[t2-gmail-read-connector\|Read-only Gmail connector using LangChain tool and Google API]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000f --> | [ ] | sarah@example.com | 2026.11.20 |
+| 9 | [[t2-gmail-read-connector\|Read-only Gmail connector using LangChain tool and Google API]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000f --> | [x] | sarah@example.com | 2026.11.20 |
 
-| 10 | [[t3-slack-read-connector-and-cursors\|Read-only Slack connector and cursor persistence]] <!-- ref: 019a4b2c-2000-7000-8000-000000000010 --> | [ ] | alex@example.com | 2026.11.22 |
+| 10 | [[t3-slack-read-connector-and-cursors\|Read-only Slack connector and cursor persistence]] <!-- ref: 019a4b2c-2000-7000-8000-000000000010 --> | [x] | alex@example.com | 2026.11.22 |
 
 
 
@@ -80,7 +80,7 @@ Establish the hexagonal port architecture (`ProjectPlanPort`, `DailyPlanPort`, `
 
 |---|---|---|---|---|
 
-| B1 | [ ] | [[../blockers/b1-gmail-oauth-credentials-provisioning\|Gmail read-only OAuth credentials provisioning]] <!-- ref: 019a4b2c-2000-7000-8000-000000000017 --> | #8, #9 | jordan@example.com |
+| B1 | [x] | [[../blockers/b1-gmail-oauth-credentials-provisioning\|Gmail read-only OAuth credentials provisioning]] <!-- ref: 019a4b2c-2000-7000-8000-000000000017 --> | #8, #9 | jordan@example.com |
 
 
 

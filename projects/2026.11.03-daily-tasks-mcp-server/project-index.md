@@ -77,7 +77,7 @@ Deterministic Python Model Context Protocol (MCP) server for the Daily Tasks pla
 | 25 | [[m2.5-secrets-and-encapsulation-refactor/t1-cst-storage-standards-alignment|Storage CST modules refactoring and PY-FILE naming alignment]] <!-- ref: 01a1a2d0-c698-7c5f-bf20-8d41e24c2442 --> | [x] | sarah@example.com | 2026.11.16 |
 | 26 | [[m2.5-secrets-and-encapsulation-refactor/t2-in-memory-secrets-and-masking|In-memory secret holder, token provider, and sensitive field masking]] <!-- ref: 01a1a2d0-c698-7f13-b46a-45299030f034 --> | [x] | alex@example.com | 2026.11.17 |
 
-## [>] M3: Pluggable Ports & Communication Adapters · 2026-11-22 <!-- ref: 019a4b2c-2000-7000-8000-000000000004 -->
+## [x] M3: Pluggable Ports & Communication Adapters · 2026-11-22 <!-- ref: 019a4b2c-2000-7000-8000-000000000004 -->
 
 
 
@@ -85,17 +85,17 @@ Deterministic Python Model Context Protocol (MCP) server for the Daily Tasks pla
 
 |---|---|---|---|---|
 
-| 7 | [[m3-ports-and-connectors/t1-port-protocols-and-file-sources\|Port protocol definitions and Markdown file sources]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000e --> | [ ] | jordan@example.com | 2026.11.18 |
+| 7 | [[m3-ports-and-connectors/t1-port-protocols-and-file-sources\|Port protocol definitions and Markdown file sources]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000e --> | [x] | jordan@example.com | 2026.11.18 |
 
-| 8 | [[m3-ports-and-connectors/t4-gmail-oauth-flow\|Gmail OAuth 2.0 authorization flow and token management]] <!-- ref: 019a4b2c-2000-7000-8000-000000000018 --> | [ ] | sarah@example.com | 2026.11.19 |
+| 8 | [[m3-ports-and-connectors/t4-gmail-oauth-flow\|Gmail OAuth 2.0 authorization flow and token management]] <!-- ref: 019a4b2c-2000-7000-8000-000000000018 --> | [x] | sarah@example.com | 2026.11.19 |
 
-| 9 | [[m3-ports-and-connectors/t2-gmail-read-connector\|Read-only Gmail connector using LangChain tool and Google API]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000f --> | [ ] | sarah@example.com | 2026.11.20 |
+| 9 | [[m3-ports-and-connectors/t2-gmail-read-connector\|Read-only Gmail connector using LangChain tool and Google API]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000f --> | [x] | sarah@example.com | 2026.11.20 |
 
-| 10 | [[m3-ports-and-connectors/t3-slack-read-connector-and-cursors\|Read-only Slack connector and cursor persistence]] <!-- ref: 019a4b2c-2000-7000-8000-000000000010 --> | [ ] | alex@example.com | 2026.11.22 |
+| 10 | [[m3-ports-and-connectors/t3-slack-read-connector-and-cursors\|Read-only Slack connector and cursor persistence]] <!-- ref: 019a4b2c-2000-7000-8000-000000000010 --> | [x] | alex@example.com | 2026.11.22 |
 
 
 
-## [ ] M4: Deterministic Pre-Matching & Message Graph · 2026-11-28 <!-- ref: 019a4b2c-2000-7000-8000-000000000005 -->
+## [x] M4: Deterministic Pre-Matching & Message Graph · 2026-11-28 <!-- ref: 019a4b2c-2000-7000-8000-000000000005 -->
 
 
 
@@ -103,9 +103,9 @@ Deterministic Python Model Context Protocol (MCP) server for the Daily Tasks pla
 
 |---|---|---|---|---|
 
-| 11 | [[m4-prematching-and-message-graph/t1-state-graph-builder\|In-memory StateGraph compilation and derived metrics]] <!-- ref: 019a4b2c-2000-7000-8000-000000000011 --> | [ ] | jordan@example.com | 2026.11.25 |
+| 11 | [[m4-prematching-and-message-graph/t1-state-graph-builder\|In-memory StateGraph compilation and derived metrics]] <!-- ref: 019a4b2c-2000-7000-8000-000000000011 --> | [x] | jordan@example.com | 2026.11.25 |
 
-| 12 | [[m4-prematching-and-message-graph/t2-deterministic-message-matcher\|Deterministic message correlation and signal word filtering]] <!-- ref: 019a4b2c-2000-7000-8000-000000000012 --> | [ ] | jordan@example.com | 2026.11.28 |
+| 12 | [[m4-prematching-and-message-graph/t2-deterministic-message-matcher\|Deterministic message correlation and signal word filtering]] <!-- ref: 019a4b2c-2000-7000-8000-000000000012 --> | [x] | jordan@example.com | 2026.11.28 |
 
 
 
@@ -117,9 +117,9 @@ Deterministic Python Model Context Protocol (MCP) server for the Daily Tasks pla
 
 |---|---|---|---|---|
 
-| 13 | [[m5-session-state-machine-and-adjudication/t1-session-lifecycle-and-screen-mapping\|Session state lifecycle and stable row numbering]] <!-- ref: 019a4b2c-2000-7000-8000-000000000013 --> | [ ] | jordan@example.com | 2026.12.01 |
+| 13 | [[m5-session-state-machine-and-adjudication/t1-session-lifecycle-and-screen-mapping\|Session state lifecycle and stable row numbering]] <!-- ref: 019a4b2c-2000-7000-8000-000000000013 --> | [x] | jordan@example.com | 2026.12.01 |
 
-| 14 | [[m5-session-state-machine-and-adjudication/t2-adjudication-and-decision-log\|Operation validation, suggestion pruning, and decision log append]] <!-- ref: 019a4b2c-2000-7000-8000-000000000014 --> | [ ] | jordan@example.com | 2026.12.05 |
+| 14 | [[m5-session-state-machine-and-adjudication/t2-adjudication-and-decision-log\|Operation validation, suggestion pruning, and decision log append]] <!-- ref: 019a4b2c-2000-7000-8000-000000000014 --> | [x] | jordan@example.com | 2026.12.05 |
 
 
 

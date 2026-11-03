@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-00000000000e
 type: task
 record_version: 2
 title: "Port protocol definitions and Markdown file sources"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -32,9 +32,9 @@ Define the abstract runtime ports specified in `docs/PLANNING_SESSION_CONCEPT.md
 
 ## Definition of Done
 
-- [ ] Python protocols created with full type annotations returning `nyssa_ai_result.Result` <!-- id: 019a4b2c-2000-7000-8000-00000000001b -->
-- [ ] `MarkdownProjectPlanAdapter` discovers projects, milestones, tasks, and blockers recursively in vault path <!-- id: 019a4b2c-2000-7000-8000-00000000001c -->
-- [ ] `MarkdownDailyPlanAdapter` loads recent daily plans by date key from `plans/` directory <!-- id: 019a4b2c-2000-7000-8000-00000000001d -->
+- [x] Python protocols created with full type annotations returning `nyssa_ai_result.Result` <!-- id: 019a4b2c-2000-7000-8000-00000000001b -->
+- [x] `MarkdownProjectPlanAdapter` discovers projects, milestones, tasks, and blockers recursively in vault path <!-- id: 019a4b2c-2000-7000-8000-00000000001c -->
+- [x] `MarkdownDailyPlanAdapter` loads recent daily plans by date key from `plans/` directory <!-- id: 019a4b2c-2000-7000-8000-00000000001d -->
 
 ## Inputs
 

@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000013
 type: task
 record_version: 2
 title: "Session state lifecycle and stable row numbering"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -32,9 +32,9 @@ Implement the session lifecycle controller and screen row indexing:
 
 ## Definition of Done
 
-- [ ] Session transitions through all screens and enforces valid state transitions <!-- id: 019a4b2c-2000-7000-8000-000000000030 -->
-- [ ] Row mapping tables are populated and resolve integer indices to UUIDv7 entity IDs <!-- id: 019a4b2c-2000-7000-8000-000000000031 -->
-- [ ] Session snapshots match the schema specified in `docs/specs/planning-session.json` <!-- id: 019a4b2c-2000-7000-8000-000000000032 -->
+- [x] Session transitions through all screens and enforces valid state transitions <!-- id: 019a4b2c-2000-7000-8000-000000000030 -->
+- [x] Row mapping tables are populated and resolve integer indices to UUIDv7 entity IDs <!-- id: 019a4b2c-2000-7000-8000-000000000031 -->
+- [x] Session snapshots match the schema specified in `docs/specs/planning-session.json` <!-- id: 019a4b2c-2000-7000-8000-000000000032 -->
 
 ## Inputs
 

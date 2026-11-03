@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-00000000000f
 type: task
 record_version: 2
 title: "Read-only Gmail connector using LangChain tool and Google API"
-task-state: not-started
+task-state: completed
 owner: "sarah@example.com"
 assignee: "sarah@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -32,9 +32,9 @@ Implement the read-only Gmail adapter satisfying the `CommunicationPort` protoco
 
 ## Definition of Done
 
-- [ ] Adapter authenticates with in-memory token provider and queries message lists <!-- id: 019a4b2c-2000-7000-8000-00000000001e -->
-- [ ] Email headers and bodies are mapped to `Message` DTOs conforming to `docs/specs/message.json` <!-- id: 019a4b2c-2000-7000-8000-00000000001f -->
-- [ ] Mock integration tests verify incremental fetch updates watermark without duplicates <!-- id: 019a4b2c-2000-7000-8000-000000000020 -->
+- [x] Adapter authenticates with in-memory token provider and queries message lists <!-- id: 019a4b2c-2000-7000-8000-00000000001e -->
+- [x] Email headers and bodies are mapped to `Message` DTOs conforming to `docs/specs/message.json` <!-- id: 019a4b2c-2000-7000-8000-00000000001f -->
+- [x] Mock integration tests verify incremental fetch updates watermark without duplicates <!-- id: 019a4b2c-2000-7000-8000-000000000020 -->
 
 ## Inputs
 

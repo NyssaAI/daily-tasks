@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000011
 type: task
 record_version: 2
 title: "In-memory StateGraph compilation and derived metrics"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -31,9 +31,9 @@ Implement the `StateGraphBuilder` that aggregates models from `ProjectPlanPort` 
 
 ## Definition of Done
 
-- [ ] `StateGraphBuilder` creates an in-memory graph from all parsed project entities <!-- id: 019a4b2c-2000-7000-8000-000000000027 -->
-- [ ] Accurately computes DoD progress string fractions (`x/total`) and blocker impact sets <!-- id: 019a4b2c-2000-7000-8000-000000000028 -->
-- [ ] Serializes cleanly to `docs/specs/state-graph.json` structure with 100% schema compliance <!-- id: 019a4b2c-2000-7000-8000-000000000029 -->
+- [x] `StateGraphBuilder` creates an in-memory graph from all parsed project entities <!-- id: 019a4b2c-2000-7000-8000-000000000027 -->
+- [x] Accurately computes DoD progress string fractions (`x/total`) and blocker impact sets <!-- id: 019a4b2c-2000-7000-8000-000000000028 -->
+- [x] Serializes cleanly to `docs/specs/state-graph.json` structure with 100% schema compliance <!-- id: 019a4b2c-2000-7000-8000-000000000029 -->
 
 ## Inputs
 

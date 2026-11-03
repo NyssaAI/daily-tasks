@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000010
 type: task
 record_version: 2
 title: "Read-only Slack connector and cursor persistence"
-task-state: not-started
+task-state: completed
 owner: "alex@example.com"
 assignee: "alex@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -32,9 +32,9 @@ Implement the read-only Slack adapter and the persistent cursor manager:
 
 ## Definition of Done
 
-- [ ] Slack connector fetches new messages newer than `FetchCursors.sources["slack"].last_timestamp_utc` <!-- id: 019a4b2c-2000-7000-8000-000000000021 -->
-- [ ] `CursorStore` atomic write guarantees cursor updates are persisted reliably <!-- id: 019a4b2c-2000-7000-8000-000000000022 -->
-- [ ] Multiplexed `CommunicationPort` handles partial failures gracefully using `nyssa-ai-result` <!-- id: 019a4b2c-2000-7000-8000-000000000023 -->
+- [x] Slack connector fetches new messages newer than `FetchCursors.sources["slack"].last_timestamp_utc` <!-- id: 019a4b2c-2000-7000-8000-000000000021 -->
+- [x] `CursorStore` atomic write guarantees cursor updates are persisted reliably <!-- id: 019a4b2c-2000-7000-8000-000000000022 -->
+- [x] Multiplexed `CommunicationPort` handles partial failures gracefully using `nyssa-ai-result` <!-- id: 019a4b2c-2000-7000-8000-000000000023 -->
 
 ## Inputs
 

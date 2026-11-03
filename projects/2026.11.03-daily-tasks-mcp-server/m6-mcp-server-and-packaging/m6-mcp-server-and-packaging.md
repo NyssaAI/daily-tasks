@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000007
 type: milestone
 record_version: 2
 title: "MCP Stdio Server & Packaging"
-milestone-state: not-started
+milestone-state: in-progress
 project_id: "019a4b2c-2000-7000-8000-000000000001"
 created_at: "2026-11-03T11:30:00Z"
 updated_at: "2026-11-03T11:30:00Z"

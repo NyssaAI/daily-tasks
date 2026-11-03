@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000014
 type: task
 record_version: 2
 title: "Operation validation, suggestion pruning, and decision log append"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -32,9 +32,9 @@ Implement the operation execution engine and the immutable decision log:
 
 ## Definition of Done
 
-- [ ] All 8 operations in `docs/specs/operations.json` execute and update session state correctly <!-- id: 019a4b2c-2000-7000-8000-000000000033 -->
-- [ ] Accepted and rejected suggestions are pruned from suggestions pool and recorded in decision log <!-- id: 019a4b2c-2000-7000-8000-000000000034 -->
-- [ ] `confirm_plan` commits all record changes and writes the daily plan atomically via `LocalFileStore` <!-- id: 019a4b2c-2000-7000-8000-000000000035 -->
+- [x] All 8 operations in `docs/specs/operations.json` execute and update session state correctly <!-- id: 019a4b2c-2000-7000-8000-000000000033 -->
+- [x] Accepted and rejected suggestions are pruned from suggestions pool and recorded in decision log <!-- id: 019a4b2c-2000-7000-8000-000000000034 -->
+- [x] `confirm_plan` commits all record changes and writes the daily plan atomically via `LocalFileStore` <!-- id: 019a4b2c-2000-7000-8000-000000000035 -->
 
 ## Inputs
 

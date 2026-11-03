@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000012
 type: task
 record_version: 2
 title: "Deterministic message correlation and signal word filtering"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -32,9 +32,9 @@ Implement the deterministic message matcher that connects incoming emails and ch
 
 ## Definition of Done
 
-- [ ] Deterministic pattern engine matches incoming messages to active tasks/blockers <!-- id: 019a4b2c-2000-7000-8000-00000000002a -->
-- [ ] Generates `MessageGraph` and `Suggestions` matching `message-graph.json` and `suggestions.json` <!-- id: 019a4b2c-2000-7000-8000-00000000002b -->
-- [ ] Unit tests pass over diverse email/chat snippets verifying deterministic classification <!-- id: 019a4b2c-2000-7000-8000-00000000002c -->
+- [x] Deterministic pattern engine matches incoming messages to active tasks/blockers <!-- id: 019a4b2c-2000-7000-8000-00000000002a -->
+- [x] Generates `MessageGraph` and `Suggestions` matching `message-graph.json` and `suggestions.json` <!-- id: 019a4b2c-2000-7000-8000-00000000002b -->
+- [x] Unit tests pass over diverse email/chat snippets verifying deterministic classification <!-- id: 019a4b2c-2000-7000-8000-00000000002c -->
 
 ## Inputs
 

@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000006
 type: milestone
 record_version: 2
 title: "Session State Machine & Adjudication"
-milestone-state: not-started
+milestone-state: completed
 project_id: "019a4b2c-2000-7000-8000-000000000001"
 created_at: "2026-11-03T11:30:00Z"
 updated_at: "2026-11-03T11:30:00Z"
@@ -22,16 +22,16 @@ Implement the interactive 3-screen planning session lifecycle described in `docs
 
 ## Definition of Done
 
-- [ ] Session state machine transitions cleanly across all 3 screens and validates screen row numbering <!-- id: 019a4b2c-2000-7000-8000-00000000002d -->
-- [ ] Explicit user adjudication executes validated operations, logs decisions, and prunes accepted/rejected suggestions <!-- id: 019a4b2c-2000-7000-8000-00000000002e -->
-- [ ] Atomic persistence writes modified task/blocker records and the new daily plan to disk via `LocalFileStore` <!-- id: 019a4b2c-2000-7000-8000-00000000002f -->
+- [x] Session state machine transitions cleanly across all 3 screens and validates screen row numbering <!-- id: 019a4b2c-2000-7000-8000-00000000002d -->
+- [x] Explicit user adjudication executes validated operations, logs decisions, and prunes accepted/rejected suggestions <!-- id: 019a4b2c-2000-7000-8000-00000000002e -->
+- [x] Atomic persistence writes modified task/blocker records and the new daily plan to disk via `LocalFileStore` <!-- id: 019a4b2c-2000-7000-8000-00000000002f -->
 
 ## Tasks
 
 | # | Task | Status | Assignee | Due Date |
 |---|---|---|---|---|
-| 12 | [[t1-session-lifecycle-and-screen-mapping\|Session state lifecycle and stable row numbering]] <!-- ref: 019a4b2c-2000-7000-8000-000000000013 --> | [ ] | jordan@example.com | 2026.12.01 |
-| 13 | [[t2-adjudication-and-decision-log\|Operation validation, suggestion pruning, and decision log append]] <!-- ref: 019a4b2c-2000-7000-8000-000000000014 --> | [ ] | jordan@example.com | 2026.12.05 |
+| 12 | [[t1-session-lifecycle-and-screen-mapping\|Session state lifecycle and stable row numbering]] <!-- ref: 019a4b2c-2000-7000-8000-000000000013 --> | [x] | jordan@example.com | 2026.12.01 |
+| 13 | [[t2-adjudication-and-decision-log\|Operation validation, suggestion pruning, and decision log append]] <!-- ref: 019a4b2c-2000-7000-8000-000000000014 --> | [x] | jordan@example.com | 2026.12.05 |
 
 ## Blockers
 

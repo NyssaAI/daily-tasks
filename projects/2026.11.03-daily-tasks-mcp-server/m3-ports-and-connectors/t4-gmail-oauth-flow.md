@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000018
 type: task
 record_version: 2
 title: "Gmail OAuth 2.0 authorization flow and token management"
-task-state: not-started
+task-state: completed
 owner: "sarah@example.com"
 assignee: "sarah@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -32,9 +32,9 @@ Implement the interactive first-run OAuth 2.0 authorization flow and token lifec
 
 ## Definition of Done
 
-- [ ] `OAuthFlowClient` handles Google OAuth 2.0 PKCE callback and token exchange <!-- id: 019a4b2c-2000-7000-8000-00000000103f -->
-- [ ] `OAuthTokenProvider` securely retains token grants in memory/keyring and refreshes expired tokens headlessly without plain-text disk writes <!-- id: 019a4b2c-2000-7000-8000-000000001040 -->
-- [ ] Automated tests using mock OAuth endpoints verify token exchange and refresh flows <!-- id: 019a4b2c-2000-7000-8000-000000001041 -->
+- [x] `OAuthFlowClient` handles Google OAuth 2.0 PKCE callback and token exchange <!-- id: 019a4b2c-2000-7000-8000-00000000103f -->
+- [x] `OAuthTokenProvider` securely retains token grants in memory/keyring and refreshes expired tokens headlessly without plain-text disk writes <!-- id: 019a4b2c-2000-7000-8000-000000001040 -->
+- [x] Automated tests using mock OAuth endpoints verify token exchange and refresh flows <!-- id: 019a4b2c-2000-7000-8000-000000001041 -->
 
 ## Inputs
 
