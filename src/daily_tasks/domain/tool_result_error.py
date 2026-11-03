@@ -13,8 +13,10 @@
 
 from collections.abc import Mapping
 from typing import Literal
-from pydantic import JsonValue, MISSING, UUID7
+
+from pydantic import MISSING, UUID7, JsonValue
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -30,4 +32,3 @@ class ToolResultError:
     message: str
     code: str | MISSING = MISSING
     payload: Mapping[str, JsonValue] | None
-

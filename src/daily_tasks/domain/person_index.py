@@ -7,6 +7,7 @@
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -16,4 +17,3 @@ class PersonIndex:
 
     owns: tuple[UUID7, ...]
     assigned: tuple[UUID7, ...]
-

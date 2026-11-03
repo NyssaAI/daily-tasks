@@ -9,6 +9,7 @@
 """FetchCursor DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.utc_timestamp import UtcTimestamp
 
@@ -22,4 +23,3 @@ class FetchCursor:
     last_run_at: UtcTimestamp | None
     last_status: str
     last_error: str | None
-

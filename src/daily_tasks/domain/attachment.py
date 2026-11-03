@@ -12,6 +12,7 @@
 """Attachment DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.utc_timestamp import UtcTimestamp
 
@@ -28,4 +29,3 @@ class Attachment:
     path: str | None
     downloaded_at: UtcTimestamp | None
     status: str
-

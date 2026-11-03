@@ -6,7 +6,9 @@
 """FetchCursors DTO."""
 
 from collections.abc import Mapping
+
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.fetch_cursor import FetchCursor
 
@@ -17,4 +19,3 @@ class FetchCursors:
 
     workspace_root: str
     cursors: Mapping[str, FetchCursor]
-

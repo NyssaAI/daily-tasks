@@ -6,8 +6,9 @@
 """DecisionLog DTO."""
 
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
+
 from daily_tasks.domain.decision_log_entry import DecisionLogEntry
+from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.spec_ref import SpecRef
 
 
@@ -17,4 +18,3 @@ class DecisionLog:
 
     workspace_root: str
     entries: tuple[DecisionLogEntry | SpecRef, ...]
-

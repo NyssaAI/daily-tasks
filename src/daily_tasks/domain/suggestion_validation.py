@@ -6,6 +6,7 @@
 """SuggestionValidation DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -15,4 +16,3 @@ class SuggestionValidation:
 
     ok: bool
     issues: tuple[str, ...]
-

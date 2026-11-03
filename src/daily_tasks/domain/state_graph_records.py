@@ -10,10 +10,12 @@
 
 from collections.abc import Mapping
 from datetime import date
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
+
 from daily_tasks.domain.blocker_node import BlockerNode
+from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.milestone_node import MilestoneNode
 from daily_tasks.domain.plan_node import PlanNode
 from daily_tasks.domain.project_node import ProjectNode
@@ -29,4 +31,3 @@ class StateGraphRecords:
     tasks: Mapping[UUID7, TaskNode]
     blockers: Mapping[UUID7, BlockerNode]
     plans: Mapping[date, PlanNode]
-

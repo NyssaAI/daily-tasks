@@ -9,6 +9,7 @@
 """RecordSourceStatus DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -21,4 +22,3 @@ class RecordSourceStatus:
     status: str
     record_count: int
     error: str | None
-

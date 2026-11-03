@@ -7,6 +7,7 @@
 """TodaySelection DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.plan_item import PlanItem
 
@@ -18,4 +19,3 @@ class TodaySelection:
     mine: tuple[PlanItem, ...]
     delegated: tuple[PlanItem, ...]
     follow_up: tuple[PlanItem, ...]
-

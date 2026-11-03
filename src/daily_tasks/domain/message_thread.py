@@ -6,6 +6,7 @@
 """MessageThread DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -15,4 +16,3 @@ class MessageThread:
 
     thread_id: str
     message_ids: tuple[str, ...]
-

@@ -8,10 +8,12 @@
 """Rollover DTO."""
 
 from datetime import date
-from pydantic import Field, UUID7
+
+from pydantic import UUID7, Field
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
+
 from daily_tasks.domain.dropped_task import DroppedTask
+from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
 @dataclass(frozen=True, slots=True, kw_only=True, config=DTO_CONFIG)
@@ -22,4 +24,3 @@ class Rollover:
     status: str
     carried: tuple[UUID7, ...]
     dropped: tuple[DroppedTask, ...]
-

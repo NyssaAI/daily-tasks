@@ -14,10 +14,11 @@
 
 from pydantic import Field
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
-from daily_tasks.domain.utc_timestamp import UtcTimestamp
 from daily_tasks.domain.message_link import MessageLink
 from daily_tasks.domain.spec_ref import SpecRef
+from daily_tasks.domain.utc_timestamp import UtcTimestamp
 
 
 @dataclass(frozen=True, slots=True, kw_only=True, config=DTO_CONFIG)
@@ -33,4 +34,3 @@ class ForReviewMessage:
     earlier_in_thread: tuple[str, ...]
     attachments: tuple[str, ...]
     links: SpecRef | tuple[MessageLink, ...]
-

@@ -6,8 +6,10 @@
 """RowRef DTO."""
 
 from typing import Literal
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -17,4 +19,3 @@ class RowRef:
 
     kind: Literal["task", "blocker", "suggestion", "milestone", "project"]
     id: UUID7
-

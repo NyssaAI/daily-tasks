@@ -24,14 +24,16 @@
 
 from collections.abc import Mapping
 from datetime import date
-from pydantic import Field, JsonValue, MISSING, UUID7
+
+from pydantic import MISSING, UUID7, Field, JsonValue
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
-from daily_tasks.domain.utc_timestamp import UtcTimestamp
+
 from daily_tasks.domain.assign_days import AssignDays
 from daily_tasks.domain.background_fetch import BackgroundFetch
+from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.row_ref import RowRef
 from daily_tasks.domain.screen import Screen
+from daily_tasks.domain.utc_timestamp import UtcTimestamp
 
 
 @dataclass(frozen=True, slots=True, kw_only=True, config=DTO_CONFIG)
@@ -57,4 +59,3 @@ class PlanningSession:
     labels: Mapping[UUID7, Mapping[str, UUID7]]
     screens: Mapping[str, Screen]
     rules: Mapping[str, JsonValue] | MISSING = Field(default=MISSING, alias="_rules")
-

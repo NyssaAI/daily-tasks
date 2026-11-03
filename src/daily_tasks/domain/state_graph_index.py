@@ -16,8 +16,10 @@
 """StateGraphIndex DTO."""
 
 from collections.abc import Mapping
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.person_index import PersonIndex
 from daily_tasks.domain.record_origin import RecordOrigin
@@ -39,4 +41,3 @@ class StateGraphIndex:
     title_terms: Mapping[str, tuple[UUID7, ...]]
     threads: Mapping[str, tuple[UUID7, ...]]
     file_hashes: Mapping[str, str]
-

@@ -9,6 +9,7 @@
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -20,4 +21,3 @@ class AssignDays:
     project_order_rule: str
     current_project_id: UUID7 | None
     include_in_progress_milestones: bool
-

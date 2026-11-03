@@ -10,8 +10,10 @@
 """MessageFacts DTO."""
 
 from datetime import date
+
 from pydantic import MISSING
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -25,4 +27,3 @@ class MessageFacts:
     superseded_by: str | None
     needs_review: bool
     carried_from: date | None | MISSING = MISSING
-

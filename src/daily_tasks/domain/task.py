@@ -27,11 +27,13 @@
 
 from datetime import date
 from typing import Literal
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
+from daily_tasks.domain.dod_item import DodItem
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.utc_timestamp import UtcTimestamp
-from daily_tasks.domain.dod_item import DodItem
 from daily_tasks.domain.work_state import WorkState
 
 
@@ -61,4 +63,3 @@ class Task:
     required_by: tuple[UUID7, ...]
     blocked_by: tuple[UUID7, ...]
     source: str
-

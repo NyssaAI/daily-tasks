@@ -7,7 +7,9 @@
 """BlockerFacts DTO."""
 
 from datetime import date
+
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -18,4 +20,3 @@ class BlockerFacts:
     planned_for: date | None
     owner: str
     state: str
-

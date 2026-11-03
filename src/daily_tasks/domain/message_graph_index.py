@@ -9,8 +9,10 @@
 """MessageGraphIndex DTO."""
 
 from collections.abc import Mapping
+
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.message_link import MessageLink
 
@@ -24,4 +26,3 @@ class MessageGraphIndex:
     links: Mapping[str, tuple[MessageLink, ...]]
     by_record: Mapping[UUID7, tuple[str, ...]]
     attachments: Mapping[str, str]
-

@@ -6,6 +6,7 @@
 """ToolProgress DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -15,4 +16,3 @@ class ToolProgress:
 
     sources_done: int
     sources_total: int
-

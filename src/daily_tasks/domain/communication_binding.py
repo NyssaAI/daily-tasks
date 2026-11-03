@@ -18,6 +18,7 @@
 
 from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -41,4 +42,3 @@ class CommunicationBinding:
     poll_interval_seconds: int
     download_attachments: bool | MISSING = MISSING
     max_attachment_bytes: int | MISSING = MISSING
-

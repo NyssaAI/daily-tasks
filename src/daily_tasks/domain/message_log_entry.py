@@ -9,7 +9,9 @@
 """MessageLogEntry DTO."""
 
 from datetime import date
+
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.utc_timestamp import UtcTimestamp
 
@@ -23,4 +25,3 @@ class MessageLogEntry:
     location: str
     reviewed: bool
     reviewed_at: UtcTimestamp | None
-

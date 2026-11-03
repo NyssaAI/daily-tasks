@@ -6,6 +6,7 @@
 """Actor DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -15,4 +16,3 @@ class Actor:
 
     kind: str
     id: str
-

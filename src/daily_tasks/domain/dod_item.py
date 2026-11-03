@@ -8,6 +8,7 @@
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -18,4 +19,3 @@ class DodItem:
     id: UUID7
     text: str
     done: bool
-

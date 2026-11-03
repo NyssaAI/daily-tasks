@@ -5,6 +5,4 @@
 
 from typing import Literal
 
-
 type WorkState = Literal["not-started", "in-progress", "completed", "cancelled"]
-

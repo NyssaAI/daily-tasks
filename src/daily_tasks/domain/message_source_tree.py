@@ -6,6 +6,7 @@
 """MessageSourceTree DTO."""
 
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.message_thread import MessageThread
 
@@ -16,4 +17,3 @@ class MessageSourceTree:
 
     source: str
     threads: tuple[MessageThread, ...]
-

@@ -5,6 +5,4 @@
 
 from typing import Literal
 
-
 type ItemType = Literal["task", "blocker"]
-

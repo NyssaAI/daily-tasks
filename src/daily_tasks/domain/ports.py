@@ -8,8 +8,9 @@
 """Ports DTO."""
 
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
+
 from daily_tasks.domain.communication_binding import CommunicationBinding
+from daily_tasks.domain.dto_config import DTO_CONFIG
 from daily_tasks.domain.file_store_binding import FileStoreBinding
 from daily_tasks.domain.source_binding import SourceBinding
 
@@ -22,4 +23,3 @@ class Ports:
     daily_plan: tuple[SourceBinding, ...]
     communication: tuple[CommunicationBinding, ...]
     file_store: FileStoreBinding
-

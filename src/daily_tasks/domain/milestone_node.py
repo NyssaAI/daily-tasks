@@ -8,8 +8,9 @@
 #     `-- title
 """MilestoneNode DTO."""
 
-from pydantic import Field, MISSING, UUID7
+from pydantic import MISSING, UUID7, Field
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -22,4 +23,3 @@ class MilestoneNode:
     number: int
     title: str
     state: str
-

@@ -7,7 +7,9 @@
 """InstructionOrigin DTO."""
 
 from typing import Literal
+
 from pydantic.dataclasses import dataclass
+
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
@@ -18,4 +20,3 @@ class InstructionOrigin:
     kind: Literal["instruction"]
     screen_id: str
     row: int
-

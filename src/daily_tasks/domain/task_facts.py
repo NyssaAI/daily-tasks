@@ -15,10 +15,12 @@
 """TaskFacts DTO."""
 
 from datetime import date
+
 from pydantic import MISSING, UUID7
 from pydantic.dataclasses import dataclass
-from daily_tasks.domain.dto_config import DTO_CONFIG
+
 from daily_tasks.domain.dod_progress import DodProgress
+from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
 @dataclass(frozen=True, slots=True, kw_only=True, config=DTO_CONFIG)
@@ -36,4 +38,3 @@ class TaskFacts:
     carried_from: date | None
     dod: DodProgress
     closable: bool
-
