@@ -50,6 +50,10 @@ identity or disposition of unresolved decisions.
    after writes invalidate packet hashes. An existing file proves neither rollover
    nor successful check-in. Separate personal/delegated saved work; leave execution
    order to the person. No requirement to allocate every task; no timeframe fitting.
+   When the `daily-tasks` MCP server is connected, open today's plan with
+   `daily_tasks_start_session` and adjudicate message suggestions through
+   `daily_tasks_execute_operations` as in [daily planning](../daily-tasks-plan/SKILL.md);
+   only `daily_tasks_confirm_plan` after explicit confirmation writes records or the plan.
 6. Revalidate affected records, links, closure/reopening effects and views, verify log
    appends, then save baselines. Report plan link, changes applied, and any pending
    conflicts/candidates. A check-in with unresolved items is resumable, not falsely complete.

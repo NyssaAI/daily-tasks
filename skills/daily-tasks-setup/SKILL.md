@@ -143,6 +143,23 @@ configuration/state/output roots when applicable. Create state only when needed.
 Setup authorizes no work creation or ownership changes. When reached
 from another request, continue that already-authorized work after resolving its scope.
 
+## MCP server and connectors
+
+The planning MCP server runs over stdio as `daily-tasks-mcp` (or
+`python -m daily_tasks.server`) from the plugin root with `uv run`. Pass absolute
+`--workspace-root`; it reuses `user.email`, `user.name`, `timezone`, `projectsRoot` and
+`dailyPlansRelative` from `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json`, so ask only
+for values that are missing (`--user-email`, `--timezone` override them). Stdout carries
+only MCP JSON-RPC; logs go to stderr (`DAILY_TASKS_LOG_LEVEL`, optional `--log-file`).
+
+First-run Gmail sign-in is interactive and read-only (`gmail.readonly`): the user sets
+`GMAIL_CLIENT_ID` (and `GMAIL_CLIENT_SECRET` when the OAuth client has one) and runs
+`uv run python -m daily_tasks.auth.gmail --config-dir <userHome>/.nyssa-ai/daily-tasks`.
+The grant is sealed in the keyring-backed configuration store; never ask for, print or
+write tokens or client secrets to Markdown, JSON profiles or chat. Gmail and Slack
+connectors are optional; a failing connector is reported on the screen and does not
+block planning.
+
 ## Optional OpenClaw prewarm
 
 After project setup succeeds, an OpenClaw host with the separate

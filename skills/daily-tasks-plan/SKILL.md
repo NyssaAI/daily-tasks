@@ -48,6 +48,33 @@ the active `dailyPlan` template and reject non-conforming layouts.
 5. **When the user asks for "Next page" / "Show more" / "Previous page"**: Write `{"vaultRoot": "<workspaceRoot>", "page": <0-based target page>}` (`Overwrite: true`) to `prep-input.json`, run `planning-prepare --input ... --output prep.json`, then run `planning-state --input save-review-input.json --output done.json` and display `done.json`'s `value.screen.markdown` unchanged.
 6. **When the user adds or removes tasks for today (e.g. "Add 7, 8 to today")**: Write `{"vaultRoot": "<workspaceRoot>", "selection": {"action": "add", "taskIds": ["<uuid>", ...], "originalWords": "..."}}` (`Overwrite: true`) to `prep-input.json`, run `planning-prepare --input ... --output prep.json`, write `drafts.selectionOperation.checkpoint` to `drafts.selectionOperation.operationPath` (`Overwrite: true`) and `drafts.selectionOperation.dailyPlanMarkdown` to `drafts.selectionOperation.planPath` (`Overwrite: true`), then run `operation-complete --input selection-complete-input.json --output done.json` and display `done.json`'s `reviewSaved.value.screen.markdown` unchanged.
 
+## MCP planning session (when the `daily-tasks` MCP server is connected)
+
+When the host exposes the `daily_tasks_*` tools, run the session through them instead of
+the CLI fast path. The server is deterministic: you turn the user's replies into
+structured arguments; it validates, numbers rows and writes. Display each returned
+`payload.screen` unchanged.
+
+1. `daily_tasks_start_session(date?, focus?)` returns `session_id` and screen 1 (plan the
+   day), with pending suggestions pre-matched from unread messages. Nothing is written.
+2. `daily_tasks_execute_operations(session_id, original_words, verdicts?, operations?)`
+   applies the user's explicit replies all-or-nothing: `verdicts` are
+   `{"row", "verdict": "accept" | "edit" | "reject", "edits"?}` for suggestion rows on the
+   current screen; `operations` follow `docs/specs/operations.json` (`assign-to-day`,
+   `unplan`, `set-status`, `reassign`). Decisions and record changes stay staged.
+3. `daily_tasks_advance_screen(session_id, target_screen)`: `2` after the user says "yes"
+   (first project) or "next" (next project), `3` after "finish" (recap).
+4. `daily_tasks_confirm_plan(session_id, confirmed)` only after the user explicitly
+   confirms the recap; pass `confirmed: true`. It applies staged changes, writes the daily
+   plan, appends the decision log and saves fetch cursors.
+5. `daily_tasks_cancel_session(session_id)` discards everything; `daily_tasks_get_session_state`
+   re-shows the current screen.
+
+Never send a verdict the user did not give: a bare row number, silence or "ok" to a
+screen is not acceptance, and unanswered suggestions stay pending. Never add durations,
+time slots or capacity fitting. A `refused` result names `expected_tool`; follow it. An
+`error` result is reported to the user as-is.
+
 ## 1. Resolve and prepare
 
 Consult [context and planning flow](../daily-tasks/references/planning-flow.md#resolve-once)
