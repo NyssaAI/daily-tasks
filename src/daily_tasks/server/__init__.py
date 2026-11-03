@@ -1,0 +1,21 @@
+# Responsibility: Expose the MCP stdio server that drives the deterministic planning session.
+# Public interface:
+# (none)
+"""MCP server: JSON-RPC protocol handling, the planning tools service and the stdio transport."""
+
+from daily_tasks.server.markdown_workspace_reader import MarkdownWorkspaceReader
+from daily_tasks.server.mcp_server import McpServer
+from daily_tasks.server.planning_tools import PlanningTools
+from daily_tasks.server.serve_stdio import serve_stdio
+from daily_tasks.server.types import ServerSettings, WorkspaceSnapshot
+from daily_tasks.server.workspace_reader import WorkspaceReader
+
+__all__ = [
+    "MarkdownWorkspaceReader",
+    "McpServer",
+    "PlanningTools",
+    "ServerSettings",
+    "WorkspaceReader",
+    "WorkspaceSnapshot",
+    "serve_stdio",
+]

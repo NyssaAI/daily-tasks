@@ -30,6 +30,12 @@ When loaded, reuse existing accepted pointers or discover persistent `.nyssa-ai`
 
 Preserve configurationSources through continuation. Do not scan home directories or infer workspace scope from a later process cwd or installed code. If the user provides an invalid path or command, explain the error and request clarification. No startup foundation, background monitoring or autonomous scheduling.
 
+When the `daily-tasks` MCP server is connected, planning runs through its
+`daily_tasks_start_session`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`
+and `daily_tasks_confirm_plan` tools as described in [Daily plan](../daily-tasks-plan/SKILL.md);
+server setup and Gmail sign-in are in [Setup](../daily-tasks-setup/SKILL.md). The server
+writes records only after the user explicitly confirms the plan.
+
 ## Present results
 
 - Lead with the requested result and a clickable file link when an artifact exists.
