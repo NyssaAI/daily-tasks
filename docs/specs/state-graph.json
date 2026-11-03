@@ -1,0 +1,244 @@
+{
+  "_note": "Point-in-time snapshot built in memory by collect_current_state from all configured Project-Plan-Port and Daily-Plan-Port sources. Never persisted; rebuilt each session and after each applied change. Writes are refused if the source files no longer match inventory_hash. Layers: context → records (flat, by ID) → tree (nesting by ID) → index (relations and lookups) → derived (computed facts) → diagnostics.",
+
+  "context": {
+    "workspace_root": "D:/vaults/work",
+    "projects_root": "D:/vaults/work/projects",
+    "daily_plans_root": "D:/vaults/work/daily-plans",
+    "user": { "name": "Jordan", "email": "jordan@example.com" },
+    "timezone": "America/Chicago",
+    "local_date": "2026-11-03",
+    "built_at": "2026-11-03T14:02:03Z",
+    "inventory_hash": "sha256:9a8d77c41e",
+    "sources": [
+      { "port": "project-plan", "name": "markdown-projects", "status": "ok", "record_count": 9, "error": null },
+      { "port": "daily-plan", "name": "markdown-daily-plans", "status": "ok", "record_count": 3, "error": null }
+    ]
+  },
+
+  "records": {
+    "projects": {
+      "019a4b2c-1f00-7a10-8000-000000000001": {
+        "$ref": "project.json",
+        "title": "Daily Tasks MCP Server",
+        "state": "in-progress",
+        "directory_date": "2026-10-20"
+      },
+      "019a4b2c-1f00-7a10-8000-000000000011": {
+        "title": "Cloud Sync",
+        "state": "in-progress",
+        "owner": "jordan@example.com",
+        "directory_date": "2026-10-25"
+      }
+    },
+    "milestones": {
+      "019a4b2c-1f00-7a10-8000-000000000010": { "project_id": "019a4b2c-1f00-7a10-8000-000000000001", "number": 1, "title": "Design", "state": "completed" },
+      "019a4b2c-1f00-7a10-8000-000000000002": { "$ref": "milestone.json", "project_id": "019a4b2c-1f00-7a10-8000-000000000001", "number": 2, "title": "Planning session spike", "state": "in-progress" },
+      "019a4b2c-1f00-7a10-8000-000000000012": { "project_id": "019a4b2c-1f00-7a10-8000-000000000001", "number": 3, "title": "Connectors", "state": "in-progress" },
+      "019a4b2c-1f00-7a10-8000-000000000021": { "project_id": "019a4b2c-1f00-7a10-8000-000000000001", "number": 4, "title": "Packaging", "state": "not-started" },
+      "019a4b2c-1f00-7a10-8000-000000000013": { "project_id": "019a4b2c-1f00-7a10-8000-000000000011", "number": 1, "title": "Auth", "state": "in-progress" }
+    },
+    "tasks": {
+      "019a4b2c-1f00-7a10-8000-000000000030": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000010", "title": "Architecture spike and port contracts", "state": "completed", "owner": "jordan@example.com", "assignee": "jordan@example.com", "target_date": "2026-10-22" },
+      "019a4b2c-1f00-7a10-8000-000000000031": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000010", "title": "Define DTO JSON schemas", "state": "completed", "owner": "jordan@example.com", "assignee": "jordan@example.com", "target_date": "2026-10-25" },
+      "019a4b2c-1f00-7a10-8000-000000000003": { "$ref": "task.json", "milestone_id": "019a4b2c-1f00-7a10-8000-000000000002", "title": "Wire Gmail connector", "state": "in-progress", "owner": "jordan@example.com", "assignee": "sarah@example.com", "target_date": "2026-11-05" },
+      "019a4b2c-1f00-7a10-8000-000000000004": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000002", "title": "Background fetch survives turns", "state": "not-started", "owner": "jordan@example.com", "assignee": "alex@example.com", "target_date": null },
+      "019a4b2c-1f00-7a10-8000-000000000007": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000002", "title": "Draft connector README", "state": "not-started", "owner": "jordan@example.com", "assignee": null, "target_date": null },
+      "019a4b2c-1f00-7a10-8000-000000000008": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000002", "title": "Review Slack connector PR", "state": "not-started", "owner": "jordan@example.com", "assignee": "jordan@example.com", "target_date": "2026-11-05" },
+      "019a4b2c-1f00-7a10-8000-000000000014": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000012", "title": "Slack connector", "state": "in-progress", "owner": "jordan@example.com", "assignee": "jordan@example.com", "target_date": "2026-11-12" },
+      "019a4b2c-1f00-7a10-8000-000000000025": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000012", "title": "Outlook connector", "state": "not-started", "owner": "jordan@example.com", "assignee": null, "target_date": null },
+      "019a4b2c-1f00-7a10-8000-000000000017": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000012", "title": "Connector error reporting", "state": "not-started", "owner": "jordan@example.com", "assignee": null, "target_date": null },
+      "019a4b2c-1f00-7a10-8000-000000000032": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000021", "title": "CLI and stdio MCP entrypoint", "state": "not-started", "owner": "jordan@example.com", "assignee": null, "target_date": "2026-11-28" },
+      "019a4b2c-1f00-7a10-8000-000000000033": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000021", "title": "Publish plugin manifest", "state": "not-started", "owner": "jordan@example.com", "assignee": null, "target_date": "2026-11-30" },
+      "019a4b2c-1f00-7a10-8000-000000000015": { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000013", "title": "Token refresh fix", "state": "not-started", "owner": "dana@example.com", "assignee": "jordan@example.com", "target_date": "2026-11-02" }
+    },
+    "blockers": {
+      "019a4b2c-1f00-7a10-8000-000000000005": { "$ref": "blocker.json", "project_id": "019a4b2c-1f00-7a10-8000-000000000001", "title": "Google OAuth app verification", "state": "open", "owner": "jordan@example.com" },
+      "019a4b2c-1f00-7a10-8000-000000000016": { "project_id": "019a4b2c-1f00-7a10-8000-000000000011", "title": "Vendor contract signature", "state": "open", "owner": "dana@example.com" }
+    },
+    "plans": {
+      "2026-11-02": { "path": "daily-plans/2026.11.02-daily-plan.md", "task_ids": ["019a4b2c-1f00-7a10-8000-000000000003", "019a4b2c-1f00-7a10-8000-000000000015"], "completed_ids": [] },
+      "2026-11-03": { "$ref": "daily-plan.json", "task_ids": ["019a4b2c-1f00-7a10-8000-000000000003", "019a4b2c-1f00-7a10-8000-000000000004"] },
+      "2026-11-05": { "path": "daily-plans/2026.11.05-daily-plan.md", "task_ids": ["019a4b2c-1f00-7a10-8000-000000000007"] }
+    }
+  },
+
+  "tree": [
+    {
+      "project_id": "019a4b2c-1f00-7a10-8000-000000000001",
+      "milestones": [
+        { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000010", "task_ids": ["019a4b2c-1f00-7a10-8000-000000000030", "019a4b2c-1f00-7a10-8000-000000000031"] },
+        { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000002", "task_ids": ["019a4b2c-1f00-7a10-8000-000000000003", "019a4b2c-1f00-7a10-8000-000000000004", "019a4b2c-1f00-7a10-8000-000000000007", "019a4b2c-1f00-7a10-8000-000000000008"] },
+        { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000012", "task_ids": ["019a4b2c-1f00-7a10-8000-000000000014", "019a4b2c-1f00-7a10-8000-000000000025", "019a4b2c-1f00-7a10-8000-000000000017"] },
+        { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000021", "task_ids": ["019a4b2c-1f00-7a10-8000-000000000032", "019a4b2c-1f00-7a10-8000-000000000033"] }
+      ],
+      "blocker_ids": ["019a4b2c-1f00-7a10-8000-000000000005"]
+    },
+    {
+      "project_id": "019a4b2c-1f00-7a10-8000-000000000011",
+      "milestones": [
+        { "milestone_id": "019a4b2c-1f00-7a10-8000-000000000013", "task_ids": ["019a4b2c-1f00-7a10-8000-000000000015"] }
+      ],
+      "blocker_ids": ["019a4b2c-1f00-7a10-8000-000000000016"]
+    }
+  ],
+
+  "index": {
+    "project_order": [
+      "019a4b2c-1f00-7a10-8000-000000000001",
+      "019a4b2c-1f00-7a10-8000-000000000011"
+    ],
+    "parent": {
+      "019a4b2c-1f00-7a10-8000-000000000010": "019a4b2c-1f00-7a10-8000-000000000001",
+      "019a4b2c-1f00-7a10-8000-000000000002": "019a4b2c-1f00-7a10-8000-000000000001",
+      "019a4b2c-1f00-7a10-8000-000000000012": "019a4b2c-1f00-7a10-8000-000000000001",
+      "019a4b2c-1f00-7a10-8000-000000000013": "019a4b2c-1f00-7a10-8000-000000000011",
+      "019a4b2c-1f00-7a10-8000-000000000003": "019a4b2c-1f00-7a10-8000-000000000002",
+      "019a4b2c-1f00-7a10-8000-000000000004": "019a4b2c-1f00-7a10-8000-000000000002",
+      "019a4b2c-1f00-7a10-8000-000000000007": "019a4b2c-1f00-7a10-8000-000000000002",
+      "019a4b2c-1f00-7a10-8000-000000000014": "019a4b2c-1f00-7a10-8000-000000000012",
+      "019a4b2c-1f00-7a10-8000-000000000015": "019a4b2c-1f00-7a10-8000-000000000013",
+      "019a4b2c-1f00-7a10-8000-000000000005": "019a4b2c-1f00-7a10-8000-000000000001",
+      "019a4b2c-1f00-7a10-8000-000000000016": "019a4b2c-1f00-7a10-8000-000000000011"
+    },
+    "depends_on": {
+      "019a4b2c-1f00-7a10-8000-000000000004": ["019a4b2c-1f00-7a10-8000-000000000003"]
+    },
+    "required_by": {
+      "019a4b2c-1f00-7a10-8000-000000000003": ["019a4b2c-1f00-7a10-8000-000000000004"]
+    },
+    "blocked_by": {
+      "019a4b2c-1f00-7a10-8000-000000000003": ["019a4b2c-1f00-7a10-8000-000000000005"],
+      "019a4b2c-1f00-7a10-8000-000000000007": ["019a4b2c-1f00-7a10-8000-000000000005"],
+      "019a4b2c-1f00-7a10-8000-000000000015": ["019a4b2c-1f00-7a10-8000-000000000016"]
+    },
+    "blocks": {
+      "019a4b2c-1f00-7a10-8000-000000000005": [
+        "019a4b2c-1f00-7a10-8000-000000000003",
+        "019a4b2c-1f00-7a10-8000-000000000007"
+      ],
+      "019a4b2c-1f00-7a10-8000-000000000016": ["019a4b2c-1f00-7a10-8000-000000000015"]
+    },
+    "by_path": {
+      "2026.10.20-daily-tasks-mcp-server/m2-planning-session-spike/t1-wire-gmail-connector.md": "019a4b2c-1f00-7a10-8000-000000000003"
+    },
+    "by_person": {
+      "jordan@example.com": {
+        "owns": [
+          "019a4b2c-1f00-7a10-8000-000000000001",
+          "019a4b2c-1f00-7a10-8000-000000000011",
+          "019a4b2c-1f00-7a10-8000-000000000003",
+          "019a4b2c-1f00-7a10-8000-000000000004",
+          "019a4b2c-1f00-7a10-8000-000000000007",
+          "019a4b2c-1f00-7a10-8000-000000000014",
+          "019a4b2c-1f00-7a10-8000-000000000005"
+        ],
+        "assigned": [
+          "019a4b2c-1f00-7a10-8000-000000000007",
+          "019a4b2c-1f00-7a10-8000-000000000014",
+          "019a4b2c-1f00-7a10-8000-000000000015"
+        ]
+      },
+      "sarah@example.com": {
+        "owns": [],
+        "assigned": ["019a4b2c-1f00-7a10-8000-000000000003"]
+      },
+      "alex@example.com": {
+        "owns": [],
+        "assigned": ["019a4b2c-1f00-7a10-8000-000000000004"]
+      },
+      "dana@example.com": {
+        "owns": [
+          "019a4b2c-1f00-7a10-8000-000000000015",
+          "019a4b2c-1f00-7a10-8000-000000000016"
+        ],
+        "assigned": []
+      }
+    },
+    "origin_by_record": {
+      "019a4b2c-1f00-7a10-8000-000000000008": {
+        "origin_kind": "suggestion",
+        "source_label": "Slack · Alex",
+        "decision_id": "019a4b2c-9000-7000-8000-0000000000e0"
+      }
+    },
+    "title_terms": {
+      "gmail": ["019a4b2c-1f00-7a10-8000-000000000003"],
+      "connector": [
+        "019a4b2c-1f00-7a10-8000-000000000003",
+        "019a4b2c-1f00-7a10-8000-000000000007",
+        "019a4b2c-1f00-7a10-8000-000000000014"
+      ],
+      "slack": ["019a4b2c-1f00-7a10-8000-000000000014"],
+      "oauth": ["019a4b2c-1f00-7a10-8000-000000000005"],
+      "verification": ["019a4b2c-1f00-7a10-8000-000000000005"],
+      "token": ["019a4b2c-1f00-7a10-8000-000000000015"],
+      "vendor": ["019a4b2c-1f00-7a10-8000-000000000016"]
+    },
+    "threads": {
+      "gmail-thread:18f2a9c3e4b50000": ["019a4b2c-1f00-7a10-8000-000000000003"]
+    },
+    "file_hashes": {
+      "2026.10.20-daily-tasks-mcp-server/m2-planning-session-spike/t1-wire-gmail-connector.md": "sha256:31be09aa77"
+    }
+  },
+
+  "derived": {
+    "tasks": {
+      "019a4b2c-1f00-7a10-8000-000000000003": { "effective_assignee": "sarah@example.com", "responsibility": "delegated", "eligible": true, "late": false, "blocked": true, "planned_for": "2026-11-03", "carried_from": "2026-11-02", "dod": { "done": 1, "total": 2 }, "closable": false },
+      "019a4b2c-1f00-7a10-8000-000000000004": { "effective_assignee": "alex@example.com", "responsibility": "delegated", "eligible": true, "late": false, "blocked": false, "waiting_on": ["019a4b2c-1f00-7a10-8000-000000000003"], "planned_for": "2026-11-03", "carried_from": null, "dod": { "done": 0, "total": 1 }, "closable": false },
+      "019a4b2c-1f00-7a10-8000-000000000007": { "effective_assignee": "jordan@example.com", "responsibility": "mine", "eligible": true, "late": false, "blocked": true, "waiting_on": [], "planned_for": "2026-11-05", "carried_from": null, "dod": { "done": 0, "total": 1 }, "closable": false },
+      "019a4b2c-1f00-7a10-8000-000000000008": { "effective_assignee": "jordan@example.com", "responsibility": "mine", "eligible": true, "late": false, "blocked": false, "waiting_on": [], "planned_for": "2026-11-03", "carried_from": null, "dod": { "done": 0, "total": 1 }, "closable": false },
+      "019a4b2c-1f00-7a10-8000-000000000014": { "effective_assignee": "jordan@example.com", "responsibility": "mine", "eligible": true, "ineligible_reason": null, "late": false, "blocked": false, "waiting_on": [], "planned_for": null, "carried_from": null, "dod": { "done": 0, "total": 1 }, "closable": false },
+      "019a4b2c-1f00-7a10-8000-000000000015": { "effective_assignee": "jordan@example.com", "responsibility": "mine", "eligible": true, "late": true, "blocked": true, "waiting_on": [], "planned_for": null, "carried_from": null, "dod": { "done": 0, "total": 2 }, "closable": false }
+    },
+    "blockers": {
+      "019a4b2c-1f00-7a10-8000-000000000005": { "planned_for": "2026-11-03", "owner": "jordan@example.com", "state": "open" },
+      "019a4b2c-1f00-7a10-8000-000000000016": { "planned_for": null, "owner": "dana@example.com", "state": "open" }
+    },
+    "milestones": {
+      "019a4b2c-1f00-7a10-8000-000000000010": { "lowest_incomplete": false, "tasks_open": 0, "tasks_total": 0, "closable": false },
+      "019a4b2c-1f00-7a10-8000-000000000002": { "lowest_incomplete": true, "tasks_open": 3, "tasks_total": 3, "closable": false },
+      "019a4b2c-1f00-7a10-8000-000000000012": { "lowest_incomplete": false, "in_progress_plannable": true, "tasks_open": 1, "tasks_total": 1, "closable": false },
+      "019a4b2c-1f00-7a10-8000-000000000013": { "lowest_incomplete": true, "tasks_open": 1, "tasks_total": 1, "closable": false }
+    },
+    "rollover": {
+      "from": "2026-11-02",
+      "status": "complete",
+      "carried": ["019a4b2c-1f00-7a10-8000-000000000003"],
+      "dropped": [{ "task_id": "019a4b2c-1f00-7a10-8000-000000000015", "reason": "not reselected; still open and late" }]
+    },
+    "today": {
+      "selected": {
+        "mine": [
+          { "item_type": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000008" },
+          { "item_type": "blocker", "item_id": "019a4b2c-1f00-7a10-8000-000000000005" }
+        ],
+        "delegated": [
+          { "item_type": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000003" },
+          { "item_type": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000004" }
+        ],
+        "follow_up": []
+      },
+      "available": ["019a4b2c-1f00-7a10-8000-000000000007", "019a4b2c-1f00-7a10-8000-000000000015"],
+      "future": { "2026-11-05": ["019a4b2c-1f00-7a10-8000-000000000007"] }
+    },
+    "summary": {
+      "open_projects": 2,
+      "open_milestones": 3,
+      "open_tasks": 5,
+      "late_tasks": 1,
+      "blocked_tasks": 2,
+      "open_blockers": 2,
+      "selected_today": 4,
+      "carried_forward": 1,
+      "pending_operations": 0,
+      "unreviewed_messages": 1,
+      "changed_outside_app": 0
+    }
+  },
+
+  "diagnostics": [
+    { "level": "warning", "code": "UNRESOLVED_REF", "path": "daily-plans/2026.11.02-daily-plan.md", "detail": "ref 019a4b2c-1f00-7a10-8000-0000000000ff not found in any project." }
+  ]
+}

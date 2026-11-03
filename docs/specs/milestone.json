@@ -1,0 +1,33 @@
+{
+  "id": "019a4b2c-1f00-7a10-8000-000000000002",
+  "type": "milestone",
+  "record_version": 2,
+  "project_id": "019a4b2c-1f00-7a10-8000-000000000001",
+  "number": 2,
+  "title": "Planning session spike",
+  "owner": "jordan@example.com",
+  "assignee": "jordan@example.com",
+  "state": "in-progress",
+  "created_at": "2026-10-20T14:05:00Z",
+  "updated_at": "2026-11-02T22:15:40Z",
+  "started_at": "2026-10-28T16:30:00Z",
+  "resolved_at": null,
+  "target_date": "2026-11-10",
+  "tags": ["spike", "architecture", "core"],
+  "path": "2026.10.20-daily-tasks-mcp-server/m2-planning-session-spike/m2-planning-session-spike.md",
+  "definition_of_done": [
+    { "id": "019a4b2c-1f00-7a10-8000-0000000000d1", "text": "State-graph state machine models all 5 screens and operations", "done": true },
+    { "id": "019a4b2c-1f00-7a10-8000-0000000000d2", "text": "Roundtrip tests verify markdown parser and emitter preserve existing formatting and comments", "done": false },
+    { "id": "019a4b2c-1f00-7a10-8000-0000000000d6", "text": "End-to-end mock run executes without unhandled exceptions or missing record links", "done": false }
+  ],
+  "task_ids": [
+    "019a4b2c-1f00-7a10-8000-000000000003",
+    "019a4b2c-1f00-7a10-8000-000000000004",
+    "019a4b2c-1f00-7a10-8000-000000000007",
+    "019a4b2c-1f00-7a10-8000-000000000008"
+  ],
+  "blocked_by": [
+    "019a4b2c-1f00-7a10-8000-000000000005"
+  ],
+  "source": "markdown-projects"
+}

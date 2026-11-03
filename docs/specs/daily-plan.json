@@ -1,0 +1,70 @@
+{
+  "id": "019a4b2c-9000-7000-8000-0000000000f1",
+  "type": "daily-plan",
+  "local_date": "2026-11-03",
+  "timezone": "America/Chicago",
+  "path": "daily-plans/2026.11.03-daily-plan.md",
+  "created_at": "2026-11-03T14:05:00Z",
+  "updated_at": "2026-11-03T14:26:10Z",
+  "content_hash": "sha256:5f1c0b7e2a",
+  "focus": "Light day, out after 3pm.",
+  "summary": { "open_projects": 4, "open_tasks": 18, "late_tasks": 1 },
+  "entries": [
+    {
+      "item_type": "task",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000008",
+      "section": "my-work",
+      "carried_from": null,
+      "added_at": "2026-11-03T14:22:10Z"
+    },
+    {
+      "item_type": "blocker",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000005",
+      "section": "my-work",
+      "carried_from": null,
+      "added_at": "2026-11-03T14:22:40Z"
+    },
+    {
+      "item_type": "task",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000003",
+      "section": "delegated-work",
+      "carried_from": "2026-11-02",
+      "added_at": "2026-11-03T14:05:00Z"
+    },
+    {
+      "item_type": "task",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000004",
+      "section": "delegated-work",
+      "carried_from": null,
+      "added_at": "2026-11-03T14:11:30Z"
+    }
+  ],
+  "removed_item_ids": ["019a4b2c-1f00-7a10-8000-000000000007"],
+  "blockers": [
+    { "blocker_id": "019a4b2c-1f00-7a10-8000-000000000005", "blocks": ["019a4b2c-1f00-7a10-8000-000000000003"] }
+  ],
+  "decisions": [
+    {
+      "id": "019a4b2c-9000-7000-8000-0000000000e0",
+      "question": "Create task 'Review Slack connector PR' in Planning session spike?",
+      "resolution": "Accepted with target date 2026-11-05."
+    },
+    {
+      "id": "019a4b2c-9000-7000-8000-0000000000e1",
+      "question": "Check DoD item 'Read-only scopes only' on Wire Gmail connector?",
+      "resolution": "Accepted."
+    },
+    {
+      "id": "019a4b2c-9000-7000-8000-0000000000e2",
+      "question": "Mark 'Draft connector README' blocked by 'Google OAuth app verification'?",
+      "resolution": "Rejected."
+    },
+    {
+      "id": "019a4b2c-9000-7000-8000-0000000000e3",
+      "question": "Which day should 'Draft connector README' be planned for?",
+      "resolution": "Moved to 2026-11-05."
+    }
+  ],
+  "notes": [],
+  "source": "markdown-daily-plans"
+}

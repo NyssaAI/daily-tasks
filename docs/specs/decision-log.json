@@ -1,0 +1,78 @@
+{
+  "workspace_root": "D:/vaults/work",
+  "entries": [
+    {
+      "id": "019a4b2c-9000-7000-8000-0000000000e0",
+      "session_id": "019a4b2c-9000-7000-8000-0000000000a1",
+      "question": "Create task 'Review Slack connector PR' in Planning session spike?",
+      "decision": "Accepted with target date 2026-11-05.",
+      "decided_by": { "kind": "person", "id": "jordan@example.com" },
+      "decided_at": "2026-11-03T14:19:58Z",
+      "recorded_at": "2026-11-03T14:20:05Z",
+      "time_defaulted": false,
+      "original_words": "3 accept but due Thursday",
+      "origin": {
+        "kind": "suggestion",
+        "suggestion_id": "019a4b2c-9000-7000-8000-0000000000b1",
+        "screen_id": "s1",
+        "row": 3,
+        "message_ids": ["slack:C04ABC123:1730640000.000100"]
+      },
+      "verdict": "edit",
+      "edits": { "target_date": "2026-11-05" },
+      "action": "create-task",
+      "operation_id": "019a4b2c-9000-7000-8000-0000000000c0",
+      "record_ids": ["019a4b2c-1f00-7a10-8000-000000000008"],
+      "before": null,
+      "after": { "title": "Review Slack connector PR", "state": "not-started", "target_date": "2026-11-05" },
+      "corrects": null
+    },
+    { "$ref": "decision-log-entry.json" },
+    {
+      "id": "019a4b2c-9000-7000-8000-0000000000e2",
+      "session_id": "019a4b2c-9000-7000-8000-0000000000a1",
+      "question": "Mark 'Draft connector README' blocked by 'Google OAuth app verification'?",
+      "decision": "Rejected.",
+      "decided_by": { "kind": "person", "id": "jordan@example.com" },
+      "decided_at": "2026-11-03T14:19:58Z",
+      "recorded_at": "2026-11-03T14:20:05Z",
+      "time_defaulted": false,
+      "original_words": "9 reject",
+      "origin": {
+        "kind": "suggestion",
+        "suggestion_id": "019a4b2c-9000-7000-8000-0000000000b3",
+        "screen_id": "s1",
+        "row": 9,
+        "message_ids": ["gmail:18f2a9c3e4b5d6a7"]
+      },
+      "verdict": "reject",
+      "edits": null,
+      "action": "reject-suggestion",
+      "operation_id": null,
+      "record_ids": [],
+      "before": null,
+      "after": null,
+      "corrects": null
+    },
+    {
+      "id": "019a4b2c-9000-7000-8000-0000000000e3",
+      "session_id": "019a4b2c-9000-7000-8000-0000000000a1",
+      "question": "Which day should 'Draft connector README' be planned for?",
+      "decision": "Moved to 2026-11-05.",
+      "decided_by": { "kind": "person", "id": "jordan@example.com" },
+      "decided_at": "2026-11-03T14:24:00Z",
+      "recorded_at": "2026-11-03T14:24:02Z",
+      "time_defaulted": false,
+      "original_words": "13 to Thursday",
+      "origin": { "kind": "instruction", "screen_id": "s2:019a4b2c-1f00-7a10-8000-000000000001", "row": 13 },
+      "verdict": null,
+      "edits": null,
+      "action": "assign-to-day",
+      "operation_id": "019a4b2c-9000-7000-8000-0000000000c2",
+      "record_ids": ["019a4b2c-1f00-7a10-8000-000000000007"],
+      "before": { "planned_for": "2026-11-03" },
+      "after": { "planned_for": "2026-11-05" },
+      "corrects": null
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "_note": "Persisted at .nyssa-ai/daily-tasks/sessions/YYYY.MM.DD.json (one per workspace per local day), overwritten as the session advances. A second 'plan the day' the same day resumes it; after confirmed_at it reopens on screen 3. Survives server restarts. Pending suggestions live in suggestions.json, not here. RAM-only: background task handle, state graph, message graph, rendered screens. Replies are checked against what is pending, not a strict linear stage, so a pending suggestion can still be answered on a later screen.",
+  "id": "019a4b2c-9000-7000-8000-0000000000a1",
+  "workspace_root": "D:/vaults/work",
+  "local_date": "2026-11-03",
+  "timezone": "America/Chicago",
+  "started_at": "2026-11-03T14:02:00Z",
+  "updated_at": "2026-11-03T14:24:02Z",
+  "confirmed_at": null,
+  "focus": "Light day, out after 3pm.",
+  "inventory_hash": "sha256:9a8d77c41e",
+  "background": {
+    "status": "complete",
+    "started_at": "2026-11-03T14:02:04Z",
+    "completed_at": "2026-11-03T14:02:31Z",
+    "sources": [
+      { "name": "gmail", "status": "ok", "fetched": 23, "new": 6, "error": null },
+      { "name": "slack", "status": "error", "fetched": 0, "new": 0, "error": "token_revoked" }
+    ]
+  },
+  "suggestions_file": ".nyssa-ai/daily-tasks/suggestions.json",
+  "current_screen": "s2:019a4b2c-1f00-7a10-8000-000000000001",
+  "assign_days": {
+    "project_order": [
+      "019a4b2c-1f00-7a10-8000-000000000001",
+      "019a4b2c-1f00-7a10-8000-000000000011"
+    ],
+    "project_order_rule": "project directory date prefix, ascending",
+    "current_project_id": "019a4b2c-1f00-7a10-8000-000000000001",
+    "include_in_progress_milestones": true
+  },
+  "next_row": 19,
+  "rows": {
+    "1": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000003" },
+    "2": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000004" },
+    "3": { "kind": "suggestion", "id": "019a4b2c-9000-7000-8000-0000000000b1" },
+    "4": { "kind": "suggestion", "id": "019a4b2c-9000-7000-8000-0000000000b6" },
+    "5": { "kind": "suggestion", "id": "019a4b2c-9000-7000-8000-0000000000b4" },
+    "6": { "kind": "suggestion", "id": "019a4b2c-9000-7000-8000-0000000000b7" },
+    "7": { "kind": "suggestion", "id": "019a4b2c-9000-7000-8000-0000000000b8" },
+    "8": { "kind": "suggestion", "id": "019a4b2c-9000-7000-8000-0000000000b2" },
+    "9": { "kind": "suggestion", "id": "019a4b2c-9000-7000-8000-0000000000b3" },
+    "10": { "kind": "suggestion", "id": "019a4b2c-9000-7000-8000-0000000000b5" },
+    "11": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000003" },
+    "12": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000004" },
+    "13": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000007" },
+    "14": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000008" },
+    "15": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000014" },
+    "16": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000025" },
+    "17": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000017" },
+    "18": { "kind": "blocker", "id": "019a4b2c-1f00-7a10-8000-000000000005" }
+  },
+  "labels": {
+    "019a4b2c-1f00-7a10-8000-000000000001": {
+      "M1": "019a4b2c-1f00-7a10-8000-000000000010",
+      "M2": "019a4b2c-1f00-7a10-8000-000000000002",
+      "M3": "019a4b2c-1f00-7a10-8000-000000000012"
+    }
+  },
+  "screens": {
+    "s1": { "kind": "plan-the-day", "numbering": "session", "shown_at": "2026-11-03T14:09:31Z" },
+    "s2:019a4b2c-1f00-7a10-8000-000000000001": { "kind": "assign-days", "numbering": "session", "shown_at": "2026-11-03T14:21:00Z" },
+    "s3": {
+      "kind": "confirm",
+      "numbering": "screen",
+      "shown_at": null,
+      "rows": {
+        "1": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000008" },
+        "2": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000014" },
+        "3": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000018" },
+        "4": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000003" },
+        "5": { "kind": "task", "id": "019a4b2c-1f00-7a10-8000-000000000004" },
+        "6": { "kind": "blocker", "id": "019a4b2c-1f00-7a10-8000-000000000005" }
+      }
+    }
+  },
+  "_rules": {
+    "numbering": "Screens with numbering 'session' share rows/next_row; numbers never change. Screen s3 uses its own rows starting at 1. A reply is resolved against current_screen only; numbers from another screen are refused.",
+    "labels": "Milestone labels (M1, M2…) resolve within current_project_id."
+  }
+}

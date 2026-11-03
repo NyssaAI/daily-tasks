@@ -1,0 +1,47 @@
+[
+  {
+    "tool": "plan_screen",
+    "status": "processing",
+    "session_id": "019a4b2c-9000-7000-8000-0000000000a1",
+    "screen_id": "s1",
+    "stage": "screen",
+    "message": "Still analyzing messages",
+    "progress": { "sources_done": 1, "sources_total": 2 },
+    "payload": null
+  },
+  {
+    "tool": "plan_screen",
+    "status": "ok",
+    "session_id": "019a4b2c-9000-7000-8000-0000000000a1",
+    "screen_id": "s1",
+    "stage": "reconcile",
+    "message": "2 messages need review. Propose suggestions with plan_suggest.",
+    "progress": null,
+    "payload": {
+      "for_review": { "$ref": "message-graph.json#/derived/for_review" },
+      "screen": { "$ref": "1-plan-the-day-screen.md" }
+    }
+  },
+  {
+    "tool": "plan_adjudicate",
+    "status": "refused",
+    "session_id": "019a4b2c-9000-7000-8000-0000000000a1",
+    "screen_id": "s1",
+    "stage": "screen",
+    "message": "Suggestions are not ready. Call plan_screen first.",
+    "expected_tool": "plan_screen",
+    "payload": null
+  },
+  {
+    "tool": "plan_suggest",
+    "status": "ok",
+    "session_id": "019a4b2c-9000-7000-8000-0000000000a1",
+    "screen_id": "s1",
+    "stage": "reconcile",
+    "message": "5 suggestions saved to suggestions.json.",
+    "payload": {
+      "saved_count": 5,
+      "suggestions_file": ".nyssa-ai/daily-tasks/suggestions.json"
+    }
+  }
+]

@@ -1,0 +1,78 @@
+{
+  "_note": "Transient request to plan_apply; never stored directly. Applied operations are recorded as decision-log entries and record changes. If individual MCP tools are exposed, their arguments replace this structure.",
+  "session_id": "019a4b2c-9000-7000-8000-0000000000a1",
+  "screen_id": "s2:019a4b2c-1f00-7a10-8000-000000000001",
+  "original_words": "13 to Thursday, 14 today, 18 today, 12 done, M2 complete, 18 resolved, 18 owner dana@example.com",
+  "actor": { "kind": "person", "id": "jordan@example.com" },
+  "operations": [
+    {
+      "kind": "assign-to-day",
+      "row": 13,
+      "item_type": "task",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000007",
+      "local_date": "2026-11-05"
+    },
+    {
+      "kind": "assign-to-day",
+      "row": 14,
+      "item_type": "task",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000008",
+      "local_date": "2026-11-03"
+    },
+    {
+      "kind": "assign-to-day",
+      "row": 18,
+      "item_type": "blocker",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000005",
+      "local_date": "2026-11-03"
+    },
+    {
+      "kind": "unplan",
+      "row": 17,
+      "item_type": "task",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000017"
+    },
+    {
+      "kind": "set-status",
+      "row": 12,
+      "record_type": "task",
+      "record_id": "019a4b2c-1f00-7a10-8000-000000000004",
+      "state": "completed",
+      "activity_at": "2026-11-03T14:24:00Z"
+    },
+    {
+      "kind": "set-status",
+      "label": "M2",
+      "record_type": "milestone",
+      "record_id": "019a4b2c-1f00-7a10-8000-000000000002",
+      "state": "completed",
+      "activity_at": "2026-11-03T14:24:00Z"
+    },
+    {
+      "kind": "set-status",
+      "row": 18,
+      "record_type": "blocker",
+      "record_id": "019a4b2c-1f00-7a10-8000-000000000005",
+      "state": "resolved",
+      "activity_at": "2026-11-03T14:24:00Z"
+    },
+    {
+      "kind": "reassign",
+      "row": 18,
+      "item_type": "blocker",
+      "item_id": "019a4b2c-1f00-7a10-8000-000000000005",
+      "owner": "dana@example.com"
+    }
+  ],
+  "_rules": {
+    "assign-to-day": "Supports item_type 'task' and 'blocker'. Blockers scheduled for today appear in user's today tasks.",
+    "set-status": {
+      "task": ["not-started", "in-progress", "completed", "cancelled"],
+      "blocker": ["open", "resolved"],
+      "milestone": ["in-progress", "completed", "cancelled"],
+      "project": ["in-progress", "completed", "cancelled"]
+    },
+    "completed requires": "all DoD items checked and no open preventing blockers; completing a milestone requires all child tasks to be completed or provided explicit dispositions",
+    "cancelled milestone/project requires": "child_dispositions for every non-terminal child; never cascades"
+  }
+}

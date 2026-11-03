@@ -1,0 +1,39 @@
+{
+  "id": "gmail:18f2a9c3e4b5d6a7",
+  "source": "gmail",
+  "external_id": "18f2a9c3e4b5d6a7",
+  "thread_id": "gmail-thread:18f2a9c3e4b50000",
+  "received_at": "2026-11-03T12:41:09Z",
+  "from": { "name": "Sarah Chen", "address": "sarah@example.com" },
+  "to": [{ "name": "Jordan", "address": "jordan@example.com" }],
+  "cc": [],
+  "channel": null,
+  "subject": "Re: Gmail connector",
+  "snippet": "Read-only scopes are in. Still waiting on Google's verification before we can test outside the dev account.",
+  "body": "Hi Jordan,\n\nRead-only scopes are in. Still waiting on Google's verification before we can test outside the dev account.\n\nScreenshot of the consent screen and the scope list attached.\n\nSarah",
+  "body_format": "text",
+  "attachments": [
+    {
+      "id": "gmail:18f2a9c3e4b5d6a7:att:1",
+      "filename": "consent-screen.png",
+      "mime_type": "image/png",
+      "size_bytes": 184233,
+      "sha256": "a3f1c9e07b",
+      "path": "2026-11-03/gmail/18f2a9c3e4b5d6a7/consent-screen.png",
+      "downloaded_at": "2026-11-03T14:02:21Z",
+      "status": "downloaded"
+    },
+    {
+      "id": "gmail:18f2a9c3e4b5d6a7:att:2",
+      "filename": "scopes.pdf",
+      "mime_type": "application/pdf",
+      "size_bytes": 52110,
+      "sha256": null,
+      "path": null,
+      "downloaded_at": null,
+      "status": "skipped-too-large"
+    }
+  ],
+  "url": "https://mail.google.com/mail/u/0/#inbox/18f2a9c3e4b5d6a7",
+  "fetched_at": "2026-11-03T14:02:20Z"
+}

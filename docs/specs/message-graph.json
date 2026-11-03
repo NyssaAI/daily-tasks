@@ -1,0 +1,146 @@
+{
+  "_note": "Point-in-time snapshot of fetched messages, built in memory by gather_planning_messages and pre-matching. Never persisted: rebuilt from message-log.json and the message files under messages_root. Linked to the state graph by record ID. 'Still analyzing messages' means this graph is not complete yet. Codex receives derived.for_review, not the whole graph.",
+
+  "context": {
+    "messages_root": "D:/vaults/work/inbox",
+    "built_at": "2026-11-03T14:02:31Z",
+    "status": "complete",
+    "state_graph_hash": "sha256:9a8d77c41e",
+    "sources": [
+      { "name": "gmail", "status": "ok", "since": "2026-11-02T13:55:00Z", "fetched": 2, "error": null },
+      { "name": "slack", "status": "error", "since": "2026-11-02T13:55:00Z", "fetched": 0, "error": "token_revoked" }
+    ]
+  },
+
+  "records": {
+    "gmail:18f2a9c3e4b5aaaa": {
+      "source": "gmail",
+      "thread_id": "gmail-thread:18f2a9c3e4b50000",
+      "received_at": "2026-11-03T09:15:00Z",
+      "from": "sarah@example.com",
+      "subject": "Gmail connector",
+      "snippet": "Scopes PR is up, should land this morning.",
+      "attachment_ids": [],
+      "location": "2026-11-03/gmail/18f2a9c3e4b5aaaa/message.json"
+    },
+    "gmail:18f2a9c3e4b5d6a7": {
+      "$ref": "message.json",
+      "source": "gmail",
+      "thread_id": "gmail-thread:18f2a9c3e4b50000",
+      "received_at": "2026-11-03T12:41:09Z",
+      "from": "sarah@example.com",
+      "subject": "Re: Gmail connector",
+      "snippet": "Read-only scopes are in. Still waiting on Google's verification before we can test outside the dev account.",
+      "attachment_ids": ["gmail:18f2a9c3e4b5d6a7:att:1", "gmail:18f2a9c3e4b5d6a7:att:2"],
+      "location": "2026-11-03/gmail/18f2a9c3e4b5d6a7/message.json"
+    },
+    "slack:C04ABC123:1730640000.000100": {
+      "source": "slack",
+      "thread_id": "slack-thread:C04ABC123:1730640000.000100",
+      "received_at": "2026-11-02T19:12:00Z",
+      "from": "alex@example.com",
+      "subject": null,
+      "channel": "#dev-core",
+      "snippet": "@jordan can you review the Slack connector PR before Thursday?",
+      "attachment_ids": [],
+      "location": "2026-11-02/slack/C04ABC123-1730640000.000100/message.json"
+    }
+  },
+
+  "tree": [
+    {
+      "source": "gmail",
+      "threads": [
+        { "thread_id": "gmail-thread:18f2a9c3e4b50000", "message_ids": ["gmail:18f2a9c3e4b5aaaa", "gmail:18f2a9c3e4b5d6a7"] }
+      ]
+    },
+    {
+      "source": "slack",
+      "threads": [
+        { "thread_id": "slack-thread:C04ABC123:1730640000.000100", "message_ids": ["slack:C04ABC123:1730640000.000100"] }
+      ]
+    }
+  ],
+
+  "index": {
+    "thread": {
+      "gmail-thread:18f2a9c3e4b50000": ["gmail:18f2a9c3e4b5aaaa", "gmail:18f2a9c3e4b5d6a7"],
+      "slack-thread:C04ABC123:1730640000.000100": ["slack:C04ABC123:1730640000.000100"]
+    },
+    "by_sender": {
+      "sarah@example.com": ["gmail:18f2a9c3e4b5aaaa", "gmail:18f2a9c3e4b5d6a7"],
+      "alex@example.com": ["slack:C04ABC123:1730640000.000100"]
+    },
+    "links": {
+      "gmail:18f2a9c3e4b5d6a7": [
+        { "record_type": "task", "record_id": "019a4b2c-1f00-7a10-8000-000000000003", "reasons": ["thread-seen-before", "sender-is-assignee", "title-match"], "matched_text": "Gmail connector" },
+        { "record_type": "blocker", "record_id": "019a4b2c-1f00-7a10-8000-000000000005", "reasons": ["title-match"], "matched_text": "verification" }
+      ],
+      "gmail:18f2a9c3e4b5aaaa": [
+        { "record_type": "task", "record_id": "019a4b2c-1f00-7a10-8000-000000000003", "reasons": ["sender-is-assignee", "title-match"], "matched_text": "Gmail connector" }
+      ],
+      "slack:C04ABC123:1730640000.000100": [
+        { "record_type": "task", "record_id": "019a4b2c-1f00-7a10-8000-000000000014", "reasons": ["title-match"], "matched_text": "Slack connector" }
+      ]
+    },
+    "by_record": {
+      "019a4b2c-1f00-7a10-8000-000000000003": ["gmail:18f2a9c3e4b5aaaa", "gmail:18f2a9c3e4b5d6a7"],
+      "019a4b2c-1f00-7a10-8000-000000000005": ["gmail:18f2a9c3e4b5d6a7"],
+      "019a4b2c-1f00-7a10-8000-000000000014": ["slack:C04ABC123:1730640000.000100"]
+    },
+    "attachments": {
+      "gmail:18f2a9c3e4b5d6a7:att:1": "gmail:18f2a9c3e4b5d6a7",
+      "gmail:18f2a9c3e4b5d6a7:att:2": "gmail:18f2a9c3e4b5d6a7"
+    }
+  },
+
+  "derived": {
+    "messages": {
+      "gmail:18f2a9c3e4b5aaaa": { "reviewed": false, "linked": true, "latest_in_thread": false, "superseded_by": "gmail:18f2a9c3e4b5d6a7", "needs_review": false },
+      "gmail:18f2a9c3e4b5d6a7": { "reviewed": false, "linked": true, "latest_in_thread": true, "superseded_by": null, "needs_review": true },
+      "slack:C04ABC123:1730640000.000100": { "reviewed": false, "linked": true, "latest_in_thread": true, "superseded_by": null, "needs_review": true, "carried_from": "2026-11-02" }
+    },
+    "threads": {
+      "gmail-thread:18f2a9c3e4b50000": { "participants": ["sarah@example.com", "jordan@example.com"], "last_activity": "2026-11-03T12:41:09Z", "message_count": 2, "linked_record_ids": ["019a4b2c-1f00-7a10-8000-000000000003", "019a4b2c-1f00-7a10-8000-000000000005"] },
+      "slack-thread:C04ABC123:1730640000.000100": { "participants": ["alex@example.com"], "last_activity": "2026-11-02T19:12:00Z", "message_count": 1, "linked_record_ids": ["019a4b2c-1f00-7a10-8000-000000000014"] }
+    },
+    "for_review": [
+      {
+        "message_id": "gmail:18f2a9c3e4b5d6a7",
+        "source": "gmail",
+        "from": "sarah@example.com",
+        "subject": "Re: Gmail connector",
+        "snippet": "Read-only scopes are in. Still waiting on Google's verification before we can test outside the dev account.",
+        "received_at": "2026-11-03T12:41:09Z",
+        "earlier_in_thread": ["gmail:18f2a9c3e4b5aaaa"],
+        "attachments": ["consent-screen.png", "scopes.pdf (not downloaded)"],
+        "links": { "$ref": "#/index/links/gmail:18f2a9c3e4b5d6a7" }
+      },
+      {
+        "message_id": "slack:C04ABC123:1730640000.000100",
+        "source": "slack",
+        "from": "alex@example.com",
+        "subject": null,
+        "snippet": "@jordan can you review the Slack connector PR before Thursday?",
+        "received_at": "2026-11-02T19:12:00Z",
+        "earlier_in_thread": [],
+        "attachments": [],
+        "links": { "$ref": "#/index/links/slack:C04ABC123:1730640000.000100" }
+      }
+    ],
+    "summary": {
+      "fetched_this_run": 2,
+      "unreviewed": 3,
+      "needs_review": 2,
+      "superseded": 1,
+      "linked": 3,
+      "unlinked": 0,
+      "carried_from_earlier_days": 1
+    }
+  },
+
+  "diagnostics": [
+    { "level": "warning", "code": "SOURCE_FAILED", "source": "slack", "detail": "token_revoked; Slack not scanned this run." },
+    { "level": "info", "code": "ATTACHMENT_SKIPPED", "attachment_id": "gmail:18f2a9c3e4b5d6a7:att:2", "detail": "skipped-too-large" }
+  ]
+}

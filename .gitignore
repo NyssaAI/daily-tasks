@@ -6,6 +6,7 @@
 !/.claude-plugin/
 !/.codex-plugin/
 !/.cursor-plugin/
+!/.nyssa-ai/
 
 node_modules/
 .DS_Store
@@ -35,4 +36,7 @@ env/
 *.userosscache
 *.sln.ide
 *.vcxproj.user
-.vscode/
+
+# Mandatory repository-local scratch directory (REPO-SCRATCH)
+.temp/
+.worktrees/
