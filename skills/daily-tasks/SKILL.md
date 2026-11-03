@@ -1,6 +1,6 @@
 ---
 name: daily-tasks
-description: Manage personal projects, milestones, accepted tasks, external blockers, daily priorities and anytime check-ins using editable Markdown records. Use when capturing commitments, updating or delegating work, planning a day, or reconciling progress. Does not schedule work into available time.
+description: Manage personal projects, milestones, accepted tasks, external blockers, daily priorities and anytime check-ins using editable Markdown records. Use when capturing commitments, updating or delegating work, planning a day, reconciling progress, fixing malformed files, or completing project setup. Does not schedule work into available time.
 ---
 
 # Daily Tasks
@@ -10,9 +10,9 @@ run a personal operating system. One authoritative record per item. Select one r
 
 | Request | Load |
 | --- | --- |
-| First use, identity, timezone, paths, priorities, formatting templates | [Setup](../daily-tasks-setup/SKILL.md) |
+| First use, project setup not done, identity, timezone, paths, priorities, formatting templates | [Setup](../daily-tasks-setup/SKILL.md) |
 | Extract possible work or accept a batch | [Capture](../daily-tasks-capture/SKILL.md) |
-| Create/update/move/assign work, DoD, dependencies or blockers | [Records](../daily-tasks-records/SKILL.md) |
+| Create/update/move/assign work, DoD, dependencies, blockers, or fix malformed files | [Records](../daily-tasks-records/SKILL.md) |
 | Select daily work or change today's list | [Daily plan](../daily-tasks-plan/SKILL.md) |
 | Report progress, reconcile edits, resume or check in | [Check-in](../daily-tasks-checkin/SKILL.md) |
 
@@ -26,15 +26,17 @@ When loaded, reuse existing accepted pointers or discover persistent `.nyssa-ai`
 1. Load persistent preferences from canonical profile layers.
 2. Resolve `workspaceRoot`, `projectsRoot`, and `dailyPlansRoot` from the profile.
 3. Access independent workspace operating state under `<workspaceRoot>/.nyssa-ai/daily-tasks/`.
-4. Continue with the requested work. Run [Setup](../daily-tasks-setup/SKILL.md) only on first use when configuration is missing or when the user explicitly requests configuration changes.
+4. Continue with the requested work. If project setup is not already done (missing `profile.json` or unresolved workspace bindings), immediately trigger and run [Setup](../daily-tasks-setup/SKILL.md) before attempting to manage records, plan, or check in. Run Setup only when configuration is missing or when the user explicitly requests configuration changes.
 
 Preserve configurationSources through continuation. Do not scan home directories or infer workspace scope from a later process cwd or installed code. If the user provides an invalid path or command, explain the error and request clarification. No startup foundation, background monitoring or autonomous scheduling.
 
 When the `daily-tasks` MCP server is connected, planning runs through its
 `daily_tasks_start_session`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`
 and `daily_tasks_confirm_plan` tools as described in [Daily plan](../daily-tasks-plan/SKILL.md);
-server setup and Gmail sign-in are in [Setup](../daily-tasks-setup/SKILL.md). The server
-writes records only after the user explicitly confirms the plan.
+server setup and Gmail sign-in are in [Setup](../daily-tasks-setup/SKILL.md). The MCP server
+must ONLY be used via MCP tools; never invoke `daily-tasks-mcp` or `python -m daily_tasks.server`
+as a CLI command or shell subprocess. The server writes records only after the user explicitly
+confirms the plan.
 
 ## Present results
 
@@ -46,7 +48,7 @@ writes records only after the user explicitly confirms the plan.
 - Route formatting, template choices, and updates to [templates](references/templates.md) and [template updates](references/template-updates.md).
 
 Use [records and views](references/records.md), [operation protocol](references/operations.md)
-and [CLI](references/cli.md) when their operations are needed. Executables perform
-deterministic checks; skills author Markdown. Read/write log only through the CLI.
-If Node or filesystem access is unavailable, report the exact capability gap and
+and [MCP / CLI interface](references/cli.md) when their operations are needed. Executables perform
+deterministic checks; skills author Markdown.
+If Python MCP server or filesystem access is unavailable, report the exact capability gap and
 offer a proposal only; never claim persistence or bypass the log through direct edits.

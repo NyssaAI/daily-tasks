@@ -3,7 +3,7 @@
 > [!IMPORTANT]
 > **Scope Directive**: This document defines the transactional write-ahead protocol, checkpoint lifecycle, and baseline reconciliation mechanics for all consequential Markdown modifications. It is strictly an operational integrity specification. Domain record definitions, schemas, planning flows, and CLI flag syntax belong in their respective references (`records.md`, `planning-flow.md`, `cli.md`).
 
-The calling skill authors Markdown; deterministic JS tools validate integrity and baselines.
+The calling skill authors Markdown; deterministic Python tools validate integrity and baselines.
 
 Keep the active workspace/projects/daily-plan binding fixed. Validate checkpoint paths against this context: canonical/project views belong to `projectsRoot`, daily views to `dailyPlansRoot`, and operating state to `stateRoot`. Checkpoints for other bindings must remain suspended for their respective workspace sessions; never widen active roots or search another workspace to resolve an ID. Include `planningBinding` in new checkpoints.
 

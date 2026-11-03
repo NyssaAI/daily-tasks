@@ -29,9 +29,9 @@ graders:
   - type: program
     name: personal-profile-and-scope
     config:
-      command: node
+      command: python
       args:
-        - evals/waza/skills/daily-tasks-setup/graders/validate-personal-only.mjs
+        - evals/waza/skills/daily-tasks-setup/graders/validate-personal-only.py
       timeout: 10
   - type: text
     name: confirm-saved-timezone

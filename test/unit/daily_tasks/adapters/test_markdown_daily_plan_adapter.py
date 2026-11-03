@@ -94,11 +94,15 @@ def test_fetch_plans_malformed_plan_is_skipped_with_warning(tmp_path: Path) -> N
     (root / "notes.md").write_text("# not a plan\n", encoding="utf-8")
     logger = _RecordingLogger()
 
-    dates = _dates(root, date(2026, 10, 30), logger)
-
-    assert dates == ["2026-10-28"]
+    adapter = MarkdownDailyPlanAdapter(root, "markdown-daily-plans", logger)
+    result = asyncio.run(adapter.fetch_plans(date(2026, 10, 30)))
+    assert isinstance(result, Ok)
+    assert [plan.local_date.isoformat() for plan in result.value] == ["2026-10-28"]
     warnings = [(fields["path"], fields["code"]) for level, _, fields in logger.records if level == "warn"]
     assert warnings == [("2026.10.30-daily-plan.md", "unclosed-frontmatter")]
+    assert [(m.path, m.code) for m in adapter.malformed_records] == [
+        ("daily-plans/2026.10.30-daily-plan.md", "unclosed-frontmatter")
+    ]
 
 
 def test_fetch_plans_missing_root_returns_not_found(tmp_path: Path) -> None:

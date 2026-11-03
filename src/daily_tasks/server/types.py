@@ -12,6 +12,7 @@
 #     +-- cursors
 #     +-- existing_plan
 #     +-- graph
+#     +-- malformed_files
 #     +-- messages
 #     +-- previous_plan
 #     `-- sources
@@ -23,6 +24,7 @@ from pathlib import Path
 from uuid import UUID
 
 from daily_tasks.domain import Blocker, DailyPlan, FetchCursors, GraphUser, Message, MessageSourceStatus, StateGraph
+from daily_tasks.ports import MalformedRecord
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -51,3 +53,4 @@ class WorkspaceSnapshot:
     messages: tuple[Message, ...]
     cursors: FetchCursors | None
     sources: tuple[MessageSourceStatus, ...]
+    malformed_files: tuple[MalformedRecord, ...] = ()

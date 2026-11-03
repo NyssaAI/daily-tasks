@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plan-product.local/schema/config.schema.json",
+  "title": "plan-product Config",
+  "type": "object",
+  "required": [
+    "version",
+    "paths",
+    "structure"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 2
+    },
+    "paths": {
+      "type": "object",
+      "required": [
+        "repoRoot",
+        "product",
+        "features",
+        "techStack",
+        "featureDocs"
+      ],
+      "additionalProperties": {
+        "type": "string"
+      },
+      "properties": {
+        "repoRoot": {
+          "type": "string"
+        },
+        "product": {
+          "type": "string"
+        },
+        "features": {
+          "type": "string"
+        },
+        "techStack": {
+          "type": "string"
+        },
+        "featureDocs": {
+          "type": "string"
+        },
+        "concepts": {
+          "type": "string"
+        },
+        "roadmap": {
+          "type": "string"
+        },
+        "configSchema": {
+          "type": "string"
+        },
+        "templates": {
+          "type": "string"
+        },
+        "productTemplate": {
+          "type": "string"
+        },
+        "featuresTemplate": {
+          "type": "string"
+        },
+        "techStackTemplate": {
+          "type": "string"
+        },
+        "featureTemplate": {
+          "type": "string"
+        },
+        "useCaseTemplate": {
+          "type": "string"
+        },
+        "conceptTemplate": {
+          "type": "string"
+        },
+        "roadmapTemplate": {
+          "type": "string"
+        }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "required": [
+        "features"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "features": {
+          "type": "object",
+          "required": [
+            "inventory",
+            "root",
+            "idPattern",
+            "folderPattern",
+            "featureFile",
+            "featurePathPattern",
+            "useCaseIdPattern",
+            "useCaseFilePattern",
+            "useCasePathPattern"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "inventory": {
+              "type": "string"
+            },
+            "root": {
+              "type": "string"
+            },
+            "idPattern": {
+              "type": "string"
+            },
+            "folderPattern": {
+              "type": "string",
+              "pattern": "^[^/\\\\:]+$"
+            },
+            "featureFile": {
+              "type": "string",
+              "pattern": "^[^/\\\\:]+$"
+            },
+            "featurePathPattern": {
+              "type": "string"
+            },
+            "useCaseIdPattern": {
+              "type": "string"
+            },
+            "useCaseFilePattern": {
+              "type": "string",
+              "pattern": "^[^/\\\\:]+$"
+            },
+            "useCasePathPattern": {
+              "type": "string"
+            }
+          }
+        },
+        "concepts": {
+          "type": "object",
+          "required": [
+            "root",
+            "idPattern",
+            "filePattern",
+            "pathPattern"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "root": {
+              "type": "string"
+            },
+            "idPattern": {
+              "type": "string"
+            },
+            "filePattern": {
+              "type": "string",
+              "pattern": "^[^/\\\\:]+$"
+            },
+            "pathPattern": {
+              "type": "string"
+            }
+          }
+        },
+        "roadmap": {
+          "type": "object",
+          "required": [
+            "file",
+            "idPattern"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "idPattern": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

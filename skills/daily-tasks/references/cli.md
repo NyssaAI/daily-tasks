@@ -1,143 +1,60 @@
-# JavaScript integrity and log interface
+# Python MCP server and CLI interface
 
 > [!IMPORTANT]
-> **Scope Directive**: This document is strictly an API, ABI, and invocation specification for `src/cli/daily-tasks.mjs` (and packaged `bin/daily-tasks.mjs`) and related CLI entrypoints. It documents command signatures, input/output schemas, runtime execution invariants, platform/serialization rules, and concrete payload examples. Domain workflows, markdown styling, planning business rules, and user-facing protocols belong exclusively in their respective skill and reference documents.
+> **MCP Protocol Directive**: The planning server `daily-tasks-mcp` is an MCP stdio server and MUST ONLY be used via the MCP protocol by host tool invocations (`daily_tasks_*`). Agents must NEVER invoke `daily-tasks-mcp` or `python -m daily_tasks.server` as a CLI command or shell subprocess. Direct command execution is strictly for interactive Gmail authorization (`python -m daily_tasks.auth.gmail`) or repository build scripts (`scripts/assemble.py`, `scripts/validate.py`).
+>
+> **Scope Directive**: This document is the API, ABI, and invocation specification for the Python `daily-tasks-mcp` server (`src/daily_tasks/cli.py`, `python -m daily_tasks.server`), Gmail OAuth helper (`python -m daily_tasks.auth.gmail`), and repository packaging scripts (`scripts/assemble.py`, `scripts/validate.py`). Domain workflows, markdown styling, planning business rules, and user-facing protocols belong in their respective skill and reference documents.
 
-Requires Node >=22 and permitted filesystem/process access. Resolve `PACKAGE_ROOT` from the installed skill's actual location, never assume a cache path. The canonical source entrypoints are:
+Requires Python >=3.12 (managed via `uv` and `pyproject.toml`) and permitted filesystem/process access. Resolve `PACKAGE_ROOT` from the installed plugin's actual location; never assume a cache path.
 
 ```text
-node PACKAGE_ROOT/src/cli/daily-tasks.mjs --help
-node PACKAGE_ROOT/src/cli/daily-tasks.mjs new-id
-node PACKAGE_ROOT/src/cli/daily-tasks.mjs OPERATION --input ABSOLUTE_JSON_FILE [--output ABSOLUTE_JSON_FILE]
-node PACKAGE_ROOT/src/cli/warm-project-index.mjs --vault-root ABSOLUTE_VAULT [--home-root ABSOLUTE_HOME] [--configuration-sources JSON] [--state-root ABSOLUTE_STATE] [--dry-run]
+uv run daily-tasks-mcp --workspace-root ABSOLUTE_WORKSPACE [--user-email EMAIL] [--user-name NAME] [--timezone TZ] [--projects-root PATH] [--daily-plans-root PATH] [--state-root PATH] [--log-file PATH]
+uv run python -m daily_tasks.server --workspace-root ABSOLUTE_WORKSPACE
+uv run python -m daily_tasks.auth.gmail --config-dir ABSOLUTE_CONFIG_DIR
+python scripts/assemble.py write|check
+python scripts/validate.py
 ```
 
-Packaged portable artifacts retain `bin/daily-tasks.mjs`; Cowork uses `scripts/daily-tasks.mjs`. Write structured input with file tools into the working scope's `.temp/`; do not use interpolated shell JSON. Pass `--output ABSOLUTE_JSON_FILE` to write UTF-8 JSON output directly to `.temp/` without shell `>` redirection (which writes UTF-16LE BOM in Windows PowerShell). Parse JSON output and process exit status; stderr outputs a single JSON error on failure. Exit zero indicates execution completed without process errors, not that validation passed or closure was authorized. Mutations accept `--dry-run` and write nothing to disk.
+Stdout is reserved strictly for MCP JSON-RPC 2.0 frames; all structured diagnostic logs are emitted to `sys.stderr` (configurable via `DAILY_TASKS_LOG_LEVEL` and `--log-file`).
 
 ## Runtime invariants and platform rules
 
 ### Host clock and timestamp rules
-- Omit `now` from initial `planning-prepare`, `resolve-context`, and `activity-time` so defaults read the actual host clock. Use the returned `localDate` (which may differ from UTC date). Never fabricate an instant from a planning date or fixture.
-- A requested planning day is not a clock override; future selections use `plan-selection`'s `date` argument with the actual host date.
-- Historical actions belong in `reported`, not `now`. `recorded_at` is always the host time when the entry is recorded.
-- Only recovery of an existing operation preserves its original event timestamps.
+- Omit explicit `date` from `daily_tasks_start_session` unless planning for a specific requested date so the server resolves the current local day in the configured timezone.
+- All stored and recorded event timestamps use GMT ISO format ending in `Z`.
+- Never fabricate precision or mutate unrelated record lines; all record updates go through the surgical Concrete Syntax Tree (CST) writer.
 
 ### Windows and PowerShell JSON safety
-- Always pass `--output ABSOLUTE_JSON_FILE` when saving CLI output to a file on Windows; never use PowerShell `>` or `Out-File`, which default to UTF-16LE BOM.
-- On Windows, preserve JSON timestamps as strings. PowerShell's `ConvertFrom-Json` converts ISO strings into .NET `DateTime` objects, which shifts GMT timestamps or alters formatting when reserialized.
-- When available, use `ConvertFrom-Json -DateKind String` for CLI results, checkpoints, and record JSON; otherwise parse using Node.js `JSON.parse`.
-- Keep exact `activity_at` and `recorded_at` strings returned by `activity-time`. Do not reparse or convert them to local time.
+- Never use PowerShell `>` or `Out-File` to redirect JSON or Markdown files, as Windows PowerShell defaults to UTF-16LE BOM.
+- Keep exact ISO timestamp strings in JSON payloads without reparsing into locale-dependent `.NET` `DateTime` objects.
 
-### Context binding and routing checks
-- `resolve-context` returns `planningBinding` (an opaque hash of normalized roots).
-- Calls to `planning-review`, `plan-selection`, `carry-forward`, and `plan-rollover` require `contextBinding` from `resolve-context.planningBinding`.
-- When inventory is supplied, pass `inventoryBinding` from `project-index.planningBinding`.
-- When a numbered review mapping is active, pass `mappingBinding` returned by `planning-review`. Roots are fixed to one workspace context; mismatched roots or foreign inventories fail before producing effects.
+## MCP tools matrix
 
-## Operations matrix
-
-| Operation | Input | Result/effect |
+| Tool | Arguments | Result / Effect |
 | --- | --- | --- |
-| health-check | none (environment check) or context inputs optional | status ok/setup-required, nodeVersion, configured, roots; no writes |
-| new-id | none | New UUIDv7; no write |
-| activity-time | reported?, now? | activity_at, recorded_at, time_defaulted |
-| local-day | time GMT ISO, timezone | local YYYY.MM.DD |
-| format-time | time GMT ISO, timezone | Local display with explicit zone |
-| validate-profile | profile object | valid/errors/resolvedTimezone; no save |
-| resolve-context | absolute workspaceRoot (or vaultRoot) or captured initialCwd for workspace work; homeRoot for personal-only setup; configurationSources?, preferenceOverrides?, stateRoot?, now? | Layered preferences, versioned source selections, provenance/writableScopes, independent absolute roots, identity, actual timezone/localDate, templates and TTL; no writes |
-| template-prepare | context inputs above, kinds (nonempty distinct supported kinds), scope? user/project, review? | Active file/available/upstream content, three-way comparison, placement proposals, pending file updates, policy, offer decision, token and storage hashes; no writes |
-| template-state | same context/kinds/scope, expectedToken, action baseline/decide/recover, decisions? (one per kind), originalWords for decide, dryRun? | Retained JSON snapshots and choices; file-update-required until skill-owned Markdown effects are verified by a fresh baseline; project decisions logged exactly once; never writes Markdown |
-| planning-prepare | context inputs above; forceRefresh?, page?, allMilestones?, selection?, dryRun? | Actual plan identities/hashes (`current.proposedId` when missing), `displayNow`, scoped inventory, pre-computed rollover proposal (with `taskSources`), pre-computed review, active dailyPlan/planDayReview template packet, pre-rendered `drafts` (`dailyPlanMarkdown`, `reviewMarkdown`, `rolloverOperation`, `completeRolloverInput`, `saveReviewInput`, `selectionOperation`), state hashes, pendingOperations names and recovery impacts, maintenance gate, enrollment issues; cache writes only |
-| planning-state | context inputs with packet context.now; action save-review/complete-rollover, expectedPlanHash, expectedPreviousHash (null if absent), expectedStateHash (null if absent), expectedInventoryHash; expectedReviewHash and reviewMarkdown for save-review; same page?/allMilestones? as preparation, dryRun? | Re-prepares sources/checkpoint evidence and validates the review draft/mapping or no-change rollover receipt; unrelated recovery permits review saves, affected/unknown recovery blocks the action; rejects invalid screens, stale templates/state, unresolved carry and wrong plan type |
-| project-index | vaultRoot, projectsRoot, dailyPlansRoot absolute; timezone; now?, ttlSeconds?, forceRefresh?, dryRun? | rebuilt/reused/preview, path, inventory, read metrics; disposable JSON cache only |
-| warm-project-index | dedicated flags: vault-root required; home-root optional; configuration-sources JSON; state-root and dry-run optional | Replays selected sources/null absences and established state, calls project-index without forceRefresh; compact status/counts/metrics only, disposable cache write at most |
-| invalidate-project-index | vaultRoot absolute, dryRun? | Invalidates freshness sidecar; no Markdown/state changes |
-| planning-review | inventory, userEmail, timezone; now?, selected?, selectedRecords?, mapping?, position?, page?, allMilestones?, pendingFutureIds? | All-owner scoped counts, selected/available rows with ownership metadata, stable mapping, diagnostics; one project per page; page/pageCount, position and reviewComplete; ordered across incomplete milestones in sequence |
-| plan-selection | resolved context including stateRoot, inventory and recovery from planning-prepare, taskIds, action add/move/remove, today; date for add/move | Proposed selection transfers/file targets and conflicts, including suspended records and overlapping source/destination plans or dated state; skill writes Markdown |
-| maintenance-status | resolved context inputs | Boolean inspectionDue, alwaysCheck; workerEvidence.status unsupported and fullReconcileDue null (not overdue/success); no write |
-| maintenance-inspect | resolved context inputs, dryRun? | Actual graph/navigation/baseline checks; saves CLI inspection JSON only; no worker success |
-| operation-verify | resolved context inputs, operationPath absolute | Actual effects and protected source checks; typed selection intent also reports persistedStatus and pending/conflicting owned state; no write |
-| operation-complete | same, appendEvent?, prepareNext?, page?, allMilestones?, dryRun? | Verified baseline save, optional `appendEvent: true` log append, automatic project-index cache invalidation, typed selection removal-history derivation across dates, checkpoint removal last, and optional `prepared` next planning packet when `prepareNext: true` |
-| rollover-complete | same, schemaV2 rollover checkpoint, appendEvent?, prepareNext?, page?, allMilestones?, dryRun? | Recomputed selections and identity checks before optional `appendEvent: true` log append, receipt/baseline/cache-invalidation/checkpoint completion, and optional `prepared` next planning packet when `prepareNext: true` |
-| inspect-navigation | projectsRoot absolute, dailyPlansRoot? | Local identity, heading and attachment diagnostics; no write |
-| next-record-number | projectsRoot absolute, type milestone/task/blocker, parentId | Next unused parent-local label from live records; number:null on ambiguity; no reservation |
-| parse-record | markdown, path? | Structured record; no write |
-| parse-checklist | markdown | Rows with ref IDs or candidate indication |
-| inspect-records | projectsRoot absolute | Canonical records and integrity diagnostics; ignores dot folders, rejects symlinks |
-| validate-records | records | Metadata/identity diagnostics |
-| check-links | records | Identity, path and reciprocal link diagnostics |
-| check-closure | recordId, records | allowed/reasons; no state transition |
-| reconcile-record | base, current, views | Proposed record, conflicts and changes; no write |
-| reopen-ancestors | records, changedIds | Proposed records and changedIds; no write |
-| recover-operation | operation:{changes:[{key,before,after}]}, actual:{key:value} | pending/already-applied/conflict |
-| carry-forward | rows, records, userEmail; inventory? with today | own/delegated/follow-up/unresolved selection, excludes terminal/future-selected work |
-| plan-rollover | today, planId, userEmail; currentRows?, state?, previousDate?, previousRows?, records?, inventory?, removedIds? | due/complete/conflict and merged selected rows with own/delegated/follow-up carry provenance; no writes |
-| log-append | projectsRoot, entry, dryRun? | Write-only decision append to active log segment |
-| log-archive | projectsRoot, dryRun? | Preserve current file in archives; next append starts new dated segment |
+| `daily_tasks_start_session` | `date?` (`YYYY-MM-DD`), `focus?` (`string`) | Parses Markdown workspace records, builds in-memory `StateGraph`, fetches unread messages via configured `CommunicationPort` connectors, runs deterministic pre-matching, generates suggestions, and returns `session_id` + Screen 1 (`payload.screen`). Performs no disk writes to work records. |
+| `daily_tasks_execute_operations` | `session_id`, `original_words`, `verdicts?` (`[{row, verdict, edits?}]`), `operations?` (`[Operation]`) | Validates and stages user verdicts (`accept`, `edit`, `reject`) and planning operations (`assign-to-day`, `unplan`, `set-status`, `reassign`) all-or-nothing in memory; returns updated `payload.screen`. |
+| `daily_tasks_advance_screen` | `session_id`, `target_screen` (`2` or `3`) | Advances to Screen 2 (per-project task day assignment) or Screen 3 (confirmation recap) and returns `payload.screen`. |
+| `daily_tasks_confirm_plan` | `session_id`, `confirmed` (`true`) | Applies staged record changes surgically via `LocalFileStore`, renders and writes `YYYY.MM.DD-daily-plan.md`, appends entries to `.nyssa-ai/daily-tasks/decision-log.json`, and persists fetch cursors. |
+| `daily_tasks_get_session_state` | `session_id` | Re-renders and returns the current session screen and staged state without side effects. |
+| `daily_tasks_cancel_session` | `session_id` | Discards the active in-memory session without modifying any disk records. |
 
-## Concurrency and locking
+## Decision log entry schema
 
-File operations that modify templates, state, or decision logs acquire an explicit lock directory. If a process stops abruptly, the lock surfaces its path and metadata. Confirm the recorded process has terminated before removing the lock directory during recovery. Never automatically remove or ignore active lock directories.
-
-## Planning-state payload construction
-
-After recovery/reconciliation and plan creation or updates, obtain a fresh `planning-prepare` packet. Assemble `planning-state` inputs directly from packet properties:
-
-```javascript
-const shared = {
-  vaultRoot: packet.context.vaultRoot,
-  configurationSources: packet.context.configurationSources,
-  stateRoot: packet.context.stateRoot,
-  homeRoot: packet.context.homeRoot,
-  preferenceOverrides: packet.context.preferenceOverrides,
-  now: packet.context.now,
-  page: prepareOptions.page,
-  allMilestones: prepareOptions.allMilestones,
-  expectedPlanHash: packet.current.sha256,
-  expectedPreviousHash: packet.previous?.sha256 ?? null,
-  expectedInventoryHash: packet.inventoryHash
-};
-
-const reviewInput = {
-  ...shared,
-  action: 'save-review',
-  expectedStateHash: packet.state.review.sha256,
-  expectedReviewHash: packet.reviewHash,
-  reviewMarkdown: draftedScreenMarkdown
-};
-
-const rolloverInput = {
-  ...shared,
-  action: 'complete-rollover',
-  expectedStateHash: packet.state.rollover.sha256
-};
-```
-
-Serialize the input as JSON in `.temp/` and execute:
-```bash
-node PACKAGE_ROOT/bin/daily-tasks.mjs planning-state --input ABSOLUTE_JSON_FILE --output ABSOLUTE_OUTPUT_JSON_FILE
-```
-
-Display the resulting `value.screen.markdown` unchanged. `complete-rollover` is used strictly for an eligible no-change rollover; changes to daily task membership require the full rollover operation flow.
-
-## Decision log input schema
-
-When appending an event using `log-append`, supply the following JSON schema:
+Decision log entries appended to `<stateRoot>/decision-log.json` follow `docs/specs/decision-log-entry.json`:
 
 ```json
 {
-  "projectsRoot": "/absolute/workspace/1-projects",
-  "entry": {
-    "id": "019a1234-5678-7abc-8def-0123456789ab",
-    "operation_id": "019a1234-5678-7abc-8def-0123456789ac",
-    "action": "task.accepted",
-    "record_ids": ["019a1234-5678-7abc-8def-0123456789ad"],
-    "actor": {"kind": "person", "id": "user@example.com"},
-    "activity_at": "2026-10-05T16:30:00.000Z",
-    "recorded_at": "2026-10-05T16:30:00.000Z",
-    "time_defaulted": false,
-    "original_words": "Accept this task",
-    "after": {"task-state": "not-started"}
-  }
+  "id": "019a1234-5678-7abc-8def-0123456789ab",
+  "session_id": "019a1234-5678-7abc-8def-0123456789ac",
+  "decided_at": "2026-11-03T16:30:00Z",
+  "origin": "suggestion",
+  "verdict": "accepted",
+  "original_words": "1 accept",
+  "target_ref": {
+    "kind": "task",
+    "id": "019a1234-5678-7abc-8def-0123456789ad"
+  },
+  "summary": "Accepted status change to completed"
 }
 ```

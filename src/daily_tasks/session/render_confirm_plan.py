@@ -43,15 +43,19 @@ def render_confirm_plan(state: SessionState) -> str:
     graph = state.state_graph
     rows = screen_rows(state.session, "s3")
     numbers = {ref.id: number for number, ref in rows}
-    user = graph.context.user.email
+    user_identifiers = {
+        graph.context.user.email.casefold(),
+        *([graph.context.user.name.casefold()] if graph.context.user.name else []),
+    }
     mine: list[list[str]] = []
     delegated: list[list[str]] = []
     blockers: list[list[str]] = []
     for number, ref in rows:
         if ref.kind == "task" and ref.id in graph.records.tasks:
             facts = graph.derived.tasks.get(ref.id)
-            assignee = facts.effective_assignee if facts is not None else graph.records.tasks[ref.id].assignee
-            target = mine if assignee == user else delegated
+            task = graph.records.tasks[ref.id]
+            assignee = facts.effective_assignee if facts is not None else (task.assignee or task.owner)
+            target = mine if (assignee and assignee.casefold() in user_identifiers) else delegated
             target.append(_task_row(graph, number, ref.id, numbers))
         elif ref.kind == "blocker" and ref.id in graph.records.blockers:
             blocker = graph.records.blockers[ref.id]

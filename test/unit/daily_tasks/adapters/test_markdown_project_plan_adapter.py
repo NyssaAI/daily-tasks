@@ -110,6 +110,10 @@ def test_fetch_projects_malformed_record_is_skipped_with_warning(tmp_path: Path)
         (f"{MILESTONE}/t2-broken.md", "unclosed-frontmatter"),
         (f"{MILESTONE}/t3-invalid.md", "invalid-record"),
     ]
+    assert [(m.path, m.code) for m in snapshot.malformed_records] == [
+        (f"{MILESTONE}/t2-broken.md", "unclosed-frontmatter"),
+        (f"{MILESTONE}/t3-invalid.md", "invalid-record"),
+    ]
 
 
 @pytest.mark.parametrize("folder", ["inputs", "outputs", ".trash"])

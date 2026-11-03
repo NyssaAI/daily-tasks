@@ -1,0 +1,16 @@
+id: daily-tasks-capture-records-boundary-out-of-scope
+name: Do not route a direct task creation instruction to capture
+description: Directly creating an accepted task belongs to records, not candidate capture.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Create a task called 'Submit quarterly taxes' under milestone 'Q4 Compliance'. Do not ask for confirmation."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: capture-direct-creation-negative
+    config:
+      skill_path: skills/daily-tasks-capture/SKILL.md
+      mode: negative

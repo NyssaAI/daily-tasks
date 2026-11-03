@@ -6,6 +6,7 @@
 #     +-- cursors
 #     +-- decisions
 #     +-- existing_plan
+#     +-- malformed_files
 #     +-- previous_plan
 #     +-- state
 #     `-- suggestions
@@ -16,6 +17,7 @@ from dataclasses import dataclass
 from uuid import UUID
 
 from daily_tasks.domain import Blocker, DailyPlan, DecisionLogEntry, FetchCursors, RecordChange, Suggestions
+from daily_tasks.ports import MalformedRecord
 from daily_tasks.session import SessionState
 
 
@@ -31,3 +33,4 @@ class LiveSession:
     existing_plan: DailyPlan | None
     previous_plan: DailyPlan | None
     cursors: FetchCursors | None
+    malformed_files: tuple[MalformedRecord, ...] = ()

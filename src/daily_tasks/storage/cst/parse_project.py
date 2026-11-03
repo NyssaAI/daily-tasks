@@ -13,6 +13,7 @@ from daily_tasks.domain import Project
 from daily_tasks.storage.cst.markdown_document import MarkdownDocument
 from daily_tasks.storage.cst.parse_error import ParseError
 from daily_tasks.storage.cst.record_fields import RecordFields
+from daily_tasks.storage.cst.split_table_cells import split_table_cells
 from daily_tasks.storage.cst.types import RecordLocation
 
 _PROJECT: Final[TypeAdapter[Project]] = TypeAdapter(Project)
@@ -50,6 +51,21 @@ def parse_project(document: MarkdownDocument, location: RecordLocation) -> Resul
         for s in document.sections
         if s.heading.level == 2 and s.heading.ref and _MILESTONE_HEADING.match(s.heading.title)
     )
+    if not milestone_ids:
+        summary_section = fields.section("Project Summary")
+        lines = (
+            document.lines[summary_section.heading.line_index + 1 : summary_section.end_index]
+            if summary_section
+            else document.lines
+        )
+        extracted: list[str] = []
+        for line in lines:
+            cells = split_table_cells(line.text)
+            if cells and cells[0].refs:
+                for ref in cells[0].refs:
+                    if ref not in extracted:
+                        extracted.append(ref)
+        milestone_ids = tuple(extracted)
     return RecordFields.validate(
         _PROJECT,
         {

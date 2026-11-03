@@ -1,0 +1,16 @@
+id: daily-tasks-setup-project-setup-not-done-in-scope
+name: Trigger setup when project setup is not already done
+description: When project setup is not already done, the request routes to Daily Tasks setup.
+tags:
+  - trigger
+  - positive
+inputs:
+  prompt: "My Daily Tasks project setup is not already done in this workspace. Please initialize the workspace profile and set up my project."
+expected:
+  should_trigger: true
+graders:
+  - type: trigger
+    name: setup-not-done-positive-trigger
+    config:
+      skill_path: skills/daily-tasks-setup/SKILL.md
+      mode: positive

@@ -1,16 +1,18 @@
 ---
 name: daily-tasks-checkin
-description: Run or resume an anytime personal check-in, reconcile Markdown edits and reported progress, resolve conflicts and candidates, and open or create today's local-day plan with carry-forward. Use when asked to check in, resume an interrupted check-in, reconcile manual edits, or review progress across work; apply accepted record changes through Records and daily selections through Plan.
+description: Run or resume an anytime personal check-in, reconcile Markdown edits and reported progress, resolve conflicts and candidates, fix malformed files, and open or create today's local-day plan with carry-forward. Use when asked to check in, resume an interrupted check-in, reconcile manual edits, repair malformed files, or review progress across work; apply accepted record changes through Records and daily selections through Plan.
 ---
 
 # Anytime check-in
 
-Resolve and reuse the existing profile/context using [Setup](../daily-tasks-setup/SKILL.md)
-when settings are unresolved or explicitly changed; configured users need no repeated
-setup. Load [planning flow](../daily-tasks/references/planning-flow.md) when preparing
-context/inventory and checking requested-use maintenance. Bind one workspace, projects
-root and daily-plan root throughout recovery and follow-up replies; shared personal
-preferences never combine workspace inventories/state. No router load is required.
+If project setup is not already done, trigger and run [Setup](../daily-tasks-setup/SKILL.md)
+first to establish workspace and project bindings. Resolve and reuse the existing
+profile/context when settings are unresolved or explicitly changed; configured users
+need no repeated setup. Load [planning flow](../daily-tasks/references/planning-flow.md)
+when preparing context/inventory and checking requested-use maintenance. Bind one
+workspace, projects root and daily-plan root throughout recovery and follow-up
+replies; shared personal preferences never combine workspace inventories/state.
+No router load is required.
 
 Load [operations](../daily-tasks/references/operations.md) before reconciliation,
 recovery or consequential writes, [CLI](../daily-tasks/references/cli.md) when invoking
@@ -23,9 +25,11 @@ identity or disposition of unresolved decisions.
 1. Recover pending operations using expected before/after values, `recover-operation`
    and `operation-verify`; finish unambiguous missing effects.
 2. Inspect relevant project/daily views and definitions against per-view baselines.
-   Run record/link validation, compare changed fields with `reconcile-record`, and
-   separate conflicts from safe deltas. Only affected items wait. Preserve missing
-   files/duplicate IDs and their references for explicit resolution. No global freeze.
+   Run record/link validation, compare changed fields with `reconcile-record`, separate
+   conflicts from safe deltas, and diagnose malformed files. If malformed files or unparseable
+   records are discovered, trigger [Records](../daily-tasks-records/SKILL.md) to surgically
+   repair them. Only affected items wait. Preserve missing files/duplicate IDs and their
+   references for explicit resolution. No global freeze.
 3. Capture progress reports: distinguish actual start/completion from assignment,
    enforce explicit creation acceptance and owner authority, keep activity and record
    time. If configured for `sources.autoScan` and the daily scan is due (no receipt
@@ -50,10 +54,11 @@ identity or disposition of unresolved decisions.
    after writes invalidate packet hashes. An existing file proves neither rollover
    nor successful check-in. Separate personal/delegated saved work; leave execution
    order to the person. No requirement to allocate every task; no timeframe fitting.
-   When the `daily-tasks` MCP server is connected, open today's plan with
-   `daily_tasks_start_session` and adjudicate message suggestions through
-   `daily_tasks_execute_operations` as in [daily planning](../daily-tasks-plan/SKILL.md);
-   only `daily_tasks_confirm_plan` after explicit confirmation writes records or the plan.
+   When the `daily-tasks` MCP server is connected, use it strictly via MCP tool calls (`daily_tasks_*`)
+   and never as a shell command. Open today's plan with `daily_tasks_start_session` and
+   adjudicate message suggestions through `daily_tasks_execute_operations` as in
+   [daily planning](../daily-tasks-plan/SKILL.md); only `daily_tasks_confirm_plan` after
+   explicit confirmation writes records or the plan.
 6. Revalidate affected records, links, closure/reopening effects and views, verify log
    appends, then save baselines. Report plan link, changes applied, and any pending
    conflicts/candidates. A check-in with unresolved items is resumable, not falsely complete.

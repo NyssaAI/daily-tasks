@@ -1,17 +1,20 @@
 ---
 name: daily-tasks-setup
-description: Set up or explicitly update Daily Tasks identity, timezone, priorities and storage locations. Use on first use or when the user changes personal planning preferences.
+description: Set up or explicitly update Daily Tasks identity, timezone, priorities and storage locations. Use on first use, when project setup is not already done (missing profile.json or workspace configuration), or when the user changes personal planning preferences.
 ---
 
 # Set up Daily Tasks
 
+Trigger setup whenever project setup is not already done (missing workspace profile or unresolved bindings like `projectsRoot`, `dailyPlansRelative`, `user.email`, or `timezone`), on first use, or upon explicit configuration change requests. If a planning, check-in, or record request arrives before project setup is complete, run this setup workflow first to establish the necessary profile layers before continuing the original request.
+
 Resolve configuration before asking questions. Load the
-[CLI](../daily-tasks/references/cli.md) for context/profile/log operations and
+[MCP / CLI interface](../daily-tasks/references/cli.md) for context/profile/server operations and
 [record conventions](../daily-tasks/references/records.md) for output bindings.
+Keep the user proactively informed of progress: alert the user clearly as each setup phase executes (checking profiles, detecting runtime/uv, registering MCP server, and setting up templates). Never run silent multi-command probe loops without status feedback.
 Use the host's established absolute workspace root or captured initial workspace
 binding and verified user home. A nested directory, plugin installation or later
 subprocess cwd cannot establish another project. Installation scope never determines
-preference scope. Paths passed to scripts are absolute.
+preference scope. Paths passed to tools and scripts are absolute.
 
 ## Read and select a write scope
 
@@ -20,17 +23,14 @@ Read both applicable levels: `<userHome>/.nyssa-ai/daily-tasks/profile.json` and
 accepted pointer; otherwise use canonical `.nyssa-ai`.
 Read exact paths without recursively scanning home. Diagnose malformed selected profiles.
 
-`resolve-context` returns `configurationSources: {schemaVersion: 1, user:
-{profilePath: ABSOLUTE_PATH_OR_NULL}, project: {profilePath: ABSOLUTE_PATH_OR_NULL}}`.
-Null records deliberate absence. Preserve this descriptor unchanged, together with
-workspaceRoot, homeRoot and stateRoot, for preparation, save, maintenance and recovery.
-Revalidate those roots on continuation. The returned configRoot can identify a write
-destination but cannot represent the complete layered read context.
+Preserve `configurationSources: {schemaVersion: 1, user: {profilePath: ABSOLUTE_PATH_OR_NULL},
+project: {profilePath: ABSOLUTE_PATH_OR_NULL}}` unchanged, together with
+`workspaceRoot`, `homeRoot` and `stateRoot`, for preparation, save, maintenance and recovery.
+Null records deliberate absence. Revalidate those roots on continuation.
 
 Explicit current-task choices override project preferences, which override user
 preferences. Pass supported one-off leaves in optional `preferenceOverrides` (without
-schema_version); preserve them through that request's continuation and never save them.
-The resolver reports winning preferenceSources and scoped writableScopes.
+`schema_version`); preserve them through that request's continuation and never save them.
 When home and workspace share storage, `sharedScopes` identifies the aliased
 destinations. A stored v2 document can supply both views: user reads use only
 preference leaves; binding fields apply only to its selected project view. This
@@ -66,7 +66,7 @@ user wants to keep that work; their chosen folder establishes the absolute works
 Do not use the plugin installation or an incidental current directory as that choice.
 Ask only for unresolved project-record and daily-plan locations, together when both are missing; offer
 `projects/` and `daily-plans/` under the chosen workspace as concrete choices.
-Persist the selected projectsRoot and dailyPlansRelative in the project layer and
+Persist the selected `projectsRoot` and `dailyPlansRelative` in the project layer and
 continue the original request. Explain that daily plans belong inside the workspace;
 an explicitly assigned projects collection may be outside it. Preserve existing
 bindings, including the packaged daily-plan default when already accepted.
@@ -90,11 +90,11 @@ Profiles use schema version 2 and may contain only the selected scope's values:
 For a project layer, add accepted project bindings, for example `workspaceRoot: "."`
 (with `vaultRoot: "."` as an accepted alias),
 `projectsRoot: "./1-projects"`, and `dailyPlansRelative: "2-areas/daily-plans"`.
-These are project-only bindings, never reusable user defaults. Resolve projectsRoot
+These are project-only bindings, never reusable user defaults. Resolve `projectsRoot`
 from an existing accepted collection; ask only if ambiguous. The default daily-plan
 output is `2-areas/daily-plans`.
 
-Supported preferences are partial `user.name`/`user.email`, timezone, priorities,
+Supported preferences are partial `user.name`/`user.email`, `timezone`, `priorities`,
 `templates.projectIndex`, `templates.dailyPlan`, `templates.milestone`,
 `templates.task`, `templates.planDayReview`, `projectIndex.ttlSeconds`, and
 `sources` (`autoScan`, `directories`, `mcps`). Directories must be workspace-relative
@@ -102,30 +102,24 @@ paths without traversal. Scalars and arrays replace; supported object leaves mer
 Template registration, inheritance, resets, and portable paths (`./`, `~/`, absolute)
 follow [custom templates](../daily-tasks/references/templates.md). For template
 update policies and snapshots, follow
-[template updates](../daily-tasks/references/template-updates.md). Use the selected
-scope's `template-state` operation; do not add unsupported policy fields to profile.json.
-Retained snapshots/choices live beside that profile under `templates/updates.json`.
-They are configuration assets, not workspace operating state. Registration and template
-adoption never authorize reformatting existing documents.
+[template updates](../daily-tasks/references/template-updates.md). Do not add unsupported
+policy fields to `profile.json`. Retained snapshots/choices live beside that profile under
+`templates/updates.json`. They are configuration assets, not workspace operating state.
+Registration and template adoption never authorize reformatting existing documents.
 
-Validate the stored layer with `validate-profile` before writing through normal file
-tools. Validate the effective task context separately before continuing workspace work.
 Missing project bindings do not prevent personal setup. Do not persist credentials,
 private message copies or cache paths. Keep configuration outside installed source.
-Check Node >=22 and CLI --help before invoking scripts.
 
 After workspace configuration resolves, follow
 [visible template placement](../daily-tasks/references/templates.md)
-for all five template kinds. Run `templatePlacement`, proactively place missing active
-templates in the workspace's templates directory, and record initial baselines via
-`template-state baseline`. Skills own those Markdown/profile writes; the CLI proposes
-placement and records baselines. Preserve existing pointers, null resets and destination
-files. Link the templates directory and registered files in setup results so the user
+for all five template kinds. Proactively place missing active templates in the workspace's
+templates directory and record initial baselines. Preserve existing pointers, null resets and
+destination files. Link the templates directory and registered files in setup results so the user
 can inspect/edit them. Personal-only setup needs no workspace templates.
 
 ## Operating state and output
 
-Configuration contains profile.json and optional templates. State contains workspace-local
+Configuration contains `profile.json` and optional templates. State contains workspace-local
 pending operations, completed rollover/removal history, candidates, review progress
 and reconciliation baselines. Daily Markdown plans and project records belong to their
 resolved output roots, never below either configuration root or state storage.
@@ -137,55 +131,42 @@ A preference-scope change never authorizes moving state or outputs.
 
 Report changed settings and their path. **Personal setup and updates complete without
 a project decision-log entry**, even in a workspace session; never replay them into a
-later project log or create a separate audit system. Project preference changes retain
-the log CLI behavior with empty record_ids. Report resolved timezone and separate
+later project log or create a separate audit system. Report resolved timezone and separate
 configuration/state/output roots when applicable. Create state only when needed.
 Setup authorizes no work creation or ownership changes. When reached
 from another request, continue that already-authorized work after resolving its scope.
 
 ## MCP server and connectors
 
+Setup must verify or register the planning MCP server in the host configuration so native `daily_tasks_*` tools are available.
+
+### Runtime detection (`uv` and `python`)
+Detect the execution environment using fast, single-step path lookups:
+- Check for `uv` using `where.exe uv` (Windows) or `which uv` (POSIX). **NEVER scan directories recursively across the filesystem for `uv.exe`**.
+- If `uv` is found: use `uv run daily-tasks-mcp` or `uv run python -m daily_tasks.server`.
+- If `uv` is missing: alert the user. Explain that `uv` is recommended for fast virtual environment management (can be installed via Astral: `powershell -c "irm https://astral.sh/uv/install.ps1 | iex"` on Windows or `curl -LsSf https://astral.sh/uv/install.sh | sh` on Unix), but setup will proceed using host `python` (>= 3.12) with `PYTHONPATH` pointed to `<pluginRoot>/src`.
+
+### Host MCP server registration
+Register or update the MCP server in the host agent:
+- For Antigravity / Gemini CLI: run `agy mcp add` or add to `~/.gemini/config/mcp_config.json`:
+  - With `uv`: `agy mcp add daily-tasks uv run --directory <pluginRoot> daily-tasks-mcp`
+  - With host Python: `agy mcp add --env "PYTHONPATH=<pluginRoot>/src" --env "DAILY_TASKS_LOG_LEVEL=Debug" daily-tasks python -m daily_tasks.server`
+- Confirm MCP server registration and tool readiness to the user.
+
 The planning MCP server runs over stdio as `daily-tasks-mcp` (or
-`python -m daily_tasks.server`) from the plugin root with `uv run`. Pass absolute
-`--workspace-root`; it reuses `user.email`, `user.name`, `timezone`, `projectsRoot` and
-`dailyPlansRelative` from `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json`, so ask only
+`python -m daily_tasks.server`) from the plugin root. It must ONLY be used via MCP tool calls;
+agents must never invoke it as a CLI command. Pass absolute
+`--workspace-root` (or rely on the workspace root cwd); it reuses `user.email`,
+`user.name`, `timezone`, `projectsRoot` and `dailyPlansRelative` from
+`<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json`, so ask only
 for values that are missing (`--user-email`, `--timezone` override them). Stdout carries
 only MCP JSON-RPC; logs go to stderr (`DAILY_TASKS_LOG_LEVEL`, optional `--log-file`).
 
 First-run Gmail sign-in is interactive and read-only (`gmail.readonly`): the user sets
 `GMAIL_CLIENT_ID` (and `GMAIL_CLIENT_SECRET` when the OAuth client has one) and runs
-`uv run python -m daily_tasks.auth.gmail --config-dir <userHome>/.nyssa-ai/daily-tasks`.
+`uv run python -m daily_tasks.auth.gmail --config-dir <userHome>/.nyssa-ai/daily-tasks`
+(or with `python -m daily_tasks.auth.gmail`).
 The grant is sealed in the keyring-backed configuration store; never ask for, print or
 write tokens or client secrets to Markdown, JSON profiles or chat. Gmail and Slack
 connectors are optional; a failing connector is reported on the screen and does not
 block planning.
-
-## Optional OpenClaw prewarm
-
-After project setup succeeds, an OpenClaw host with the separate
-`daily-tasks-openclaw` native adapter may offer project-index prewarming. Register it
-only when the user accepts the optional automation; setup of ordinary preferences does
-not imply consent. Default to one hour and use the user's explicit interval when given:
-
-```text
-openclaw daily-tasks setup-prewarm --workspace-root ABSOLUTE_WORKSPACE --home-root ABSOLUTE_HOME [--configuration-sources JSON] [--state-root ABSOLUTE_STATE] [--every 1h]
-```
-(`--vault-root` remains supported as an alias).
-
-Run `--dry-run` first when inspecting the declaration. The adapter reconciles by a
-scope-derived declaration key, uses exact command argv, starts no agent or model, and
-delivers no chat output. Verify the returned automation and its command payload.
-Re-running with another `--every` value updates the declaration; routine reconciliation
-preserves an operator-disabled job unless `--disabled` is explicitly supplied.
-For layered settings pass the returned `configurationSources` as one exact JSON argv
-value and the established `stateRoot`. Preserve explicit null source absences. Do not
-serialize effective preferences, one-off overrides, dates or clocks into the job.
-Changing source bindings creates a different
-declaration, not an update to the old job. When replacing a known job, show both scopes
-and obtain the user's explicit replacement choice; use OpenClaw's supported
-[disable/remove controls](https://docs.openclaw.ai/automation/cron-jobs/managing-jobs)
-for that job before registering its replacement. The adapter does not discover, delete
-or migrate other declarations. Reuse any replacement choice already supplied.
-Other hosts continue with on-demand behavior and need no adapter. Failure, disablement
-or removal of the automation never changes correctness: every inventory consumer still
-performs the TTL, local-date, scope, source-membership and metadata checks itself.

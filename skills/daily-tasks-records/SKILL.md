@@ -1,13 +1,14 @@
 ---
 name: daily-tasks-records
-description: Create explicitly requested or accepted projects, milestones and tasks; update progress, ownership, assignment, DoD, dependencies and external blockers; move, cancel or reopen records consistently. Use when asked to create named work, mark done, reassign, or change an existing record. A direct named create instruction supplies acceptance without another acceptance prompt.
+description: Create explicitly requested or accepted projects, milestones and tasks; update progress, ownership, assignment, DoD, dependencies and external blockers; fix or repair malformed record files; move, cancel or reopen records consistently. Use when asked to create named work, mark done, reassign, fix malformed files, or change an existing record. A direct named create instruction supplies acceptance without another acceptance prompt.
 ---
 
 # Manage records
 
 Read [records](../daily-tasks/references/records.md), [operation protocol](../daily-tasks/references/operations.md)
-and the needed [CLI operation](../daily-tasks/references/cli.md). Resolve profile and
-scope through [setup](../daily-tasks-setup/SKILL.md); reuse established settings and
+and the needed [CLI operation](../daily-tasks/references/cli.md). If project setup is not already done,
+trigger and run [setup](../daily-tasks-setup/SKILL.md) first to establish workspace and project bindings.
+Resolve profile and scope through setup; reuse established settings and
 conventional state paths without a separate setup approval. Continue the record request
 once required values are available.
 
@@ -57,11 +58,23 @@ once required values are available.
    lifecycle, owner/assignee, dependencies and blocker refs; update parent IDs and backlinks.
    Verify new location and links before removing old file; don't leave two live IDs.
    Unresolved work reopens completed destination parents, including across projects.
-9. Apply via operation protocol: checkpoint, Markdown changes, validation, log, refresh views,
-   baselines. Return exact changed links and remaining conflicts. Keep cancelled rows visible
-   with strike-through. Missing or duplicated files are conflicts, not new task creation.
-   For task status replies, verify canonical tasks, required parent effects and project
-   views before updating daily-plan views. A failed earlier effect retains the checkpoint.
+9. Fix malformed files: When a work record (project index, milestone, task, blocker) is malformed
+   (e.g., reported in `payload.malformed_files` by `daily_tasks_start_session` or `daily_tasks_get_session_state`,
+   detected during check-in, or identified directly by the user):
+   - Read the malformed file directly at the reported path.
+   - Inspect the error code and message (e.g. `unclosed-frontmatter`, `invalid-record`, missing UUID, non-canonical state like `state: done` instead of `task-state: completed` / `not-started`, missing title).
+   - Surgically repair the document according to [records and views](../daily-tasks/references/records.md) and domain specifications (`docs/specs/`).
+   - Preserve all user notes, body comments, checkboxes, and extra lines byte-for-byte.
+   - If the frontmatter is missing a UUID `id`, assign a new UUIDv7.
+   - Standardize the state field (`task-state` for tasks, `milestone-state` for milestones).
+   - Ensure the required frontmatter keys (`id`, `type`, `title`, `owner`, `task-state`/`milestone-state`, `record_version: 2`) and H1 `# <title>` are present.
+   - Retain and repair reciprocal project/milestone wiki-links and hidden `<!-- ref: UUID -->` comments.
+   - Validate the repaired record and report the surgical fixes applied.
+10. Apply via operation protocol: checkpoint, Markdown changes, validation, log, refresh views,
+    baselines. Return exact changed links and remaining conflicts. Keep cancelled rows visible
+    with strike-through. Missing or duplicated files are conflicts, not new task creation.
+    For task status replies, verify canonical tasks, required parent effects and project
+    views before updating daily-plan views. A failed earlier effect retains the checkpoint.
 
 After a committed batch changes canonical records or project/daily-plan projections,
 call `invalidate-project-index` with the resolved workspaceRoot immediately, including

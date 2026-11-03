@@ -2,6 +2,7 @@
 # Public interface:
 # `-- MarkdownProjectPlanAdapter
 #     +-- fetch_projects()
+#     +-- malformed_records
 #     +-- name
 #     `-- new(root, name, logger)
 """File-backed Project-Plan-Port: Markdown records under one projects root, parsed through the CST."""
@@ -17,7 +18,7 @@ from nyssa_ai_result import ErrorCategory, Ok, Result, fail, ok
 from daily_tasks.adapters.markdown_record_files import markdown_record_files
 from daily_tasks.adapters.markdown_record_kind import MarkdownRecordKind, markdown_record_kind
 from daily_tasks.domain import Blocker, Milestone, Project, Task
-from daily_tasks.ports import PortLogger, ProjectPlanSnapshot
+from daily_tasks.ports import MalformedRecord, PortLogger, ProjectPlanSnapshot
 from daily_tasks.storage.cst import (
     MarkdownDocument,
     ParseError,
@@ -58,22 +59,29 @@ class MarkdownProjectPlanAdapter:
         self._root = root
         self._name = name
         self._logger = logger
+        self._malformed_records: list[MalformedRecord] = []
 
     @property
     def name(self) -> str:
         """Configured source name."""
         return self._name
 
+    @property
+    def malformed_records(self) -> tuple[MalformedRecord, ...]:
+        """Malformed or unreadable records skipped during the most recent fetch."""
+        return tuple(self._malformed_records)
+
     async def fetch_projects(self) -> Result[ProjectPlanSnapshot]:
         """Return every parseable record below the root.
 
-        Malformed or unreadable records are skipped with a warning. Fails with `NotFound` when the
-        root does not exist and `Unavailable` when it cannot be listed.
+        Malformed or unreadable records are skipped with a warning and recorded in `malformed_records`.
+        Fails with `NotFound` when the root does not exist and `Unavailable` when it cannot be listed.
         """
         return await asyncio.to_thread(self._read)
 
     def _read(self) -> Result[ProjectPlanSnapshot]:
         started = time.monotonic()
+        self._malformed_records = []
         try:
             paths = markdown_record_files(self._root)
         except (FileNotFoundError, NotADirectoryError) as error:
@@ -98,6 +106,7 @@ class MarkdownProjectPlanAdapter:
             milestones=tuple(r for r in records["milestone"] if isinstance(r, Milestone)),
             tasks=tuple(r for r in records["task"] if isinstance(r, Task)),
             blockers=tuple(r for r in records["blocker"] if isinstance(r, Blocker)),
+            malformed_records=tuple(self._malformed_records),
         )
         fields: dict[str, object] = {kind: len(records[kind]) for kind in _ORDER}
         self._logger.info(
@@ -131,6 +140,9 @@ class MarkdownProjectPlanAdapter:
     def _skip(self, path: PurePosixPath, kind: str, code: str, detail: str) -> None:
         fields = {"source": self._name, "path": path.as_posix(), "kind": kind, "code": code, "detail": detail[:200]}
         self._logger.warn("record skipped", fields=fields, operation=_OPERATION)
+        self._malformed_records.append(
+            MalformedRecord(path=path.as_posix(), kind=kind, code=code, message=detail[:200])
+        )
 
     def _fail(
         self, message: str, category: ErrorCategory, error: OSError, started: float

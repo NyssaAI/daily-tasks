@@ -3,6 +3,7 @@
 # (none)
 """Markdown output of render_plan_the_day, render_assign_days and render_confirm_plan."""
 
+import dataclasses
 from datetime import UTC, datetime
 from uuid import UUID
 
@@ -21,6 +22,7 @@ from daily_tasks.session import (
     review_projects,
     start_session,
 )
+from daily_tasks.session.screen_rows import screen_rows
 
 NOW = datetime(2026, 11, 3, 14, 2, tzinfo=UTC)
 
@@ -118,3 +120,24 @@ def test_render_confirm_plan_groups_rows_numbered_from_one() -> None:
     assert _row(delegated, 3).endswith("| alex@example.com | — | waits on #2 |")
     assert "#2 Wire Gmail connector | jordan@example.com |" in _row(markdown, 4)
     assert markdown.rstrip().endswith("**Confirm today's plan?**")
+
+
+def test_render_confirm_plan_places_completed_user_task_in_my_work() -> None:
+    state = _value(finish_assign_days(_value(review_projects(_started(), NOW)), NOW))
+    # Find task 1 (Review Slack connector PR) owned by jordan@example.com
+    task_id = next(ref.id for num, ref in screen_rows(state.session, "s3") if num == 1)
+    task = state.state_graph.records.tasks[task_id]
+    completed_task = dataclasses.replace(task, state="completed", assignee=None)
+    new_tasks = {**state.state_graph.records.tasks, task_id: completed_task}
+    # Terminal tasks have no derived task facts
+    new_task_facts = {k: v for k, v in state.state_graph.derived.tasks.items() if k != task_id}
+    new_records = dataclasses.replace(state.state_graph.records, tasks=new_tasks)
+    new_derived = dataclasses.replace(state.state_graph.derived, tasks=new_task_facts)
+    new_graph = dataclasses.replace(state.state_graph, records=new_records, derived=new_derived)
+    new_state = dataclasses.replace(state, state_graph=new_graph)
+
+    markdown = render_confirm_plan(new_state)
+
+    my_work, delegated = markdown.split("## Delegated work")
+    assert "| 1 | [x] | Daily Tasks MCP Server | Planning session spike | Review Slack connector PR" in my_work
+    assert "Review Slack connector PR" not in delegated

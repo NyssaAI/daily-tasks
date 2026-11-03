@@ -2,6 +2,7 @@
 # Public interface:
 # `-- MarkdownDailyPlanAdapter
 #     +-- fetch_plans(around)
+#     +-- malformed_records
 #     +-- name
 #     `-- new(root, name, logger)
 """File-backed Daily-Plan-Port: `<root>/YYYY.MM.DD-daily-plan.md` records parsed through the CST."""
@@ -17,7 +18,7 @@ from typing import Final, final
 from nyssa_ai_result import ErrorCategory, Ok, Result, fail, ok
 
 from daily_tasks.domain import DailyPlan
-from daily_tasks.ports import PortLogger
+from daily_tasks.ports import MalformedRecord, PortLogger
 from daily_tasks.storage.cst import RecordLocation, parse_daily_plan, parse_markdown
 
 _OPERATION: Final = "daily_plan.fetch"
@@ -39,23 +40,30 @@ class MarkdownDailyPlanAdapter:
         self._root = root
         self._name = name
         self._logger = logger
+        self._malformed_records: list[MalformedRecord] = []
 
     @property
     def name(self) -> str:
         """Configured source name."""
         return self._name
 
+    @property
+    def malformed_records(self) -> tuple[MalformedRecord, ...]:
+        """Malformed or unreadable daily plans skipped during the most recent fetch."""
+        return tuple(self._malformed_records)
+
     async def fetch_plans(self, around: date) -> Result[tuple[DailyPlan, ...]]:
         """Return the plan dated `around` (when present) and the latest earlier plan, newest first.
 
-        A file whose name or content is malformed is skipped with a warning and the next earlier
-        plan is used. Fails with `NotFound` when the root does not exist and `Unavailable` when it
-        cannot be listed.
+        A file whose name or content is malformed is skipped with a warning and recorded in
+        `malformed_records`. Fails with `NotFound` when the root does not exist and `Unavailable`
+        when it cannot be listed.
         """
         return await asyncio.to_thread(self._read, around)
 
     def _read(self, around: date) -> Result[tuple[DailyPlan, ...]]:
         started = time.monotonic()
+        self._malformed_records = []
         try:
             with os.scandir(self._root) as entries:
                 names = [entry.name for entry in entries if entry.is_file()]
@@ -109,6 +117,11 @@ class MarkdownDailyPlanAdapter:
     def _skip(self, file_name: str, code: str, detail: str) -> None:
         fields = {"source": self._name, "path": file_name, "code": code, "detail": detail[:200]}
         self._logger.warn("daily plan skipped", fields=fields, operation=_OPERATION)
+        self._malformed_records.append(
+            MalformedRecord(
+                path=f"{self._root.name}/{file_name}", kind="daily_plan", code=code, message=detail[:200]
+            )
+        )
 
     def _fail(
         self, message: str, category: ErrorCategory, error: OSError, started: float

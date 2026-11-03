@@ -1,0 +1,16 @@
+id: daily-tasks-checkin-plan-boundary-out-of-scope
+name: Do not route pure daily planning to check-in
+description: Creating today's plan without reconciling manual edits belongs to plan, not check-in.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Plan my day from my configured Daily Tasks workspace and show me available choices without running a check-in."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: checkin-pure-plan-negative
+    config:
+      skill_path: skills/daily-tasks-checkin/SKILL.md
+      mode: negative

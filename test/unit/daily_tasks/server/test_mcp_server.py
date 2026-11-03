@@ -185,3 +185,29 @@ def test_cli_without_user_or_timezone_exits_2(tmp_path: Path) -> None:
     code = cli(["--workspace-root", str(tmp_path)], environ={}, stdin=io.StringIO(""), stdout=stdout)
 
     assert code == 2 and stdout.getvalue() == ""
+
+
+def test_start_session_surfaces_malformed_files(tmp_path: Path) -> None:
+    (tmp_path / "projects").mkdir()
+    (tmp_path / "projects/t1-broken.md").write_text("---\nid: 1\n", encoding="utf-8")
+    lines = [
+        {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+        {"jsonrpc": "2.0", "method": "notifications/initialized"},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "daily_tasks_start_session"}},
+    ]
+    stdin = io.StringIO("\n".join(json.dumps(line) for line in lines) + "\n")
+    stdout = io.StringIO()
+    argv = ["--workspace-root", str(tmp_path), "--user-email", "jordan@example.com", "--timezone", "UTC"]
+
+    code = cli(argv, environ={}, stdin=stdin, stdout=stdout)
+
+    assert code == 0
+    responses = [json.loads(line) for line in stdout.getvalue().splitlines()]
+    result = responses[1]["result"]["structuredContent"]
+    assert result["status"] == "ok"
+    assert "malformed or unreadable file(s) were skipped" in result["message"]
+    payload = result["payload"]
+    assert "malformed_files" in payload
+    assert len(payload["malformed_files"]) == 1
+    assert payload["malformed_files"][0]["path"] == "t1-broken.md"
+    assert payload["malformed_files"][0]["code"] == "unclosed-frontmatter"

@@ -132,10 +132,23 @@ class PlanningTools:
             existing_plan=read.existing_plan,
             previous_plan=read.previous_plan,
             cursors=read.cursors,
+            malformed_files=read.malformed_files,
         )
         sources: list[JsonValue] = [{"name": s.name, "status": s.status, "error": s.error} for s in read.sources]
+        malformed: list[JsonValue] = [
+            {"path": m.path, "kind": m.kind, "code": m.code, "message": m.message}
+            for m in read.malformed_files
+        ]
         message = f"Session started with {len(drafted.suggestions)} pending suggestions."
-        payload: ToolBody = {"pending_suggestions": len(drafted.suggestions), "message_sources": sources}
+        if read.malformed_files:
+            paths_preview = ", ".join(m.path for m in read.malformed_files)
+            count = len(read.malformed_files)
+            message += f" Notice: {count} malformed or unreadable file(s) were skipped: {paths_preview}."
+        payload: ToolBody = {
+            "pending_suggestions": len(drafted.suggestions),
+            "message_sources": sources,
+            "malformed_files": malformed,
+        }
         return tool_reply(tool, ok(message), started.value, _render(started.value), payload=payload)
 
     def get_session_state(self, session_id: str) -> ToolBody:
@@ -145,7 +158,15 @@ class PlanningTools:
         if not live.ok:
             return tool_reply(tool, live, None)
         state = live.value.state
-        payload: ToolBody = {"pending_suggestions": len(state.suggestions), "staged_changes": len(live.value.changes)}
+        malformed: list[JsonValue] = [
+            {"path": m.path, "kind": m.kind, "code": m.code, "message": m.message}
+            for m in live.value.malformed_files
+        ]
+        payload: ToolBody = {
+            "pending_suggestions": len(state.suggestions),
+            "staged_changes": len(live.value.changes),
+            "malformed_files": malformed,
+        }
         return tool_reply(tool, ok(f"Session is at {state.stage.value}."), state, _render(state), payload=payload)
 
     def execute_operations(

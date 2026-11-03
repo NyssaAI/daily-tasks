@@ -94,10 +94,12 @@ class MarkdownWorkspaceReader:
         messages, cursors, sources = await self._fetch(now)
         existing = next((p for p in daily_plans if p.local_date == local_date.value), None)
         previous = next((p for p in daily_plans if p.local_date < local_date.value), None)
+        malformed = (snapshot.malformed_records if snapshot is not None else ()) + plans.malformed_records
         fields: dict[str, object] = {
             "tasks": len(graph.value.records.tasks),
             "plans": len(daily_plans),
             "messages": len(messages),
+            "malformed": len(malformed),
             "elapsed_ms": round((time.monotonic() - started) * 1000, 3),
         }
         self._logger.info("workspace read", fields=fields, operation=_OPERATION)
@@ -110,6 +112,7 @@ class MarkdownWorkspaceReader:
                 messages=messages,
                 cursors=cursors,
                 sources=sources,
+                malformed_files=malformed,
             )
         )
 

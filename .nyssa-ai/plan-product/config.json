@@ -1,0 +1,44 @@
+{
+  "version": 2,
+  "paths": {
+    "repoRoot": ".",
+    "product": "docs/product.md",
+    "features": "docs/features.md",
+    "techStack": "docs/tech-stack.md",
+    "featureDocs": "docs/features",
+    "concepts": "docs/concepts",
+    "roadmap": "docs/roadmap.md",
+    "configSchema": ".nyssa-ai/plan-product/schema.json",
+    "templates": ".nyssa-ai/plan-product/templates",
+    "productTemplate": ".nyssa-ai/plan-product/templates/product.md",
+    "featuresTemplate": ".nyssa-ai/plan-product/templates/features.md",
+    "techStackTemplate": ".nyssa-ai/plan-product/templates/tech-stack.md",
+    "featureTemplate": ".nyssa-ai/plan-product/templates/feature.md",
+    "useCaseTemplate": ".nyssa-ai/plan-product/templates/use-case.md",
+    "conceptTemplate": ".nyssa-ai/plan-product/templates/concept.md",
+    "roadmapTemplate": ".nyssa-ai/plan-product/templates/roadmap.md"
+  },
+  "structure": {
+    "features": {
+      "inventory": "docs/features.md",
+      "root": "docs/features",
+      "idPattern": "F-gg.nn",
+      "folderPattern": "f-gg.nn",
+      "featureFile": "feature.md",
+      "featurePathPattern": "docs/features/f-gg.nn/feature.md",
+      "useCaseIdPattern": "UC-gg.nn.uu",
+      "useCaseFilePattern": "uc-gg.nn.uu-short-slug.md",
+      "useCasePathPattern": "docs/features/f-gg.nn/uc-gg.nn.uu-short-slug.md"
+    },
+    "concepts": {
+      "root": "docs/concepts",
+      "idPattern": "C-nn",
+      "filePattern": "c-nn-short-slug.md",
+      "pathPattern": "docs/concepts/c-nn-short-slug.md"
+    },
+    "roadmap": {
+      "file": "docs/roadmap.md",
+      "idPattern": "R-pp.ss"
+    }
+  }
+}
