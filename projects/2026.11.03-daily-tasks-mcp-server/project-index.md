@@ -70,14 +70,14 @@ Deterministic Python Model Context Protocol (MCP) server for the Daily Tasks pla
 
 
 
-## [>] M2.5: Storage CST Standards Alignment & In-Memory Secrets Architecture · 2026-11-17 <!-- ref: 01a1a2d0-c698-74c1-8867-99b2df28c504 -->
+## [x] M2.5: Storage CST Standards Alignment & In-Memory Secrets Architecture · 2026-11-17 <!-- ref: 01a1a2d0-c698-74c1-8867-99b2df28c504 -->
 
 | # | Task | Status | Assignee | Due Date |
 |---|---|---|---|---|
-| 25 | [[m2.5-secrets-and-encapsulation-refactor/t1-cst-storage-standards-alignment|Storage CST modules refactoring and PY-FILE naming alignment]] <!-- ref: 01a1a2d0-c698-7c5f-bf20-8d41e24c2442 --> | [ ] | sarah@example.com | 2026.11.16 |
-| 26 | [[m2.5-secrets-and-encapsulation-refactor/t2-in-memory-secrets-and-masking|In-memory secret holder, token provider, and sensitive field masking]] <!-- ref: 01a1a2d0-c698-7f13-b46a-45299030f034 --> | [ ] | alex@example.com | 2026.11.17 |
+| 25 | [[m2.5-secrets-and-encapsulation-refactor/t1-cst-storage-standards-alignment|Storage CST modules refactoring and PY-FILE naming alignment]] <!-- ref: 01a1a2d0-c698-7c5f-bf20-8d41e24c2442 --> | [x] | sarah@example.com | 2026.11.16 |
+| 26 | [[m2.5-secrets-and-encapsulation-refactor/t2-in-memory-secrets-and-masking|In-memory secret holder, token provider, and sensitive field masking]] <!-- ref: 01a1a2d0-c698-7f13-b46a-45299030f034 --> | [x] | alex@example.com | 2026.11.17 |
 
-## [ ] M3: Pluggable Ports & Communication Adapters · 2026-11-22 <!-- ref: 019a4b2c-2000-7000-8000-000000000004 -->
+## [>] M3: Pluggable Ports & Communication Adapters · 2026-11-22 <!-- ref: 019a4b2c-2000-7000-8000-000000000004 -->
 
 
 

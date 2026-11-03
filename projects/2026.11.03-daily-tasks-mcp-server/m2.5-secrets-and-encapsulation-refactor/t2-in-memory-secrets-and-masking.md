@@ -3,7 +3,7 @@ id: 01a1a2d0-c698-7f13-b46a-45299030f034
 type: task
 record_version: 2
 title: "In-memory secret holder, token provider, and sensitive field masking"
-task-state: not-started
+task-state: completed
 owner: "alex@example.com"
 assignee: "alex@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -31,9 +31,9 @@ Implement in-memory secret holding and masking primitives leveraging `nyssa-ai-c
 
 ## Definition of Done
 
-- [ ] `SecretString` wrapper prevents accidental leakage in `__repr__` and `__str__` <!-- id: 01a1a2d0-c698-7f13-b46a-45299030f035 -->
-- [ ] Port configuration models deprecate disk credentials path in favor of in-memory keyring resolution <!-- id: 01a1a2d0-c698-7f13-b46a-45299030f036 -->
-- [ ] Unit tests verify secret redaction and keyring resolution <!-- id: 01a1a2d0-c698-7f13-b46a-45299030f037 -->
+- [x] `SecretString` wrapper prevents accidental leakage in `__repr__` and `__str__` <!-- id: 01a1a2d0-c698-7f13-b46a-45299030f035 -->
+- [x] Port configuration models deprecate disk credentials path in favor of in-memory keyring resolution <!-- id: 01a1a2d0-c698-7f13-b46a-45299030f036 -->
+- [x] Unit tests verify secret redaction and keyring resolution <!-- id: 01a1a2d0-c698-7f13-b46a-45299030f037 -->
 
 ## Inputs
 

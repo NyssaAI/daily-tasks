@@ -3,7 +3,7 @@ id: 01a1a2d0-c698-7c5f-bf20-8d41e24c2442
 type: task
 record_version: 2
 title: "Storage CST modules refactoring and PY-FILE naming alignment"
-task-state: not-started
+task-state: completed
 owner: "sarah@example.com"
 assignee: "sarah@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -38,9 +38,9 @@ Refactor the modules in `src/daily_tasks/storage/cst/` so they strictly satisfy 
 
 ## Definition of Done
 
-- [ ] All modules under `src/daily_tasks/storage/cst/` conform to `PY-FILE` (filenames match primary class/function export) <!-- id: 01a1a2d0-c698-7c5f-bf20-8d41e24c2443 -->
-- [ ] Every file includes synchronized ASCII interface trees (`PY-HEADER`) <!-- id: 01a1a2d0-c698-7c5f-bf20-8d41e24c2444 -->
-- [ ] All 68 existing tests pass with 0 regressions <!-- id: 01a1a2d0-c698-7c5f-bf20-8d41e24c2445 -->
+- [x] All modules under `src/daily_tasks/storage/cst/` conform to `PY-FILE` (filenames match primary class/function export) <!-- id: 01a1a2d0-c698-7c5f-bf20-8d41e24c2443 -->
+- [x] Every file includes synchronized ASCII interface trees (`PY-HEADER`) <!-- id: 01a1a2d0-c698-7c5f-bf20-8d41e24c2444 -->
+- [x] All 68 existing tests pass with 0 regressions <!-- id: 01a1a2d0-c698-7c5f-bf20-8d41e24c2445 -->
 
 ## Inputs
 
