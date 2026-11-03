@@ -7,8 +7,9 @@ import re
 from datetime import date
 from typing import Final
 
-from daily_tasks.storage.cst.nodes import TableCell, TableRow
 from daily_tasks.storage.cst.parse_error import ParseError
+from daily_tasks.storage.cst.table_cell import TableCell
+from daily_tasks.storage.cst.table_row import TableRow
 from daily_tasks.storage.cst.types import PlanItemView
 
 _DATE: Final = re.compile(r"^(\d{4})\.(\d{2})\.(\d{2})$")
