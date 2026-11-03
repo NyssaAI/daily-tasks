@@ -1,7 +1,8 @@
-# Responsibility: Describe the planning tools the MCP server lists, with their JSON input schemas.
+# Responsibility: Describe the tools the MCP server lists, with their JSON input schemas.
 # Public interface:
+# +-- SECRET_TOOL_DEFINITIONS
 # `-- TOOL_DEFINITIONS
-"""MCP `tools/list` entries; argument names match `PlanningTools` method parameters."""
+"""MCP `tools/list` entries; argument names match `PlanningTools` and `SecretTools` method parameters."""
 
 from typing import Final
 
@@ -92,6 +93,29 @@ TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
             "type": "object",
             "properties": {"session_id": _SESSION_ID},
             "required": ["session_id"],
+            "additionalProperties": False,
+        },
+    },
+)
+
+SECRET_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
+    {
+        "name": "daily_tasks_capture_secret",
+        "description": "Open a one-time local browser page where the user types a secret (vault token, Gmail "
+        "client id/secret, Slack token) out-of-band. Waits for the user to submit it and returns only a receipt "
+        "(namespace, key, provider, stored_at); the secret never reaches the agent. Never ask for it in chat.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "namespace": {"type": "string", "description": "Configuration namespace, e.g. communication"},
+                "key": {"type": "string", "description": "Key within the namespace, e.g. gmail-client-secret"},
+                "prompt_message": {"type": "string", "description": "Optional heading shown on the entry page"},
+                "provider": {
+                    "type": "string",
+                    "description": "Optional preselected storage provider: aesLocal (default), literal or a vault",
+                },
+            },
+            "required": ["namespace", "key"],
             "additionalProperties": False,
         },
     },

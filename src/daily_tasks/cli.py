@@ -19,19 +19,25 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Final, TextIO
 
+from nyssa_ai_configuration import BootstrapOptions
+from nyssa_ai_result import Result
 from pydantic import JsonValue
 
+from daily_tasks.credentials import SecretCaptureService
 from daily_tasks.domain import GraphUser
 from daily_tasks.logging_setup import logging_setup
+from daily_tasks.ports import PortLogger
 from daily_tasks.server.markdown_workspace_reader import MarkdownWorkspaceReader
 from daily_tasks.server.mcp_server import McpServer
 from daily_tasks.server.new_uuid7 import new_uuid7
 from daily_tasks.server.planning_tools import PlanningTools
+from daily_tasks.server.secret_tools import SecretTools
 from daily_tasks.server.serve_stdio import serve_stdio
 from daily_tasks.server.types import ServerSettings
 from daily_tasks.storage.markdown_file_store import MarkdownFileStore
 
 _STATE: Final = Path(".nyssa-ai") / "daily-tasks"
+_APPLICATION_NAME: Final = "daily-tasks"
 
 
 def _utc_now() -> datetime:
@@ -79,6 +85,16 @@ def _settings(args: argparse.Namespace) -> ServerSettings | str:
     )
 
 
+def _secret_tools(config_dir: str, logger: PortLogger) -> SecretTools:
+    directory = str(Path(config_dir).expanduser().resolve())
+    options = BootstrapOptions(application_name=_APPLICATION_NAME, configuration_directory=directory)
+
+    def open_service() -> Result[SecretCaptureService]:
+        return SecretCaptureService.create(options, logger)
+
+    return SecretTools(open_service, logger)
+
+
 def _version() -> str:
     try:
         return version("daily-tasks")
@@ -111,7 +127,7 @@ def cli(
     )
     reader = MarkdownWorkspaceReader(settings, logger)
     tools = PlanningTools(settings, reader, store, logger, _utc_now, new_uuid7)
-    server = McpServer(tools, logger, _version())
+    server = McpServer(tools, logger, _version(), _secret_tools(args.config_dir, logger))
     logger.info("server started", fields={"version": _version()}, operation="mcp.start")
     return asyncio.run(serve_stdio(server, stdin or sys.stdin, stdout or sys.stdout))
 
@@ -131,6 +147,11 @@ def _parser(environ: Mapping[str, str]) -> argparse.ArgumentParser:
     parser.add_argument("--user-name", default=environ.get("DAILY_TASKS_USER_NAME"))
     parser.add_argument("--timezone", default=environ.get("DAILY_TASKS_TIMEZONE"), help="IANA timezone")
     parser.add_argument("--log-file", default=None, help="also write JSON log records to this file")
+    parser.add_argument(
+        "--config-dir",
+        default=str(Path.home() / ".nyssa-ai" / "daily-tasks"),
+        help="secret configuration directory (default: ~/.nyssa-ai/daily-tasks)",
+    )
     return parser
 
 

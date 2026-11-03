@@ -6,18 +6,23 @@
 import asyncio
 import io
 import json
+import threading
+import urllib.parse
+import urllib.request
 from collections.abc import Mapping
 from datetime import UTC, datetime
 from pathlib import Path
 from uuid import UUID
 
 import pytest
-from nyssa_ai_result import Result, fail
+from nyssa_ai_configuration import BootstrapOptions, KeyringInMemory, LoopbackSecretInputProvider
+from nyssa_ai_result import Ok, Result, fail, ok
 from pydantic import JsonValue
 
 from daily_tasks.cli import cli
+from daily_tasks.credentials import SecretCaptureService, SecretResolver
 from daily_tasks.domain import GraphUser
-from daily_tasks.server import McpServer, PlanningTools, ServerSettings, WorkspaceSnapshot
+from daily_tasks.server import McpServer, PlanningTools, SecretTools, ServerSettings, WorkspaceSnapshot
 from daily_tasks.storage.markdown_file_store import MarkdownFileStore
 
 NOW = datetime(2026, 11, 3, 14, 30, tzinfo=UTC)
@@ -48,7 +53,7 @@ class _UnavailableReader:
         return fail("projects root not found", "Unavailable")
 
 
-def _server(root: Path) -> McpServer:
+def _server(root: Path, secrets: SecretTools | None = None) -> McpServer:
     settings = ServerSettings(
         workspace_root=root,
         projects_root=root / "projects",
@@ -61,7 +66,7 @@ def _server(root: Path) -> McpServer:
     store = MarkdownFileStore(root, logger, lambda: NOW)
     new_id = lambda: UUID("019a4b2c-9000-7000-8000-000000000001")  # noqa: E731
     tools = PlanningTools(settings, _UnavailableReader(), store, logger, lambda: NOW, new_id)
-    return McpServer(tools, logger, "1.2.3")
+    return McpServer(tools, logger, "1.2.3", secrets)
 
 
 def _handle(server: McpServer, request: Mapping[str, JsonValue] | str) -> dict[str, JsonValue] | None:
@@ -211,3 +216,121 @@ def test_start_session_surfaces_malformed_files(tmp_path: Path) -> None:
     assert len(payload["malformed_files"]) == 1
     assert payload["malformed_files"][0]["path"] == "t1-broken.md"
     assert payload["malformed_files"][0]["code"] == "unclosed-frontmatter"
+
+
+SECRET = "bws-machine-token-0123456789"
+
+
+class _RecordingLogger(_QuietLogger):
+    def __init__(self) -> None:
+        self.records: list[tuple[str, str, Mapping[str, object]]] = []
+
+    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
+        self.records.append(("info", message, fields or {}))
+
+    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
+        self.records.append(("warn", message, fields or {}))
+
+
+class _NoBrowser:
+    def open_url(self, url: str) -> Result[None]:
+        return ok(None)
+
+
+def _secret_options(root: Path) -> BootstrapOptions:
+    return BootstrapOptions(
+        application_name="daily-tasks-test",
+        configuration_directory=str(root / "config"),
+        manifest_path=str(root / "manifest.json"),
+    )
+
+
+def _capture_call(arguments: Mapping[str, JsonValue]) -> dict[str, JsonValue]:
+    return {
+        "jsonrpc": "2.0",
+        "id": 7,
+        "method": "tools/call",
+        "params": {"name": "daily_tasks_capture_secret", "arguments": dict(arguments)},
+    }
+
+
+def test_tools_list_names_capture_secret_when_secret_tools_are_wired(tmp_path: Path) -> None:
+    secrets = SecretTools(lambda: fail("unused", "Unavailable"), _QuietLogger())
+
+    response = _handle(_server(tmp_path, secrets), {"jsonrpc": "2.0", "id": 1, "method": "tools/list"})
+
+    assert response is not None and isinstance(response["result"], dict)
+    tools = response["result"]["tools"]
+    assert isinstance(tools, list)
+    names = [t["name"] for t in tools if isinstance(t, dict)]
+    assert names[-1] == "daily_tasks_capture_secret" and len(names) == 7
+
+
+def test_capture_secret_tool_stores_secret_from_loopback_and_replies_with_receipt_only(tmp_path: Path) -> None:
+    keyring, logger, status = KeyringInMemory(), _RecordingLogger(), io.StringIO()
+    loopback = LoopbackSecretInputProvider(_NoBrowser(), status)
+
+    def open_service() -> Result[SecretCaptureService]:
+        return SecretCaptureService.create(_secret_options(tmp_path), logger, None, keyring, loopback, status)
+
+    def user_submits_form() -> None:
+        url = loopback.wait_for_url()
+        assert url is not None
+        form = {"session_token": loopback.session_token, "secret": SECRET, "confirm_secret": SECRET}
+        request = urllib.request.Request(url, data=urllib.parse.urlencode(form).encode(), method="POST")
+        with urllib.request.urlopen(request, timeout=5) as response:
+            response.read()
+
+    user = threading.Thread(target=user_submits_form)
+    user.start()
+    server = _server(tmp_path, SecretTools(open_service, logger, timeout_seconds=10))
+
+    response = _handle(server, _capture_call({"namespace": "vault", "key": "bws-access-token"}))
+    user.join(timeout=10)
+
+    assert response is not None and isinstance(response["result"], dict)
+    body = response["result"]["structuredContent"]
+    assert isinstance(body, dict) and body["status"] == "ok"
+    assert isinstance(body["payload"], dict) and isinstance(body["payload"]["receipt"], dict)
+    receipt = body["payload"]["receipt"]
+    assert set(receipt) == {"namespace", "key", "provider", "stored_at"}
+    assert (receipt["namespace"], receipt["key"], receipt["provider"]) == ("vault", "bws-access-token", "aesLocal")
+    assert SECRET not in json.dumps(response) + repr(logger.records) + status.getvalue()
+    disk = "\n".join(p.read_text(encoding="utf-8", errors="replace") for p in tmp_path.rglob("*") if p.is_file())
+    assert SECRET not in disk
+    resolver = SecretResolver.create(
+        "daily-tasks-test", str(tmp_path / "config"), logger, keyring, {}, str(tmp_path / "manifest.json")
+    )
+    assert isinstance(resolver, Ok)
+    resolved = resolver.value.resolve("vault", "bws-access-token")
+    assert isinstance(resolved, Ok) and resolved.value.reveal() == SECRET
+
+
+def test_capture_secret_tool_store_failure_is_tool_error(tmp_path: Path) -> None:
+    logger = _RecordingLogger()
+    secrets = SecretTools(lambda: fail("keyring locked", "Unavailable"), logger)
+
+    response = _handle(_server(tmp_path, secrets), _capture_call({"namespace": "communication", "key": "slack"}))
+
+    assert response is not None and isinstance(response["result"], dict)
+    assert response["result"]["isError"] is True
+    body = response["result"]["structuredContent"]
+    assert isinstance(body, dict)
+    assert (body["status"], body["code"], body["message"]) == ("error", "Unavailable", "keyring locked")
+    assert logger.records[-1][0:2] == ("warn", "secret not captured")
+
+
+def test_capture_secret_tool_missing_key_is_invalid_params(tmp_path: Path) -> None:
+    secrets = SecretTools(lambda: fail("unused", "Unavailable"), _QuietLogger())
+
+    response = _handle(_server(tmp_path, secrets), _capture_call({"namespace": "communication"}))
+
+    assert response is not None and isinstance(response["error"], dict)
+    assert response["error"]["code"] == -32602
+
+
+def test_capture_secret_tool_is_unknown_without_secret_tools(tmp_path: Path) -> None:
+    response = _handle(_server(tmp_path), _capture_call({"namespace": "communication", "key": "slack"}))
+
+    assert response is not None and isinstance(response["error"], dict)
+    assert response["error"]["code"] == -32602

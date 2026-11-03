@@ -411,7 +411,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "langchain-core" },
-    { name = "nyssa-ai-configuration" },
+    { name = "nyssa-ai-configuration", specifier = ">=0.5.0" },
     { name = "nyssa-ai-logging" },
     { name = "nyssa-ai-result" },
     { name = "pydantic", specifier = ">=2.10" },
@@ -773,15 +773,15 @@ wheels = [
 
 [[package]]
 name = "nyssa-ai-configuration"
-version = "0.4.0"
+version = "0.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cryptography" },
     { name = "nyssa-ai-result" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/27/99/fc969bc74a26c2a89b04f2dd247aae595d27aa1c4cd14fdc631d93baf9b5/nyssa_ai_configuration-0.4.0.tar.gz", hash = "sha256:462e37bb1297ce93815420631a98c738bb8dae0903f46bd1678009e759d7fa5c", size = 76503, upload-time = "2026-11-02T23:54:39.099Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ee/df/b94cf581dd75612dce3ef685d4a43dd74494f257ff8b5e1b737615379479/nyssa_ai_configuration-0.5.0.tar.gz", hash = "sha256:5618110528311c3091ecd03819501553a01e117124c61867d3029200f2bf2a7b", size = 85589, upload-time = "2026-11-03T23:39:20.914Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/cf/3c/e03448839d12d02fcd4b7b5a399ae9f52a1d3150c0c992a4012a5042bede/nyssa_ai_configuration-0.4.0-py3-none-any.whl", hash = "sha256:933e80a2325f4b43cce8704b2056907aa713450882990b40bb2a2f1985b59076", size = 86240, upload-time = "2026-11-02T23:54:37.508Z" },
+    { url = "https://files.pythonhosted.org/packages/2b/84/d5f2805f1e8ffa3d0e73a262fd6bc987acb7d70c8889bc40824ff1c0a02f/nyssa_ai_configuration-0.5.0-py3-none-any.whl", hash = "sha256:09fc4ca4f9cb3c8a3b52729835c8c24ca7e3acfc399495839b0619046d37ce9f", size = 97782, upload-time = "2026-11-03T23:39:19.581Z" },
 ]
 
 [[package]]
