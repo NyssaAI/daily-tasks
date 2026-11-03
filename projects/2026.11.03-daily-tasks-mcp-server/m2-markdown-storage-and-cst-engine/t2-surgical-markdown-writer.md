@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-00000000000c
 type: task
 record_version: 2
 title: "Surgical CST writer and DoD checkbox toggling"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -31,9 +31,9 @@ Implement the surgical CST writer component for applying validated record change
 
 ## Definition of Done
 
-- [ ] Surgical writer toggles individual checklist items by ID without modifying any other lines <!-- id: 019a4b2c-2000-7000-8000-000000000012 -->
-- [ ] Frontmatter updates alter only targeted scalar values and `updated_at` timestamps <!-- id: 019a4b2c-2000-7000-8000-000000000013 -->
-- [ ] Zero diff property test verifies unedited lines, trailing whitespace, and line-endings (LF/CRLF) remain intact <!-- id: 019a4b2c-2000-7000-8000-000000000014 -->
+- [x] Surgical writer toggles individual checklist items by ID without modifying any other lines <!-- id: 019a4b2c-2000-7000-8000-000000000012 -->
+- [x] Frontmatter updates alter only targeted scalar values and `updated_at` timestamps <!-- id: 019a4b2c-2000-7000-8000-000000000013 -->
+- [x] Zero diff property test verifies unedited lines, trailing whitespace, and line-endings (LF/CRLF) remain intact <!-- id: 019a4b2c-2000-7000-8000-000000000014 -->
 
 ## Inputs
 

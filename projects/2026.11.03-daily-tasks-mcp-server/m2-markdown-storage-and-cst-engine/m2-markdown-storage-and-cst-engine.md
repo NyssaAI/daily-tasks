@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-000000000003
 type: milestone
 record_version: 2
 title: "Markdown Storage & CST Engine"
-milestone-state: in-progress
+milestone-state: completed
 project_id: "019a4b2c-2000-7000-8000-000000000001"
 created_at: "2026-11-03T11:30:00Z"
 updated_at: "2026-11-03T11:30:00Z"
@@ -12,7 +12,7 @@ resolved_at: null
 target_date: "2026-11-15"
 tags: ["cst", "markdown", "parser", "writer", "obsidian"]
 ---
-# [>] M2: Markdown Storage & CST Engine · 2026-11-15
+# [x] M2: Markdown Storage & CST Engine · 2026-11-15
 
 **Project:** [[../project-index|Daily Tasks Python MCP Server]] <!-- ref: 019a4b2c-2000-7000-8000-000000000001 -->
 
@@ -30,9 +30,9 @@ Build the Concrete Syntax Tree (CST) parser and surgical writer for Obsidian-com
 
 | # | Task | Status | Assignee | Due Date |
 |---|---|---|---|---|
-| 4 | [[t1-frontmatter-and-checklist-parser\|Scalar frontmatter, checklist ID, and wiki-link parser]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000b --> | [ ] | jordan@example.com | 2026.11.11 |
-| 5 | [[t2-surgical-markdown-writer\|Surgical CST writer and DoD checkbox toggling]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000c --> | [ ] | jordan@example.com | 2026.11.13 |
-| 6 | [[t3-daily-plan-generator\|Daily plan Markdown generator and template parity]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000d --> | [ ] | jordan@example.com | 2026.11.15 |
+| 4 | [[t1-frontmatter-and-checklist-parser\|Scalar frontmatter, checklist ID, and wiki-link parser]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000b --> | [x] | jordan@example.com | 2026.11.11 |
+| 5 | [[t2-surgical-markdown-writer\|Surgical CST writer and DoD checkbox toggling]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000c --> | [x] | jordan@example.com | 2026.11.13 |
+| 6 | [[t3-daily-plan-generator\|Daily plan Markdown generator and template parity]] <!-- ref: 019a4b2c-2000-7000-8000-00000000000d --> | [x] | jordan@example.com | 2026.11.15 |
 
 ## Blockers
 
@@ -40,4 +40,4 @@ None
 
 ## Status Legend
 
-`[ ]` not started · `[>]` in progress · `[x]` completed · `[-]` cancelled
+`[ ]` not started · `[x]` in progress · `[x]` completed · `[-]` cancelled

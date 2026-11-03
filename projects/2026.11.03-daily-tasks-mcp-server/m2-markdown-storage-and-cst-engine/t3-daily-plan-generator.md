@@ -3,7 +3,7 @@ id: 019a4b2c-2000-7000-8000-00000000000d
 type: task
 record_version: 2
 title: "Daily plan Markdown generator and template parity"
-task-state: not-started
+task-state: completed
 owner: "jordan@example.com"
 assignee: "jordan@example.com"
 project_id: "019a4b2c-2000-7000-8000-000000000001"
@@ -33,9 +33,9 @@ The generator must:
 
 ## Definition of Done
 
-- [ ] Generates daily plan Markdown with identical structure, headers, and column names as `8-sample-daily-plan.md` <!-- id: 019a4b2c-2000-7000-8000-000000000015 -->
-- [ ] Escapes table wiki-links correctly (`[[path\|alias]]`) and preserves all comment references <!-- id: 019a4b2c-2000-7000-8000-000000000016 -->
-- [ ] Round-trip test: Generated Markdown can be parsed back into an equivalent `DailyPlan` DTO <!-- id: 019a4b2c-2000-7000-8000-000000000017 -->
+- [x] Generates daily plan Markdown with identical structure, headers, and column names as `8-sample-daily-plan.md` <!-- id: 019a4b2c-2000-7000-8000-000000000015 -->
+- [x] Escapes table wiki-links correctly (`[[path\|alias]]`) and preserves all comment references <!-- id: 019a4b2c-2000-7000-8000-000000000016 -->
+- [x] Round-trip test: Generated Markdown can be parsed back into an equivalent `DailyPlan` DTO <!-- id: 019a4b2c-2000-7000-8000-000000000017 -->
 
 ## Inputs
 
