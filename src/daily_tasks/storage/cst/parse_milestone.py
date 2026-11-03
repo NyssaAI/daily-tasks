@@ -10,7 +10,7 @@ from nyssa_ai_result import Result
 from pydantic import TypeAdapter
 
 from daily_tasks.domain import Milestone
-from daily_tasks.storage.cst.nodes import MarkdownDocument
+from daily_tasks.storage.cst.markdown_document import MarkdownDocument
 from daily_tasks.storage.cst.parse_error import ParseError
 from daily_tasks.storage.cst.record_fields import RecordFields
 from daily_tasks.storage.cst.types import RecordLocation

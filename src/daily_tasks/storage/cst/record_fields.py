@@ -20,8 +20,10 @@ from typing import Final
 from nyssa_ai_result import Result, fail_error, ok
 from pydantic import TypeAdapter, ValidationError
 
-from daily_tasks.storage.cst.nodes import MarkdownDocument, ScalarValue, Section
+from daily_tasks.storage.cst.markdown_document import MarkdownDocument
 from daily_tasks.storage.cst.parse_error import ParseError
+from daily_tasks.storage.cst.scalar_value import ScalarValue
+from daily_tasks.storage.cst.section import Section
 from daily_tasks.storage.cst.split_table_cells import extract_refs, strip_comments
 
 WORK_MARKS: Final[Mapping[str, str]] = {

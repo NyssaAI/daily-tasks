@@ -6,8 +6,8 @@
 import re
 from typing import Final
 
-from daily_tasks.storage.cst.nodes import TableRow
 from daily_tasks.storage.cst.parse_error import ParseError
+from daily_tasks.storage.cst.table_row import TableRow
 from daily_tasks.storage.cst.types import PlanBlockerView
 
 _BLOCKS: Final = re.compile(r"\s*Blocks (#\d+(?:, #\d+)*)\.$")

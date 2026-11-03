@@ -10,7 +10,8 @@
 import re
 from typing import Final
 
-from daily_tasks.storage.cst.nodes import TableCell, WikiLink
+from daily_tasks.storage.cst.table_cell import TableCell
+from daily_tasks.storage.cst.wiki_link import WikiLink
 
 _ID: Final = re.compile(r"<!--\s*id:\s*(\S+)\s*-->")
 _REF: Final = re.compile(r"<!--\s*ref:\s*(\S+)\s*-->")

@@ -1,7 +1,6 @@
 # Responsibility: Parse Markdown text into a lossless concrete syntax tree.
 # Public interface:
-# +-- parse_markdown(text)
-# `-- split_lines(text)
+# `-- parse_markdown(text)
 """Lossless CST parser for frontmatter, headings, checklist items and table rows."""
 
 import re
@@ -9,30 +8,21 @@ from typing import Final
 
 from nyssa_ai_result import Ok, Result, fail_error, ok
 
-from daily_tasks.storage.cst.nodes import ChecklistItem, Heading, MarkdownDocument, Section, SourceLine, TableRow
+from daily_tasks.storage.cst.checklist_item import ChecklistItem
+from daily_tasks.storage.cst.heading import Heading
+from daily_tasks.storage.cst.markdown_document import MarkdownDocument
 from daily_tasks.storage.cst.parse_error import ParseError
 from daily_tasks.storage.cst.parse_frontmatter import parse_frontmatter
+from daily_tasks.storage.cst.section import Section
+from daily_tasks.storage.cst.split_lines import split_lines
 from daily_tasks.storage.cst.split_table_cells import extract_id, extract_refs, split_table_cells, strip_comments
+from daily_tasks.storage.cst.table_row import TableRow
 
-_LINE: Final = re.compile(r"([^\r\n]*)(\r\n|\n|\r|$)")
 _HEADING: Final = re.compile(r"^(#{1,6})[ \t]+(.*?)[ \t]*$")
 _CHECKLIST: Final = re.compile(r"^[ \t]*[-*+][ \t]+\[(.)\][ \t]+(.*)$")
 _TABLE_DELIMITER: Final = re.compile(r"^\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)*\|?\s*$")
 _FENCE: Final = re.compile(r"^[ \t]*(```|~~~)")
 _MARKS: Final = frozenset(" x>-")
-
-
-def split_lines(text: str) -> tuple[SourceLine, ...]:
-    """Split text into lines that keep their own terminator; joining them restores `text` exactly."""
-    lines: list[SourceLine] = []
-    position = 0
-    while position < len(text):
-        match = _LINE.match(text, position)
-        if match is None:  # pragma: no cover - the pattern always matches
-            break
-        lines.append(SourceLine(text=match.group(1), ending=match.group(2)))
-        position = match.end()
-    return tuple(lines)
 
 
 def _heading(text: str, index: int) -> Heading | None:

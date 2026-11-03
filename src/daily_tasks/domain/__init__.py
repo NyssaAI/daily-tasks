@@ -71,6 +71,7 @@ from daily_tasks.domain.record_source_status import RecordSourceStatus
 from daily_tasks.domain.rollover import Rollover
 from daily_tasks.domain.row_ref import RowRef
 from daily_tasks.domain.screen import Screen
+from daily_tasks.domain.secret_string import SecretString
 from daily_tasks.domain.set_status import SetStatus
 from daily_tasks.domain.source_binding import SourceBinding
 from daily_tasks.domain.spec_ref import SpecRef
@@ -170,6 +171,7 @@ __all__ = [
     "Rollover",
     "RowRef",
     "Screen",
+    "SecretString",
     "SetStatus",
     "SourceBinding",
     "SpecRef",

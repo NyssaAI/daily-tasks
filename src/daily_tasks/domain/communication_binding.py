@@ -16,14 +16,14 @@
 #     `-- token_env_var
 """CommunicationBinding DTO."""
 
-from pydantic import MISSING
+from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass
 from daily_tasks.domain.dto_config import DTO_CONFIG
 
 
 @dataclass(frozen=True, slots=True, kw_only=True, config=DTO_CONFIG)
 class CommunicationBinding:
-    """Read-only communication source bound to an adapter."""
+    """Read-only communication source bound to an adapter; `credentials_file` is deprecated."""
 
     name: str
     adapter: str
@@ -31,7 +31,10 @@ class CommunicationBinding:
     package: str
     read_only: bool
     scopes: tuple[str, ...]
-    credentials_file: str | MISSING = MISSING
+    credentials_file: str | MISSING = Field(
+        default=MISSING,
+        deprecated="Use token_env_var or a keyring-sealed configuration entry resolved by SecretResolver.",
+    )
     token_env_var: str | MISSING = MISSING
     channels: tuple[str, ...] | MISSING = MISSING
     fetch_limit: int
