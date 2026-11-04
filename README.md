@@ -61,6 +61,9 @@ first. Malformed files and unparseable records trigger surgical repairs (`skills
 # Host registration / direct server launch:
 uv run daily-tasks-mcp --workspace-root /absolute/workspace
 uv run python -m daily_tasks.server --workspace-root /absolute/workspace
+# Out-of-band secrets (masked prompt or loopback page; never pasted into chat):
+uv run python -m daily_tasks.auth.secret gmail
+uv run python -m daily_tasks.auth.secret vault --name bws --kind bitwarden-secrets --project-id ID
 # Gmail OAuth setup:
 uv run python -m daily_tasks.auth.gmail --config-dir /absolute/home/.nyssa-ai/daily-tasks
 ```

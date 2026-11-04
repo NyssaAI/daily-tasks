@@ -3,7 +3,7 @@
 # `-- McpServer
 #     +-- PROTOCOL_VERSION
 #     +-- handle(message)
-#     `-- new(tools, logger, version)
+#     `-- new(tools, logger, version, secrets)
 """Transport-free MCP protocol handling: `initialize`, `ping`, `tools/list` and `tools/call`."""
 
 import json
@@ -15,14 +15,14 @@ from pydantic import JsonValue
 
 from daily_tasks.ports import PortLogger
 from daily_tasks.server.planning_tools import PlanningTools, ToolBody
-from daily_tasks.server.tool_definitions import TOOL_DEFINITIONS
+from daily_tasks.server.secret_tools import SecretTools
+from daily_tasks.server.tool_definitions import SECRET_TOOL_DEFINITIONS, TOOL_DEFINITIONS
 
 _OPERATION: Final = "mcp.request"
 _PARSE_ERROR: Final = -32700
 _INVALID_REQUEST: Final = -32600
 _METHOD_NOT_FOUND: Final = -32601
 _INVALID_PARAMS: Final = -32602
-_TOOL_NAMES: Final = frozenset(str(tool["name"]) for tool in TOOL_DEFINITIONS)
 
 
 def _error(request_id: JsonValue, code: int, message: str) -> dict[str, JsonValue]:
@@ -47,11 +47,19 @@ class McpServer:
 
     PROTOCOL_VERSION: ClassVar[str] = "2025-06-18"
 
-    def __init__(self, tools: PlanningTools, logger: PortLogger, version: str) -> None:
-        """Keep the collaborators; `version` is reported as `serverInfo.version`."""
+    def __init__(
+        self, tools: PlanningTools, logger: PortLogger, version: str, secrets: SecretTools | None = None
+    ) -> None:
+        """Keep the collaborators; `version` is reported as `serverInfo.version`.
+
+        `daily_tasks_capture_secret` is listed and callable only when `secrets` is supplied.
+        """
         self._tools = tools
         self._logger = logger
         self._version = version
+        self._secrets = secrets
+        self._definitions = (*TOOL_DEFINITIONS, *(SECRET_TOOL_DEFINITIONS if secrets is not None else ()))
+        self._tool_names = frozenset(str(tool["name"]) for tool in self._definitions)
 
     async def handle(self, message: str) -> str | None:
         """Return the JSON-RPC response line for `message`, or None for notifications."""
@@ -99,12 +107,12 @@ class McpServer:
         if method == "ping":
             return {"jsonrpc": "2.0", "id": request_id, "result": {}}
         if method == "tools/list":
-            return {"jsonrpc": "2.0", "id": request_id, "result": {"tools": list(TOOL_DEFINITIONS)}}
+            return {"jsonrpc": "2.0", "id": request_id, "result": {"tools": list(self._definitions)}}
         if method != "tools/call":
             return _error(request_id, _METHOD_NOT_FOUND, f"Method not found: {method}")
         name = params.get("name")
         arguments = params.get("arguments") or {}
-        if not isinstance(name, str) or name not in _TOOL_NAMES or not isinstance(arguments, dict):
+        if not isinstance(name, str) or name not in self._tool_names or not isinstance(arguments, dict):
             return _error(request_id, _INVALID_PARAMS, f"Unknown tool: {name}")
         body = await self._call(name, arguments)
         if body is None:
@@ -116,6 +124,12 @@ class McpServer:
 
     async def _call(self, name: str, arguments: Mapping[str, JsonValue]) -> ToolBody | None:
         tools = self._tools
+        if name == SecretTools.TOOL and self._secrets is not None:
+            namespace, key = _string(arguments, "namespace"), _string(arguments, "key")
+            if not namespace or not key:
+                return None
+            prompt, provider = _string(arguments, "prompt_message"), _string(arguments, "provider")
+            return await self._secrets.capture_secret(namespace, key, prompt, provider)
         if name == "daily_tasks_start_session":
             return await tools.start_session(_string(arguments, "date"), _string(arguments, "focus"))
         session_id = _string(arguments, "session_id")

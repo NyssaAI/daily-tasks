@@ -43,3 +43,9 @@ Follow this 5-step protocol before any consequential Markdown write or recovery:
 - **Independent field edits**: Safe changes to distinct fields are merged.
 - **Conflicting field edits**: Conflicting edits to the same field preserve both values as a durable conflict requiring explicit user resolution. Do not silently overwrite edits using file modification times.
 - **Lock recovery**: If a process terminates mid-operation leaving an active `.lock` directory, verify the owning process has exited before removing only that specific lock directory.
+
+## Credentials are out of band
+
+Credentials never enter Markdown records, checkpoints, the decision log, profiles or chat. Secret
+capture (`daily_tasks_capture_secret` or `python -m daily_tasks.auth.secret`) writes only to the
+keyring-protected configuration store and returns a receipt; it creates no checkpoint or decision-log event.

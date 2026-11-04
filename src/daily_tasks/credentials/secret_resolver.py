@@ -1,7 +1,7 @@
 # Responsibility: Resolve adapter secrets into memory from the environment or the keyring-protected configuration.
 # Public interface:
 # `-- SecretResolver
-#     +-- create(application_name, configuration_directory, logger, keyring, environ, manifest_path)
+#     +-- create(application_name, configuration_directory, logger, keyring, environ, manifest_path, vault, vaults)
 #     +-- new(reader, logger, environ)
 #     `-- resolve(namespace, key, env_var)
 """Runtime secret resolution: plaintext stays in process memory inside a `SecretString`."""
@@ -11,10 +11,11 @@ import time
 from collections.abc import Mapping
 from typing import final
 
-from nyssa_ai_configuration import BootstrapOptions, ConfigurationClient, ConfigurationReader, Keyring
+from nyssa_ai_configuration import BootstrapOptions, ConfigurationClient, ConfigurationReader, Keyring, VaultOptions
 from nyssa_ai_result import Result, fail, ok
 
 from daily_tasks.credentials.secret_logger import SecretLogger
+from daily_tasks.credentials.vault_registry import VaultRegistry
 from daily_tasks.domain.secret_string import SecretString
 
 _OPERATION = "secrets.resolve"
@@ -43,18 +44,24 @@ class SecretResolver:
         keyring: Keyring | None = None,
         environ: Mapping[str, str] | None = None,
         manifest_path: str | None = None,
+        vault: VaultOptions | None = None,
+        vaults: VaultRegistry | None = None,
     ) -> Result["SecretResolver"]:
         """Open the configuration store; `keyring=None` lets the library pick `KeyringDefault` on desktops.
 
-        Pass `KeyringInMemory` for tests; `environ=None` reads `os.environ`.
+        Pass `KeyringInMemory` for tests; `environ=None` reads `os.environ`. Vault entries resolve through the
+        factories of `vaults` (default: `VaultRegistry.default()`); `vault` applies only when the
+        manifest has no vault for the application yet.
         Fails with the configuration bootstrap error.
         """
+        registry = vaults if vaults is not None else VaultRegistry.default()
         options = BootstrapOptions(
             application_name=application_name,
             configuration_directory=configuration_directory,
             manifest_path=manifest_path,
+            key_vault=vault,
         )
-        client = ConfigurationClient.create(options, keyring=keyring)
+        client = ConfigurationClient.create(options, keyring=keyring, vault_factories=registry.factories())
         if not client.ok:
             logger.error("secret store unavailable", fields={"category": str(client.category)}, operation=_OPERATION)
             return client

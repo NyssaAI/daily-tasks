@@ -162,8 +162,35 @@ agents must never invoke it as a CLI command. Pass absolute
 for values that are missing (`--user-email`, `--timezone` override them). Stdout carries
 only MCP JSON-RPC; logs go to stderr (`DAILY_TASKS_LOG_LEVEL`, optional `--log-file`).
 
-First-run Gmail sign-in is interactive and read-only (`gmail.readonly`): the user sets
-`GMAIL_CLIENT_ID` (and `GMAIL_CLIENT_SECRET` when the OAuth client has one) and runs
+### Out-of-band credentials
+
+Never ask the user to paste a secret (vault token, OAuth client secret, Slack token, API key) into
+chat, and never put one in tool arguments, Markdown, JSON profiles or shell commands. If the user
+pastes one anyway, do not repeat it; tell them to rotate it and capture the new value out of band.
+
+- From the agent: call `daily_tasks_capture_secret` with `namespace` and `key` (optional
+  `prompt_message`, `provider`). Tell the user a local browser page opens (its `127.0.0.1` URL is also
+  on the server's stderr) and wait; the reply carries only the receipt (`namespace`, `key`,
+  `provider`, `stored_at`). Report that receipt. On timeout or cancellation, offer to retry.
+- From a terminal: ask the user to run `uv run python -m daily_tasks.auth.secret` themselves, for
+  example `... gmail`, `... slack` or `... capture NAMESPACE KEY`; it prompts with masked input.
+
+Credentials to capture during setup, only when the user wants that connector or vault:
+
+- Gmail OAuth client: `communication/gmail-client-id` and `communication/gmail-client-secret`
+  (`daily_tasks.auth.secret gmail`, add `--no-client-secret` for clients without one).
+- Slack token: `communication/slack` (`daily_tasks.auth.secret slack`).
+- Cloud key vault: the user runs `uv run python -m daily_tasks.auth.secret vault --name NAME --kind KIND`
+  (Bitwarden Secrets Manager: `--kind bitwarden-secrets`, plus `--project-id`). It seals the vault's
+  access token locally and registers the vault, after which `provider: NAME` stores secrets there. Only
+  kinds of a registered `CloudKeyVaultFactory` are accepted; `--help` lists them.
+
+Storage providers are `aesLocal` (encrypted locally, the default), `literal` (unencrypted, only for
+non-secret values) and each configured vault. Environment variables (`GMAIL_CLIENT_ID`,
+`GMAIL_CLIENT_SECRET`, `SLACK_BOT_TOKEN`) still take precedence over stored values.
+
+First-run Gmail sign-in is interactive and read-only (`gmail.readonly`): after the client id (and
+secret, when the OAuth client has one) is stored or set in the environment, the user runs
 `uv run python -m daily_tasks.auth.gmail --config-dir <userHome>/.nyssa-ai/daily-tasks`
 (or with `python -m daily_tasks.auth.gmail`).
 The grant is sealed in the keyring-backed configuration store; never ask for, print or
