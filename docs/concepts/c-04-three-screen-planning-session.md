@@ -17,7 +17,7 @@ The Daily Tasks planning session guides the user from initial state collection a
   |
   +-- Stage 0: Collect Current State & Start Background Message Analysis
   |     +-- Read projects, milestones, tasks, blockers, and recent daily plans into an in-memory State Graph
-  |     \-- Fetch unread email/chat messages since last cursor, correlate with open work, and draft suggestions
+  |     \-- Fetch unread email/chat messages (via existing assistant connections or standalone connectors) since last cursor (or bounded to the configured initial lookback, default 7 days, on first pull), correlate with open work, and draft suggestions
   |
   +-- Stage 1 (Screen 1): Plan the Day & Adjudicate Suggestions
   |     +-- Show headline counts, carried-forward selections (↺), and numbered message suggestions (1..N)
@@ -52,6 +52,7 @@ The Daily Tasks planning session guides the user from initial state collection a
 
 - [F-00.02: Canonical Work Record Storage & Surgical Updates](../features/f-00.02/feature.md) — loads the initial workspace snapshot and atomically persists staged record edits and the daily plan upon confirmation.
 - [F-00.03: Credential Privacy & Read-Only Communication Connections](../features/f-00.03/feature.md) — supplies incremental unread emails and chat messages during Stage 0 without blocking the session start.
+- [F-00.04: Existing Assistant Connection Discovery & Bounded Lookback Ingestion](../features/f-00.04/feature.md) — discovers existing assistant email and chat integrations during setup, bounds first-pull message retrieval to 7 days by default (user-configurable), and ingests messages through shared per-source checkpoints.
 - [F-02.01: Communication Correlation & Update Suggestions](../features/f-02.01/feature.md) — correlates ingested messages against the state graph to populate Screen 1's suggested updates.
 - [F-02.02: Three-Screen Daily Planning & Day Assignment](../features/f-02.02/feature.md) — manages the Screen 1 → Screen 2 → Screen 3 state machine, row numbering, and confirmation flow.
 - [F-03.02: Planning Session Tool Service & Syndication](../features/f-03.02/feature.md) — exposes the session stages as structured tool calls for AI assistant hosts.

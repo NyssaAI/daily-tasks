@@ -33,6 +33,7 @@ Users want incoming emails and chat messages to inform their daily planning with
 ## Out of Scope
 
 - Sending, replying to, forwarding, or drafting emails or chat messages under any circumstance.
+- Discovering already-connected assistant integrations or ingesting messages through an existing assistant connection (owned by [F-00.04](../f-00.04/feature.md)).
 - Matching fetched messages to tasks or proposing task updates (owned by [F-02.01](../f-02.01/feature.md)).
 
 ## Inputs

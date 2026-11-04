@@ -2,11 +2,11 @@
 
 | Feature Group | Complete / Total | % Complete |
 | --- | --- | --- |
-| Group 00: Foundation | 3 / 3 | 100% |
+| Group 00: Foundation | 3 / 4 | 75% |
 | Group 01: Commitment Capture & Record Management | 2 / 2 | 100% |
 | Group 02: Interactive Daily Planning Session | 3 / 3 | 100% |
 | Group 03: Assistant Host Integration & Distribution | 2 / 2 | 100% |
-| **Overall** | **10 / 10** | **100%** |
+| **Overall** | **10 / 11** | **91%** |
 
 ---
 
@@ -33,6 +33,7 @@ This document catalogs product capabilities in non-technical, user-focused langu
 - [x] F-00.01: Workspace, Identity & Template Setup
 - [x] F-00.02: Canonical Work Record Storage & Surgical Updates
 - [x] F-00.03: Credential Privacy & Read-Only Communication Connections
+- [ ] F-00.04: Existing Assistant Connection Discovery & Bounded Lookback Ingestion
 
 ### Group 01: Commitment Capture & Record Management
 
@@ -67,6 +68,10 @@ Read and update editable project, milestone, task, blocker, and daily plan docum
 **F-00.03: Credential Privacy & Read-Only Communication Connections**  
 Connect to email and team chat accounts in strictly read-only mode, keeping credentials protected in memory and tracking incremental message checkpoints so messages are never fetched twice.  
 [Feature Guide: Credential Privacy & Read-Only Communication Connections](features/f-00.03/feature.md)
+
+**F-00.04: Existing Assistant Connection Discovery & Bounded Lookback Ingestion**  
+Detect email and chat connections already available in the user's AI assistant environment during setup, let the user choose which connections to use and configure their initial lookback window (defaulting to no more than 7 days on the first pull), and process messages from existing connections using the exact same incremental checkpoints and suggestion workflows as built-in connections.  
+[Feature Guide: Existing Assistant Connection Discovery & Bounded Lookback Ingestion](features/f-00.04/feature.md)
 
 ### Group 01: Commitment Capture & Record Management
 

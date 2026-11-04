@@ -34,7 +34,7 @@ The planning session operates as a deterministic tool service with explicit sepa
 - **Deterministic Server**: The planning session server executes deterministic logic only (graph compilation, message pre-matching, stage-machine validation, and atomic writes). It makes no internal LLM calls and requires no API keys.
 - **Host-Driven Reasoning**: The calling assistant host (such as Codex, Claude, Cursor, or Antigravity) handles natural-language understanding, turns message snippets into structured proposals, and translates user replies into structured decisions.
 - **Pluggable Ports Architecture**: Read operations are delegated to pluggable, concurrent port protocols (`ProjectPlanPort`, `DailyPlanPort`, `CommunicationPort`), while all mutations pass exclusively through `LocalFileStore`.
-- **Read-Only Connectors**: Communication connectors (Gmail, Slack) operate in strictly read-only mode to fetch incoming context without any capability to send, reply, or draft outbound messages.
+- **Read-Only Connectors & Existing Assistant Connections**: Communication integrations operate in strictly read-only mode—either reusing email/chat connections already available in the user's assistant environment or connecting via standalone read-only connectors—using shared incremental watermark checkpoints and a configurable first-pull lookback window (defaulting to no more than 7 days) without any capability to send, reply, or draft outbound messages.
 - **Explicit Acceptance Invariant**: No suggestion is applied without an explicit answer from the user. Bare numbers without an action require clarification and are never treated as acceptance.
 
 ### Planning Session Process Flow
@@ -95,7 +95,7 @@ The planning session operates as a deterministic tool service with explicit sepa
 
 - **Project-Plan-Port** (`MarkdownProjectSource`): Read-only scanner of `projects/**/*.md`.
 - **Daily-Plan-Port** (`MarkdownDailyPlanSource`): Read-only reader of `daily-plans/YYYY.MM.DD-daily-plan.md`.
-- **Communication-Port** (`GmailSource`, `SlackSource`): Read-only connectors fetching messages incrementally since last watermark cursor.
+- **Communication-Port** (`GmailSource`, `SlackSource`, and existing assistant-connected communication sources): Read-only sources fetching messages incrementally since last watermark cursor (or bounded to the configured initial lookback window, defaulting to 7 days, on the first pull).
 - **Local File Store** (`MarkdownFileStore`): Authorized to apply validated record writes and daily plans exclusively following explicit user adjudication.
 
 ### Session Lifecycle & Persistence Rules

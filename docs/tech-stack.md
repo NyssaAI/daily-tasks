@@ -20,8 +20,8 @@ Daily Tasks is a Python plugin and skill suite:
   - `nyssa-ai-result`: Explicit `Result[T, Error]` error handling across ports, parsers, and session operations.
   - `nyssa-ai-configuration`: Layered configuration, `KeyringInMemory` secret holding, OAuth token management, and sensitive field masking.
   - `nyssa-ai-logging`: Structured diagnostic logging directed strictly to `sys.stderr` so `sys.stdout` remains pure for MCP JSON-RPC frames.
-- **Communication Connectors (`langchain-core` / Optional Extras)**:
-  - Read-only Gmail (`GmailSource` with OAuth 2.0 `gmail.readonly` scope) and read-only Slack (`SlackSource`) adapters behind `CommunicationPort`.
+- **Communication Connectors (`langchain-core` / Optional Extras & Host-Connected Pass-Through)**:
+  - Read-only Gmail (`GmailConnector` with OAuth 2.0 `gmail.readonly` scope), read-only Slack (`SlackConnector`), and host-delegated communication ingestion (`HarnessCommunicationAdapter` / `daily_tasks_get_fetch_window` + `daily_tasks_start_session(messages=...)`) behind `CommunicationPort`, sharing `<state_root>/fetch-cursors.json` and a configurable `initial_lookback_days` setting (defaulting to `7` days on the first pull).
 - **Host Adapters**: Portable bundle (`artifacts/portable`), Cowork bundle (`artifacts/cowork`), and Antigravity/Hermes adapters (`artifacts/antigravity`, `artifacts/hermes`).
 
 ## Storage and Artifacts
