@@ -8,7 +8,7 @@
 Requires Python >=3.12 (managed via `uv` and `pyproject.toml`) and permitted filesystem/process access. Resolve `PACKAGE_ROOT` from the installed plugin's actual location; never assume a cache path.
 
 ```text
-uv run daily-tasks-mcp --workspace-root ABSOLUTE_WORKSPACE [--user-email EMAIL] [--user-name NAME] [--timezone TZ] [--projects-root PATH] [--daily-plans-root PATH] [--state-root PATH] [--log-file PATH] [--config-dir ABSOLUTE_CONFIG_DIR]
+uv run daily-tasks-mcp --workspace-root ABSOLUTE_WORKSPACE [--user-email EMAIL] [--user-name NAME] [--timezone TZ] [--projects-root PATH] [--daily-plans-root PATH] [--state-root PATH] [--initial-lookback-days DAYS] [--log-file PATH] [--config-dir ABSOLUTE_CONFIG_DIR]
 uv run python -m daily_tasks.server --workspace-root ABSOLUTE_WORKSPACE
 uv run python -m daily_tasks.auth.gmail --config-dir ABSOLUTE_CONFIG_DIR
 uv run python -m daily_tasks.auth.secret [--config-dir ABSOLUTE_CONFIG_DIR] capture NAMESPACE KEY [--prompt TEXT] [--provider NAME] [--forced-provider NAME] [--mode auto|cli|web]
@@ -17,6 +17,8 @@ uv run python -m daily_tasks.auth.secret vault --name NAME --kind bitwarden-secr
 python scripts/assemble.py write|check
 python scripts/validate.py
 ```
+
+`--initial-lookback-days` (positive integer) bounds a source's first pull when it has no saved cursor; unset, the server reads `sources.initialLookbackDays`, then `initialLookbackDays`, from the workspace `profile.json`, defaulting to `7`. A non-positive value exits with code 2 and an error on stderr. Fetch cursors are loaded from and saved to `<stateRoot>/fetch-cursors.json`.
 
 Stdout is reserved strictly for MCP JSON-RPC 2.0 frames; all structured diagnostic logs are emitted to `sys.stderr` (configurable via `DAILY_TASKS_LOG_LEVEL` and `--log-file`).
 
@@ -35,7 +37,8 @@ Stdout is reserved strictly for MCP JSON-RPC 2.0 frames; all structured diagnost
 
 | Tool | Arguments | Result / Effect |
 | --- | --- | --- |
-| `daily_tasks_start_session` | `date?` (`YYYY-MM-DD`), `focus?` (`string`) | Parses Markdown workspace records, builds in-memory `StateGraph`, fetches unread messages via configured `CommunicationPort` connectors, runs deterministic pre-matching, generates suggestions, and returns `session_id` + Screen 1 (`payload.screen`). Performs no disk writes to work records. |
+| `daily_tasks_start_session` | `date?` (`YYYY-MM-DD`), `focus?` (`string`), `messages?` (`[Message]`, `docs/specs/message.json`), `checked_sources?` (`[string]`) | Parses Markdown workspace records, builds in-memory `StateGraph`, fetches unread messages via configured `CommunicationPort` connectors, filters host-supplied `messages` against each source's fetch window, runs deterministic pre-matching, generates suggestions, and returns `session_id` + Screen 1 (`payload.screen`; harness sources appear in `payload.message_sources`). Advanced cursors for connector and `checked_sources` sources are staged until confirmation. A malformed message returns a `Validation` error. Performs no disk writes. |
+| `daily_tasks_get_fetch_window` | `sources?` (`[string]`, default `gmail`, `slack`) | Returns `payload.fetch_windows[]` (`source`, `has_cursor`, `since`, `after_epoch`, `last_external_id`, `initial_lookback_days`) and `payload.initial_lookback_days`: the saved cursor from `<stateRoot>/fetch-cursors.json`, or `now - initial_lookback_days` (7 by default) on a first pull. Sessionless; writes nothing. |
 | `daily_tasks_execute_operations` | `session_id`, `original_words`, `verdicts?` (`[{row, verdict, edits?}]`), `operations?` (`[Operation]`) | Validates and stages user verdicts (`accept`, `edit`, `reject`) and planning operations (`assign-to-day`, `unplan`, `set-status`, `reassign`) all-or-nothing in memory; returns updated `payload.screen`. |
 | `daily_tasks_advance_screen` | `session_id`, `target_screen` (`2` or `3`) | Advances to Screen 2 (per-project task day assignment) or Screen 3 (confirmation recap) and returns `payload.screen`. |
 | `daily_tasks_confirm_plan` | `session_id`, `confirmed` (`true`) | Applies staged record changes surgically via `LocalFileStore`, renders and writes `YYYY.MM.DD-daily-plan.md`, appends entries to `.nyssa-ai/daily-tasks/decision-log.json`, and persists fetch cursors. |

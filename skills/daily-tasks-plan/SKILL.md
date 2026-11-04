@@ -33,9 +33,10 @@ The planning server must ONLY be used via MCP tools (`daily_tasks_*`); never att
 The server is deterministic: you turn the user's replies into structured arguments; it validates,
 numbers rows, and writes only on confirmation. Display each returned `payload.screen` unchanged.
 
-1. `daily_tasks_start_session(date?, focus?)` returns `session_id` and screen 1 (plan the
-   day), with carried-forward work (`↺`) and pending suggestions pre-matched from unread
-   messages. Nothing is written to disk.
+1. `daily_tasks_start_session(date?, focus?, messages?, checked_sources?)` returns `session_id`
+   and screen 1 (plan the day), with carried-forward work (`↺`) and pending suggestions
+   pre-matched from unread messages. Nothing is written to disk. For sources set up as existing
+   assistant connections, first follow [harness connections](#existing-assistant-connections).
 2. `daily_tasks_execute_operations(session_id, original_words, verdicts?, operations?)`
    applies the user's explicit replies all-or-nothing: `verdicts` are
    `{"row", "verdict": "accept" | "edit" | "reject", "edits"?}` for suggestion rows on the
@@ -48,6 +49,30 @@ numbers rows, and writes only on confirmation. Display each returned `payload.sc
    writes the daily plan, appends the decision log, and saves fetch cursors.
 5. `daily_tasks_cancel_session(session_id)` discards everything without modifying disk records;
    `daily_tasks_get_session_state(session_id)` re-shows the current screen.
+
+### Existing assistant connections
+
+When the profile lists `sources.harnessConnections`, read those sources through the host's own
+connection before starting the session, so they share cursors and matching with standalone connectors:
+
+1. Call `daily_tasks_get_fetch_window(sources=[...])` with the configured `source` names. Each
+   `fetch_windows[]` entry gives `since` (ISO UTC), `after_epoch` (Unix seconds, e.g. Gmail
+   `after:`), `last_external_id` and `has_cursor`. Without a saved cursor, `since` is the initial
+   lookback (7 days by default, `initial_lookback_days`); with one, it is the saved cursor.
+2. Read the new messages at or after `since` with the host's existing tool, strictly read-only: never
+   send, reply, draft, label, archive or mark messages read. Map each to `docs/specs/message.json`
+   (`id` as `<source>:<external_id>`, `source`, `external_id`, `thread_id`, `received_at`, `from`,
+   `to`, `cc`, `channel`, `subject`, `snippet`, `body`, `body_format`, `attachments`, `url`,
+   `fetched_at`; timestamps in UTC ending in `Z`).
+3. Pass them as `daily_tasks_start_session(messages=[...], checked_sources=[...])`, naming every
+   source you read in `checked_sources`, even one with no new messages. The server drops messages at
+   or before the cursor, older than the first-pull cutoff or equal to `last_external_id`, then matches
+   the rest exactly like connector messages. Cursors are saved only by
+   `daily_tasks_confirm_plan(confirmed=true)`; a cancelled session leaves them unchanged.
+
+If a host connection fails, tell the user that source was skipped, leave it out of
+`checked_sources` and continue planning. A `Validation` error means a message object did not match
+the spec; fix the mapping rather than dropping fields the user needs.
 
 Never send a verdict the user did not give: a bare row number, silence or "ok" to a
 screen is not acceptance, and unanswered suggestions stay pending. Never add durations,
@@ -104,8 +129,9 @@ exists in `stateRoot/source-scans/YYYY.MM.DD.json`, run the daily source scan vi
 the nearest earlier daily plan and builds Screen 1:
 - Preserves an existing plan's UUID, original `created_at`, selections, prose and valid edits.
 - Carries in-progress tasks and unfinished prior selections forward unless explicitly deselected.
-- Gathers unread email and chat messages via configured read-only connectors, correlates them
-  against the state graph, and presents numbered update suggestions with cited sources.
+- Gathers unread email and chat messages via configured read-only connectors and host-supplied
+  `messages` from existing assistant connections, correlates them against the state graph, and
+  presents numbered update suggestions with cited sources.
 
 ## 4. Screen 2 (Assign Tasks to Days) and Screen 3 (Confirm Plan)
 
