@@ -1,28 +1,28 @@
 # Daily Tasks
 
-Personal task management and daily planning through six agent skills and a deterministic
-Python Model Context Protocol (MCP) planning server. Maintain projects, milestones, tasks
-and external blockers in editable Markdown; review your own and delegated work in a
-local-day plan. Skills provide capabilities to your agent, without becoming an autonomous
-assistant persona or fitting work into a timeframe.
+Personal task management and daily planning through an encapsulated `daily-tasks` agent skill,
+five focused workflows, and a deterministic Python Model Context Protocol (MCP) planning server.
+Maintain projects, milestones, tasks and external blockers in editable Markdown; review your own
+and delegated work in a local-day plan. The skill provides capabilities to your agent, without
+becoming an autonomous assistant persona or fitting work into a timeframe.
 
 ## Use
 
 Ask to set up Daily Tasks, capture possible work, update a task, plan the day, or check in.
-The router loads only the selected procedure. New projects, milestones and tasks need
-explicit acceptance; your instruction to create named work supplies that acceptance.
-Quoted requests and inferred promises remain candidates. A check-in can happen anytime;
+The entry skill (`skills/daily-tasks/SKILL.md`) loads only the selected workflow. New projects,
+milestones and tasks need explicit acceptance; your instruction to create named work supplies that
+acceptance. Quoted requests and inferred promises remain candidates. A check-in can happen anytime;
 it creates today's missing plan, carries unfinished selected work forward and reconciles
 manual checkbox edits.
 
-| Skill | Purpose |
-| --- | --- |
-| daily-tasks | Route a request |
-| daily-tasks-setup | Identity, timezone, priorities, storage scope and MCP connector setup |
-| daily-tasks-capture | Candidate review and explicit acceptance |
-| daily-tasks-records | Accepted work, delegation, progress, DoD and blockers |
-| daily-tasks-plan | Daily selections, ownership review and explicit future planning |
-| daily-tasks-checkin | Reconciliation, progress reports and resumable decisions |
+| Workflow | Path | Purpose |
+| --- | --- | --- |
+| Entry / Router | `skills/daily-tasks/SKILL.md` | Route a request to the matching workflow |
+| Setup | `skills/daily-tasks/workflows/setup.md` | Identity, timezone, priorities, storage scope and MCP connector setup |
+| Capture | `skills/daily-tasks/workflows/capture.md` | Candidate review and explicit acceptance |
+| Records | `skills/daily-tasks/workflows/records.md` | Accepted work, delegation, progress, DoD, blockers and malformed-file repair |
+| Plan | `skills/daily-tasks/workflows/plan.md` | Daily selections, ownership review and explicit future planning |
+| Check-in | `skills/daily-tasks/workflows/checkin.md` | Reconciliation, progress reports and resumable decisions |
 
 ## Storage and authority
 
@@ -54,8 +54,8 @@ MCP planning session server (`daily-tasks-mcp`). The planning server is accessed
 via host MCP tool calls (`daily_tasks_*`); agents never invoke it as a CLI command.
 All diagnostic logging goes to `stderr` so `stdout` remains pure for MCP JSON-RPC 2.0 frames.
 
-When project setup is not already done, skills trigger and run setup (`skills/daily-tasks-setup`)
-first. Malformed files and unparseable records trigger surgical repairs (`skills/daily-tasks-records`).
+When project setup is not already done, the skill triggers and runs setup (`skills/daily-tasks/workflows/setup.md`)
+first. Malformed files and unparseable records trigger surgical repairs (`skills/daily-tasks/workflows/records.md`).
 
 ```text
 # Host registration / direct server launch:

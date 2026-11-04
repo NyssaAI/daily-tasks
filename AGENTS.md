@@ -22,9 +22,9 @@ MCP tool calls: `daily_tasks_start_session`, `daily_tasks_execute_operations`,
 `daily_tasks_advance_screen`, `daily_tasks_confirm_plan`, `daily_tasks_get_session_state`,
 `daily_tasks_cancel_session`). Never execute `daily-tasks-mcp` or `python -m daily_tasks.server`
 as a CLI command or shell subprocess.
-If project setup is not already done, trigger and complete setup (`skills/daily-tasks-setup/SKILL.md`)
+If project setup is not already done, trigger and complete setup (`skills/daily-tasks/workflows/setup.md`)
 before attempting planning, check-in, or record management.
-Fix malformed files using `skills/daily-tasks-records/SKILL.md` by repairing frontmatter and structure
+Fix malformed files using `skills/daily-tasks/workflows/records.md` by repairing frontmatter and structure
 while preserving notes and formatting intact.
 Keep resolved config, vault and projects roots independent of cwd. Reuse existing
 settings before asking for missing scope. User and project configuration and

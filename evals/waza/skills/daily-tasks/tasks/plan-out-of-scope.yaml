@@ -1,0 +1,16 @@
+id: daily-tasks-plan-out-of-scope
+name: Sequence a product feature roadmap and fit Pomodoro intervals
+description: Defining a product feature roadmap or fitting work into timed Pomodoro intervals is outside Daily Tasks planning.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Sequence our product feature roadmap for Q4 and fit my afternoon coding session into 25-minute Pomodoro timer intervals."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: plan-negative-trigger
+    config:
+      skill_path: skills/daily-tasks/SKILL.md
+      mode: negative

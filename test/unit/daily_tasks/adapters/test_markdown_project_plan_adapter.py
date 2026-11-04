@@ -4,7 +4,6 @@
 """Project plan reads from Markdown vault trees built in `tmp_path` from the canonical samples."""
 
 import asyncio
-import shutil
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -18,7 +17,6 @@ from daily_tasks.ports import ProjectPlanPort, ProjectPlanSnapshot
 
 PROJECT = "2026.10.20-daily-tasks-mcp-server"
 MILESTONE = f"{PROJECT}/m2-planning-session-spike"
-REPO_PROJECTS = Path(__file__).resolve().parents[4] / "projects"
 
 
 @dataclass
@@ -129,13 +127,17 @@ def test_fetch_projects_attachment_folders_are_not_read(tmp_path: Path, folder: 
 
 
 def test_fetch_projects_repository_tree_reads_tasks_and_skips_unsupported_blocker(tmp_path: Path) -> None:
-    root = tmp_path / "projects"
-    shutil.copytree(REPO_PROJECTS, root)
+    root = _vault(tmp_path / "projects")
+    _write(
+        root,
+        f"{PROJECT}/blockers/b1-gmail-oauth-credentials-provisioning.md",
+        "---\nid: 019a4b2c-2000-7000-8000-000000000017\ntype: blocker\nstate: active\nblocks:\n  - 1\n---\n# B1\n",
+    )
     logger = _RecordingLogger()
 
     snapshot = _fetch(root, logger)
 
-    assert [p.title for p in snapshot.projects] == ["Daily Tasks Python MCP Server"]
+    assert [p.title for p in snapshot.projects] == ["Daily Tasks MCP Server"]
     assert len(snapshot.tasks) == sum(1 for _ in root.rglob("t*-*.md"))
     assert snapshot.milestones
     assert "blockers/b1-gmail-oauth-credentials-provisioning.md" in str(

@@ -1,11 +1,13 @@
 # Python MCP server and CLI interface
 
-> [!IMPORTANT]
-> **MCP Protocol Directive**: The planning server `daily-tasks-mcp` is an MCP stdio server and MUST ONLY be used via the MCP protocol by host tool invocations (`daily_tasks_*`). Agents must NEVER invoke `daily-tasks-mcp` or `python -m daily_tasks.server` as a CLI command or shell subprocess. Direct command execution is strictly for interactive Gmail authorization (`python -m daily_tasks.auth.gmail`), user-run out-of-band secret capture (`python -m daily_tasks.auth.secret`) or repository build scripts (`scripts/assemble.py`, `scripts/validate.py`).
->
-> **Scope Directive**: This document is the API, ABI, and invocation specification for the Python `daily-tasks-mcp` server (`src/daily_tasks/cli.py`, `python -m daily_tasks.server`), Gmail OAuth helper (`python -m daily_tasks.auth.gmail`), secret capture helper (`python -m daily_tasks.auth.secret`), and repository packaging scripts (`scripts/assemble.py`, `scripts/validate.py`). Domain workflows, markdown styling, planning business rules, and user-facing protocols belong in their respective skill and reference documents.
+> [!IMPORTANT] Scope Directive
+> This reference owns the invocation contracts, runtime flags, stdio stream discipline, and tool/receipt schemas for the `daily-tasks-mcp` stdio server (`src/daily_tasks/cli.py`, `python -m daily_tasks.server`), interactive Gmail OAuth helper (`python -m daily_tasks.auth.gmail`), out-of-band secret capture helper (`python -m daily_tasks.auth.secret`), and repository packaging scripts (`scripts/assemble.py`, `scripts/validate.py`). It does NOT own step-by-step workflow execution (owned by `workflows/*.md`), Markdown record schemas (owned by [`records.md`](records.md)), or planning domain invariants (owned by [`planning-flow.md`](planning-flow.md)).
 
-Requires Python >=3.12 (managed via `uv` and `pyproject.toml`) and permitted filesystem/process access. Resolve `PACKAGE_ROOT` from the installed plugin's actual location; never assume a cache path.
+## Architectural boundary: MCP vs. terminal helpers
+
+The planning server `daily-tasks-mcp` is an MCP stdio server and must only be invoked via the MCP protocol through host tool calls (`daily_tasks_*`). Agents must never execute `daily-tasks-mcp` or `python -m daily_tasks.server` as a one-shot CLI command or shell subprocess. Direct terminal execution is reserved exclusively for interactive user-driven Gmail authorization (`python -m daily_tasks.auth.gmail`), user-run out-of-band secret capture (`python -m daily_tasks.auth.secret`), or repository packaging and validation scripts (`scripts/assemble.py`, `scripts/validate.py`).
+
+The runtime requires Python >=3.12 (managed via `uv` and `pyproject.toml`) with permitted filesystem and process access. Callers resolve `PACKAGE_ROOT` from the installed plugin's actual location rather than assuming a host cache path.
 
 ```text
 uv run daily-tasks-mcp --workspace-root ABSOLUTE_WORKSPACE [--user-email EMAIL] [--user-name NAME] [--timezone TZ] [--projects-root PATH] [--daily-plans-root PATH] [--state-root PATH] [--initial-lookback-days DAYS] [--log-file PATH] [--config-dir ABSOLUTE_CONFIG_DIR]
@@ -18,20 +20,19 @@ python scripts/assemble.py write|check
 python scripts/validate.py
 ```
 
-`--initial-lookback-days` (positive integer) bounds a source's first pull when it has no saved cursor; unset, the server reads `sources.initialLookbackDays`, then `initialLookbackDays`, from the workspace `profile.json`, defaulting to `7`. A non-positive value exits with code 2 and an error on stderr. Fetch cursors are loaded from and saved to `<stateRoot>/fetch-cursors.json`.
+The `--initial-lookback-days` flag (a positive integer) bounds a communication source's first pull when no saved cursor exists. When unset on the command line, the server reads `sources.initialLookbackDays` and then top-level `initialLookbackDays` from the workspace `profile.json`, defaulting to `7`. Supplying a non-positive value causes the process to exit with code `2` and emit a diagnostic message on `stderr`. Fetch cursors are read from and persisted to `<stateRoot>/fetch-cursors.json`.
 
-Stdout is reserved strictly for MCP JSON-RPC 2.0 frames; all structured diagnostic logs are emitted to `sys.stderr` (configurable via `DAILY_TASKS_LOG_LEVEL` and `--log-file`).
+Stdout is reserved strictly for MCP JSON-RPC 2.0 frames so host transports never encounter corrupted protocol payloads. All structured diagnostic logs are emitted to `sys.stderr` and controlled via `DAILY_TASKS_LOG_LEVEL` and optional `--log-file`.
 
 ## Runtime invariants and platform rules
 
-### Host clock and timestamp rules
-- Omit explicit `date` from `daily_tasks_start_session` unless planning for a specific requested date so the server resolves the current local day in the configured timezone.
-- All stored and recorded event timestamps use GMT ISO format ending in `Z`.
-- Never fabricate precision or mutate unrelated record lines; all record updates go through the surgical Concrete Syntax Tree (CST) writer.
+### Host clock and timestamp rationale
 
-### Windows and PowerShell JSON safety
-- Never use PowerShell `>` or `Out-File` to redirect JSON or Markdown files, as Windows PowerShell defaults to UTF-16LE BOM.
-- Keep exact ISO timestamp strings in JSON payloads without reparsing into locale-dependent `.NET` `DateTime` objects.
+When starting a planning session for the current day, callers omit the explicit `date` parameter from `daily_tasks_start_session` so the server resolves the current local day in the configured IANA timezone. All persisted and logged event timestamps use UTC ISO-8601 format ending in `Z`. The server never fabricates timestamp precision or mutates unrelated Markdown lines; all record updates flow through the surgical Concrete Syntax Tree (CST) writer.
+
+### Windows and PowerShell encoding safety
+
+On Windows, PowerShell redirection operators (`>` and `Out-File`) default to UTF-16LE with BOM, which corrupts UTF-8 Markdown records and JSON state files. File modifications must use UTF-8 without BOM, and JSON payloads must preserve exact ISO-8601 timestamp strings without reparsing them into locale-dependent `.NET` `DateTime` objects.
 
 ## MCP tools matrix
 
@@ -46,20 +47,15 @@ Stdout is reserved strictly for MCP JSON-RPC 2.0 frames; all structured diagnost
 | `daily_tasks_cancel_session` | `session_id` | Discards the active in-memory session without modifying any disk records. |
 | `daily_tasks_capture_secret` | `namespace`, `key`, `prompt_message?`, `provider?` | Opens a one-time `127.0.0.1` loopback page (URL on stderr and in the browser) where the user types the secret, waits for submission (5 minutes), stores it in `aesLocal` (default), `literal` or a configured vault, and returns `payload.receipt` (`namespace`, `key`, `provider`, `stored_at`). The secret never appears in arguments, replies or logs. |
 
-## Out-of-band secrets
+## Out-of-band secrets architecture
 
-Secrets live in the keyring-protected configuration store under `--config-dir` (default
-`~/.nyssa-ai/daily-tasks`). Well-known addresses: `communication/gmail-client-id`,
-`communication/gmail-client-secret`, `communication/slack` and `vault/<name>-access-token`.
-The `secret` helper prints only the receipt; prompts and the loopback URL go to stderr. `--mode auto`
-uses masked terminal input when stdin is a TTY and the loopback page otherwise. `vault` seals the
-access token locally (a vault credential can never live inside its own vault) and registers the vault
-in the configuration manifest; later captures may then target its provider name. Vault kinds come from
-the registered `CloudKeyVaultFactory` set (`bitwarden-secrets`, `bws`, `bitwarden` by default).
+Secrets live in the keyring-protected configuration store under `--config-dir` (defaulting to `~/.nyssa-ai/daily-tasks`). Well-known secret addresses include `communication/gmail-client-id`, `communication/gmail-client-secret`, `communication/slack`, and `vault/<name>-access-token`.
+
+The `secret` helper prints only the structured storage receipt to `stdout` while routing user prompts and the loopback URL to `stderr`. Running with `--mode auto` uses masked terminal input when `stdin` is a TTY and falls back to the local loopback browser page otherwise. The `vault` subcommand seals the cloud vault's access token locally—since a vault bootstrap credential cannot reside inside its own vault—and registers the vault in the configuration manifest so subsequent secret captures can target that provider name. Supported vault kinds come from the registered `CloudKeyVaultFactory` set (`bitwarden-secrets`, `bws`, and `bitwarden` by default).
 
 ## Decision log entry schema
 
-Decision log entries appended to `<stateRoot>/decision-log.json` follow `docs/specs/decision-log-entry.json`:
+Decision log entries appended to `<stateRoot>/decision-log.json` conform to `docs/specs/decision-log-entry.json`:
 
 ```json
 {

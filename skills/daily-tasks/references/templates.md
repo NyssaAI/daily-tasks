@@ -1,21 +1,13 @@
 # User formatting templates
 
-> [!IMPORTANT]
-> **Scope Directive**: This document defines the registration, resolution, portable path conventions, and authoring adaptation rules for user-supplied or visible Markdown formatting templates (`projectIndex`, `dailyPlan`, `milestone`, `task`, `planDayReview`). It is strictly a template specification and adaptation contract. Low-level CLI commands and signatures belong in [`cli.md`](cli.md), template lifecycle policies and upgrade offers in [`template-updates.md`](template-updates.md), transactional write-ahead checkpointing in [`operations.md`](operations.md), and record schemas, frontmatter, and DoD invariants in [`records.md`](records.md).
-
-Templates provide visible layout, headings, spacing, and styling preferences. A template is formatting guidance only; it never conveys task acceptance, execution authority, or executable commands.
+> [!IMPORTANT] Scope Directive
+> This reference owns the template registration schema, portable path conventions, inheritance/reset semantics, and domain invariant preservation rules for visible Markdown formatting templates (`projectIndex`, `dailyPlan`, `milestone`, `task`, `planDayReview`). It does NOT own step-by-step setup or authoring workflows (owned by [`../workflows/setup.md`](../workflows/setup.md) and [`../workflows/records.md`](../workflows/records.md)), MCP/CLI invocation syntax (owned by [`cli.md`](cli.md)), template upgrade policies (owned by [`template-updates.md`](template-updates.md)), transactional checkpointing (owned by [`operations.md`](operations.md)), or canonical record schemas (owned by [`records.md`](records.md)).
 
 ## Template registration and configuration
 
-### 1. Visible workspace templates
-- During workspace setup or first relevant use, `template-prepare` proposes file placement for needed template kinds.
-- Follow the placement proposal to place templates where users can open and edit them (e.g. `./templates/` or `./3-resources/templates/`).
-- If creating a visible template, save the initial baseline via `template-state` action `baseline` in `baselineScope` before creating the Markdown file.
-- Register the portable workspace-relative path under `templates.<kind>` in the project profile (or home profile for user-scoped templates).
-- Validated profiles use `validate-profile`. Project-level profile changes are logged via the decision log.
+Formatting templates control the visible headings, section ordering, spacing, and table styling of Daily Tasks documents. A template is strictly a presentation contract and never grants task acceptance, alters ownership, or embeds executable commands.
 
-### 2. Profile configuration schema
-Save portable paths in the profile's optional `templates` map:
+During workspace setup or first use of a template kind, active templates are placed in a visible workspace directory (such as `./templates/` or `./3-resources/templates/`) where the user can inspect and edit them directly, with initial baselines recorded in `<resolved preference scope>/templates/updates.json` and portable paths registered under the `templates` map in `profile.json`:
 
 ```json
 {
@@ -29,37 +21,23 @@ Save portable paths in the profile's optional `templates` map:
 }
 ```
 
-- **Portable paths**: Use `./` for workspace-relative paths, `~/` for user home paths, or explicit absolute paths.
-- **Inheritance & resets (Schema v2)**:
-  - Omitting a key inherits the template setting from the parent/user layer.
-  - Setting a key to `null` resets to the bundled default formatting, masking inherited user templates.
-- **Missing files**: If a configured file is missing, the system falls back to its retained baseline snapshot if available; otherwise, report the missing path and prompt for replacement or reset.
+Template paths use `./` for workspace-relative locations, `~/` for user-home locations, or explicit absolute paths. Under Schema Version 2 profile inheritance, omitting a template key in the workspace profile inherits the corresponding template from the user profile, whereas setting a key to `null` explicitly resets that kind to the bundled default and masks any user-level template. If a registered template file is missing on disk, resolution falls back to its retained baseline snapshot when available or reports the missing path so the user can replace or reset it.
 
-### 3. Template kinds
-- `projectIndex`: Controls formatting for `project-index.md` files.
-- `dailyPlan`: Controls the saved daily plan document (`YYYY.MM.DD-daily-plan.md`).
-- `milestone`: Controls milestone overview documents.
-- `task`: Controls individual task documents.
-- `planDayReview`: Controls interactive planning review screens displayed to the user (distinct from the saved daily plan).
+The five supported template kinds cover the complete document surface:
+- **`projectIndex`**: Layout for `project-index.md` overview files.
+- **`dailyPlan`**: Layout for persisted daily plan files (`YYYY.MM.DD-daily-plan.md`).
+- **`milestone`**: Layout for milestone definition files (`m{N}-{name}.md`).
+- **`task`**: Layout for individual task records (`t{N}-{name}.md`).
+- **`planDayReview`**: Layout for interactive planning review screens rendered in chat (independent of the saved `dailyPlan` layout).
 
-## Authoring and adapting content
+## Domain invariant preservation during adaptation
 
-When generating documents using active templates:
+When rendering a new document from an active template, sample placeholders, example task titles, sample dates, and template-level maturity notices (`document-maturity`) are replaced with the accepted record's actual metadata and content.
 
-### Replace examples with actual data
-- Replace sample task names, dates, identities, owners, and relationships with actual accepted record data.
-- Never copy provisional sample notices or template-level `document-maturity` tags into live records.
-- Completed example files serve as structural guides; explicit placeholders are optional.
+Customizing a template's visual layout never overrides canonical domain invariants ([`records.md`](records.md)):
+- **Scalar YAML frontmatter**: Every record retains required scalar YAML frontmatter (`id` as UUIDv7, `type`, `title`, `owner`, UTC timestamps, and lifecycle state).
+- **Embedded Definition of Done**: Tasks and milestones retain a single embedded `## Definition of Done` section with checkbox items and `<!-- id: UUIDv7 -->` comments; standalone DoD files are never created.
+- **View reference links**: Index and daily-plan projections retain readable wiki-links paired with hidden UUID comments (`[[relative-path|Task title]] <!-- ref: UUIDv7 -->`, escaping pipes as `\|` in tables) and canonical status markers (`[ ]`, `[>]`, `[x]`, `[-]`).
+- **Role separation**: Custom daily-plan headings map cleanly onto the three ownership/assignment roles (`My work`, `Delegated work`, and `Follow-up work`) rather than collapsing personal and delegated tasks together.
 
-### Enforce technical and domain invariants
-A custom template layout cannot override canonical record contracts:
-- **Metadata & Frontmatter**: Retain required YAML scalar frontmatter (`id: UUIDv7`, `type`, `title`, `owner`, dates, state).
-- **Definition of Done**: Tasks and milestones must retain the recognized `## Definition of Done` heading with criteria checkboxes and UUIDv7 comments. Standalone DoD files are prohibited.
-- **View Projections**: Links in indexes and daily plans must use `[[relative-path|Task title]] <!-- ref: UUIDv7 -->` with standard status symbols.
-- **Section Mapping**: Map custom headings to required functional roles (e.g. separating personal work from delegated work in daily plans) rather than discarding role separation.
-- **Formatting Conflicts**: If a user template cannot represent required technical facts (e.g. lacks frontmatter or status representations), explain the conflict clearly; never discard canonical facts to mimic layout.
-
-### Existing documents vs new output
-- Configured templates govern **newly created** documents.
-- Ordinary edits to existing files preserve their established structure and user prose.
-- Reformatting existing documents requires an explicit user request and follows the write-ahead checkpoint and baseline protocol ([`operations.md`](operations.md)).
+If a user-supplied template omits required technical structures (such as frontmatter or status representations), the conflict is explained to the user rather than discarding canonical metadata to match the broken layout. Configured templates govern newly created documents only; routine updates to existing records preserve their established layout and user prose via surgical CST edits unless the user explicitly requests a document reformat under the write-ahead checkpoint model ([`operations.md`](operations.md)).

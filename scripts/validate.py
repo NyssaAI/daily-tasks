@@ -51,7 +51,7 @@ def validate_repository() -> list[str]:
     identity = json.loads((ROOT / "plugin.json").read_text(encoding="utf-8"))
     pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
     pyproject_version = pyproject.get("project", {}).get("version")
-    if identity.get("version") != pyproject_version or len(names) != 6:
+    if identity.get("version") != pyproject_version or len(names) != 1:
         errors.append("Version or skill inventory mismatch")
 
     return errors
@@ -63,7 +63,7 @@ def validate() -> int:
     if errors:
         print("\n".join(errors), file=sys.stderr)
         return 1
-    print("Validated 6 skills, relative links, path hygiene, and plugin/pyproject version parity")
+    print("Validated 1 skill, workflows, relative links, path hygiene, and plugin/pyproject version parity")
     return 0
 
 

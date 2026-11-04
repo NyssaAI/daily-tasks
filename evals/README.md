@@ -2,22 +2,16 @@
 
 ## Fast local Waza trigger checks
 
-`evals/waza/skills/daily-tasks/` and `evals/waza/skills/daily-tasks-*/` mirror the six canonical skill
-directories: the router, setup, capture, records, plan and check-in. Each Waza
-suite has in-scope and out-of-scope prompts with the local `trigger`
-grader. The mock executor avoids model calls, credentials and external services,
-so these small suites are suitable for quick repeatable checks while editing
-skill descriptions and routing language.
-The grader's default threshold is 0.6: positive cases need a score of at least 0.6,
-and negative cases must stay below it. Relevance scores are diagnostic, not a
-standalone measure of end-to-end workflow quality.
+`evals/waza/skills/daily-tasks/` evaluates the encapsulated `daily-tasks` entry skill ([`skills/daily-tasks/SKILL.md`](../skills/daily-tasks/SKILL.md)), which routes across the five workflows (`setup`, `capture`, `records`, `plan`, and `checkin`). The Waza trigger suite ([`eval.yaml`](waza/skills/daily-tasks/eval.yaml)) includes 10 positive in-scope prompts and 7 near-neighbor out-of-scope boundary prompts graded with the local `trigger` grader (`executor: mock`).
 
-Run a skill's trigger suite with the Waza CLI from the repository root:
+Run the skill's trigger suite with the Waza CLI from the repository root:
 
 ```text
-waza run evals/waza/skills/daily-tasks-plan
-waza run evals/waza/skills/daily-tasks-capture
+waza run evals/waza/skills/daily-tasks/eval.yaml
 ```
 
-The [setup acceptance catalog](waza/skills/daily-tasks-setup/scenario-catalog.yaml)
-documents setup behavior scenarios across personal and workspace scopes.
+## Isolated behavioral setup checks
+
+[`behavior.yaml`](waza/skills/daily-tasks/behavior.yaml) runs the isolated personal-only setup scenario ([`tasks/behavior/personal-only.yaml`](waza/skills/daily-tasks/tasks/behavior/personal-only.yaml)) against [`fixtures/personal-only/synthetic-home/`](waza/skills/daily-tasks/fixtures/personal-only/synthetic-home/README.md) and grades the resulting profile and directory tree deterministically with [`graders/validate-personal-only.py`](waza/skills/daily-tasks/graders/validate-personal-only.py).
+
+The [setup acceptance catalog](waza/skills/daily-tasks/scenario-catalog.yaml) documents the 29 setup behavior scenarios across personal and workspace scopes, and [`LATEST.md`](LATEST.md) records the current verification status and evaluation receipts.

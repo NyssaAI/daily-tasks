@@ -1,180 +1,97 @@
 # Context, inventory and planning
 
-> [!IMPORTANT]
-> **Scope Directive**: This document defines the domain logic, lifecycle invariants, review eligibility rules, once-per-day rollover mechanics, and future-day selection transactions for Daily Tasks planning sessions. It is strictly a planning domain specification. Low-level CLI flags and invocation syntax belong in [`cli.md`](cli.md), transactional write-ahead checkpointing and baseline reconciliation in [`operations.md`](operations.md), record schemas in [`records.md`](records.md), and user-facing review screens, table legends, and prompt styles in [`response-conventions.md`](response-conventions.md).
+> [!IMPORTANT] Scope Directive
+> This reference owns the domain architecture, lifecycle invariants, review eligibility rules, once-per-day carry-forward model, and future-day selection semantics for Daily Tasks planning sessions. It does NOT own step-by-step workflow execution checklists (owned by [`../workflows/plan.md`](../workflows/plan.md) and [`../workflows/checkin.md`](../workflows/checkin.md)), MCP/CLI invocation syntax (owned by [`cli.md`](cli.md)), transactional checkpoint mechanics (owned by [`operations.md`](operations.md)), record schemas (owned by [`records.md`](records.md)), or interactive screen legends and reply parsing (owned by [`response-conventions.md`](response-conventions.md)).
 
 Daily Tasks planning operates within a single bound workspace context and its associated projects, daily plans, and operating state roots.
 
 ```text
-Daily Tasks Planning Session
+Daily Tasks Planning Architecture
 │
-├── 1. Resolve once (## Resolve once)
-│   ├── Bind single workspace context (workspaceRoot, projectsRoot, dailyPlansRoot)
-│   ├── Resolve host clock & local day (omit `now` on initial run)
-│   ├── Capture opaque routing tokens (planningBinding, contextBinding)
-│   └── Isolate operating state in stateRoot (.nyssa-ai/daily-tasks)
+├── 1. Workspace & Context Binding (## Resolve once)
+│   ├── Single bound context (workspaceRoot, projectsRoot, dailyPlansRoot)
+│   ├── Host clock & local IANA day resolution
+│   └── Workspace-isolated operating state in stateRoot (.nyssa-ai/daily-tasks)
 │
-├── 2. Load & maintain (## Load and maintain)
-│   ├── Run project-index (check cache & freshness sidecar in .temp/)
-│   ├── Inspect maintenance-status (check inspectionDue gate)
-│   └── Scoped diagnostic handling (isolate issues; permit independent planning)
+├── 2. Inventory & Maintenance Boundaries (## Load and maintain)
+│   ├── Cached project-index in .temp/ with freshness sidecar
+│   └── Scoped diagnostic isolation (malformed files or broken links never freeze unrelated work)
 │
-├── 2b. Message collection (## Message collection)
-│   ├── Fetch window per source (saved cursor, else 7-day default initial lookback)
-│   └── Connector and host-supplied messages share cursor filtering and matching
+├── 3. Communication Ingestion (## Message collection)
+│   ├── Per-source fetch window (saved cursor or 7-day default initial lookback)
+│   └── Shared cursor filtering across standalone connectors and host connections
 │
-├── 3. Once-per-day rollover (## Once-per-day rollover)
-│   ├── Check stateRoot/rollover/YYYY.MM.DD.json (run once per day)
-│   ├── Propose carry delta via plan-rollover (in-progress work persists, unfinished selections carry)
-│   └── Complete transaction (Schema V2 checkpoint or complete-rollover receipt)
+├── 4. Daily Carry-Forward (## Once-per-day rollover)
+│   ├── In-progress persistence and unfinished selection carry (↺)
+│   └── Explicit deselection tracking (removedIds)
 │
-├── 4. Build & review (## Build and review & ## Review scope)
-│   ├── Scoped review filtering (all-owner visibility, lowest incomplete milestone only)
-│   ├── Format & paginate review (one project per page, planDayReview template)
-│   └── Save review state (planning-state save-review validates draft & mapping)
+├── 5. Interactive Review Scope (## Build and review & ## Review scope)
+│   ├── All-owner visibility across incomplete milestones (M1, M2, ...)
+│   └── Project-paginated numbered screens validated against planDayReview
 │
-└── 5. Selection & daily plan updates
-    ├── Today's selections (## Saved daily plan: My work, Delegated, Follow-up)
-    └── Future selections (## Future-selection transaction: atomic move & removedIds sync)
+└── 6. Persisted Plan & Future Allocations (## Saved daily plan & ## Future-selection transaction)
+    ├── Role separation (My work, Delegated work, Follow-up work)
+    └── Single active planning date per task across dated plans
 ```
 
 ## Resolve once
 
-Initialize planning using `planning-prepare` with the captured workspace binding.
+A planning session binds exactly one `workspaceRoot`, one `projectsRoot`, and one `dailyPlansRoot` for the duration of the session. Inventories, numbered screen handles, and record mutations are never mixed across workspaces. Operational state—including fetch cursors, decision logs, checkpoints, rollover receipts, and review mappings—lives in `stateRoot` (`<workspaceRoot>/.nyssa-ai/daily-tasks`), strictly isolated per workspace even when personal preferences are shared through the user home profile.
 
-### Invariants and lifecycle
-- **Single workspace binding**: A planning session binds exactly one workspace root, one `projectsRoot`, and one `dailyPlansRoot`. Do not mix inventories, numbered replies, or record operations across different workspaces.
-- **Clock and local day**: Omit `now` on initial preparation to allow the host to resolve its actual clock and local date. Follow host local day even when UTC date differs. A requested planning day is an argument to `plan-selection`, not a clock override.
-- **Context bindings**: `resolve-context` issues `planningBinding`, an opaque hash of normalized roots. Subsequent calls to `planning-review`, `plan-selection`, and `plan-rollover` require `contextBinding`, `inventoryBinding`, and (when reusing an active numbered screen) `mappingBinding`. Mismatched roots fail validation before any side effects.
-- **State isolation**: Operational state (checkpoints, rollover history, review state) lives in `stateRoot` (`.nyssa-ai/daily-tasks`), strictly isolated per workspace. Home preferences configure defaults but do not share operational state across workspaces.
-- **Fresh preparation requirement**: Any write, reconciliation, recovery, or plan edit invalidates prepared hashes. Rerun `planning-prepare` before dependent state actions or review saves; never reuse stale fingerprints.
+When resolving the planning date for today, the host clock and configured IANA timezone determine the local calendar day, even when the current UTC date differs. Requesting a plan for a specific target date scopes the plan selection to that date without overriding the system clock used for audit timestamps. Context bindings (`planningBinding`, `contextBinding`, `inventoryBinding`, and `mappingBinding`) act as opaque hashes over the normalized roots and inventory state so any intervening write or root mismatch invalidates stale session state before side effects can occur.
 
 ## Load and maintain
 
-Load and validate workspace project inventory and inspect maintenance status.
+Workspace inventory discovery indexes valid project, milestone, task, and blocker records under `projectsRoot`. When a cached index exists at `<workspaceRoot>/.temp/daily-tasks/project-index.json` with a valid freshness sidecar, readers can reuse the parsed graph without re-reading unchanged task files; any committed record or plan write immediately invalidates that sidecar. Relative paths remain anchored to their logical roots, with external project collections outside the workspace anchored as `@projectsRoot`.
 
-### Inventory cache and indexing
-- Run `project-index` with resolved roots, timezone, and TTL.
-- The inventory cache lives at `<workspaceRoot>/.temp/daily-tasks/project-index.json` with a separate freshness sidecar.
-- Relative paths remain anchored to their logical roots; an external projects root outside workspace/home is anchored as `@projectsRoot`.
-- When the CLI reports the cache was reused, avoid re-reading task files. Invalidate the inventory cache immediately after any committed plan write.
-
-### Maintenance gate and worker boundary
-- Check `maintenance-status` with the resolved context. The `inspectionDue` boolean determines whether CLI maintenance inspection is needed.
-- If worker capabilities are unsupported (`workerEvidence.status: "unsupported"`), report this limitation truthfully. Never fabricate worker success evidence or write `maintenance.json`.
-- When inspection is due, read-only maintenance checks may run directly or via a lightweight read-only subagent. Maintenance workers must never write canonical Markdown, logs, or baselines.
-- Run `maintenance-inspect` following verified changes; only successful CLI inspections update `maintenance-inspection.json`.
-- A blocked inspection or non-critical diagnostic (e.g. navigation-only broken link, legacy project enrollment) is scoped evidence: suspend only affected dependent writes, and permit unrelated rollover, review mapping, or plan saves to proceed.
+Diagnostic issues discovered during workspace reading—such as a malformed Markdown record (`payload.malformed_files`) or a broken navigation link—are treated as scoped diagnostics rather than a global freeze. Only the affected record is suspended or routed for surgical repair via [`../workflows/records.md`](../workflows/records.md), while independent rollover, message matching, and daily planning continue normally. Maintenance inspections are strictly read-only and never fabricate worker evidence or mutate canonical Markdown records.
 
 ## Message collection
 
-Stage 0 collects unread messages from every enabled source with one shared cursor per source in
-`<stateRoot>/fetch-cursors.json`, whether a standalone connector or an existing assistant connection
-reads them.
+Stage 0 of a planning session gathers unread email and chat messages from enabled communication sources using a single shared cursor per source stored in `<stateRoot>/fetch-cursors.json`. Both standalone read-only connectors and host-supplied assistant connections (`sources.harnessConnections`) share the same fetch-window and deduplication semantics.
 
-### Fetch window and cursor invariants
-- **Fetch window**: `daily_tasks_get_fetch_window` returns each source's `since`, `after_epoch`, `last_external_id` and `has_cursor`. A saved cursor always wins; without one, the first pull reaches back `initial_lookback_days` (7 by default, from `sources.initialLookbackDays` or `--initial-lookback-days`).
-- **Harness ingestion**: For existing assistant connections, the agent reads messages within that window through the host's tool in read-only mode and passes them to `daily_tasks_start_session(messages=..., checked_sources=...)`. Never send, reply, draft, label or mark messages read.
-- **Identical filtering**: With a cursor, messages at or before `since` are dropped; on a first pull, messages before the cutoff are dropped; a message whose `external_id` equals `last_external_id` is always dropped. Repeats of one `(source, external_id)` count once. The rest are matched and turned into numbered Screen 1 suggestions exactly like connector messages.
-- **Advancement on confirmation**: Each read source's cursor advances to its newest accepted message (or to the window start when nothing new arrived) in memory. Only `daily_tasks_confirm_plan(confirmed=true)` saves it; cancelling leaves the previous cursor so the messages are read again next session.
-- **Non-blocking failure**: A source that cannot be read is reported and left out of `checked_sources`; planning continues and its cursor stays unchanged.
+`daily_tasks_get_fetch_window` computes each source's `since` timestamp (ISO-8601 UTC), `after_epoch` (Unix seconds), `last_external_id`, and `has_cursor` flag. When a saved cursor exists, it governs the window start; on a first pull without a cursor, the window reaches back `initial_lookback_days` (7 days by default, configured via `sources.initialLookbackDays` or `--initial-lookback-days`). All harness ingestion is strictly read-only and never sends, replies to, drafts, labels, archives, or marks messages read.
+
+Incoming messages at or before `since`, prior to the first-pull cutoff, or matching `last_external_id` are filtered out, and duplicate `(source, external_id)` pairs are collapsed. Remaining messages are correlated against the workspace `StateGraph` to produce numbered Screen 1 update suggestions citing their source. Each checked source's cursor advances in memory only and is persisted to disk exclusively when `daily_tasks_confirm_plan(confirmed=true)` succeeds; cancelling a session leaves stored cursors untouched so unread messages are re-evaluated on the next run. If a communication source fails to connect, it is reported to the user and omitted from `checked_sources` without blocking the planning session.
 
 ## Build and review
 
-Generate, paginate, and validate the interactive daily review screen.
+The interactive review flow presents numbered screens generated and validated by the MCP planning session (`daily_tasks_start_session`, `daily_tasks_execute_operations`, and `daily_tasks_advance_screen`) or verified against the active `planDayReview` template. Rollover and pre-matched message suggestions appear on Screen 1, per-project task assignment on Screen 2 (paginated one project per page), and the confirmation recap on Screen 3.
 
-### Review packet and numbered mapping
-- Rollover must be complete before presenting the daily review.
-- `planning-review` takes inventory, user email, timezone, selected rows, canonical records, and existing UUID-to-number mapping. It returns scoped counts, selected/available rows, pagination info, and an updated mapping.
-- The mapping must be saved to `stateRoot/review/YYYY.MM.DD.json` using `planning-state` action `save-review`.
-- Saving requires the complete agent-authored `reviewMarkdown`, current/previous plan hashes, `expectedReviewHash`, and `expectedInventoryHash`. Saving validates draft headings, table columns, task identities, row numbers, statuses, carry markers, and legends against the active `planDayReview` template.
-- Resuming a review without an explicit page parameter restores the saved project anchor and pagination state.
-
-### Review rules
-- **One project per page**: Display available tasks grouped by project, one project per page. "Show more" advances to the next project.
-- **Review complete**: When no further project options remain, indicate review completion rather than an empty page.
-- **Draft fidelity**: Display the verified `value.screen.markdown` returned by `save-review` unchanged; fix rejected drafts before prompting the user for choices.
+The session maintains a stable 1-based row-number-to-UUID mapping across screen refreshes and pagination so the user can reference any displayed suggestion or task by its row handle. Resuming an active session restores the current screen and project pagination state, and the rendered `payload.screen` markdown is displayed unchanged so the user always sees the validated table structure, status indicators, carry markers, and legends.
 
 ## Review scope
 
-Rules governing task eligibility, ordering, and counts across the scoped inventory.
+Review visibility spans all valid tasks in the bound `projectsRoot` regardless of owner or assignee, allowing the user to plan personal tasks, oversee delegated work, and track third-party follow-up items from a unified inventory. Viewing a task in a planning screen never alters its assignment, transfers ownership, or starts execution.
 
-### Visibility and ownership
-- Review covers all valid tasks in the bound `projectsRoot`, regardless of owner or assignee.
-- Tasks retain owner and assignee attributes to distinguish personal work, delegated work, and follow-up work.
-- Review visibility permits planning and check-in decisions; it does not alter assignment, reassign ownership, or start execution.
-
-### Scoped inventory counts
-- **Open tasks**: Tasks in `not-started` state with no future-day allocation or pending selection.
-- **In-progress tasks**: Tasks with ongoing execution; counted separately from new options.
+Inventory summary counts distinguish four categories:
+- **Open tasks**: Tasks in `not-started` state without a future-day allocation or current-day selection.
+- **In-progress tasks**: Tasks currently undergoing execution, tracked with ongoing selections rather than new options.
 - **Open projects**: Unfinished projects containing at least one open task.
-- **Late tasks**: Open tasks with an explicit `target_date` prior to the configured local day (`due today` is not late).
-- Do not fabricate counts; report incomplete or unindexed inventory explicitly.
+- **Late tasks**: Open tasks whose explicit `target_date` falls strictly before the configured local day (`due today` is not late).
 
-### Ordering and milestone eligibility
-- **Project ordering**: Projects are ordered by directory date (oldest first), with alphabetical name tie-breaking; undated directories follow alphabetically.
-- **Milestone eligibility**: Tasks from all incomplete milestones (`not-started` or `in-progress`) in a project are eligible for selection, presented in authoritative milestone sequence (`M1`, then `M2`, `M3`, …). Completed and cancelled milestones are skipped. Existing selections from any milestone remain valid.
-- **Task ordering**: Tasks appear in canonical index order, followed by unlisted valid tasks sorted by filename. This order is a stable display sequence, not a priority or execution order.
-- **Available tasks**: Only unselected open tasks appear in the available section. In-progress and already-selected tasks are excluded from available options. Explicit future-day allocations are excluded from today's available options.
+Projects are ordered by directory date (oldest first) with alphabetical tie-breaking, followed by undated project directories alphabetically. Within each project, tasks from incomplete milestones (`not-started` or `in-progress`) are presented in authoritative milestone sequence (`M1`, `M2`, `M3`, …) while completed and cancelled milestones are skipped. Within a milestone, tasks follow canonical index order and then filename order; this sequence provides stable display handles and never implies priority ranking or execution order. Only unselected `not-started` tasks without a future-day allocation appear as available options to add.
 
 ## Saved daily plan
 
-Requirements and content structure for the persisted daily plan document.
+When the user confirms the plan (`daily_tasks_confirm_plan(confirmed=true)`), the persisted `<dailyPlansRoot>/YYYY.MM.DD-daily-plan.md` document separates selected tasks into three role sections based on ownership and effective assignment:
+- **My work**: Tasks where the effective assignee (the explicit `assignee`, or `owner` when unassigned) matches the current user's email, including work owned by others.
+- **Delegated work**: Tasks owned by the current user where the effective assignee is another person or an agent.
+- **Follow-up work**: Tasks where both `owner` and effective `assignee` are third parties.
 
-### Section separation
-- Categorize selections into:
-  - **My work**: Effective assignee matches current user email (including work owned by others).
-  - **Delegated work**: Current user is owner; effective assignee is another person or agent.
-  - **Follow-up work**: Both owner and effective assignee are third parties.
-- Unassigned tasks fall back to their owner.
-- Suggested follow-up is capture candidate material; it is never converted into an implicit obligation.
+The saved document follows the active `dailyPlan` template layout, including `# Daily plan — LOCAL_DATE`, summary counts (`Open projects: ... Open tasks: ... Late tasks: ...`), `**Timezone:**`, `**Updated:**`, `## Selected for today` with `### My work`, `### Delegated work`, and `### Follow-up work`, `#### PROJECT_TITLE / MILESTONE_TITLE` group subheadings, 6-column tables (`| # | Status | Project | Milestone | Task | Due Date |`), `Legend:`, `## Blockers`, `## Decisions`, and `## Notes and references`.
 
-### Document structure
-- **Template layout**: Follow `packet.templates.templates.dailyPlan.active.content` for headings (`# Daily plan — LOCAL_DATE`, `## Selected for today`, `### My work`, `### Delegated work`, `### Follow-up work`, `## Blockers`, `## Decisions`, `## Notes and references`), counts (`Open projects: ... Open tasks: ... Late tasks: ...`), `**Timezone:**`, `**Updated:**`, `#### PROJECT_TITLE / MILESTONE_TITLE` group subheadings, 6-column tables (`| # | Status | Project | Milestone | Task | Due Date |`), and `Legend:`. Never replace table rows with `- [ ]` bullet lists unless the active `dailyPlan` template uses checklists.
-- **Task link presentation**: Always provide the human-readable task title as the display label (`[[relative-path\|Task title]] <!-- ref: UUID -->`, escaping the wiki-link pipe inside table cells). Prefix carried items with `↺ ` outside the wiki link. Never expose raw filesystem paths or bare UUIDs to the user.
-- Represent status using single status indicators matching the active template (`[ ]`, `[>]`, `[x]`, `[-]`).
-- Completed tasks remain checked and cancelled tasks remain marked for today.
-- Only selected work belongs in the plan; available options and interactive prompts stay in the review screen. Use short empty-state sentences for empty sections and omit `## Focus` unless explicitly supplied.
-- Never add automatic scheduling, timeframe fitting, duration estimates, or focus tags unless explicitly provided.
+Task cells render human-readable wiki-links with escaped pipes and hidden UUID reference comments (`[[relative-path\|Task title]] <!-- ref: UUID -->`), prefixed by `↺ ` outside the link when carried forward. Raw filesystem paths and bare UUIDs are never exposed as display labels. Status cells reflect canonical task lifecycle indicators (`[ ]`, `[>]`, `[x]`, `[-]`). Completed and cancelled tasks remain visible on the day they reach a terminal state, while unselected available options stay out of the saved plan. Daily plans never include automatic time-slot scheduling, duration estimates, or capacity fitting.
 
 ## Once-per-day rollover
 
-Deterministic carry-forward of active work from the most recent prior plan into today's plan.
+Carry-forward from the nearest preceding daily plan into today's plan runs deterministically once per local calendar day. If today's plan already exists on disk, rollover preserves its frontmatter `id`, original `created_at` timestamp, existing selections, and user prose.
 
-### State and receipt invariants
-- Rollover state is tracked at `stateRoot/rollover/YYYY.MM.DD.json`.
-- A completed state requires `{ schemaVersion: 1, date, planId, operationId, completedAt }` where `date` is the local day and `completedAt` is GMT ISO.
-- `removedIds` tracks explicitly deselected UUIDs for that day to prevent unwanted recarrying.
-- Rollover runs exactly once per calendar day. Subsequent runs on the same day preserve manual edits and removals without re-merging prior days.
-
-### Carry-forward rules
-- **In-progress persistence**: Every valid in-progress task in the inventory must carry forward into today's plan, even if absent from yesterday's plan or previously deselected, until explicitly marked completed, cancelled, or rescheduled.
-- **Unfinished selections**: Carried unfinished tasks from the previous plan receive carry provenance (`carriedFrom: previousDate`) and the carry marker (`↺`).
-- **Terminal and future exclusion**: Completed, cancelled, and future-allocated tasks do not carry forward.
-- **Unresolved records**: Unresolved or missing task identities remain visible in the plan to avoid silent data loss.
-
-### Execution transaction
-1. Use the pre-computed `packet.rollover` and `packet.drafts` from `planning-prepare` (which includes `dailyPlanMarkdown`, `reviewMarkdown`, `rolloverOperation`, `completeRolloverInput`, and `saveReviewInput`).
-2. For an existing plan, preserve its original `id` and `created_at` frontmatter. For a missing plan, use `packet.current.proposedId` and `packet.context.now` (`packet.displayNow` for display).
-3. If changes are proposed (or a missing plan is created):
-   - Write `packet.drafts.rolloverOperation.checkpoint` to `packet.drafts.rolloverOperation.operationPath` and write `packet.drafts.dailyPlanMarkdown` to `packet.current.path`.
-   - Finalize in one call via `rollover-complete` using `packet.drafts.rolloverOperation.completeInput` (`validatePlanTemplate: true`, `appendEvent: true`, `prepareNext: true`, `saveReview: true`), which validates the plan layout, appends the `plan.rollover` event, completes the receipt, invalidates the cache, saves the first review screen, and returns `reviewSaved.value.screen.markdown`.
-4. If no changes are needed on an existing plan:
-   - Finalize the rollover receipt and save the review screen in one call via `planning-state` using `packet.drafts.completeRolloverInput` (`action: "complete-rollover"`, `saveReview: true`).
+Carry-forward obeys three core domain invariants:
+- **In-progress persistence**: Every valid `in-progress` task in the workspace inventory is carried into today's plan—even if it was absent from yesterday's plan or previously deselected—until it is explicitly completed, cancelled, or rescheduled to a future date.
+- **Unfinished selection carry**: Unfinished `not-started` tasks selected on the nearest prior plan carry forward into today's plan with carry provenance (`carriedFrom`) and the `↺` marker, unless the user explicitly deselects (`unplan`) them for today (recorded in `removedIds`).
+- **Terminal and future exclusion**: Completed (`[x]`), cancelled (`[-]`), and future-allocated tasks do not carry forward into subsequent days, while unresolved or missing task references are preserved visibly to prevent silent data loss.
 
 ## Future-selection transaction
 
-Protocol for scheduling tasks for explicit future dates.
-
-### Proposal and conflict check
-- Request proposals via `plan-selection` with target `date`, action (`add`, `move`, `remove`), `taskIds`, and resolved context.
-- `plan-selection` evaluates date validity, suspended records, and conflicting active selections without modifying Markdown.
-- If conflicts exist, suspend affected items, preserve existing plans, and report the conflicts. Apply only unconflicted effects.
-
-### Atomic multi-plan update
-- Each task has exactly one active planning date.
-- **Move transaction**:
-  1. Write and verify the target destination plan first.
-  2. Remove the task from the source plan.
-  3. Finalize in one call via `operation-complete` (`appendEvent: true`, `prepareNext: true`), which updates `removedIds` in both affected dated rollover states (`add` clears the ID at destination; `remove`/`move-from` records the ID at source), appends the selection event to the decision log, invalidates the inventory cache, and completes the checkpoint.
-- If interrupted, the write-ahead checkpoint ensures source removal and state cleanup resume deterministically without creating duplicate active dates or duplicate plans.
+Assigning a `not-started` task to an explicit future date (`assign-to-day` with a future `YYYY-MM-DD`) ensures that each task has at most one active planning date across the workspace. Moving a task from today's plan to a future date writes or updates the target future daily plan and records the deselection in today's state (`removedIds`) so the task is removed from today's active selections and excluded from today's available-options list until that future date arrives or the task is explicitly re-selected.

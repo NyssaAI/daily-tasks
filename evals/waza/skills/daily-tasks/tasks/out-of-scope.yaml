@@ -1,11 +1,11 @@
 id: daily-tasks-router-out-of-scope
-name: Do not route an unrelated programming question
-description: A general JavaScript explanation does not request personal task management.
+name: Do not route a calendar time-blocking request
+description: Scheduling tasks into specific hourly time slots on a calendar is explicitly out of scope for Daily Tasks.
 tags:
   - trigger
   - negative
 inputs:
-  prompt: "Can you explain how async functions work in JavaScript?"
+  prompt: "Take my tasks for today, estimate how many minutes each will take, and block 30-minute time slots on my calendar from 9:00 AM to 5:00 PM."
 expected:
   should_trigger: false
 graders:

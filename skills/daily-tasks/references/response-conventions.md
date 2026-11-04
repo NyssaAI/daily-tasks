@@ -1,20 +1,15 @@
 # Planning-screen response conventions
 
-> [!IMPORTANT]
-> **Scope Directive**: This document defines the user-facing presentation, interactive numbered-reply protocol, status/action legends, review screen validation gate, and batch response parsing for Daily Tasks planning and check-in sessions. It is strictly an interaction and presentation specification. Low-level CLI commands and signatures belong in [`cli.md`](cli.md), transactional write-ahead checkpointing in [`operations.md`](operations.md), record schemas in [`records.md`](records.md), and planning domain rules, rollover algorithms, and review scope in [`planning-flow.md`](planning-flow.md).
+> [!IMPORTANT] Scope Directive
+> This reference owns the user-facing presentation model, status and action legends, numbered-handle semantics, and reply interpretation grammar for Daily Tasks planning and check-in screens. It does NOT own step-by-step planning or check-in execution checklists (owned by [`../workflows/plan.md`](../workflows/plan.md) and [`../workflows/checkin.md`](../workflows/checkin.md)), MCP/CLI invocation syntax (owned by [`cli.md`](cli.md)), transactional checkpointing (owned by [`operations.md`](operations.md)), record schemas (owned by [`records.md`](records.md)), or planning domain rules and review scope (owned by [`planning-flow.md`](planning-flow.md)).
 
-## Required screen validation gate
+## Validated screen presentation model
 
-Before presenting daily review options or decision recaps to the user:
-1. **Read active template**: Obtain `planDayReview` layout from `packet.templates.templates.planDayReview.active.content`.
-2. **Draft screen markdown**: Format the draft with exact review rows, numbered handles, and hidden `ref` comments (`[[relative-path|Task title]] <!-- ref: UUID -->`). Never present raw filesystem paths or bare UUIDs.
-3. **Validate and persist**: Pass the complete draft as `reviewMarkdown` to `planning-state` action `save-review` with fresh packet hashes.
-4. **Display exact output**: Render the returned `value.screen.markdown` unchanged outside code fences. Do not substitute alternate table styles, unvalidated numbered lists, or prose summaries unless explicitly specified by the template.
-5. **Enforce validation**: Resolve validation failures before prompting the user for choices.
+Interactive daily planning and review screens rely on a strict visual contract so the user can scan work across projects and respond with compact row numbers. Rather than summarizing options in freeform prose or substituting ad-hoc lists, the agent renders the validated `payload.screen` markdown returned by the MCP planning session (`daily_tasks_start_session`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`, `daily_tasks_get_session_state`) or verified against the active `planDayReview` template unchanged outside code fences. Each actionable row displays a human-readable wiki-link and hidden UUID reference comment (`[[relative-path|Task title]] <!-- ref: UUID -->`) while concealing raw filesystem paths and bare UUIDs from the user's reading flow.
 
 ## Presentation legends and meanings
 
-Every review screen displays standard prompt and legend lines:
+Every review screen concludes with the standard prompt and status legend so the user knows how to format replies and interpret status markers:
 
 ```text
 Reply by row number and symbol or description:
@@ -22,46 +17,39 @@ Reply by row number and symbol or description:
 Legend: [ ] not started · [>] in progress · [x] completed · [-] cancelled
 ```
 
-- When carried-forward work is present, append `· ↺ carried forward` to the legend and prefix carried task titles with `↺`.
-- For blocker rows, display: `Legend: [ ] open · [x] completed (resolved)`.
-- Status indicators reflect canonical task/blocker states, **not** daily plan selection. Adding a task to today preserves its lifecycle status.
+When carried-forward work appears on the screen, `· ↺ carried forward` is appended to the legend and carried task titles are prefixed with `↺`. For blocker tables, the legend reads `Legend: [ ] open · [x] completed (resolved)`. Status indicators always reflect the canonical lifecycle state of the underlying task or blocker record rather than whether the item is selected for today's plan; adding a `not-started` task to today's plan preserves its `[ ]` state.
 
 ### Status mapping table
 
 | Reply / Symbol | Daily Tasks Meaning | Action Taken |
 | :--- | :--- | :--- |
-| `[ ]` / `not started` / `pending` | Not started | Retain or reset status via canonical records protocol. |
-| `[>]` / `in progress` | In progress | Record execution start with host activity timestamp. |
-| `[x]` / `complete` / `resolved` | Completed (or Blocker resolved) | Verify DoD / criteria and record completion; keep row in today's plan. |
-| `[-]` / `cancel` | Cancelled | Cancel identified record; do not silently cascade to parent. |
+| `[ ]` / `not started` / `pending` | Not started | Retain or reset status via the canonical records protocol. |
+| `[>]` / `in progress` | In progress | Record execution start with the current UTC activity timestamp. |
+| `[x]` / `complete` / `resolved` | Completed (or Blocker resolved) | Verify DoD criteria and record completion; retain row visibility in today's plan. |
+| `[-]` / `cancel` | Cancelled | Cancel the identified record; never cascade silently to parent milestones or projects. |
 
-## Numbered-reply protocol
+## Numbered-reply semantics
 
-- **Continuous sequence**: Start tables with `#` and number actionable rows in a single continuous 1-based sequence across the screen. Headings and summary lines are not numbered.
-- **Stable handles**: Row numbers are transient session response handles, not priority ranks or record IDs. Keep mappings stable across refreshes and pages. Never renumber processed rows or reuse numbers within a session.
-- **Workspace binding**: Save the number-to-UUID mapping to `stateRoot/review/YYYY.MM.DD.json` with `mappingBinding`. Never apply numbered replies from one workspace to another.
-- **Accepted input formats**: Parse symbols with or without brackets, row lists, and natural language (e.g. `1 x, 2 >, 3 cancel`, `add 2, 4`, `2 delegate to Alex`).
-- **Ambiguous input**: A bare number without an action is not an instruction; prompt for the user's intended action.
-- **Collective reports**: Apply collective updates (e.g. `2, 4, 6 in progress`) to each identified task record, updating canonical records and parent effects before updating daily plan projections.
+Actionable table rows on a planning screen are numbered in a single continuous 1-based sequence (`#`), while section headings and summary counters remain unnumbered. Row numbers serve strictly as transient session handles bound to the active workspace (`mappingBinding`); they carry no priority ranking, are never reused or renumbered as pages advance, and are never applied across different workspaces.
 
-## Planning actions reference
+Users may reply using status symbols (with or without brackets), row lists, or natural-language directives such as `1 accept`, `1 x, 2 >, 3 cancel`, `add 2, 4`, or `2 delegate to Alex`. Because a bare row number without an action or verdict is ambiguous, the agent asks for the user's intended action on that row while retaining unambiguous decisions from the same batch. Collective status reports (for example, `2, 4, 6 in progress`) apply to each identified record in memory and commit to canonical records, parent milestones/projects, and daily plan views upon plan confirmation.
 
-- **add / today**: Select accepted tasks for today's plan without altering lifecycle state, target date, or assignment.
-- **remove**: 
-  - For `not-started` work: deselect from today and clear carry-forward without requiring a reschedule date.
-  - For `in-progress` work: requires an explicit reschedule date, completion, or cancellation; prompt for missing disposition.
-- **keep**: Retain current selections and statuses; omitted rows remain untouched.
-- **show details**: Display the full requirements, DoD, and context for the identified record.
-- **next / show more**: Advance to the next project page of eligible tasks. Keep each project contiguous, preserving stable numbers and earlier selections. Display page indicators (`Page X of Y`).
-- **previous**: Return to the preceding project page using the saved mapping (enabled when `page > 0`).
-- **show all milestones**: Display later milestone tasks for inspection without making them eligible for selection (eligibility remains bound to the lowest incomplete milestone).
-- **later / defer [date]**: Remove `not-started` work from today. For explicit future dates, execute the future-selection transaction (create target daily plan, update `removedIds`, maintain exactly one active date per task). Never alter `target_date`.
-- **delegate [assignee]**: Update `assignee` in task metadata; preserves human `owner`.
-- **blocked**: Record or link a blocker via records; does not introduce an artificial task status.
-- **confirm plan**: Finalize displayed selections and commit the daily plan. Unselected available tasks do not require dates.
+## Planning actions grammar
 
-## Response processing and recaps
+| User Reply Action | Domain Semantics |
+| :--- | :--- |
+| **add / today** | Assigns an eligible `not-started` task to today's plan (`assign-to-day`) without altering its lifecycle state, `target_date`, or `assignee`. |
+| **remove / unplan** | For `not-started` work, deselects the task from today's plan and suppresses automatic carry-forward (`removedIds`) without requiring a new date. For `in-progress` work, prompts for an explicit reschedule date, completion, or cancellation because active work cannot silently drop from plans. |
+| **keep** | Retains current selections and statuses; omitted rows remain untouched. |
+| **show details** | Displays the full requirements, embedded DoD criteria, and blocker/dependency context for the identified row. |
+| **next / show more** | Advances Screen 2 to the next project page of eligible tasks (`Page X of Y`), preserving stable row numbers and prior selections. |
+| **previous** | Returns to the preceding project page when `page > 0`. |
+| **show all milestones** | Displays tasks from later milestones for inspection while keeping selection eligibility scoped to incomplete milestones in sequence. |
+| **later / defer [date]** | Deselects `not-started` work from today and, when an explicit future `YYYY-MM-DD` date is given, assigns the task to that future daily plan (`assign-to-day`) without mutating its `target_date` deadline. |
+| **delegate [assignee]** | Updates `assignee` on the target record (`reassign`) while preserving the human `owner`. |
+| **blocked** | Records or links an external blocker record under `blockers/` without inventing a synthetic task lifecycle state. |
+| **finish / confirm plan** | Advances to Screen 3 recap (`finish`) or commits staged changes to disk (`daily_tasks_confirm_plan(confirmed=true)`). Unselected available tasks require no dates. |
 
-- **Batch isolation**: Process unambiguous items in a batch. If an item is ambiguous, suspend only that item, ask a focused clarification question, and retain already-decided items.
-- **Feedback & echoes**: Acknowledge decisions briefly using their original row numbers, noting any unresolved questions.
-- **Recap presentation**: Present daily plan recaps using the same layout as the source screen, showing today's selected work and remaining available options. Omit future-day tables unless an explicit multi-day/week view is requested.
+## Batch isolation and recap fidelity
+
+When a multi-item user reply contains both clear directives and an ambiguous item, unambiguous operations are staged immediately while only the ambiguous row is held for a focused clarification question. Screen 3 recaps use the validated screen layout showing today's selected work across `My work`, `Delegated work`, and `Follow-up work`, omitting future-day tables unless the user explicitly asks for a multi-day or week view.

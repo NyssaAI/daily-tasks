@@ -1,0 +1,16 @@
+id: daily-tasks-setup-general-timezone-out-of-scope
+name: Do not route a calendar meeting timezone invite to setup
+description: Scheduling a calendar meeting across multiple timezones does not configure Daily Tasks preferences.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Book a recurring 45-minute calendar invite across America/Chicago and Europe/London timezones for our weekly engineering sync."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: setup-general-timezone-negative
+    config:
+      skill_path: skills/daily-tasks/SKILL.md
+      mode: negative

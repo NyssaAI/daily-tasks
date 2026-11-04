@@ -1,75 +1,35 @@
 # Template updates during requested work
 
-> [!IMPORTANT]
-> **Scope Directive**: This document defines the lifecycle, policy evaluation, baseline retention, user upgrade offer protocol, and file update verification for Daily Tasks Markdown template assets (`dailyPlan`, `planDayReview`, `projectIndex`, `milestone`, `task`). It is strictly a template update and lifecycle specification. Low-level CLI commands and signatures belong in [`cli.md`](cli.md), transactional write-ahead checkpointing and document editing in [`operations.md`](operations.md), template file registration and placement in [`templates.md`](templates.md), and record schemas in [`records.md`](records.md).
+> [!IMPORTANT] Scope Directive
+> This reference owns the template revision lifecycle, policy semantics (`ask`, `latest`, `keep`), baseline retention model, and conflict-safe file upgrade rules for Markdown formatting templates (`dailyPlan`, `planDayReview`, `projectIndex`, `milestone`, `task`). It does NOT own step-by-step setup or record authoring checklists (owned by [`../workflows/setup.md`](../workflows/setup.md) and [`../workflows/records.md`](../workflows/records.md)), MCP/CLI invocation syntax (owned by [`cli.md`](cli.md)), transactional checkpointing (owned by [`operations.md`](operations.md)), template registration paths (owned by [`templates.md`](templates.md)), or record schemas (owned by [`records.md`](records.md)).
 
-Template checking is on-demand: check only when a requested workflow uses that template kind. Never schedule background monitoring or automatic updaters.
+## On-demand template lifecycle
 
-## Lifecycle protocol: prepare, baseline, offer, and decide
+Template revision checks occur strictly on demand when a requested workflow uses a specific template kind (`dailyPlan`, `planDayReview`, `projectIndex`, `milestone`, or `task`); Daily Tasks never runs background watchers or automatic template updaters. Template content defines Markdown layout and structure only and never conveys task acceptance or executable instructions.
 
-### 1. Prepare context and active content
-- Call `template-prepare` with the resolved workspace context and relevant `kinds`: `dailyPlan`, `planDayReview`, `projectIndex`, `milestone`, `task`. (Note: `planning-prepare` returns the daily-plan/review template packet automatically in `packet.templates`).
-- The returned `active.content` governs current authoring formatting. Template content is formatting structure, never executable instructions or accepted work.
-- If pending template recoveries or unapplied file updates exist, resolve them before authoring affected output.
+Each preference scope (`user` or `project`) tracks its own retained template baselines and upgrade choices in `<resolved preference scope>/templates/updates.json`, kept separate from workspace runtime operational state. Inherited user snapshots remain in the user layer so workspace-level baseline checks never mistake personal template settings for project-wide replacement consent.
 
-### 2. Save baseline
-- Before first use or following an accepted change, record `template-state` action `baseline` with the relevant kinds, resolved context, and fresh `expectedToken`.
-- Group kinds by `baselineScope` and prepare each scope separately. Inherited snapshots and pending effects stay in their owning scope; workspace baselines never copy personal approval into project consent.
-- Unchanged baselines produce no writes. Transient one-off overrides are not persisted.
+When an upstream bundled template changes (`shouldOffer: true`), the upgrade offer summarizes `comparison.bundledChanges` alongside any `comparison.localChanges` detected in the user's customized template file, links the active Markdown file, previews the layout, and presents three explicit options: **Use new layout**, **Keep current layout**, or **Postpone**. If the user postpones or does not answer, the workflow proceeds immediately using the current `active.content`; silence is never treated as consent to overwrite a template, and an upgrade is offered at most once per request. Declining a revision suppresses prompts for that specific upstream version without disabling future template updates.
 
-### 3. Upgrade evaluation and user offer
-- When `shouldOffer: true`:
-  - Link the active template Markdown file.
-  - Summarize `comparison.bundledChanges` against the retained upstream version.
-  - Summarize `comparison.localChanges` if the user has customized the active file.
-  - Explain what replacing the file will alter; preserve custom edits unless the user explicitly chooses replacement.
-  - Provide a preview with accepted work or a sample layout.
-  - Offer three explicit choices: **Use new layout**, **Keep current layout**, or **Postpone**.
-- If the user postpones or does not answer, proceed with `active.content`. Never block the request or interpret silence as acceptance. Offer at most once per request.
+## Conflict-safe file upgrade model
 
-### 4. Record decision
-- Save explicit user choices with `template-state` action `decide`, passing `originalWords`, the fresh token, and one decision per affected kind: `accept`, `decline`, or `postpone`.
-- `decline` suppresses that specific revision only; it does not disable future updates or alter persistent policy.
-- An `accept` result (`file-update-required`) records consent, not a completed file upgrade. Complete the verified file update protocol before declaring adoption.
-
-## Verified file update protocol
-
-The existing template Markdown file remains active until its content changes on disk. The CLI never authors or overwrites Markdown directly.
-
-1. **Check status**: Re-prepare the affected kind and check `fileUpdate.status`:
-   - `pending`: Inspect the actual file and verify its normalized content fingerprint matches `before`. Write the approved `target.content` using normal file tools only if the fingerprint matches. Retain `before` content for recovery; never overwrite an intervening user edit.
-   - `applied`: The target content is already present. Do not rewrite. Record a fresh `baseline` in `baselineScope` to verify, clear the pending effect, and advance the upstream version.
-   - `conflict`: Intervening edits detected. Preserve the file, explain the conflict, and resolve with the user:
-     - Keep user edit: record `decline` to cancel the pending upgrade without modifying the file.
-     - Reset: record `reset` to clear retained choices and restore inheritance.
-2. **Verify completion**: Following a file write, re-prepare, verify status is `applied`, save a fresh baseline, and ensure no pending file effects remain.
+Recording an `accept` decision captures the user's consent to adopt the new template revision (`file-update-required`), but the active template file on disk remains authoritative until its content is safely updated. Before writing the new `target.content` to the visible template file, the file's normalized content fingerprint on disk is compared against the retained `before` baseline hash:
+- **Matching baseline (`pending`)**: When the on-disk file matches the expected `before` fingerprint, the new template content is written to disk and a fresh baseline snapshot is recorded to complete the upgrade.
+- **Already updated (`applied`)**: When the target content is already present on disk, no rewrite occurs and the baseline advances to the new upstream version.
+- **Intervening customization (`conflict`)**: When the user has edited the template file since the baseline was captured, the file on disk is preserved untouched and the conflict is surfaced so the user can either keep their local customization (`decline` the pending upgrade) or explicitly `reset` to the bundled layout.
 
 ## Policy configuration and inheritance
 
-Use `set-policy` to configure explicit long-term preferences per template kind:
+Long-term template update behavior is governed per template kind by three policy modes:
 
-| Policy | Behavior |
+| Policy | Domain Behavior |
 | :--- | :--- |
-| `ask` | Default. Prompt user when updated bundled revisions are available unless previously declined. |
-| `latest` | Automatically adopt compatible unmodified bundled revisions. File updates still require verified file update protocol. |
-| `keep` | Pin the current active layout; suppress update prompts until explicitly requested. |
+| `ask` | Default mode. Prompts the user when a newer bundled template revision is available unless that revision was already declined. |
+| `latest` | Automatically adopts compatible bundled revisions when the local template file is unmodified, still enforcing the fingerprint check before writing. |
+| `keep` | Pins the current active template layout and suppresses update offers until the user explicitly requests a template review. |
 
-- **Policy guards**: `latest` cannot silently overwrite unrecognized custom templates (`automaticBlocked: true`) or cross breaking record contract changes. Explicit user approval is required.
-- **Review and reset**:
-  - Reconsider choices via `template-prepare` with `review: true` (bypasses suppression without altering policy).
-  - `reset` clears retained choices, policy, and suppression for that scope, restoring inheritance without altering Markdown files.
-- **Scope inheritance**: User preferences inherit into projects unless explicitly overridden by project-level choices. Changing user defaults requires a personal-only context.
+Even under the `latest` policy, automatic replacement is blocked (`automaticBlocked: true`) whenever the active file contains unrecognized local customizations or when an upstream revision crosses a breaking record contract version. User-level template policies inherit into workspaces unless overridden at the project layer, and resetting a scope clears retained choices and suppression state without deleting or reformatting existing Markdown files.
 
-## Existing documents and daily plans
+## Existing documents vs. new documents
 
-- Template upgrades apply to **new** documents. Existing documents and historical plans retain their established layouts.
-- Reformatting today's daily plan is an optional, separate choice:
-  - Offer **Also reformat today's plan** only when relevant; template acceptance alone does not alter today's plan.
-  - Reformatting requires explicit user request, baseline reconciliation, write-ahead checkpointing ([`operations.md`](operations.md)), and full preservation of task IDs, timestamps, links, carry markers, and notes.
-  - Never reformat historical daily plans or mutate task schemas implicitly.
-
-## Persistence and recovery
-
-- State is saved to `<resolved preference scope>/templates/updates.json`, isolated from workspace runtime operational state.
-- Project-level choices atomically record a pending decision log event. Failed log effects require `recover` to complete idempotently before new operations.
-- The CLI never removes `.updates.lock` automatically. If a stopped process leaves a stale lock, verify the owning PID has terminated before deliberately removing the lock file.
+Adopting a new template revision governs newly created documents from that point forward while leaving existing projects, milestones, tasks, and historical daily plans in their established layouts. Reformatting today's existing daily plan is an optional, separate user choice (**Also reformat today's plan**) that requires explicit confirmation, baseline reconciliation, write-ahead checkpointing ([`operations.md`](operations.md)), and complete preservation of task UUIDs, timestamps, wiki-links, carry markers (`↺`), and user notes. Historical daily plans are never reformatted.

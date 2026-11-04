@@ -1,0 +1,16 @@
+id: daily-tasks-setup-out-of-scope
+name: Set up a personal writing voice profile
+description: Learning a user's writing style and tone profile belongs to write-like-me, not Daily Tasks setup.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Learn my writing style from these sample emails and update my voice profile so future drafts sound like me."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: setup-negative-trigger
+    config:
+      skill_path: skills/daily-tasks/SKILL.md
+      mode: negative

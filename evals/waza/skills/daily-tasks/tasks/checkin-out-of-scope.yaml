@@ -1,0 +1,16 @@
+id: daily-tasks-checkin-out-of-scope
+name: Babysit a GitHub PR and check CI status
+description: Monitoring a GitHub pull request and resolving CI lint failures is not a personal Daily Tasks check-in.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Watch our open GitHub pull request until CI checks pass and resolve the inline code review comments."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: checkin-negative-trigger
+    config:
+      skill_path: skills/daily-tasks/SKILL.md
+      mode: negative

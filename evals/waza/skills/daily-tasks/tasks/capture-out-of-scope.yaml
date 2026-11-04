@@ -1,0 +1,16 @@
+id: daily-tasks-capture-out-of-scope
+name: File reference notes into a PARA vault without task capture
+description: Filing a reference note into a PARA knowledge vault belongs to para-vault, not Daily Tasks candidate capture.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "File this reference note into my PARA vault's 3-resources folder and repair the broken Map of Content links."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: capture-negative-trigger
+    config:
+      skill_path: skills/daily-tasks/SKILL.md
+      mode: negative

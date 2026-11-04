@@ -1,0 +1,16 @@
+id: daily-tasks-records-out-of-scope
+name: Safely rename a repository directory and repair file references
+description: Raw filesystem folder moves and collision resolution belong to manage-file-operations, not Daily Tasks record management.
+tags:
+  - trigger
+  - negative
+inputs:
+  prompt: "Safely rename the docs/legacy-specs folder to docs/archive, resolve any destination file collisions, and update relative file paths."
+expected:
+  should_trigger: false
+graders:
+  - type: trigger
+    name: records-negative-trigger
+    config:
+      skill_path: skills/daily-tasks/SKILL.md
+      mode: negative

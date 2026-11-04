@@ -1,54 +1,54 @@
 ---
 name: daily-tasks
-description: Manage personal projects, milestones, accepted tasks, external blockers, daily priorities and anytime check-ins using editable Markdown records. Use when capturing commitments, updating or delegating work, planning a day, reconciling progress, fixing malformed files, or completing project setup. Does not schedule work into available time.
+description: Use this skill when the user asks to "set up Daily Tasks", "capture possible tasks from notes", "create or update a project, milestone, or task", "fix malformed record files", "plan my day", or "check in and reconcile edits". Manages personal projects, milestones, accepted tasks, external blockers, daily plans, and anytime check-ins using editable Markdown records and the daily-tasks MCP server. Do NOT use this skill for calendar time-blocking or scheduling work into available time slots.
 ---
 
 # Daily Tasks
 
-Supply capabilities to the calling agent; do not assume its persona or autonomously
-run a personal operating system. One authoritative record per item. Select one route:
+Supply capabilities to the calling agent; do not assume its persona or autonomously run a personal operating system. Maintain one authoritative Markdown record per item and route each request to the matching workflow:
 
 | Request | Load |
 | --- | --- |
-| First use, project setup not done, identity, timezone, paths, priorities, formatting templates | [Setup](../daily-tasks-setup/SKILL.md) |
-| Extract possible work or accept a batch | [Capture](../daily-tasks-capture/SKILL.md) |
-| Create/update/move/assign work, DoD, dependencies, blockers, or fix malformed files | [Records](../daily-tasks-records/SKILL.md) |
-| Select daily work or change today's list | [Daily plan](../daily-tasks-plan/SKILL.md) |
-| Report progress, reconcile edits, resume or check in | [Check-in](../daily-tasks-checkin/SKILL.md) |
+| First use, project setup not done, identity, timezone, paths, priorities, formatting templates | [Setup](workflows/setup.md) |
+| Extract possible work or accept a batch | [Capture](workflows/capture.md) |
+| Create/update/move/assign work, DoD, dependencies, blockers, or fix malformed files | [Records](workflows/records.md) |
+| Select daily work or change today's list | [Daily plan](workflows/plan.md) |
+| Report progress, reconcile edits, resume or check in | [Check-in](workflows/checkin.md) |
 
-## Configuration and storage
+## Configuration and storage gates
 
 Configuration is stored in persistent JSON files under canonical `.nyssa-ai/daily-tasks/profile.json`:
-- **User scope**: `~/.nyssa-ai/daily-tasks/profile.json` for personal preferences (name, email, timezone, personal priorities).
-- **Workspace scope**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` for workspace bindings (`projectsRoot`, `dailyPlansRelative`).
+- **User scope**: `~/.nyssa-ai/daily-tasks/profile.json` for personal preferences (`user.name`, `user.email`, `timezone`, `priorities`).
+- **Workspace scope**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` for workspace bindings (`projectsRoot`, `dailyPlansRelative`, `sources`).
 
-When loaded, reuse existing accepted pointers or discover persistent `.nyssa-ai` preference layers without re-running setup:
-1. Load persistent preferences from canonical profile layers.
-2. Resolve `workspaceRoot`, `projectsRoot`, and `dailyPlansRoot` from the profile.
-3. Access independent workspace operating state under `<workspaceRoot>/.nyssa-ai/daily-tasks/`.
-4. Continue with the requested work. If project setup is not already done (missing `profile.json` or unresolved workspace bindings), immediately trigger and run [Setup](../daily-tasks-setup/SKILL.md) before attempting to manage records, plan, or check in. Run Setup only when configuration is missing or when the user explicitly requests configuration changes.
+Before executing any routed workflow, enforce these resolution gates:
+1. Load persistent preferences from canonical profile layers (`~/.nyssa-ai/daily-tasks/profile.json` and `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json`) or accepted custom pointers without recursively scanning home directories.
+2. Resolve `workspaceRoot`, `projectsRoot`, and `dailyPlansRoot` from the bound profile; never infer workspace scope from a later process `cwd` or plugin installation path.
+3. Isolate workspace operating state under `<workspaceRoot>/.nyssa-ai/daily-tasks/`.
+4. If project setup is not already done (missing `profile.json` or unresolved workspace bindings), immediately trigger and complete [Setup](workflows/setup.md) before attempting [Records](workflows/records.md), [Daily plan](workflows/plan.md), or [Check-in](workflows/checkin.md). Do not re-run Setup when configuration is already complete unless the user explicitly asks to change settings.
+5. Preserve `configurationSources` across turns. If the user supplies an invalid path or command, report the exact validation error and ask for clarification.
+6. Never enable background monitoring, startup foundation hooks, or autonomous time-slot scheduling.
 
-Preserve configurationSources through continuation. Do not scan home directories or infer workspace scope from a later process cwd or installed code. If the user provides an invalid path or command, explain the error and request clarification. No startup foundation, background monitoring or autonomous scheduling.
+## MCP server boundary
 
-When the `daily-tasks` MCP server is connected, planning runs through its
-`daily_tasks_start_session`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`
-and `daily_tasks_confirm_plan` tools as described in [Daily plan](../daily-tasks-plan/SKILL.md);
-server setup and Gmail sign-in are in [Setup](../daily-tasks-setup/SKILL.md). The MCP server
-must ONLY be used via MCP tools; never invoke `daily-tasks-mcp` or `python -m daily_tasks.server`
-as a CLI command or shell subprocess. The server writes records only after the user explicitly
-confirms the plan.
+- Use the `daily-tasks` MCP server exclusively via host MCP tool calls (`daily_tasks_start_session`, `daily_tasks_get_fetch_window`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`, `daily_tasks_confirm_plan`, `daily_tasks_get_session_state`, `daily_tasks_cancel_session`, `daily_tasks_capture_secret`) as detailed in [Daily plan](workflows/plan.md) and [MCP / CLI interface](references/cli.md).
+- **Never** execute `daily-tasks-mcp` or `python -m daily_tasks.server` as a CLI command or shell subprocess.
+- Mutate disk records through the MCP server only when the user explicitly confirms the plan (`daily_tasks_confirm_plan(confirmed=true)`).
+- Consult [records and views](references/records.md), [operation protocol](references/operations.md), [templates](references/templates.md), and [template updates](references/template-updates.md) when needed by the active workflow.
+- If the MCP server or filesystem access is unavailable, report the exact capability gap and provide a read-only proposal; never claim persistence or bypass the decision log.
 
-## Present results
+## Presentation directives
 
-- Lead with the requested result and a clickable file link when an artifact exists.
-- Keep output concise: use readable titles, compact bullets, and standard Markdown.
-- Keep internal details (UUIDs, raw JSON, checkpoints, CLI transcripts, internal state paths) out of ordinary chat replies.
-- Projects, milestones, and tasks require explicit user acceptance. A direct instruction to create named work supplies acceptance; notes, quotes, or bare checkboxes do not.
-- For interactive planning/review screens, follow [Daily plan](../daily-tasks-plan/SKILL.md) and [response conventions](references/response-conventions.md). Do not substitute freeform prose or widgets for the validated planning screen.
-- Route formatting, template choices, and updates to [templates](references/templates.md) and [template updates](references/template-updates.md).
+- Lead with the requested result and a clickable Markdown link (`file:///...`) whenever an artifact is created or updated.
+- Keep chat replies concise using human-readable titles, compact bullets, and standard Markdown.
+- Omit internal implementation details (raw UUIDs, JSON payloads, checkpoints, CLI transcripts, internal state paths) from ordinary user replies.
+- Require explicit user acceptance before creating projects, milestones, or tasks (a direct user command to create named work supplies acceptance; notes, quotes, or bare checkboxes do not).
+- Render validated `payload.screen` planning screens unchanged per [Daily plan](workflows/plan.md) and [response conventions](references/response-conventions.md); never substitute freeform prose or widgets.
 
-Use [records and views](references/records.md), [operation protocol](references/operations.md)
-and [MCP / CLI interface](references/cli.md) when their operations are needed. Executables perform
-deterministic checks; skills author Markdown.
-If Python MCP server or filesystem access is unavailable, report the exact capability gap and
-offer a proposal only; never claim persistence or bypass the log through direct edits.
+## Verification
+
+Before reporting completion of any Daily Tasks request:
+- [ ] Confirm the selected workflow in `workflows/*.md` was loaded and its `## Verification` checklist was satisfied.
+- [ ] Verify that project setup was completed first if `profile.json` or required workspace bindings were missing.
+- [ ] Confirm no unaccepted candidate tasks were written to canonical Markdown records and no time-fitting or duration scheduling was introduced.
+- [ ] Confirm `daily-tasks-mcp` was invoked strictly via MCP tools (never as a shell command) and all persisted changes were verified on disk.
