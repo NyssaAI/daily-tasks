@@ -97,6 +97,7 @@ def test_tools_list_names_every_planning_tool(tmp_path: Path) -> None:
     assert isinstance(tools, list)
     assert [t["name"] for t in tools if isinstance(t, dict)] == [
         "daily_tasks_start_session",
+        "daily_tasks_get_fetch_window",
         "daily_tasks_get_session_state",
         "daily_tasks_execute_operations",
         "daily_tasks_advance_screen",
@@ -263,7 +264,7 @@ def test_tools_list_names_capture_secret_when_secret_tools_are_wired(tmp_path: P
     tools = response["result"]["tools"]
     assert isinstance(tools, list)
     names = [t["name"] for t in tools if isinstance(t, dict)]
-    assert names[-1] == "daily_tasks_capture_secret" and len(names) == 7
+    assert names[-1] == "daily_tasks_capture_secret" and len(names) == 8
 
 
 def test_capture_secret_tool_stores_secret_from_loopback_and_replies_with_receipt_only(tmp_path: Path) -> None:

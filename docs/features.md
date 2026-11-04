@@ -33,7 +33,7 @@ This document catalogs product capabilities in non-technical, user-focused langu
 - [x] F-00.01: Workspace, Identity & Template Setup
 - [x] F-00.02: Canonical Work Record Storage & Surgical Updates
 - [x] F-00.03: Credential Privacy & Read-Only Communication Connections
-- [ ] F-00.04: Existing Assistant Connection Discovery & Bounded Lookback Ingestion
+- [x] F-00.04: Existing Assistant Connection Discovery & Bounded Lookback Ingestion
 
 ### Group 01: Commitment Capture & Record Management
 

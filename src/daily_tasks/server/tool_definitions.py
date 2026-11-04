@@ -20,6 +20,34 @@ TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
             "properties": {
                 "date": {"type": "string", "description": "Local date YYYY-MM-DD; only today is accepted"},
                 "focus": {"type": "string", "description": "Optional focus note shown on the plan"},
+                "messages": {
+                    "type": "array",
+                    "items": {"type": "object"},
+                    "description": "Messages the host read (read-only) through its own email/chat connection, "
+                    "as in docs/specs/message.json; filtered against the source's fetch window",
+                },
+                "checked_sources": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Sources the host checked through its own connection, even with no new messages",
+                },
+            },
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "daily_tasks_get_fetch_window",
+        "description": "Return each source's next fetch window (since, after_epoch, last_external_id, "
+        "has_cursor): the saved cursor, or the initial lookback (7 days by default) on a first pull. Read it "
+        "before reading messages through an existing assistant connection. Writes nothing.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "sources": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Source names (default: gmail, slack)",
+                },
             },
             "additionalProperties": False,
         },

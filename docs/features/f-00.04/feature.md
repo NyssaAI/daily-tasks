@@ -1,7 +1,7 @@
 ---
 id: F-00.04
 group: "00"
-status: planned
+status: implemented
 ---
 
 # F-00.04 Existing Assistant Connection Discovery & Bounded Lookback Ingestion

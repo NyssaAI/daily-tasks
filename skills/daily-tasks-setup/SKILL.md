@@ -97,7 +97,8 @@ output is `2-areas/daily-plans`.
 Supported preferences are partial `user.name`/`user.email`, `timezone`, `priorities`,
 `templates.projectIndex`, `templates.dailyPlan`, `templates.milestone`,
 `templates.task`, `templates.planDayReview`, `projectIndex.ttlSeconds`, and
-`sources` (`autoScan`, `directories`, `mcps`). Directories must be workspace-relative
+`sources` (`autoScan`, `directories`, `mcps`, `harnessConnections`, `initialLookbackDays`).
+Directories must be workspace-relative
 paths without traversal. Scalars and arrays replace; supported object leaves merge.
 Template registration, inheritance, resets, and portable paths (`./`, `~/`, absolute)
 follow [custom templates](../daily-tasks/references/templates.md). For template
@@ -161,6 +162,34 @@ agents must never invoke it as a CLI command. Pass absolute
 `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json`, so ask only
 for values that are missing (`--user-email`, `--timezone` override them). Stdout carries
 only MCP JSON-RPC; logs go to stderr (`DAILY_TASKS_LOG_LEVEL`, optional `--log-file`).
+
+### Communication sources and initial lookback
+
+Before offering any standalone credential setup, check which email (Gmail, Outlook, ...) and chat
+(Slack, Teams, ...) connections the host already provides (Claude, Codex, Antigravity, Cursor):
+list the host's connected integrations and MCP tools that can read messages, and check whether
+standalone Gmail or Slack credentials are already stored. Report what you found, including "none".
+
+Then ask the user what to use for each source, with one choice per source:
+
+- **Existing assistant connection**: record it in `sources.harnessConnections`, for example
+  `[{"source": "gmail", "via": "claude-gmail"}]`. `source` is the cursor key and `Message.source`;
+  `via` names the host connection. No new credential is needed.
+- **Standalone read-only connector**: capture its credentials under
+  [out-of-band credentials](#out-of-band-credentials) and run the Gmail sign-in when needed.
+- **Disabled**: leave it out; planning works without messages.
+
+Never pick for the user and never treat silence as a choice. Harness connections are read-only for
+Daily Tasks: never send, reply to, draft, label, archive, mark read or otherwise modify messages.
+
+Tell the user the first pull for a source without a saved cursor reads **no more than 7 days** back
+by default (`sources.initialLookbackDays: 7`). Let them accept 7 or give another whole number of days;
+reject zero, negative or non-integer values, explain the valid range and ask again. Save the accepted
+value in the project `profile.json` (`daily-tasks-mcp` reads `sources.initialLookbackDays`, then
+top-level `initialLookbackDays`; `--initial-lookback-days` overrides both). The window applies only to
+first pulls: once a source's cursor is saved in `<stateRoot>/fetch-cursors.json`, every later pull
+starts from that cursor, for harness connections and standalone connectors alike. On re-entry, reuse
+saved choices and change them only when the user asks.
 
 ### Out-of-band credentials
 

@@ -5,9 +5,10 @@
 # |   +-- cancel_session(session_id)
 # |   +-- confirm_plan(session_id, confirmed)
 # |   +-- execute_operations(session_id, original_words, operations, verdicts)
+# |   +-- get_fetch_window(sources)
 # |   +-- get_session_state(session_id)
 # |   +-- new(settings, reader, store, logger, clock, new_id, cursor_store)
-# |   `-- start_session(date, focus)
+# |   `-- start_session(date, focus, messages, checked_sources)
 # `-- ToolBody
 """Application service behind the MCP tools; every result follows `docs/specs/tool-results.json`."""
 
@@ -23,7 +24,9 @@ from pydantic import JsonValue, TypeAdapter, ValidationError
 from daily_tasks.domain import Actor, Operations, Suggestions
 from daily_tasks.matching import generate_suggestions, match_messages
 from daily_tasks.ports import LocalFileStore, PortLogger
+from daily_tasks.server.harness_message_intake import fetch_window_reply, harness_message_intake, saved_cursors
 from daily_tasks.server.live_session import LiveSession
+from daily_tasks.server.start_session_reply import start_session_reply
 from daily_tasks.server.tool_reply import tool_reply
 from daily_tasks.server.types import ServerSettings
 from daily_tasks.server.workspace_reader import WorkspaceReader
@@ -95,8 +98,18 @@ class PlanningTools:
         self._cursor_store = cursor_store
         self._sessions: dict[UUID, LiveSession] = {}
 
-    async def start_session(self, date: str | None = None, focus: str | None = None) -> ToolBody:
-        """Read the workspace, pre-match unread messages into pending suggestions and show screen 1."""
+    async def start_session(
+        self,
+        date: str | None = None,
+        focus: str | None = None,
+        messages: Sequence[Mapping[str, JsonValue]] = (),
+        checked_sources: Sequence[str] = (),
+    ) -> ToolBody:
+        """Read the workspace, pre-match unread messages into pending suggestions and show screen 1.
+
+        `messages` were read by the host through its own connection; they are filtered against the shared
+        cursors (or the initial lookback) and their sources' cursors advance only when the plan is confirmed.
+        """
         tool = "daily_tasks_start_session"
         now = self._clock()
         snapshot = await self._reader.read(now)
@@ -107,8 +120,13 @@ class PlanningTools:
         if date is not None and date != graph.context.local_date.isoformat():
             message = f"invalid_date: only today's plan ({graph.context.local_date.isoformat()}) can be planned."
             return tool_reply(tool, fail(message, ErrorCategory.VALIDATION), None)
+        days = self._settings.initial_lookback_days
+        intake = harness_message_intake(messages, checked_sources, read, self._cursor_store, now, days)
+        if not intake.ok:
+            return tool_reply(tool, intake, None)
+        found, cursors, harness = intake.value.messages, intake.value.cursors, intake.value.sources
         session_id = self._new_id()
-        matches = match_messages(graph, read.messages, ())
+        matches = match_messages(graph, found, ())
         workspace = self._settings.workspace_root.as_posix()
         drafted = generate_suggestions(graph, matches, session_id, workspace, self._clock, self._new_id)
         initial = SessionState.initial(
@@ -131,25 +149,16 @@ class PlanningTools:
             blockers=read.blockers,
             existing_plan=read.existing_plan,
             previous_plan=read.previous_plan,
-            cursors=read.cursors,
+            cursors=cursors,
             malformed_files=read.malformed_files,
         )
-        sources: list[JsonValue] = [{"name": s.name, "status": s.status, "error": s.error} for s in read.sources]
-        malformed: list[JsonValue] = [
-            {"path": m.path, "kind": m.kind, "code": m.code, "message": m.message}
-            for m in read.malformed_files
-        ]
-        message = f"Session started with {len(drafted.suggestions)} pending suggestions."
-        if read.malformed_files:
-            paths_preview = ", ".join(m.path for m in read.malformed_files)
-            count = len(read.malformed_files)
-            message += f" Notice: {count} malformed or unreadable file(s) were skipped: {paths_preview}."
-        payload: ToolBody = {
-            "pending_suggestions": len(drafted.suggestions),
-            "message_sources": sources,
-            "malformed_files": malformed,
-        }
+        message, payload = start_session_reply(read, harness, len(drafted.suggestions))
         return tool_reply(tool, ok(message), started.value, _render(started.value), payload=payload)
+
+    def get_fetch_window(self, sources: Sequence[str] = ("gmail", "slack")) -> ToolBody:
+        """Return each source's next fetch window from its saved cursor, else the initial lookback; no session."""
+        saved = saved_cursors(self._cursor_store, self._settings.workspace_root.as_posix())
+        return fetch_window_reply(saved, sources, self._clock(), self._settings.initial_lookback_days)
 
     def get_session_state(self, session_id: str) -> ToolBody:
         """Return the current screen without changing the session."""
@@ -159,8 +168,7 @@ class PlanningTools:
             return tool_reply(tool, live, None)
         state = live.value.state
         malformed: list[JsonValue] = [
-            {"path": m.path, "kind": m.kind, "code": m.code, "message": m.message}
-            for m in live.value.malformed_files
+            {"path": m.path, "kind": m.kind, "code": m.code, "message": m.message} for m in live.value.malformed_files
         ]
         payload: ToolBody = {
             "pending_suggestions": len(state.suggestions),

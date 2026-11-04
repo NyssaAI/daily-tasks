@@ -19,6 +19,10 @@ Daily Tasks Planning Session
 │   ├── Inspect maintenance-status (check inspectionDue gate)
 │   └── Scoped diagnostic handling (isolate issues; permit independent planning)
 │
+├── 2b. Message collection (## Message collection)
+│   ├── Fetch window per source (saved cursor, else 7-day default initial lookback)
+│   └── Connector and host-supplied messages share cursor filtering and matching
+│
 ├── 3. Once-per-day rollover (## Once-per-day rollover)
 │   ├── Check stateRoot/rollover/YYYY.MM.DD.json (run once per day)
 │   ├── Propose carry delta via plan-rollover (in-progress work persists, unfinished selections carry)
@@ -61,6 +65,19 @@ Load and validate workspace project inventory and inspect maintenance status.
 - When inspection is due, read-only maintenance checks may run directly or via a lightweight read-only subagent. Maintenance workers must never write canonical Markdown, logs, or baselines.
 - Run `maintenance-inspect` following verified changes; only successful CLI inspections update `maintenance-inspection.json`.
 - A blocked inspection or non-critical diagnostic (e.g. navigation-only broken link, legacy project enrollment) is scoped evidence: suspend only affected dependent writes, and permit unrelated rollover, review mapping, or plan saves to proceed.
+
+## Message collection
+
+Stage 0 collects unread messages from every enabled source with one shared cursor per source in
+`<stateRoot>/fetch-cursors.json`, whether a standalone connector or an existing assistant connection
+reads them.
+
+### Fetch window and cursor invariants
+- **Fetch window**: `daily_tasks_get_fetch_window` returns each source's `since`, `after_epoch`, `last_external_id` and `has_cursor`. A saved cursor always wins; without one, the first pull reaches back `initial_lookback_days` (7 by default, from `sources.initialLookbackDays` or `--initial-lookback-days`).
+- **Harness ingestion**: For existing assistant connections, the agent reads messages within that window through the host's tool in read-only mode and passes them to `daily_tasks_start_session(messages=..., checked_sources=...)`. Never send, reply, draft, label or mark messages read.
+- **Identical filtering**: With a cursor, messages at or before `since` are dropped; on a first pull, messages before the cutoff are dropped; a message whose `external_id` equals `last_external_id` is always dropped. Repeats of one `(source, external_id)` count once. The rest are matched and turned into numbered Screen 1 suggestions exactly like connector messages.
+- **Advancement on confirmation**: Each read source's cursor advances to its newest accepted message (or to the window start when nothing new arrived) in memory. Only `daily_tasks_confirm_plan(confirmed=true)` saves it; cancelling leaves the previous cursor so the messages are read again next session.
+- **Non-blocking failure**: A source that cannot be read is reported and left out of `checked_sources`; planning continues and its cursor stays unchanged.
 
 ## Build and review
 

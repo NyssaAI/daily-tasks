@@ -65,7 +65,7 @@ class SlackConnector:
         clock: Callable[[], datetime],
         http: SlackHttp | None = None,
         workspace_domain: str | None = None,
-        initial_lookback: timedelta = timedelta(days=1),
+        initial_lookback: timedelta = timedelta(days=7),
         page_size: int = 200,
         timeout_seconds: float = 10.0,
     ) -> None:

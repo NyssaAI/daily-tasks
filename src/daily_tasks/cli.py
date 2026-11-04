@@ -5,7 +5,8 @@
 """`daily-tasks-mcp --workspace-root DIR --user-email ADDR --timezone ZONE`: serve MCP over stdio.
 
 Roots resolve against the absolute workspace root, never the working directory. Unset options reuse
-`<workspace>/.nyssa-ai/daily-tasks/profile.json` (`user`, `timezone`, `projectsRoot`, `dailyPlansRelative`).
+`<workspace>/.nyssa-ai/daily-tasks/profile.json` (`user`, `timezone`, `projectsRoot`, `dailyPlansRelative`,
+`sources.initialLookbackDays` or `initialLookbackDays`). Fetch cursors live in `<state_root>/fetch-cursors.json`.
 """
 
 import argparse
@@ -34,10 +35,12 @@ from daily_tasks.server.planning_tools import PlanningTools
 from daily_tasks.server.secret_tools import SecretTools
 from daily_tasks.server.serve_stdio import serve_stdio
 from daily_tasks.server.types import ServerSettings
+from daily_tasks.storage.cursor_store import CursorStore
 from daily_tasks.storage.markdown_file_store import MarkdownFileStore
 
 _STATE: Final = Path(".nyssa-ai") / "daily-tasks"
 _APPLICATION_NAME: Final = "daily-tasks"
+_DEFAULT_LOOKBACK_DAYS: Final = 7
 
 
 def _utc_now() -> datetime:
@@ -60,6 +63,15 @@ def _text(profile: Mapping[str, JsonValue], *keys: str) -> str | None:
     return value if isinstance(value, str) and value.strip() else None
 
 
+def _lookback_days(profile: Mapping[str, JsonValue], flag: int | None) -> int | None:
+    if flag is not None:
+        return flag if flag > 0 else None
+    sources = profile.get("sources")
+    nested = sources.get("initialLookbackDays") if isinstance(sources, dict) else None
+    value = nested if nested is not None else profile.get("initialLookbackDays", _DEFAULT_LOOKBACK_DAYS)
+    return value if isinstance(value, int) and not isinstance(value, bool) and value > 0 else None
+
+
 def _root(workspace: Path, value: str | None, default: str) -> Path:
     path = Path(value or default).expanduser()
     return path if path.is_absolute() else (workspace / path).resolve()
@@ -75,6 +87,9 @@ def _settings(args: argparse.Namespace) -> ServerSettings | str:
     if not email or not timezone or timezone == "system":
         return "Set --user-email and --timezone (IANA), or store user.email and timezone in profile.json."
     name = args.user_name or _text(profile, "user", "name") or email
+    lookback = _lookback_days(profile, args.initial_lookback_days)
+    if lookback is None:
+        return "Initial lookback days must be a positive integer (--initial-lookback-days or initialLookbackDays)."
     return ServerSettings(
         workspace_root=workspace,
         projects_root=_root(workspace, args.projects_root or _text(profile, "projectsRoot"), "projects"),
@@ -82,6 +97,7 @@ def _settings(args: argparse.Namespace) -> ServerSettings | str:
         state_root=workspace / _STATE,
         user=GraphUser(name=name, email=email),
         timezone=timezone,
+        initial_lookback_days=lookback,
     )
 
 
@@ -108,7 +124,7 @@ def cli(
     stdin: TextIO | None = None,
     stdout: TextIO | None = None,
 ) -> int:
-    """Serve until stdin closes and return 0, or return 2 for missing settings (reported on stderr)."""
+    """Serve until stdin closes and return 0, or return 2 for missing or invalid settings (reported on stderr)."""
     env = environ if environ is not None else os.environ
     args = _parser(env).parse_args(argv)
     logger = logging_setup("daily_tasks.server", env, args.log_file)
@@ -125,8 +141,9 @@ def cli(
         daily_plans_root=settings.daily_plans_root,
         state_root=settings.state_root,
     )
-    reader = MarkdownWorkspaceReader(settings, logger)
-    tools = PlanningTools(settings, reader, store, logger, _utc_now, new_uuid7)
+    cursors = CursorStore(settings.state_root, settings.workspace_root.as_posix(), logger)
+    reader = MarkdownWorkspaceReader(settings, logger, cursor_store=cursors)
+    tools = PlanningTools(settings, reader, store, logger, _utc_now, new_uuid7, cursors)
     server = McpServer(tools, logger, _version(), _secret_tools(args.config_dir, logger))
     logger.info("server started", fields={"version": _version()}, operation="mcp.start")
     return asyncio.run(serve_stdio(server, stdin or sys.stdin, stdout or sys.stdout))
@@ -146,6 +163,12 @@ def _parser(environ: Mapping[str, str]) -> argparse.ArgumentParser:
     parser.add_argument("--user-email", default=environ.get("DAILY_TASKS_USER_EMAIL"))
     parser.add_argument("--user-name", default=environ.get("DAILY_TASKS_USER_NAME"))
     parser.add_argument("--timezone", default=environ.get("DAILY_TASKS_TIMEZONE"), help="IANA timezone")
+    parser.add_argument(
+        "--initial-lookback-days",
+        type=int,
+        default=None,
+        help="days a source's first pull reaches back when it has no saved cursor (default: 7)",
+    )
     parser.add_argument("--log-file", default=None, help="also write JSON log records to this file")
     parser.add_argument(
         "--config-dir",
