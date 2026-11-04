@@ -204,14 +204,14 @@ def test_gmail_connector_message_at_last_external_id_is_not_returned_again() -> 
     assert [m.external_id for m in result.value.messages] == ["m1"]
 
 
-def test_gmail_connector_without_cursor_starts_from_lookback_and_creates_cursor() -> None:
+def test_gmail_connector_without_cursor_starts_from_7_day_lookback_and_creates_cursor() -> None:
     http = _FakeGmail({})
 
     result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors()))
 
     assert isinstance(result, Ok)
     gmail = result.value.cursors.cursors["gmail"]
-    assert gmail.since == datetime(2026, 11, 2, 14, 0, tzinfo=UTC)
+    assert gmail.since == datetime(2026, 10, 27, 14, 0, tzinfo=UTC)
     assert gmail.last_external_id is None
 
 

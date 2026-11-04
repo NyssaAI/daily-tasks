@@ -34,6 +34,13 @@ def _string(arguments: Mapping[str, JsonValue], key: str) -> str | None:
     return value if isinstance(value, str) else None
 
 
+def _strings(arguments: Mapping[str, JsonValue], key: str) -> Sequence[str] | None:
+    value = arguments.get(key, [])
+    if not isinstance(value, list) or not all(isinstance(item, str) for item in value):
+        return None
+    return [item for item in value if isinstance(item, str)]
+
+
 def _objects(arguments: Mapping[str, JsonValue], key: str) -> Sequence[Mapping[str, JsonValue]] | None:
     value = arguments.get(key, [])
     if not isinstance(value, list) or not all(isinstance(item, dict) for item in value):
@@ -131,7 +138,13 @@ class McpServer:
             prompt, provider = _string(arguments, "prompt_message"), _string(arguments, "provider")
             return await self._secrets.capture_secret(namespace, key, prompt, provider)
         if name == "daily_tasks_start_session":
-            return await tools.start_session(_string(arguments, "date"), _string(arguments, "focus"))
+            messages, checked = _objects(arguments, "messages"), _strings(arguments, "checked_sources")
+            if messages is None or checked is None:
+                return None
+            return await tools.start_session(_string(arguments, "date"), _string(arguments, "focus"), messages, checked)
+        if name == "daily_tasks_get_fetch_window":
+            sources = _strings(arguments, "sources") if "sources" in arguments else ("gmail", "slack")
+            return tools.get_fetch_window(sources) if sources else None
         session_id = _string(arguments, "session_id")
         if session_id is None:
             return None

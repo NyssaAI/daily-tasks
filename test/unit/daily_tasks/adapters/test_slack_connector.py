@@ -151,15 +151,15 @@ def test_slack_connector_follows_pagination_and_skips_channel_noise() -> None:
     assert len(http.requests) == 2
 
 
-def test_slack_connector_without_cursor_starts_from_initial_lookback() -> None:
+def test_slack_connector_without_cursor_starts_from_7_day_initial_lookback() -> None:
     http = _FakeSlack({("C01DEV", None): {"ok": True, "messages": []}})
 
     result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(None)))
 
     assert isinstance(result, Ok)
-    assert http.query(0)["oldest"] == _ts(NOW - timedelta(days=1))
+    assert http.query(0)["oldest"] == _ts(NOW - timedelta(days=7))
     slack = result.value.cursors.cursors["slack"]
-    assert (slack.since, slack.last_external_id, slack.last_run_at) == (NOW - timedelta(days=1), None, NOW)
+    assert (slack.since, slack.last_external_id, slack.last_run_at) == (NOW - timedelta(days=7), None, NOW)
 
 
 def test_slack_connector_api_error_fails_with_code_and_never_leaks_token() -> None:

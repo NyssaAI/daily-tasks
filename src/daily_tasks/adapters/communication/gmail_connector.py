@@ -49,7 +49,7 @@ class GmailConnector:
         logger: PortLogger,
         clock: Callable[[], datetime],
         http: GmailHttp | None = None,
-        initial_lookback: timedelta = timedelta(days=1),
+        initial_lookback: timedelta = timedelta(days=7),
         page_size: int = 100,
         max_messages: int = 500,
         timeout_seconds: float = 15.0,
