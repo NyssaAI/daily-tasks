@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable FetchCursor DTO.
-# Public interface:
-# `-- FetchCursor
-#     +-- last_error
-#     +-- last_external_id
-#     +-- last_run_at
-#     +-- last_status
-#     `-- since
-"""FetchCursor DTO."""
+"""Responsibility: Represent an immutable FetchCursor DTO.
+Public interface:
+`-- FetchCursor
+    +-- last_error
+    +-- last_external_id
+    +-- last_run_at
+    +-- last_status
+    `-- since
+
+FetchCursor DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

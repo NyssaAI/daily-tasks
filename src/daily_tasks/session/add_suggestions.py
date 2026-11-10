@@ -1,7 +1,9 @@
-# Responsibility: Add newly arrived pending suggestions to a running session without renumbering rows.
-# Public interface:
-# `-- add_suggestions(state, suggestions, now)
-"""Late suggestions take the next free session numbers on `s1`; existing numbers never change meaning."""
+"""Responsibility: Add newly arrived pending suggestions to a running session without renumbering rows.
+Public interface:
+`-- add_suggestions(state, suggestions, now)
+
+Late suggestions take the next free session numbers on `s1`; existing numbers never change meaning.
+"""
 
 import dataclasses
 from collections.abc import Mapping

@@ -1,8 +1,10 @@
-# Responsibility: Perform Gmail REST API GET requests with the standard library.
-# Public interface:
-# `-- GmailHttpUrllib
-#     `-- get(url, headers, timeout_seconds)
-"""Default `GmailHttp` transport over `urllib.request`; no Google client library is required."""
+"""Responsibility: Perform Gmail REST API GET requests with the standard library.
+Public interface:
+`-- GmailHttpUrllib
+    `-- get(url, headers, timeout_seconds)
+
+Default `GmailHttp` transport over `urllib.request`; no Google client library is required.
+"""
 
 import urllib.error
 import urllib.request

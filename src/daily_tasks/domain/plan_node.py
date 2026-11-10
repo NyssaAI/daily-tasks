@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable PlanNode DTO.
-# Public interface:
-# `-- PlanNode
-#     +-- completed_ids
-#     +-- path
-#     +-- ref
-#     `-- task_ids
-"""PlanNode DTO."""
+"""Responsibility: Represent an immutable PlanNode DTO.
+Public interface:
+`-- PlanNode
+    +-- completed_ids
+    +-- path
+    +-- ref
+    `-- task_ids
+
+PlanNode DTO.
+"""
 
 from pydantic import MISSING, UUID7, Field
 from pydantic.dataclasses import dataclass

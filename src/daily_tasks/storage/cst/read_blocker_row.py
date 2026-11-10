@@ -1,7 +1,9 @@
-# Responsibility: Read a daily plan blocker row back into its display view.
-# Public interface:
-# `-- read_blocker_row(row)
-"""Inverse of the daily plan renderer's `| Blocker | Impact | Owner | Resolved When |` row."""
+"""Responsibility: Read a daily plan blocker row back into its display view.
+Public interface:
+`-- read_blocker_row(row)
+
+Inverse of the daily plan renderer's `| Blocker | Impact | Owner | Resolved When |` row.
+"""
 
 import re
 from typing import Final

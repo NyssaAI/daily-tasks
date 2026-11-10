@@ -1,14 +1,16 @@
-# Responsibility: Validate one message object returned by Slack `conversations.history`.
-# Public interface:
-# `-- SlackRawMessage
-#     +-- subtype
-#     +-- text
-#     +-- thread_ts
-#     +-- ts
-#     +-- user
-#     +-- user_profile
-#     `-- username
-"""Slack message wire shape; fields the connector does not use are ignored."""
+"""Responsibility: Validate one message object returned by Slack `conversations.history`.
+Public interface:
+`-- SlackRawMessage
+    +-- subtype
+    +-- text
+    +-- thread_ts
+    +-- ts
+    +-- user
+    +-- user_profile
+    `-- username
+
+Slack message wire shape; fields the connector does not use are ignored.
+"""
 
 from collections.abc import Mapping
 

@@ -1,7 +1,9 @@
-# Responsibility: Render screen 2 (assign days) for the current project as Markdown.
-# Public interface:
-# `-- render_assign_days(state)
-"""Milestone outline, one task table per plannable milestone and the blocker table, numbered as on `s2:<id>`."""
+"""Responsibility: Render screen 2 (assign days) for the current project as Markdown.
+Public interface:
+`-- render_assign_days(state)
+
+Milestone outline, one task table per plannable milestone and the blocker table, numbered as on `s2:<id>`.
+"""
 
 from datetime import date
 from uuid import UUID

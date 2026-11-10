@@ -1,10 +1,12 @@
-# Responsibility: Hold the outcome of a validated batch of user operations.
-# Public interface:
-# `-- OperationOutcome
-#     +-- changes
-#     +-- decisions
-#     `-- graph
-"""Batch outcome: updated graph, decision-log entries to append and record changes to stage."""
+"""Responsibility: Hold the outcome of a validated batch of user operations.
+Public interface:
+`-- OperationOutcome
+    +-- changes
+    +-- decisions
+    `-- graph
+
+Batch outcome: updated graph, decision-log entries to append and record changes to stage.
+"""
 
 from dataclasses import dataclass
 

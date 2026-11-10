@@ -1,7 +1,9 @@
-# Responsibility: Build the daily plan document a confirmed planning session writes.
-# Public interface:
-# `-- build_daily_plan_document(state, decisions, existing, blockers, projects_prefix, plan_id, now)
-"""Pure projection of the confirmed selection, staged decisions and blocker records into a `DailyPlanDocument`."""
+"""Responsibility: Build the daily plan document a confirmed planning session writes.
+Public interface:
+`-- build_daily_plan_document(state, decisions, existing, blockers, projects_prefix, plan_id, now)
+
+Pure projection of the confirmed selection, staged decisions and blocker records into a `DailyPlanDocument`.
+"""
 
 from collections.abc import Mapping, Sequence
 from datetime import datetime

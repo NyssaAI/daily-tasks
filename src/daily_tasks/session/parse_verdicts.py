@@ -1,7 +1,9 @@
-# Responsibility: Turn the host's row-numbered verdicts into adjudication verdicts on the current screen.
-# Public interface:
-# `-- parse_verdicts(session, verdicts, original_words)
-"""Rows resolve against the current screen only; a bare row without accept/edit/reject is refused."""
+"""Responsibility: Turn the host's row-numbered verdicts into adjudication verdicts on the current screen.
+Public interface:
+`-- parse_verdicts(session, verdicts, original_words)
+
+Rows resolve against the current screen only; a bare row without accept/edit/reject is refused.
+"""
 
 from collections.abc import Mapping, Sequence
 from typing import Literal

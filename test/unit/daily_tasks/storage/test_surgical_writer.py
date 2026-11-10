@@ -1,7 +1,21 @@
-# Responsibility: Verify surgical record edits change only their target bytes.
-# Public interface:
-# (none)
-"""Checklist toggles, frontmatter updates and decision appends on the task sample."""
+"""Responsibility: Verify surgical record edits change only their target bytes.
+Public interface:
++-- DOD_ITEM
++-- DOD_TEXT
++-- test_append_decision_adds_one_line_after_existing_entries(newline)
++-- test_append_decision_empty_section_gets_first_entry(text, expected)
++-- test_append_decision_without_section_returns_error()
++-- test_set_checklist_mark_by_id_changes_only_the_mark(newline)
++-- test_set_checklist_mark_unknown_id_returns_item_not_found()
++-- test_set_checklist_mark_unknown_mark_returns_invalid_mark()
++-- test_set_frontmatter_field_keeps_trailing_comment()
++-- test_set_frontmatter_field_missing_key_is_added_before_closing_delimiter()
++-- test_set_frontmatter_field_without_frontmatter_returns_error()
++-- test_set_frontmatter_fields_changes_only_their_values(newline)
+`-- test_write_markdown_unedited_text_with_mixed_endings_is_byte_identical()
+
+Checklist toggles, frontmatter updates and decision appends on the task sample.
+"""
 
 import pytest
 from nyssa_ai_result import Err, Ok

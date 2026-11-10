@@ -1,10 +1,12 @@
-# Responsibility: Hold the outcome of one validated operation applied to the state graph.
-# Public interface:
-# `-- OperationStep
-#     +-- change
-#     +-- decision
-#     `-- graph
-"""Single operation outcome: new graph, its decision-log entry and its staged record change."""
+"""Responsibility: Hold the outcome of one validated operation applied to the state graph.
+Public interface:
+`-- OperationStep
+    +-- change
+    +-- decision
+    `-- graph
+
+Single operation outcome: new graph, its decision-log entry and its staged record change.
+"""
 
 from dataclasses import dataclass
 

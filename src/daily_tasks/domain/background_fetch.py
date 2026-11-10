@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable BackgroundFetch DTO.
-# Public interface:
-# `-- BackgroundFetch
-#     +-- completed_at
-#     +-- sources
-#     +-- started_at
-#     `-- status
-"""BackgroundFetch DTO."""
+"""Responsibility: Represent an immutable BackgroundFetch DTO.
+Public interface:
+`-- BackgroundFetch
+    +-- completed_at
+    +-- sources
+    +-- started_at
+    `-- status
+
+BackgroundFetch DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

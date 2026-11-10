@@ -1,11 +1,16 @@
-# Responsibility: Prove the secret command stores secrets out-of-band and prints only sanitized receipts.
-# Public interface:
-# (none)
-"""`python -m daily_tasks.auth.secret` behavior with a scripted input provider and an in-memory keyring."""
+"""Responsibility: Prove the secret command stores secrets out-of-band and prints only sanitized receipts.
+Public interface:
++-- SECRET
++-- test_secret_cli_capture_stores_secret_and_prints_receipt_only(tmp_path)
++-- test_secret_cli_gmail_stores_client_id_and_secret(tmp_path)
++-- test_secret_cli_unavailable_forced_provider_returns_one(tmp_path)
+`-- test_secret_cli_vault_seals_token_locally_and_registers_vault(tmp_path)
+
+`python -m daily_tasks.auth.secret` behavior with a scripted input provider and an in-memory keyring.
+"""
 
 import io
 import json
-from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -16,24 +21,6 @@ from daily_tasks.auth.secret import APPLICATION_NAME, main
 from daily_tasks.credentials import SecretResolver, VaultRegistry
 
 SECRET = "xoxb-cli-secret-token"
-
-
-@dataclass
-class _QuietLogger:
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        pass
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        pass
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        pass
 
 
 @dataclass
@@ -52,7 +39,7 @@ def _argv(root: Path, *command: str) -> list[str]:
 
 def _resolve(root: Path, keyring: KeyringInMemory, namespace: str, key: str) -> str:
     resolver = SecretResolver.create(
-        APPLICATION_NAME, str(root / "config"), _QuietLogger(), keyring, {}, str(root / "manifest.json")
+        APPLICATION_NAME, str(root / "config"), keyring, {}, str(root / "manifest.json")
     )
     assert isinstance(resolver, Ok)
     resolved = resolver.value.resolve(namespace, key)
@@ -63,9 +50,7 @@ def _resolve(root: Path, keyring: KeyringInMemory, namespace: str, key: str) -> 
 def test_secret_cli_capture_stores_secret_and_prints_receipt_only(tmp_path: Path) -> None:
     keyring, out, status = KeyringInMemory(), io.StringIO(), io.StringIO()
 
-    code = main(
-        _argv(tmp_path, "capture", "plugins", "api-key"), keyring, None, _ScriptedInput(), _QuietLogger(), out, status
-    )
+    code = main(_argv(tmp_path, "capture", "plugins", "api-key"), keyring, None, _ScriptedInput(), out, status)
 
     assert code == 0
     assert "Stored plugins/api-key in aesLocal at " in out.getvalue()
@@ -76,7 +61,7 @@ def test_secret_cli_capture_stores_secret_and_prints_receipt_only(tmp_path: Path
 def test_secret_cli_gmail_stores_client_id_and_secret(tmp_path: Path) -> None:
     keyring, user = KeyringInMemory(), _ScriptedInput()
 
-    code = main(_argv(tmp_path, "gmail"), keyring, None, user, _QuietLogger(), io.StringIO(), io.StringIO())
+    code = main(_argv(tmp_path, "gmail"), keyring, None, user, io.StringIO(), io.StringIO())
 
     assert code == 0
     assert [(r.namespace, r.key) for r in user.requests] == [
@@ -90,7 +75,7 @@ def test_secret_cli_unavailable_forced_provider_returns_one(tmp_path: Path) -> N
     out = io.StringIO()
     argv = _argv(tmp_path, "slack", "--forced-provider", "missing")
 
-    code = main(argv, KeyringInMemory(), None, _ScriptedInput(), _QuietLogger(), out, io.StringIO())
+    code = main(argv, KeyringInMemory(), None, _ScriptedInput(), out, io.StringIO())
 
     assert code == 1
     assert "communication/slack was not stored" in out.getvalue()
@@ -101,7 +86,7 @@ def test_secret_cli_vault_seals_token_locally_and_registers_vault(tmp_path: Path
     keyring, out = KeyringInMemory(), io.StringIO()
     argv = _argv(tmp_path, "vault", "--name", "bws", "--kind", "bitwarden-secrets", "--project-id", "p-1")
 
-    code = main(argv, keyring, VaultRegistry.default(), _ScriptedInput(), _QuietLogger(), out, io.StringIO())
+    code = main(argv, keyring, VaultRegistry.default(), _ScriptedInput(), out, io.StringIO())
 
     assert code == 0, out.getvalue()
     assert "Stored vault/bws-access-token in aesLocal" in out.getvalue()

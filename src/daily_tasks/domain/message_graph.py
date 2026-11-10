@@ -1,14 +1,16 @@
-# Responsibility: Represent an immutable MessageGraph DTO.
-# Public interface:
-# `-- MessageGraph
-#     +-- context
-#     +-- derived
-#     +-- diagnostics
-#     +-- index
-#     +-- note
-#     +-- records
-#     `-- tree
-"""MessageGraph DTO."""
+"""Responsibility: Represent an immutable MessageGraph DTO.
+Public interface:
+`-- MessageGraph
+    +-- context
+    +-- derived
+    +-- diagnostics
+    +-- index
+    +-- note
+    +-- records
+    `-- tree
+
+MessageGraph DTO.
+"""
 
 from collections.abc import Mapping
 

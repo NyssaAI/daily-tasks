@@ -1,7 +1,9 @@
-# Responsibility: Map a parsed milestone Markdown record onto the Milestone DTO.
-# Public interface:
-# `-- parse_milestone(document, location)
-"""Milestone parser: frontmatter, Definition of Done, task table and blocker table."""
+"""Responsibility: Map a parsed milestone Markdown record onto the Milestone DTO.
+Public interface:
+`-- parse_milestone(document, location)
+
+Milestone parser: frontmatter, Definition of Done, task table and blocker table.
+"""
 
 import re
 from typing import Final

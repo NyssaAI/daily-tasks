@@ -1,7 +1,11 @@
-# Responsibility: Prove atomic_write replaces file bytes completely and leaves no temp files behind.
-# Public interface:
-# (none)
-"""Atomic replacement of a file through a synced sibling temp file."""
+"""Responsibility: Prove atomic_write replaces file bytes completely and leaves no temp files behind.
+Public interface:
++-- test_atomic_write_existing_file_replaces_bytes_and_cleans_up(tmp_path)
++-- test_atomic_write_missing_parent_creates_directories(tmp_path)
+`-- test_atomic_write_target_is_directory_raises_and_cleans_up(tmp_path)
+
+Atomic replacement of a file through a synced sibling temp file.
+"""
 
 from pathlib import Path
 

@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable MilestoneFacts DTO.
-# Public interface:
-# `-- MilestoneFacts
-#     +-- closable
-#     +-- in_progress_plannable
-#     +-- lowest_incomplete
-#     +-- tasks_open
-#     `-- tasks_total
-"""MilestoneFacts DTO."""
+"""Responsibility: Represent an immutable MilestoneFacts DTO.
+Public interface:
+`-- MilestoneFacts
+    +-- closable
+    +-- in_progress_plannable
+    +-- lowest_incomplete
+    +-- tasks_open
+    `-- tasks_total
+
+MilestoneFacts DTO.
+"""
 
 from pydantic import MISSING
 from pydantic.dataclasses import dataclass

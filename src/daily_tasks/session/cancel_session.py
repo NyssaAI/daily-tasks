@@ -1,7 +1,9 @@
-# Responsibility: Cancel a planning session that has not ended.
-# Public interface:
-# `-- cancel_session(state, now)
-"""Any non-terminal stage -> CANCELLED; pending suggestions stay pending."""
+"""Responsibility: Cancel a planning session that has not ended.
+Public interface:
+`-- cancel_session(state, now)
+
+Any non-terminal stage -> CANCELLED; pending suggestions stay pending.
+"""
 
 import dataclasses
 from datetime import datetime

@@ -1,7 +1,9 @@
-# Responsibility: Expose deterministic message pre-matching, signal detection and draft suggestion generation.
-# Public interface:
-# (none)
-"""Deterministic pre-matching of fetched messages to tasks and blockers; zero LLM calls, no I/O."""
+"""Responsibility: Expose deterministic message pre-matching, signal detection and draft suggestion generation.
+Public interface:
+(none)
+
+Deterministic pre-matching of fetched messages to tasks and blockers; zero LLM calls, no I/O.
+"""
 
 from daily_tasks.matching.build_message_graph import build_message_graph
 from daily_tasks.matching.detect_signals import SIGNAL_PHRASES, detect_signals

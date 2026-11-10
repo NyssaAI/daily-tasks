@@ -1,12 +1,14 @@
-# Responsibility: Validate one (possibly nested) MIME part of a Gmail message.
-# Public interface:
-# `-- GmailMessagePart
-#     +-- body
-#     +-- filename
-#     +-- headers
-#     +-- mimeType
-#     `-- parts
-"""Gmail `MessagePart` wire shape; multipart messages nest parts recursively."""
+"""Responsibility: Validate one (possibly nested) MIME part of a Gmail message.
+Public interface:
+`-- GmailMessagePart
+    +-- body
+    +-- filename
+    +-- headers
+    +-- mimeType
+    `-- parts
+
+Gmail `MessagePart` wire shape; multipart messages nest parts recursively.
+"""
 
 from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass

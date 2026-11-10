@@ -1,13 +1,16 @@
-# Responsibility: Read the daily plans nearest a local date from a folder of daily plan Markdown files.
-# Public interface:
-# `-- MarkdownDailyPlanAdapter
-#     +-- fetch_plans(around)
-#     +-- malformed_records
-#     +-- name
-#     `-- new(root, name, logger)
-"""File-backed Daily-Plan-Port: `<root>/YYYY.MM.DD-daily-plan.md` records parsed through the CST."""
+"""Responsibility: Read the daily plans nearest a local date from a folder of daily plan Markdown files.
+Public interface:
+`-- MarkdownDailyPlanAdapter
+    +-- fetch_plans(around)
+    +-- malformed_records
+    +-- name
+    `-- new(root, name)
+
+File-backed Daily-Plan-Port: `<root>/YYYY.MM.DD-daily-plan.md` records parsed through the CST.
+"""
 
 import asyncio
+import logging
 import os
 import re
 import time
@@ -18,9 +21,10 @@ from typing import Final, final
 from nyssa_ai_result import ErrorCategory, Ok, Result, fail, ok
 
 from daily_tasks.domain import DailyPlan
-from daily_tasks.ports import MalformedRecord, PortLogger
+from daily_tasks.ports import MalformedRecord
 from daily_tasks.storage.cst import RecordLocation, parse_daily_plan, parse_markdown
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION: Final = "daily_plan.fetch"
 _PLAN_FILE: Final = re.compile(r"^(\d{4})\.(\d{2})\.(\d{2})-daily-plan\.md$")
 
@@ -33,13 +37,12 @@ class MarkdownDailyPlanAdapter:
     their `source` is `name`.
     """
 
-    def __init__(self, root: Path, name: str, logger: PortLogger) -> None:
-        """Borrow `logger`; `root` must be absolute so results never depend on the working directory."""
+    def __init__(self, root: Path, name: str) -> None:
+        """`root` must be absolute so results never depend on the working directory."""
         if not root.is_absolute():
             raise ValueError("daily plans root must be an absolute path")
         self._root = root
         self._name = name
-        self._logger = logger
         self._malformed_records: list[MalformedRecord] = []
 
     @property
@@ -81,8 +84,9 @@ class MarkdownDailyPlanAdapter:
             if local_date < around:
                 break
         fields = {"source": self._name, "around": around.isoformat(), "plans": len(plans)}
-        self._logger.info(
-            "daily plans fetched", fields={**fields, "elapsed_ms": _elapsed_ms(started)}, operation=_OPERATION
+        _LOGGER.info(
+            "daily plans fetched",
+            extra={"operation": _OPERATION, "fields": {**fields, "elapsed_ms": _elapsed_ms(started)}},
         )
         return ok(tuple(plans))
 
@@ -116,7 +120,7 @@ class MarkdownDailyPlanAdapter:
 
     def _skip(self, file_name: str, code: str, detail: str) -> None:
         fields = {"source": self._name, "path": file_name, "code": code, "detail": detail[:200]}
-        self._logger.warn("daily plan skipped", fields=fields, operation=_OPERATION)
+        _LOGGER.warning("daily plan skipped", extra={"operation": _OPERATION, "fields": fields})
         self._malformed_records.append(
             MalformedRecord(
                 path=f"{self._root.name}/{file_name}", kind="daily_plan", code=code, message=detail[:200]
@@ -127,7 +131,7 @@ class MarkdownDailyPlanAdapter:
         self, message: str, category: ErrorCategory, error: OSError, started: float
     ) -> Result[tuple[DailyPlan, ...]]:
         fields = {"source": self._name, "category": str(category), "elapsed_ms": _elapsed_ms(started)}
-        self._logger.error(message, error=error, fields=fields, operation=_OPERATION)
+        _LOGGER.error(message, extra={"operation": _OPERATION, "fields": fields, "error": error})
         return fail(f"Daily plan source '{self._name}': {message}.", category, cause=error)
 
 

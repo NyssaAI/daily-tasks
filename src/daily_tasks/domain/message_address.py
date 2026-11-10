@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable MessageAddress DTO.
-# Public interface:
-# `-- MessageAddress
-#     +-- address
-#     `-- name
-"""MessageAddress DTO."""
+"""Responsibility: Represent an immutable MessageAddress DTO.
+Public interface:
+`-- MessageAddress
+    +-- address
+    `-- name
+
+MessageAddress DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

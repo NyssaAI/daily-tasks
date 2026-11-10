@@ -1,7 +1,20 @@
-# Responsibility: Verify the lossless CST parser and the record parsers against the canonical samples.
-# Public interface:
-# (none)
-"""Parse `docs/specs/4..8-sample-*.md` into CST nodes and domain DTOs."""
+"""Responsibility: Verify the lossless CST parser and the record parsers against the canonical samples.
+Public interface:
++-- SAMPLES
++-- test_parse_blocker_sample_reads_resolution_and_blocked_records()
++-- test_parse_markdown_crlf_text_writes_back_byte_identical()
++-- test_parse_markdown_frontmatter_keeps_unknown_fields()
++-- test_parse_markdown_malformed_text_returns_parse_error(text, code, line)
++-- test_parse_markdown_sample_writes_back_byte_identical(name)
++-- test_parse_markdown_table_row_reads_escaped_wiki_link_and_ref()
++-- test_parse_markdown_task_sample_tracks_checklist_ids_and_lines()
++-- test_parse_milestone_sample_inherits_owner_and_reads_tasks()
++-- test_parse_project_sample_returns_project_dto()
++-- test_parse_task_sample_returns_task_dto()
+`-- test_parse_task_without_owner_returns_invalid_record()
+
+Parse `docs/specs/4..8-sample-*.md` into CST nodes and domain DTOs.
+"""
 
 from uuid import UUID
 
@@ -29,7 +42,8 @@ SAMPLES = [
 
 
 def _sample(name: str) -> str:
-    return (SPECS_ROOT / name).read_text(encoding="utf-8", newline="")
+    with (SPECS_ROOT / name).open(encoding="utf-8", newline="") as handle:
+        return handle.read()
 
 
 @pytest.mark.parametrize("name", SAMPLES)

@@ -1,12 +1,14 @@
-# Responsibility: Validate one message returned by Gmail `users.messages.get`.
-# Public interface:
-# `-- GmailRawMessage
-#     +-- id
-#     +-- internalDate
-#     +-- payload
-#     +-- snippet
-#     `-- threadId
-"""Gmail `Message` wire shape; fields the connector does not use are ignored."""
+"""Responsibility: Validate one message returned by Gmail `users.messages.get`.
+Public interface:
+`-- GmailRawMessage
+    +-- id
+    +-- internalDate
+    +-- payload
+    +-- snippet
+    `-- threadId
+
+Gmail `Message` wire shape; fields the connector does not use are ignored.
+"""
 
 from pydantic import ConfigDict, Field
 from pydantic.dataclasses import dataclass

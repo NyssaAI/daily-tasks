@@ -1,7 +1,9 @@
-# Responsibility: Render one Markdown table from header and row cells.
-# Public interface:
-# `-- markdown_table(headers, rows)
-"""Pipe characters inside cells are escaped so a cell never splits the table."""
+"""Responsibility: Render one Markdown table from header and row cells.
+Public interface:
+`-- markdown_table(headers, rows)
+
+Pipe characters inside cells are escaped so a cell never splits the table.
+"""
 
 from collections.abc import Sequence
 

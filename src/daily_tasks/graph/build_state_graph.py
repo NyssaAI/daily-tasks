@@ -1,7 +1,9 @@
-# Responsibility: Build the point-in-time state graph from the records every source returned.
-# Public interface:
-# `-- build_state_graph(project_reads, plan_reads, settings, built_at)
-"""Functional core of `collect_current_state`: context -> records -> tree -> index -> derived -> diagnostics."""
+"""Responsibility: Build the point-in-time state graph from the records every source returned.
+Public interface:
+`-- build_state_graph(project_reads, plan_reads, settings, built_at)
+
+Functional core of `collect_current_state`: context -> records -> tree -> index -> derived -> diagnostics.
+"""
 
 from collections.abc import Sequence
 from datetime import UTC, datetime, timedelta

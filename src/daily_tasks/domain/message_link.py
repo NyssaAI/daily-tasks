@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable MessageLink DTO.
-# Public interface:
-# `-- MessageLink
-#     +-- matched_text
-#     +-- reasons
-#     +-- record_id
-#     `-- record_type
-"""MessageLink DTO."""
+"""Responsibility: Represent an immutable MessageLink DTO.
+Public interface:
+`-- MessageLink
+    +-- matched_text
+    +-- reasons
+    +-- record_id
+    `-- record_type
+
+MessageLink DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

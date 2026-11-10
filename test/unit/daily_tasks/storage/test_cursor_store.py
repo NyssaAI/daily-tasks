@@ -1,11 +1,16 @@
-# Responsibility: Prove CursorStore persists fetch cursors atomically and reloads them unchanged.
-# Public interface:
-# (none)
-"""Fetch cursor persistence under a temporary `.nyssa-ai/daily-tasks/` state root."""
+"""Responsibility: Prove CursorStore persists fetch cursors atomically and reloads them unchanged.
+Public interface:
++-- test_cursor_store_failed_replace_keeps_previous_file_and_no_temp(tmp_path, monkeypatch)
++-- test_cursor_store_malformed_file_fails_with_validation(tmp_path, content, log_capture)
++-- test_cursor_store_missing_file_returns_empty_cursors_for_workspace(tmp_path)
++-- test_cursor_store_relative_state_root_is_rejected()
++-- test_cursor_store_save_replaces_previous_file(tmp_path)
+`-- test_cursor_store_save_then_load_round_trips_spec_example(tmp_path)
+
+Fetch cursor persistence under a temporary `.nyssa-ai/daily-tasks/` state root.
+"""
 
 import os
-from collections.abc import Mapping
-from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -13,32 +18,9 @@ import pytest
 from nyssa_ai_result import Err, Ok
 from pydantic import TypeAdapter
 
-from conftest import load_spec
+from conftest import LogCapture, load_spec
 from daily_tasks.domain import FetchCursor, FetchCursors
 from daily_tasks.storage.cursor_store import CursorStore
-
-
-@dataclass
-class _RecordingLogger:
-    records: list[tuple[str, str, Mapping[str, object]]] = field(default_factory=list)
-
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("debug", message, fields or {}))
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("info", message, fields or {}))
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("warn", message, fields or {}))
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        self.records.append(("error", message, fields or {}))
 
 
 def _state_root(tmp_path: Path) -> Path:
@@ -50,7 +32,7 @@ def _spec_cursors() -> FetchCursors:
 
 
 def test_cursor_store_save_then_load_round_trips_spec_example(tmp_path: Path) -> None:
-    store = CursorStore(_state_root(tmp_path), "D:/vaults/work", _RecordingLogger())
+    store = CursorStore(_state_root(tmp_path), "D:/vaults/work")
     cursors = _spec_cursors()
 
     saved = store.save(cursors)
@@ -64,7 +46,7 @@ def test_cursor_store_save_then_load_round_trips_spec_example(tmp_path: Path) ->
 
 
 def test_cursor_store_save_replaces_previous_file(tmp_path: Path) -> None:
-    store = CursorStore(_state_root(tmp_path), "/vault", _RecordingLogger())
+    store = CursorStore(_state_root(tmp_path), "/vault")
     store.save(_spec_cursors())
     moment = datetime(2026, 11, 4, 8, 0, tzinfo=UTC)
     updated = FetchCursors(
@@ -84,7 +66,7 @@ def test_cursor_store_save_replaces_previous_file(tmp_path: Path) -> None:
 
 
 def test_cursor_store_missing_file_returns_empty_cursors_for_workspace(tmp_path: Path) -> None:
-    store = CursorStore(_state_root(tmp_path), "/vault", _RecordingLogger())
+    store = CursorStore(_state_root(tmp_path), "/vault")
 
     loaded = store.load()
 
@@ -95,23 +77,24 @@ def test_cursor_store_missing_file_returns_empty_cursors_for_workspace(tmp_path:
 @pytest.mark.parametrize(
     "content", ["{not json", '{"workspace_root": "/vault"}', '{"workspace_root": "/v", "cursors": {}, "x": 1}']
 )
-def test_cursor_store_malformed_file_fails_with_validation(tmp_path: Path, content: str) -> None:
+def test_cursor_store_malformed_file_fails_with_validation(
+    tmp_path: Path, content: str, log_capture: LogCapture
+) -> None:
     root = _state_root(tmp_path)
     root.mkdir(parents=True)
     (root / "fetch-cursors.json").write_text(content, encoding="utf-8")
-    logger = _RecordingLogger()
 
-    loaded = CursorStore(root, "/vault", logger).load()
+    loaded = CursorStore(root, "/vault").load()
 
     assert isinstance(loaded, Err)
     assert str(loaded.category) == "Validation"
-    assert logger.records[-1][0] == "error"
+    assert log_capture.records[-1][0] == "error"
 
 
 def test_cursor_store_failed_replace_keeps_previous_file_and_no_temp(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    store = CursorStore(_state_root(tmp_path), "D:/vaults/work", _RecordingLogger())
+    store = CursorStore(_state_root(tmp_path), "D:/vaults/work")
     store.save(_spec_cursors())
     before = store.path.read_bytes()
 
@@ -129,4 +112,4 @@ def test_cursor_store_failed_replace_keeps_previous_file_and_no_temp(
 
 def test_cursor_store_relative_state_root_is_rejected() -> None:
     with pytest.raises(ValueError, match="absolute"):
-        CursorStore(Path(".nyssa-ai/daily-tasks"), "/vault", _RecordingLogger())
+        CursorStore(Path(".nyssa-ai/daily-tasks"), "/vault")

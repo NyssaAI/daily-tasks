@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable SuggestionOrigin DTO.
-# Public interface:
-# `-- SuggestionOrigin
-#     +-- kind
-#     +-- message_ids
-#     +-- row
-#     +-- screen_id
-#     `-- suggestion_id
-"""SuggestionOrigin DTO."""
+"""Responsibility: Represent an immutable SuggestionOrigin DTO.
+Public interface:
+`-- SuggestionOrigin
+    +-- kind
+    +-- message_ids
+    +-- row
+    +-- screen_id
+    `-- suggestion_id
+
+SuggestionOrigin DTO.
+"""
 
 from typing import Literal
 

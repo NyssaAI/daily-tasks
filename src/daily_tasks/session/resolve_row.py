@@ -1,7 +1,9 @@
-# Responsibility: Resolve a reply's row number or milestone label against the current screen only.
-# Public interface:
-# `-- resolve_row(session, reference)
-"""Numbers from another screen are refused; labels M1, M2… resolve within `current_project_id` on screen 2."""
+"""Responsibility: Resolve a reply's row number or milestone label against the current screen only.
+Public interface:
+`-- resolve_row(session, reference)
+
+Numbers from another screen are refused; labels M1, M2… resolve within `current_project_id` on screen 2.
+"""
 
 from collections.abc import Mapping
 

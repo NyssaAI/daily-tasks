@@ -1,7 +1,9 @@
-# Responsibility: Write a validated state change into the state graph records.
-# Public interface:
-# `-- operation_set_state(graph, record_type, record_id, state)
-"""Pure transition on graph records; callers validate with `operation_status_rule` first."""
+"""Responsibility: Write a validated state change into the state graph records.
+Public interface:
+`-- operation_set_state(graph, record_type, record_id, state)
+
+Pure transition on graph records; callers validate with `operation_status_rule` first.
+"""
 
 import dataclasses
 from typing import Literal

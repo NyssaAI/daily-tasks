@@ -1,15 +1,18 @@
-# Responsibility: Persist adjudicated record changes, daily plans and planning state as local files.
-# Public interface:
-# `-- MarkdownFileStore
-#     +-- append_decisions(entries)
-#     +-- apply(changes)
-#     +-- new(workspace_root, logger, clock, records_root, daily_plans_root, state_root)
-#     +-- save_session(session)
-#     +-- save_suggestions(suggestions)
-#     `-- write_daily_plan(document)
-"""Markdown `LocalFileStore`: optimistic hash checks, surgical record edits and atomic writes."""
+"""Responsibility: Persist adjudicated record changes, daily plans and planning state as local files.
+Public interface:
+`-- MarkdownFileStore
+    +-- append_decisions(entries)
+    +-- apply(changes)
+    +-- new(workspace_root, clock, records_root, daily_plans_root, state_root)
+    +-- save_session(session)
+    +-- save_suggestions(suggestions)
+    `-- write_daily_plan(document)
+
+Markdown `LocalFileStore`: optimistic hash checks, surgical record edits and atomic writes.
+"""
 
 import hashlib
+import logging
 import time
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import replace
@@ -21,11 +24,11 @@ from nyssa_ai_result import Ok, Result, fail, ok
 from pydantic import TypeAdapter, ValidationError
 
 from daily_tasks.domain import DecisionLog, DecisionLogEntry, PlanningSession, RecordChange, Suggestions
-from daily_tasks.ports import PortLogger
 from daily_tasks.storage.apply_record_change import apply_record_change
 from daily_tasks.storage.atomic_write import atomic_write
 from daily_tasks.storage.cst import DailyPlanDocument, render_daily_plan
 
+_LOGGER: Final = logging.getLogger(__name__)
 _DECISION_LOG: Final[TypeAdapter[DecisionLog]] = TypeAdapter(DecisionLog)
 _SESSION: Final[TypeAdapter[PlanningSession]] = TypeAdapter(PlanningSession)
 _SUGGESTIONS: Final[TypeAdapter[Suggestions]] = TypeAdapter(Suggestions)
@@ -50,13 +53,12 @@ class MarkdownFileStore:
     def __init__(
         self,
         workspace_root: Path,
-        logger: PortLogger,
         clock: Callable[[], datetime],
         records_root: Path = Path("projects"),
         daily_plans_root: Path = Path("daily-plans"),
         state_root: Path = Path(".nyssa-ai/daily-tasks"),
     ) -> None:
-        """Borrow `logger`; `clock` returns the UTC time stamped on applied changes.
+        """`clock` returns the UTC time stamped on applied changes.
 
         Raises `ValueError` when `workspace_root` is relative.
         """
@@ -66,7 +68,6 @@ class MarkdownFileStore:
         self._records_root = workspace_root / records_root
         self._daily_plans_root = workspace_root / daily_plans_root
         self._state_root = workspace_root / state_root
-        self._logger = logger
         self._clock = clock
 
     def apply(self, changes: Sequence[RecordChange]) -> Result[tuple[RecordChange, ...]]:
@@ -95,7 +96,7 @@ class MarkdownFileStore:
                     return self._io_failure(operation, started, error, change.path)
             if _hash(originals[path]) != change.expected_hash:
                 fields = {"path": change.path, "record_id": str(change.record_id), "elapsed_ms": _elapsed_ms(started)}
-                self._logger.warn("record changed since it was read", fields=fields, operation=operation)
+                _LOGGER.warning("record changed since it was read", extra={"operation": operation, "fields": fields})
                 return fail(f"Record '{change.path}' changed since it was read.", "Conflict")
             edited = apply_record_change(pending.get(path, originals[path].decode("utf-8")), change)
             if not isinstance(edited, Ok):
@@ -112,7 +113,7 @@ class MarkdownFileStore:
             return self._io_failure(operation, started, error, names[target])
         applied_at = self._clock()
         fields = {"changes": len(changes), "files": len(pending), "elapsed_ms": _elapsed_ms(started)}
-        self._logger.info("record changes applied", fields=fields, operation=operation)
+        _LOGGER.info("record changes applied", extra={"operation": operation, "fields": fields})
         return ok(tuple(replace(change, status="applied", applied_at=applied_at) for change in changes))
 
     def write_daily_plan(self, document: DailyPlanDocument) -> Result[str]:
@@ -168,7 +169,7 @@ class MarkdownFileStore:
         except OSError as error:
             return self._io_failure(operation, started, error, relative)
         fields = {"path": relative, **(extra or {}), "elapsed_ms": _elapsed_ms(started)}
-        self._logger.info("file written", fields=fields, operation=operation)
+        _LOGGER.info("file written", extra={"operation": operation, "fields": fields})
         return ok(relative)
 
     def _restore(self, written: Sequence[Path], originals: Mapping[Path, bytes], names: Mapping[Path, str]) -> None:
@@ -177,15 +178,19 @@ class MarkdownFileStore:
                 atomic_write(path, originals[path])
             except OSError as error:
                 fields = {"path": names[path]}
-                self._logger.error("record restore failed", error=error, fields=fields, operation="file_store.apply")
+                _LOGGER.error(
+                    "record restore failed",
+                    extra={"operation": "file_store.apply", "fields": fields, "error": error},
+                )
 
     def _refuse[T](self, operation: str, started: float, message: str, category: str = "Validation") -> Result[T]:
-        self._logger.warn(
-            "file store refused", fields={"category": category, "elapsed_ms": _elapsed_ms(started)}, operation=operation
+        _LOGGER.warning(
+            "file store refused",
+            extra={"operation": operation, "fields": {"category": category, "elapsed_ms": _elapsed_ms(started)}},
         )
         return fail(message, category)
 
     def _io_failure[T](self, operation: str, started: float, error: OSError, target: str) -> Result[T]:
         fields = {"target": target, "error_type": type(error).__name__, "elapsed_ms": _elapsed_ms(started)}
-        self._logger.error("file store I/O failed", error=error, fields=fields, operation=operation)
+        _LOGGER.error("file store I/O failed", extra={"operation": operation, "fields": fields, "error": error})
         return fail(f"File store could not access '{target}'.", "Unavailable", cause=error)

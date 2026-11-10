@@ -1,7 +1,9 @@
-# Responsibility: Start a planning session by showing the plan-the-day screen.
-# Public interface:
-# `-- start_session(state, previous_plan, now)
-"""INIT -> SCREEN_1: number today's tasks, carried-forward tasks and pending suggestions on `s1`."""
+"""Responsibility: Start a planning session by showing the plan-the-day screen.
+Public interface:
+`-- start_session(state, previous_plan, now)
+
+INIT -> SCREEN_1: number today's tasks, carried-forward tasks and pending suggestions on `s1`.
+"""
 
 from datetime import datetime
 

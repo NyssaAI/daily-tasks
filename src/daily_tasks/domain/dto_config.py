@@ -1,7 +1,9 @@
-# Responsibility: Define the shared Pydantic configuration for spec-parity DTOs.
-# Public interface:
-# `-- DTO_CONFIG
-"""Shared configuration: unknown fields are rejected and JSON keys round-trip through aliases."""
+"""Responsibility: Define the shared Pydantic configuration for spec-parity DTOs.
+Public interface:
+`-- DTO_CONFIG
+
+Shared configuration: unknown fields are rejected and JSON keys round-trip through aliases.
+"""
 
 from typing import Final
 

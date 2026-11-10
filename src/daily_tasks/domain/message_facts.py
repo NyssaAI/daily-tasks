@@ -1,13 +1,15 @@
-# Responsibility: Represent an immutable MessageFacts DTO.
-# Public interface:
-# `-- MessageFacts
-#     +-- carried_from
-#     +-- latest_in_thread
-#     +-- linked
-#     +-- needs_review
-#     +-- reviewed
-#     `-- superseded_by
-"""MessageFacts DTO."""
+"""Responsibility: Represent an immutable MessageFacts DTO.
+Public interface:
+`-- MessageFacts
+    +-- carried_from
+    +-- latest_in_thread
+    +-- linked
+    +-- needs_review
+    +-- reviewed
+    `-- superseded_by
+
+MessageFacts DTO.
+"""
 
 from datetime import date
 

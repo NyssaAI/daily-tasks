@@ -1,9 +1,11 @@
-# Responsibility: Post OAuth token requests to Google and reject grants wider than Gmail read-only.
-# Public interface:
-# `-- GmailTokenEndpoint
-#     +-- new(client_secret, http_post)
-#     `-- post(url, form_data)
-"""`OAuthFlowClient` transport for Google: adds the client secret, enforces the granted scope."""
+"""Responsibility: Post OAuth token requests to Google and reject grants wider than Gmail read-only.
+Public interface:
+`-- GmailTokenEndpoint
+    +-- new(client_secret, http_post)
+    `-- post(url, form_data)
+
+`OAuthFlowClient` transport for Google: adds the client secret, enforces the granted scope.
+"""
 
 import json
 import urllib.error

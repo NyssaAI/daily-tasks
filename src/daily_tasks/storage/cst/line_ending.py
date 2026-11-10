@@ -1,7 +1,9 @@
-# Responsibility: Choose the line terminator for lines inserted into a Markdown record.
-# Public interface:
-# `-- line_ending(document)
-"""Inserted lines reuse the record's own terminator so edits do not mix line endings."""
+"""Responsibility: Choose the line terminator for lines inserted into a Markdown record.
+Public interface:
+`-- line_ending(document)
+
+Inserted lines reuse the record's own terminator so edits do not mix line endings.
+"""
 
 from daily_tasks.storage.cst.markdown_document import MarkdownDocument
 

@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable Unplan DTO.
-# Public interface:
-# `-- Unplan
-#     +-- item_id
-#     +-- item_type
-#     +-- kind
-#     `-- row
-"""Unplan DTO."""
+"""Responsibility: Represent an immutable Unplan DTO.
+Public interface:
+`-- Unplan
+    +-- item_id
+    +-- item_type
+    +-- kind
+    `-- row
+
+Unplan DTO.
+"""
 
 from typing import Literal
 

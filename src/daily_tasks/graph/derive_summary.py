@@ -1,7 +1,9 @@
-# Responsibility: Count the headline numbers of the state graph.
-# Public interface:
-# `-- derive_summary(records, task_facts, today, rollover, settings)
-"""Open projects, milestones, tasks and blockers, late and blocked tasks, and today's selection size."""
+"""Responsibility: Count the headline numbers of the state graph.
+Public interface:
+`-- derive_summary(records, task_facts, today, rollover, settings)
+
+Open projects, milestones, tasks and blockers, late and blocked tasks, and today's selection size.
+"""
 
 from collections.abc import Mapping
 from uuid import UUID

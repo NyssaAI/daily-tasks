@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable Today DTO.
-# Public interface:
-# `-- Today
-#     +-- available
-#     +-- future
-#     `-- selected
-"""Today DTO."""
+"""Responsibility: Represent an immutable Today DTO.
+Public interface:
+`-- Today
+    +-- available
+    +-- future
+    `-- selected
+
+Today DTO.
+"""
 
 from collections.abc import Mapping
 from datetime import date

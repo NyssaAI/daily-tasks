@@ -1,13 +1,16 @@
-# Responsibility: Read project, milestone, task and blocker records from a Markdown project vault.
-# Public interface:
-# `-- MarkdownProjectPlanAdapter
-#     +-- fetch_projects()
-#     +-- malformed_records
-#     +-- name
-#     `-- new(root, name, logger)
-"""File-backed Project-Plan-Port: Markdown records under one projects root, parsed through the CST."""
+"""Responsibility: Read project, milestone, task and blocker records from a Markdown project vault.
+Public interface:
+`-- MarkdownProjectPlanAdapter
+    +-- fetch_projects()
+    +-- malformed_records
+    +-- name
+    `-- new(root, name)
+
+File-backed Project-Plan-Port: Markdown records under one projects root, parsed through the CST.
+"""
 
 import asyncio
+import logging
 import time
 from collections.abc import Callable, Mapping
 from pathlib import Path, PurePosixPath
@@ -18,7 +21,7 @@ from nyssa_ai_result import ErrorCategory, Ok, Result, fail, ok
 from daily_tasks.adapters.markdown_record_files import markdown_record_files
 from daily_tasks.adapters.markdown_record_kind import MarkdownRecordKind, markdown_record_kind
 from daily_tasks.domain import Blocker, Milestone, Project, Task
-from daily_tasks.ports import MalformedRecord, PortLogger, ProjectPlanSnapshot
+from daily_tasks.ports import MalformedRecord, ProjectPlanSnapshot
 from daily_tasks.storage.cst import (
     MarkdownDocument,
     ParseError,
@@ -30,6 +33,7 @@ from daily_tasks.storage.cst import (
     parse_task,
 )
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION: Final = "project_plan.fetch"
 
 type _Record = Project | Milestone | Task | Blocker
@@ -52,13 +56,12 @@ class MarkdownProjectPlanAdapter:
     paths are relative to `root`; their `source` is `name`.
     """
 
-    def __init__(self, root: Path, name: str, logger: PortLogger) -> None:
-        """Borrow `logger`; `root` must be absolute so results never depend on the working directory."""
+    def __init__(self, root: Path, name: str) -> None:
+        """`root` must be absolute so results never depend on the working directory."""
         if not root.is_absolute():
             raise ValueError("projects root must be an absolute path")
         self._root = root
         self._name = name
-        self._logger = logger
         self._malformed_records: list[MalformedRecord] = []
 
     @property
@@ -109,11 +112,8 @@ class MarkdownProjectPlanAdapter:
             malformed_records=tuple(self._malformed_records),
         )
         fields: dict[str, object] = {kind: len(records[kind]) for kind in _ORDER}
-        self._logger.info(
-            "project plan fetched",
-            fields={"source": self._name, **fields, "skipped": skipped, "elapsed_ms": _elapsed_ms(started)},
-            operation=_OPERATION,
-        )
+        out_fields = {"source": self._name, **fields, "skipped": skipped, "elapsed_ms": _elapsed_ms(started)}
+        _LOGGER.info("project plan fetched", extra={"operation": _OPERATION, "fields": out_fields})
         return ok(snapshot)
 
     def _parse(
@@ -139,7 +139,7 @@ class MarkdownProjectPlanAdapter:
 
     def _skip(self, path: PurePosixPath, kind: str, code: str, detail: str) -> None:
         fields = {"source": self._name, "path": path.as_posix(), "kind": kind, "code": code, "detail": detail[:200]}
-        self._logger.warn("record skipped", fields=fields, operation=_OPERATION)
+        _LOGGER.warning("record skipped", extra={"operation": _OPERATION, "fields": fields})
         self._malformed_records.append(
             MalformedRecord(path=path.as_posix(), kind=kind, code=code, message=detail[:200])
         )
@@ -148,7 +148,7 @@ class MarkdownProjectPlanAdapter:
         self, message: str, category: ErrorCategory, error: OSError, started: float
     ) -> Result[ProjectPlanSnapshot]:
         fields = {"source": self._name, "category": str(category), "elapsed_ms": _elapsed_ms(started)}
-        self._logger.error(message, error=error, fields=fields, operation=_OPERATION)
+        _LOGGER.error(message, extra={"operation": _OPERATION, "fields": fields, "error": error})
         return fail(f"Project plan source '{self._name}': {message}.", category, cause=error)
 
 

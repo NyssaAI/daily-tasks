@@ -1,20 +1,22 @@
-# Responsibility: Group the plain values that read ports return.
-# Public interface:
-# +-- FetchBatch
-# |   +-- cursors
-# |   `-- messages
-# +-- MalformedRecord
-# |   +-- code
-# |   +-- kind
-# |   +-- message
-# |   `-- path
-# `-- ProjectPlanSnapshot
-#     +-- blockers
-#     +-- malformed_records
-#     +-- milestones
-#     +-- projects
-#     `-- tasks
-"""Read-port return values: a project plan snapshot, malformed records and one batch of fetched messages."""
+"""Responsibility: Group the plain values that read ports return.
+Public interface:
++-- FetchBatch
+|   +-- cursors
+|   `-- messages
++-- MalformedRecord
+|   +-- code
+|   +-- kind
+|   +-- message
+|   `-- path
+`-- ProjectPlanSnapshot
+    +-- blockers
+    +-- malformed_records
+    +-- milestones
+    +-- projects
+    `-- tasks
+
+Read-port return values: a project plan snapshot, malformed records and one batch of fetched messages.
+"""
 
 from dataclasses import dataclass
 

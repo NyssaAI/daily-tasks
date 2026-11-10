@@ -1,7 +1,9 @@
-# Responsibility: Parse Markdown text into a lossless concrete syntax tree.
-# Public interface:
-# `-- parse_markdown(text)
-"""Lossless CST parser for frontmatter, headings, checklist items and table rows."""
+"""Responsibility: Parse Markdown text into a lossless concrete syntax tree.
+Public interface:
+`-- parse_markdown(text)
+
+Lossless CST parser for frontmatter, headings, checklist items and table rows.
+"""
 
 import re
 from typing import Final

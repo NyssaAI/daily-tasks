@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable RecordSourceStatus DTO.
-# Public interface:
-# `-- RecordSourceStatus
-#     +-- error
-#     +-- name
-#     +-- port
-#     +-- record_count
-#     `-- status
-"""RecordSourceStatus DTO."""
+"""Responsibility: Represent an immutable RecordSourceStatus DTO.
+Public interface:
+`-- RecordSourceStatus
+    +-- error
+    +-- name
+    +-- port
+    +-- record_count
+    `-- status
+
+RecordSourceStatus DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

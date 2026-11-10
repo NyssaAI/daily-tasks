@@ -1,7 +1,12 @@
-# Responsibility: Prove signal phrases are detected on word boundaries, casefolded and negation-aware.
-# Public interface:
-# (none)
-"""Signal word classification over short email and chat snippets."""
+"""Responsibility: Prove signal phrases are detected on word boundaries, casefolded and negation-aware.
+Public interface:
++-- test_detect_signals_partial_word_or_negation_returns_nothing(text)
++-- test_detect_signals_quote_is_the_sentence_containing_the_phrase()
++-- test_detect_signals_repeated_phrase_is_reported_once()
+`-- test_detect_signals_status_phrase_returns_kind_and_phrase(text, expected)
+
+Signal word classification over short email and chat snippets.
+"""
 
 import pytest
 

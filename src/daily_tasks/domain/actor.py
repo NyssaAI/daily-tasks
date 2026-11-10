@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable Actor DTO.
-# Public interface:
-# `-- Actor
-#     +-- id
-#     `-- kind
-"""Actor DTO."""
+"""Responsibility: Represent an immutable Actor DTO.
+Public interface:
+`-- Actor
+    +-- id
+    `-- kind
+
+Actor DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

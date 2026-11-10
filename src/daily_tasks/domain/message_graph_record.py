@@ -1,17 +1,19 @@
-# Responsibility: Represent an immutable MessageGraphRecord DTO.
-# Public interface:
-# `-- MessageGraphRecord
-#     +-- attachment_ids
-#     +-- channel
-#     +-- location
-#     +-- received_at
-#     +-- ref
-#     +-- sender
-#     +-- snippet
-#     +-- source
-#     +-- subject
-#     `-- thread_id
-"""MessageGraphRecord DTO."""
+"""Responsibility: Represent an immutable MessageGraphRecord DTO.
+Public interface:
+`-- MessageGraphRecord
+    +-- attachment_ids
+    +-- channel
+    +-- location
+    +-- received_at
+    +-- ref
+    +-- sender
+    +-- snippet
+    +-- source
+    +-- subject
+    `-- thread_id
+
+MessageGraphRecord DTO.
+"""
 
 from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass

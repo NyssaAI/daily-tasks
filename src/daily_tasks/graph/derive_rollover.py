@@ -1,7 +1,9 @@
-# Responsibility: Compute the carry-forward outcome from the previous daily plan.
-# Public interface:
-# `-- derive_rollover(records, local_date)
-"""Rollover of open tasks selected on the nearest earlier plan into the plan for the local date."""
+"""Responsibility: Compute the carry-forward outcome from the previous daily plan.
+Public interface:
+`-- derive_rollover(records, local_date)
+
+Rollover of open tasks selected on the nearest earlier plan into the plan for the local date.
+"""
 
 from datetime import date
 from typing import Final

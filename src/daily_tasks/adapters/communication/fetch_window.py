@@ -1,13 +1,15 @@
-# Responsibility: Represent the fetch bounds of one communication source for the next pull.
-# Public interface:
-# `-- FetchWindow
-#     +-- after_epoch
-#     +-- has_cursor
-#     +-- initial_lookback_days
-#     +-- last_external_id
-#     +-- since
-#     `-- source
-"""FetchWindow DTO: what a connector or an assistant harness connection must read next."""
+"""Responsibility: Represent the fetch bounds of one communication source for the next pull.
+Public interface:
+`-- FetchWindow
+    +-- after_epoch
+    +-- has_cursor
+    +-- initial_lookback_days
+    +-- last_external_id
+    +-- since
+    `-- source
+
+FetchWindow DTO: what a connector or an assistant harness connection must read next.
+"""
 
 from dataclasses import dataclass
 from datetime import datetime

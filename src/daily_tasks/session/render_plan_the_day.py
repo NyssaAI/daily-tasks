@@ -1,7 +1,9 @@
-# Responsibility: Render screen 1 (plan the day) as Markdown from the session state.
-# Public interface:
-# `-- render_plan_the_day(state)
-"""Current plan rows and pending suggestion rows, numbered exactly as recorded on `s1`."""
+"""Responsibility: Render screen 1 (plan the day) as Markdown from the session state.
+Public interface:
+`-- render_plan_the_day(state)
+
+Current plan rows and pending suggestion rows, numbered exactly as recorded on `s1`.
+"""
 
 from uuid import UUID
 

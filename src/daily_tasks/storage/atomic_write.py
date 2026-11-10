@@ -1,7 +1,9 @@
-# Responsibility: Replace one file's bytes atomically so readers never observe a partial write.
-# Public interface:
-# `-- atomic_write(path, data)
-"""Temp file in the target directory, fsync, then `os.replace`; parent directories are created."""
+"""Responsibility: Replace one file's bytes atomically so readers never observe a partial write.
+Public interface:
+`-- atomic_write(path, data)
+
+Temp file in the target directory, fsync, then `os.replace`; parent directories are created.
+"""
 
 import contextlib
 import os

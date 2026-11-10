@@ -1,7 +1,9 @@
-# Responsibility: Move the assign-days screen to the next project in order.
-# Public interface:
-# `-- next_project(state, now)
-"""SCREEN_2 -> SCREEN_2 ("next"); the last project refuses and points at "finish"."""
+"""Responsibility: Move the assign-days screen to the next project in order.
+Public interface:
+`-- next_project(state, now)
+
+SCREEN_2 -> SCREEN_2 ("next"); the last project refuses and points at "finish".
+"""
 
 from datetime import datetime
 

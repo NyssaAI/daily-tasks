@@ -1,7 +1,19 @@
-# Responsibility: Prove SlackConnector fetches Slack history read-only and advances only the Slack cursor.
-# Public interface:
-# (none)
-"""Slack connector behavior against a fake Slack Web API transport."""
+"""Responsibility: Prove SlackConnector fetches Slack history read-only and advances only the Slack cursor.
+Public interface:
++-- DEV
++-- NOW
++-- SINCE
++-- TOKEN
++-- test_slack_connector_api_error_fails_with_code_and_never_leaks_token(log_capture)
++-- test_slack_connector_follows_pagination_and_skips_channel_noise()
++-- test_slack_connector_incremental_fetch_maps_messages_and_advances_only_slack_cursor()
++-- test_slack_connector_invalid_json_fails_with_validation()
++-- test_slack_connector_message_at_cursor_is_not_returned_again()
++-- test_slack_connector_timestamp_round_trip_keeps_microseconds()
+`-- test_slack_connector_without_cursor_starts_from_7_day_initial_lookback()
+
+Slack connector behavior against a fake Slack Web API transport.
+"""
 
 import asyncio
 import json
@@ -12,6 +24,7 @@ from datetime import UTC, datetime, timedelta
 
 from nyssa_ai_result import Err, Ok, Result, fail, ok
 
+from conftest import LogCapture
 from daily_tasks.adapters.communication.slack_channel import SlackChannel
 from daily_tasks.adapters.communication.slack_connector import SlackConnector
 from daily_tasks.adapters.communication.slack_timestamp import slack_timestamp, slack_ts_from_datetime
@@ -21,29 +34,6 @@ TOKEN = "xoxb-secret-token-42"
 NOW = datetime(2026, 11, 3, 14, 0, tzinfo=UTC)
 SINCE = datetime(2026, 11, 3, 12, 0, tzinfo=UTC)
 DEV = SlackChannel(id="C01DEV", name="#dev-core")
-
-
-@dataclass
-class _RecordingLogger:
-    records: list[tuple[str, str, Mapping[str, object]]] = field(default_factory=list)
-
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("debug", message, fields or {}))
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("info", message, fields or {}))
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("warn", message, fields or {}))
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        self.records.append(("error", message, fields or {}))
 
 
 @dataclass
@@ -73,10 +63,8 @@ def _raw(moment: datetime, text: str, user: str = "U01SARAH") -> dict[str, objec
     return {"type": "message", "ts": _ts(moment), "user": user, "text": text, "user_profile": {"real_name": "Sarah"}}
 
 
-def _connector(
-    http: _FakeSlack, logger: _RecordingLogger, channels: tuple[SlackChannel, ...] = (DEV,)
-) -> SlackConnector:
-    return SlackConnector(SecretString(TOKEN), channels, logger, clock=lambda: NOW, http=http, workspace_domain="acme")
+def _connector(http: _FakeSlack, channels: tuple[SlackChannel, ...] = (DEV,)) -> SlackConnector:
+    return SlackConnector(SecretString(TOKEN), channels, clock=lambda: NOW, http=http, workspace_domain="acme")
 
 
 def _cursors(slack: FetchCursor | None) -> FetchCursors:
@@ -92,7 +80,7 @@ def test_slack_connector_incremental_fetch_maps_messages_and_advances_only_slack
         FetchCursor(since=SINCE, last_external_id=None, last_run_at=None, last_status="ok", last_error=None)
     )
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(since))
+    result = asyncio.run(_connector(http).fetch_new_messages(since))
 
     assert isinstance(result, Ok)
     assert [m.body for m in result.value.messages] == ["Hi", "PR merged"]
@@ -122,7 +110,7 @@ def test_slack_connector_message_at_cursor_is_not_returned_again() -> None:
     )
     channels = (DEV, SlackChannel(id="D01IM", name="dm:sarah"))
 
-    result = asyncio.run(_connector(http, _RecordingLogger(), channels).fetch_new_messages(_cursors(cursor)))
+    result = asyncio.run(_connector(http, channels).fetch_new_messages(_cursors(cursor)))
 
     assert isinstance(result, Ok)
     assert [m.body for m in result.value.messages] == ["new dm"]
@@ -144,7 +132,7 @@ def test_slack_connector_follows_pagination_and_skips_channel_noise() -> None:
         }
     )
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(None)))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(None)))
 
     assert isinstance(result, Ok)
     assert [m.body for m in result.value.messages] == ["page one"]
@@ -154,7 +142,7 @@ def test_slack_connector_follows_pagination_and_skips_channel_noise() -> None:
 def test_slack_connector_without_cursor_starts_from_7_day_initial_lookback() -> None:
     http = _FakeSlack({("C01DEV", None): {"ok": True, "messages": []}})
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(None)))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(None)))
 
     assert isinstance(result, Ok)
     assert http.query(0)["oldest"] == _ts(NOW - timedelta(days=7))
@@ -162,25 +150,24 @@ def test_slack_connector_without_cursor_starts_from_7_day_initial_lookback() -> 
     assert (slack.since, slack.last_external_id, slack.last_run_at) == (NOW - timedelta(days=7), None, NOW)
 
 
-def test_slack_connector_api_error_fails_with_code_and_never_leaks_token() -> None:
+def test_slack_connector_api_error_fails_with_code_and_never_leaks_token(log_capture: LogCapture) -> None:
     http = _FakeSlack({("C01DEV", None): {"ok": False, "error": "token_revoked"}})
-    logger = _RecordingLogger()
 
-    result = asyncio.run(_connector(http, logger).fetch_new_messages(_cursors(None)))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(None)))
 
     assert isinstance(result, Err)
     assert result.message == "token_revoked"
     assert str(result.category) == "Forbidden"
-    assert logger.records[-1][0] == "error"
-    assert logger.records[-1][2]["error"] == "token_revoked"
-    assert TOKEN not in repr(logger.records)
+    assert log_capture.records[-1][0] == "error"
+    assert log_capture.records[-1][2]["error"] == "token_revoked"
+    assert TOKEN not in repr(log_capture.records)
     assert http.requests[0][1]["Authorization"] == f"Bearer {TOKEN}"
 
 
 def test_slack_connector_invalid_json_fails_with_validation() -> None:
     http = _FakeSlack({("C01DEV", None): {"ok": True, "messages": [{"ts": "not-a-ts"}]}})
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(None)))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(None)))
 
     assert isinstance(result, Err)
     assert (result.message, str(result.category)) == ("invalid_response", "Validation")

@@ -1,12 +1,14 @@
-# Responsibility: Hold one scalar YAML frontmatter field and its source position.
-# Public interface:
-# `-- FrontmatterField
-#     +-- key
-#     +-- line_index
-#     +-- raw_value
-#     +-- value
-#     `-- value_column
-"""Frontmatter field node: the position lets edits replace only the value characters."""
+"""Responsibility: Hold one scalar YAML frontmatter field and its source position.
+Public interface:
+`-- FrontmatterField
+    +-- key
+    +-- line_index
+    +-- raw_value
+    +-- value
+    `-- value_column
+
+Frontmatter field node: the position lets edits replace only the value characters.
+"""
 
 from dataclasses import dataclass
 

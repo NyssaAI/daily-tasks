@@ -1,7 +1,9 @@
-# Responsibility: Choose the rows screen 1 (plan the day) lists, in display order.
-# Public interface:
-# `-- plan_the_day_refs(graph, previous_plan, suggestions)
-"""Today's plan tasks, open tasks carried from the previous plan, then pending suggestions."""
+"""Responsibility: Choose the rows screen 1 (plan the day) lists, in display order.
+Public interface:
+`-- plan_the_day_refs(graph, previous_plan, suggestions)
+
+Today's plan tasks, open tasks carried from the previous plan, then pending suggestions.
+"""
 
 from daily_tasks.domain import DailyPlan, RowRef, StateGraph, Suggestion
 from daily_tasks.session.open_task import open_task

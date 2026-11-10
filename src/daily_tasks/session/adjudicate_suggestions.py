@@ -1,7 +1,8 @@
-# Responsibility: Apply the user's explicit verdicts to pending suggestions and prune the answered ones.
-# Public interface:
-# `-- adjudicate_suggestions(suggestions, verdicts, graph, actor, session_id, now, new_id)
-"""Pure suggestion adjudication; there is no implicit acceptance.
+"""Responsibility: Apply the user's explicit verdicts to pending suggestions and prune the answered ones.
+Public interface:
+`-- adjudicate_suggestions(suggestions, verdicts, graph, actor, session_id, now, new_id)
+
+Pure suggestion adjudication; there is no implicit acceptance.
 
 Every verdict (accept, edit, reject) is logged and removes its suggestion from the pending pool;
 `reject` stages no record change. Suggestions without a verdict stay pending untouched.

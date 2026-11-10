@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable SuggestionValidation DTO.
-# Public interface:
-# `-- SuggestionValidation
-#     +-- issues
-#     `-- ok
-"""SuggestionValidation DTO."""
+"""Responsibility: Represent an immutable SuggestionValidation DTO.
+Public interface:
+`-- SuggestionValidation
+    +-- issues
+    `-- ok
+
+SuggestionValidation DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

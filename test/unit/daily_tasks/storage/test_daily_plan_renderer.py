@@ -1,7 +1,17 @@
-# Responsibility: Verify the daily plan renderer matches the sample and round-trips through the parser.
-# Public interface:
-# (none)
-"""Render `daily-plan.json` to `8-sample-daily-plan.md` and parse it back."""
+"""Responsibility: Verify the daily plan renderer matches the sample and round-trips through the parser.
+Public interface:
++-- PROJECT
++-- SERVER
++-- SPIKE
++-- test_parse_daily_plan_row_without_link_returns_invalid_plan_row()
++-- test_parse_daily_plan_sample_with_stored_plan_returns_equal_plan()
++-- test_render_daily_plan_escapes_pipes_in_table_cells()
++-- test_render_daily_plan_sample_matches_sample_markdown()
++-- test_render_daily_plan_without_blockers_or_decisions_shows_empty_sections()
+`-- test_render_then_parse_round_trip_keeps_shown_values()
+
+Render `daily-plan.json` to `8-sample-daily-plan.md` and parse it back.
+"""
 
 from dataclasses import replace
 from datetime import date
@@ -27,7 +37,8 @@ SERVER = "Daily Tasks MCP Server"
 
 
 def _sample_text() -> str:
-    return (SPECS_ROOT / "8-sample-daily-plan.md").read_text(encoding="utf-8", newline="")
+    with (SPECS_ROOT / "8-sample-daily-plan.md").open(encoding="utf-8", newline="") as handle:
+        return handle.read()
 
 
 def _sample_plan() -> DailyPlan:

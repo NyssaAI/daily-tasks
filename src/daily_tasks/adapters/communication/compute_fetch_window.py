@@ -1,8 +1,10 @@
-# Responsibility: Compute one source's fetch window from its saved cursor or the initial lookback.
-# Public interface:
-# +-- DEFAULT_INITIAL_LOOKBACK_DAYS
-# `-- compute_fetch_window(cursors, source, now, initial_lookback_days)
-"""A saved cursor always wins; without one the first pull reaches back `initial_lookback_days` from `now`."""
+"""Responsibility: Compute one source's fetch window from its saved cursor or the initial lookback.
+Public interface:
++-- DEFAULT_INITIAL_LOOKBACK_DAYS
+`-- compute_fetch_window(cursors, source, now, initial_lookback_days)
+
+A saved cursor always wins; without one the first pull reaches back `initial_lookback_days` from `now`.
+"""
 
 from datetime import datetime, timedelta
 from typing import Final

@@ -1,7 +1,9 @@
-# Responsibility: Plan or unplan a task or blocker for a local day inside the state graph.
-# Public interface:
-# `-- operation_planned_for(graph, item_type, item_id, local_date)
-"""Pure transition on derived planning facts; Fails with `NotFound` or `Validation` codes."""
+"""Responsibility: Plan or unplan a task or blocker for a local day inside the state graph.
+Public interface:
+`-- operation_planned_for(graph, item_type, item_id, local_date)
+
+Pure transition on derived planning facts; Fails with `NotFound` or `Validation` codes.
+"""
 
 import dataclasses
 from datetime import date

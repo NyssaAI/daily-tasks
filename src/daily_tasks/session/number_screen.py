@@ -1,7 +1,9 @@
-# Responsibility: Show a screen in the session snapshot and number its rows by the screen's numbering rule.
-# Public interface:
-# `-- number_screen(session, key, kind, refs, now)
-"""Session-numbered screens share `rows`/`next_row` and keep numbers forever; `confirm` restarts at 1."""
+"""Responsibility: Show a screen in the session snapshot and number its rows by the screen's numbering rule.
+Public interface:
+`-- number_screen(session, key, kind, refs, now)
+
+Session-numbered screens share `rows`/`next_row` and keep numbers forever; `confirm` restarts at 1.
+"""
 
 import dataclasses
 from collections.abc import Mapping, Sequence

@@ -1,13 +1,15 @@
-# Responsibility: Represent an immutable FileStoreBinding DTO.
-# Public interface:
-# `-- FileStoreBinding
-#     +-- adapter
-#     +-- daily_plans_root
-#     +-- name
-#     +-- records_root
-#     +-- settings
-#     `-- state_root
-"""FileStoreBinding DTO."""
+"""Responsibility: Represent an immutable FileStoreBinding DTO.
+Public interface:
+`-- FileStoreBinding
+    +-- adapter
+    +-- daily_plans_root
+    +-- name
+    +-- records_root
+    +-- settings
+    `-- state_root
+
+FileStoreBinding DTO.
+"""
 
 from collections.abc import Mapping
 

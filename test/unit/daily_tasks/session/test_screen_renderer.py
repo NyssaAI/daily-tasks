@@ -1,7 +1,16 @@
-# Responsibility: Prove the three planning screens render the numbered rows recorded in the session.
-# Public interface:
-# (none)
-"""Markdown output of render_plan_the_day, render_assign_days and render_confirm_plan."""
+"""Responsibility: Prove the three planning screens render the numbered rows recorded in the session.
+Public interface:
++-- NOW
++-- test_render_assign_days_before_screen_two_is_empty()
++-- test_render_assign_days_last_project_asks_to_finalize()
++-- test_render_assign_days_shows_milestones_tasks_and_blockers()
++-- test_render_confirm_plan_groups_rows_numbered_from_one()
++-- test_render_confirm_plan_places_completed_user_task_in_my_work()
++-- test_render_plan_the_day_shows_plan_and_suggestion_rows()
+`-- test_render_plan_the_day_without_suggestions_omits_section()
+
+Markdown output of render_plan_the_day, render_assign_days and render_confirm_plan.
+"""
 
 import dataclasses
 from datetime import UTC, datetime

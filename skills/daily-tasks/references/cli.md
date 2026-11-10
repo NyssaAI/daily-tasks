@@ -5,13 +5,19 @@
 
 ## Architectural boundary: MCP vs. terminal helpers
 
-The planning server `daily-tasks-mcp` is an MCP stdio server and must only be invoked via the MCP protocol through host tool calls (`daily_tasks_*`). Agents must never execute `daily-tasks-mcp` or `python -m daily_tasks.server` as a one-shot CLI command or shell subprocess. Direct terminal execution is reserved exclusively for interactive user-driven Gmail authorization (`python -m daily_tasks.auth.gmail`), user-run out-of-band secret capture (`python -m daily_tasks.auth.secret`), or repository packaging and validation scripts (`scripts/assemble.py`, `scripts/validate.py`).
+The planning server `daily-tasks-mcp` is an MCP stdio server and must only be invoked via the MCP protocol through host tool calls (`daily_tasks_*`). Self-contained bundle discovery is declared via root `.mcp.json` (`uv run --directory ${CLAUDE_PLUGIN_ROOT} daily-tasks-mcp`), generated portable `mcp.json` (`uv run daily-tasks-mcp`), and Antigravity `mcp_config.json`. When loaded by hosts like Claude, Cursor, Codex, Antigravity, or OpenClaw, `daily-tasks-mcp` boots cleanly from the bundled `pyproject.toml` and `src/` without startup flags. The server dynamically resolves settings across two profile layers:
+1. **User profile**: `~/.nyssa-ai/daily-tasks/profile.json` (resolving global `user.email`, `user.name`, and `timezone`).
+2. **Workspace profile**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (resolving workspace-bound `projectsRoot`, `dailyPlansRelative`, `sources`, and template overrides).
+
+The active workspace can be supplied at startup via `--workspace-root` or dynamically per session via the optional `workspace_root` tool parameter on `daily_tasks_start_session` and `daily_tasks_get_fetch_window`.
+
+Agents must never execute `daily-tasks-mcp` or `python -m daily_tasks.server` as a one-shot CLI command or shell subprocess. Direct terminal execution is reserved exclusively for interactive user-driven Gmail authorization (`python -m daily_tasks.auth.gmail`), user-run out-of-band secret capture (`python -m daily_tasks.auth.secret`), or repository packaging and validation scripts (`scripts/assemble.py`, `scripts/validate.py`).
 
 The runtime requires Python >=3.12 (managed via `uv` and `pyproject.toml`) with permitted filesystem and process access. Callers resolve `PACKAGE_ROOT` from the installed plugin's actual location rather than assuming a host cache path.
 
 ```text
-uv run daily-tasks-mcp --workspace-root ABSOLUTE_WORKSPACE [--user-email EMAIL] [--user-name NAME] [--timezone TZ] [--projects-root PATH] [--daily-plans-root PATH] [--state-root PATH] [--initial-lookback-days DAYS] [--log-file PATH] [--config-dir ABSOLUTE_CONFIG_DIR]
-uv run python -m daily_tasks.server --workspace-root ABSOLUTE_WORKSPACE
+uv run daily-tasks-mcp [--workspace-root ABSOLUTE_WORKSPACE] [--user-email EMAIL] [--user-name NAME] [--timezone TZ] [--projects-root PATH] [--daily-plans-root PATH] [--initial-lookback-days DAYS] [--log-file PATH] [--config-dir ABSOLUTE_CONFIG_DIR]
+uv run python -m daily_tasks.server [--workspace-root ABSOLUTE_WORKSPACE]
 uv run python -m daily_tasks.auth.gmail --config-dir ABSOLUTE_CONFIG_DIR
 uv run python -m daily_tasks.auth.secret [--config-dir ABSOLUTE_CONFIG_DIR] capture NAMESPACE KEY [--prompt TEXT] [--provider NAME] [--forced-provider NAME] [--mode auto|cli|web]
 uv run python -m daily_tasks.auth.secret gmail [--no-client-secret] | slack
@@ -38,8 +44,8 @@ On Windows, PowerShell redirection operators (`>` and `Out-File`) default to UTF
 
 | Tool | Arguments | Result / Effect |
 | --- | --- | --- |
-| `daily_tasks_start_session` | `date?` (`YYYY-MM-DD`), `focus?` (`string`), `messages?` (`[Message]`, `docs/specs/message.json`), `checked_sources?` (`[string]`) | Parses Markdown workspace records, builds in-memory `StateGraph`, fetches unread messages via configured `CommunicationPort` connectors, filters host-supplied `messages` against each source's fetch window, runs deterministic pre-matching, generates suggestions, and returns `session_id` + Screen 1 (`payload.screen`; harness sources appear in `payload.message_sources`). Advanced cursors for connector and `checked_sources` sources are staged until confirmation. A malformed message returns a `Validation` error. Performs no disk writes. |
-| `daily_tasks_get_fetch_window` | `sources?` (`[string]`, default `gmail`, `slack`) | Returns `payload.fetch_windows[]` (`source`, `has_cursor`, `since`, `after_epoch`, `last_external_id`, `initial_lookback_days`) and `payload.initial_lookback_days`: the saved cursor from `<stateRoot>/fetch-cursors.json`, or `now - initial_lookback_days` (7 by default) on a first pull. Sessionless; writes nothing. |
+| `daily_tasks_start_session` | `date?` (`YYYY-MM-DD`), `focus?` (`string`), `messages?` (`[Message]`, `docs/specs/message.json`), `checked_sources?` (`[string]`), `workspace_root?` (`string`) | Parses Markdown workspace records, builds in-memory `StateGraph`, fetches unread messages via configured `CommunicationPort` connectors, filters host-supplied `messages` against each source's fetch window, runs deterministic pre-matching, generates suggestions, and returns `session_id` + Screen 1 (`payload.screen`; harness sources appear in `payload.message_sources`). Advanced cursors for connector and `checked_sources` sources are staged until confirmation. A malformed message returns a `Validation` error. Performs no disk writes. |
+| `daily_tasks_get_fetch_window` | `sources?` (`[string]`, default `gmail`, `slack`), `workspace_root?` (`string`) | Returns `payload.fetch_windows[]` (`source`, `has_cursor`, `since`, `after_epoch`, `last_external_id`, `initial_lookback_days`) and `payload.initial_lookback_days`: the saved cursor from `<stateRoot>/fetch-cursors.json`, or `now - initial_lookback_days` (7 by default) on a first pull. Sessionless; writes nothing. |
 | `daily_tasks_execute_operations` | `session_id`, `original_words`, `verdicts?` (`[{row, verdict, edits?}]`), `operations?` (`[Operation]`) | Validates and stages user verdicts (`accept`, `edit`, `reject`) and planning operations (`assign-to-day`, `unplan`, `set-status`, `reassign`) all-or-nothing in memory; returns updated `payload.screen`. |
 | `daily_tasks_advance_screen` | `session_id`, `target_screen` (`2` or `3`) | Advances to Screen 2 (per-project task day assignment) or Screen 3 (confirmation recap) and returns `payload.screen`. |
 | `daily_tasks_confirm_plan` | `session_id`, `confirmed` (`true`) | Applies staged record changes surgically via `LocalFileStore`, renders and writes `YYYY.MM.DD-daily-plan.md`, appends entries to `.nyssa-ai/daily-tasks/decision-log.json`, and persists fetch cursors. |

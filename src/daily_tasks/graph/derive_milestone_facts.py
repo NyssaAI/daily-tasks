@@ -1,7 +1,9 @@
-# Responsibility: Compute plannability and task progress facts for every milestone.
-# Public interface:
-# `-- derive_milestone_facts(records, relations, tree)
-"""Lowest incomplete milestone per project, open/total task counts and closability."""
+"""Responsibility: Compute plannability and task progress facts for every milestone.
+Public interface:
+`-- derive_milestone_facts(records, relations, tree)
+
+Lowest incomplete milestone per project, open/total task counts and closability.
+"""
 
 from uuid import UUID
 

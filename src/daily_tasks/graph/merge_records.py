@@ -1,7 +1,9 @@
-# Responsibility: Merge the records of every source into one id-keyed record set.
-# Public interface:
-# `-- merge_records(snapshots, plans)
-"""Source records keyed by id; duplicates are kept once and reported as diagnostics."""
+"""Responsibility: Merge the records of every source into one id-keyed record set.
+Public interface:
+`-- merge_records(snapshots, plans)
+
+Source records keyed by id; duplicates are kept once and reported as diagnostics.
+"""
 
 from collections.abc import Sequence
 from datetime import date

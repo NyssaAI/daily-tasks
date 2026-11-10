@@ -1,7 +1,9 @@
-# Responsibility: Recompute today's selection after operations changed planned days.
-# Public interface:
-# `-- refresh_today(graph)
-"""Pure projection of `planned_for` facts back into `derived.today` and its summary count."""
+"""Responsibility: Recompute today's selection after operations changed planned days.
+Public interface:
+`-- refresh_today(graph)
+
+Pure projection of `planned_for` facts back into `derived.today` and its summary count.
+"""
 
 import dataclasses
 from uuid import UUID

@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable DecisionRef DTO.
-# Public interface:
-# `-- DecisionRef
-#     +-- id
-#     +-- question
-#     `-- resolution
-"""DecisionRef DTO."""
+"""Responsibility: Represent an immutable DecisionRef DTO.
+Public interface:
+`-- DecisionRef
+    +-- id
+    +-- question
+    `-- resolution
+
+DecisionRef DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

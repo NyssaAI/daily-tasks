@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable BackgroundSource DTO.
-# Public interface:
-# `-- BackgroundSource
-#     +-- error
-#     +-- fetched
-#     +-- name
-#     +-- new
-#     `-- status
-"""BackgroundSource DTO."""
+"""Responsibility: Represent an immutable BackgroundSource DTO.
+Public interface:
+`-- BackgroundSource
+    +-- error
+    +-- fetched
+    +-- name
+    +-- new
+    `-- status
+
+BackgroundSource DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

@@ -1,7 +1,9 @@
-# Responsibility: Expose the Markdown CST parse, edit and render boundary API.
-# Public interface:
-# (none)
-"""Lossless Markdown CST engine for project records and daily plans."""
+"""Responsibility: Expose the Markdown CST parse, edit and render boundary API.
+Public interface:
+(none)
+
+Lossless Markdown CST engine for project records and daily plans.
+"""
 
 from daily_tasks.storage.cst.append_decision import append_decision
 from daily_tasks.storage.cst.checklist_item import ChecklistItem

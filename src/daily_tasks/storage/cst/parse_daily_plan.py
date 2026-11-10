@@ -1,7 +1,9 @@
-# Responsibility: Map a parsed daily plan Markdown record onto a daily plan document.
-# Public interface:
-# `-- parse_daily_plan(document, location, base)
-"""Daily plan parser: the inverse of `render_daily_plan` for every value the Markdown shows."""
+"""Responsibility: Map a parsed daily plan Markdown record onto a daily plan document.
+Public interface:
+`-- parse_daily_plan(document, location, base)
+
+Daily plan parser: the inverse of `render_daily_plan` for every value the Markdown shows.
+"""
 
 import hashlib
 import re

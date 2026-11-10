@@ -1,7 +1,9 @@
-# Responsibility: Compute how much of a milestone's work is finished.
-# Public interface:
-# `-- milestone_completion_percent(facts)
-"""Milestone completion percentage from its task counts."""
+"""Responsibility: Compute how much of a milestone's work is finished.
+Public interface:
+`-- milestone_completion_percent(facts)
+
+Milestone completion percentage from its task counts.
+"""
 
 from daily_tasks.domain import MilestoneFacts
 

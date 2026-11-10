@@ -1,7 +1,9 @@
-# Responsibility: Tell whether a state graph task is still open for planning.
-# Public interface:
-# `-- open_task(graph, task_id)
-"""A task is open when it exists and is neither completed nor cancelled."""
+"""Responsibility: Tell whether a state graph task is still open for planning.
+Public interface:
+`-- open_task(graph, task_id)
+
+A task is open when it exists and is neither completed nor cancelled.
+"""
 
 from uuid import UUID
 

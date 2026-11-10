@@ -1,18 +1,20 @@
-# Responsibility: Represent an immutable StateGraphSummary DTO.
-# Public interface:
-# `-- StateGraphSummary
-#     +-- blocked_tasks
-#     +-- carried_forward
-#     +-- changed_outside_app
-#     +-- late_tasks
-#     +-- open_blockers
-#     +-- open_milestones
-#     +-- open_projects
-#     +-- open_tasks
-#     +-- pending_operations
-#     +-- selected_today
-#     `-- unreviewed_messages
-"""StateGraphSummary DTO."""
+"""Responsibility: Represent an immutable StateGraphSummary DTO.
+Public interface:
+`-- StateGraphSummary
+    +-- blocked_tasks
+    +-- carried_forward
+    +-- changed_outside_app
+    +-- late_tasks
+    +-- open_blockers
+    +-- open_milestones
+    +-- open_projects
+    +-- open_tasks
+    +-- pending_operations
+    +-- selected_today
+    `-- unreviewed_messages
+
+StateGraphSummary DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

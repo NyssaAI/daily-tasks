@@ -1,7 +1,8 @@
-# Responsibility: Validate and apply a batch of user operations all-or-nothing.
-# Public interface:
-# `-- apply_operations(graph, operations, new_id, now)
-"""Pure execution of a `plan_apply` request (`docs/specs/operations.json`).
+"""Responsibility: Validate and apply a batch of user operations all-or-nothing.
+Public interface:
+`-- apply_operations(graph, operations, new_id, now)
+
+Pure execution of a `plan_apply` request (`docs/specs/operations.json`).
 
 Mapping of the issue's operation names onto the spec'd operation kinds:
 - `select_task` -> `assign-to-day` with today's `local_date`; `unselect_task` -> `unplan`;

@@ -1,18 +1,20 @@
-# Responsibility: Represent an immutable TaskFacts DTO.
-# Public interface:
-# `-- TaskFacts
-#     +-- blocked
-#     +-- carried_from
-#     +-- closable
-#     +-- dod
-#     +-- effective_assignee
-#     +-- eligible
-#     +-- ineligible_reason
-#     +-- late
-#     +-- planned_for
-#     +-- responsibility
-#     `-- waiting_on
-"""TaskFacts DTO."""
+"""Responsibility: Represent an immutable TaskFacts DTO.
+Public interface:
+`-- TaskFacts
+    +-- blocked
+    +-- carried_from
+    +-- closable
+    +-- dod
+    +-- effective_assignee
+    +-- eligible
+    +-- ineligible_reason
+    +-- late
+    +-- planned_for
+    +-- responsibility
+    `-- waiting_on
+
+TaskFacts DTO.
+"""
 
 from datetime import date
 

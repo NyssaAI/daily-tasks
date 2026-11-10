@@ -1,11 +1,13 @@
-# Responsibility: Describe why a Markdown record could not be parsed or changed.
-# Public interface:
-# `-- ParseError
-#     +-- code
-#     +-- detail
-#     +-- line
-#     `-- message
-"""Structured parse failure returned in `Err` arms instead of raised."""
+"""Responsibility: Describe why a Markdown record could not be parsed or changed.
+Public interface:
+`-- ParseError
+    +-- code
+    +-- detail
+    +-- line
+    `-- message
+
+Structured parse failure returned in `Err` arms instead of raised.
+"""
 
 from dataclasses import dataclass
 

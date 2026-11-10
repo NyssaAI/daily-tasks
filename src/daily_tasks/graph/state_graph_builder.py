@@ -1,15 +1,18 @@
-# Responsibility: Read every configured record source concurrently and build the state graph.
-# Public interface:
-# `-- StateGraphBuilder
-#     +-- build()
-#     `-- new(project_ports, plan_ports, settings, logger, clock)
-"""Imperative shell of `collect_current_state`: await the read ports, then call `build_state_graph`."""
+"""Responsibility: Read every configured record source concurrently and build the state graph.
+Public interface:
+`-- StateGraphBuilder
+    +-- build()
+    `-- new(project_ports, plan_ports, settings, clock)
+
+Imperative shell of `collect_current_state`: await the read ports, then call `build_state_graph`.
+"""
 
 import asyncio
+import logging
 import time
 from collections.abc import Callable, Sequence
 from datetime import datetime
-from typing import final
+from typing import Final, final
 
 from nyssa_ai_result import Err, Result
 
@@ -17,8 +20,9 @@ from daily_tasks.domain import StateGraph
 from daily_tasks.graph.build_state_graph import build_state_graph
 from daily_tasks.graph.local_date_in import local_date_in
 from daily_tasks.graph.types import DailyPlanSourceRead, ProjectPlanSourceRead, StateGraphSettings
-from daily_tasks.ports import DailyPlanPort, PortLogger, ProjectPlanPort
+from daily_tasks.ports import DailyPlanPort, ProjectPlanPort
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION = "state_graph.build"
 
 
@@ -31,14 +35,12 @@ class StateGraphBuilder:
         project_ports: Sequence[ProjectPlanPort],
         plan_ports: Sequence[DailyPlanPort],
         settings: StateGraphSettings,
-        logger: PortLogger,
         clock: Callable[[], datetime],
     ) -> None:
-        """Borrow the ports and logger; `clock` returns the current UTC time."""
+        """Borrow the ports; `clock` returns the current UTC time."""
         self._project_ports = tuple(project_ports)
         self._plan_ports = tuple(plan_ports)
         self._settings = settings
-        self._logger = logger
         self._clock = clock
 
     async def build(self) -> Result[StateGraph]:
@@ -88,13 +90,16 @@ class StateGraphBuilder:
             "elapsed_ms": _elapsed_ms(started),
         }
         if failed:
-            self._logger.warn("state graph built with unavailable sources", fields=fields, operation=_OPERATION)
+            _LOGGER.warning(
+                "state graph built with unavailable sources",
+                extra={"operation": _OPERATION, "fields": fields},
+            )
         else:
-            self._logger.info("state graph built", fields=fields, operation=_OPERATION)
+            _LOGGER.info("state graph built", extra={"operation": _OPERATION, "fields": fields})
 
     def _log_failure(self, failure: Err[object], started: float) -> None:
         fields = {"category": str(failure.category), "elapsed_ms": _elapsed_ms(started)}
-        self._logger.error("state graph not built", fields=fields, operation=_OPERATION)
+        _LOGGER.error("state graph not built", extra={"operation": _OPERATION, "fields": fields})
 
 
 def _elapsed_ms(started: float) -> float:

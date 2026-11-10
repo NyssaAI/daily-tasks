@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable MessageGraphIndex DTO.
-# Public interface:
-# `-- MessageGraphIndex
-#     +-- attachments
-#     +-- by_record
-#     +-- by_sender
-#     +-- links
-#     `-- thread
-"""MessageGraphIndex DTO."""
+"""Responsibility: Represent an immutable MessageGraphIndex DTO.
+Public interface:
+`-- MessageGraphIndex
+    +-- attachments
+    +-- by_record
+    +-- by_sender
+    +-- links
+    `-- thread
+
+MessageGraphIndex DTO.
+"""
 
 from collections.abc import Mapping
 

@@ -56,13 +56,13 @@ Run this workflow on first use, whenever project setup is not already done (miss
 
 ## 3. MCP server registration
 
-1. **Detect Python runtime**:
+1. **Self-contained plugin discovery (`.mcp.json` / `mcp.json` / `mcp_config.json`)**:
+   - Bundled host packages ship self-contained stdio declarations anchored to the plugin bundle (`uv run --directory ${CLAUDE_PLUGIN_ROOT} daily-tasks-mcp` in `.mcp.json`, `uv run daily-tasks-mcp` in portable/Cursor/OpenClaw `mcp.json`, and `mcp_config.json` in `artifacts/antigravity`).
+   - Verify `uv` (recommended) or Python >=3.12 is installed on the host machine so the bundled server starts cleanly from `pyproject.toml` and `src/` without requiring a separate global `PATH` binary install.
+2. **Manual host registration (when bundle-mcp is not automatic)**:
    - Run a single lookup (`where.exe uv` on Windows or `which uv` on POSIX). **Never** recursively scan the filesystem for `uv.exe`.
-   - If `uv` is available: configure the server command with `uv run --directory <pluginRoot> daily-tasks-mcp`.
-   - If `uv` is missing: inform the user that `uv` is recommended (`powershell -c "irm https://astral.sh/uv/install.ps1 | iex"` on Windows or `curl -LsSf https://astral.sh/uv/install.sh | sh` on POSIX) and fall back to host `python` (>=3.12) with `PYTHONPATH=<pluginRoot>/src` and `python -m daily_tasks.server`.
-2. **Register the MCP server in the host**:
    - With `uv`: `agy mcp add daily-tasks uv run --directory <pluginRoot> daily-tasks-mcp`
-   - With host Python: `agy mcp add --env "PYTHONPATH=<pluginRoot>/src" --env "DAILY_TASKS_LOG_LEVEL=Debug" daily-tasks python -m daily_tasks.server`
+   - With host Python (>=3.12): `agy mcp add --env "PYTHONPATH=<pluginRoot>/src" --env "DAILY_TASKS_LOG_LEVEL=Debug" daily-tasks python -m daily_tasks.server`
    - Confirm MCP registration and `daily_tasks_*` tool availability to the user. Never invoke `daily-tasks-mcp` directly as a CLI subprocess.
 
 ## 4. Communication sources and initial lookback

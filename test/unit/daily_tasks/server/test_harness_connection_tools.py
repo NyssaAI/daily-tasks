@@ -1,13 +1,24 @@
-# Responsibility: Prove the MCP fetch-window tool and host-supplied message ingestion share the saved cursors.
-# Public interface:
-# (none)
-"""`daily-tasks-mcp` over in-memory stdio: `daily_tasks_get_fetch_window` and `start_session(messages=...)`."""
+"""Responsibility: Prove the MCP fetch-window tool and host-supplied message ingestion share the saved cursors.
+Public interface:
++-- ARGV
++-- BLOCKER_ID
++-- MILESTONE
++-- NOW
++-- PROJECT
++-- test_cli_non_positive_initial_lookback_exits_2(tmp_path, days, capsys)
++-- test_get_fetch_window_custom_lookback_bounds_first_pull(tmp_path, profile, extra, days)
++-- test_get_fetch_window_first_pull_defaults_to_7_days(tmp_path)
++-- test_get_fetch_window_subsequent_pull_uses_saved_cursor(tmp_path)
++-- test_start_session_harness_messages_suggest_and_advance_cursor_on_confirm(tmp_path)
+`-- test_start_session_rejects_malformed_harness_message(tmp_path)
+
+`daily-tasks-mcp` over in-memory stdio: `daily_tasks_get_fetch_window` and `start_session(messages=...)`.
+"""
 
 import asyncio
 import io
 import json
 import shutil
-from collections.abc import Mapping
 from datetime import UTC, datetime, timedelta
 from itertools import count
 from pathlib import Path
@@ -28,26 +39,6 @@ MILESTONE = f"{PROJECT}/m2-planning-session-spike"
 BLOCKER_ID = "019a4b2c-1f00-7a10-8000-000000000005"
 ARGV = ["--user-email", "jordan@example.com", "--timezone", "UTC"]
 NOW = datetime(2026, 11, 3, 14, 30, tzinfo=UTC)
-
-
-class _QuietLogger:
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        pass
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        pass
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        pass
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        pass
 
 
 def _call(request_id: int, name: str, **arguments: JsonValue) -> dict[str, JsonValue]:
@@ -182,7 +173,6 @@ def test_start_session_rejects_malformed_harness_message(tmp_path: Path) -> None
 
 
 def _planning_server(root: Path) -> McpServer:
-    logger = _QuietLogger()
     settings = ServerSettings(
         workspace_root=root,
         projects_root=root / "projects",
@@ -196,12 +186,10 @@ def _planning_server(root: Path) -> McpServer:
     def new_id() -> UUID:
         return UUID(f"019a4b2c-9000-7000-8000-{next(numbers):012x}")
 
-    cursors = CursorStore(settings.state_root, root.as_posix(), logger)
-    store = MarkdownFileStore(
-        root, logger, lambda: NOW, settings.projects_root, settings.daily_plans_root, settings.state_root
-    )
-    reader = MarkdownWorkspaceReader(settings, logger, cursor_store=cursors)
-    return McpServer(PlanningTools(settings, reader, store, logger, lambda: NOW, new_id, cursors), logger, "test")
+    cursors = CursorStore(settings.state_root, root.as_posix())
+    store = MarkdownFileStore(root, lambda: NOW, settings.projects_root, settings.daily_plans_root, settings.state_root)
+    reader = MarkdownWorkspaceReader(settings, cursor_store=cursors)
+    return McpServer(PlanningTools(settings, reader, store, lambda: NOW, new_id, cursors), "test")
 
 
 def _handle(server: McpServer, call: dict[str, JsonValue]) -> dict[str, JsonValue]:

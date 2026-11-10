@@ -1,8 +1,10 @@
-# Responsibility: Perform Slack Web API GET requests with the standard library.
-# Public interface:
-# `-- SlackHttpUrllib
-#     `-- get(url, headers, timeout_seconds)
-"""Default `SlackHttp` transport over `urllib.request`; no third-party HTTP client is required."""
+"""Responsibility: Perform Slack Web API GET requests with the standard library.
+Public interface:
+`-- SlackHttpUrllib
+    `-- get(url, headers, timeout_seconds)
+
+Default `SlackHttp` transport over `urllib.request`; no third-party HTTP client is required.
+"""
 
 import urllib.error
 import urllib.request

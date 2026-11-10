@@ -1,11 +1,13 @@
-# Responsibility: Split Markdown table cells and read their inline wiki-links and id/ref comments.
-# Public interface:
-# +-- extract_id(text)
-# +-- extract_refs(text)
-# +-- parse_wiki_links(text)
-# +-- split_table_cells(line)
-# `-- strip_comments(text)
-"""Inline syntax readers shared by the CST parser and record parsers."""
+"""Responsibility: Split Markdown table cells and read their inline wiki-links and id/ref comments.
+Public interface:
++-- extract_id(text)
++-- extract_refs(text)
++-- parse_wiki_links(text)
++-- split_table_cells(line)
+`-- strip_comments(text)
+
+Inline syntax readers shared by the CST parser and record parsers.
+"""
 
 import re
 from typing import Final

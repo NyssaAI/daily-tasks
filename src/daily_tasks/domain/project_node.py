@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable ProjectNode DTO.
-# Public interface:
-# `-- ProjectNode
-#     +-- directory_date
-#     +-- owner
-#     +-- ref
-#     +-- state
-#     `-- title
-"""ProjectNode DTO."""
+"""Responsibility: Represent an immutable ProjectNode DTO.
+Public interface:
+`-- ProjectNode
+    +-- directory_date
+    +-- owner
+    +-- ref
+    +-- state
+    `-- title
+
+ProjectNode DTO.
+"""
 
 from datetime import date
 

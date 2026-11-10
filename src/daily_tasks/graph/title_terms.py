@@ -1,7 +1,9 @@
-# Responsibility: Split a record title into normalized search terms.
-# Public interface:
-# `-- title_terms(title)
-"""Lowercase word tokens of a title, without short words and common stop words."""
+"""Responsibility: Split a record title into normalized search terms.
+Public interface:
+`-- title_terms(title)
+
+Lowercase word tokens of a title, without short words and common stop words.
+"""
 
 import re
 from typing import Final

@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable RecordChangeOrigin DTO.
-# Public interface:
-# `-- RecordChangeOrigin
-#     +-- kind
-#     `-- suggestion_id
-"""RecordChangeOrigin DTO."""
+"""Responsibility: Represent an immutable RecordChangeOrigin DTO.
+Public interface:
+`-- RecordChangeOrigin
+    +-- kind
+    `-- suggestion_id
+
+RecordChangeOrigin DTO.
+"""
 
 from pydantic import MISSING, UUID7
 from pydantic.dataclasses import dataclass

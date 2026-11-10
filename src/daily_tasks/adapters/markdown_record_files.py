@@ -1,8 +1,10 @@
-# Responsibility: List the Markdown files under a vault root, skipping attachment and trash folders.
-# Public interface:
-# +-- SKIPPED_DIRECTORIES
-# `-- markdown_record_files(root)
-"""Deterministic recursive discovery of `*.md` files below a Markdown vault root."""
+"""Responsibility: List the Markdown files under a vault root, skipping attachment and trash folders.
+Public interface:
++-- SKIPPED_DIRECTORIES
+`-- markdown_record_files(root)
+
+Deterministic recursive discovery of `*.md` files below a Markdown vault root.
+"""
 
 import os
 from pathlib import Path, PurePosixPath

@@ -1,7 +1,9 @@
-# Responsibility: Map a parsed task Markdown record onto the Task DTO.
-# Public interface:
-# `-- parse_task(document, location)
-"""Task record parser: frontmatter, Definition of Done and relation sections."""
+"""Responsibility: Map a parsed task Markdown record onto the Task DTO.
+Public interface:
+`-- parse_task(document, location)
+
+Task record parser: frontmatter, Definition of Done and relation sections.
+"""
 
 import re
 from typing import Final

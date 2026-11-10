@@ -1,10 +1,12 @@
-# Responsibility: Hold a secret value in memory so it never leaks through string, log or JSON output.
-# Public interface:
-# `-- SecretString
-#     +-- REDACTED
-#     +-- new(value)
-#     `-- reveal()
-"""Masked secret container: `str`, `repr`, formatting and Pydantic dumps all show `[REDACTED]`."""
+"""Responsibility: Hold a secret value in memory so it never leaks through string, log or JSON output.
+Public interface:
+`-- SecretString
+    +-- REDACTED
+    +-- new(value)
+    `-- reveal()
+
+Masked secret container: `str`, `repr`, formatting and Pydantic dumps all show `[REDACTED]`.
+"""
 
 from typing import ClassVar, Final, final
 

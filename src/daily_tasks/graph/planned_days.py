@@ -1,7 +1,9 @@
-# Responsibility: Find the day each task or blocker is planned for and where it was carried from.
-# Public interface:
-# `-- planned_days(plans, local_date)
-"""Planned day per item: the earliest plan on or after the local date that lists it."""
+"""Responsibility: Find the day each task or blocker is planned for and where it was carried from.
+Public interface:
+`-- planned_days(plans, local_date)
+
+Planned day per item: the earliest plan on or after the local date that lists it.
+"""
 
 from collections.abc import Mapping
 from datetime import date

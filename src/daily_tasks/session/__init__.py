@@ -1,7 +1,9 @@
-# Responsibility: Expose the planning session lifecycle, row resolution, screen rendering and adjudication.
-# Public interface:
-# (none)
-"""Deterministic planning session: pure stage transitions, stable row numbering, Markdown screens and adjudication."""
+"""Responsibility: Expose the planning session lifecycle, row resolution, screen rendering and adjudication.
+Public interface:
+(none)
+
+Deterministic planning session: pure stage transitions, stable row numbering, Markdown screens and adjudication.
+"""
 
 from daily_tasks.session.add_suggestions import add_suggestions
 from daily_tasks.session.adjudicate_suggestions import adjudicate_suggestions

@@ -1,7 +1,11 @@
-# Responsibility: Prove today's selection follows the planned days operations set.
-# Public interface:
-# (none)
-"""`refresh_today` after assign-to-day and unplan operations on the spec state graph."""
+"""Responsibility: Prove today's selection follows the planned days operations set.
+Public interface:
++-- TODAY
++-- test_refresh_today_assigned_task_joins_selection()
+`-- test_refresh_today_unplanned_task_leaves_selection()
+
+`refresh_today` after assign-to-day and unplan operations on the spec state graph.
+"""
 
 from datetime import date
 from uuid import UUID

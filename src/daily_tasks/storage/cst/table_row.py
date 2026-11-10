@@ -1,9 +1,11 @@
-# Responsibility: Hold one Markdown table body row.
-# Public interface:
-# `-- TableRow
-#     +-- cells
-#     `-- line_index
-"""Table row node; header and delimiter rows are skipped by the parser."""
+"""Responsibility: Hold one Markdown table body row.
+Public interface:
+`-- TableRow
+    +-- cells
+    `-- line_index
+
+Table row node; header and delimiter rows are skipped by the parser.
+"""
 
 from dataclasses import dataclass
 

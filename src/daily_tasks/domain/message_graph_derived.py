@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable MessageGraphDerived DTO.
-# Public interface:
-# `-- MessageGraphDerived
-#     +-- for_review
-#     +-- messages
-#     +-- summary
-#     `-- threads
-"""MessageGraphDerived DTO."""
+"""Responsibility: Represent an immutable MessageGraphDerived DTO.
+Public interface:
+`-- MessageGraphDerived
+    +-- for_review
+    +-- messages
+    +-- summary
+    `-- threads
+
+MessageGraphDerived DTO.
+"""
 
 from collections.abc import Mapping
 

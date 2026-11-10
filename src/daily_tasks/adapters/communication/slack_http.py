@@ -1,8 +1,10 @@
-# Responsibility: Define the HTTP GET the Slack connector needs from its transport.
-# Public interface:
-# `-- SlackHttp
-#     `-- get(url, headers, timeout_seconds)
-"""Narrow transport contract so the Slack connector runs offline in tests."""
+"""Responsibility: Define the HTTP GET the Slack connector needs from its transport.
+Public interface:
+`-- SlackHttp
+    `-- get(url, headers, timeout_seconds)
+
+Narrow transport contract so the Slack connector runs offline in tests.
+"""
 
 from collections.abc import Mapping
 from typing import Protocol

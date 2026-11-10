@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable MessageSourceTree DTO.
-# Public interface:
-# `-- MessageSourceTree
-#     +-- source
-#     `-- threads
-"""MessageSourceTree DTO."""
+"""Responsibility: Represent an immutable MessageSourceTree DTO.
+Public interface:
+`-- MessageSourceTree
+    +-- source
+    `-- threads
+
+MessageSourceTree DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

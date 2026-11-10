@@ -1,9 +1,11 @@
-# Responsibility: Name the only Gmail OAuth scope and Google endpoints Daily Tasks uses.
-# Public interface:
-# +-- GMAIL_READONLY_SCOPE
-# +-- GOOGLE_AUTHORIZATION_ENDPOINT
-# `-- GOOGLE_TOKEN_ENDPOINT
-"""Gmail access is read-only: no other scope is ever requested or accepted."""
+"""Responsibility: Name the only Gmail OAuth scope and Google endpoints Daily Tasks uses.
+Public interface:
++-- GMAIL_READONLY_SCOPE
++-- GOOGLE_AUTHORIZATION_ENDPOINT
+`-- GOOGLE_TOKEN_ENDPOINT
+
+Gmail access is read-only: no other scope is ever requested or accepted.
+"""
 
 from typing import Final
 

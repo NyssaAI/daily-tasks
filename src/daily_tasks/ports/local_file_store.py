@@ -1,12 +1,14 @@
-# Responsibility: Define the only port allowed to write records, daily plans and planning state.
-# Public interface:
-# `-- LocalFileStore
-#     +-- append_decisions(entries)
-#     +-- apply(changes)
-#     +-- save_session(session)
-#     +-- save_suggestions(suggestions)
-#     `-- write_daily_plan(document)
-"""Local File Store contract: validated writes, made only after explicit user adjudication."""
+"""Responsibility: Define the only port allowed to write records, daily plans and planning state.
+Public interface:
+`-- LocalFileStore
+    +-- append_decisions(entries)
+    +-- apply(changes)
+    +-- save_session(session)
+    +-- save_suggestions(suggestions)
+    `-- write_daily_plan(document)
+
+Local File Store contract: validated writes, made only after explicit user adjudication.
+"""
 
 from collections.abc import Sequence
 from typing import Protocol

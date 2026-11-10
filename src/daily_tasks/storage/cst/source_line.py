@@ -1,9 +1,11 @@
-# Responsibility: Hold one physical Markdown line and its own terminator.
-# Public interface:
-# `-- SourceLine
-#     +-- ending
-#     `-- text
-"""Source line node: unedited bytes round-trip because every line keeps its terminator."""
+"""Responsibility: Hold one physical Markdown line and its own terminator.
+Public interface:
+`-- SourceLine
+    +-- ending
+    `-- text
+
+Source line node: unedited bytes round-trip because every line keeps its terminator.
+"""
 
 from dataclasses import dataclass
 

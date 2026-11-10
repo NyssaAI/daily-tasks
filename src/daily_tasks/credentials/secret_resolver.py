@@ -1,23 +1,26 @@
-# Responsibility: Resolve adapter secrets into memory from the environment or the keyring-protected configuration.
-# Public interface:
-# `-- SecretResolver
-#     +-- create(application_name, configuration_directory, logger, keyring, environ, manifest_path, vault, vaults)
-#     +-- new(reader, logger, environ)
-#     `-- resolve(namespace, key, env_var)
-"""Runtime secret resolution: plaintext stays in process memory inside a `SecretString`."""
+"""Responsibility: Resolve adapter secrets into memory from the environment or the keyring-protected configuration.
+Public interface:
+`-- SecretResolver
+    +-- create(application_name, configuration_directory, keyring, environ, manifest_path, vault, vaults)
+    +-- new(reader, environ)
+    `-- resolve(namespace, key, env_var)
 
+Runtime secret resolution: plaintext stays in process memory inside a `SecretString`.
+"""
+
+import logging
 import os
 import time
 from collections.abc import Mapping
-from typing import final
+from typing import Final, final
 
 from nyssa_ai_configuration import BootstrapOptions, ConfigurationClient, ConfigurationReader, Keyring, VaultOptions
 from nyssa_ai_result import Result, fail, ok
 
-from daily_tasks.credentials.secret_logger import SecretLogger
 from daily_tasks.credentials.vault_registry import VaultRegistry
 from daily_tasks.domain.secret_string import SecretString
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION = "secrets.resolve"
 
 
@@ -29,10 +32,9 @@ class SecretResolver:
     so no plaintext credential file is read or written.
     """
 
-    def __init__(self, reader: ConfigurationReader, logger: SecretLogger, environ: Mapping[str, str]) -> None:
-        """Borrow `reader` and `logger`; `environ` is the environment snapshot to read tokens from."""
+    def __init__(self, reader: ConfigurationReader, environ: Mapping[str, str]) -> None:
+        """Borrow `reader`; `environ` is the environment snapshot to read tokens from."""
         self._reader = reader
-        self._logger = logger
         self._environ = environ
 
     @classmethod
@@ -40,7 +42,6 @@ class SecretResolver:
         cls,
         application_name: str,
         configuration_directory: str,
-        logger: SecretLogger,
         keyring: Keyring | None = None,
         environ: Mapping[str, str] | None = None,
         manifest_path: str | None = None,
@@ -63,9 +64,12 @@ class SecretResolver:
         )
         client = ConfigurationClient.create(options, keyring=keyring, vault_factories=registry.factories())
         if not client.ok:
-            logger.error("secret store unavailable", fields={"category": str(client.category)}, operation=_OPERATION)
+            _LOGGER.error(
+                "secret store unavailable",
+                extra={"operation": _OPERATION, "fields": {"category": str(client.category)}},
+            )
             return client
-        return ok(cls(client.value, logger, environ if environ is not None else os.environ))
+        return ok(cls(client.value, environ if environ is not None else os.environ))
 
     def resolve(self, namespace: str, key: str, env_var: str | None = None) -> Result[SecretString]:
         """Return the secret, never its value in errors or logs.
@@ -89,11 +93,11 @@ class SecretResolver:
 
     def _log_resolved(self, namespace: str, key: str, source: str, started: float) -> None:
         fields = {"namespace": namespace, "key": key, "source": source, "elapsed_ms": _elapsed_ms(started)}
-        self._logger.debug("secret resolved", fields=fields, operation=_OPERATION)
+        _LOGGER.debug("secret resolved", extra={"operation": _OPERATION, "fields": fields})
 
     def _log_missing(self, namespace: str, key: str, category: str, started: float) -> None:
         fields = {"namespace": namespace, "key": key, "category": category, "elapsed_ms": _elapsed_ms(started)}
-        self._logger.warn("secret not resolved", fields=fields, operation=_OPERATION)
+        _LOGGER.warning("secret not resolved", extra={"operation": _OPERATION, "fields": fields})
 
 
 def _elapsed_ms(started: float) -> float:

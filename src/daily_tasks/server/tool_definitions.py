@@ -1,14 +1,20 @@
-# Responsibility: Describe the tools the MCP server lists, with their JSON input schemas.
-# Public interface:
-# +-- SECRET_TOOL_DEFINITIONS
-# `-- TOOL_DEFINITIONS
-"""MCP `tools/list` entries; argument names match `PlanningTools` and `SecretTools` method parameters."""
+"""Responsibility: Describe the tools the MCP server lists, with their JSON input schemas.
+Public interface:
++-- SECRET_TOOL_DEFINITIONS
+`-- TOOL_DEFINITIONS
+
+MCP `tools/list` entries; argument names match `PlanningTools` and `SecretTools` method parameters.
+"""
 
 from typing import Final
 
 from pydantic import JsonValue
 
 _SESSION_ID: Final[dict[str, JsonValue]] = {"type": "string", "description": "session_id from start_session"}
+_WORKSPACE_ROOT: Final[dict[str, JsonValue]] = {
+    "type": "string",
+    "description": "Optional absolute path to the workspace root; defaults to bound CLI/environment workspace root",
+}
 
 TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
     {
@@ -18,13 +24,15 @@ TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
         "inputSchema": {
             "type": "object",
             "properties": {
+                "workspace_root": _WORKSPACE_ROOT,
                 "date": {"type": "string", "description": "Local date YYYY-MM-DD; only today is accepted"},
                 "focus": {"type": "string", "description": "Optional focus note shown on the plan"},
                 "messages": {
                     "type": "array",
                     "items": {"type": "object"},
-                    "description": "Messages the host read (read-only) through its own email/chat connection, "
-                    "as in docs/specs/message.json; filtered against the source's fetch window",
+                    "description": "Normalized unread messages read through the host's email/chat connection "
+                    "(id, source, external_id, received_at, from, to, subject, snippet, body, fetched_at); "
+                    "filtered against the source's fetch window",
                 },
                 "checked_sources": {
                     "type": "array",
@@ -43,6 +51,7 @@ TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
         "inputSchema": {
             "type": "object",
             "properties": {
+                "workspace_root": _WORKSPACE_ROOT,
                 "sources": {
                     "type": "array",
                     "items": {"type": "string"},
@@ -86,7 +95,8 @@ TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
                 "operations": {
                     "type": "array",
                     "items": {"type": "object"},
-                    "description": "Operations as in docs/specs/operations.json",
+                    "description": "Staged planning operations (kind: assign_to_day, unplan, set_status, or reassign "
+                    "with row/target fields)",
                 },
             },
             "required": ["session_id", "original_words"],

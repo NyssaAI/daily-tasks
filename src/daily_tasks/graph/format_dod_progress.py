@@ -1,8 +1,10 @@
-# Responsibility: Present Definition of Done progress as a label and a ratio.
-# Public interface:
-# +-- dod_ratio(progress)
-# `-- format_dod_progress(progress)
-"""`done/total` labels and completion ratios for `DodProgress`."""
+"""Responsibility: Present Definition of Done progress as a label and a ratio.
+Public interface:
++-- dod_ratio(progress)
+`-- format_dod_progress(progress)
+
+`done/total` labels and completion ratios for `DodProgress`.
+"""
 
 from daily_tasks.domain import DodProgress
 

@@ -1,9 +1,11 @@
-# Responsibility: Define the read-only port that returns daily plan records near a local date.
-# Public interface:
-# `-- DailyPlanPort
-#     +-- fetch_plans(around)
-#     `-- name
-"""Daily-Plan-Port contract (`docs/PLANNING_SESSION_CONCEPT.md`, Ports)."""
+"""Responsibility: Define the read-only port that returns daily plan records near a local date.
+Public interface:
+`-- DailyPlanPort
+    +-- fetch_plans(around)
+    `-- name
+
+Daily-Plan-Port contract (`docs/PLANNING_SESSION_CONCEPT.md`, Ports).
+"""
 
 from datetime import date
 from typing import Protocol

@@ -1,26 +1,28 @@
-# Responsibility: Represent an immutable PlanningSession DTO.
-# Public interface:
-# `-- PlanningSession
-#     +-- assign_days
-#     +-- background
-#     +-- confirmed_at
-#     +-- current_screen
-#     +-- focus
-#     +-- id
-#     +-- inventory_hash
-#     +-- labels
-#     +-- local_date
-#     +-- next_row
-#     +-- note
-#     +-- rows
-#     +-- rules
-#     +-- screens
-#     +-- started_at
-#     +-- suggestions_file
-#     +-- timezone
-#     +-- updated_at
-#     `-- workspace_root
-"""PlanningSession DTO."""
+"""Responsibility: Represent an immutable PlanningSession DTO.
+Public interface:
+`-- PlanningSession
+    +-- assign_days
+    +-- background
+    +-- confirmed_at
+    +-- current_screen
+    +-- focus
+    +-- id
+    +-- inventory_hash
+    +-- labels
+    +-- local_date
+    +-- next_row
+    +-- note
+    +-- rows
+    +-- rules
+    +-- screens
+    +-- started_at
+    +-- suggestions_file
+    +-- timezone
+    +-- updated_at
+    `-- workspace_root
+
+PlanningSession DTO.
+"""
 
 from collections.abc import Mapping
 from datetime import date

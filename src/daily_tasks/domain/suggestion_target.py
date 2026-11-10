@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable SuggestionTarget DTO.
-# Public interface:
-# `-- SuggestionTarget
-#     +-- expected_updated_at
-#     +-- record_id
-#     `-- record_type
-"""SuggestionTarget DTO."""
+"""Responsibility: Represent an immutable SuggestionTarget DTO.
+Public interface:
+`-- SuggestionTarget
+    +-- expected_updated_at
+    +-- record_id
+    `-- record_type
+
+SuggestionTarget DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

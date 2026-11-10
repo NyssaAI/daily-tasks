@@ -1,19 +1,21 @@
-# Responsibility: Define the pure data produced by deterministic message pre-matching.
-# Public interface:
-# +-- MatchedLink
-# |   +-- confidence
-# |   +-- link
-# |   `-- reasoning
-# +-- MessageMatch
-# |   +-- links
-# |   +-- message
-# |   `-- signals
-# +-- Signal
-# |   +-- kind
-# |   +-- phrase
-# |   `-- quote
-# `-- SignalKind
-"""Matching results: scored links and detected signal phrases per message."""
+"""Responsibility: Define the pure data produced by deterministic message pre-matching.
+Public interface:
++-- MatchedLink
+|   +-- confidence
+|   +-- link
+|   `-- reasoning
++-- MessageMatch
+|   +-- links
+|   +-- message
+|   `-- signals
++-- Signal
+|   +-- kind
+|   +-- phrase
+|   `-- quote
+`-- SignalKind
+
+Matching results: scored links and detected signal phrases per message.
+"""
 
 from dataclasses import dataclass
 from typing import Literal

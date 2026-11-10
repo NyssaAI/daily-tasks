@@ -1,8 +1,10 @@
-# Responsibility: Classify a vault-relative Markdown path as a project, milestone, task or blocker record.
-# Public interface:
-# +-- MarkdownRecordKind
-# `-- markdown_record_kind(path)
-"""File-name conventions of the project vault (`docs/PLANNING_SESSION_CONCEPT.md`, Storage)."""
+"""Responsibility: Classify a vault-relative Markdown path as a project, milestone, task or blocker record.
+Public interface:
++-- MarkdownRecordKind
+`-- markdown_record_kind(path)
+
+File-name conventions of the project vault (`docs/PLANNING_SESSION_CONCEPT.md`, Storage).
+"""
 
 import re
 from pathlib import PurePosixPath

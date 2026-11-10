@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable BlockerFacts DTO.
-# Public interface:
-# `-- BlockerFacts
-#     +-- owner
-#     +-- planned_for
-#     `-- state
-"""BlockerFacts DTO."""
+"""Responsibility: Represent an immutable BlockerFacts DTO.
+Public interface:
+`-- BlockerFacts
+    +-- owner
+    +-- planned_for
+    `-- state
+
+BlockerFacts DTO.
+"""
 
 from datetime import date
 

@@ -1,7 +1,9 @@
-# Responsibility: Show the assign-days screen for one project with session numbering and milestone labels.
-# Public interface:
-# `-- show_project(state, project_id, now)
-"""Enter `s2:<project_id>`: rows continue the session numbering, labels M1, M2… map to milestone ids."""
+"""Responsibility: Show the assign-days screen for one project with session numbering and milestone labels.
+Public interface:
+`-- show_project(state, project_id, now)
+
+Enter `s2:<project_id>`: rows continue the session numbering, labels M1, M2… map to milestone ids.
+"""
 
 import dataclasses
 from datetime import datetime

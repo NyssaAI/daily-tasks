@@ -1,7 +1,9 @@
-# Responsibility: Map one Gmail REST message into the canonical Message DTO.
-# Public interface:
-# `-- gmail_message(raw, fetched_at)
-"""Pure Gmail-to-`Message` mapping (`docs/specs/message.json`); no I/O, no logging."""
+"""Responsibility: Map one Gmail REST message into the canonical Message DTO.
+Public interface:
+`-- gmail_message(raw, fetched_at)
+
+Pure Gmail-to-`Message` mapping (`docs/specs/message.json`); no I/O, no logging.
+"""
 
 import base64
 import binascii

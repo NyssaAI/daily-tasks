@@ -1,13 +1,15 @@
-# Responsibility: Represent the user's explicit answer to one numbered suggestion row.
-# Public interface:
-# `-- AdjudicationVerdict
-#     +-- edits
-#     +-- original_words
-#     +-- row
-#     +-- screen_id
-#     +-- suggestion_id
-#     `-- verdict
-"""Explicit verdict on a suggestion; suggestions without a verdict stay pending."""
+"""Responsibility: Represent the user's explicit answer to one numbered suggestion row.
+Public interface:
+`-- AdjudicationVerdict
+    +-- edits
+    +-- original_words
+    +-- row
+    +-- screen_id
+    +-- suggestion_id
+    `-- verdict
+
+Explicit verdict on a suggestion; suggestions without a verdict stay pending.
+"""
 
 from collections.abc import Mapping
 from dataclasses import dataclass

@@ -1,7 +1,9 @@
-# Responsibility: Nest projects, milestones, tasks and blockers into the ordered state graph tree.
-# Public interface:
-# `-- build_tree(records)
-"""Project -> milestone -> task nesting by id, with records whose parent is missing reported."""
+"""Responsibility: Nest projects, milestones, tasks and blockers into the ordered state graph tree.
+Public interface:
+`-- build_tree(records)
+
+Project -> milestone -> task nesting by id, with records whose parent is missing reported.
+"""
 
 from collections.abc import Callable, Iterable, Mapping
 from uuid import UUID

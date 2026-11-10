@@ -1,7 +1,9 @@
-# Responsibility: Expose the state graph build boundary API.
-# Public interface:
-# (none)
-"""In-memory, point-in-time state graph built from the configured project-plan and daily-plan sources."""
+"""Responsibility: Expose the state graph build boundary API.
+Public interface:
+(none)
+
+In-memory, point-in-time state graph built from the configured project-plan and daily-plan sources.
+"""
 
 from daily_tasks.graph.build_state_graph import build_state_graph
 from daily_tasks.graph.format_dod_progress import dod_ratio, format_dod_progress

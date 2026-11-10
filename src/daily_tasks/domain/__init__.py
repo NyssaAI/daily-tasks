@@ -1,7 +1,9 @@
-# Responsibility: Expose the domain DTO boundary API.
-# Public interface:
-# (none)
-"""Domain DTOs with JSON round-trip parity to `docs/specs/*.json`."""
+"""Responsibility: Expose the domain DTO boundary API.
+Public interface:
+(none)
+
+Domain DTOs with JSON round-trip parity to `docs/specs/*.json`.
+"""
 
 from daily_tasks.domain.actor import Actor
 from daily_tasks.domain.assign_days import AssignDays

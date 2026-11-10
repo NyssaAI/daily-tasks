@@ -1,9 +1,11 @@
-# Responsibility: Hold one Obsidian wiki-link target and alias.
-# Public interface:
-# `-- WikiLink
-#     +-- alias
-#     `-- target
-"""Wiki-link node read from headings, sections and table cells."""
+"""Responsibility: Hold one Obsidian wiki-link target and alias.
+Public interface:
+`-- WikiLink
+    +-- alias
+    `-- target
+
+Wiki-link node read from headings, sections and table cells.
+"""
 
 from dataclasses import dataclass
 

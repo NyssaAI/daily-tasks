@@ -1,11 +1,14 @@
-# Responsibility: Read the Markdown vault and configured message sources into one planning snapshot.
-# Public interface:
-# `-- MarkdownWorkspaceReader
-#     +-- new(settings, logger, communication, cursor_store)
-#     `-- read(now)
-"""Default `WorkspaceReader`: Markdown project and daily plan adapters, record hashes and an optional fetch."""
+"""Responsibility: Read the Markdown vault and configured message sources into one planning snapshot.
+Public interface:
+`-- MarkdownWorkspaceReader
+    +-- new(settings, communication, cursor_store)
+    `-- read(now)
+
+Default `WorkspaceReader`: Markdown project and daily plan adapters, record hashes and an optional fetch.
+"""
 
 import hashlib
+import logging
 import time
 from datetime import datetime
 from pathlib import Path
@@ -18,10 +21,11 @@ from daily_tasks.adapters.markdown_project_plan_adapter import MarkdownProjectPl
 from daily_tasks.domain import DailyPlan, FetchCursors, Message, MessageSourceStatus
 from daily_tasks.graph import DailyPlanSourceRead, ProjectPlanSourceRead, StateGraphSettings, build_state_graph
 from daily_tasks.graph.local_date_in import local_date_in
-from daily_tasks.ports import CommunicationPort, PortLogger
+from daily_tasks.ports import CommunicationPort
 from daily_tasks.server.types import ServerSettings, WorkspaceSnapshot
 from daily_tasks.storage.cursor_store import CursorStore
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION: Final = "workspace.read"
 _PROJECTS: Final = "markdown-projects"
 _PLANS: Final = "markdown-daily-plans"
@@ -39,18 +43,16 @@ def _file_hashes(root: Path) -> dict[str, str]:
 
 @final
 class MarkdownWorkspaceReader:
-    """Borrow `logger`, `communication` and `cursor_store`; without `communication` no message is fetched."""
+    """Borrow `communication` and `cursor_store`; without `communication` no message is fetched."""
 
     def __init__(
         self,
         settings: ServerSettings,
-        logger: PortLogger,
         communication: CommunicationPort | None = None,
         cursor_store: CursorStore | None = None,
     ) -> None:
         """Keep the collaborators; nothing is read until `read`."""
         self._settings = settings
-        self._logger = logger
         self._communication = communication
         self._cursor_store = cursor_store
 
@@ -65,8 +67,8 @@ class MarkdownWorkspaceReader:
         local_date = local_date_in(now, settings.timezone)
         if isinstance(local_date, Err):
             return local_date
-        projects = MarkdownProjectPlanAdapter(settings.projects_root, _PROJECTS, self._logger)
-        plans = MarkdownDailyPlanAdapter(settings.daily_plans_root, _PLANS, self._logger)
+        projects = MarkdownProjectPlanAdapter(settings.projects_root, _PROJECTS)
+        plans = MarkdownDailyPlanAdapter(settings.daily_plans_root, _PLANS)
         project_read = await projects.fetch_projects()
         plan_read = await plans.fetch_plans(local_date.value)
         snapshot = project_read.value if project_read.ok else None
@@ -89,7 +91,10 @@ class MarkdownWorkspaceReader:
             now,
         )
         if isinstance(graph, Err):
-            self._logger.error("workspace not read", fields={"category": str(graph.category)}, operation=_OPERATION)
+            _LOGGER.error(
+                "workspace not read",
+                extra={"operation": _OPERATION, "fields": {"category": str(graph.category)}},
+            )
             return graph
         messages, cursors, sources = await self._fetch(now)
         existing = next((p for p in daily_plans if p.local_date == local_date.value), None)
@@ -102,7 +107,7 @@ class MarkdownWorkspaceReader:
             "malformed": len(malformed),
             "elapsed_ms": round((time.monotonic() - started) * 1000, 3),
         }
-        self._logger.info("workspace read", fields=fields, operation=_OPERATION)
+        _LOGGER.info("workspace read", extra={"operation": _OPERATION, "fields": fields})
         return ok(
             WorkspaceSnapshot(
                 graph=graph.value,
@@ -128,7 +133,7 @@ class MarkdownWorkspaceReader:
             return (), None, (status,)
         batch = await self._communication.fetch_new_messages(since.value)
         if not batch.ok:
-            self._logger.warn("messages not fetched", fields={"source": name}, operation=_OPERATION)
+            _LOGGER.warning("messages not fetched", extra={"operation": _OPERATION, "fields": {"source": name}})
             status = MessageSourceStatus(name=name, status="error", since=now, fetched=0, error=batch.message)
             return (), None, (status,)
         fetched = batch.value

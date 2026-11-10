@@ -1,7 +1,9 @@
-# Responsibility: Map a record state to its legend mark on planning screens.
-# Public interface:
-# `-- status_mark(state)
-"""Legend: [ ] not started/open · [>] in progress · [x] completed/resolved · [-] cancelled."""
+"""Responsibility: Map a record state to its legend mark on planning screens.
+Public interface:
+`-- status_mark(state)
+
+Legend: [ ] not started/open · [>] in progress · [x] completed/resolved · [-] cancelled.
+"""
 
 from typing import Final
 

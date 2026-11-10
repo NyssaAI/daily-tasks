@@ -1,7 +1,9 @@
-# Responsibility: Confirm today's plan and end the session.
-# Public interface:
-# `-- confirm_session(state, now)
-"""SCREEN_3 -> CONFIRMED; unanswered suggestions stay pending and are never accepted here."""
+"""Responsibility: Confirm today's plan and end the session.
+Public interface:
+`-- confirm_session(state, now)
+
+SCREEN_3 -> CONFIRMED; unanswered suggestions stay pending and are never accepted here.
+"""
 
 import dataclasses
 from datetime import datetime

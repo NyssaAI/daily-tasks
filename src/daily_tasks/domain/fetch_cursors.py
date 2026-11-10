@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable FetchCursors DTO.
-# Public interface:
-# `-- FetchCursors
-#     +-- cursors
-#     `-- workspace_root
-"""FetchCursors DTO."""
+"""Responsibility: Represent an immutable FetchCursors DTO.
+Public interface:
+`-- FetchCursors
+    +-- cursors
+    `-- workspace_root
+
+FetchCursors DTO.
+"""
 
 from collections.abc import Mapping
 

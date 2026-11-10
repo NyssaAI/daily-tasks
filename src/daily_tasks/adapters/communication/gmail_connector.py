@@ -1,14 +1,17 @@
-# Responsibility: Fetch new Gmail messages read-only and advance the Gmail cursor.
-# Public interface:
-# `-- GmailConnector
-#     +-- SOURCE
-#     +-- fetch_new_messages(since)
-#     +-- name
-#     `-- new(token_source, logger, clock, http, initial_lookback, page_size, max_messages, timeout_seconds)
-"""Read-only Gmail `CommunicationPort` over REST v1 `users.messages.list/get`; zero LLM calls."""
+"""Responsibility: Fetch new Gmail messages read-only and advance the Gmail cursor.
+Public interface:
+`-- GmailConnector
+    +-- SOURCE
+    +-- fetch_new_messages(since)
+    +-- name
+    `-- new(token_source, clock, http, initial_lookback, page_size, max_messages, timeout_seconds)
+
+Read-only Gmail `CommunicationPort` over REST v1 `users.messages.list/get`; zero LLM calls.
+"""
 
 import asyncio
 import json
+import logging
 import time
 import urllib.parse
 from collections.abc import Callable, Mapping, Sequence
@@ -25,8 +28,9 @@ from daily_tasks.adapters.communication.gmail_message_list import GmailMessageLi
 from daily_tasks.adapters.communication.gmail_raw_message import GmailRawMessage
 from daily_tasks.adapters.communication.gmail_token_source import GmailTokenSource
 from daily_tasks.domain import FetchCursor, FetchCursors, Message
-from daily_tasks.ports import FetchBatch, PortLogger
+from daily_tasks.ports import FetchBatch
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION: Final = "gmail.fetch_new_messages"
 _API_BASE: Final = "https://gmail.googleapis.com/gmail/v1/users/me/messages"
 _LIST: Final[TypeAdapter[GmailMessageList]] = TypeAdapter(GmailMessageList)
@@ -46,7 +50,6 @@ class GmailConnector:
     def __init__(
         self,
         token_source: GmailTokenSource,
-        logger: PortLogger,
         clock: Callable[[], datetime],
         http: GmailHttp | None = None,
         initial_lookback: timedelta = timedelta(days=7),
@@ -62,7 +65,6 @@ class GmailConnector:
         if page_size < 1 or max_messages < 1:
             raise ValueError("page_size and max_messages must be positive")
         self._token_source = token_source
-        self._logger = logger
         self._clock = clock
         self._http: GmailHttp = http if http is not None else GmailHttpUrllib()
         self._initial_lookback = initial_lookback
@@ -89,7 +91,7 @@ class GmailConnector:
         fetched = await self._fetch(oldest, fetched_at)
         if not fetched.ok:
             fields = {"error": fetched.message, "category": str(fetched.category), "elapsed_ms": _elapsed_ms(started)}
-            self._logger.error("gmail fetch failed", fields=fields, operation=_OPERATION)
+            _LOGGER.error("gmail fetch failed", extra={"operation": _OPERATION, "fields": fields})
             return fail(fetched.message, fetched.category)
         messages = sorted(
             (m for m in fetched.value if m.external_id != skip_id and _is_new(m, oldest, previous is not None)),
@@ -97,10 +99,10 @@ class GmailConnector:
         )
         if len(fetched.value) >= self._max_messages:
             warn_fields = {"max_messages": self._max_messages, "elapsed_ms": _elapsed_ms(started)}
-            self._logger.warn("gmail fetch truncated", fields=warn_fields, operation=_OPERATION)
+            _LOGGER.warning("gmail fetch truncated", extra={"operation": _OPERATION, "fields": warn_fields})
         cursor = _advanced(previous, oldest, messages, fetched_at)
         fields = {"fetched": len(messages), "listed": len(fetched.value), "elapsed_ms": _elapsed_ms(started)}
-        self._logger.info("gmail fetch completed", fields=fields, operation=_OPERATION)
+        _LOGGER.info("gmail fetch completed", extra={"operation": _OPERATION, "fields": fields})
         cursors = FetchCursors(workspace_root=since.workspace_root, cursors={**since.cursors, self.SOURCE: cursor})
         return ok(FetchBatch(messages=tuple(messages), cursors=cursors))
 

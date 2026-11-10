@@ -1,7 +1,9 @@
-# Responsibility: Represent an immutable ToolResult DTO.
-# Public interface:
-# `-- ToolResult
-"""ToolResult DTO."""
+"""Responsibility: Represent an immutable ToolResult DTO.
+Public interface:
+`-- ToolResult
+
+ToolResult DTO.
+"""
 
 from typing import Annotated
 

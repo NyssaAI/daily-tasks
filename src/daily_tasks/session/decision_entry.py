@@ -1,7 +1,9 @@
-# Responsibility: Build the decision-log entry for one adjudicated operation.
-# Public interface:
-# `-- decision_entry(context, action, question, decision, record_ids, before, after)
-"""Pure decision-log entry construction; decided and recorded at the context's `now`."""
+"""Responsibility: Build the decision-log entry for one adjudicated operation.
+Public interface:
+`-- decision_entry(context, action, question, decision, record_ids, before, after)
+
+Pure decision-log entry construction; decided and recorded at the context's `now`.
+"""
 
 from collections.abc import Mapping
 from uuid import UUID

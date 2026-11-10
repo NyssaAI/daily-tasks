@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable ThreadFacts DTO.
-# Public interface:
-# `-- ThreadFacts
-#     +-- last_activity
-#     +-- linked_record_ids
-#     +-- message_count
-#     `-- participants
-"""ThreadFacts DTO."""
+"""Responsibility: Represent an immutable ThreadFacts DTO.
+Public interface:
+`-- ThreadFacts
+    +-- last_activity
+    +-- linked_record_ids
+    +-- message_count
+    `-- participants
+
+ThreadFacts DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

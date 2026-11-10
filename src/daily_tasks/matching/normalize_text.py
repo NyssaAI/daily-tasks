@@ -1,7 +1,9 @@
-# Responsibility: Normalize free text for deterministic title comparison.
-# Public interface:
-# `-- normalize_text(text)
-"""Casefold, replace punctuation with spaces and collapse whitespace."""
+"""Responsibility: Normalize free text for deterministic title comparison.
+Public interface:
+`-- normalize_text(text)
+
+Casefold, replace punctuation with spaces and collapse whitespace.
+"""
 
 import re
 from typing import Final

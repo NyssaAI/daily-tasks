@@ -1,7 +1,9 @@
-# Responsibility: Format a calendar day the way planning screens show it.
-# Public interface:
-# `-- format_day(day)
-"""Screen dates use `YYYY.MM.DD`; a missing date renders as an em dash."""
+"""Responsibility: Format a calendar day the way planning screens show it.
+Public interface:
+`-- format_day(day)
+
+Screen dates use `YYYY.MM.DD`; a missing date renders as an em dash.
+"""
 
 from datetime import date
 

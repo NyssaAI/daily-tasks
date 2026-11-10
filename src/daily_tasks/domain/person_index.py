@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable PersonIndex DTO.
-# Public interface:
-# `-- PersonIndex
-#     +-- assigned
-#     `-- owns
-"""PersonIndex DTO."""
+"""Responsibility: Represent an immutable PersonIndex DTO.
+Public interface:
+`-- PersonIndex
+    +-- assigned
+    `-- owns
+
+PersonIndex DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

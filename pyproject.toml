@@ -1,13 +1,13 @@
 [project]
 name = "daily-tasks"
-version = "0.10.0"
+version = "0.10.1"
 description = "Daily Tasks planning session MCP server domain models"
 readme = "README.md"
 license = "LicenseRef-PolyForm-Small-Business-1.0.0"
 requires-python = ">=3.12"
 dependencies = [
     "pydantic>=2.10",
-    "nyssa-ai-logging",
+    "nyssa-ai-logging>=0.2.3,<0.4.0",
     "nyssa-ai-configuration>=0.5.0",
     "nyssa-ai-result",
     "langchain-core",
@@ -38,8 +38,8 @@ addopts = "-p no:cacheprovider"
 [tool.ruff]
 line-length = 120
 target-version = "py312"
-src = ["src", "test/unit/daily_tasks"]
-include = ["src/daily_tasks/**/*.py", "test/**/*.py"]
+src = ["src", "test/unit/daily_tasks", "test/use_case/daily_tasks"]
+include = ["src/daily_tasks/**/*.py", "test/**/*.py", "scripts/**/*.py", "adapters/**/*.py"]
 cache-dir = ".temp/ruff"
 
 [tool.ruff.lint]

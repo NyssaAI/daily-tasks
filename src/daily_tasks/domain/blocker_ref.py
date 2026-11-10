@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable BlockerRef DTO.
-# Public interface:
-# `-- BlockerRef
-#     +-- blocker_id
-#     `-- blocks
-"""BlockerRef DTO."""
+"""Responsibility: Represent an immutable BlockerRef DTO.
+Public interface:
+`-- BlockerRef
+    +-- blocker_id
+    `-- blocks
+
+BlockerRef DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

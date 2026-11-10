@@ -1,7 +1,26 @@
-# Responsibility: Prove build_state_graph indexes, nests and derives facts from hand-built records.
-# Public interface:
-# (none)
-"""Pure state graph build: records, tree, index, derived facts, diagnostics and JSON shape."""
+"""Responsibility: Prove build_state_graph indexes, nests and derives facts from hand-built records.
+Public interface:
++-- DANA
++-- SARAH
++-- test_build_state_graph_blocker_and_milestone_facts_report_progress()
++-- test_build_state_graph_failed_source_is_reported_not_fatal()
++-- test_build_state_graph_inventory_hash_ignores_source_order()
++-- test_build_state_graph_json_round_trips_with_the_spec_key_structure()
++-- test_build_state_graph_local_date_follows_timezone()
++-- test_build_state_graph_lookups_cover_paths_people_terms_and_hashes()
++-- test_build_state_graph_no_readable_project_source_fails_unavailable()
++-- test_build_state_graph_non_utc_build_time_fails_validation()
++-- test_build_state_graph_records_are_indexed_by_uuid7_id()
++-- test_build_state_graph_relations_are_indexed_in_both_directions()
++-- test_build_state_graph_rollover_carries_reselected_and_drops_the_rest()
++-- test_build_state_graph_task_facts_flag_late_blocked_and_delegated_work()
++-- test_build_state_graph_today_and_summary_count_open_work()
++-- test_build_state_graph_tree_nests_projects_by_directory_date()
++-- test_build_state_graph_unknown_refs_and_duplicates_become_diagnostics()
+`-- test_build_state_graph_without_todays_plan_proposes_rollover_as_due()
+
+Pure state graph build: records, tree, index, derived facts, diagnostics and JSON shape.
+"""
 
 from datetime import UTC, date, datetime
 

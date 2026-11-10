@@ -1,8 +1,10 @@
-# Responsibility: Read and format scalar YAML frontmatter values.
-# Public interface:
-# +-- format_scalar(value, quoted)
-# `-- parse_frontmatter(lines)
-"""Scalar-only YAML subset: quoted or bare strings, integers, booleans, null and flow lists of strings."""
+"""Responsibility: Read and format scalar YAML frontmatter values.
+Public interface:
++-- format_scalar(value, quoted)
+`-- parse_frontmatter(lines)
+
+Scalar-only YAML subset: quoted or bare strings, integers, booleans, null and flow lists of strings.
+"""
 
 import json
 import re

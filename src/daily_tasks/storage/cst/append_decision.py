@@ -1,7 +1,9 @@
-# Responsibility: Append one entry to the decisions section without touching unrelated bytes.
-# Public interface:
-# `-- append_decision(document, entry)
-"""Surgical mutation: inserts whole new lines after the last entry of `## Decisions` or `## Decision Log`."""
+"""Responsibility: Append one entry to the decisions section without touching unrelated bytes.
+Public interface:
+`-- append_decision(document, entry)
+
+Surgical mutation: inserts whole new lines after the last entry of `## Decisions` or `## Decision Log`.
+"""
 
 from dataclasses import replace
 from typing import Final

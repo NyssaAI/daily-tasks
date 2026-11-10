@@ -1,7 +1,9 @@
-# Responsibility: Turn a planning step outcome into the JSON body of a `docs/specs/tool-results.json` result.
-# Public interface:
-# `-- tool_reply(tool, outcome, session, screen, expected_tool, payload)
-"""Conflicts become `refused` results naming the next tool; other failures become `error` results."""
+"""Responsibility: Turn a planning step outcome into the JSON body of a `docs/specs/tool-results.json` result.
+Public interface:
+`-- tool_reply(tool, outcome, session, screen, expected_tool, payload)
+
+Conflicts become `refused` results naming the next tool; other failures become `error` results.
+"""
 
 from collections.abc import Mapping
 from typing import Final

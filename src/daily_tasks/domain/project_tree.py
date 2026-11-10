@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable ProjectTree DTO.
-# Public interface:
-# `-- ProjectTree
-#     +-- blocker_ids
-#     +-- milestones
-#     `-- project_id
-"""ProjectTree DTO."""
+"""Responsibility: Represent an immutable ProjectTree DTO.
+Public interface:
+`-- ProjectTree
+    +-- blocker_ids
+    +-- milestones
+    `-- project_id
+
+ProjectTree DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

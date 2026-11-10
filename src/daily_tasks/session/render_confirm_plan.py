@@ -1,7 +1,9 @@
-# Responsibility: Render screen 3 (confirm today's plan) as Markdown.
-# Public interface:
-# `-- render_confirm_plan(state)
-"""Today's tasks grouped into my work and delegated work, then today's blockers, numbered as on `s3`."""
+"""Responsibility: Render screen 3 (confirm today's plan) as Markdown.
+Public interface:
+`-- render_confirm_plan(state)
+
+Today's tasks grouped into my work and delegated work, then today's blockers, numbered as on `s3`.
+"""
 
 from uuid import UUID
 

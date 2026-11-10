@@ -1,33 +1,35 @@
-# Responsibility: Group the plain inputs that record parsing and plan rendering need beside the Markdown.
-# Public interface:
-# +-- DailyPlanDocument
-# |   +-- blockers
-# |   +-- items
-# |   +-- maturity
-# |   +-- owner
-# |   +-- plan
-# |   +-- record_version
-# |   `-- tags
-# +-- PlanBlockerView
-# |   +-- blocker_id
-# |   +-- impact
-# |   +-- owner
-# |   +-- path
-# |   +-- resolved_when
-# |   `-- title
-# +-- PlanItemView
-# |   +-- due_date
-# |   +-- item_id
-# |   +-- milestone_title
-# |   +-- path
-# |   +-- project_title
-# |   +-- status_mark
-# |   `-- title
-# `-- RecordLocation
-#     +-- inherited_owner
-#     +-- path
-#     `-- source
-"""Record location and the display values of tasks and blockers listed in a daily plan."""
+"""Responsibility: Group the plain inputs that record parsing and plan rendering need beside the Markdown.
+Public interface:
++-- DailyPlanDocument
+|   +-- blockers
+|   +-- items
+|   +-- maturity
+|   +-- owner
+|   +-- plan
+|   +-- record_version
+|   `-- tags
++-- PlanBlockerView
+|   +-- blocker_id
+|   +-- impact
+|   +-- owner
+|   +-- path
+|   +-- resolved_when
+|   `-- title
++-- PlanItemView
+|   +-- due_date
+|   +-- item_id
+|   +-- milestone_title
+|   +-- path
+|   +-- project_title
+|   +-- status_mark
+|   `-- title
+`-- RecordLocation
+    +-- inherited_owner
+    +-- path
+    `-- source
+
+Record location and the display values of tasks and blockers listed in a daily plan.
+"""
 
 from dataclasses import dataclass
 from datetime import date

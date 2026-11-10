@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable AssignToDay DTO.
-# Public interface:
-# `-- AssignToDay
-#     +-- item_id
-#     +-- item_type
-#     +-- kind
-#     +-- local_date
-#     `-- row
-"""AssignToDay DTO."""
+"""Responsibility: Represent an immutable AssignToDay DTO.
+Public interface:
+`-- AssignToDay
+    +-- item_id
+    +-- item_type
+    +-- kind
+    +-- local_date
+    `-- row
+
+AssignToDay DTO.
+"""
 
 from datetime import date
 from typing import Literal

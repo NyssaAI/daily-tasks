@@ -1,42 +1,23 @@
-# Responsibility: Prove StateGraphBuilder reads every configured source concurrently and logs one outcome.
-# Public interface:
-# (none)
-"""State graph build through fake project-plan and daily-plan ports."""
+"""Responsibility: Prove StateGraphBuilder reads every configured source concurrently and logs one outcome.
+Public interface:
++-- test_state_graph_builder_all_project_sources_failing_logs_error(log_capture)
++-- test_state_graph_builder_failing_source_is_reported_and_warned(log_capture)
+`-- test_state_graph_builder_sources_are_read_concurrently_and_merged(log_capture)
+
+State graph build through fake project-plan and daily-plan ports.
+"""
 
 import asyncio
-from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import date, datetime
 
 from nyssa_ai_result import Err, Ok, Result, fail, ok
 from state_graph_records import BUILT_AT, SETTINGS, milestone, plan, project, record_id, task
 
+from conftest import LogCapture
 from daily_tasks.domain import DailyPlan
 from daily_tasks.graph import StateGraphBuilder
 from daily_tasks.ports import ProjectPlanSnapshot
-
-
-@dataclass
-class _RecordingLogger:
-    records: list[tuple[str, str, Mapping[str, object]]] = field(default_factory=list)
-
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("debug", message, fields or {}))
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("info", message, fields or {}))
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("warn", message, fields or {}))
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        self.records.append(("error", message, fields or {}))
 
 
 @dataclass
@@ -77,42 +58,38 @@ def _clock() -> datetime:
     return BUILT_AT
 
 
-def test_state_graph_builder_sources_are_read_concurrently_and_merged() -> None:
+def test_state_graph_builder_sources_are_read_concurrently_and_merged(log_capture: LogCapture) -> None:
     first = _ProjectPort("first", _snapshot(1, 2, 3))
     second = _ProjectPort("second", _snapshot(11, 12, 13), peer=first.started)
     first.peer = second.started
     plans = _PlanPort("plans", (plan(date(2026, 11, 3), ()),))
-    logger = _RecordingLogger()
-    builder = StateGraphBuilder([first, second], [plans], SETTINGS, logger, _clock)
+    builder = StateGraphBuilder([first, second], [plans], SETTINGS, _clock)
 
     result = asyncio.run(builder.build())
 
     assert isinstance(result, Ok)
     assert set(result.value.records.tasks) == {record_id(3), record_id(13)}
     assert plans.requested == [date(2026, 11, 3)]
-    level, message, fields = logger.records[-1]
+    level, message, fields = log_capture.records[-1]
     assert (level, message, fields["tasks"], fields["failed_sources"]) == ("info", "state graph built", 2, [])
     assert isinstance(fields["elapsed_ms"], float)
 
 
-def test_state_graph_builder_failing_source_is_reported_and_warned() -> None:
+def test_state_graph_builder_failing_source_is_reported_and_warned(log_capture: LogCapture) -> None:
     healthy = _ProjectPort("healthy", _snapshot(1, 2, 3))
     broken = _ProjectPort("broken", None)
-    logger = _RecordingLogger()
 
-    result = asyncio.run(StateGraphBuilder([healthy, broken], [], SETTINGS, logger, _clock).build())
+    result = asyncio.run(StateGraphBuilder([healthy, broken], [], SETTINGS, _clock).build())
 
     assert isinstance(result, Ok)
     assert [(s.name, s.status) for s in result.value.context.sources] == [("healthy", "ok"), ("broken", "error")]
-    assert logger.records[-1][0] == "warn"
-    assert logger.records[-1][2]["failed_sources"] == ["broken"]
+    assert log_capture.records[-1][0] == "warn"
+    assert log_capture.records[-1][2]["failed_sources"] == ["broken"]
 
 
-def test_state_graph_builder_all_project_sources_failing_logs_error() -> None:
-    logger = _RecordingLogger()
-
-    result = asyncio.run(StateGraphBuilder([_ProjectPort("broken", None)], [], SETTINGS, logger, _clock).build())
+def test_state_graph_builder_all_project_sources_failing_logs_error(log_capture: LogCapture) -> None:
+    result = asyncio.run(StateGraphBuilder([_ProjectPort("broken", None)], [], SETTINGS, _clock).build())
 
     assert isinstance(result, Err)
     assert result.category == "Unavailable"
-    assert [(level, fields["category"]) for level, _, fields in logger.records] == [("error", "Unavailable")]
+    assert [(level, fields["category"]) for level, _, fields in log_capture.records] == [("error", "Unavailable")]

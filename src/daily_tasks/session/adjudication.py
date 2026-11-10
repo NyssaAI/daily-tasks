@@ -1,11 +1,13 @@
-# Responsibility: Hold the outcome of adjudicating pending suggestions.
-# Public interface:
-# `-- Adjudication
-#     +-- changes
-#     +-- decisions
-#     +-- graph
-#     `-- suggestions
-"""Suggestion adjudication outcome: pruned pool, updated graph, decisions and staged changes."""
+"""Responsibility: Hold the outcome of adjudicating pending suggestions.
+Public interface:
+`-- Adjudication
+    +-- changes
+    +-- decisions
+    +-- graph
+    `-- suggestions
+
+Suggestion adjudication outcome: pruned pool, updated graph, decisions and staged changes.
+"""
 
 from dataclasses import dataclass
 

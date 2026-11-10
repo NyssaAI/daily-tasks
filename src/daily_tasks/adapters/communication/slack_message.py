@@ -1,8 +1,10 @@
-# Responsibility: Map one Slack history message to the canonical Message DTO.
-# Public interface:
-# +-- SNIPPET_LENGTH
-# `-- slack_message(raw, channel, workspace_domain, fetched_at)
-"""Pure Slack-to-`Message` mapping (`docs/specs/message.json`)."""
+"""Responsibility: Map one Slack history message to the canonical Message DTO.
+Public interface:
++-- SNIPPET_LENGTH
+`-- slack_message(raw, channel, workspace_domain, fetched_at)
+
+Pure Slack-to-`Message` mapping (`docs/specs/message.json`).
+"""
 
 from datetime import datetime
 from typing import Final

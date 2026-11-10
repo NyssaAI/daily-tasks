@@ -1,7 +1,9 @@
-# Responsibility: Refuse a session transition that is not allowed from the current stage.
-# Public interface:
-# `-- require_stage(state, allowed, attempted, expected_next)
-"""Stage guard shared by the lifecycle transitions."""
+"""Responsibility: Refuse a session transition that is not allowed from the current stage.
+Public interface:
+`-- require_stage(state, allowed, attempted, expected_next)
+
+Stage guard shared by the lifecycle transitions.
+"""
 
 from collections.abc import Collection
 

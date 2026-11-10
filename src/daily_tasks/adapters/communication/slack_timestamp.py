@@ -1,8 +1,10 @@
-# Responsibility: Convert between Slack `ts` strings and UTC datetimes without float rounding.
-# Public interface:
-# +-- slack_timestamp(value)
-# `-- slack_ts_from_datetime(value)
-"""Slack `ts` values are `<epoch seconds>.<6-digit microseconds>` strings."""
+"""Responsibility: Convert between Slack `ts` strings and UTC datetimes without float rounding.
+Public interface:
++-- slack_timestamp(value)
+`-- slack_ts_from_datetime(value)
+
+Slack `ts` values are `<epoch seconds>.<6-digit microseconds>` strings.
+"""
 
 from datetime import UTC, datetime, timedelta
 from typing import Final

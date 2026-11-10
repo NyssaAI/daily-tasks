@@ -1,8 +1,10 @@
-# Responsibility: Compute the Markdown text of a record after one adjudicated record change.
-# Public interface:
-# +-- FRONTMATTER_KEYS
-# `-- apply_record_change(text, change)
-"""Pure surgical edit: `after` values become frontmatter values and Definition of Done marks."""
+"""Responsibility: Compute the Markdown text of a record after one adjudicated record change.
+Public interface:
++-- FRONTMATTER_KEYS
+`-- apply_record_change(text, change)
+
+Pure surgical edit: `after` values become frontmatter values and Definition of Done marks.
+"""
 
 from collections.abc import Mapping
 from typing import Final

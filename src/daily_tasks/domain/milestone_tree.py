@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable MilestoneTree DTO.
-# Public interface:
-# `-- MilestoneTree
-#     +-- milestone_id
-#     `-- task_ids
-"""MilestoneTree DTO."""
+"""Responsibility: Represent an immutable MilestoneTree DTO.
+Public interface:
+`-- MilestoneTree
+    +-- milestone_id
+    `-- task_ids
+
+MilestoneTree DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

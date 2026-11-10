@@ -1,14 +1,16 @@
-# Responsibility: Hold one planning session snapshot with its stage and in-memory inputs.
-# Public interface:
-# `-- SessionState
-#     +-- initial(state_graph, suggestions, session_id, workspace_root, suggestions_file, focus, now, message_graph)
-#     +-- message_graph
-#     +-- session
-#     +-- stage
-#     +-- state_graph
-#     +-- suggestions
-#     `-- with_session(session, stage)
-"""Planning session state: the persisted `PlanningSession` plus RAM-only graphs and pending suggestions."""
+"""Responsibility: Hold one planning session snapshot with its stage and in-memory inputs.
+Public interface:
+`-- SessionState
+    +-- initial(state_graph, suggestions, session_id, workspace_root, suggestions_file, focus, now, message_graph)
+    +-- message_graph
+    +-- session
+    +-- stage
+    +-- state_graph
+    +-- suggestions
+    `-- with_session(session, stage)
+
+Planning session state: the persisted `PlanningSession` plus RAM-only graphs and pending suggestions.
+"""
 
 import dataclasses
 from dataclasses import dataclass

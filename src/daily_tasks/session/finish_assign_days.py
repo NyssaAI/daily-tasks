@@ -1,7 +1,9 @@
-# Responsibility: Move from the assign-days screens to the confirm screen.
-# Public interface:
-# `-- finish_assign_days(state, now)
-"""SCREEN_2 -> SCREEN_3 ("finish", or "yes" on the last project)."""
+"""Responsibility: Move from the assign-days screens to the confirm screen.
+Public interface:
+`-- finish_assign_days(state, now)
+
+SCREEN_2 -> SCREEN_3 ("finish", or "yes" on the last project).
+"""
 
 from datetime import datetime
 

@@ -1,8 +1,10 @@
-# Responsibility: Represent an immutable SpecRef DTO.
-# Public interface:
-# `-- SpecRef
-#     `-- ref
-"""SpecRef DTO."""
+"""Responsibility: Represent an immutable SpecRef DTO.
+Public interface:
+`-- SpecRef
+    `-- ref
+
+SpecRef DTO.
+"""
 
 from pydantic import Field
 from pydantic.dataclasses import dataclass

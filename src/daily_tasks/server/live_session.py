@@ -1,16 +1,18 @@
-# Responsibility: Hold one in-memory planning session with what it read and what it staged.
-# Public interface:
-# `-- LiveSession
-#     +-- blockers
-#     +-- changes
-#     +-- cursors
-#     +-- decisions
-#     +-- existing_plan
-#     +-- malformed_files
-#     +-- previous_plan
-#     +-- state
-#     `-- suggestions
-"""RAM-only session record; nothing in it reaches disk before the user confirms the plan."""
+"""Responsibility: Hold one in-memory planning session with what it read and what it staged.
+Public interface:
+`-- LiveSession
+    +-- blockers
+    +-- changes
+    +-- cursors
+    +-- decisions
+    +-- existing_plan
+    +-- malformed_files
+    +-- previous_plan
+    +-- state
+    `-- suggestions
+
+RAM-only session record; nothing in it reaches disk before the user confirms the plan.
+"""
 
 from collections.abc import Mapping
 from dataclasses import dataclass

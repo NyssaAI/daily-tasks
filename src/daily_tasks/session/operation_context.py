@@ -1,17 +1,19 @@
-# Responsibility: Carry who decided, when, and how ids are minted for one adjudicated operation.
-# Public interface:
-# `-- OperationContext
-#     +-- actor
-#     +-- change_origin
-#     +-- edits
-#     +-- new_id
-#     +-- now
-#     +-- operation_id
-#     +-- origin
-#     +-- original_words
-#     +-- session_id
-#     `-- verdict
-"""Context shared by the decision-log entry and record change one operation produces."""
+"""Responsibility: Carry who decided, when, and how ids are minted for one adjudicated operation.
+Public interface:
+`-- OperationContext
+    +-- actor
+    +-- change_origin
+    +-- edits
+    +-- new_id
+    +-- now
+    +-- operation_id
+    +-- origin
+    +-- original_words
+    +-- session_id
+    `-- verdict
+
+Context shared by the decision-log entry and record change one operation produces.
+"""
 
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass

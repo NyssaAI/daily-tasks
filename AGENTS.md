@@ -3,6 +3,8 @@
 Public NyssaAI plugin. Maintain canonical instructions under `skills/`; host files
 are thin generated manifests. This is a skill collection, not an agent persona.
 Never add time fitting, or implicit acceptance.
+Anchor all domain nouns, state transitions, and boundary contracts to the Ubiquitous Language in
+`docs/GLOSSARY.md`, `docs/CONCEPTS.md`, and `docs/specs/`; strictly ban naming drift and unvetted synonyms.
 
 Python (>=3.12, managed with `uv` via `pyproject.toml`) is the sole runtime language.
 Python code lives under `src/daily_tasks/` and is tested with `pytest`. Python
@@ -30,7 +32,16 @@ Keep resolved config, vault and projects roots independent of cwd. Reuse existin
 settings before asking for missing scope. User and project configuration and
 operating state use canonical `.nyssa-ai/daily-tasks/`; preserve accepted explicit paths.
 
+Scoped `dev-standards` exception (`REPO-GITIGNORE`): `.nyssa-ai/` (including `.nyssa-ai/dev-standards/`)
+is intentionally gitignored via `.*` in `.gitignore` because `daily-tasks` is a public NyssaAI plugin
+validated by `plugin-builder`, which prohibits tracked non-canonical root dot-directories. Contributors
+with `dev-standards` installed populate `.nyssa-ai/dev-standards/` locally via `check_adoption.py . --sync`
+and re-strip any auto-appended `!.nyssa-ai/` lines from `.gitignore`.
+
 # Development standards (python)
+
+- **Ubiquitous Language**: Ground all domain concepts, variables, boundary DTOs, and state transitions in the project's authoritative Ubiquitous Language (`GLOSSARY.md` or `docs/concepts/`, and root Context Map in a monorepo). Banned synonyms and naming drift are strictly prohibited (`ARCH-NAME`).
+- **Code Navigation (`CODE_MAP.md`)**: Every source directory containing code owns a deterministic `CODE_MAP.md`. Before executing recursive file searches (`find`, `dir`, globbing) or running broad repository greps (`rg`, `Select-String`), always consult the local package `CODE_MAP.md` (and immediate parent `CODE_MAP.md`) to inspect public interfaces, exported symbols, caller expectations, and child packages (`REPO-CODE-MAP`). Regenerate after structural changes with `python scripts/generate_codemaps.py`.
 
 Read `.nyssa-ai/dev-standards/python/rules/repo-standards.md`,
 `.nyssa-ai/dev-standards/python/rules/architecture-standards.md` and

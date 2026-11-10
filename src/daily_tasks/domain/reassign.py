@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable Reassign DTO.
-# Public interface:
-# `-- Reassign
-#     +-- item_id
-#     +-- item_type
-#     +-- kind
-#     +-- owner
-#     `-- row
-"""Reassign DTO."""
+"""Responsibility: Represent an immutable Reassign DTO.
+Public interface:
+`-- Reassign
+    +-- item_id
+    +-- item_type
+    +-- kind
+    +-- owner
+    `-- row
+
+Reassign DTO.
+"""
 
 from typing import Literal
 

@@ -1,7 +1,9 @@
-# Responsibility: Map a parsed blocker Markdown record onto the Blocker DTO.
-# Public interface:
-# `-- parse_blocker(document, location)
-"""Blocker parser: frontmatter, impact summary, resolution condition and blocked records."""
+"""Responsibility: Map a parsed blocker Markdown record onto the Blocker DTO.
+Public interface:
+`-- parse_blocker(document, location)
+
+Blocker parser: frontmatter, impact summary, resolution condition and blocked records.
+"""
 
 import re
 from typing import Final

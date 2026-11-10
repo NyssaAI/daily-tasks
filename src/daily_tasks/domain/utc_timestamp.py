@@ -1,7 +1,9 @@
-# Responsibility: Parse ISO 8601 timestamps and require a UTC offset.
-# Public interface:
-# `-- UtcTimestamp
-"""ISO 8601 timestamp type that only accepts UTC values (`Z` or `+00:00`)."""
+"""Responsibility: Parse ISO 8601 timestamps and require a UTC offset.
+Public interface:
+`-- UtcTimestamp
+
+ISO 8601 timestamp type that only accepts UTC values (`Z` or `+00:00`).
+"""
 
 from datetime import datetime, timedelta
 from typing import Annotated

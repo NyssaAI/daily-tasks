@@ -1,7 +1,9 @@
-# Responsibility: Rebuild a concrete syntax tree after a surgical edit changed its source lines.
-# Public interface:
-# `-- reparse_lines(lines)
-"""Shared final step of every surgical mutation: parse the edited lines again."""
+"""Responsibility: Rebuild a concrete syntax tree after a surgical edit changed its source lines.
+Public interface:
+`-- reparse_lines(lines)
+
+Shared final step of every surgical mutation: parse the edited lines again.
+"""
 
 from collections.abc import Sequence
 

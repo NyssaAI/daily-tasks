@@ -1,10 +1,12 @@
-# Responsibility: Build the spec state graph and small messages for the matching tests.
-# Public interface:
-# +-- BUILT_AT
-# +-- message(message_id, body, sender, thread_id, subject, received_at)
-# +-- sequential_ids()
-# `-- state_graph()
-"""Matching fixtures built from the canonical `docs/specs` examples."""
+"""Responsibility: Build the spec state graph and small messages for the matching tests.
+Public interface:
++-- BUILT_AT
++-- message(message_id, body, sender, thread_id, subject, received_at)
++-- sequential_ids()
+`-- state_graph()
+
+Matching fixtures built from the canonical `docs/specs` examples.
+"""
 
 from collections.abc import Callable, Iterator
 from datetime import UTC, datetime

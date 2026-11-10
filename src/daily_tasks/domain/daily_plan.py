@@ -1,23 +1,25 @@
-# Responsibility: Represent an immutable DailyPlan DTO.
-# Public interface:
-# `-- DailyPlan
-#     +-- blockers
-#     +-- content_hash
-#     +-- created_at
-#     +-- decisions
-#     +-- entries
-#     +-- focus
-#     +-- id
-#     +-- local_date
-#     +-- notes
-#     +-- path
-#     +-- removed_item_ids
-#     +-- source
-#     +-- summary
-#     +-- timezone
-#     +-- type
-#     `-- updated_at
-"""DailyPlan DTO."""
+"""Responsibility: Represent an immutable DailyPlan DTO.
+Public interface:
+`-- DailyPlan
+    +-- blockers
+    +-- content_hash
+    +-- created_at
+    +-- decisions
+    +-- entries
+    +-- focus
+    +-- id
+    +-- local_date
+    +-- notes
+    +-- path
+    +-- removed_item_ids
+    +-- source
+    +-- summary
+    +-- timezone
+    +-- type
+    `-- updated_at
+
+DailyPlan DTO.
+"""
 
 from datetime import date
 from typing import Literal

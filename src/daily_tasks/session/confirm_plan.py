@@ -1,31 +1,34 @@
-# Responsibility: Commit staged record changes and write the daily plan only after explicit user confirmation.
-# Public interface:
-# `-- ConfirmPlan
-#     +-- confirm(changes, document, confirmed_by_user)
-#     `-- new(store, logger)
-"""`confirm_plan` service: apply record changes, then write the plan; never commit implicitly."""
+"""Responsibility: Commit staged record changes and write the daily plan only after explicit user confirmation.
+Public interface:
+`-- ConfirmPlan
+    +-- confirm(changes, document, confirmed_by_user)
+    `-- new(store)
 
+`confirm_plan` service: apply record changes, then write the plan; never commit implicitly.
+"""
+
+import logging
 import time
 from collections.abc import Sequence
-from typing import final
+from typing import Final, final
 
 from nyssa_ai_result import Result, fail, ok
 
 from daily_tasks.domain import RecordChange
-from daily_tasks.ports import LocalFileStore, PortLogger
+from daily_tasks.ports import LocalFileStore
 from daily_tasks.storage.cst import DailyPlanDocument
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION = "plan.confirm"
 
 
 @final
 class ConfirmPlan:
-    """Borrow `store` and `logger`; one terminal log outcome per confirmation attempt."""
+    """Borrow `store`; one terminal log outcome per confirmation attempt."""
 
-    def __init__(self, store: LocalFileStore, logger: PortLogger) -> None:
-        """Keep the collaborators; nothing is written until `confirm`."""
+    def __init__(self, store: LocalFileStore) -> None:
+        """Keep `store`; nothing is written until `confirm`."""
         self._store = store
-        self._logger = logger
 
     def confirm(
         self, changes: Sequence[RecordChange], document: DailyPlanDocument, confirmed_by_user: bool
@@ -60,8 +63,8 @@ class ConfirmPlan:
         if category is not None:
             outcome["category"] = category
         if level == "info":
-            self._logger.info(message, fields=outcome, operation=_OPERATION)
+            _LOGGER.info(message, extra={"operation": _OPERATION, "fields": outcome})
         elif level == "warn":
-            self._logger.warn(message, fields=outcome, operation=_OPERATION)
+            _LOGGER.warning(message, extra={"operation": _OPERATION, "fields": outcome})
         else:
-            self._logger.error(message, fields=outcome, operation=_OPERATION)
+            _LOGGER.error(message, extra={"operation": _OPERATION, "fields": outcome})

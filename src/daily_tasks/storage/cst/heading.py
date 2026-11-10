@@ -1,11 +1,13 @@
-# Responsibility: Hold one ATX heading of a Markdown record.
-# Public interface:
-# `-- Heading
-#     +-- level
-#     +-- line_index
-#     +-- ref
-#     `-- title
-"""Heading node with its optional `<!-- ref: ... -->` id."""
+"""Responsibility: Hold one ATX heading of a Markdown record.
+Public interface:
+`-- Heading
+    +-- level
+    +-- line_index
+    +-- ref
+    `-- title
+
+Heading node with its optional `<!-- ref: ... -->` id.
+"""
 
 from dataclasses import dataclass
 

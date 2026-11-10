@@ -1,8 +1,10 @@
-# Responsibility: Resolve the Slack read token into memory from the environment or the keyring-protected store.
-# Public interface:
-# +-- SLACK_TOKEN_ENV_VAR
-# `-- slack_token(resolver, namespace, key, env_var)
-"""Slack token lookup; the token is never read from a plaintext file."""
+"""Responsibility: Resolve the Slack read token into memory from the environment or the keyring-protected store.
+Public interface:
++-- SLACK_TOKEN_ENV_VAR
+`-- slack_token(resolver, namespace, key, env_var)
+
+Slack token lookup; the token is never read from a plaintext file.
+"""
 
 from typing import Final
 

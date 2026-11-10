@@ -1,7 +1,9 @@
-# Responsibility: Represent an immutable ItemType DTO.
-# Public interface:
-# `-- ItemType
-"""ItemType DTO."""
+"""Responsibility: Represent an immutable ItemType DTO.
+Public interface:
+`-- ItemType
+
+ItemType DTO.
+"""
 
 from typing import Literal
 

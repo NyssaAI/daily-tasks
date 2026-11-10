@@ -1,7 +1,9 @@
-# Responsibility: Compose the message and payload `daily_tasks_start_session` returns with screen 1.
-# Public interface:
-# `-- start_session_reply(snapshot, harness_sources, pending)
-"""Source statuses (connector and assistant harness), skipped malformed files and the pending count."""
+"""Responsibility: Compose the message and payload `daily_tasks_start_session` returns with screen 1.
+Public interface:
+`-- start_session_reply(snapshot, harness_sources, pending)
+
+Source statuses (connector and assistant harness), skipped malformed files and the pending count.
+"""
 
 from collections.abc import Sequence
 

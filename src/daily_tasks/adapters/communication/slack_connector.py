@@ -1,14 +1,17 @@
-# Responsibility: Fetch new Slack messages read-only from configured conversations and advance the Slack cursor.
-# Public interface:
-# `-- SlackConnector
-#     +-- SOURCE
-#     +-- fetch_new_messages(since)
-#     +-- name
-#     `-- new(token, channels, logger, clock, http, workspace_domain, initial_lookback, page_size, timeout_seconds)
-"""Read-only Slack `CommunicationPort` over `conversations.history` (scopes `channels:history`, `im:history`)."""
+"""Responsibility: Fetch new Slack messages read-only from configured conversations and advance the Slack cursor.
+Public interface:
+`-- SlackConnector
+    +-- SOURCE
+    +-- fetch_new_messages(since)
+    +-- name
+    `-- new(token, channels, clock, http, workspace_domain, initial_lookback, page_size, timeout_seconds)
+
+Read-only Slack `CommunicationPort` over `conversations.history` (scopes `channels:history`, `im:history`).
+"""
 
 import asyncio
 import json
+import logging
 import time
 import urllib.parse
 from collections.abc import Callable, Sequence
@@ -26,8 +29,9 @@ from daily_tasks.adapters.communication.slack_message import slack_message
 from daily_tasks.adapters.communication.slack_raw_message import SlackRawMessage
 from daily_tasks.adapters.communication.slack_timestamp import slack_ts_from_datetime
 from daily_tasks.domain import FetchCursor, FetchCursors, Message, SecretString
-from daily_tasks.ports import FetchBatch, PortLogger
+from daily_tasks.ports import FetchBatch
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION: Final = "slack.fetch_new_messages"
 _API_BASE: Final = "https://slack.com/api"
 _PAGE: Final[TypeAdapter[SlackHistoryPage]] = TypeAdapter(SlackHistoryPage)
@@ -61,7 +65,6 @@ class SlackConnector:
         self,
         token: SecretString,
         channels: Sequence[SlackChannel],
-        logger: PortLogger,
         clock: Callable[[], datetime],
         http: SlackHttp | None = None,
         workspace_domain: str | None = None,
@@ -78,7 +81,6 @@ class SlackConnector:
             raise ValueError("page_size must be positive")
         self._token = token
         self._channels = tuple(channels)
-        self._logger = logger
         self._clock = clock
         self._http: SlackHttp = http if http is not None else SlackHttpUrllib()
         self._workspace_domain = workspace_domain
@@ -113,7 +115,7 @@ class SlackConnector:
                     "category": str(history.category),
                     "elapsed_ms": _elapsed_ms(started),
                 }
-                self._logger.error("slack fetch failed", fields=fields, operation=_OPERATION)
+                _LOGGER.error("slack fetch failed", extra={"operation": _OPERATION, "fields": fields})
                 return fail(history.message, history.category)
             for raw in history.value:
                 message = slack_message(raw, channel, self._workspace_domain, fetched_at)
@@ -122,7 +124,7 @@ class SlackConnector:
         messages.sort(key=lambda m: (m.received_at, m.external_id))
         cursor = _advanced(previous, oldest, messages, fetched_at)
         fields = {"channels": len(self._channels), "fetched": len(messages), "elapsed_ms": _elapsed_ms(started)}
-        self._logger.info("slack fetch completed", fields=fields, operation=_OPERATION)
+        _LOGGER.info("slack fetch completed", extra={"operation": _OPERATION, "fields": fields})
         cursors = FetchCursors(workspace_root=since.workspace_root, cursors={**since.cursors, self.SOURCE: cursor})
         return ok(FetchBatch(messages=tuple(messages), cursors=cursors))
 

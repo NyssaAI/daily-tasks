@@ -1,7 +1,11 @@
-# Responsibility: Prove every spec example round-trips through its DTO without data loss.
-# Public interface:
-# (none)
-"""Round-trip parity between `docs/specs/*.json` and the domain DTOs."""
+"""Responsibility: Prove every spec example round-trips through its DTO without data loss.
+Public interface:
++-- SPEC_ADAPTERS
++-- test_spec_example_round_trip_preserves_json(name)
+`-- test_spec_types_cover_every_spec_file()
+
+Round-trip parity between `docs/specs/*.json` and the domain DTOs.
+"""
 
 import json
 

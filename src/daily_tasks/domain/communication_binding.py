@@ -1,20 +1,22 @@
-# Responsibility: Represent an immutable CommunicationBinding DTO.
-# Public interface:
-# `-- CommunicationBinding
-#     +-- adapter
-#     +-- channels
-#     +-- credentials_file
-#     +-- download_attachments
-#     +-- enabled
-#     +-- fetch_limit
-#     +-- max_attachment_bytes
-#     +-- name
-#     +-- package
-#     +-- poll_interval_seconds
-#     +-- read_only
-#     +-- scopes
-#     `-- token_env_var
-"""CommunicationBinding DTO."""
+"""Responsibility: Represent an immutable CommunicationBinding DTO.
+Public interface:
+`-- CommunicationBinding
+    +-- adapter
+    +-- channels
+    +-- credentials_file
+    +-- download_attachments
+    +-- enabled
+    +-- fetch_limit
+    +-- max_attachment_bytes
+    +-- name
+    +-- package
+    +-- poll_interval_seconds
+    +-- read_only
+    +-- scopes
+    `-- token_env_var
+
+CommunicationBinding DTO.
+"""
 
 from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass

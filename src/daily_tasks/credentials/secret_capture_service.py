@@ -1,14 +1,17 @@
-# Responsibility: Capture a secret out-of-band through the configuration store and log only its sanitized receipt.
-# Public interface:
-# `-- SecretCaptureService
-#     +-- capture(namespace, key, prompt_message, preferred_provider, forced_provider, mode, timeout_seconds)
-#     +-- create(options, logger, vaults, keyring, input_provider, status_out)
-#     `-- new(writer, logger, input_provider, status_out)
-"""`ConfigurationClient.capture_secret()` wrapper: the plaintext goes from the user to storage, never to the caller."""
+"""Responsibility: Capture a secret out-of-band through the configuration store and log only its sanitized receipt.
+Public interface:
+`-- SecretCaptureService
+    +-- capture(namespace, key, prompt_message, preferred_provider, forced_provider, mode, timeout_seconds)
+    +-- create(options, vaults, keyring, input_provider, status_out)
+    `-- new(writer, input_provider, status_out)
 
+`ConfigurationClient.capture_secret()` wrapper: the plaintext goes from the user to storage, never to the caller.
+"""
+
+import logging
 import sys
 import time
-from typing import TextIO, final
+from typing import Final, TextIO, final
 
 from nyssa_ai_configuration import (
     AdaptiveSecretInputProvider,
@@ -23,10 +26,10 @@ from nyssa_ai_configuration import (
 )
 from nyssa_ai_result import Result, fail, ok
 
-from daily_tasks.credentials.secret_logger import SecretLogger
 from daily_tasks.credentials.secret_receipt_fields import secret_receipt_fields
 from daily_tasks.credentials.vault_registry import VaultRegistry
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION = "secrets.capture"
 
 
@@ -41,13 +44,11 @@ class SecretCaptureService:
     def __init__(
         self,
         writer: ConfigurationSecretWriter,
-        logger: SecretLogger,
         input_provider: SecretInputProvider | None = None,
         status_out: TextIO | None = None,
     ) -> None:
-        """Borrow `writer` and `logger`; `input_provider=None` picks CLI or loopback input per capture `mode`."""
+        """Borrow `writer`; `input_provider=None` picks CLI or loopback input per capture `mode`."""
         self._writer = writer
-        self._logger = logger
         self._input_provider = input_provider
         self._status_out = status_out if status_out is not None else sys.stderr
 
@@ -55,7 +56,6 @@ class SecretCaptureService:
     def create(
         cls,
         options: BootstrapOptions,
-        logger: SecretLogger,
         vaults: VaultRegistry | None = None,
         keyring: Keyring | None = None,
         input_provider: SecretInputProvider | None = None,
@@ -70,13 +70,19 @@ class SecretCaptureService:
         if options.key_vault is not None:
             found = registry.find(options.key_vault.kind)
             if not found.ok:
-                logger.error("secret store unavailable", fields={"category": "Validation"}, operation=_OPERATION)
+                _LOGGER.error(
+                    "secret store unavailable",
+                    extra={"operation": _OPERATION, "fields": {"category": "Validation"}},
+                )
                 return fail(found.message, found.category)
         client = ConfigurationClient.create(options, keyring=keyring, vault_factories=registry.factories())
         if not client.ok:
-            logger.error("secret store unavailable", fields={"category": str(client.category)}, operation=_OPERATION)
+            _LOGGER.error(
+                "secret store unavailable",
+                extra={"operation": _OPERATION, "fields": {"category": str(client.category)}},
+            )
             return client
-        return ok(cls(client.value, logger, input_provider, status_out))
+        return ok(cls(client.value, input_provider, status_out))
 
     def capture(
         self,
@@ -110,8 +116,8 @@ class SecretCaptureService:
         elapsed_ms = round((time.monotonic() - started) * 1000, 3)
         if not captured.ok:
             fields = {"namespace": namespace, "key": key, "category": str(captured.category), "elapsed_ms": elapsed_ms}
-            self._logger.warn("secret not captured", fields=fields, operation=_OPERATION)
+            _LOGGER.warning("secret not captured", extra={"operation": _OPERATION, "fields": fields})
             return captured
         receipt_fields: dict[str, object] = {**secret_receipt_fields(captured.value), "elapsed_ms": elapsed_ms}
-        self._logger.debug("secret captured", fields=receipt_fields, operation=_OPERATION)
+        _LOGGER.debug("secret captured", extra={"operation": _OPERATION, "fields": receipt_fields})
         return captured

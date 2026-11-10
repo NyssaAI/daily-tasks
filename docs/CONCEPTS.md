@@ -34,6 +34,14 @@ The checklist criteria defining the completion requirements for a milestone or t
 
 Criteria are canonically embedded within the task or milestone record under a `## Definition of Done` heading. Each criterion carries a stable identity comment (`<!-- id: UUID -->`).
 
+### Planning Session
+A bounded, stateful three-screen interaction (`Screen 1` suggestion review, `Screen 2` per-project day assignment, `Screen 3` confirmation recap) driven over MCP (`PlanningSessionPort`) that stages user verdicts and operations in memory and writes to disk only upon explicit confirmation.
+*Avoid:* Background sync, auto-planner, chat state
+
+### Workspace
+An absolute root directory owning a user's canonical project records (`projectsRoot`), dated daily plans (`dailyPlansRelative`), and `.nyssa-ai/daily-tasks/` operating state (`profile.json`, `decision-log.json`, `fetch-cursors.json`, `suggestions.json`).
+*Avoid:* Current working directory (`cwd`), relative repo root
+
 ## Retired
 
 - **Standalone Definition of Done (DoD)**: An obsolete separate markdown record type (`type: dod`) previously linked from milestones; removed in favor of embedded checklist criteria.

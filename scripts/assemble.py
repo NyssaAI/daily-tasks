@@ -1,10 +1,11 @@
-# Responsibility: Assemble host plugin manifests and distribution bundles from canonical skills and Python sources.
-# Public interface:
-# +-- ROOT
-# +-- assemble(argv)
-# +-- build_packages()
-# +-- digest(files)
-# `-- tree(directory, prefix, exclude_private)
+"""Responsibility: Assemble host plugin manifests and distribution bundles from canonical skills and Python sources.
+Public interface:
++-- ROOT
++-- assemble(argv)
++-- build_packages()
++-- digest(files)
+`-- tree(directory, prefix, exclude_private)
+"""
 
 from __future__ import annotations
 
@@ -16,6 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 _EXCLUDED_DIRS = frozenset({".nyssa-ai", ".temp", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"})
+_EXCLUDED_PRIVATE_FILES = frozenset({"CODE_MAP.md"})
 
 
 def _encode_json(value: object) -> str:
@@ -30,7 +32,7 @@ def tree(directory: Path, prefix: str = "", exclude_private: bool = False) -> di
     for item in sorted(directory.iterdir(), key=lambda p: p.name):
         if item.name in {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}:
             continue
-        if exclude_private and item.name in _EXCLUDED_DIRS:
+        if exclude_private and (item.name in _EXCLUDED_DIRS or item.name in _EXCLUDED_PRIVATE_FILES):
             continue
         name = f"{prefix}{item.name}"
         if item.is_symlink():
@@ -46,7 +48,7 @@ def digest(files: dict[str, str]) -> str:
     """Compute a deterministic SHA-256 digest over a sorted file mapping."""
     hasher = hashlib.sha256()
     for name, value in sorted(files.items()):
-        hasher.update(f"{name}\0{value}\0".encode("utf-8"))
+        hasher.update(f"{name}\0{value}\0".encode())
     return hasher.hexdigest()
 
 
@@ -70,6 +72,28 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
         ".codex-plugin/plugin.json": _encode_json(codex_manifest),
     }
 
+    portable_mcp = _encode_json(
+        {
+            "mcpServers": {
+                "daily-tasks": {
+                    "command": "uv",
+                    "args": ["run", "daily-tasks-mcp"],
+                }
+            }
+        }
+    )
+    antigravity_mcp = _encode_json(
+        {
+            "mcpServers": {
+                "daily-tasks": {
+                    "command": "uv",
+                    "args": ["run", "daily-tasks-mcp"],
+                    "disabled": False,
+                }
+            }
+        }
+    )
+
     shared: dict[str, str] = {
         "plugin.json": _encode_json(identity),
         "LICENSE": (ROOT / "LICENSE").read_text(encoding="utf-8").replace("\r\n", "\n"),
@@ -78,22 +102,22 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
     for folder in ("skills", "src"):
         shared.update(tree(ROOT / folder, f"{folder}/", exclude_private=True))
 
-    portable = {**shared, **manifests}
+    claude_mcp = (ROOT / ".mcp.json").read_text(encoding="utf-8").replace("\r\n", "\n")
+    portable = {**shared, ".mcp.json": claude_mcp, "mcp.json": portable_mcp, **manifests}
     antigravity = {
         **shared,
         "plugin.json": _encode_json({"name": identity["name"], "description": identity["description"]}),
+        "mcp_config.json": antigravity_mcp,
     }
-    cowork = dict(portable)
+    cowork = {**shared, ".mcp.json": claude_mcp, **manifests}
     hermes = {k: v for k, v in shared.items() if k != "plugin.json"}
+    hermes["mcp.json"] = portable_mcp
     hermes["plugin.yaml"] = (
         f'name: daily-tasks\nversion: "{identity["version"]}"\n'
         f"description: {json.dumps(identity['description'])}\n"
     )
-    hermes["__init__.py"] = (
-        "from pathlib import Path\n\n"
-        "def register(ctx):\n"
-        '    for skill in sorted((Path(__file__).resolve().parent / "skills").glob("*/SKILL.md")):\n'
-        "        ctx.register_skill(skill.parent.name, skill)\n"
+    hermes["__init__.py"] = (ROOT / "adapters" / "hermes" / "__init__.py").read_text(encoding="utf-8").replace(
+        "\r\n", "\n"
     )
 
     packages: dict[str, dict[str, str]] = {

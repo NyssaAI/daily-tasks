@@ -1,14 +1,16 @@
-# Responsibility: Represent an immutable StateGraph DTO.
-# Public interface:
-# `-- StateGraph
-#     +-- context
-#     +-- derived
-#     +-- diagnostics
-#     +-- index
-#     +-- note
-#     +-- records
-#     `-- tree
-"""StateGraph DTO."""
+"""Responsibility: Represent an immutable StateGraph DTO.
+Public interface:
+`-- StateGraph
+    +-- context
+    +-- derived
+    +-- diagnostics
+    +-- index
+    +-- note
+    +-- records
+    `-- tree
+
+StateGraph DTO.
+"""
 
 from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass

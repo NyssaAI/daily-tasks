@@ -1,8 +1,10 @@
-# Responsibility: Correlate unprocessed messages with tasks and blockers through deterministic rules.
-# Public interface:
-# +-- LINK_CONFIDENCE
-# `-- match_messages(graph, messages, processed_ids)
-"""Pure, deterministic message pre-matching: record ids, wiki links, titles, threads and assignees."""
+"""Responsibility: Correlate unprocessed messages with tasks and blockers through deterministic rules.
+Public interface:
++-- LINK_CONFIDENCE
+`-- match_messages(graph, messages, processed_ids)
+
+Pure, deterministic message pre-matching: record ids, wiki links, titles, threads and assignees.
+"""
 
 from collections.abc import Collection, Iterable, Mapping, Sequence
 from types import MappingProxyType

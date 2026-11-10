@@ -1,7 +1,14 @@
-# Responsibility: Prove the DTOs reject non-UTC timestamps, non-UUIDv7 ids and unknown fields.
-# Public interface:
-# (none)
-"""Boundary validation rules shared by every domain DTO."""
+"""Responsibility: Prove the DTOs reject non-UTC timestamps, non-UUIDv7 ids and unknown fields.
+Public interface:
++-- test_operations_kind_selects_operation_type()
++-- test_project_non_utc_timestamp_is_rejected(timestamp)
++-- test_project_non_uuid7_id_is_rejected(record_id)
++-- test_project_unknown_field_is_rejected()
++-- test_project_utc_offset_timestamp_is_accepted()
+`-- test_tool_results_status_selects_result_type()
+
+Boundary validation rules shared by every domain DTO.
+"""
 
 import pytest
 from pydantic import JsonValue, TypeAdapter, ValidationError

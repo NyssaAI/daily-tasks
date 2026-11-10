@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable GraphUser DTO.
-# Public interface:
-# `-- GraphUser
-#     +-- email
-#     `-- name
-"""GraphUser DTO."""
+"""Responsibility: Represent an immutable GraphUser DTO.
+Public interface:
+`-- GraphUser
+    +-- email
+    `-- name
+
+GraphUser DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

@@ -1,7 +1,9 @@
-# Responsibility: Map a parsed project index Markdown record onto the Project DTO.
-# Public interface:
-# `-- parse_project(document, location)
-"""Project index parser: frontmatter, description paragraph, milestone headings and blocker table."""
+"""Responsibility: Map a parsed project index Markdown record onto the Project DTO.
+Public interface:
+`-- parse_project(document, location)
+
+Project index parser: frontmatter, description paragraph, milestone headings and blocker table.
+"""
 
 import re
 from typing import Final

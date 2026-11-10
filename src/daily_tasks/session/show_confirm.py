@@ -1,7 +1,9 @@
-# Responsibility: Show the confirm screen with its own row numbers starting at 1.
-# Public interface:
-# `-- show_confirm(state, now)
-"""Enter `s3`: numbers from screens 1 and 2 stop resolving while the recap is current."""
+"""Responsibility: Show the confirm screen with its own row numbers starting at 1.
+Public interface:
+`-- show_confirm(state, now)
+
+Enter `s3`: numbers from screens 1 and 2 stop resolving while the recap is current.
+"""
 
 from datetime import datetime
 

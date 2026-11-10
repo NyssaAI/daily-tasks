@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable PlanItem DTO.
-# Public interface:
-# `-- PlanItem
-#     +-- item_id
-#     `-- item_type
-"""PlanItem DTO."""
+"""Responsibility: Represent an immutable PlanItem DTO.
+Public interface:
+`-- PlanItem
+    +-- item_id
+    `-- item_type
+
+PlanItem DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

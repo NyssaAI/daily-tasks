@@ -1,7 +1,8 @@
-# Responsibility: Validate one user operation against the state graph and apply it without side effects.
-# Public interface:
-# `-- apply_operation(graph, operation, context)
-"""Pure execution of one `assign-to-day`, `unplan`, `set-status` or `reassign` operation.
+"""Responsibility: Validate one user operation against the state graph and apply it without side effects.
+Public interface:
+`-- apply_operation(graph, operation, context)
+
+Pure execution of one `assign-to-day`, `unplan`, `set-status` or `reassign` operation.
 
 `assign-to-day` and `unplan` change only the daily plan (no record change is staged);
 `set-status` and `reassign` stage a record change for the record file.

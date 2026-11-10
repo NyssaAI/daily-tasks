@@ -1,23 +1,25 @@
-# Responsibility: Represent an immutable Message DTO.
-# Public interface:
-# `-- Message
-#     +-- attachments
-#     +-- body
-#     +-- body_format
-#     +-- cc
-#     +-- channel
-#     +-- external_id
-#     +-- fetched_at
-#     +-- id
-#     +-- received_at
-#     +-- sender
-#     +-- snippet
-#     +-- source
-#     +-- subject
-#     +-- thread_id
-#     +-- to
-#     `-- url
-"""Message DTO."""
+"""Responsibility: Represent an immutable Message DTO.
+Public interface:
+`-- Message
+    +-- attachments
+    +-- body
+    +-- body_format
+    +-- cc
+    +-- channel
+    +-- external_id
+    +-- fetched_at
+    +-- id
+    +-- received_at
+    +-- sender
+    +-- snippet
+    +-- source
+    +-- subject
+    +-- thread_id
+    +-- to
+    `-- url
+
+Message DTO.
+"""
 
 from pydantic import Field
 from pydantic.dataclasses import dataclass

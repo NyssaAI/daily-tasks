@@ -1,7 +1,25 @@
-# Responsibility: Prove the planning session lifecycle moves through its screens with stable row numbers.
-# Public interface:
-# (none)
-"""Planning session transitions, numbering rules, row resolution and snapshot parity."""
+"""Responsibility: Prove the planning session lifecycle moves through its screens with stable row numbers.
+Public interface:
++-- NOW
++-- PROJECT_1
++-- PROJECT_2
++-- SESSION_ID
++-- test_add_suggestions_later_keeps_existing_numbers()
++-- test_add_suggestions_twice_does_not_duplicate_rows()
++-- test_cancel_session_from_running_stage_is_terminal(stage)
++-- test_confirm_session_stamps_confirmed_at_and_keeps_suggestions_pending()
++-- test_finish_assign_days_renumbers_confirm_rows_from_one()
++-- test_next_project_takes_next_free_numbers_and_last_project_refuses()
++-- test_resolve_row_number_from_another_screen_is_refused()
++-- test_review_projects_continues_session_numbering_with_labels()
++-- test_session_snapshot_round_trips_as_planning_session()
++-- test_start_session_numbers_plan_then_pending_suggestions()
++-- test_start_session_previous_plan_carries_open_tasks_forward()
++-- test_start_session_twice_returns_conflict()
+`-- test_transition_from_wrong_stage_returns_conflict_naming_next_step(stage, transition, expected_hint)
+
+Planning session transitions, numbering rules, row resolution and snapshot parity.
+"""
 
 import dataclasses
 from collections.abc import Mapping

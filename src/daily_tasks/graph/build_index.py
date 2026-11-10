@@ -1,7 +1,9 @@
-# Responsibility: Build the relation and lookup layer of the state graph.
-# Public interface:
-# `-- build_index(records, relations, tree, settings)
-"""Parent links, two-way relations, path/person/term lookups and file hashes, keyed by record id."""
+"""Responsibility: Build the relation and lookup layer of the state graph.
+Public interface:
+`-- build_index(records, relations, tree, settings)
+
+Parent links, two-way relations, path/person/term lookups and file hashes, keyed by record id.
+"""
 
 from collections.abc import Iterable
 from uuid import UUID

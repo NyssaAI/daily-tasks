@@ -1,7 +1,9 @@
-# Responsibility: Project the source records onto the flat records layer of the state graph.
-# Public interface:
-# `-- build_record_nodes(records)
-"""Record fields the graph keeps in memory, keyed by id; daily plans keyed by local date."""
+"""Responsibility: Project the source records onto the flat records layer of the state graph.
+Public interface:
+`-- build_record_nodes(records)
+
+Record fields the graph keeps in memory, keyed by id; daily plans keyed by local date.
+"""
 
 from daily_tasks.domain import BlockerNode, DailyPlan, MilestoneNode, PlanNode, ProjectNode, StateGraphRecords, TaskNode
 from daily_tasks.graph.types import GraphRecords

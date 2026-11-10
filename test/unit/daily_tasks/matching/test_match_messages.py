@@ -1,7 +1,23 @@
-# Responsibility: Prove messages are linked to tasks and blockers by deterministic, scored rules.
-# Public interface:
-# (none)
-"""Message correlation by record id, wiki link, title, thread and assignee."""
+"""Responsibility: Prove messages are linked to tasks and blockers by deterministic, scored rules.
+Public interface:
++-- BACKGROUND_TASK
++-- GMAIL_TASK
++-- SLACK_TASK
++-- VENDOR_BLOCKER
++-- test_match_messages_known_thread_and_assignee_sender_link_with_reasoning()
++-- test_match_messages_normalized_title_substring_links_task_and_blocker()
++-- test_match_messages_processed_and_repeated_messages_are_dropped()
++-- test_match_messages_record_id_in_body_links_with_full_confidence()
++-- test_match_messages_ref_comment_in_subject_links_record()
++-- test_match_messages_same_input_returns_identical_output()
++-- test_match_messages_sender_assigned_many_tasks_only_corroborates()
++-- test_match_messages_sender_assigned_one_open_task_links_weakly()
++-- test_match_messages_title_inside_longer_word_does_not_match()
++-- test_match_messages_unknown_record_id_is_ignored()
+`-- test_match_messages_wiki_link_to_record_file_corroborated_by_title()
+
+Message correlation by record id, wiki link, title, thread and assignee.
+"""
 
 from uuid import UUID
 

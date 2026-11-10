@@ -1,10 +1,17 @@
-# Responsibility: Prove ConfirmPlan commits record changes then the daily plan only after explicit confirmation.
-# Public interface:
-# (none)
-"""Confirm-plan persistence order and refusal through an in-memory LocalFileStore fake."""
+"""Responsibility: Prove ConfirmPlan commits record changes then the daily plan only after explicit confirmation.
+Public interface:
++-- GMAIL_PATH
++-- GMAIL_TASK
++-- NOW
++-- test_confirm_plan_confirmed_applies_changes_then_writes_plan(log_capture)
++-- test_confirm_plan_conflict_stops_plan_write(log_capture)
+`-- test_confirm_plan_not_confirmed_writes_nothing(log_capture)
+
+Confirm-plan persistence order and refusal through an in-memory LocalFileStore fake.
+"""
 
 import dataclasses
-from collections.abc import Mapping, Sequence
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from itertools import count
@@ -13,7 +20,7 @@ from uuid import UUID
 from nyssa_ai_result import Result, fail, ok
 from pydantic import TypeAdapter
 
-from conftest import load_spec
+from conftest import LogCapture, load_spec
 from daily_tasks.domain import (
     DailyPlan,
     DecisionLogEntry,
@@ -30,29 +37,6 @@ from daily_tasks.storage.cst import DailyPlanDocument
 NOW = datetime(2026, 11, 3, 14, 24, tzinfo=UTC)
 GMAIL_TASK = UUID("019a4b2c-1f00-7a10-8000-000000000003")
 GMAIL_PATH = "2026.10.20-daily-tasks-mcp-server/m2-planning-session-spike/t1-wire-gmail-connector.md"
-
-
-@dataclass
-class _RecordingLogger:
-    records: list[tuple[str, str, Mapping[str, object]]] = field(default_factory=list)
-
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("debug", message, fields or {}))
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("info", message, fields or {}))
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("warn", message, fields or {}))
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        self.records.append(("error", message, fields or {}))
 
 
 @dataclass
@@ -115,35 +99,35 @@ def _staged_changes() -> tuple[RecordChange, ...]:
     return result.value.changes
 
 
-def test_confirm_plan_confirmed_applies_changes_then_writes_plan() -> None:
-    store, logger = _MemoryStore(), _RecordingLogger()
+def test_confirm_plan_confirmed_applies_changes_then_writes_plan(log_capture: LogCapture) -> None:
+    store = _MemoryStore()
     changes = _staged_changes()
 
-    result = ConfirmPlan(store, logger).confirm(changes, _document(), confirmed_by_user=True)
+    result = ConfirmPlan(store).confirm(changes, _document(), confirmed_by_user=True)
 
     assert result.ok and result.value == "daily-plans/2026.11.03-daily-plan.md"
     assert store.writes == ["apply", "plan"]
     assert [c.status for c in store.applied] == ["applied"]
-    assert [(level, msg) for level, msg, _ in logger.records] == [("info", "plan confirmed")]
-    assert logger.records[0][2]["changes"] == 1
+    assert [(level, msg) for level, msg, _ in log_capture.records] == [("info", "plan confirmed")]
+    assert log_capture.records[0][2]["changes"] == 1
 
 
-def test_confirm_plan_not_confirmed_writes_nothing() -> None:
-    store, logger = _MemoryStore(), _RecordingLogger()
+def test_confirm_plan_not_confirmed_writes_nothing(log_capture: LogCapture) -> None:
+    store = _MemoryStore()
 
-    result = ConfirmPlan(store, logger).confirm(_staged_changes(), _document(), confirmed_by_user=False)
+    result = ConfirmPlan(store).confirm(_staged_changes(), _document(), confirmed_by_user=False)
 
     assert not result.ok
     assert "not_confirmed" in result.message and result.category == "Forbidden"
     assert store.writes == []
-    assert logger.records[0][0] == "warn"
+    assert log_capture.records[0][0] == "warn"
 
 
-def test_confirm_plan_conflict_stops_plan_write() -> None:
-    store, logger = _MemoryStore(file_hashes={GMAIL_PATH: "sha256:edited-outside"}), _RecordingLogger()
+def test_confirm_plan_conflict_stops_plan_write(log_capture: LogCapture) -> None:
+    store = _MemoryStore(file_hashes={GMAIL_PATH: "sha256:edited-outside"})
 
-    result = ConfirmPlan(store, logger).confirm(_staged_changes(), _document(), confirmed_by_user=True)
+    result = ConfirmPlan(store).confirm(_staged_changes(), _document(), confirmed_by_user=True)
 
     assert not result.ok and result.category == "Conflict"
     assert store.writes == []
-    assert logger.records[0][0] == "error" and logger.records[0][2]["category"] == "Conflict"
+    assert log_capture.records[0][0] == "error" and log_capture.records[0][2]["category"] == "Conflict"

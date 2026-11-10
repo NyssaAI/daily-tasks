@@ -1,5 +1,7 @@
 # Daily Tasks
 
+Version **0.10.1**
+
 Personal task management and daily planning through an encapsulated `daily-tasks` agent skill,
 five focused workflows, and a deterministic Python Model Context Protocol (MCP) planning server.
 Maintain projects, milestones, tasks and external blockers in editable Markdown; review your own
@@ -72,21 +74,24 @@ See [MCP & CLI contract](skills/daily-tasks/references/cli.md), [record conventi
 and [reconciliation](skills/daily-tasks/references/operations.md).
 
 Install a host bundle from the [latest release](https://github.com/NyssaAI/daily-tasks/releases/latest),
-or build from source with `python scripts/assemble.py write`. Generated bundles and
-dot-prefixed directories are not tracked in Git; a source checkout must be assembled
-before host installation. `artifacts/portable` contains the portable/Codex/Claude/Cursor
-bundle, `artifacts/cowork` contains the Cowork bundle, and `artifacts/antigravity` and
-`artifacts/hermes` provide host-specific manifests.
+or build from source with `python scripts/assemble.py write`. Generated artifact bundles (`artifacts/`)
+and workspace tool dot-directories are not tracked in Git, while canonical root host harnesses
+(`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`) are assembled from `plugin.json`; a source
+checkout should run `python scripts/assemble.py write` before host installation. `artifacts/portable`
+contains the portable/Codex/Claude/Cursor bundle, `artifacts/cowork` contains the Cowork bundle, and
+`artifacts/antigravity` and `artifacts/hermes` provide host-specific manifests and MCP configurations.
 
 ## Verification
 
 ```text
 python -m mypy --strict src
-python -m pytest test/unit
-python .nyssa-ai/dev-standards/python/scripts/check_adoption.py . --run
+python -m ruff check .
+python -m pytest test/unit test/use_case
 python scripts/assemble.py write
 python scripts/assemble.py check
 python scripts/validate.py
 ```
+
+Contributors with the `dev-standards` plugin installed can sync and run the local structural standards suite via `python <dev-standards-plugin>/src/python/check_adoption.py . --sync` followed by `python .nyssa-ai/dev-standards/python/scripts/check_adoption.py . --run` (`.nyssa-ai/` remains gitignored to preserve clean plugin packaging).
 
 Canonical procedures and templates live under [skills/](skills/).

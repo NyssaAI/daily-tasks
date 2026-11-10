@@ -1,7 +1,15 @@
-# Responsibility: Prove matched messages project into a MessageGraph that round-trips through the spec DTO.
-# Public interface:
-# (none)
-"""Message graph assembly: records, threads, links, review queue and summary."""
+"""Responsibility: Prove matched messages project into a MessageGraph that round-trips through the spec DTO.
+Public interface:
++-- GMAIL_TASK
++-- SOURCES
++-- THREAD
++-- test_build_message_graph_links_indexed_by_message_and_record()
++-- test_build_message_graph_round_trips_through_json()
++-- test_build_message_graph_summary_counts_linked_and_superseded()
+`-- test_build_message_graph_thread_latest_needs_review_earlier_superseded()
+
+Message graph assembly: records, threads, links, review queue and summary.
+"""
 
 from uuid import UUID
 

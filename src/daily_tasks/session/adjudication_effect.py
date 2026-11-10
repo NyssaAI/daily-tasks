@@ -1,7 +1,8 @@
-# Responsibility: Turn one accepted or edited suggestion into a validated graph change and staged record change.
-# Public interface:
-# `-- adjudication_effect(graph, suggestion, proposed, context)
-"""Pure suggestion effects by kind (`docs/specs/suggestions.json` `_kinds`).
+"""Responsibility: Turn one accepted or edited suggestion into a validated graph change and staged record change.
+Public interface:
+`-- adjudication_effect(graph, suggestion, proposed, context)
+
+Pure suggestion effects by kind (`docs/specs/suggestions.json` `_kinds`).
 
 - `status` and `blocker` with `action: resolve` -> validated `set-status`;
 - `dod` -> checks DoD items (`proposed.dod` maps item id to true) and updates DoD progress;

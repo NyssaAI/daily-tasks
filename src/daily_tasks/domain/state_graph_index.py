@@ -1,19 +1,21 @@
-# Responsibility: Represent an immutable StateGraphIndex DTO.
-# Public interface:
-# `-- StateGraphIndex
-#     +-- blocked_by
-#     +-- blocks
-#     +-- by_path
-#     +-- by_person
-#     +-- depends_on
-#     +-- file_hashes
-#     +-- origin_by_record
-#     +-- parent
-#     +-- project_order
-#     +-- required_by
-#     +-- threads
-#     `-- title_terms
-"""StateGraphIndex DTO."""
+"""Responsibility: Represent an immutable StateGraphIndex DTO.
+Public interface:
+`-- StateGraphIndex
+    +-- blocked_by
+    +-- blocks
+    +-- by_path
+    +-- by_person
+    +-- depends_on
+    +-- file_hashes
+    +-- origin_by_record
+    +-- parent
+    +-- project_order
+    +-- required_by
+    +-- threads
+    `-- title_terms
+
+StateGraphIndex DTO.
+"""
 
 from collections.abc import Mapping
 

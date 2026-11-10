@@ -1,14 +1,16 @@
-# Responsibility: Represent an immutable TaskNode DTO.
-# Public interface:
-# `-- TaskNode
-#     +-- assignee
-#     +-- milestone_id
-#     +-- owner
-#     +-- ref
-#     +-- state
-#     +-- target_date
-#     `-- title
-"""TaskNode DTO."""
+"""Responsibility: Represent an immutable TaskNode DTO.
+Public interface:
+`-- TaskNode
+    +-- assignee
+    +-- milestone_id
+    +-- owner
+    +-- ref
+    +-- state
+    +-- target_date
+    `-- title
+
+TaskNode DTO.
+"""
 
 from datetime import date
 

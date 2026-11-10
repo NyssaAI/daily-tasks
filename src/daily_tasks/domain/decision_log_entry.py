@@ -1,25 +1,27 @@
-# Responsibility: Represent an immutable DecisionLogEntry DTO.
-# Public interface:
-# `-- DecisionLogEntry
-#     +-- action
-#     +-- after
-#     +-- before
-#     +-- corrects
-#     +-- decided_at
-#     +-- decided_by
-#     +-- decision
-#     +-- edits
-#     +-- id
-#     +-- operation_id
-#     +-- origin
-#     +-- original_words
-#     +-- question
-#     +-- record_ids
-#     +-- recorded_at
-#     +-- session_id
-#     +-- time_defaulted
-#     `-- verdict
-"""DecisionLogEntry DTO."""
+"""Responsibility: Represent an immutable DecisionLogEntry DTO.
+Public interface:
+`-- DecisionLogEntry
+    +-- action
+    +-- after
+    +-- before
+    +-- corrects
+    +-- decided_at
+    +-- decided_by
+    +-- decision
+    +-- edits
+    +-- id
+    +-- operation_id
+    +-- origin
+    +-- original_words
+    +-- question
+    +-- record_ids
+    +-- recorded_at
+    +-- session_id
+    +-- time_defaulted
+    `-- verdict
+
+DecisionLogEntry DTO.
+"""
 
 from collections.abc import Mapping
 from typing import Literal

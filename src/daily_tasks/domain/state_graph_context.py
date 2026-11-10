@@ -1,16 +1,18 @@
-# Responsibility: Represent an immutable StateGraphContext DTO.
-# Public interface:
-# `-- StateGraphContext
-#     +-- built_at
-#     +-- daily_plans_root
-#     +-- inventory_hash
-#     +-- local_date
-#     +-- projects_root
-#     +-- sources
-#     +-- timezone
-#     +-- user
-#     `-- workspace_root
-"""StateGraphContext DTO."""
+"""Responsibility: Represent an immutable StateGraphContext DTO.
+Public interface:
+`-- StateGraphContext
+    +-- built_at
+    +-- daily_plans_root
+    +-- inventory_hash
+    +-- local_date
+    +-- projects_root
+    +-- sources
+    +-- timezone
+    +-- user
+    `-- workspace_root
+
+StateGraphContext DTO.
+"""
 
 from datetime import date
 

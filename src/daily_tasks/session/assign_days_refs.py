@@ -1,7 +1,9 @@
-# Responsibility: Choose the rows screen 2 (assign days) lists for one project, in display order.
-# Public interface:
-# `-- assign_days_refs(graph, project_id, include_in_progress)
-"""Open tasks of the plannable milestones, then the project's open blockers."""
+"""Responsibility: Choose the rows screen 2 (assign days) lists for one project, in display order.
+Public interface:
+`-- assign_days_refs(graph, project_id, include_in_progress)
+
+Open tasks of the plannable milestones, then the project's open blockers.
+"""
 
 from uuid import UUID
 

@@ -1,7 +1,9 @@
-# Responsibility: Filter host-fetched messages against the shared cursors and advance them like a connector.
-# Public interface:
-# `-- ingest_harness_messages(messages, since, now, initial_lookback_days, checked_sources)
-"""Messages read through an assistant harness connection follow the same cursor rules as `GmailConnector`."""
+"""Responsibility: Filter host-fetched messages against the shared cursors and advance them like a connector.
+Public interface:
+`-- ingest_harness_messages(messages, since, now, initial_lookback_days, checked_sources)
+
+Messages read through an assistant harness connection follow the same cursor rules as `GmailConnector`.
+"""
 
 from collections.abc import Sequence
 from datetime import datetime

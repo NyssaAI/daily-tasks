@@ -1,8 +1,10 @@
-# Responsibility: Define the HTTP GET the Gmail connector needs from its transport.
-# Public interface:
-# `-- GmailHttp
-#     `-- get(url, headers, timeout_seconds)
-"""Narrow transport contract so the Gmail connector runs offline in tests."""
+"""Responsibility: Define the HTTP GET the Gmail connector needs from its transport.
+Public interface:
+`-- GmailHttp
+    `-- get(url, headers, timeout_seconds)
+
+Narrow transport contract so the Gmail connector runs offline in tests.
+"""
 
 from collections.abc import Mapping
 from typing import Protocol

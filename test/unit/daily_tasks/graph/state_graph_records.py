@@ -1,15 +1,17 @@
-# Responsibility: Build small, valid project and daily plan records for state graph tests.
-# Public interface:
-# +-- BUILT_AT
-# +-- SETTINGS
-# +-- USER
-# +-- blocker(number, title, blocks, project_id, state, owner)
-# +-- milestone(number, title, state, project_id, done)
-# +-- plan(local_date, entries)
-# +-- project(number, title, directory_date, state)
-# +-- record_id(number)
-# `-- task(number, milestone_id, title, state, owner, assignee, target_date, done, depends_on, blocked_by)
-"""Record factories with readable defaults; ids are UUIDv7 values numbered by `record_id`."""
+"""Responsibility: Build small, valid project and daily plan records for state graph tests.
+Public interface:
++-- BUILT_AT
++-- SETTINGS
++-- USER
++-- blocker(number, title, blocks, project_id, state, owner)
++-- milestone(number, title, state, project_id, done)
++-- plan(local_date, entries)
++-- project(number, title, directory_date, state)
++-- record_id(number)
+`-- task(number, milestone_id, title, state, owner, assignee, target_date, done, depends_on, blocked_by)
+
+Record factories with readable defaults; ids are UUIDv7 values numbered by `record_id`.
+"""
 
 from collections.abc import Sequence
 from datetime import UTC, date, datetime

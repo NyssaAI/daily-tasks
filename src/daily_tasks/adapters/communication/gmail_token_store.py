@@ -1,9 +1,11 @@
-# Responsibility: Define the sealed OAuth grant storage Gmail sign-in needs.
-# Public interface:
-# `-- GmailTokenStore
-#     +-- authorize(namespace, key, options, browser_launcher)
-#     `-- get(namespace, key)
-"""Covering contract over `nyssa_ai_configuration.ConfigurationClient` OAuth entries."""
+"""Responsibility: Define the sealed OAuth grant storage Gmail sign-in needs.
+Public interface:
+`-- GmailTokenStore
+    +-- authorize(namespace, key, options, browser_launcher)
+    `-- get(namespace, key)
+
+Covering contract over `nyssa_ai_configuration.ConfigurationClient` OAuth entries.
+"""
 
 from typing import Protocol
 

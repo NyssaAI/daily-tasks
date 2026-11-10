@@ -1,15 +1,17 @@
-# Responsibility: Represent an immutable PortConfig DTO.
-# Public interface:
-# `-- PortConfig
-#     +-- credentials_root
-#     +-- description
-#     +-- messages_root
-#     +-- ports
-#     +-- schema
-#     +-- title
-#     +-- type
-#     `-- workspace_root
-"""PortConfig DTO."""
+"""Responsibility: Represent an immutable PortConfig DTO.
+Public interface:
+`-- PortConfig
+    +-- credentials_root
+    +-- description
+    +-- messages_root
+    +-- ports
+    +-- schema
+    +-- title
+    +-- type
+    `-- workspace_root
+
+PortConfig DTO.
+"""
 
 from pydantic import MISSING, Field
 from pydantic.dataclasses import dataclass

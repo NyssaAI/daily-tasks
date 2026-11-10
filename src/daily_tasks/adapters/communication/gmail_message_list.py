@@ -1,9 +1,11 @@
-# Responsibility: Validate one page of a Gmail `users.messages.list` response.
-# Public interface:
-# `-- GmailMessageList
-#     +-- messages
-#     `-- nextPageToken
-"""Gmail list page wire shape; each entry holds only the message and thread ids."""
+"""Responsibility: Validate one page of a Gmail `users.messages.list` response.
+Public interface:
+`-- GmailMessageList
+    +-- messages
+    `-- nextPageToken
+
+Gmail list page wire shape; each entry holds only the message and thread ids.
+"""
 
 from collections.abc import Mapping
 

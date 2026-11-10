@@ -1,12 +1,14 @@
-# Responsibility: Define the lossless concrete syntax tree of a Markdown record.
-# Public interface:
-# `-- MarkdownDocument
-#     +-- checklist_items
-#     +-- frontmatter
-#     +-- lines
-#     +-- sections
-#     `-- table_rows
-"""CST root: every source line is kept with its line ending so unedited bytes round-trip unchanged."""
+"""Responsibility: Define the lossless concrete syntax tree of a Markdown record.
+Public interface:
+`-- MarkdownDocument
+    +-- checklist_items
+    +-- frontmatter
+    +-- lines
+    +-- sections
+    `-- table_rows
+
+CST root: every source line is kept with its line ending so unedited bytes round-trip unchanged.
+"""
 
 from dataclasses import dataclass
 

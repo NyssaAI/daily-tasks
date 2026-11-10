@@ -1,10 +1,12 @@
-# Responsibility: Validate the body of one Gmail message part.
-# Public interface:
-# `-- GmailPartBody
-#     +-- attachmentId
-#     +-- data
-#     `-- size
-"""Gmail `MessagePartBody` wire shape; `data` is base64url-encoded."""
+"""Responsibility: Validate the body of one Gmail message part.
+Public interface:
+`-- GmailPartBody
+    +-- attachmentId
+    +-- data
+    `-- size
+
+Gmail `MessagePartBody` wire shape; `data` is base64url-encoded.
+"""
 
 from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass

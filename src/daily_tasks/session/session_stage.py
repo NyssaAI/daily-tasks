@@ -1,13 +1,15 @@
-# Responsibility: Name the lifecycle stages of a planning session.
-# Public interface:
-# `-- SessionStage
-#     +-- CANCELLED
-#     +-- CONFIRMED
-#     +-- INIT
-#     +-- SCREEN_1
-#     +-- SCREEN_2
-#     `-- SCREEN_3
-"""Planning session stages: plan-the-day, assign-days, confirm, and the two terminal stages."""
+"""Responsibility: Name the lifecycle stages of a planning session.
+Public interface:
+`-- SessionStage
+    +-- CANCELLED
+    +-- CONFIRMED
+    +-- INIT
+    +-- SCREEN_1
+    +-- SCREEN_2
+    `-- SCREEN_3
+
+Planning session stages: plan-the-day, assign-days, confirm, and the two terminal stages.
+"""
 
 from enum import StrEnum
 

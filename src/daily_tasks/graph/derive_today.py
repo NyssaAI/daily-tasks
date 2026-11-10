@@ -1,7 +1,9 @@
-# Responsibility: Compute today's selection, available work and work planned for later days.
-# Public interface:
-# `-- derive_today(records, task_facts, local_date)
-"""Today's sections from the plan for the local date, open unselected tasks and future plans."""
+"""Responsibility: Compute today's selection, available work and work planned for later days.
+Public interface:
+`-- derive_today(records, task_facts, local_date)
+
+Today's sections from the plan for the local date, open unselected tasks and future plans.
+"""
 
 from collections.abc import Mapping
 from datetime import date

@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable DroppedTask DTO.
-# Public interface:
-# `-- DroppedTask
-#     +-- reason
-#     `-- task_id
-"""DroppedTask DTO."""
+"""Responsibility: Represent an immutable DroppedTask DTO.
+Public interface:
+`-- DroppedTask
+    +-- reason
+    `-- task_id
+
+DroppedTask DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

@@ -1,7 +1,9 @@
-# Responsibility: Represent an immutable Operation DTO.
-# Public interface:
-# `-- Operation
-"""Operation DTO."""
+"""Responsibility: Represent an immutable Operation DTO.
+Public interface:
+`-- Operation
+
+Operation DTO.
+"""
 
 from typing import Annotated
 

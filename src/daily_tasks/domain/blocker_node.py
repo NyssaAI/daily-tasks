@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable BlockerNode DTO.
-# Public interface:
-# `-- BlockerNode
-#     +-- owner
-#     +-- project_id
-#     +-- ref
-#     +-- state
-#     `-- title
-"""BlockerNode DTO."""
+"""Responsibility: Represent an immutable BlockerNode DTO.
+Public interface:
+`-- BlockerNode
+    +-- owner
+    +-- project_id
+    +-- ref
+    +-- state
+    `-- title
+
+BlockerNode DTO.
+"""
 
 from pydantic import MISSING, UUID7, Field
 from pydantic.dataclasses import dataclass

@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable MessageGraphContext DTO.
-# Public interface:
-# `-- MessageGraphContext
-#     +-- built_at
-#     +-- messages_root
-#     +-- sources
-#     +-- state_graph_hash
-#     `-- status
-"""MessageGraphContext DTO."""
+"""Responsibility: Represent an immutable MessageGraphContext DTO.
+Public interface:
+`-- MessageGraphContext
+    +-- built_at
+    +-- messages_root
+    +-- sources
+    +-- state_graph_hash
+    `-- status
+
+MessageGraphContext DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

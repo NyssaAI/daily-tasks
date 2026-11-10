@@ -1,7 +1,9 @@
-# Responsibility: Compute planning facts for every blocker.
-# Public interface:
-# `-- derive_blocker_facts(records, local_date)
-"""Planned day, owner and state per blocker."""
+"""Responsibility: Compute planning facts for every blocker.
+Public interface:
+`-- derive_blocker_facts(records, local_date)
+
+Planned day, owner and state per blocker.
+"""
 
 from datetime import date
 from uuid import UUID

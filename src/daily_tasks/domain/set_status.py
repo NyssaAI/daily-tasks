@@ -1,15 +1,17 @@
-# Responsibility: Represent an immutable SetStatus DTO.
-# Public interface:
-# `-- SetStatus
-#     +-- activity_at
-#     +-- child_dispositions
-#     +-- kind
-#     +-- label
-#     +-- record_id
-#     +-- record_type
-#     +-- row
-#     `-- state
-"""SetStatus DTO."""
+"""Responsibility: Represent an immutable SetStatus DTO.
+Public interface:
+`-- SetStatus
+    +-- activity_at
+    +-- child_dispositions
+    +-- kind
+    +-- label
+    +-- record_id
+    +-- record_type
+    +-- row
+    `-- state
+
+SetStatus DTO.
+"""
 
 from collections.abc import Mapping
 from typing import Literal

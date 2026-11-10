@@ -1,13 +1,15 @@
-# Responsibility: Hold the explicitly registered cloud key vault factories secret storage may use.
-# Public interface:
-# `-- VaultRegistry
-#     +-- default()
-#     +-- factories()
-#     +-- find(kind)
-#     +-- kinds()
-#     +-- new(factories)
-#     `-- register(factory)
-"""Pluggable `CloudKeyVaultFactory` registry; factories are registered explicitly, never discovered by scanning."""
+"""Responsibility: Hold the explicitly registered cloud key vault factories secret storage may use.
+Public interface:
+`-- VaultRegistry
+    +-- default()
+    +-- factories()
+    +-- find(kind)
+    +-- kinds()
+    +-- new(factories)
+    `-- register(factory)
+
+Pluggable `CloudKeyVaultFactory` registry; factories are registered explicitly, never discovered by scanning.
+"""
 
 from collections.abc import Iterable
 from typing import final

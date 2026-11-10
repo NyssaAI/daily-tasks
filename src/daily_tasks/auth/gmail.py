@@ -1,13 +1,16 @@
-# Responsibility: Run the interactive Gmail read-only sign-in from the command line.
-# Public interface:
-# +-- APPLICATION_NAME
-# +-- CLIENT_ID_ENV_VAR
-# +-- CLIENT_SECRET_ENV_VAR
-# +-- gmail(argv, environ, keyring, http_post, browser_launcher, logger, out)
-# `-- main
-"""`python -m daily_tasks.auth.gmail [--config-dir DIR]`: seal a `gmail.readonly` grant in the keyring store."""
+"""Responsibility: Run the interactive Gmail read-only sign-in from the command line.
+Public interface:
++-- APPLICATION_NAME
++-- CLIENT_ID_ENV_VAR
++-- CLIENT_SECRET_ENV_VAR
++-- gmail(argv, environ, keyring, http_post, browser_launcher, out)
+`-- main
+
+`python -m daily_tasks.auth.gmail [--config-dir DIR]`: seal a `gmail.readonly` grant in the keyring store.
+"""
 
 import argparse
+import logging
 import os
 import sys
 from collections.abc import Callable, Mapping, Sequence
@@ -15,12 +18,11 @@ from pathlib import Path
 from typing import Final, TextIO
 
 from nyssa_ai_configuration import BootstrapOptions, BrowserLauncher, Keyring
-from nyssa_ai_logging import StderrOutputLogger  # type: ignore[import-untyped]  # package ships no py.typed
 from nyssa_ai_result import Result
 
 from daily_tasks.adapters.communication.gmail_oauth import GmailOauth
 from daily_tasks.credentials import SecretResolver
-from daily_tasks.ports import PortLogger
+from daily_tasks.logging_setup import logging_setup
 
 APPLICATION_NAME: Final = "daily-tasks"
 CLIENT_ID_ENV_VAR: Final = "GMAIL_CLIENT_ID"
@@ -33,7 +35,6 @@ def gmail(
     keyring: Keyring | None = None,
     http_post: Callable[[str, Mapping[str, str]], Result[tuple[int, str]]] | None = None,
     browser_launcher: BrowserLauncher | None = None,
-    logger: PortLogger | None = None,
     out: TextIO | None = None,
 ) -> int:
     """Sign in and return 0, or 1 when credentials are missing or sign-in fails (never prints tokens).
@@ -43,11 +44,12 @@ def gmail(
     """
     args = _parser().parse_args(argv)
     env = environ if environ is not None else os.environ
-    log: PortLogger = logger if logger is not None else StderrOutputLogger("daily_tasks.auth.gmail", "Information")
+    if not logging.getLogger("daily_tasks").handlers:
+        logging_setup(env)
     output = out if out is not None else sys.stdout
     config_dir = str(Path(args.config_dir).expanduser().resolve())
     manifest = str(Path(args.manifest).expanduser().resolve()) if args.manifest else None
-    resolver = SecretResolver.create(APPLICATION_NAME, config_dir, log, keyring, env, manifest)
+    resolver = SecretResolver.create(APPLICATION_NAME, config_dir, keyring, env, manifest)
     if not resolver.ok:
         output.write(f"Configuration store unavailable: {resolver.message}\n")
         return 1
@@ -63,7 +65,6 @@ def gmail(
         options,
         client_id.value,
         client_secret.value if client_secret.ok else None,
-        log,
         keyring=keyring,
         http_post=http_post,
         browser_launcher=browser_launcher,

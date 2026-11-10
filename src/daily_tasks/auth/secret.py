@@ -1,15 +1,18 @@
-# Responsibility: Capture secrets and register a cloud key vault out-of-band from the command line.
-# Public interface:
-# +-- APPLICATION_NAME
-# +-- main
-# `-- secret(argv, keyring, vault_registry, input_provider, logger, out, status_out)
-"""`python -m daily_tasks.auth.secret capture|gmail|slack|vault`: store secrets without echoing them.
+"""Responsibility: Capture secrets and register a cloud key vault out-of-band from the command line.
+Public interface:
++-- APPLICATION_NAME
++-- main
+`-- secret(argv, keyring, vault_registry, input_provider, out, status_out)
+
+`python -m daily_tasks.auth.secret capture|gmail|slack|vault`: store secrets without echoing them.
 
 The value is typed into a masked terminal prompt (`--mode cli`) or a one-time loopback browser page
 (`--mode web`); `auto` picks the terminal when stdin is a TTY. Only the sanitized receipt is printed.
 """
 
 import argparse
+import logging
+import os
 import sys
 from collections.abc import Sequence
 from pathlib import Path
@@ -24,9 +27,9 @@ from nyssa_ai_configuration import (
     SecretInputProvider,
     VaultOptions,
 )
-from nyssa_ai_logging import StderrOutputLogger  # type: ignore[import-untyped]  # package ships no py.typed
 
-from daily_tasks.credentials import SecretCaptureService, SecretLogger, VaultRegistry, secret_receipt_fields
+from daily_tasks.credentials import SecretCaptureService, VaultRegistry, secret_receipt_fields
+from daily_tasks.logging_setup import logging_setup
 
 APPLICATION_NAME: Final = "daily-tasks"
 _COMMUNICATION: Final = "communication"
@@ -38,7 +41,6 @@ def secret(
     keyring: Keyring | None = None,
     vault_registry: VaultRegistry | None = None,
     input_provider: SecretInputProvider | None = None,
-    logger: SecretLogger | None = None,
     out: TextIO | None = None,
     status_out: TextIO | None = None,
 ) -> int:
@@ -48,14 +50,15 @@ def secret(
     """
     registry = vault_registry if vault_registry is not None else VaultRegistry.default()
     args = _parser(registry).parse_args(argv)
-    log: SecretLogger = logger if logger is not None else StderrOutputLogger("daily_tasks.auth.secret", "Information")
+    if not logging.getLogger("daily_tasks").handlers:
+        logging_setup(os.environ)
     output = out if out is not None else sys.stdout
     config_dir = str(Path(args.config_dir).expanduser().resolve())
     manifest = str(Path(args.manifest).expanduser().resolve()) if args.manifest else None
     options = BootstrapOptions(
         application_name=APPLICATION_NAME, configuration_directory=config_dir, manifest_path=manifest
     )
-    service = SecretCaptureService.create(options, log, registry, keyring, input_provider, status_out)
+    service = SecretCaptureService.create(options, registry, keyring, input_provider, status_out)
     if not service.ok:
         output.write(f"Configuration store unavailable: {service.message}\n")
         return 1

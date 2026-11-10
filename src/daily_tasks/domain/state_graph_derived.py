@@ -1,13 +1,15 @@
-# Responsibility: Represent an immutable StateGraphDerived DTO.
-# Public interface:
-# `-- StateGraphDerived
-#     +-- blockers
-#     +-- milestones
-#     +-- rollover
-#     +-- summary
-#     +-- tasks
-#     `-- today
-"""StateGraphDerived DTO."""
+"""Responsibility: Represent an immutable StateGraphDerived DTO.
+Public interface:
+`-- StateGraphDerived
+    +-- blockers
+    +-- milestones
+    +-- rollover
+    +-- summary
+    +-- tasks
+    `-- today
+
+StateGraphDerived DTO.
+"""
 
 from collections.abc import Mapping
 

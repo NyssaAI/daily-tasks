@@ -1,7 +1,23 @@
-# Responsibility: Prove the MCP server answers JSON-RPC 2.0 correctly and keeps stdout free of logs.
-# Public interface:
-# (none)
-"""Protocol handling through `McpServer.handle` and the `daily-tasks-mcp` CLI with in-memory pipes."""
+"""Responsibility: Prove the MCP server answers JSON-RPC 2.0 correctly and keeps stdout free of logs.
+Public interface:
++-- test_capture_secret_tool_is_unknown_without_secret_tools(tmp_path)
++-- test_capture_secret_tool_missing_key_is_invalid_params(tmp_path)
++-- test_capture_secret_tool_store_failure_is_tool_error(tmp_path, log_capture)
++-- test_capture_secret_tool_stores_secret_from_loopback_and_replies_with_receipt_only(tmp_path, log_capture)
++-- test_cli_invalid_workspace_root_or_lookback_exits_2()
++-- test_cli_stdout_carries_only_json_rpc_responses(tmp_path, capsys)
++-- test_cli_without_user_or_timezone_boots_and_returns_error_on_start_session(tmp_path, monkeypatch)
++-- test_initialize_reports_protocol_and_tools_capability(tmp_path)
++-- test_invalid_request_returns_json_rpc_error(tmp_path, request_text, code)
++-- test_notification_gets_no_response(tmp_path)
++-- test_start_session_surfaces_malformed_files(tmp_path)
++-- test_tool_failure_is_tool_error_result_not_protocol_error(tmp_path)
++-- test_tools_list_names_capture_secret_when_secret_tools_are_wired(tmp_path)
++-- test_tools_list_names_every_planning_tool(tmp_path)
+`-- test_unknown_session_is_reported_as_not_found(tmp_path)
+
+Protocol handling through `McpServer.handle` and the `daily-tasks-mcp` CLI with in-memory pipes.
+"""
 
 import asyncio
 import io
@@ -19,33 +35,14 @@ from nyssa_ai_configuration import BootstrapOptions, KeyringInMemory, LoopbackSe
 from nyssa_ai_result import Ok, Result, fail, ok
 from pydantic import JsonValue
 
+from conftest import LogCapture
 from daily_tasks.cli import cli
 from daily_tasks.credentials import SecretCaptureService, SecretResolver
 from daily_tasks.domain import GraphUser
 from daily_tasks.server import McpServer, PlanningTools, SecretTools, ServerSettings, WorkspaceSnapshot
 from daily_tasks.storage.markdown_file_store import MarkdownFileStore
 
-NOW = datetime(2026, 11, 3, 14, 30, tzinfo=UTC)
-
-
-class _QuietLogger:
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        pass
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        pass
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        pass
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        pass
+_NOW = datetime(2026, 11, 3, 14, 30, tzinfo=UTC)
 
 
 class _UnavailableReader:
@@ -62,11 +59,10 @@ def _server(root: Path, secrets: SecretTools | None = None) -> McpServer:
         user=GraphUser(name="Jordan", email="jordan@example.com"),
         timezone="America/Chicago",
     )
-    logger = _QuietLogger()
-    store = MarkdownFileStore(root, logger, lambda: NOW)
+    store = MarkdownFileStore(root, lambda: _NOW)
     new_id = lambda: UUID("019a4b2c-9000-7000-8000-000000000001")  # noqa: E731
-    tools = PlanningTools(settings, _UnavailableReader(), store, logger, lambda: NOW, new_id)
-    return McpServer(tools, logger, "1.2.3", secrets)
+    tools = PlanningTools(settings, _UnavailableReader(), store, lambda: _NOW, new_id)
+    return McpServer(tools, "1.2.3", secrets)
 
 
 def _handle(server: McpServer, request: Mapping[str, JsonValue] | str) -> dict[str, JsonValue] | None:
@@ -138,7 +134,12 @@ def test_invalid_request_returns_json_rpc_error(tmp_path: Path, request_text: st
 
 
 def test_tool_failure_is_tool_error_result_not_protocol_error(tmp_path: Path) -> None:
-    request = {"jsonrpc": "2.0", "id": 9, "method": "tools/call", "params": {"name": "daily_tasks_start_session"}}
+    request: dict[str, JsonValue] = {
+        "jsonrpc": "2.0",
+        "id": 9,
+        "method": "tools/call",
+        "params": {"name": "daily_tasks_start_session"},
+    }
 
     response = _handle(_server(tmp_path), request)
 
@@ -151,8 +152,8 @@ def test_tool_failure_is_tool_error_result_not_protocol_error(tmp_path: Path) ->
 
 
 def test_unknown_session_is_reported_as_not_found(tmp_path: Path) -> None:
-    arguments = {"session_id": "019a4b2c-9000-7000-8000-0000000000ff"}
-    request = {
+    arguments: dict[str, JsonValue] = {"session_id": "019a4b2c-9000-7000-8000-0000000000ff"}
+    request: dict[str, JsonValue] = {
         "jsonrpc": "2.0",
         "id": 3,
         "method": "tools/call",
@@ -185,12 +186,34 @@ def test_cli_stdout_carries_only_json_rpc_responses(tmp_path: Path, capsys: pyte
     assert "server started" in capsys.readouterr().err
 
 
-def test_cli_without_user_or_timezone_exits_2(tmp_path: Path) -> None:
+def test_cli_without_user_or_timezone_boots_and_returns_error_on_start_session(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    fake_home = tmp_path / "fake_home"
+    fake_home.mkdir()
+    monkeypatch.setattr(Path, "home", lambda: fake_home)
+    lines = [
+        {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+        {"jsonrpc": "2.0", "method": "notifications/initialized"},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "daily_tasks_start_session"}},
+    ]
+    stdin = io.StringIO("\n".join(json.dumps(line) for line in lines) + "\n")
     stdout = io.StringIO()
 
-    code = cli(["--workspace-root", str(tmp_path)], environ={}, stdin=io.StringIO(""), stdout=stdout)
+    code = cli(["--workspace-root", str(tmp_path)], environ={}, stdin=stdin, stdout=stdout)
 
-    assert code == 2 and stdout.getvalue() == ""
+    assert code == 0
+    responses = [json.loads(line) for line in stdout.getvalue().splitlines()]
+    assert len(responses) == 2
+    assert responses[0]["result"]["serverInfo"]["name"] == "daily-tasks"
+    tool_reply = responses[1]["result"]["structuredContent"]
+    assert tool_reply["status"] == "error"
+    assert "user.email and timezone" in tool_reply["message"]
+
+
+def test_cli_invalid_workspace_root_or_lookback_exits_2() -> None:
+    assert cli(["--workspace-root", "relative/path"], environ={}, stdin=io.StringIO(""), stdout=io.StringIO()) == 2
+    assert cli(["--initial-lookback-days", "0"], environ={}, stdin=io.StringIO(""), stdout=io.StringIO()) == 2
 
 
 def test_start_session_surfaces_malformed_files(tmp_path: Path) -> None:
@@ -219,18 +242,7 @@ def test_start_session_surfaces_malformed_files(tmp_path: Path) -> None:
     assert payload["malformed_files"][0]["code"] == "unclosed-frontmatter"
 
 
-SECRET = "bws-machine-token-0123456789"
-
-
-class _RecordingLogger(_QuietLogger):
-    def __init__(self) -> None:
-        self.records: list[tuple[str, str, Mapping[str, object]]] = []
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("info", message, fields or {}))
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("warn", message, fields or {}))
+_SECRET = "bws-machine-token-0123456789"
 
 
 class _NoBrowser:
@@ -256,7 +268,7 @@ def _capture_call(arguments: Mapping[str, JsonValue]) -> dict[str, JsonValue]:
 
 
 def test_tools_list_names_capture_secret_when_secret_tools_are_wired(tmp_path: Path) -> None:
-    secrets = SecretTools(lambda: fail("unused", "Unavailable"), _QuietLogger())
+    secrets = SecretTools(lambda: fail("unused", "Unavailable"))
 
     response = _handle(_server(tmp_path, secrets), {"jsonrpc": "2.0", "id": 1, "method": "tools/list"})
 
@@ -267,24 +279,26 @@ def test_tools_list_names_capture_secret_when_secret_tools_are_wired(tmp_path: P
     assert names[-1] == "daily_tasks_capture_secret" and len(names) == 8
 
 
-def test_capture_secret_tool_stores_secret_from_loopback_and_replies_with_receipt_only(tmp_path: Path) -> None:
-    keyring, logger, status = KeyringInMemory(), _RecordingLogger(), io.StringIO()
+def test_capture_secret_tool_stores_secret_from_loopback_and_replies_with_receipt_only(
+    tmp_path: Path, log_capture: LogCapture
+) -> None:
+    keyring, status = KeyringInMemory(), io.StringIO()
     loopback = LoopbackSecretInputProvider(_NoBrowser(), status)
 
     def open_service() -> Result[SecretCaptureService]:
-        return SecretCaptureService.create(_secret_options(tmp_path), logger, None, keyring, loopback, status)
+        return SecretCaptureService.create(_secret_options(tmp_path), None, keyring, loopback, status)
 
     def user_submits_form() -> None:
         url = loopback.wait_for_url()
         assert url is not None
-        form = {"session_token": loopback.session_token, "secret": SECRET, "confirm_secret": SECRET}
+        form = {"session_token": loopback.session_token, "secret": _SECRET, "confirm_secret": _SECRET}
         request = urllib.request.Request(url, data=urllib.parse.urlencode(form).encode(), method="POST")
         with urllib.request.urlopen(request, timeout=5) as response:
             response.read()
 
     user = threading.Thread(target=user_submits_form)
     user.start()
-    server = _server(tmp_path, SecretTools(open_service, logger, timeout_seconds=10))
+    server = _server(tmp_path, SecretTools(open_service, timeout_seconds=10))
 
     response = _handle(server, _capture_call({"namespace": "vault", "key": "bws-access-token"}))
     user.join(timeout=10)
@@ -296,20 +310,19 @@ def test_capture_secret_tool_stores_secret_from_loopback_and_replies_with_receip
     receipt = body["payload"]["receipt"]
     assert set(receipt) == {"namespace", "key", "provider", "stored_at"}
     assert (receipt["namespace"], receipt["key"], receipt["provider"]) == ("vault", "bws-access-token", "aesLocal")
-    assert SECRET not in json.dumps(response) + repr(logger.records) + status.getvalue()
+    assert _SECRET not in json.dumps(response) + repr(log_capture.records) + status.getvalue()
     disk = "\n".join(p.read_text(encoding="utf-8", errors="replace") for p in tmp_path.rglob("*") if p.is_file())
-    assert SECRET not in disk
+    assert _SECRET not in disk
     resolver = SecretResolver.create(
-        "daily-tasks-test", str(tmp_path / "config"), logger, keyring, {}, str(tmp_path / "manifest.json")
+        "daily-tasks-test", str(tmp_path / "config"), keyring, {}, str(tmp_path / "manifest.json")
     )
     assert isinstance(resolver, Ok)
     resolved = resolver.value.resolve("vault", "bws-access-token")
-    assert isinstance(resolved, Ok) and resolved.value.reveal() == SECRET
+    assert isinstance(resolved, Ok) and resolved.value.reveal() == _SECRET
 
 
-def test_capture_secret_tool_store_failure_is_tool_error(tmp_path: Path) -> None:
-    logger = _RecordingLogger()
-    secrets = SecretTools(lambda: fail("keyring locked", "Unavailable"), logger)
+def test_capture_secret_tool_store_failure_is_tool_error(tmp_path: Path, log_capture: LogCapture) -> None:
+    secrets = SecretTools(lambda: fail("keyring locked", "Unavailable"))
 
     response = _handle(_server(tmp_path, secrets), _capture_call({"namespace": "communication", "key": "slack"}))
 
@@ -318,11 +331,11 @@ def test_capture_secret_tool_store_failure_is_tool_error(tmp_path: Path) -> None
     body = response["result"]["structuredContent"]
     assert isinstance(body, dict)
     assert (body["status"], body["code"], body["message"]) == ("error", "Unavailable", "keyring locked")
-    assert logger.records[-1][0:2] == ("warn", "secret not captured")
+    assert ("warn", "secret not captured") in [r[:2] for r in log_capture.records]
 
 
 def test_capture_secret_tool_missing_key_is_invalid_params(tmp_path: Path) -> None:
-    secrets = SecretTools(lambda: fail("unused", "Unavailable"), _QuietLogger())
+    secrets = SecretTools(lambda: fail("unused", "Unavailable"))
 
     response = _handle(_server(tmp_path, secrets), _capture_call({"namespace": "communication"}))
 

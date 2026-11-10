@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable DodProgress DTO.
-# Public interface:
-# `-- DodProgress
-#     +-- done
-#     `-- total
-"""DodProgress DTO."""
+"""Responsibility: Represent an immutable DodProgress DTO.
+Public interface:
+`-- DodProgress
+    +-- done
+    `-- total
+
+DodProgress DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

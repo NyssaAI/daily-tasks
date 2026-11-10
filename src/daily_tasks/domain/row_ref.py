@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable RowRef DTO.
-# Public interface:
-# `-- RowRef
-#     +-- id
-#     `-- kind
-"""RowRef DTO."""
+"""Responsibility: Represent an immutable RowRef DTO.
+Public interface:
+`-- RowRef
+    +-- id
+    `-- kind
+
+RowRef DTO.
+"""
 
 from typing import Literal
 

@@ -1,9 +1,11 @@
-# Responsibility: Validate one message header returned by the Gmail REST API.
-# Public interface:
-# `-- GmailHeader
-#     +-- name
-#     `-- value
-"""Gmail `MessagePartHeader` wire shape."""
+"""Responsibility: Validate one message header returned by the Gmail REST API.
+Public interface:
+`-- GmailHeader
+    +-- name
+    `-- value
+
+Gmail `MessagePartHeader` wire shape.
+"""
 
 from pydantic import ConfigDict
 from pydantic.dataclasses import dataclass

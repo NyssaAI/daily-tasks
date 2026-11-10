@@ -1,7 +1,8 @@
-# Responsibility: Validate canonical skills, relative links, path hygiene, and version parity across plugin.json and pyproject.toml.
-# Public interface:
-# +-- validate()
-# `-- validate_repository()
+"""Responsibility: Validate canonical skills, relative links, path hygiene, and manifest version parity.
+Public interface:
++-- validate()
+`-- validate_repository(root)
+"""
 
 from __future__ import annotations
 
@@ -18,9 +19,9 @@ _LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 _LEAK_RE = re.compile(r"C:[\\/]|D:[\\/]|\.codex/plugins/cache")
 
 
-def validate_repository() -> list[str]:
+def validate_repository(root: Path = ROOT) -> list[str]:
     """Validate skill frontmatter, relative Markdown links, path hygiene, and version parity."""
-    files = tree(ROOT / "skills", "skills/")
+    files = tree(root / "skills", "skills/")
     errors: list[str] = []
     names: set[str] = set()
 
@@ -38,8 +39,8 @@ def validate_repository() -> list[str]:
             if raw_target.startswith(("http://", "https://", "#")):
                 continue
             target_part = raw_target.split("#", 1)[0]
-            target = (ROOT / Path(name).parent / target_part).resolve()
-            if not target.is_relative_to(ROOT):
+            target = (root / Path(name).parent / target_part).resolve()
+            if not target.is_relative_to(root):
                 errors.append(f"Escaping link: {name}")
                 continue
             if not target.exists():
@@ -48,11 +49,41 @@ def validate_repository() -> list[str]:
         if _LEAK_RE.search(content):
             errors.append(f"Local path leaked: {name}")
 
-    identity = json.loads((ROOT / "plugin.json").read_text(encoding="utf-8"))
-    pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    identity = json.loads((root / "plugin.json").read_text(encoding="utf-8"))
+    pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     pyproject_version = pyproject.get("project", {}).get("version")
     if identity.get("version") != pyproject_version or len(names) != 1:
         errors.append("Version or skill inventory mismatch")
+
+    readme_path = root / "README.md"
+    if readme_path.is_file():
+        readme_text = readme_path.read_text(encoding="utf-8")
+        version_match = re.search(r"Version\s+\*\*([0-9]+\.[0-9]+\.[0-9]+)\*\*", readme_text)
+        if version_match is None or version_match.group(1) != identity.get("version"):
+            errors.append("README.md version mismatch")
+
+    hermes_adapter = root / "adapters" / "hermes" / "__init__.py"
+    if not hermes_adapter.is_file():
+        errors.append("Missing adapters/hermes/__init__.py")
+
+    mcp_path = root / ".mcp.json"
+    if not mcp_path.exists():
+        errors.append("Missing .mcp.json manifest")
+    else:
+        try:
+            mcp_data = json.loads(mcp_path.read_text(encoding="utf-8"))
+            servers = mcp_data.get("mcpServers") if isinstance(mcp_data, dict) else None
+            server_cfg = servers.get("daily-tasks") if isinstance(servers, dict) else None
+            if (
+                not isinstance(server_cfg, dict)
+                or not isinstance(server_cfg.get("command"), str)
+                or not server_cfg["command"].strip()
+                or not isinstance(server_cfg.get("args"), list)
+                or not server_cfg["args"]
+            ):
+                errors.append("Malformed .mcp.json: daily-tasks server requires command and non-empty args")
+        except Exception as exc:
+            errors.append(f"Invalid .mcp.json: {exc}")
 
     return errors
 

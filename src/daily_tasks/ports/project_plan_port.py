@@ -1,9 +1,11 @@
-# Responsibility: Define the read-only port that returns project, milestone, task and blocker records.
-# Public interface:
-# `-- ProjectPlanPort
-#     +-- fetch_projects()
-#     `-- name
-"""Project-Plan-Port contract (`docs/PLANNING_SESSION_CONCEPT.md`, Ports)."""
+"""Responsibility: Define the read-only port that returns project, milestone, task and blocker records.
+Public interface:
+`-- ProjectPlanPort
+    +-- fetch_projects()
+    `-- name
+
+Project-Plan-Port contract (`docs/PLANNING_SESSION_CONCEPT.md`, Ports).
+"""
 
 from typing import Protocol
 
@@ -24,6 +26,6 @@ class ProjectPlanPort(Protocol):
         """Return every record the source holds.
 
         Fails when the source root cannot be read. A single malformed record does not fail the fetch;
-        the adapter skips it and reports it through its logger.
+        the adapter skips it, records a `MalformedRecord`, and emits a structured warning log.
         """
         ...

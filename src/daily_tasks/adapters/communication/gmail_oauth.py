@@ -1,14 +1,17 @@
-# Responsibility: Sign in to Gmail read-only and hand out sealed, headlessly refreshed access tokens.
-# Public interface:
-# `-- GmailOauth
-#     +-- DEFAULT_KEY
-#     +-- DEFAULT_NAMESPACE
-#     +-- access_token()
-#     +-- authorize(scopes)
-#     +-- create(options, client_id, client_secret, logger, keyring, http_post, now, browser_launcher)
-#     `-- new(store, client_id, logger, browser_launcher, namespace, key)
-"""Gmail OAuth 2.0 (PKCE loopback) over `nyssa_ai_configuration`; grants are only ever stored sealed."""
+"""Responsibility: Sign in to Gmail read-only and hand out sealed, headlessly refreshed access tokens.
+Public interface:
+`-- GmailOauth
+    +-- DEFAULT_KEY
+    +-- DEFAULT_NAMESPACE
+    +-- access_token()
+    +-- authorize(scopes)
+    +-- create(options, client_id, client_secret, keyring, http_post, now, browser_launcher)
+    `-- new(store, client_id, browser_launcher, namespace, key)
 
+Gmail OAuth 2.0 (PKCE loopback) over `nyssa_ai_configuration`; grants are only ever stored sealed.
+"""
+
+import logging
 import time
 from collections.abc import Callable, Mapping, Sequence
 from datetime import UTC, datetime
@@ -32,8 +35,8 @@ from daily_tasks.adapters.communication.gmail_readonly_scope import (
 from daily_tasks.adapters.communication.gmail_token_endpoint import GmailTokenEndpoint
 from daily_tasks.adapters.communication.gmail_token_store import GmailTokenStore
 from daily_tasks.domain import SecretString
-from daily_tasks.ports import PortLogger
 
+_LOGGER: Final = logging.getLogger(__name__)
 _AUTHORIZE: Final = "gmail.oauth.authorize"
 _ACCESS_TOKEN: Final = "gmail.oauth.access_token"
 
@@ -54,15 +57,13 @@ class GmailOauth:
         self,
         store: GmailTokenStore,
         client_id: SecretString,
-        logger: PortLogger,
         browser_launcher: BrowserLauncher | None = None,
         namespace: str = DEFAULT_NAMESPACE,
         key: str = DEFAULT_KEY,
     ) -> None:
-        """Borrow `store` and `logger`; `browser_launcher=None` opens the system browser."""
+        """Borrow `store`; `browser_launcher=None` opens the system browser."""
         self._store = store
         self._client_id = client_id
-        self._logger = logger
         self._browser_launcher = browser_launcher
         self._namespace = namespace
         self._key = key
@@ -73,7 +74,6 @@ class GmailOauth:
         options: BootstrapOptions,
         client_id: SecretString,
         client_secret: SecretString | None,
-        logger: PortLogger,
         keyring: Keyring | None = None,
         http_post: Callable[[str, Mapping[str, str]], Result[tuple[int, str]]] | None = None,
         now: Callable[[], datetime] | None = None,
@@ -89,11 +89,12 @@ class GmailOauth:
         flow = OAuthFlowClient(http_post=endpoint.post, now=now if now is not None else _utc_now)
         client = ConfigurationClient.create(options, keyring=keyring, oauth_flow_client=flow)
         if not client.ok:
-            logger.error(
-                "gmail token store unavailable", fields={"category": str(client.category)}, operation=_AUTHORIZE
+            _LOGGER.error(
+                "gmail token store unavailable",
+                extra={"operation": _AUTHORIZE, "fields": {"category": str(client.category)}},
             )
             return client
-        return ok(cls(client.value, client_id, logger, browser_launcher))
+        return ok(cls(client.value, client_id, browser_launcher))
 
     def authorize(self, scopes: Sequence[str] = (GMAIL_READONLY_SCOPE,)) -> Result[None]:
         """Run the interactive PKCE sign-in and seal the grant.
@@ -115,7 +116,7 @@ class GmailOauth:
         if not stored.ok:
             self._log_failed(_AUTHORIZE, str(stored.category), started)
             return fail(stored.message, stored.category)
-        self._logger.info("gmail authorized", fields=self._fields(started), operation=_AUTHORIZE)
+        _LOGGER.info("gmail authorized", extra={"operation": _AUTHORIZE, "fields": self._fields(started)})
         return ok(None)
 
     def access_token(self) -> Result[SecretString]:
@@ -132,7 +133,7 @@ class GmailOauth:
         if not token.value:
             self._log_failed(_ACCESS_TOKEN, "NotFound", started)
             return fail("Gmail access token is empty.", "NotFound")
-        self._logger.debug("gmail access token ready", fields=self._fields(started), operation=_ACCESS_TOKEN)
+        _LOGGER.debug("gmail access token ready", extra={"operation": _ACCESS_TOKEN, "fields": self._fields(started)})
         return ok(SecretString(token.value))
 
     def __repr__(self) -> str:
@@ -143,7 +144,7 @@ class GmailOauth:
 
     def _log_failed(self, operation: str, category: str, started: float) -> None:
         fields = {**self._fields(started), "category": category}
-        self._logger.error("gmail oauth failed", fields=fields, operation=operation)
+        _LOGGER.error("gmail oauth failed", extra={"operation": operation, "fields": fields})
 
 
 def _utc_now() -> datetime:

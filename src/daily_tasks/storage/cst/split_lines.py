@@ -1,7 +1,9 @@
-# Responsibility: Split Markdown text into source lines that keep their own terminators.
-# Public interface:
-# `-- split_lines(text)
-"""Line splitter underlying the lossless CST parser."""
+"""Responsibility: Split Markdown text into source lines that keep their own terminators.
+Public interface:
+`-- split_lines(text)
+
+Line splitter underlying the lossless CST parser.
+"""
 
 import re
 from typing import Final

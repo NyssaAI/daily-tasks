@@ -1,7 +1,9 @@
-# Responsibility: Find tasks and blockers a message mentions by record id, wiki link or title.
-# Public interface:
-# `-- find_record_mentions(graph, message)
-"""Text-based evidence that a message refers to a record."""
+"""Responsibility: Find tasks and blockers a message mentions by record id, wiki link or title.
+Public interface:
+`-- find_record_mentions(graph, message)
+
+Text-based evidence that a message refers to a record.
+"""
 
 import re
 from collections.abc import Iterator

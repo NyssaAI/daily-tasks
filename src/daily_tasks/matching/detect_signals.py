@@ -1,8 +1,10 @@
-# Responsibility: Detect status signal phrases in message text.
-# Public interface:
-# +-- SIGNAL_PHRASES
-# `-- detect_signals(text)
-"""Word-boundary, casefolded signal phrase detection with a simple `not` negation guard."""
+"""Responsibility: Detect status signal phrases in message text.
+Public interface:
++-- SIGNAL_PHRASES
+`-- detect_signals(text)
+
+Word-boundary, casefolded signal phrase detection with a simple `not` negation guard.
+"""
 
 import re
 from collections.abc import Mapping

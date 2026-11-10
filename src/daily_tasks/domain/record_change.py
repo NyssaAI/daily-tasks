@@ -1,19 +1,21 @@
-# Responsibility: Represent an immutable RecordChange DTO.
-# Public interface:
-# `-- RecordChange
-#     +-- after
-#     +-- applied_at
-#     +-- before
-#     +-- effects
-#     +-- expected_hash
-#     +-- id
-#     +-- operation_id
-#     +-- origin
-#     +-- path
-#     +-- record_id
-#     +-- record_type
-#     `-- status
-"""RecordChange DTO."""
+"""Responsibility: Represent an immutable RecordChange DTO.
+Public interface:
+`-- RecordChange
+    +-- after
+    +-- applied_at
+    +-- before
+    +-- effects
+    +-- expected_hash
+    +-- id
+    +-- operation_id
+    +-- origin
+    +-- path
+    +-- record_id
+    +-- record_type
+    `-- status
+
+RecordChange DTO.
+"""
 
 from collections.abc import Mapping
 from typing import Literal

@@ -1,7 +1,9 @@
-# Responsibility: Resolve dependency and blocker references into two-way relation maps.
-# Public interface:
-# `-- resolve_relations(records)
-"""Relations declared on either side are merged; references to unknown records become diagnostics."""
+"""Responsibility: Resolve dependency and blocker references into two-way relation maps.
+Public interface:
+`-- resolve_relations(records)
+
+Relations declared on either side are merged; references to unknown records become diagnostics.
+"""
 
 from collections.abc import Iterable, Mapping
 from uuid import UUID

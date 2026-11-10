@@ -1,8 +1,23 @@
-# Responsibility: Prove signals on linked messages become pending, validated draft suggestions.
-# Public interface:
-# (none)
-"""Deterministic draft suggestions: status, dod, blocker and new-task, never accepted."""
+"""Responsibility: Prove signals on linked messages become pending, validated draft suggestions.
+Public interface:
++-- DOD_ITEM
++-- GMAIL_TASK
++-- SESSION
++-- SLACK_TASK
++-- VENDOR_BLOCKER
++-- test_generate_suggestions_blocked_on_task_with_open_blocker_proposes_nothing()
++-- test_generate_suggestions_can_you_proposes_new_task_for_user()
++-- test_generate_suggestions_done_naming_dod_item_proposes_dod_check()
++-- test_generate_suggestions_merged_on_linked_task_proposes_completion()
++-- test_generate_suggestions_output_round_trips_and_stays_pending()
++-- test_generate_suggestions_stuck_on_unblocked_task_proposes_new_blocker()
++-- test_generate_suggestions_unblocked_on_open_blocker_proposes_resolve()
+`-- test_generate_suggestions_weak_assignee_link_or_no_signal_proposes_nothing()
 
+Deterministic draft suggestions: status, dod, blocker and new-task, never accepted.
+"""
+
+from collections.abc import Mapping
 from uuid import UUID
 
 from matching_fixtures import BUILT_AT, message, sequential_ids, state_graph
@@ -18,7 +33,7 @@ VENDOR_BLOCKER = UUID("019a4b2c-1f00-7a10-8000-000000000016")
 DOD_ITEM = UUID("019a4b2c-1f00-7a10-8000-0000000000d4")
 
 
-def _suggest(*messages: Message, dod: dict[UUID, tuple[DodItem, ...]] | None = None) -> Suggestions:
+def _suggest(*messages: Message, dod: Mapping[UUID, tuple[DodItem, ...]] | None = None) -> Suggestions:
     graph = state_graph()
     return generate_suggestions(
         graph,
@@ -27,7 +42,7 @@ def _suggest(*messages: Message, dod: dict[UUID, tuple[DodItem, ...]] | None = N
         "D:/vaults/work",
         lambda: BUILT_AT,
         sequential_ids(),
-        dod or {},
+        dict(dod) if dod is not None else {},
     )
 
 

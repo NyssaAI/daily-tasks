@@ -1,10 +1,12 @@
-# Responsibility: Hold one Markdown table cell with its links and ref ids.
-# Public interface:
-# `-- TableCell
-#     +-- links
-#     +-- refs
-#     `-- text
-"""Table cell node read by `split_table_cells`."""
+"""Responsibility: Hold one Markdown table cell with its links and ref ids.
+Public interface:
+`-- TableCell
+    +-- links
+    +-- refs
+    `-- text
+
+Table cell node read by `split_table_cells`.
+"""
 
 from dataclasses import dataclass
 

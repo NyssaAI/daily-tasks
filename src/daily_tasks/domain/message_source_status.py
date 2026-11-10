@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable MessageSourceStatus DTO.
-# Public interface:
-# `-- MessageSourceStatus
-#     +-- error
-#     +-- fetched
-#     +-- name
-#     +-- since
-#     `-- status
-"""MessageSourceStatus DTO."""
+"""Responsibility: Represent an immutable MessageSourceStatus DTO.
+Public interface:
+`-- MessageSourceStatus
+    +-- error
+    +-- fetched
+    +-- name
+    +-- since
+    `-- status
+
+MessageSourceStatus DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

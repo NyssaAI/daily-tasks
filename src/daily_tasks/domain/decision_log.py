@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable DecisionLog DTO.
-# Public interface:
-# `-- DecisionLog
-#     +-- entries
-#     `-- workspace_root
-"""DecisionLog DTO."""
+"""Responsibility: Represent an immutable DecisionLog DTO.
+Public interface:
+`-- DecisionLog
+    +-- entries
+    `-- workspace_root
+
+DecisionLog DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

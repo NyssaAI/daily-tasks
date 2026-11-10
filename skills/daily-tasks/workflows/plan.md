@@ -22,7 +22,7 @@ Execute the interactive daily planning session in order. Reference [planning flo
 ### Existing assistant connections
 
 When the workspace profile configures `sources.harnessConnections`, ingest unread messages before calling `daily_tasks_start_session`:
-1. Call `daily_tasks_get_fetch_window(sources=[...])` for the configured `source` names to obtain each source's `since` (ISO UTC), `after_epoch` (Unix seconds), `last_external_id`, and `has_cursor`.
+1. Call `daily_tasks_get_fetch_window(sources=[...], workspace_root?)` for the configured `source` names to obtain each source's `since` (ISO UTC), `after_epoch` (Unix seconds), `last_external_id`, and `has_cursor`.
 2. Read messages at or after `since` using the host's existing integration in strictly **read-only** mode (never send, reply, draft, label, archive, or mark read).
 3. Map each message to `docs/specs/message.json` (`id` as `<source>:<external_id>`, `source`, `external_id`, `thread_id`, `received_at`, `from`, `to`, `cc`, `channel`, `subject`, `snippet`, `body`, `body_format`, `attachments`, `url`, `fetched_at` with UTC `Z` timestamps).
 4. Pass `messages=[...]` and `checked_sources=[...]` (including every successfully checked source even if 0 messages arrived) to `daily_tasks_start_session`. If a host connection fails, report that the source was skipped and omit it from `checked_sources`.
@@ -32,7 +32,7 @@ When the workspace profile configures `sources.harnessConnections`, ingest unrea
 Run the session strictly via `daily_tasks_*` MCP tools (never invoke `daily-tasks-mcp` or `python -m daily_tasks.server` as a shell command):
 
 1. **Screen 1 — Start session & review suggestions (`daily_tasks_start_session`)**:
-   - Call `daily_tasks_start_session(date?, focus?, messages?, checked_sources?)` (omit `date` unless planning a specific requested date).
+   - Call `daily_tasks_start_session(date?, focus?, messages?, checked_sources?, workspace_root?)` (omit `date` unless planning a specific requested date; pass `workspace_root` if the host runs without `--workspace-root`).
    - If `payload.malformed_files` is non-empty, alert the user immediately with the file paths and error codes, and invoke [Records](records.md) to surgically repair the malformed files before continuing.
    - Display the returned Screen 1 `payload.screen` unchanged (showing carried-forward work `↺` and numbered message-derived suggestions).
 2. **Adjudicate replies (`daily_tasks_execute_operations`)**:

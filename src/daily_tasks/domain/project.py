@@ -1,25 +1,27 @@
-# Responsibility: Represent an immutable Project DTO.
-# Public interface:
-# `-- Project
-#     +-- assignee
-#     +-- blocker_ids
-#     +-- created_at
-#     +-- description
-#     +-- directory_date
-#     +-- id
-#     +-- milestone_ids
-#     +-- owner
-#     +-- path
-#     +-- resolved_at
-#     +-- source
-#     +-- started_at
-#     +-- state
-#     +-- tags
-#     +-- target_date
-#     +-- title
-#     +-- type
-#     `-- updated_at
-"""Project DTO."""
+"""Responsibility: Represent an immutable Project DTO.
+Public interface:
+`-- Project
+    +-- assignee
+    +-- blocker_ids
+    +-- created_at
+    +-- description
+    +-- directory_date
+    +-- id
+    +-- milestone_ids
+    +-- owner
+    +-- path
+    +-- resolved_at
+    +-- source
+    +-- started_at
+    +-- state
+    +-- tags
+    +-- target_date
+    +-- title
+    +-- type
+    `-- updated_at
+
+Project DTO.
+"""
 
 from datetime import date
 from typing import Literal

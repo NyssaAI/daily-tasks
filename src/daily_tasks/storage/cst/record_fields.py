@@ -1,16 +1,18 @@
-# Responsibility: Read the record values that several record parsers derive from a parsed document.
-# Public interface:
-# +-- RecordFields
-# |   +-- definition_of_done()
-# |   +-- document
-# |   +-- frontmatter_values()
-# |   +-- number_from(path, prefix)
-# |   +-- section(title)
-# |   +-- section_refs(title)
-# |   +-- section_text(title)
-# |   `-- validate(adapter, values)
-# `-- WORK_MARKS
-"""Section and frontmatter accessors used to map a `MarkdownDocument` onto a domain DTO."""
+"""Responsibility: Read the record values that several record parsers derive from a parsed document.
+Public interface:
++-- RecordFields
+|   +-- definition_of_done()
+|   +-- document
+|   +-- frontmatter_values()
+|   +-- number_from(path, prefix)
+|   +-- section(title)
+|   +-- section_refs(title)
+|   +-- section_text(title)
+|   `-- validate(adapter, values)
+`-- WORK_MARKS
+
+Section and frontmatter accessors used to map a `MarkdownDocument` onto a domain DTO.
+"""
 
 import re
 from collections.abc import Mapping

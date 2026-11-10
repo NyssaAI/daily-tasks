@@ -1,7 +1,23 @@
-# Responsibility: Prove GmailOauth signs in read-only, stores the grant sealed and refreshes it headlessly.
-# Public interface:
-# (none)
-"""Gmail OAuth against a fake Google token endpoint, a fake browser and an in-memory keyring."""
+"""Responsibility: Prove GmailOauth signs in read-only, stores the grant sealed and refreshes it headlessly.
+Public interface:
++-- ACCESS_1
++-- ACCESS_2
++-- APP
++-- CLIENT_ID
++-- CLIENT_SECRET
++-- REFRESH
++-- SECRETS
++-- test_gmail_oauth_authorize_exchanges_code_and_stores_grant_sealed(tmp_path)
++-- test_gmail_oauth_authorize_extra_scope_fails_validation_without_browser(tmp_path, log_capture)
++-- test_gmail_oauth_authorize_requests_only_readonly_scope(tmp_path)
++-- test_gmail_oauth_expiring_token_refreshes_without_browser(tmp_path)
++-- test_gmail_oauth_grant_survives_restart_with_same_keyring(tmp_path)
++-- test_gmail_oauth_granted_wider_scope_fails_forbidden_and_stores_nothing(tmp_path)
++-- test_gmail_oauth_revoked_refresh_token_fails_forbidden(tmp_path, log_capture)
+`-- test_gmail_oauth_tokens_never_appear_in_repr_or_logs(tmp_path, log_capture)
+
+Gmail OAuth against a fake Google token endpoint, a fake browser and an in-memory keyring.
+"""
 
 import json
 import urllib.parse
@@ -14,6 +30,7 @@ from pathlib import Path
 from nyssa_ai_configuration import BootstrapOptions, KeyringInMemory
 from nyssa_ai_result import Err, Ok, Result, fail, ok
 
+from conftest import LogCapture
 from daily_tasks.adapters.communication.gmail_oauth import GmailOauth
 from daily_tasks.adapters.communication.gmail_readonly_scope import GMAIL_READONLY_SCOPE, GOOGLE_TOKEN_ENDPOINT
 from daily_tasks.domain import SecretString
@@ -25,29 +42,6 @@ ACCESS_1 = "ya29.first-access-token"
 ACCESS_2 = "ya29.second-access-token"
 REFRESH = "1//refresh-token-abc"
 SECRETS = (CLIENT_SECRET, ACCESS_1, ACCESS_2, REFRESH)
-
-
-@dataclass
-class _RecordingLogger:
-    records: list[tuple[str, str, Mapping[str, object]]] = field(default_factory=list)
-
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("debug", message, fields or {}))
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("info", message, fields or {}))
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("warn", message, fields or {}))
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        self.records.append(("error", message, fields or {}))
 
 
 @dataclass
@@ -98,14 +92,11 @@ def _options(root: Path) -> BootstrapOptions:
     )
 
 
-def _oauth(
-    root: Path, keyring: KeyringInMemory, google: _FakeGoogle, clock: _Clock, logger: _RecordingLogger
-) -> GmailOauth:
+def _oauth(root: Path, keyring: KeyringInMemory, google: _FakeGoogle, clock: _Clock) -> GmailOauth:
     created = GmailOauth.create(
         _options(root),
         SecretString(CLIENT_ID),
         SecretString(CLIENT_SECRET),
-        logger,
         keyring=keyring,
         http_post=google.post,
         now=clock,
@@ -121,8 +112,7 @@ def _disk_text(root: Path) -> str:
 
 def test_gmail_oauth_authorize_exchanges_code_and_stores_grant_sealed(tmp_path: Path) -> None:
     google = _FakeGoogle([(200, _token(ACCESS_1))])
-    logger = _RecordingLogger()
-    oauth = _oauth(tmp_path, KeyringInMemory(), google, _Clock(), logger)
+    oauth = _oauth(tmp_path, KeyringInMemory(), google, _Clock())
 
     authorized = oauth.authorize()
     token = oauth.access_token()
@@ -146,7 +136,6 @@ def test_gmail_oauth_authorize_requests_only_readonly_scope(tmp_path: Path) -> N
         _options(tmp_path),
         SecretString(CLIENT_ID),
         None,
-        _RecordingLogger(),
         keyring=KeyringInMemory(),
         http_post=google.post,
         browser_launcher=browser,
@@ -162,23 +151,24 @@ def test_gmail_oauth_authorize_requests_only_readonly_scope(tmp_path: Path) -> N
     assert "client_secret" not in google.forms[0][1]
 
 
-def test_gmail_oauth_authorize_extra_scope_fails_validation_without_browser(tmp_path: Path) -> None:
+def test_gmail_oauth_authorize_extra_scope_fails_validation_without_browser(
+    tmp_path: Path, log_capture: LogCapture
+) -> None:
     google = _FakeGoogle([(200, _token(ACCESS_1))])
-    logger = _RecordingLogger()
-    oauth = _oauth(tmp_path, KeyringInMemory(), google, _Clock(), logger)
+    oauth = _oauth(tmp_path, KeyringInMemory(), google, _Clock())
 
     result = oauth.authorize((GMAIL_READONLY_SCOPE, "https://www.googleapis.com/auth/gmail.send"))
 
     assert isinstance(result, Err)
     assert result.category == "Validation"
     assert google.forms == []
-    assert logger.records[-1][0] == "error"
+    assert log_capture.records[-1][0] == "error"
 
 
 def test_gmail_oauth_granted_wider_scope_fails_forbidden_and_stores_nothing(tmp_path: Path) -> None:
     wide = f"{GMAIL_READONLY_SCOPE} https://www.googleapis.com/auth/gmail.modify"
     google = _FakeGoogle([(200, _token(ACCESS_1, scope=wide))])
-    oauth = _oauth(tmp_path, KeyringInMemory(), google, _Clock(), _RecordingLogger())
+    oauth = _oauth(tmp_path, KeyringInMemory(), google, _Clock())
 
     authorized = oauth.authorize()
     token = oauth.access_token()
@@ -192,7 +182,7 @@ def test_gmail_oauth_granted_wider_scope_fails_forbidden_and_stores_nothing(tmp_
 def test_gmail_oauth_expiring_token_refreshes_without_browser(tmp_path: Path) -> None:
     clock = _Clock()
     google = _FakeGoogle([(200, _token(ACCESS_1)), (200, {"access_token": ACCESS_2, "expires_in": 3600})])
-    oauth = _oauth(tmp_path, KeyringInMemory(), google, clock, _RecordingLogger())
+    oauth = _oauth(tmp_path, KeyringInMemory(), google, clock)
     assert isinstance(oauth.authorize(), Ok)
 
     clock.now += timedelta(minutes=56)
@@ -209,11 +199,10 @@ def test_gmail_oauth_expiring_token_refreshes_without_browser(tmp_path: Path) ->
     assert all(secret not in _disk_text(tmp_path) for secret in SECRETS)
 
 
-def test_gmail_oauth_revoked_refresh_token_fails_forbidden(tmp_path: Path) -> None:
+def test_gmail_oauth_revoked_refresh_token_fails_forbidden(tmp_path: Path, log_capture: LogCapture) -> None:
     clock = _Clock()
     google = _FakeGoogle([(200, _token(ACCESS_1)), (400, {"error": "invalid_grant"})])
-    logger = _RecordingLogger()
-    oauth = _oauth(tmp_path, KeyringInMemory(), google, clock, logger)
+    oauth = _oauth(tmp_path, KeyringInMemory(), google, clock)
     assert isinstance(oauth.authorize(), Ok)
 
     clock.now += timedelta(hours=2)
@@ -221,30 +210,29 @@ def test_gmail_oauth_revoked_refresh_token_fails_forbidden(tmp_path: Path) -> No
 
     assert isinstance(result, Err)
     assert result.category == "Forbidden"
-    assert logger.records[-1][0] == "error"
-    assert logger.records[-1][2]["category"] == "Forbidden"
+    assert log_capture.records[-1][0] == "error"
+    assert log_capture.records[-1][2]["category"] == "Forbidden"
 
 
 def test_gmail_oauth_grant_survives_restart_with_same_keyring(tmp_path: Path) -> None:
     keyring = KeyringInMemory()
-    first = _oauth(tmp_path, keyring, _FakeGoogle([(200, _token(ACCESS_1))]), _Clock(), _RecordingLogger())
+    first = _oauth(tmp_path, keyring, _FakeGoogle([(200, _token(ACCESS_1))]), _Clock())
     assert isinstance(first.authorize(), Ok)
 
-    reopened = _oauth(tmp_path, keyring, _FakeGoogle([]), _Clock(), _RecordingLogger())
+    reopened = _oauth(tmp_path, keyring, _FakeGoogle([]), _Clock())
     token = reopened.access_token()
 
     assert isinstance(token, Ok)
     assert token.value.reveal() == ACCESS_1
 
 
-def test_gmail_oauth_tokens_never_appear_in_repr_or_logs(tmp_path: Path) -> None:
-    logger = _RecordingLogger()
-    oauth = _oauth(tmp_path, KeyringInMemory(), _FakeGoogle([(200, _token(ACCESS_1))]), _Clock(), logger)
+def test_gmail_oauth_tokens_never_appear_in_repr_or_logs(tmp_path: Path, log_capture: LogCapture) -> None:
+    oauth = _oauth(tmp_path, KeyringInMemory(), _FakeGoogle([(200, _token(ACCESS_1))]), _Clock())
     assert isinstance(oauth.authorize(), Ok)
 
     token = oauth.access_token()
 
     assert isinstance(token, Ok)
-    rendered = f"{oauth!r} {token!r} {token.value} {logger.records!r}"
+    rendered = f"{oauth!r} {token!r} {token.value} {log_capture.records!r}"
     assert all(secret not in rendered for secret in SECRETS)
-    assert logger.records[-1][2]["elapsed_ms"] is not None
+    assert log_capture.records[-1][2]["elapsed_ms"] is not None

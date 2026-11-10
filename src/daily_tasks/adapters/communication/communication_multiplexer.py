@@ -1,13 +1,16 @@
-# Responsibility: Fetch from every configured communication source concurrently and merge messages and cursors.
-# Public interface:
-# `-- CommunicationMultiplexer
-#     +-- NAME
-#     +-- fetch_new_messages(since)
-#     +-- name
-#     `-- new(ports, logger, clock)
-"""Composite `CommunicationPort`: one failing source degrades the fetch instead of failing it."""
+"""Responsibility: Fetch from every configured communication source concurrently and merge messages and cursors.
+Public interface:
+`-- CommunicationMultiplexer
+    +-- NAME
+    +-- fetch_new_messages(since)
+    +-- name
+    `-- new(ports, clock)
+
+Composite `CommunicationPort`: one failing source degrades the fetch instead of failing it.
+"""
 
 import asyncio
+import logging
 import time
 from collections.abc import Callable, Sequence
 from datetime import datetime
@@ -16,8 +19,9 @@ from typing import ClassVar, Final, final
 from nyssa_ai_result import Result, fail, ok
 
 from daily_tasks.domain import FetchCursor, FetchCursors, Message
-from daily_tasks.ports import CommunicationPort, FetchBatch, PortLogger
+from daily_tasks.ports import CommunicationPort, FetchBatch
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION: Final = "communication.fetch_new_messages"
 
 
@@ -27,13 +31,12 @@ class CommunicationMultiplexer:
 
     NAME: ClassVar[str] = "communication"
 
-    def __init__(self, ports: Sequence[CommunicationPort], logger: PortLogger, clock: Callable[[], datetime]) -> None:
+    def __init__(self, ports: Sequence[CommunicationPort], clock: Callable[[], datetime]) -> None:
         """Borrow `ports`; duplicate source names raise `ValueError` because they would share one cursor."""
         names = [port.name for port in ports]
         if len(set(names)) != len(names):
             raise ValueError(f"communication source names must be unique: {names}")
         self._ports = tuple(ports)
-        self._logger = logger
         self._clock = clock
 
     @property
@@ -67,7 +70,7 @@ class CommunicationMultiplexer:
                 "error": result.message,
                 "category": str(result.category),
             }
-            self._logger.warn("communication source degraded", fields=degraded, operation=_OPERATION)
+            _LOGGER.warning("communication source degraded", extra={"operation": _OPERATION, "fields": degraded})
             previous = since.cursors.get(port.name)
             if previous is not None:
                 cursors[port.name] = FetchCursor(
@@ -84,9 +87,9 @@ class CommunicationMultiplexer:
             "elapsed_ms": round((time.monotonic() - started) * 1000, 3),
         }
         if self._ports and len(failed) == len(self._ports):
-            self._logger.error("communication fetch failed", fields=fields, operation=_OPERATION)
+            _LOGGER.error("communication fetch failed", extra={"operation": _OPERATION, "fields": fields})
             return fail(f"All communication sources failed: {', '.join(failed)}.", "Unavailable")
-        self._logger.info("communication fetch completed", fields=fields, operation=_OPERATION)
+        _LOGGER.info("communication fetch completed", extra={"operation": _OPERATION, "fields": fields})
         messages.sort(key=lambda m: (m.received_at, m.id))
         merged = FetchCursors(workspace_root=since.workspace_root, cursors=cursors)
         return ok(FetchBatch(messages=tuple(messages), cursors=merged))

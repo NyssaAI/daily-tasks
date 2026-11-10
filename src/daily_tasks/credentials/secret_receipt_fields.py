@@ -1,7 +1,9 @@
-# Responsibility: Turn a sanitized secret receipt into plain JSON-safe fields.
-# Public interface:
-# `-- secret_receipt_fields(receipt)
-"""Receipt projection shared by logs, the MCP reply and CLI output; it carries no secret value."""
+"""Responsibility: Turn a sanitized secret receipt into plain JSON-safe fields.
+Public interface:
+`-- secret_receipt_fields(receipt)
+
+Receipt projection shared by logs, the MCP reply and CLI output; it carries no secret value.
+"""
 
 from datetime import UTC
 

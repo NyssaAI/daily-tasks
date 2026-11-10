@@ -1,7 +1,20 @@
-# Responsibility: Prove SecretString never leaks its value through text, logs or JSON dumps.
-# Public interface:
-# (none)
-"""SecretString redaction and the deprecated disk credential fields."""
+"""Responsibility: Prove SecretString never leaks its value through text, logs or JSON dumps.
+Public interface:
++-- TOKEN
++-- test_disk_credential_fields_are_deprecated_in_schema(dto, field)
++-- test_port_config_without_credentials_root_validates()
++-- test_secret_string_empty_value_raises()
++-- test_secret_string_in_container_repr_is_redacted()
++-- test_secret_string_is_immutable_and_copies_as_itself()
++-- test_secret_string_json_dump_without_reveal_is_redacted()
++-- test_secret_string_log_record_is_redacted(caplog)
++-- test_secret_string_pickle_is_refused()
++-- test_secret_string_plain_json_dumps_refuses_value()
++-- test_secret_string_reveal_returns_value()
+`-- test_secret_string_text_rendering_is_redacted(render)
+
+SecretString redaction and the deprecated disk credential fields.
+"""
 
 import copy
 import json

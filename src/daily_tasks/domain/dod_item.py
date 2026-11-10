@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable DodItem DTO.
-# Public interface:
-# `-- DodItem
-#     +-- done
-#     +-- id
-#     `-- text
-"""DodItem DTO."""
+"""Responsibility: Represent an immutable DodItem DTO.
+Public interface:
+`-- DodItem
+    +-- done
+    +-- id
+    `-- text
+
+DodItem DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

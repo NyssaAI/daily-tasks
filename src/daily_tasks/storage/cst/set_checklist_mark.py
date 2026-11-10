@@ -1,7 +1,9 @@
-# Responsibility: Change the mark of one checklist item without touching unrelated bytes.
-# Public interface:
-# `-- set_checklist_mark(document, item_id, mark)
-"""Surgical mutation: replaces only the one mark character of the targeted item."""
+"""Responsibility: Change the mark of one checklist item without touching unrelated bytes.
+Public interface:
+`-- set_checklist_mark(document, item_id, mark)
+
+Surgical mutation: replaces only the one mark character of the targeted item.
+"""
 
 from dataclasses import replace
 from typing import Final

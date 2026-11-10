@@ -1,8 +1,10 @@
-# Responsibility: Render a daily plan document as canonical Obsidian Markdown.
-# Public interface:
-# +-- SECTION_TITLES
-# `-- render_daily_plan(document)
-"""Daily plan renderer matching the layout of `docs/specs/8-sample-daily-plan.md`."""
+"""Responsibility: Render a daily plan document as canonical Obsidian Markdown.
+Public interface:
++-- SECTION_TITLES
+`-- render_daily_plan(document)
+
+Daily plan renderer matching the layout of `docs/specs/8-sample-daily-plan.md`.
+"""
 
 from collections.abc import Mapping
 from datetime import date, datetime

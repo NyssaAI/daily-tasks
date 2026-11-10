@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable DailyPlanSummary DTO.
-# Public interface:
-# `-- DailyPlanSummary
-#     +-- late_tasks
-#     +-- open_projects
-#     `-- open_tasks
-"""DailyPlanSummary DTO."""
+"""Responsibility: Represent an immutable DailyPlanSummary DTO.
+Public interface:
+`-- DailyPlanSummary
+    +-- late_tasks
+    +-- open_projects
+    `-- open_tasks
+
+DailyPlanSummary DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

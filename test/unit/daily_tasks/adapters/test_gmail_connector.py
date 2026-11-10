@@ -1,7 +1,23 @@
-# Responsibility: Prove GmailConnector fetches Gmail read-only, maps messages and advances only the Gmail cursor.
-# Public interface:
-# (none)
-"""Gmail connector behavior against a fake Gmail REST v1 transport and a fake token source."""
+"""Responsibility: Prove GmailConnector fetches Gmail read-only, maps messages and advances only the Gmail cursor.
+Public interface:
++-- LIST_URL
++-- NOW
++-- SINCE
++-- TOKEN
++-- test_gmail_connector_html_only_body_maps_html_format()
++-- test_gmail_connector_incremental_fetch_advances_watermark_without_duplicates()
++-- test_gmail_connector_maps_headers_and_body_to_message()
++-- test_gmail_connector_message_at_last_external_id_is_not_returned_again()
++-- test_gmail_connector_missing_grant_fails_forbidden_without_http_call()
++-- test_gmail_connector_queries_after_cursor_with_bearer_token()
++-- test_gmail_connector_rejected_token_fails_forbidden_and_logs_without_secret(log_capture)
++-- test_gmail_connector_success_logs_counts_and_never_bodies(log_capture)
++-- test_gmail_connector_transport_failure_fails_unavailable()
++-- test_gmail_connector_truncated_fetch_logs_warning(log_capture)
+`-- test_gmail_connector_without_cursor_starts_from_7_day_lookback_and_creates_cursor()
+
+Gmail connector behavior against a fake Gmail REST v1 transport and a fake token source.
+"""
 
 import asyncio
 import base64
@@ -13,6 +29,7 @@ from datetime import UTC, datetime
 
 from nyssa_ai_result import Err, Ok, Result, fail, ok
 
+from conftest import LogCapture
 from daily_tasks.adapters.communication.gmail_connector import GmailConnector
 from daily_tasks.domain import FetchCursor, FetchCursors, MessageAddress, SecretString
 
@@ -20,29 +37,6 @@ TOKEN = "ya29.gmail-access-token"
 NOW = datetime(2026, 11, 3, 14, 0, tzinfo=UTC)
 SINCE = datetime(2026, 11, 3, 12, 0, tzinfo=UTC)
 LIST_URL = "https://gmail.googleapis.com/gmail/v1/users/me/messages"
-
-
-@dataclass
-class _RecordingLogger:
-    records: list[tuple[str, str, Mapping[str, object]]] = field(default_factory=list)
-
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("debug", message, fields or {}))
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("info", message, fields or {}))
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("warn", message, fields or {}))
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        self.records.append(("error", message, fields or {}))
 
 
 @dataclass
@@ -119,15 +113,15 @@ def _cursor(since: datetime, last_id: str | None = None) -> FetchCursor:
     return FetchCursor(since=since, last_external_id=last_id, last_run_at=None, last_status="ok", last_error=None)
 
 
-def _connector(http: _FakeGmail, logger: _RecordingLogger, tokens: _TokenSource | None = None) -> GmailConnector:
-    return GmailConnector(tokens or _TokenSource(), logger, clock=lambda: NOW, http=http)
+def _connector(http: _FakeGmail, tokens: _TokenSource | None = None) -> GmailConnector:
+    return GmailConnector(tokens or _TokenSource(), clock=lambda: NOW, http=http)
 
 
 def test_gmail_connector_maps_headers_and_body_to_message() -> None:
     received = datetime(2026, 11, 3, 12, 41, 9, tzinfo=UTC)
     http = _FakeGmail({"18f2": _raw("18f2", received)})
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(_cursor(SINCE))))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(_cursor(SINCE))))
 
     assert isinstance(result, Ok)
     (message,) = result.value.messages
@@ -154,7 +148,7 @@ def test_gmail_connector_html_only_body_maps_html_format() -> None:
     payload["parts"] = [payload["parts"][0]]
     http = _FakeGmail({"h1": raw})
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(_cursor(SINCE))))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(_cursor(SINCE))))
 
     assert isinstance(result, Ok)
     assert (result.value.messages[0].body, result.value.messages[0].body_format) == ("<p>Status</p>", "html")
@@ -163,7 +157,7 @@ def test_gmail_connector_html_only_body_maps_html_format() -> None:
 def test_gmail_connector_queries_after_cursor_with_bearer_token() -> None:
     http = _FakeGmail({})
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(_cursor(SINCE))))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(_cursor(SINCE))))
 
     assert isinstance(result, Ok)
     url, headers = http.requests[0]
@@ -176,7 +170,7 @@ def test_gmail_connector_incremental_fetch_advances_watermark_without_duplicates
     first_at = datetime(2026, 11, 3, 12, 30, tzinfo=UTC)
     second_at = datetime(2026, 11, 3, 13, 15, tzinfo=UTC)
     http = _FakeGmail({"m1": _raw("m1", first_at)})
-    connector = _connector(http, _RecordingLogger())
+    connector = _connector(http)
 
     first = asyncio.run(connector.fetch_new_messages(_cursors(_cursor(SINCE))))
     assert isinstance(first, Ok)
@@ -198,7 +192,7 @@ def test_gmail_connector_message_at_last_external_id_is_not_returned_again() -> 
     at = datetime(2026, 11, 3, 12, 30, tzinfo=UTC)
     http = _FakeGmail({"m1": _raw("m1", at), "m0": _raw("m0", SINCE)})
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(_cursor(SINCE, "m0"))))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(_cursor(SINCE, "m0"))))
 
     assert isinstance(result, Ok)
     assert [m.external_id for m in result.value.messages] == ["m1"]
@@ -207,7 +201,7 @@ def test_gmail_connector_message_at_last_external_id_is_not_returned_again() -> 
 def test_gmail_connector_without_cursor_starts_from_7_day_lookback_and_creates_cursor() -> None:
     http = _FakeGmail({})
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors()))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors()))
 
     assert isinstance(result, Ok)
     gmail = result.value.cursors.cursors["gmail"]
@@ -215,23 +209,22 @@ def test_gmail_connector_without_cursor_starts_from_7_day_lookback_and_creates_c
     assert gmail.last_external_id is None
 
 
-def test_gmail_connector_rejected_token_fails_forbidden_and_logs_without_secret() -> None:
+def test_gmail_connector_rejected_token_fails_forbidden_and_logs_without_secret(log_capture: LogCapture) -> None:
     http = _FakeGmail({}, status="http_401")
-    logger = _RecordingLogger()
 
-    result = asyncio.run(_connector(http, logger).fetch_new_messages(_cursors(_cursor(SINCE))))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(_cursor(SINCE))))
 
     assert isinstance(result, Err)
     assert result.category == "Forbidden"
-    assert logger.records[-1][0:2] == ("error", "gmail fetch failed")
-    assert TOKEN not in repr(logger.records)
+    assert log_capture.records[-1][0:2] == ("error", "gmail fetch failed")
+    assert TOKEN not in repr(log_capture.records)
 
 
 def test_gmail_connector_missing_grant_fails_forbidden_without_http_call() -> None:
     http = _FakeGmail({})
     tokens = _TokenSource(fail("Gmail access token is not available.", "NotFound"))
 
-    result = asyncio.run(_connector(http, _RecordingLogger(), tokens).fetch_new_messages(_cursors(_cursor(SINCE))))
+    result = asyncio.run(_connector(http, tokens).fetch_new_messages(_cursors(_cursor(SINCE))))
 
     assert isinstance(result, Err)
     assert result.category == "Forbidden"
@@ -241,32 +234,30 @@ def test_gmail_connector_missing_grant_fails_forbidden_without_http_call() -> No
 def test_gmail_connector_transport_failure_fails_unavailable() -> None:
     http = _FakeGmail({}, status="network_error")
 
-    result = asyncio.run(_connector(http, _RecordingLogger()).fetch_new_messages(_cursors(_cursor(SINCE))))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(_cursor(SINCE))))
 
     assert isinstance(result, Err)
     assert result.category == "Unavailable"
 
 
-def test_gmail_connector_success_logs_counts_and_never_bodies() -> None:
+def test_gmail_connector_success_logs_counts_and_never_bodies(log_capture: LogCapture) -> None:
     http = _FakeGmail({"m1": _raw("m1", datetime(2026, 11, 3, 12, 30, tzinfo=UTC), body="confidential plan")})
-    logger = _RecordingLogger()
 
-    result = asyncio.run(_connector(http, logger).fetch_new_messages(_cursors(_cursor(SINCE))))
+    result = asyncio.run(_connector(http).fetch_new_messages(_cursors(_cursor(SINCE))))
 
     assert isinstance(result, Ok)
-    level, message, fields = logger.records[-1]
+    level, message, fields = log_capture.records[-1]
     assert (level, message, fields["fetched"]) == ("info", "gmail fetch completed", 1)
-    assert "confidential" not in repr(logger.records)
-    assert TOKEN not in repr(logger.records)
+    assert "confidential" not in repr(log_capture.records)
+    assert TOKEN not in repr(log_capture.records)
 
 
-def test_gmail_connector_truncated_fetch_logs_warning() -> None:
+def test_gmail_connector_truncated_fetch_logs_warning(log_capture: LogCapture) -> None:
     http = _FakeGmail({f"m{i}": _raw(f"m{i}", datetime(2026, 11, 3, 13, i, tzinfo=UTC)) for i in range(3)})
-    logger = _RecordingLogger()
-    connector = GmailConnector(_TokenSource(), logger, clock=lambda: NOW, http=http, max_messages=2)
+    connector = GmailConnector(_TokenSource(), clock=lambda: NOW, http=http, max_messages=2)
 
     result = asyncio.run(connector.fetch_new_messages(_cursors(_cursor(SINCE))))
 
     assert isinstance(result, Ok)
     assert len(result.value.messages) == 2
-    assert ("warn", "gmail fetch truncated") in [(level, message) for level, message, _ in logger.records]
+    assert ("warn", "gmail fetch truncated") in [(level, message) for level, message, _ in log_capture.records]

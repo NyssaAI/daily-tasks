@@ -1,13 +1,15 @@
-# Responsibility: Represent an immutable Diagnostic DTO.
-# Public interface:
-# `-- Diagnostic
-#     +-- attachment_id
-#     +-- code
-#     +-- detail
-#     +-- level
-#     +-- path
-#     `-- source
-"""Diagnostic DTO."""
+"""Responsibility: Represent an immutable Diagnostic DTO.
+Public interface:
+`-- Diagnostic
+    +-- attachment_id
+    +-- code
+    +-- detail
+    +-- level
+    +-- path
+    `-- source
+
+Diagnostic DTO.
+"""
 
 from typing import Literal
 

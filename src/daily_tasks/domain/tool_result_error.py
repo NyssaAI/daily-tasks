@@ -1,15 +1,17 @@
-# Responsibility: Represent an immutable ToolResultError DTO.
-# Public interface:
-# `-- ToolResultError
-#     +-- code
-#     +-- message
-#     +-- payload
-#     +-- screen_id
-#     +-- session_id
-#     +-- stage
-#     +-- status
-#     `-- tool
-"""ToolResultError DTO."""
+"""Responsibility: Represent an immutable ToolResultError DTO.
+Public interface:
+`-- ToolResultError
+    +-- code
+    +-- message
+    +-- payload
+    +-- screen_id
+    +-- session_id
+    +-- stage
+    +-- status
+    `-- tool
+
+ToolResultError DTO.
+"""
 
 from collections.abc import Mapping
 from typing import Literal

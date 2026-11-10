@@ -1,7 +1,9 @@
-# Responsibility: Build a staged record change, locating the record file through the state graph index.
-# Public interface:
-# `-- operation_record_change(graph, context, record_type, record_id, before, after)
-"""Pure staged-change construction; the store checks `expected_hash` when it applies the change."""
+"""Responsibility: Build a staged record change, locating the record file through the state graph index.
+Public interface:
+`-- operation_record_change(graph, context, record_type, record_id, before, after)
+
+Pure staged-change construction; the store checks `expected_hash` when it applies the change.
+"""
 
 from collections.abc import Mapping
 from typing import Literal

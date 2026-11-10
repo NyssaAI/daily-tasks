@@ -1,14 +1,16 @@
-# Responsibility: Represent an immutable MessageGraphSummary DTO.
-# Public interface:
-# `-- MessageGraphSummary
-#     +-- carried_from_earlier_days
-#     +-- fetched_this_run
-#     +-- linked
-#     +-- needs_review
-#     +-- superseded
-#     +-- unlinked
-#     `-- unreviewed
-"""MessageGraphSummary DTO."""
+"""Responsibility: Represent an immutable MessageGraphSummary DTO.
+Public interface:
+`-- MessageGraphSummary
+    +-- carried_from_earlier_days
+    +-- fetched_this_run
+    +-- linked
+    +-- needs_review
+    +-- superseded
+    +-- unlinked
+    `-- unreviewed
+
+MessageGraphSummary DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

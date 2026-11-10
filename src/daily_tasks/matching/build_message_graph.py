@@ -1,7 +1,9 @@
-# Responsibility: Assemble the MessageGraph from matched messages.
-# Public interface:
-# `-- build_message_graph(graph, matches, messages_root, built_at, sources)
-"""Pure projection of pre-matched messages into the `message-graph.json` shape."""
+"""Responsibility: Assemble the MessageGraph from matched messages.
+Public interface:
+`-- build_message_graph(graph, matches, messages_root, built_at, sources)
+
+Pure projection of pre-matched messages into the `message-graph.json` shape.
+"""
 
 from collections.abc import Sequence
 from datetime import datetime

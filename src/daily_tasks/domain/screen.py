@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable Screen DTO.
-# Public interface:
-# `-- Screen
-#     +-- kind
-#     +-- numbering
-#     +-- rows
-#     `-- shown_at
-"""Screen DTO."""
+"""Responsibility: Represent an immutable Screen DTO.
+Public interface:
+`-- Screen
+    +-- kind
+    +-- numbering
+    +-- rows
+    `-- shown_at
+
+Screen DTO.
+"""
 
 from collections.abc import Mapping
 from typing import Literal

@@ -1,16 +1,18 @@
-# Responsibility: Run the planning session tools against in-memory sessions and write only after confirmation.
-# Public interface:
-# +-- PlanningTools
-# |   +-- advance_screen(session_id, target_screen)
-# |   +-- cancel_session(session_id)
-# |   +-- confirm_plan(session_id, confirmed)
-# |   +-- execute_operations(session_id, original_words, operations, verdicts)
-# |   +-- get_fetch_window(sources)
-# |   +-- get_session_state(session_id)
-# |   +-- new(settings, reader, store, logger, clock, new_id, cursor_store)
-# |   `-- start_session(date, focus, messages, checked_sources)
-# `-- ToolBody
-"""Application service behind the MCP tools; every result follows `docs/specs/tool-results.json`."""
+"""Responsibility: Run the planning session tools against in-memory sessions and write only after confirmation.
+Public interface:
++-- PlanningTools
+|   +-- advance_screen(session_id, target_screen)
+|   +-- cancel_session(session_id)
+|   +-- confirm_plan(session_id, confirmed)
+|   +-- execute_operations(session_id, original_words, operations, verdicts)
+|   +-- get_fetch_window(sources, workspace_root)
+|   +-- get_session_state(session_id)
+|   +-- new(settings, reader, store, clock, new_id, cursor_store)
+|   `-- start_session(date, focus, messages, checked_sources, workspace_root)
+`-- ToolBody
+
+Application service behind the MCP tools; every result follows `docs/specs/tool-results.json`.
+"""
 
 import dataclasses
 from collections.abc import Callable, Mapping, Sequence
@@ -23,7 +25,7 @@ from pydantic import JsonValue, TypeAdapter, ValidationError
 
 from daily_tasks.domain import Actor, Operations, Suggestions
 from daily_tasks.matching import generate_suggestions, match_messages
-from daily_tasks.ports import LocalFileStore, PortLogger
+from daily_tasks.ports import LocalFileStore
 from daily_tasks.server.harness_message_intake import fetch_window_reply, harness_message_intake, saved_cursors
 from daily_tasks.server.live_session import LiveSession
 from daily_tasks.server.start_session_reply import start_session_reply
@@ -83,7 +85,6 @@ class PlanningTools:
         settings: ServerSettings,
         reader: WorkspaceReader,
         store: LocalFileStore,
-        logger: PortLogger,
         clock: Callable[[], datetime],
         new_id: Callable[[], UUID],
         cursor_store: CursorStore | None = None,
@@ -92,7 +93,6 @@ class PlanningTools:
         self._settings = settings
         self._reader = reader
         self._store = store
-        self._logger = logger
         self._clock = clock
         self._new_id = new_id
         self._cursor_store = cursor_store
@@ -104,6 +104,7 @@ class PlanningTools:
         focus: str | None = None,
         messages: Sequence[Mapping[str, JsonValue]] = (),
         checked_sources: Sequence[str] = (),
+        workspace_root: str | None = None,
     ) -> ToolBody:
         """Read the workspace, pre-match unread messages into pending suggestions and show screen 1.
 
@@ -155,7 +156,9 @@ class PlanningTools:
         message, payload = start_session_reply(read, harness, len(drafted.suggestions))
         return tool_reply(tool, ok(message), started.value, _render(started.value), payload=payload)
 
-    def get_fetch_window(self, sources: Sequence[str] = ("gmail", "slack")) -> ToolBody:
+    def get_fetch_window(
+        self, sources: Sequence[str] = ("gmail", "slack"), workspace_root: str | None = None
+    ) -> ToolBody:
         """Return each source's next fetch window from its saved cursor, else the initial lookback; no session."""
         saved = saved_cursors(self._cursor_store, self._settings.workspace_root.as_posix())
         return fetch_window_reply(saved, sources, self._clock(), self._settings.initial_lookback_days)
@@ -282,7 +285,7 @@ class PlanningTools:
             self._new_id(),
             now,
         )
-        written = ConfirmPlan(self._store, self._logger).confirm(current.changes, document, confirmed)
+        written = ConfirmPlan(self._store).confirm(current.changes, document, confirmed)
         if not written.ok:
             return tool_reply(tool, written, current.state)
         followups = self._persist(current, done.value)
@@ -336,7 +339,7 @@ class PlanningTools:
         return ""
 
     def _persist(self, live: LiveSession, state: SessionState) -> Result[None]:
-        appended = DecisionLogger(self._store, self._logger).append(live.decisions)
+        appended = DecisionLogger(self._store).append(live.decisions)
         if not appended.ok:
             return fail(appended.message, appended.category)
         suggestions: Suggestions = live.suggestions

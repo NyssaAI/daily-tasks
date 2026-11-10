@@ -1,7 +1,9 @@
-# Responsibility: Generate RFC 9562 version 7 UUIDs for session, decision and plan identifiers.
-# Public interface:
-# `-- new_uuid7(now_ms, random_bytes)
-"""Time-ordered UUIDv7 without depending on `uuid.uuid7` (Python 3.14+)."""
+"""Responsibility: Generate RFC 9562 version 7 UUIDs for session, decision and plan identifiers.
+Public interface:
+`-- new_uuid7(now_ms, random_bytes)
+
+Time-ordered UUIDv7 without depending on `uuid.uuid7` (Python 3.14+).
+"""
 
 import os
 import time

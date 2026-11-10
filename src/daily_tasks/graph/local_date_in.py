@@ -1,7 +1,9 @@
-# Responsibility: Convert a UTC instant to the calendar date of a named timezone.
-# Public interface:
-# `-- local_date_in(instant, timezone)
-"""Local calendar date of an aware instant in an IANA timezone."""
+"""Responsibility: Convert a UTC instant to the calendar date of a named timezone.
+Public interface:
+`-- local_date_in(instant, timezone)
+
+Local calendar date of an aware instant in an IANA timezone.
+"""
 
 from datetime import date, datetime
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError

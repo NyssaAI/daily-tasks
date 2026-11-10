@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable Rollover DTO.
-# Public interface:
-# `-- Rollover
-#     +-- carried
-#     +-- dropped
-#     +-- from_date
-#     `-- status
-"""Rollover DTO."""
+"""Responsibility: Represent an immutable Rollover DTO.
+Public interface:
+`-- Rollover
+    +-- carried
+    +-- dropped
+    +-- from_date
+    `-- status
+
+Rollover DTO.
+"""
 
 from datetime import date
 

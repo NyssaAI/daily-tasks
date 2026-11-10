@@ -1,15 +1,17 @@
-# Responsibility: Represent an immutable Attachment DTO.
-# Public interface:
-# `-- Attachment
-#     +-- downloaded_at
-#     +-- filename
-#     +-- id
-#     +-- mime_type
-#     +-- path
-#     +-- sha256
-#     +-- size_bytes
-#     `-- status
-"""Attachment DTO."""
+"""Responsibility: Represent an immutable Attachment DTO.
+Public interface:
+`-- Attachment
+    +-- downloaded_at
+    +-- filename
+    +-- id
+    +-- mime_type
+    +-- path
+    +-- sha256
+    +-- size_bytes
+    `-- status
+
+Attachment DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

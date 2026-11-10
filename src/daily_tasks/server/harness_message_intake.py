@@ -1,9 +1,11 @@
-# Responsibility: Validate host-fetched messages and merge them into a session's messages and cursors.
-# Public interface:
-# +-- fetch_window_reply(cursors, sources, now, initial_lookback_days)
-# +-- harness_message_intake(raw_messages, checked_sources, snapshot, cursor_store, now, initial_lookback_days)
-# `-- saved_cursors(cursor_store, workspace_root)
-"""Messages an assistant harness connection read go through `ingest_harness_messages` like connector reads."""
+"""Responsibility: Validate host-fetched messages and merge them into a session's messages and cursors.
+Public interface:
++-- fetch_window_reply(cursors, sources, now, initial_lookback_days)
++-- harness_message_intake(raw_messages, checked_sources, snapshot, cursor_store, now, initial_lookback_days)
+`-- saved_cursors(cursor_store, workspace_root)
+
+Messages an assistant harness connection read go through `ingest_harness_messages` like connector reads.
+"""
 
 from collections.abc import Mapping, Sequence
 from datetime import datetime

@@ -1,7 +1,9 @@
-# Responsibility: Move from the plan-the-day screen to the first project's assign-days screen.
-# Public interface:
-# `-- review_projects(state, now)
-"""SCREEN_1 -> SCREEN_2 ("yes" to *Ready to review your open projects?*); pending suggestions carry over."""
+"""Responsibility: Move from the plan-the-day screen to the first project's assign-days screen.
+Public interface:
+`-- review_projects(state, now)
+
+SCREEN_1 -> SCREEN_2 ("yes" to *Ready to review your open projects?*); pending suggestions carry over.
+"""
 
 from datetime import datetime
 

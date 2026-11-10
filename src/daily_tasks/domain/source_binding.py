@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable SourceBinding DTO.
-# Public interface:
-# `-- SourceBinding
-#     +-- adapter
-#     +-- enabled
-#     +-- name
-#     +-- path
-#     `-- settings
-"""SourceBinding DTO."""
+"""Responsibility: Represent an immutable SourceBinding DTO.
+Public interface:
+`-- SourceBinding
+    +-- adapter
+    +-- enabled
+    +-- name
+    +-- path
+    `-- settings
+
+SourceBinding DTO.
+"""
 
 from collections.abc import Mapping
 

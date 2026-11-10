@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable MessageLogEntry DTO.
-# Public interface:
-# `-- MessageLogEntry
-#     +-- day
-#     +-- location
-#     +-- message_id
-#     +-- reviewed
-#     `-- reviewed_at
-"""MessageLogEntry DTO."""
+"""Responsibility: Represent an immutable MessageLogEntry DTO.
+Public interface:
+`-- MessageLogEntry
+    +-- day
+    +-- location
+    +-- message_id
+    +-- reviewed
+    `-- reviewed_at
+
+MessageLogEntry DTO.
+"""
 
 from datetime import date
 

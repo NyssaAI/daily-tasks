@@ -1,7 +1,9 @@
-# Responsibility: Choose the rows screen 3 (confirm today's plan) lists, in display order.
-# Public interface:
-# `-- confirm_refs(graph)
-"""Tasks selected for today (my work, delegated, follow-up), then blockers selected for today."""
+"""Responsibility: Choose the rows screen 3 (confirm today's plan) lists, in display order.
+Public interface:
+`-- confirm_refs(graph)
+
+Tasks selected for today (my work, delegated, follow-up), then blockers selected for today.
+"""
 
 from daily_tasks.domain import RowRef, StateGraph
 

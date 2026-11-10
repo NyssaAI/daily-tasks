@@ -1,8 +1,10 @@
-# Responsibility: Turn pre-matched messages into pending draft suggestions.
-# Public interface:
-# +-- MIN_LINK_CONFIDENCE
-# `-- generate_suggestions(graph, matches, session_id, workspace_root, clock, new_id, definitions_of_done)
-"""Deterministic draft suggestions; every suggestion is pending and nothing is ever accepted here."""
+"""Responsibility: Turn pre-matched messages into pending draft suggestions.
+Public interface:
++-- MIN_LINK_CONFIDENCE
+`-- generate_suggestions(graph, matches, session_id, workspace_root, clock, new_id, definitions_of_done)
+
+Deterministic draft suggestions; every suggestion is pending and nothing is ever accepted here.
+"""
 
 from collections.abc import Callable, Iterator, Mapping, Sequence
 from datetime import datetime

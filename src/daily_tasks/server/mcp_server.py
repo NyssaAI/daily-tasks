@@ -1,23 +1,27 @@
-# Responsibility: Answer MCP JSON-RPC 2.0 messages by dispatching tool calls to the planning tools.
-# Public interface:
-# `-- McpServer
-#     +-- PROTOCOL_VERSION
-#     +-- handle(message)
-#     `-- new(tools, logger, version, secrets)
-"""Transport-free MCP protocol handling: `initialize`, `ping`, `tools/list` and `tools/call`."""
+"""Responsibility: Answer MCP JSON-RPC 2.0 messages by dispatching tool calls to the planning tools.
+Public interface:
+`-- McpServer
+    +-- PROTOCOL_VERSION
+    +-- handle(message)
+    `-- new(tools, version, secrets)
+
+Transport-free MCP protocol handling: `initialize`, `ping`, `tools/list` and `tools/call`.
+"""
 
 import json
+import logging
 import time
 from collections.abc import Mapping, Sequence
 from typing import ClassVar, Final, final
 
 from pydantic import JsonValue
 
-from daily_tasks.ports import PortLogger
-from daily_tasks.server.planning_tools import PlanningTools, ToolBody
+from daily_tasks.server.planning_session_port import PlanningSessionPort
+from daily_tasks.server.planning_tools import ToolBody
 from daily_tasks.server.secret_tools import SecretTools
 from daily_tasks.server.tool_definitions import SECRET_TOOL_DEFINITIONS, TOOL_DEFINITIONS
 
+_LOGGER: Final = logging.getLogger(__name__)
 _OPERATION: Final = "mcp.request"
 _PARSE_ERROR: Final = -32700
 _INVALID_REQUEST: Final = -32600
@@ -50,19 +54,18 @@ def _objects(arguments: Mapping[str, JsonValue], key: str) -> Sequence[Mapping[s
 
 @final
 class McpServer:
-    """Borrow `tools` and `logger`; one structured log record per request, never with arguments or screens."""
+    """Borrow `tools`; emit one structured log record per request, never with arguments or screens."""
 
     PROTOCOL_VERSION: ClassVar[str] = "2025-06-18"
 
     def __init__(
-        self, tools: PlanningTools, logger: PortLogger, version: str, secrets: SecretTools | None = None
+        self, tools: PlanningSessionPort, version: str, secrets: SecretTools | None = None
     ) -> None:
         """Keep the collaborators; `version` is reported as `serverInfo.version`.
 
         `daily_tasks_capture_secret` is listed and callable only when `secrets` is supplied.
         """
         self._tools = tools
-        self._logger = logger
         self._version = version
         self._secrets = secrets
         self._definitions = (*TOOL_DEFINITIONS, *(SECRET_TOOL_DEFINITIONS if secrets is not None else ()))
@@ -74,13 +77,13 @@ class McpServer:
         try:
             request = json.loads(message)
         except json.JSONDecodeError:
-            self._logger.warn("unparseable message", fields={"bytes": len(message)}, operation=_OPERATION)
+            _LOGGER.warning("unparseable message", extra={"operation": _OPERATION, "fields": {"bytes": len(message)}})
             return json.dumps(_error(None, _PARSE_ERROR, "Parse error"))
         if not isinstance(request, dict) or request.get("jsonrpc") != "2.0" or "method" not in request:
             return json.dumps(_error(None, _INVALID_REQUEST, "Invalid Request"))
         method = request["method"]
         if "id" not in request:
-            self._logger.debug("notification", fields={"method": str(method)}, operation=_OPERATION)
+            _LOGGER.debug("notification", extra={"operation": _OPERATION, "fields": {"method": str(method)}})
             return None
         request_id: JsonValue = request["id"]
         params = request.get("params") or {}
@@ -96,11 +99,11 @@ class McpServer:
         fields["tool"] = str(params.get("name", "")) if isinstance(params, dict) else ""
         fields["session_id"] = str(body.get("session_id")) if isinstance(body, dict) else ""
         fields["status"] = str(body.get("status")) if isinstance(body, dict) else fields["outcome"]
-        self._logger.info(
-            "mcp request {request_id} {method} {tool} -> {status} (session {session_id}, {elapsed_ms} ms)",
-            fields=fields,
-            operation=_OPERATION,
+        summary = (
+            f"mcp request {fields['request_id']} {fields['method']} {fields['tool']} -> {fields['status']} "
+            f"(session {fields['session_id']}, {fields['elapsed_ms']} ms)"
         )
+        _LOGGER.info(summary, extra={"operation": _OPERATION, "fields": fields})
         return json.dumps(response, ensure_ascii=False)
 
     async def _dispatch(self, request_id: JsonValue, method: str, params: dict[str, JsonValue]) -> dict[str, JsonValue]:
@@ -141,10 +144,18 @@ class McpServer:
             messages, checked = _objects(arguments, "messages"), _strings(arguments, "checked_sources")
             if messages is None or checked is None:
                 return None
-            return await tools.start_session(_string(arguments, "date"), _string(arguments, "focus"), messages, checked)
+            workspace_root = _string(arguments, "workspace_root")
+            return await tools.start_session(
+                _string(arguments, "date"),
+                _string(arguments, "focus"),
+                messages,
+                checked,
+                workspace_root=workspace_root,
+            )
         if name == "daily_tasks_get_fetch_window":
             sources = _strings(arguments, "sources") if "sources" in arguments else ("gmail", "slack")
-            return tools.get_fetch_window(sources) if sources else None
+            workspace_root = _string(arguments, "workspace_root")
+            return tools.get_fetch_window(sources, workspace_root=workspace_root) if sources else None
         session_id = _string(arguments, "session_id")
         if session_id is None:
             return None

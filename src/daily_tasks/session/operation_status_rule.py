@@ -1,8 +1,10 @@
-# Responsibility: Check a requested state change against the operations.json `_rules`.
-# Public interface:
-# +-- ALLOWED_STATES
-# `-- operation_status_rule(graph, operation)
-"""Pure validation of `set-status`: allowed states, completion and cancellation preconditions."""
+"""Responsibility: Check a requested state change against the operations.json `_rules`.
+Public interface:
++-- ALLOWED_STATES
+`-- operation_status_rule(graph, operation)
+
+Pure validation of `set-status`: allowed states, completion and cancellation preconditions.
+"""
 
 from collections.abc import Mapping
 from typing import Final

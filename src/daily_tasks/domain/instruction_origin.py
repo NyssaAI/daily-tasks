@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable InstructionOrigin DTO.
-# Public interface:
-# `-- InstructionOrigin
-#     +-- kind
-#     +-- row
-#     `-- screen_id
-"""InstructionOrigin DTO."""
+"""Responsibility: Represent an immutable InstructionOrigin DTO.
+Public interface:
+`-- InstructionOrigin
+    +-- kind
+    +-- row
+    `-- screen_id
+
+InstructionOrigin DTO.
+"""
 
 from typing import Literal
 

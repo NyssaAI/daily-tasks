@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable DailyPlanEntry DTO.
-# Public interface:
-# `-- DailyPlanEntry
-#     +-- added_at
-#     +-- carried_from
-#     +-- item_id
-#     +-- item_type
-#     `-- section
-"""DailyPlanEntry DTO."""
+"""Responsibility: Represent an immutable DailyPlanEntry DTO.
+Public interface:
+`-- DailyPlanEntry
+    +-- added_at
+    +-- carried_from
+    +-- item_id
+    +-- item_type
+    `-- section
+
+DailyPlanEntry DTO.
+"""
 
 from datetime import date
 from typing import Literal

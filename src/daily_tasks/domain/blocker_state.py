@@ -1,7 +1,9 @@
-# Responsibility: Represent an immutable BlockerState DTO.
-# Public interface:
-# `-- BlockerState
-"""BlockerState DTO."""
+"""Responsibility: Represent an immutable BlockerState DTO.
+Public interface:
+`-- BlockerState
+
+BlockerState DTO.
+"""
 
 from typing import Literal
 

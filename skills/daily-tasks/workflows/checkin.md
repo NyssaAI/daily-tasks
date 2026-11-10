@@ -36,7 +36,7 @@ Reconcile manual Markdown edits, reported progress, and pending operations befor
    - Save progress to `<stateRoot>/checkin.json` after each user reply; never treat silence or session interruption as acceptance.
    - Allow the user to skip unresolved items while continuing with independent work, and never re-ask already-resolved questions.
 5. **Open or update today's daily plan via Plan**:
-   - Delegate daily plan opening, rollover (`↺`), message suggestion adjudication, and task selection to [Daily plan](plan.md) using the `daily_tasks_*` MCP tools (`daily_tasks_start_session`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`, `daily_tasks_confirm_plan`).
+   - Delegate daily plan opening, rollover (`↺`), message suggestion adjudication, and task selection to [Daily plan](plan.md) using the `daily_tasks_*` MCP tools (`daily_tasks_start_session` with `workspace_root?`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`, `daily_tasks_confirm_plan`).
    - Enforce [Daily plan](plan.md)'s screen gate: display `payload.screen` unchanged and never substitute a prose check-in summary for the validated planning screen.
    - Write the confirmed daily plan strictly under `<workspaceRoot>/<dailyPlansRelative>/YYYY.MM.DD-daily-plan.md` (never inside `<stateRoot>`), keeping `My work`, `Delegated work`, and `Follow-up work` separated without time-slot scheduling.
 6. **Finalize baselines and report**:

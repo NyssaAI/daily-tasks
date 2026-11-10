@@ -1,11 +1,13 @@
-# Responsibility: Hold a heading and the checklist items and table rows it owns.
-# Public interface:
-# `-- Section
-#     +-- checklist_items
-#     +-- end_index
-#     +-- heading
-#     `-- table_rows
-"""Section node: a heading owns the lines up to the next heading of the same or a higher level."""
+"""Responsibility: Hold a heading and the checklist items and table rows it owns.
+Public interface:
+`-- Section
+    +-- checklist_items
+    +-- end_index
+    +-- heading
+    `-- table_rows
+
+Section node: a heading owns the lines up to the next heading of the same or a higher level.
+"""
 
 from dataclasses import dataclass
 

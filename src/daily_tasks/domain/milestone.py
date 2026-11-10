@@ -1,27 +1,29 @@
-# Responsibility: Represent an immutable Milestone DTO.
-# Public interface:
-# `-- Milestone
-#     +-- assignee
-#     +-- blocked_by
-#     +-- created_at
-#     +-- definition_of_done
-#     +-- id
-#     +-- number
-#     +-- owner
-#     +-- path
-#     +-- project_id
-#     +-- record_version
-#     +-- resolved_at
-#     +-- source
-#     +-- started_at
-#     +-- state
-#     +-- tags
-#     +-- target_date
-#     +-- task_ids
-#     +-- title
-#     +-- type
-#     `-- updated_at
-"""Milestone DTO."""
+"""Responsibility: Represent an immutable Milestone DTO.
+Public interface:
+`-- Milestone
+    +-- assignee
+    +-- blocked_by
+    +-- created_at
+    +-- definition_of_done
+    +-- id
+    +-- number
+    +-- owner
+    +-- path
+    +-- project_id
+    +-- record_version
+    +-- resolved_at
+    +-- source
+    +-- started_at
+    +-- state
+    +-- tags
+    +-- target_date
+    +-- task_ids
+    +-- title
+    +-- type
+    `-- updated_at
+
+Milestone DTO.
+"""
 
 from datetime import date
 from typing import Literal

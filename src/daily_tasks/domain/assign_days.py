@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable AssignDays DTO.
-# Public interface:
-# `-- AssignDays
-#     +-- current_project_id
-#     +-- include_in_progress_milestones
-#     +-- project_order
-#     `-- project_order_rule
-"""AssignDays DTO."""
+"""Responsibility: Represent an immutable AssignDays DTO.
+Public interface:
+`-- AssignDays
+    +-- current_project_id
+    +-- include_in_progress_milestones
+    +-- project_order
+    `-- project_order_rule
+
+AssignDays DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

@@ -1,7 +1,9 @@
-# Responsibility: Compute responsibility, eligibility, lateness, blocking and DoD facts for open tasks.
-# Public interface:
-# `-- derive_task_facts(records, relations, plannable_milestones, user_email, local_date)
-"""Facts per open task; completed and cancelled tasks get no facts."""
+"""Responsibility: Compute responsibility, eligibility, lateness, blocking and DoD facts for open tasks.
+Public interface:
+`-- derive_task_facts(records, relations, plannable_milestones, user_email, local_date)
+
+Facts per open task; completed and cancelled tasks get no facts.
+"""
 
 from collections.abc import Set
 from datetime import date

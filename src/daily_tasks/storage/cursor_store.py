@@ -1,13 +1,16 @@
-# Responsibility: Load and atomically save the per-source fetch cursors of one workspace.
-# Public interface:
-# `-- CursorStore
-#     +-- FILE_NAME
-#     +-- load()
-#     +-- new(state_root, workspace_root, logger)
-#     +-- path
-#     `-- save(cursors)
-"""Fetch cursor persistence at `<state_root>/fetch-cursors.json` (`docs/specs/fetch-cursors.json`)."""
+"""Responsibility: Load and atomically save the per-source fetch cursors of one workspace.
+Public interface:
+`-- CursorStore
+    +-- FILE_NAME
+    +-- load()
+    +-- new(state_root, workspace_root)
+    +-- path
+    `-- save(cursors)
 
+Fetch cursor persistence at `<state_root>/fetch-cursors.json` (`docs/specs/fetch-cursors.json`).
+"""
+
+import logging
 import os
 import tempfile
 import time
@@ -18,8 +21,8 @@ from nyssa_ai_result import Result, fail, ok
 from pydantic import TypeAdapter, ValidationError
 
 from daily_tasks.domain import FetchCursors
-from daily_tasks.ports import PortLogger
 
+_LOGGER: Final = logging.getLogger(__name__)
 _CURSORS: Final[TypeAdapter[FetchCursors]] = TypeAdapter(FetchCursors)
 _LOAD: Final = "cursors.load"
 _SAVE: Final = "cursors.save"
@@ -31,13 +34,12 @@ class CursorStore:
 
     FILE_NAME: ClassVar[str] = "fetch-cursors.json"
 
-    def __init__(self, state_root: Path, workspace_root: str, logger: PortLogger) -> None:
+    def __init__(self, state_root: Path, workspace_root: str) -> None:
         """`state_root` is the absolute `.nyssa-ai/daily-tasks/` directory; a relative path raises `ValueError`."""
         if not state_root.is_absolute():
             raise ValueError("state_root must be absolute so cursors do not depend on the working directory")
         self._path = state_root / self.FILE_NAME
         self._workspace_root = workspace_root
-        self._logger = logger
 
     @property
     def path(self) -> Path:
@@ -54,18 +56,27 @@ class CursorStore:
         try:
             raw = self._path.read_bytes()
         except FileNotFoundError:
-            self._logger.info("cursors missing; starting empty", fields=self._fields(started, 0), operation=_LOAD)
+            _LOGGER.info(
+                "cursors missing; starting empty",
+                extra={"operation": _LOAD, "fields": self._fields(started, 0)},
+            )
             return ok(FetchCursors(workspace_root=self._workspace_root, cursors={}))
         except OSError as exc:
-            self._logger.error("cursors unreadable", error=exc, fields=self._fields(started, 0), operation=_LOAD)
+            _LOGGER.error(
+                "cursors unreadable",
+                extra={"operation": _LOAD, "fields": self._fields(started, 0), "error": exc},
+            )
             return fail("Fetch cursors could not be read.", "Unavailable", cause=exc)
         try:
             cursors = _CURSORS.validate_json(raw)
         except ValidationError as exc:
             fields = {**self._fields(started, 0), "error_count": exc.error_count()}
-            self._logger.error("cursors malformed", fields=fields, operation=_LOAD)
+            _LOGGER.error("cursors malformed", extra={"operation": _LOAD, "fields": fields})
             return fail(f"Fetch cursors file '{self._path}' is malformed.", "Validation", cause=exc)
-        self._logger.info("cursors loaded", fields=self._fields(started, len(cursors.cursors)), operation=_LOAD)
+        _LOGGER.info(
+            "cursors loaded",
+            extra={"operation": _LOAD, "fields": self._fields(started, len(cursors.cursors))},
+        )
         return ok(cursors)
 
     def save(self, cursors: FetchCursors) -> Result[None]:
@@ -89,9 +100,15 @@ class CursorStore:
         except OSError as exc:
             if temp_name is not None:
                 Path(temp_name).unlink(missing_ok=True)
-            self._logger.error("cursors not saved", error=exc, fields=self._fields(started, 0), operation=_SAVE)
+            _LOGGER.error(
+                "cursors not saved",
+                extra={"operation": _SAVE, "fields": self._fields(started, 0), "error": exc},
+            )
             return fail("Fetch cursors could not be saved.", "Unavailable", cause=exc)
-        self._logger.info("cursors saved", fields=self._fields(started, len(cursors.cursors)), operation=_SAVE)
+        _LOGGER.info(
+            "cursors saved",
+            extra={"operation": _SAVE, "fields": self._fields(started, len(cursors.cursors))},
+        )
         return ok(None)
 
     def _fields(self, started: float, sources: int) -> dict[str, object]:

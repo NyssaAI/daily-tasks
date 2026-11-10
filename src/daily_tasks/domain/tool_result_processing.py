@@ -1,15 +1,17 @@
-# Responsibility: Represent an immutable ToolResultProcessing DTO.
-# Public interface:
-# `-- ToolResultProcessing
-#     +-- message
-#     +-- payload
-#     +-- progress
-#     +-- screen_id
-#     +-- session_id
-#     +-- stage
-#     +-- status
-#     `-- tool
-"""ToolResultProcessing DTO."""
+"""Responsibility: Represent an immutable ToolResultProcessing DTO.
+Public interface:
+`-- ToolResultProcessing
+    +-- message
+    +-- payload
+    +-- progress
+    +-- screen_id
+    +-- session_id
+    +-- stage
+    +-- status
+    `-- tool
+
+ToolResultProcessing DTO.
+"""
 
 from collections.abc import Mapping
 from typing import Literal

@@ -1,7 +1,9 @@
-# Responsibility: Represent an immutable DecisionOrigin DTO.
-# Public interface:
-# `-- DecisionOrigin
-"""DecisionOrigin DTO."""
+"""Responsibility: Represent an immutable DecisionOrigin DTO.
+Public interface:
+`-- DecisionOrigin
+
+DecisionOrigin DTO.
+"""
 
 from typing import Annotated
 

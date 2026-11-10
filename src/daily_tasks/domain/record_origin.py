@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable RecordOrigin DTO.
-# Public interface:
-# `-- RecordOrigin
-#     +-- decision_id
-#     +-- origin_kind
-#     `-- source_label
-"""RecordOrigin DTO."""
+"""Responsibility: Represent an immutable RecordOrigin DTO.
+Public interface:
+`-- RecordOrigin
+    +-- decision_id
+    +-- origin_kind
+    `-- source_label
+
+RecordOrigin DTO.
+"""
 
 from pydantic import UUID7
 from pydantic.dataclasses import dataclass

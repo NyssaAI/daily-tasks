@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable ToolProgress DTO.
-# Public interface:
-# `-- ToolProgress
-#     +-- sources_done
-#     `-- sources_total
-"""ToolProgress DTO."""
+"""Responsibility: Represent an immutable ToolProgress DTO.
+Public interface:
+`-- ToolProgress
+    +-- sources_done
+    `-- sources_total
+
+ToolProgress DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

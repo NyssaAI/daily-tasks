@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable MilestoneNode DTO.
-# Public interface:
-# `-- MilestoneNode
-#     +-- number
-#     +-- project_id
-#     +-- ref
-#     +-- state
-#     `-- title
-"""MilestoneNode DTO."""
+"""Responsibility: Represent an immutable MilestoneNode DTO.
+Public interface:
+`-- MilestoneNode
+    +-- number
+    +-- project_id
+    +-- ref
+    +-- state
+    `-- title
+
+MilestoneNode DTO.
+"""
 
 from pydantic import MISSING, UUID7, Field
 from pydantic.dataclasses import dataclass

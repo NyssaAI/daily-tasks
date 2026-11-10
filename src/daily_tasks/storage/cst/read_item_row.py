@@ -1,7 +1,9 @@
-# Responsibility: Read a daily plan task row back into its display view.
-# Public interface:
-# `-- read_item_row(row)
-"""Inverse of the daily plan renderer's `| # | Status | Project | Milestone | Task | Due Date |` row."""
+"""Responsibility: Read a daily plan task row back into its display view.
+Public interface:
+`-- read_item_row(row)
+
+Inverse of the daily plan renderer's `| # | Status | Project | Milestone | Task | Due Date |` row.
+"""
 
 import re
 from datetime import date

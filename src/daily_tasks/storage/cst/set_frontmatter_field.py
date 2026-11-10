@@ -1,7 +1,9 @@
-# Responsibility: Change or add one frontmatter field without touching unrelated bytes.
-# Public interface:
-# `-- set_frontmatter_field(document, key, value)
-"""Surgical mutation: replaces only the value characters, or inserts one whole new field line."""
+"""Responsibility: Change or add one frontmatter field without touching unrelated bytes.
+Public interface:
+`-- set_frontmatter_field(document, key, value)
+
+Surgical mutation: replaces only the value characters, or inserts one whole new field line.
+"""
 
 from dataclasses import replace
 

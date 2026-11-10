@@ -1,45 +1,26 @@
-# Responsibility: Prove MarkdownDailyPlanAdapter selects the plans nearest a date and skips bad files.
-# Public interface:
-# (none)
-"""Daily plan reads from a `daily-plans/` folder built in `tmp_path` from the canonical sample."""
+"""Responsibility: Prove MarkdownDailyPlanAdapter selects the plans nearest a date and skips bad files.
+Public interface:
++-- SAMPLE_DATE
++-- test_fetch_plans_around_date_returns_that_day_and_latest_earlier(tmp_path, around, expected)
++-- test_fetch_plans_malformed_plan_is_skipped_with_warning(tmp_path, log_capture)
++-- test_fetch_plans_missing_root_returns_not_found(tmp_path, log_capture)
+`-- test_fetch_plans_sample_plan_has_folder_relative_path_and_source(tmp_path)
+
+Daily plan reads from a `daily-plans/` folder built in `tmp_path` from the canonical sample.
+"""
 
 import asyncio
-from collections.abc import Mapping
-from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
 
 import pytest
 from nyssa_ai_result import Err, Ok
 
-from conftest import SPECS_ROOT
+from conftest import SPECS_ROOT, LogCapture
 from daily_tasks.adapters.markdown_daily_plan_adapter import MarkdownDailyPlanAdapter
 from daily_tasks.ports import DailyPlanPort
 
 SAMPLE_DATE = "2026-11-03"
-
-
-@dataclass
-class _RecordingLogger:
-    records: list[tuple[str, str, Mapping[str, object]]] = field(default_factory=list)
-
-    def debug(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("debug", message, fields or {}))
-
-    def info(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("info", message, fields or {}))
-
-    def warn(self, message: str, fields: Mapping[str, object] | None = None, operation: str = "") -> None:
-        self.records.append(("warn", message, fields or {}))
-
-    def error(
-        self,
-        message: str,
-        error: BaseException | None = None,
-        fields: Mapping[str, object] | None = None,
-        operation: str = "",
-    ) -> None:
-        self.records.append(("error", message, fields or {}))
 
 
 def _plans_root(tmp_path: Path, *days: str) -> Path:
@@ -52,8 +33,8 @@ def _plans_root(tmp_path: Path, *days: str) -> Path:
     return root
 
 
-def _dates(root: Path, around: date, logger: _RecordingLogger) -> list[str]:
-    port: DailyPlanPort = MarkdownDailyPlanAdapter(root, "markdown-daily-plans", logger)
+def _dates(root: Path, around: date) -> list[str]:
+    port: DailyPlanPort = MarkdownDailyPlanAdapter(root, "markdown-daily-plans")
     result = asyncio.run(port.fetch_plans(around))
     assert isinstance(result, Ok)
     return [plan.local_date.isoformat() for plan in result.value]
@@ -73,12 +54,12 @@ def test_fetch_plans_around_date_returns_that_day_and_latest_earlier(
 ) -> None:
     root = _plans_root(tmp_path, "2026-10-28", "2026-10-30", "2026-11-03", "2026-11-04")
 
-    assert _dates(root, around, _RecordingLogger()) == expected
+    assert _dates(root, around) == expected
 
 
 def test_fetch_plans_sample_plan_has_folder_relative_path_and_source(tmp_path: Path) -> None:
     root = _plans_root(tmp_path, SAMPLE_DATE)
-    adapter = MarkdownDailyPlanAdapter(root, "markdown-daily-plans", _RecordingLogger())
+    adapter = MarkdownDailyPlanAdapter(root, "markdown-daily-plans")
 
     result = asyncio.run(adapter.fetch_plans(date(2026, 11, 3)))
 
@@ -88,29 +69,27 @@ def test_fetch_plans_sample_plan_has_folder_relative_path_and_source(tmp_path: P
     assert plan.focus == "Light day, out after 3pm."
 
 
-def test_fetch_plans_malformed_plan_is_skipped_with_warning(tmp_path: Path) -> None:
+def test_fetch_plans_malformed_plan_is_skipped_with_warning(tmp_path: Path, log_capture: LogCapture) -> None:
     root = _plans_root(tmp_path, "2026-10-28", "2026-10-30")
     (root / "2026.10.30-daily-plan.md").write_text("---\nid: 1\n", encoding="utf-8")
     (root / "notes.md").write_text("# not a plan\n", encoding="utf-8")
-    logger = _RecordingLogger()
 
-    adapter = MarkdownDailyPlanAdapter(root, "markdown-daily-plans", logger)
+    adapter = MarkdownDailyPlanAdapter(root, "markdown-daily-plans")
     result = asyncio.run(adapter.fetch_plans(date(2026, 10, 30)))
     assert isinstance(result, Ok)
     assert [plan.local_date.isoformat() for plan in result.value] == ["2026-10-28"]
-    warnings = [(fields["path"], fields["code"]) for level, _, fields in logger.records if level == "warn"]
+    warnings = [(fields["path"], fields["code"]) for level, _, fields in log_capture.records if level == "warn"]
     assert warnings == [("2026.10.30-daily-plan.md", "unclosed-frontmatter")]
     assert [(m.path, m.code) for m in adapter.malformed_records] == [
         ("daily-plans/2026.10.30-daily-plan.md", "unclosed-frontmatter")
     ]
 
 
-def test_fetch_plans_missing_root_returns_not_found(tmp_path: Path) -> None:
-    logger = _RecordingLogger()
-    adapter = MarkdownDailyPlanAdapter(tmp_path / "missing", "markdown-daily-plans", logger)
+def test_fetch_plans_missing_root_returns_not_found(tmp_path: Path, log_capture: LogCapture) -> None:
+    adapter = MarkdownDailyPlanAdapter(tmp_path / "missing", "markdown-daily-plans")
 
     result = asyncio.run(adapter.fetch_plans(date(2026, 11, 3)))
 
     assert isinstance(result, Err)
     assert str(result.category) == "NotFound"
-    assert [(level, fields["category"]) for level, _, fields in logger.records] == [("error", "NotFound")]
+    assert [(level, fields["category"]) for level, _, fields in log_capture.records] == [("error", "NotFound")]

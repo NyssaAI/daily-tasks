@@ -1,29 +1,31 @@
-# Responsibility: Represent an immutable Task DTO.
-# Public interface:
-# `-- Task
-#     +-- assignee
-#     +-- blocked_by
-#     +-- created_at
-#     +-- definition_of_done
-#     +-- depends_on
-#     +-- id
-#     +-- milestone_id
-#     +-- number
-#     +-- owner
-#     +-- path
-#     +-- project_id
-#     +-- record_version
-#     +-- required_by
-#     +-- resolved_at
-#     +-- source
-#     +-- started_at
-#     +-- state
-#     +-- tags
-#     +-- target_date
-#     +-- title
-#     +-- type
-#     `-- updated_at
-"""Task DTO."""
+"""Responsibility: Represent an immutable Task DTO.
+Public interface:
+`-- Task
+    +-- assignee
+    +-- blocked_by
+    +-- created_at
+    +-- definition_of_done
+    +-- depends_on
+    +-- id
+    +-- milestone_id
+    +-- number
+    +-- owner
+    +-- path
+    +-- project_id
+    +-- record_version
+    +-- required_by
+    +-- resolved_at
+    +-- source
+    +-- started_at
+    +-- state
+    +-- tags
+    +-- target_date
+    +-- title
+    +-- type
+    `-- updated_at
+
+Task DTO.
+"""
 
 from datetime import date
 from typing import Literal

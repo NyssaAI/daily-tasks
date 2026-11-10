@@ -1,7 +1,9 @@
-# Responsibility: Decide whether a work or blocker state is final.
-# Public interface:
-# `-- is_terminal_state(state)
-"""Terminal states: completed or cancelled work, resolved blockers."""
+"""Responsibility: Decide whether a work or blocker state is final.
+Public interface:
+`-- is_terminal_state(state)
+
+Terminal states: completed or cancelled work, resolved blockers.
+"""
 
 from typing import Final
 

@@ -1,7 +1,18 @@
-# Responsibility: Prove host-fetched messages follow the same fetch window and cursor rules as the connectors.
-# Public interface:
-# (none)
-"""`compute_fetch_window` and `ingest_harness_messages` with first-pull lookback and saved-cursor watermarks."""
+"""Responsibility: Prove host-fetched messages follow the same fetch window and cursor rules as the connectors.
+Public interface:
++-- NOW
++-- SINCE
++-- test_compute_fetch_window_custom_lookback_bounds_first_pull()
++-- test_compute_fetch_window_non_positive_lookback_raises()
++-- test_compute_fetch_window_saved_cursor_overrides_lookback()
++-- test_compute_fetch_window_without_cursor_defaults_to_7_days()
++-- test_ingest_harness_messages_checked_source_without_messages_records_window_start()
++-- test_ingest_harness_messages_first_pull_keeps_lookback_boundary_and_drops_older()
++-- test_ingest_harness_messages_leaves_unnamed_source_cursors_unchanged()
+`-- test_ingest_harness_messages_with_cursor_drops_watermark_and_last_external_id()
+
+`compute_fetch_window` and `ingest_harness_messages` with first-pull lookback and saved-cursor watermarks.
+"""
 
 from datetime import UTC, datetime, timedelta
 

@@ -1,22 +1,24 @@
-# Responsibility: Represent an immutable Blocker DTO.
-# Public interface:
-# `-- Blocker
-#     +-- blocks
-#     +-- created_at
-#     +-- id
-#     +-- impact
-#     +-- number
-#     +-- owner
-#     +-- path
-#     +-- project_id
-#     +-- resolved_at
-#     +-- resolved_when
-#     +-- source
-#     +-- state
-#     +-- title
-#     +-- type
-#     `-- updated_at
-"""Blocker DTO."""
+"""Responsibility: Represent an immutable Blocker DTO.
+Public interface:
+`-- Blocker
+    +-- blocks
+    +-- created_at
+    +-- id
+    +-- impact
+    +-- number
+    +-- owner
+    +-- path
+    +-- project_id
+    +-- resolved_at
+    +-- resolved_when
+    +-- source
+    +-- state
+    +-- title
+    +-- type
+    `-- updated_at
+
+Blocker DTO.
+"""
 
 from typing import Literal
 

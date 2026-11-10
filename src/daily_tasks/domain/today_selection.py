@@ -1,10 +1,12 @@
-# Responsibility: Represent an immutable TodaySelection DTO.
-# Public interface:
-# `-- TodaySelection
-#     +-- delegated
-#     +-- follow_up
-#     `-- mine
-"""TodaySelection DTO."""
+"""Responsibility: Represent an immutable TodaySelection DTO.
+Public interface:
+`-- TodaySelection
+    +-- delegated
+    +-- follow_up
+    `-- mine
+
+TodaySelection DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

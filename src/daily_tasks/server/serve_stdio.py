@@ -1,7 +1,9 @@
-# Responsibility: Run the MCP server over newline-delimited JSON-RPC on stdin and stdout.
-# Public interface:
-# `-- serve_stdio(server, reader, writer)
-"""Stdio transport: stdout carries only JSON-RPC responses, one per line; logs go to stderr elsewhere."""
+"""Responsibility: Run the MCP server over newline-delimited JSON-RPC on stdin and stdout.
+Public interface:
+`-- serve_stdio(server, reader, writer)
+
+Stdio transport: stdout carries only JSON-RPC responses, one per line; logs go to stderr elsewhere.
+"""
 
 from typing import TextIO
 

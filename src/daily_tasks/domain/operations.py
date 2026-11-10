@@ -1,14 +1,16 @@
-# Responsibility: Represent an immutable Operations DTO.
-# Public interface:
-# `-- Operations
-#     +-- actor
-#     +-- note
-#     +-- operations
-#     +-- original_words
-#     +-- rules
-#     +-- screen_id
-#     `-- session_id
-"""Operations DTO."""
+"""Responsibility: Represent an immutable Operations DTO.
+Public interface:
+`-- Operations
+    +-- actor
+    +-- note
+    +-- operations
+    +-- original_words
+    +-- rules
+    +-- screen_id
+    `-- session_id
+
+Operations DTO.
+"""
 
 from collections.abc import Mapping
 

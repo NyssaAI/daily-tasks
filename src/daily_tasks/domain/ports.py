@@ -1,11 +1,13 @@
-# Responsibility: Represent an immutable Ports DTO.
-# Public interface:
-# `-- Ports
-#     +-- communication
-#     +-- daily_plan
-#     +-- file_store
-#     `-- project_plan
-"""Ports DTO."""
+"""Responsibility: Represent an immutable Ports DTO.
+Public interface:
+`-- Ports
+    +-- communication
+    +-- daily_plan
+    +-- file_store
+    `-- project_plan
+
+Ports DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

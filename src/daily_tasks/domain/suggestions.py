@@ -1,13 +1,15 @@
-# Responsibility: Represent an immutable Suggestions DTO.
-# Public interface:
-# `-- Suggestions
-#     +-- kinds
-#     +-- no_suggestion_message_ids
-#     +-- note
-#     +-- suggestions
-#     +-- updated_at
-#     `-- workspace_root
-"""Suggestions DTO."""
+"""Responsibility: Represent an immutable Suggestions DTO.
+Public interface:
+`-- Suggestions
+    +-- kinds
+    +-- no_suggestion_message_ids
+    +-- note
+    +-- suggestions
+    +-- updated_at
+    `-- workspace_root
+
+Suggestions DTO.
+"""
 
 from collections.abc import Mapping
 

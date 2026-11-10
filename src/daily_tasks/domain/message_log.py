@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable MessageLog DTO.
-# Public interface:
-# `-- MessageLog
-#     +-- entries
-#     `-- messages_root
-"""MessageLog DTO."""
+"""Responsibility: Represent an immutable MessageLog DTO.
+Public interface:
+`-- MessageLog
+    +-- entries
+    `-- messages_root
+
+MessageLog DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

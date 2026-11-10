@@ -1,38 +1,40 @@
-# Responsibility: Group the plain settings a state graph build needs beside the source records.
-# Public interface:
-# +-- DailyPlanSourceRead
-# |   +-- error
-# |   +-- name
-# |   `-- plans
-# +-- GraphRecords
-# |   +-- blockers
-# |   +-- milestones
-# |   +-- plans
-# |   +-- projects
-# |   `-- tasks
-# +-- ProjectPlanSourceRead
-# |   +-- error
-# |   +-- name
-# |   `-- snapshot
-# +-- RecordRelations
-# |   +-- blocked_by
-# |   +-- blocks
-# |   +-- depends_on
-# |   +-- diagnostics
-# |   `-- required_by
-# `-- StateGraphSettings
-#     +-- changed_outside_app
-#     +-- daily_plans_root
-#     +-- file_hashes
-#     +-- origin_by_record
-#     +-- pending_operations
-#     +-- projects_root
-#     +-- threads
-#     +-- timezone
-#     +-- unreviewed_messages
-#     +-- user
-#     `-- workspace_root
-"""Build settings, per-source read outcomes, the source records keyed by id, and the resolved relations between them."""
+"""Responsibility: Group the plain settings a state graph build needs beside the source records.
+Public interface:
++-- DailyPlanSourceRead
+|   +-- error
+|   +-- name
+|   `-- plans
++-- GraphRecords
+|   +-- blockers
+|   +-- milestones
+|   +-- plans
+|   +-- projects
+|   `-- tasks
++-- ProjectPlanSourceRead
+|   +-- error
+|   +-- name
+|   `-- snapshot
++-- RecordRelations
+|   +-- blocked_by
+|   +-- blocks
+|   +-- depends_on
+|   +-- diagnostics
+|   `-- required_by
+`-- StateGraphSettings
+    +-- changed_outside_app
+    +-- daily_plans_root
+    +-- file_hashes
+    +-- origin_by_record
+    +-- pending_operations
+    +-- projects_root
+    +-- threads
+    +-- timezone
+    +-- unreviewed_messages
+    +-- user
+    `-- workspace_root
+
+Build settings, per-source read outcomes, the source records keyed by id, and the resolved relations between them.
+"""
 
 from collections.abc import Mapping
 from dataclasses import dataclass, field

@@ -1,13 +1,15 @@
-# Responsibility: Validate one page of a Slack `conversations.history` response.
-# Public interface:
-# `-- SlackHistoryPage
-#     +-- error
-#     +-- has_more
-#     +-- messages
-#     +-- next_cursor
-#     +-- ok
-#     `-- response_metadata
-"""Slack Web API page wire shape; `ok: false` responses carry only `error`."""
+"""Responsibility: Validate one page of a Slack `conversations.history` response.
+Public interface:
+`-- SlackHistoryPage
+    +-- error
+    +-- has_more
+    +-- messages
+    +-- next_cursor
+    +-- ok
+    `-- response_metadata
+
+Slack Web API page wire shape; `ok: false` responses carry only `error`.
+"""
 
 from collections.abc import Mapping
 

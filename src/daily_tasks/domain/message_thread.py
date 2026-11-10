@@ -1,9 +1,11 @@
-# Responsibility: Represent an immutable MessageThread DTO.
-# Public interface:
-# `-- MessageThread
-#     +-- message_ids
-#     `-- thread_id
-"""MessageThread DTO."""
+"""Responsibility: Represent an immutable MessageThread DTO.
+Public interface:
+`-- MessageThread
+    +-- message_ids
+    `-- thread_id
+
+MessageThread DTO.
+"""
 
 from pydantic.dataclasses import dataclass
 

@@ -1,16 +1,18 @@
-# Responsibility: Represent an immutable ForReviewMessage DTO.
-# Public interface:
-# `-- ForReviewMessage
-#     +-- attachments
-#     +-- earlier_in_thread
-#     +-- links
-#     +-- message_id
-#     +-- received_at
-#     +-- sender
-#     +-- snippet
-#     +-- source
-#     `-- subject
-"""ForReviewMessage DTO."""
+"""Responsibility: Represent an immutable ForReviewMessage DTO.
+Public interface:
+`-- ForReviewMessage
+    +-- attachments
+    +-- earlier_in_thread
+    +-- links
+    +-- message_id
+    +-- received_at
+    +-- sender
+    +-- snippet
+    +-- source
+    `-- subject
+
+ForReviewMessage DTO.
+"""
 
 from pydantic import Field
 from pydantic.dataclasses import dataclass

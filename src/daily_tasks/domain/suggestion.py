@@ -1,18 +1,20 @@
-# Responsibility: Represent an immutable Suggestion DTO.
-# Public interface:
-# `-- Suggestion
-#     +-- created_at
-#     +-- created_in_session
-#     +-- current
-#     +-- evidence
-#     +-- id
-#     +-- kind
-#     +-- proposed
-#     +-- rationale
-#     +-- source_message_ids
-#     +-- target
-#     `-- validation
-"""Suggestion DTO."""
+"""Responsibility: Represent an immutable Suggestion DTO.
+Public interface:
+`-- Suggestion
+    +-- created_at
+    +-- created_in_session
+    +-- current
+    +-- evidence
+    +-- id
+    +-- kind
+    +-- proposed
+    +-- rationale
+    +-- source_message_ids
+    +-- target
+    `-- validation
+
+Suggestion DTO.
+"""
 
 from collections.abc import Mapping
 from typing import Literal

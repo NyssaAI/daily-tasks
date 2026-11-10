@@ -1,27 +1,38 @@
-# Responsibility: Group the plain settings and read snapshots the MCP server works with.
-# Public interface:
-# +-- HarnessIntake
-# |   +-- cursors
-# |   +-- messages
-# |   `-- sources
-# +-- ServerSettings
-# |   +-- daily_plans_root
-# |   +-- initial_lookback_days
-# |   +-- projects_root
-# |   +-- state_root
-# |   +-- timezone
-# |   +-- user
-# |   `-- workspace_root
-# `-- WorkspaceSnapshot
-#     +-- blockers
-#     +-- cursors
-#     +-- existing_plan
-#     +-- graph
-#     +-- malformed_files
-#     +-- messages
-#     +-- previous_plan
-#     `-- sources
-"""Resolved absolute roots, the planning user, and what one session start read from the workspace."""
+"""Responsibility: Group the plain settings and read snapshots the MCP server works with.
+Public interface:
++-- HarnessIntake
+|   +-- cursors
+|   +-- messages
+|   `-- sources
++-- ServerOverrides
+|   +-- config_dir
+|   +-- daily_plans_root
+|   +-- initial_lookback_days
+|   +-- projects_root
+|   +-- timezone
+|   +-- user_email
+|   +-- user_name
+|   `-- workspace_root
++-- ServerSettings
+|   +-- daily_plans_root
+|   +-- initial_lookback_days
+|   +-- projects_root
+|   +-- state_root
+|   +-- timezone
+|   +-- user
+|   `-- workspace_root
+`-- WorkspaceSnapshot
+    +-- blockers
+    +-- cursors
+    +-- existing_plan
+    +-- graph
+    +-- malformed_files
+    +-- messages
+    +-- previous_plan
+    `-- sources
+
+Resolved absolute roots, the planning user, and what one session start read from the workspace.
+"""
 
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -42,6 +53,20 @@ class HarnessIntake:
     messages: tuple[Message, ...]
     cursors: FetchCursors | None
     sources: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True, kw_only=True)
+class ServerOverrides:
+    """Explicit CLI and startup overrides layered above user and workspace `profile.json`."""
+
+    workspace_root: Path | None = None
+    user_email: str | None = None
+    user_name: str | None = None
+    timezone: str | None = None
+    projects_root: str | None = None
+    daily_plans_root: str | None = None
+    initial_lookback_days: int | None = None
+    config_dir: Path | None = None
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)

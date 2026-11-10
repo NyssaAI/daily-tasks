@@ -1,7 +1,9 @@
-# Responsibility: Serialize a concrete syntax tree back to Markdown text byte for byte.
-# Public interface:
-# `-- write_markdown(document)
-"""Writer: joins the stored lines with their own terminators, so unedited records stay byte-identical."""
+"""Responsibility: Serialize a concrete syntax tree back to Markdown text byte for byte.
+Public interface:
+`-- write_markdown(document)
+
+Writer: joins the stored lines with their own terminators, so unedited records stay byte-identical.
+"""
 
 from daily_tasks.storage.cst.markdown_document import MarkdownDocument
 

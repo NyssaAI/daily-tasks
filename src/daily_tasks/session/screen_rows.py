@@ -1,7 +1,9 @@
-# Responsibility: Read the numbered rows of one screen in ascending number order.
-# Public interface:
-# `-- screen_rows(session, key)
-"""Rows recorded on a screen of the session snapshot; missing screens have no rows."""
+"""Responsibility: Read the numbered rows of one screen in ascending number order.
+Public interface:
+`-- screen_rows(session, key)
+
+Rows recorded on a screen of the session snapshot; missing screens have no rows.
+"""
 
 from collections.abc import Mapping
 

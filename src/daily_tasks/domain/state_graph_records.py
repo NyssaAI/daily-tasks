@@ -1,12 +1,14 @@
-# Responsibility: Represent an immutable StateGraphRecords DTO.
-# Public interface:
-# `-- StateGraphRecords
-#     +-- blockers
-#     +-- milestones
-#     +-- plans
-#     +-- projects
-#     `-- tasks
-"""StateGraphRecords DTO."""
+"""Responsibility: Represent an immutable StateGraphRecords DTO.
+Public interface:
+`-- StateGraphRecords
+    +-- blockers
+    +-- milestones
+    +-- plans
+    +-- projects
+    `-- tasks
+
+StateGraphRecords DTO.
+"""
 
 from collections.abc import Mapping
 from datetime import date

@@ -1,9 +1,11 @@
-# Responsibility: Define the read-only port that fetches new messages from one communication source.
-# Public interface:
-# `-- CommunicationPort
-#     +-- fetch_new_messages(since)
-#     `-- name
-"""Communication-Port contract (`docs/PLANNING_SESSION_CONCEPT.md`, Ports)."""
+"""Responsibility: Define the read-only port that fetches new messages from one communication source.
+Public interface:
+`-- CommunicationPort
+    +-- fetch_new_messages(since)
+    `-- name
+
+Communication-Port contract (`docs/PLANNING_SESSION_CONCEPT.md`, Ports).
+"""
 
 from typing import Protocol
 
