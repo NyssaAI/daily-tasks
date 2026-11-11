@@ -18,7 +18,7 @@ The runtime requires Python >=3.12 (managed via `uv` and `pyproject.toml`) with 
 ```text
 uv run daily-tasks-mcp [--workspace-root ABSOLUTE_WORKSPACE] [--user-email EMAIL] [--user-name NAME] [--timezone TZ] [--projects-root PATH] [--daily-plans-root PATH] [--initial-lookback-days DAYS] [--log-file PATH] [--config-dir ABSOLUTE_CONFIG_DIR]
 uv run python -m daily_tasks.server [--workspace-root ABSOLUTE_WORKSPACE]
-uv run python -m daily_tasks.auth.gmail --config-dir ABSOLUTE_CONFIG_DIR
+uv run python -m daily_tasks.auth.gmail --config-dir ABSOLUTE_CONFIG_DIR [--redirect-port PORT]
 uv run python -m daily_tasks.auth.secret [--config-dir ABSOLUTE_CONFIG_DIR] capture NAMESPACE KEY [--prompt TEXT] [--provider NAME] [--forced-provider NAME] [--mode auto|cli|web]
 uv run python -m daily_tasks.auth.secret gmail [--no-client-secret] | slack
 uv run python -m daily_tasks.auth.secret vault --name NAME --kind bitwarden-secrets|bws|bitwarden [--endpoint URL] [--project-id ID] [--organization-id ID]

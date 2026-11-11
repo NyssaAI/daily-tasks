@@ -72,7 +72,7 @@ def gmail(
     if not oauth.ok:
         output.write(f"Configuration store unavailable: {oauth.message}\n")
         return 1
-    authorized = oauth.value.authorize()
+    authorized = oauth.value.authorize(redirect_port=args.redirect_port)
     if not authorized.ok:
         output.write(f"Gmail sign-in failed: {authorized.message}\n")
         return 1
@@ -92,6 +92,12 @@ def _parser() -> argparse.ArgumentParser:
         help="configuration directory (default: ~/.nyssa-ai/daily-tasks)",
     )
     parser.add_argument("--manifest", default=None, help="configuration manifest path (default: library default)")
+    parser.add_argument(
+        "--redirect-port",
+        type=int,
+        default=None,
+        help="fixed 127.0.0.1 loopback port for SSH port-forwarded headless OAuth callbacks (default: ephemeral)",
+    )
     return parser
 
 
