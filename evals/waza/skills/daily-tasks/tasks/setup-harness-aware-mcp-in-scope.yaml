@@ -1,0 +1,16 @@
+id: daily-tasks-setup-harness-aware-mcp-in-scope
+name: Trigger harness-aware setup when MCP or v2 setup is incomplete
+description: When Daily Tasks MCP registration or Schema v2 workspace setup is incomplete on the current harness, route to Daily Tasks setup.
+tags:
+  - trigger
+  - positive
+inputs:
+  prompt: "Let's plan my day, or run harness-aware Daily Tasks setup first if the MCP server and Schema v2 profile aren't set up in OpenClaw yet."
+expected:
+  should_trigger: true
+graders:
+  - type: trigger
+    name: setup-harness-aware-mcp-positive-trigger
+    config:
+      skill_path: skills/daily-tasks/SKILL.md
+      mode: positive

@@ -1,6 +1,6 @@
 # Daily Tasks
 
-Version **0.10.1**
+Version **0.11.0**
 
 Personal task management and daily planning through an encapsulated `daily-tasks` agent skill,
 five focused workflows, and a deterministic Python Model Context Protocol (MCP) planning server.
@@ -56,8 +56,13 @@ MCP planning session server (`daily-tasks-mcp`). The planning server is accessed
 via host MCP tool calls (`daily_tasks_*`); agents never invoke it as a CLI command.
 All diagnostic logging goes to `stderr` so `stdout` remains pure for MCP JSON-RPC 2.0 frames.
 
-When project setup is not already done, the skill triggers and runs setup (`skills/daily-tasks/workflows/setup.md`)
-first. Malformed files and unparseable records trigger surgical repairs (`skills/daily-tasks/workflows/records.md`).
+Daily Tasks enforces a mandatory full-setup gate: downstream workflows (`plan`, `records`, `checkin`,
+and `capture`) never run unless `daily_tasks_*` MCP tools are live in the active harness, Schema
+Version 2 `profile.json` bindings (`projectsRoot`, `dailyPlansRelative`, `user.email`, IANA `timezone`,
+and `sources`) are present, and workspace templates are initialized. When any setup gate is incomplete
+or uses a legacy `.nyssaai` v1 profile, the skill immediately halts downstream work and runs harness-aware
+setup (`skills/daily-tasks/workflows/setup.md` and `skills/daily-tasks/references/harness-setup.md`).
+Malformed files and unparseable records trigger surgical repairs (`skills/daily-tasks/workflows/records.md`).
 
 ```text
 # Host registration / direct server launch:

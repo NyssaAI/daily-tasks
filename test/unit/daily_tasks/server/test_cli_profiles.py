@@ -25,6 +25,7 @@ def test_cli_boot_without_workspace_root_accepts_workspace_root_in_start_session
     ws.mkdir()
     (ws / ".nyssa-ai" / "daily-tasks").mkdir(parents=True)
     profile = {
+        "schema_version": 2,
         "user": {"name": "Test User", "email": "test@example.com"},
         "timezone": "America/Chicago",
         "projectsRoot": "projects",
@@ -62,6 +63,7 @@ def test_cli_layered_profile_merges_user_home_and_workspace_roots(tmp_path: Path
     (config_dir / "profile.json").write_text(
         json.dumps(
             {
+                "schema_version": 2,
                 "user": {"name": "Global User", "email": "jordan@example.com"},
                 "timezone": "America/New_York",
                 "sources": {"initialLookbackDays": 14},
@@ -75,7 +77,7 @@ def test_cli_layered_profile_merges_user_home_and_workspace_roots(tmp_path: Path
     ws_state = ws / ".nyssa-ai" / "daily-tasks"
     ws_state.mkdir(parents=True)
     (ws_state / "profile.json").write_text(
-        json.dumps({"projectsRoot": "my-projects", "dailyPlansRelative": "my-plans"}),
+        json.dumps({"schema_version": 2, "projectsRoot": "my-projects", "dailyPlansRelative": "my-plans"}),
         encoding="utf-8",
     )
     proj = ws / "my-projects" / "2026.10.20-daily-tasks-mcp-server"

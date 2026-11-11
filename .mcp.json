@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "daily-tasks": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${CLAUDE_PLUGIN_ROOT}",
+        "daily-tasks-mcp"
+      ]
+    }
+  }
+}

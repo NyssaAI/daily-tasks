@@ -7,8 +7,9 @@ Reconcile manual Markdown edits, reported progress, and pending operations befor
 
 ## 1. Pre-flight and resumable state
 
-1. **Ensure workspace setup is complete**:
-   - If project setup is not already done, trigger and complete [Setup](setup.md) first to establish `workspaceRoot`, `projectsRoot`, and `dailyPlansRelative`.
+1. **Enforce all four full-setup gates**:
+   - Verify live `daily_tasks_*` MCP tools in the current harness, `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`), resolved `user.email` and IANA `timezone`, and workspace templates baseline (`templates/updates.json`).
+   - If **any** gate fails or uses legacy `.nyssaai/daily-tasks/profile.json`, **immediately halt** check-in and complete [Setup](setup.md) first; never improvise a prose check-in by manually scraping vault files.
    - Bind one `workspaceRoot`, `projectsRoot`, and `dailyPlansRoot` throughout recovery and follow-up turns; never mix inventories or numbered replies across workspaces.
 2. **Track resumable check-in progress**:
    - Persist compact resumable state at `<stateRoot>/checkin.json` recording the local day, pending operation IDs, unresolved candidate/conflict IDs, processed source versions, and next step.

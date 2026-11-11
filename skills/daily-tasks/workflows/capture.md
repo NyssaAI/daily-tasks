@@ -7,8 +7,9 @@ Extract candidate tasks, milestones, and projects from user notes or configured 
 
 ## 1. Scope and source scan gates
 
-1. **Verify workspace setup**:
-   - Resolve the active profile and workspace roots through [Setup](setup.md) if project setup is not already complete.
+1. **Enforce all four full-setup gates**:
+   - Verify live `daily_tasks_*` MCP tools in the current harness, `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`), resolved `user.email` and IANA `timezone`, and workspace templates baseline (`templates/updates.json`).
+   - If **any** gate is incomplete, **immediately halt** capture and complete [Setup](setup.md) first.
    - Read only user-supplied inputs and explicitly authorized `sources` (`directories`, `mcps`, `harnessConnections`).
 2. **Check the daily auto-scan gate** *(when `sources.autoScan: true` or on explicit `"scan my sources"` / `"check inbox"` commands)*:
    - Inspect `<stateRoot>/source-scans/YYYY.MM.DD.json` for today's local date.

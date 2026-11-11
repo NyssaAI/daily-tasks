@@ -5,9 +5,9 @@
 
 ## Architectural boundary: MCP vs. terminal helpers
 
-The planning server `daily-tasks-mcp` is an MCP stdio server and must only be invoked via the MCP protocol through host tool calls (`daily_tasks_*`). Self-contained bundle discovery is declared via root `.mcp.json` (`uv run --directory ${CLAUDE_PLUGIN_ROOT} daily-tasks-mcp`), generated portable `mcp.json` (`uv run daily-tasks-mcp`), and Antigravity `mcp_config.json`. When loaded by hosts like Claude, Cursor, Codex, Antigravity, or OpenClaw, `daily-tasks-mcp` boots cleanly from the bundled `pyproject.toml` and `src/` without startup flags. The server dynamically resolves settings across two profile layers:
-1. **User profile**: `~/.nyssa-ai/daily-tasks/profile.json` (resolving global `user.email`, `user.name`, and `timezone`).
-2. **Workspace profile**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (resolving workspace-bound `projectsRoot`, `dailyPlansRelative`, `sources`, and template overrides).
+The planning server `daily-tasks-mcp` is an MCP stdio server and must only be invoked via the MCP protocol through host tool calls (`daily_tasks_*`). Self-contained bundle discovery is declared via root `.mcp.json` (`uv run --directory ${CLAUDE_PLUGIN_ROOT} daily-tasks-mcp`), generated portable `mcp.json` (`uv run daily-tasks-mcp`), and Antigravity `mcp_config.json`, while harness-specific manual registration and Python `>=3.12` (`PYTHONPATH`) fallbacks are detailed in [`harness-setup.md`](harness-setup.md). When loaded by hosts like OpenClaw, Antigravity, Claude, Codex, Cursor, or Hermes, `daily-tasks-mcp` boots cleanly from the bundled `pyproject.toml` and `src/` without startup flags. On every session or fetch-window call, the server strictly enforces Schema Version 2 setup across two profile layers (refusing execution whenever workspace setup is incomplete or legacy `.nyssaai` v1 configuration is unmigrated):
+1. **User profile**: `~/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, resolving global `user.email`, `user.name`, and explicit IANA `timezone`).
+2. **Workspace profile**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, requiring `projectsRoot` and `dailyPlansRelative`, plus optional `sources` and template overrides).
 
 The active workspace can be supplied at startup via `--workspace-root` or dynamically per session via the optional `workspace_root` tool parameter on `daily_tasks_start_session` and `daily_tasks_get_fetch_window`.
 

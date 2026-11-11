@@ -51,6 +51,14 @@ def _call(request_id: int, name: str, **arguments: JsonValue) -> dict[str, JsonV
 
 
 def _serve(root: Path, *calls: dict[str, JsonValue], extra: tuple[str, ...] = ()) -> list[dict[str, JsonValue]]:
+    state_dir = root / ".nyssa-ai/daily-tasks"
+    profile_path = state_dir / "profile.json"
+    if not profile_path.exists():
+        state_dir.mkdir(parents=True, exist_ok=True)
+        profile_path.write_text(
+            json.dumps({"schema_version": 2, "projectsRoot": "projects", "dailyPlansRelative": "daily-plans"}),
+            encoding="utf-8",
+        )
     stdin = io.StringIO("\n".join(json.dumps(c) for c in calls) + "\n")
     stdout = io.StringIO()
     assert cli(["--workspace-root", str(root), *ARGV, *extra], environ={}, stdin=stdin, stdout=stdout) == 0
@@ -130,7 +138,13 @@ def test_get_fetch_window_custom_lookback_bounds_first_pull(
 ) -> None:
     state = tmp_path / ".nyssa-ai/daily-tasks"
     state.mkdir(parents=True)
-    (state / "profile.json").write_text(json.dumps(profile), encoding="utf-8")
+    full_profile = {
+        "schema_version": 2,
+        "projectsRoot": "projects",
+        "dailyPlansRelative": "daily-plans",
+        **profile,
+    }
+    (state / "profile.json").write_text(json.dumps(full_profile), encoding="utf-8")
 
     body = _serve(tmp_path, _call(1, "daily_tasks_get_fetch_window", sources=["slack"]), extra=extra)[0]
 
