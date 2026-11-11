@@ -1,6 +1,8 @@
 """Responsibility: Resolve ServerSettings dynamically across user and workspace profile layers.
 Public interface:
++-- is_agent_persona_workspace(workspace_root)
 +-- read_layered_profile(workspace_root, config_dir)
++-- resolve_default_workspace_root(config_dir)
 `-- resolve_server_settings(workspace_root, overrides)
 
 Resolve validated `ServerSettings` from user and workspace Schema Version 2 `profile.json` layers,
@@ -145,6 +147,34 @@ def _resolve_lookback_days(profile: dict[str, JsonValue], explicit: int | None) 
     return value if isinstance(value, int) and not isinstance(value, bool) and value > 0 else None
 
 
+def is_agent_persona_workspace(workspace_root: Path) -> bool:
+    """Return True when `workspace_root` is an agent persona folder (`SOUL.md` + `IDENTITY.md`) rather than a vault."""
+    return (workspace_root / "SOUL.md").is_file() and (workspace_root / "IDENTITY.md").is_file()
+
+
+def resolve_default_workspace_root(config_dir: Path | None = None) -> Result[Path | None]:
+    """Read `defaultWorkspaceRoot` (or `workspaceRoot`) from user-scope Schema Version 2 `profile.json`."""
+    if config_dir is not None:
+        user_dir = config_dir.expanduser().resolve()
+        legacy_user: Path | None = None
+    else:
+        home = Path.home()
+        user_dir = home / _STATE_DIR_NAME
+        legacy_user = home / _LEGACY_STATE_DIR_NAME / "profile.json"
+
+    user_result = _read_profile_json(user_dir / "profile.json", legacy_path=legacy_user)
+    if not user_result.ok:
+        return fail(user_result.message, user_result.category)
+    user_profile = user_result.value or {}
+    raw_ws = _extract_text(user_profile, "defaultWorkspaceRoot") or _extract_text(user_profile, "workspaceRoot")
+    if raw_ws is None:
+        return ok(None)
+    candidate = Path(raw_ws).expanduser()
+    if not candidate.is_absolute():
+        return fail("defaultWorkspaceRoot in user profile.json must be an absolute path.", ErrorCategory.VALIDATION)
+    return ok(candidate)
+
+
 def resolve_server_settings(
     workspace_root: Path | None,
     overrides: ServerOverrides = _DEFAULT_OVERRIDES,
@@ -160,6 +190,12 @@ def resolve_server_settings(
     if not candidate.is_absolute():
         return fail("--workspace-root must be an absolute path.", ErrorCategory.VALIDATION)
     resolved_workspace = candidate.resolve()
+    if is_agent_persona_workspace(resolved_workspace):
+        return fail(
+            f"Refusing to use agent persona workspace {resolved_workspace.as_posix()} "
+            "(contains SOUL.md and IDENTITY.md) as a Daily Tasks vault; pass the user's vault workspace_root.",
+            ErrorCategory.VALIDATION,
+        )
 
     ws_profile_path = resolved_workspace / _STATE_DIR_NAME / "profile.json"
     ws_profile_result = _read_profile_json(

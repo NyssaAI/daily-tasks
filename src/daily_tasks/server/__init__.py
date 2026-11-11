@@ -13,6 +13,7 @@ from daily_tasks.server.planning_tools_dispatcher import PlanningToolsDispatcher
 from daily_tasks.server.resolve_server_settings import read_layered_profile, resolve_server_settings
 from daily_tasks.server.secret_tools import SecretTools
 from daily_tasks.server.serve_stdio import serve_stdio
+from daily_tasks.server.setup_tools import SetupTools
 from daily_tasks.server.types import ServerOverrides, ServerSettings, WorkspaceSnapshot
 from daily_tasks.server.workspace_reader import WorkspaceReader
 
@@ -25,6 +26,7 @@ __all__ = [
     "SecretTools",
     "ServerOverrides",
     "ServerSettings",
+    "SetupTools",
     "WorkspaceReader",
     "WorkspaceSnapshot",
     "read_layered_profile",

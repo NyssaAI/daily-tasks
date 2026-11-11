@@ -1,9 +1,10 @@
 """Responsibility: Describe the tools the MCP server lists, with their JSON input schemas.
 Public interface:
 +-- SECRET_TOOL_DEFINITIONS
++-- SETUP_TOOL_DEFINITIONS
 `-- TOOL_DEFINITIONS
 
-MCP `tools/list` entries; argument names match `PlanningTools` and `SecretTools` method parameters.
+MCP `tools/list` entries; argument names match `PlanningTools`, `SecretTools`, and `SetupTools` method parameters.
 """
 
 from typing import Final
@@ -154,6 +155,105 @@ SECRET_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
                 },
             },
             "required": ["namespace", "key"],
+            "additionalProperties": False,
+        },
+    },
+)
+
+SETUP_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
+    {
+        "name": "daily_tasks_setup_status",
+        "description": "Inspect Daily Tasks setup gates read-only: user/workspace Schema Version 2 profile.json, "
+        "legacy .nyssaai v1 migration candidates, PARA vs standard vault layout, existing formatting templates, "
+        "and communication source configuration. Call before Setup or when any gate fails. Writes nothing.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "workspace_root": _WORKSPACE_ROOT,
+            },
+            "additionalProperties": False,
+        },
+    },
+    {
+        "name": "daily_tasks_configure_workspace",
+        "description": "Deterministically write Schema Version 2 user/workspace profile.json files, seed missing "
+        "workspace formatting templates without overwriting existing customized templates, and record "
+        "templates/updates.json baselines after the user explicitly confirms settings. Refused without confirmed=true.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "confirmed": {
+                    "type": "boolean",
+                    "description": (
+                        "Must be true after the user explicitly confirms identity, timezone, roots, and connectors"
+                    ),
+                },
+                "scope": {
+                    "type": "string",
+                    "enum": ["workspace", "personal"],
+                    "description": "Target setup scope: 'workspace' (default) or 'personal' (user profile only)",
+                },
+                "workspace_root": _WORKSPACE_ROOT,
+                "user_name": {"type": "string", "description": "User's display name"},
+                "user_email": {"type": "string", "description": "User's email address"},
+                "timezone": {
+                    "type": "string",
+                    "description": "Explicit IANA timezone (e.g. 'America/Chicago', never 'system')",
+                },
+                "priorities": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Optional list of personal priorities stated by the user",
+                },
+                "projects_root": {
+                    "type": "string",
+                    "description": "Workspace-relative (e.g. '1-projects' or 'projects') or explicit absolute path",
+                },
+                "daily_plans_relative": {
+                    "type": "string",
+                    "description": (
+                        "Workspace-relative daily plans folder (e.g. '2-areas/daily-plans' or 'daily-plans')"
+                    ),
+                },
+                "templates_dir": {
+                    "type": "string",
+                    "description": (
+                        "Workspace-relative templates folder (e.g. './3-resources/templates' or './templates')"
+                    ),
+                },
+                "harness_connections": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "source": {"type": "string"},
+                            "via": {"type": "string"},
+                        },
+                        "required": ["source", "via"],
+                        "additionalProperties": False,
+                    },
+                    "description": "Read-only host integrations confirmed by the user (source + via)",
+                },
+                "standalone_sources": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Standalone read-only connectors enabled by the user",
+                },
+                "disabled_sources": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Communication sources explicitly disabled by the user",
+                },
+                "initial_lookback_days": {
+                    "type": "integer",
+                    "description": "Positive integer lookback window in days on first pull (default: 7)",
+                },
+                "set_default_workspace": {
+                    "type": "boolean",
+                    "description": "Bind workspace_root as defaultWorkspaceRoot in user profile.json (default: true)",
+                },
+            },
+            "required": ["confirmed"],
             "additionalProperties": False,
         },
     },

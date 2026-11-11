@@ -76,8 +76,8 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
         {
             "mcpServers": {
                 "daily-tasks": {
-                    "command": "uv",
-                    "args": ["run", "daily-tasks-mcp"],
+                    "command": "python3",
+                    "args": ["./src/daily_tasks/launch_mcp.py"],
                 }
             }
         }
@@ -86,8 +86,8 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
         {
             "mcpServers": {
                 "daily-tasks": {
-                    "command": "uv",
-                    "args": ["run", "daily-tasks-mcp"],
+                    "command": "python3",
+                    "args": ["./src/daily_tasks/launch_mcp.py"],
                     "disabled": False,
                 }
             }

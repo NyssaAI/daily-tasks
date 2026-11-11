@@ -13,6 +13,7 @@ profiles (`user`, `timezone`, `projectsRoot`, `dailyPlansRelative`, `sources.ini
 
 import argparse
 import asyncio
+import json
 import logging
 import os
 import sys
@@ -32,6 +33,7 @@ from daily_tasks.server.new_uuid7 import new_uuid7
 from daily_tasks.server.planning_tools_dispatcher import PlanningToolsDispatcher
 from daily_tasks.server.secret_tools import SecretTools
 from daily_tasks.server.serve_stdio import serve_stdio
+from daily_tasks.server.setup_tools import SetupTools
 from daily_tasks.server.types import ServerOverrides
 
 _LOGGER: Final = logging.getLogger(__name__)
@@ -55,7 +57,13 @@ def _version() -> str:
     try:
         return version("daily-tasks")
     except PackageNotFoundError:
-        return "0.0.0"
+        manifest = Path(__file__).resolve().parents[2] / "plugin.json"
+        try:
+            data = json.loads(manifest.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return "0.0.0"
+        ver = data.get("version") if isinstance(data, dict) else None
+        return ver if isinstance(ver, str) and ver else "0.0.0"
 
 
 def cli(
@@ -95,13 +103,15 @@ def cli(
         initial_lookback_days=args.initial_lookback_days,
         config_dir=resolved_config_dir,
     )
+    resolved_version = _version()
     dispatcher = PlanningToolsDispatcher(
         overrides=overrides,
         clock=_utc_now,
         new_id=new_uuid7,
     )
-    server = McpServer(dispatcher, _version(), _secret_tools(resolved_config_dir))
-    _LOGGER.info("server started", extra={"operation": "mcp.start", "fields": {"version": _version()}})
+    setup_tools = SetupTools(overrides=overrides, clock=_utc_now, plugin_version=resolved_version)
+    server = McpServer(dispatcher, resolved_version, _secret_tools(resolved_config_dir), setup_tools)
+    _LOGGER.info("server started", extra={"operation": "mcp.start", "fields": {"version": resolved_version}})
     return asyncio.run(serve_stdio(server, stdin or sys.stdin, stdout or sys.stdout))
 
 

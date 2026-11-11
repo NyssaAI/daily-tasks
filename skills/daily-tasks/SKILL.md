@@ -17,19 +17,19 @@ Supply capabilities to the calling agent; do not assume its persona or autonomou
 
 ## Mandatory full-setup gate
 
-Daily Tasks **must not run** downstream workflows ([Capture](workflows/capture.md), [Records](workflows/records.md), [Daily plan](workflows/plan.md), or [Check-in](workflows/checkin.md)) unless setup is completely finished. Configuration lives under canonical `.nyssa-ai/daily-tasks/profile.json`:
-- **User scope**: `~/.nyssa-ai/daily-tasks/profile.json` (`schema_version: 2`, `user.name`, `user.email`, `timezone`, `priorities`).
-- **Workspace scope**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (`schema_version: 2`, `workspaceRoot`, `projectsRoot`, `dailyPlansRelative`, `sources`, `templates`).
+Daily Tasks **must not run** downstream workflows ([Capture](workflows/capture.md), [Records](workflows/records.md), [Daily plan](workflows/plan.md), or [Check-in](workflows/checkin.md)) unless setup is completely finished. Always verify setup deterministically through the bundled MCP server (`daily_tasks_setup_status(workspace_root="<vaultPath>")`) rather than guessing file layouts or hand-editing JSON:
+- **User scope**: `~/.nyssa-ai/daily-tasks/profile.json` (`schema_version: 2`, `user.name`, `user.email`, `timezone`, `priorities`, optional `defaultWorkspaceRoot`).
+- **Workspace scope**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (`schema_version: 2`, `workspaceRoot`, `projectsRoot`, `dailyPlansRelative`, `sources`, `templates`). Never bind an agent persona directory (`SOUL.md` + `IDENTITY.md`) as `workspaceRoot`.
 
-Before executing any non-setup workflow, verify **all four** setup gates:
-1. **Live MCP tools in current harness**: `daily_tasks_*` MCP tools (`daily_tasks_start_session`, `daily_tasks_get_fetch_window`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`, `daily_tasks_confirm_plan`, `daily_tasks_get_session_state`, `daily_tasks_cancel_session`) are registered and callable in the active harness.
+Before executing any non-setup workflow, verify **all four** setup gates (reported by `daily_tasks_setup_status`):
+1. **Live MCP tools in current harness**: `daily_tasks_*` MCP tools (`daily_tasks_setup_status`, `daily_tasks_configure_workspace`, `daily_tasks_start_session`, `daily_tasks_get_fetch_window`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`, `daily_tasks_confirm_plan`, `daily_tasks_get_session_state`, `daily_tasks_cancel_session`) are registered and callable in the active harness (use `tool_search` / `catalog.search("daily_tasks")` first when tool search is active).
 2. **Schema Version 2 profiles and roots**: `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` exists with `"schema_version": 2`, non-empty `projectsRoot`, and `dailyPlansRelative`, and layered profile resolution supplies `user.email` and an explicit IANA `timezone` (never `"system"`). Legacy `.nyssaai/daily-tasks/profile.json` or `schema_version: 1` files do **not** pass this gate and require migration via [Setup](workflows/setup.md).
 3. **Workspace templates baseline**: Active formatting templates and `<workspaceRoot>/.nyssa-ai/daily-tasks/templates/updates.json` are present.
 4. **Communication sources configured**: Connector selections and `initialLookbackDays` are recorded under `sources` in `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json`.
 
 If **any** gate above fails:
-- **Immediately halt** the downstream workflow and load [Setup](workflows/setup.md) (with [harness-aware setup](references/harness-setup.md)) to complete the missing setup steps first.
-- **Never** fall back to manually scanning/reading vault Markdown files to synthesize a read-only plan summary, and **never** write or execute ad-hoc Python scripts importing `daily_tasks` internals.
+- **Immediately halt** the downstream workflow and load [Setup](workflows/setup.md) (with [harness-aware setup](references/harness-setup.md)) to inspect via `daily_tasks_setup_status`, confirm choices with the user, and persist via `daily_tasks_configure_workspace(confirmed=true, ...)`.
+- **Never** hand-author `profile.json` or workspace templates when `daily_tasks_configure_workspace` is available, **never** manually scan vault Markdown files to synthesize a read-only plan summary, and **never** write or execute ad-hoc Python scripts importing `daily_tasks` internals.
 - If a harness requires a session reload or user action before newly registered `daily_tasks_*` MCP tools become callable, stop after completing the harness registration step and ask the user to continue once the MCP tools are active.
 - Do not re-run Setup when all four gates are already satisfied unless the user explicitly asks to change settings. Preserve `configurationSources` across turns, isolate operating state under `<workspaceRoot>/.nyssa-ai/daily-tasks/`, and never enable background monitoring or time-slot scheduling.
 

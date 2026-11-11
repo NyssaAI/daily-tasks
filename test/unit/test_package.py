@@ -50,18 +50,21 @@ def test_build_packages_generates_matching_host_manifests_and_clean_bundles() ->
         ), f"Leak in {fmt}"
 
     portable_mcp = json.loads(packages["portable"]["mcp.json"])
-    assert portable_mcp["mcpServers"]["daily-tasks"] == {"command": "uv", "args": ["run", "daily-tasks-mcp"]}
+    assert portable_mcp["mcpServers"]["daily-tasks"] == {
+        "command": "python3",
+        "args": ["./src/daily_tasks/launch_mcp.py"],
+    }
 
     claude_mcp = json.loads(packages["portable"][".mcp.json"])
     assert claude_mcp["mcpServers"]["daily-tasks"] == {
-        "command": "uv",
-        "args": ["run", "--directory", "${CLAUDE_PLUGIN_ROOT}", "daily-tasks-mcp"],
+        "command": "python3",
+        "args": ["${CLAUDE_PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py"],
     }
 
     agy_mcp = json.loads(packages["antigravity"]["mcp_config.json"])
     assert agy_mcp["mcpServers"]["daily-tasks"] == {
-        "command": "uv",
-        "args": ["run", "daily-tasks-mcp"],
+        "command": "python3",
+        "args": ["./src/daily_tasks/launch_mcp.py"],
         "disabled": False,
     }
 

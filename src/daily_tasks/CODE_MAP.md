@@ -15,6 +15,12 @@ cli.py
 |-- def cli( argv: Sequence[str] | None = None, environ: Mapping[str, str] | None = None, stdin: TextIO | None = None, stdout: TextIO | None = None, ) -> int
 `-- main: Final
 
+launch_mcp.py
+|-- PLUGIN_ROOT: Final
+|-- SRC_DIR: Final
+|-- def launch( argv: Sequence[str] | None = None, which_uv: Callable[[str], str | None] = shutil.which, exec_uv: Callable[[str, Sequence[str]], int] = _default_exec, ) -> int
+`-- def main() -> int
+
 logging_setup.py
 |-- LOG_LEVEL_ENV_VAR: Final = "DAILY_TASKS_LOG_LEVEL"
 `-- def logging_setup( environ: Mapping[str, str], file_path: str | None = None, provider_factory: Callable[[str | None, str], LoggerProvider] | None = None, ) -> logging.Logger

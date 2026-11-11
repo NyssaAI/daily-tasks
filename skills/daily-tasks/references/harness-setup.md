@@ -1,113 +1,70 @@
 # Harness-aware setup and MCP registration
 
 > [!IMPORTANT] Scope Directive
-> This reference owns per-harness detection signals, runtime launcher resolution (`uv` vs. Python `>=3.12`), native MCP server registration syntax, privilege boundaries, and host connector discovery across OpenClaw, Google Antigravity, Claude Code, Claude Cowork, Codex, Cursor / Grok Bot, and Hermes Agent. It does NOT own the step-by-step setup execution checklist (owned by [`../workflows/setup.md`](../workflows/setup.md)) or MCP JSON-RPC tool schemas (owned by [`cli.md`](cli.md)).
+> This reference owns per-harness detection signals, portable launcher behavior (`src/daily_tasks/launch_mcp.py`), native MCP server registration syntax, privilege boundaries, and host connector discovery across OpenClaw, Google Antigravity, Claude Code, Claude Cowork, Codex, Cursor / Grok Bot, and Hermes Agent. It does NOT own the step-by-step setup execution checklist (owned by [`../workflows/setup.md`](../workflows/setup.md)) or MCP JSON-RPC tool schemas (owned by [`cli.md`](cli.md)).
 
 ## Harness identification
 
-Daily Tasks runs across multiple agent harnesses with distinct MCP registration mechanisms, sandbox boundaries, and skill loaders. Before checking connectors or registering `daily-tasks-mcp`, Setup identifies the active harness from its live tool surface and environment rather than assuming a single CLI such as `agy`:
+Daily Tasks runs across multiple agent harnesses with distinct MCP discovery mechanisms, sandbox boundaries, and skill loaders. Identify the active harness from its live tool surface and environment rather than assuming a single CLI such as `agy`:
 
 | Harness | Identification Signals | Skill Loader & Privilege Notes |
 | :--- | :--- | :--- |
-| **OpenClaw** | Code-mode `exec` with `catalog.search(...)` / `skills.read("daily-tasks")`, native `openclaw` CLI in `PATH`, or `OPENCLAW_STATE_DIR` Gateway environment | Load skills by skill name (`skills.read("daily-tasks")`), never by filesystem path. Agent turns run under an unprivileged service account; execute `openclaw mcp ...` via `exec` (or the `openclaw` delegation tool when exposed), never `sudo`. |
+| **OpenClaw** | `skills_read` / `tool_search` (or Code-mode `catalog.search(...)`), `OPENCLAW_STATE_DIR` Gateway environment | Load skills via `skills_read` or `/var/lib/openclaw/plugin-skills/daily-tasks/SKILL.md` (`~` is `/var/lib/openclaw`, never `/home/openclaw`). Bundled `.mcp.json` auto-starts via `bundle-mcp`; discover `daily_tasks_*` tools with `tool_search`. Never use `sudo` or run `openclaw mcp add`/`set` while the Gateway daemon holds offline state lock. |
 | **Google Antigravity** | `agy` CLI (`Antigravity 2.0`, `Antigravity CLI`, `Antigravity IDE`), `call_mcp_tool`, or `mcp_daily-tasks_*` tools | Project plugins live at `.agents/plugins/daily-tasks/` with `mcp_config.json`; CLI/user registration uses `agy mcp`. |
 | **Claude Code** | `claude` CLI, `CLAUDE_PLUGIN_ROOT`, or `.claude-plugin/plugin.json` session context | Auto-discovers `.mcp.json` when loaded via `--plugin-dir` or approved in `claude mcp list`; manual registration uses `claude mcp add`. |
 | **Claude Cowork** | Desktop/cloud Cowork plugin session without host CLI installers | Consumes bundled `.mcp.json` from the uploaded Cowork archive (`artifacts/cowork`); local stdio MCP requires desktop execution permission in Customize > Plugins. |
 | **Codex** | `codex` CLI, `~/.codex/config.toml`, or `.codex-plugin/plugin.json` context | Auto-discovers portable `mcp.json` from installed plugin bundles or registers via `codex mcp add`. |
-| **Cursor / Grok Bot** | `.cursor-plugin/plugin.json` or `.cursor/mcp.json` workspace context | Cursor reads installed plugin `mcp.json` or `<workspaceRoot>/.cursor/mcp.json`. Grok Bot shares `.cursor-plugin` packaging (`foundation-on-demand`, no `SessionStart` hooks) and requires verifying MCP tool availability before execution. |
+| **Cursor / Grok Bot** | `.cursor-plugin/plugin.json` or `.cursor/mcp.json` workspace context | Cursor reads installed plugin `mcp.json` or `<workspaceRoot>/.cursor/mcp.json`. Grok Bot shares `.cursor-plugin` packaging and requires verifying MCP tool availability before execution. |
 | **Hermes Agent** | `hermes` CLI, `HERMES_ENABLE_PROJECT_PLUGINS`, or `~/.hermes/` runtime | Reads `mcp.json` in `.hermes/plugins/daily-tasks/` (when project plugins are enabled) or MCP declarations in `~/.hermes/config.yaml`. |
 
-## Python runtime resolution
+## Portable Python MCP launcher (`launch_mcp.py`)
 
-`daily-tasks-mcp` requires Python `>=3.12`. Resolve the launcher with a single non-recursive lookup (`where.exe uv` on Windows or `which uv` on POSIX) before constructing a host registration command:
+All bundled MCP manifests (`.mcp.json`, portable `mcp.json`, and Antigravity `mcp_config.json`) invoke `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py`:
+1. **In-process Python `>=3.12` fast path**: Prepends `<pluginRoot>/src` to `sys.path` in-process (avoiding host `PYTHONPATH` environment filters) and starts `daily_tasks.cli:cli` directly when runtime dependencies are installed in the active Python environment.
+2. **Automatic `uv` fallback**: When `python3` lacks installed package dependencies and `uv` is available on `PATH`, execs `uv run --directory <pluginRoot> daily-tasks-mcp` automatically.
+3. **Zero-arg startup + setup-gated mode**: The MCP server boots cleanly without `--workspace-root`, immediately exposing `daily_tasks_setup_status` and `daily_tasks_configure_workspace` while failing closed on session/fetch tools until Schema Version 2 setup is completed. Once `daily_tasks_configure_workspace` binds `defaultWorkspaceRoot` in `~/.nyssa-ai/daily-tasks/profile.json`, zero-arg `daily_tasks_start_session` and `daily_tasks_get_fetch_window` calls resolve that vault automatically.
 
-1. **Preferred (`uv` available)**:
-   - Command: `uv`
-   - Arguments: `run --directory <pluginRoot> daily-tasks-mcp --workspace-root <workspaceRoot>`
-2. **Fallback (`uv` unavailable, `python3` or `python` `>=3.12` with dependencies installed)**:
-   - Environment: `PYTHONPATH=<pluginRoot>/src`
-   - Command: `python3` (POSIX) or `python` (Windows)
-   - Arguments: `-m daily_tasks.server --workspace-root <workspaceRoot>`
-
-Always resolve `<pluginRoot>` from the real physical plugin directory (`realpath` on the loaded skill directory's `../..` parent when skills are symlinked, verifying `pyproject.toml` or `src/daily_tasks` exists there) and `<workspaceRoot>` from the bound absolute workspace path—never from `os.getcwd()`.
+Always resolve `<pluginRoot>` from the physical installed plugin directory (`realpath` on the loaded skill directory's `../..` parent when skills are symlinked) and `<workspaceRoot>` from the user's authorized vault path—never from `os.getcwd()` or an agent persona directory (`SOUL.md` + `IDENTITY.md`).
 
 ## Per-harness MCP server registration
 
-When `daily_tasks_*` MCP tools are already callable in the current session (for example via self-contained `.mcp.json`, `mcp.json`, or `mcp_config.json` bundle discovery), skip manual registration and proceed directly to verification. Otherwise, register `daily-tasks` using the active harness's native surface:
+When `daily_tasks_*` MCP tools are already callable in the current session (including via `tool_search` / `call_mcp_tool`), skip manual registration entirely and call `daily_tasks_setup_status`. Otherwise, use the active harness's native surface:
 
 ### OpenClaw
 
-- **From an interactive OpenClaw agent turn**: Run `openclaw mcp add` followed by `openclaw mcp reload` directly via shell `exec` (`await exec({ command: "openclaw mcp add ... && openclaw mcp reload" })` as the unprivileged service user—never `sudo`), or via the `openclaw` delegation tool when exposed. Always resolve symlinks (`realpath ~/plugin-skills/daily-tasks` -> `<pluginRoot>/skills/daily-tasks`) before computing `<pluginRoot>`.
-- **CLI commands**:
-  ```text
-  # With uv:
-  openclaw mcp add daily-tasks --command uv --arg run --arg --directory --arg <pluginRoot> --arg daily-tasks-mcp --arg --workspace-root --arg <workspaceRoot>
-  openclaw mcp reload
-
-  # With python3 (>=3.12) when uv is not installed:
-  openclaw mcp add daily-tasks --command python3 --env PYTHONPATH=<pluginRoot>/src --arg -m --arg daily_tasks.server --arg --workspace-root --arg <workspaceRoot>
-  openclaw mcp reload
-  ```
-- **Verification**: Run `openclaw mcp probe daily-tasks` and `catalog.search("daily_tasks")`, confirming `daily_tasks_start_session` and sibling tools are listed.
+- **Bundled auto-discovery (`bundle-mcp`)**: Enabling the `daily-tasks` extension in OpenClaw automatically loads `.mcp.json` (`python3 ${CLAUDE_PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py`). When `tools.toolSearch` is active, call `tool_search` with `"daily_tasks"` (or `catalog.search("daily_tasks")` in Code Mode) to surface `daily_tasks_setup_status`, `daily_tasks_configure_workspace`, `daily_tasks_start_session`, and sibling tools.
+- **Offline lock constraint**: Do **not** run `openclaw mcp add` or `openclaw mcp set` from a shell tool while `openclaw.service` / Gateway is running; OpenClaw rejects live CLI mutations to state root MCP config (`requires exclusive offline state ownership`). Do not inject custom `mcpServers` overrides pointing at `/var/lib/openclaw/workspace`.
 
 ### Google Antigravity (`agy` CLI / IDE / 2.0)
 
-`agy mcp add` requires flags (`--env`) before `<name>` and `--` before any command arguments starting with `-`:
-
 ```text
-# With uv:
-agy mcp add daily-tasks -- uv run --directory <pluginRoot> daily-tasks-mcp --workspace-root <workspaceRoot>
-
-# With python3 (>=3.12):
-agy mcp add --env "PYTHONPATH=<pluginRoot>/src" daily-tasks -- python3 -m daily_tasks.server --workspace-root <workspaceRoot>
+agy mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py
 ```
 
 ### Claude Code and Claude Cowork
 
-- **Claude Code**: If `.mcp.json` is shown as pending approval in `claude mcp list`, prompt the user to approve it; otherwise register via CLI:
+- **Claude Code**: Approve `.mcp.json` if listed as pending in `claude mcp list`, or register manually:
   ```text
-  # With uv:
-  claude mcp add daily-tasks -- uv run --directory <pluginRoot> daily-tasks-mcp --workspace-root <workspaceRoot>
-
-  # With python3 (>=3.12):
-  claude mcp add daily-tasks -e PYTHONPATH=<pluginRoot>/src -- python3 -m daily_tasks.server --workspace-root <workspaceRoot>
+  claude mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py
   ```
 - **Claude Cowork**: Cowork loads `.mcp.json` from the uploaded Cowork plugin bundle (`artifacts/cowork`). Do not invoke host CLI commands inside Cowork; if `daily_tasks_*` tools are unavailable, instruct the user to enable local plugin MCP execution under **Customize > Plugins** and wait for confirmation.
 
 ### Codex
 
 ```text
-# With uv:
-codex mcp add daily-tasks -- uv run --directory <pluginRoot> daily-tasks-mcp --workspace-root <workspaceRoot>
-
-# With python3 (>=3.12):
-codex mcp add --env PYTHONPATH=<pluginRoot>/src daily-tasks -- python3 -m daily_tasks.server --workspace-root <workspaceRoot>
+codex mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py
 ```
 
-### Cursor and Grok Bot
+### Cursor, Grok Bot, and Hermes Agent
 
-- **Cursor**: When bundle `mcp.json` is not already active from the Cursor plugin install, write or update `<workspaceRoot>/.cursor/mcp.json` (preserving unrelated `mcpServers` entries):
-  ```json
-  {
-    "mcpServers": {
-      "daily-tasks": {
-        "command": "uv",
-        "args": ["run", "--directory", "<pluginRoot>", "daily-tasks-mcp", "--workspace-root", "<workspaceRoot>"]
-      }
-    }
-  }
-  ```
-  (Or `"command": "python3"`, `"args": ["-m", "daily_tasks.server", "--workspace-root", "<workspaceRoot>"]`, and `"env": {"PYTHONPATH": "<pluginRoot>/src"}` when `uv` is absent.)
-- **Grok Bot**: Verify `daily_tasks_*` MCP tools are exposed in the session. If the hosted Grok Bot environment cannot spawn local stdio MCP servers, stop and report the exact host capability requirement rather than running unverified fallback workflows.
-
-### Hermes Agent
-
-Assemble or enable `.hermes/plugins/daily-tasks/` (`mcp.json` included) with `HERMES_ENABLE_PROJECT_PLUGINS` and `hermes plugins enable daily-tasks`, or add the `daily-tasks` stdio server entry (`command`, `args`, and optional `env.PYTHONPATH`) under `mcp_servers` in `~/.hermes/config.yaml`.
+- **Cursor**: When bundle `mcp.json` is not already active from the Cursor plugin install, add `"daily-tasks": {"command": "python3", "args": ["<pluginRoot>/src/daily_tasks/launch_mcp.py"]}` under `mcpServers` in `<workspaceRoot>/.cursor/mcp.json`.
+- **Grok Bot**: Verify `daily_tasks_*` MCP tools are exposed in the session; if local stdio MCP is unsupported by the host environment, stop and report the exact capability requirement.
+- **Hermes Agent**: Enable `.hermes/plugins/daily-tasks/` (`HERMES_ENABLE_PROJECT_PLUGINS` and `hermes plugins enable daily-tasks`), or register `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py` under `mcp_servers` in `~/.hermes/config.yaml`.
 
 ## Harness-aware connector discovery
 
-During Setup Step 4, inspect existing Email (`gmail`, `outlook`) and Chat (`slack`, `teams`) integrations using the active harness's discovery surface before rendering the inventory table:
+Before calling `daily_tasks_configure_workspace`, inspect existing Email (`gmail`, `outlook`) and Chat (`slack`, `teams`) integrations using the active harness's discovery surface and render the inventory table first:
 
-- **OpenClaw**: Query `catalog.search("gmail")`, `catalog.search("outlook")`, `catalog.search("slack")`, and `catalog.search("teams")` (plus enabled read-only OpenClaw channel/MCP integrations) without mutating or sending messages.
-- **Antigravity / Claude / Codex / Cursor / Hermes**: Inspect the session's registered MCP servers and read-only connector tools exposed in the harness context (e.g., native Gmail/Slack MCP servers or Composio MCP tools, only when actually present).
+- **OpenClaw**: Query `tool_search` (or `catalog.search` in Code Mode) for `"gmail"`, `"outlook"`, `"slack"`, and `"teams"` read-only integrations without mutating or sending messages.
+- **Antigravity / Claude / Codex / Cursor / Hermes**: Inspect the session's registered MCP servers and read-only connector tools exposed in the harness context (only offering an integration when actually present).
 - **Standalone credentials**: Check stored credential metadata (never secret values) under `<userHome>/.nyssa-ai/daily-tasks` / configured secret vaults.

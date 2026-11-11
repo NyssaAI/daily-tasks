@@ -33,7 +33,7 @@ markdown_workspace_reader.py
 
 mcp_server.py
 `-- class McpServer
-    |-- def __init__( self, tools: PlanningSessionPort, version: str, secrets: SecretTools | None = None ) -> None
+    |-- def __init__( self, tools: PlanningSessionPort, version: str, secrets: SecretTools | None = None, setup: SetupTools | None = None, ) -> None
     `-- def handle(self, message: str) -> str | None
 
 new_uuid7.py
@@ -73,7 +73,9 @@ planning_tools_dispatcher.py
 `-- def tool_dispatch_error( tool: str, message: str, category: ErrorCategory | str = ErrorCategory.VALIDATION, ) -> ToolBody
 
 resolve_server_settings.py
+|-- def is_agent_persona_workspace(workspace_root: Path) -> bool
 |-- def read_layered_profile( workspace_root: Path | None, config_dir: Path | None = None, ) -> Result[dict[str, JsonValue]]
+|-- def resolve_default_workspace_root(config_dir: Path | None = None) -> Result[Path | None]
 `-- def resolve_server_settings( workspace_root: Path | None, overrides: ServerOverrides = _DEFAULT_OVERRIDES, ) -> Result[ServerSettings]
 
 secret_tools.py
@@ -84,11 +86,18 @@ secret_tools.py
 serve_stdio.py
 `-- def serve_stdio(server: McpServer, reader: TextIO, writer: TextIO) -> int
 
+setup_tools.py
+`-- class SetupTools
+    |-- def __init__( self, overrides: ServerOverrides, clock: Callable[[], datetime], plugin_version: str = "0.11.0", assets_dir: Path | None = None, ) -> None
+    |-- def setup_status(self, workspace_root: str | None = None) -> dict[str, JsonValue]
+    `-- def configure_workspace( self, confirmed: bool, scope: str = "workspace", workspace_root: str | None = None, ... ) -> dict[str, JsonValue]
+
 start_session_reply.py
 `-- def start_session_reply( snapshot: WorkspaceSnapshot, harness_sources: Sequence[str], pending: int ) -> tuple[str, dict[str, JsonValue]]
 
 tool_definitions.py
 |-- SECRET_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]]
+|-- SETUP_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]]
 `-- TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]]
 
 tool_reply.py
