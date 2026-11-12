@@ -50,18 +50,29 @@ def test_build_packages_generates_matching_host_manifests_and_clean_bundles() ->
         ), f"Leak in {fmt}"
 
     portable_mcp = json.loads(packages["portable"]["mcp.json"])
-    assert portable_mcp["mcpServers"]["daily-tasks"] == {"command": "uv", "args": ["run", "daily-tasks-mcp"]}
+    assert "mcp.json" in manifests
+    assert json.loads(manifests["mcp.json"]) == portable_mcp
+    assert portable_mcp == {
+        "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+        "mcpServers": {
+            "daily-tasks": {
+                "type": "stdio",
+                "command": "python3",
+                "args": ["./src/daily_tasks/launch_mcp.py"],
+            }
+        },
+    }
 
     claude_mcp = json.loads(packages["portable"][".mcp.json"])
     assert claude_mcp["mcpServers"]["daily-tasks"] == {
-        "command": "uv",
-        "args": ["run", "--directory", "${CLAUDE_PLUGIN_ROOT}", "daily-tasks-mcp"],
+        "command": "python3",
+        "args": ["${CLAUDE_PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py"],
     }
 
     agy_mcp = json.loads(packages["antigravity"]["mcp_config.json"])
     assert agy_mcp["mcpServers"]["daily-tasks"] == {
-        "command": "uv",
-        "args": ["run", "daily-tasks-mcp"],
+        "command": "python3",
+        "args": ["./src/daily_tasks/launch_mcp.py"],
         "disabled": False,
     }
 
@@ -113,7 +124,7 @@ def test_validate_repository_passes_canonical_source_and_catches_broken_links(tm
     assert validate_mod.validate_repository() == []
 
     # Verify broken link and README mismatch detection on a synthetic copy
-    for filename in ("plugin.json", "pyproject.toml", "README.md", ".mcp.json"):
+    for filename in ("plugin.json", "pyproject.toml", "README.md", ".mcp.json", "mcp.json"):
         shutil.copyfile(ROOT / filename, tmp_path / filename)
     (tmp_path / "adapters" / "hermes").mkdir(parents=True)
     shutil.copyfile(ROOT / "adapters" / "hermes" / "__init__.py", tmp_path / "adapters" / "hermes" / "__init__.py")

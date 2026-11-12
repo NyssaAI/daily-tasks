@@ -50,6 +50,8 @@ def validate_repository(root: Path = ROOT) -> list[str]:
             errors.append(f"Local path leaked: {name}")
 
     identity = json.loads((root / "plugin.json").read_text(encoding="utf-8"))
+    if identity.get("$schema") != "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json":
+        errors.append("Missing or unsupported Agent Plugins v1 $schema in plugin.json")
     pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
     pyproject_version = pyproject.get("project", {}).get("version")
     if identity.get("version") != pyproject_version or len(names) != 1:
@@ -84,6 +86,31 @@ def validate_repository(root: Path = ROOT) -> list[str]:
                 errors.append("Malformed .mcp.json: daily-tasks server requires command and non-empty args")
         except Exception as exc:
             errors.append(f"Invalid .mcp.json: {exc}")
+
+    portable_mcp_path = root / "mcp.json"
+    if not portable_mcp_path.exists():
+        errors.append("Missing mcp.json portable manifest")
+    else:
+        try:
+            portable_mcp_data = json.loads(portable_mcp_path.read_text(encoding="utf-8"))
+            portable_servers = portable_mcp_data.get("mcpServers") if isinstance(portable_mcp_data, dict) else None
+            portable_server_cfg = portable_servers.get("daily-tasks") if isinstance(portable_servers, dict) else None
+            if (
+                not isinstance(portable_mcp_data, dict)
+                or set(portable_mcp_data) != {"$schema", "mcpServers"}
+                or portable_mcp_data.get("$schema") != "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+                or not isinstance(portable_server_cfg, dict)
+                or portable_server_cfg.get("type") != "stdio"
+                or not isinstance(portable_server_cfg.get("command"), str)
+                or not portable_server_cfg["command"].strip()
+                or not isinstance(portable_server_cfg.get("args"), list)
+                or not portable_server_cfg["args"]
+            ):
+                errors.append(
+                    "Malformed mcp.json: requires Agent Plugins v1 $schema and stdio daily-tasks server"
+                )
+        except Exception as exc:
+            errors.append(f"Invalid mcp.json: {exc}")
 
     return errors
 

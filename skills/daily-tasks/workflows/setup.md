@@ -1,91 +1,61 @@
 > [!IMPORTANT] Scope Directive
-> This workflow owns initial setup and explicit updates to Daily Tasks identity, timezone, priorities, storage bindings, MCP server registration, communication connectors, and out-of-band secret capture. It does NOT own candidate extraction (`capture.md`), record creation or repair (`records.md`), daily planning (`plan.md`), check-in reconciliation (`checkin.md`), or low-level tool/template schemas (owned by `../references/cli.md` and `../references/templates.md`).
+> This workflow owns harness-aware initial setup, legacy v1 migration, and explicit updates to Daily Tasks identity, timezone, priorities, storage bindings, MCP server registration, communication connectors, and out-of-band secret capture. It does NOT own candidate extraction (`capture.md`), record creation or repair (`records.md`), daily planning (`plan.md`), check-in reconciliation (`checkin.md`), or low-level tool/template schemas (owned by `../references/cli.md`, `../references/harness-setup.md`, and `../references/templates.md`).
 
 # Set up Daily Tasks
 
-Run this workflow on first use, whenever project setup is not already done (missing workspace `profile.json` or unresolved `projectsRoot`, `dailyPlansRelative`, `user.email`, or `timezone`), or when the user explicitly requests a configuration change. Reference [MCP / CLI interface](../references/cli.md) for server/auth parameters and [record conventions](../references/records.md) for output root rules.
+Run this workflow on first use, whenever **any** mandatory setup gate is incomplete, or when the user explicitly requests a configuration change. **Let the deterministic MCP setup tools do the file work**:
+1. Discover/activate `daily_tasks_*` MCP tools in the harness (`tool_search` / `catalog.search("daily_tasks")`).
+2. Call `daily_tasks_setup_status(workspace_root="<authorizedVaultPath>")` to inspect v2 profiles, legacy `.nyssaai` v1 migration candidates, PARA vs. standard vault layout, and existing formatting templates in one read-only call.
+3. Present discovered settings + the Email/Chat connector inventory table to the user and obtain **explicit confirmation** (never guess `"UTC"` or silently assume connector choices).
+4. Call `daily_tasks_configure_workspace(confirmed=true, ...)` to atomically write Schema Version 2 `profile.json` files, seed missing templates without overwriting customized ones, and record `templates/updates.json`. **Never** hand-write `profile.json` or templates when `daily_tasks_configure_workspace` is callable.
 
-## 1. Pre-flight and scope selection
+Reference [harness setup](../references/harness-setup.md) for per-harness MCP discovery/registration, [MCP / CLI interface](../references/cli.md) for tool parameters, and [record conventions](../references/records.md) for output root rules.
 
-1. **Keep the user informed**: Announce each setup phase clearly (checking profiles, detecting `uv`/`python`, registering the MCP server, configuring connectors, and placing templates). Never run silent multi-command probe loops.
-2. **Bind immutable roots**:
-   - Use the host's established absolute `workspaceRoot` (or captured initial workspace binding) and verified `homeRoot`.
-   - Never infer a project root from the plugin installation directory or a later subprocess `cwd`.
-   - Pass only absolute paths to tools and scripts.
-3. **Read existing profile layers**:
-   - Inspect `<userHome>/.nyssa-ai/daily-tasks/profile.json` and `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (or accepted custom pointers in `configurationSources`) directly without recursively scanning home directories.
-   - If a selected `profile.json` contains malformed JSON, stop and report the parse error without overwriting the file or falling back to defaults.
-   - Preserve `configurationSources: {schemaVersion: 1, user: {profilePath: ABSOLUTE_PATH_OR_NULL}, project: {profilePath: ABSOLUTE_PATH_OR_NULL}}`, `workspaceRoot`, `homeRoot`, and `stateRoot` unchanged across turns.
-4. **Select target write scope**:
-   - Apply precedence: explicit current-request overrides (`preferenceOverrides`, never persisted) > project `profile.json` > user `profile.json`.
-   - Use **user scope** (`<userHome>/.nyssa-ai/daily-tasks/profile.json`) when the user explicitly requests a personal/all-projects setting or when no workspace is established (personal-only setup).
-   - Use **project scope** (`<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json`) when a workspace is established and the user is configuring workspace setup or project preferences.
-   - Do not ask routine scope questions when these rules determine the target scope.
-   - When `sharedScopes` aliases user and project profiles to the same file, warn the user that shared preference changes affect all sessions using that file, validate the full v2 document, and merge only the requested scope's changed leaves.
+## 1. Pre-flight, harness detection, and deterministic inspection
 
-## 2. Identity, timezone, and workspace storage
+1. **Keep the user informed**: Announce each setup phase clearly (checking MCP tools and profiles, inspecting connectors, confirming settings, and persisting configuration). Never run silent multi-command probe loops.
+2. **Identify the active harness and check live MCP tools first**:
+   - Detect the current harness (`OpenClaw`, `Google Antigravity`, `Claude Code`, `Claude Cowork`, `Codex`, `Cursor / Grok Bot`, or `Hermes Agent`) per [harness setup](../references/harness-setup.md#harness-identification).
+   - Check whether `daily_tasks_setup_status` and sibling `daily_tasks_*` MCP tools are already live (via `tool_search` / `catalog.search("daily_tasks")` when deferred tool loading is enabled). Most hosts auto-start the bundled server via `.mcp.json` / `mcp.json` (`src/daily_tasks/launch_mcp.py`). If not yet registered, complete Section 3 first.
+3. **Bind the user's vault root (never an agent persona directory)**:
+   - Pass the user's authorized absolute vault/workspace path as `workspace_root` (for example `/srv/vaults/<vault>` on a shared host).
+   - **Never** bind `<pluginRoot>` or an agent persona runtime workspace containing `SOUL.md` and `IDENTITY.md` (such as `/var/lib/openclaw/workspace`) as a Daily Tasks vault.
+   - If no user vault path is known and the request requires projects or daily plans, ask the user which absolute directory to bind as `workspaceRoot`.
+4. **Inspect existing v2 and legacy v1 state via `daily_tasks_setup_status`**:
+   - Call `daily_tasks_setup_status(workspace_root="<workspaceRoot>")` (or with no arguments for personal-only setup).
+   - When `legacy_v1_detected` is `true` (`legacy_workspace_v1` / `legacy_user_v1`), present the discovered `user`, `timezone`, `priorities`, `projectsRoot`, and `dailyPlansRelative` values to the user and offer to migrate them into Schema Version 2 `.nyssa-ai/daily-tasks/profile.json` (leaving the legacy `.nyssaai` file untouched unless separate removal is authorized).
+   - If `daily_tasks_setup_status` reports malformed JSON in any inspected file, stop and report the exact parse error and path without overwriting the file.
+   - Select `"personal"` scope only when the user explicitly requests a personal-only setting with no workspace; otherwise use `"workspace"` scope (which also binds `defaultWorkspaceRoot` in user `profile.json` for zero-arg tool calls).
 
-1. **Resolve identity, timezone, and priorities**:
-   - Reuse known `user.name` and `user.email`; ask only when missing.
-   - Default `timezone` to `"system"` and `priorities` to `[]` without asking routine questions, unless an explicit IANA timezone or priority list was supplied.
-   - Resolve and report the actual host IANA timezone when persisting `"system"`; if host timezone detection fails, ask the user for an explicit IANA timezone (never silently fall back to `UTC`).
-   - Update `priorities` only on an explicit user request, preserving the user's stated reason.
-2. **Establish workspace output bindings** *(skip for personal-only setup)*:
-   - Reuse existing accepted `workspaceRoot`, `projectsRoot`, and `dailyPlansRelative` bindings when present.
-   - If no workspace is established and the request needs projects or a daily plan, ask the user which directory to bind as `workspaceRoot`.
-   - If `projectsRoot` or `dailyPlansRelative` is unresolved, ask for the missing location(s) in a single prompt, offering `projects/` and `daily-plans/` (or `2-areas/daily-plans` for PARA vaults) under the bound workspace.
-   - Reject any relative directory containing path traversal (`..`) outside its accepted root.
-   - Ensure `dailyPlansRelative` stays inside `workspaceRoot` (`projectsRoot` may point to an explicitly chosen external collection) and never points inside `.nyssa-ai/` configuration or operating state.
-3. **Write Schema Version 2 profile**:
-   - Persist only the selected scope's fields using Schema Version 2:
-     ```json
-     {
-       "schema_version": 2,
-       "user": {"name": "Example User", "email": "user@example.com"},
-       "timezone": "America/Chicago",
-       "priorities": []
-     }
-     ```
-   - Include project bindings (`workspaceRoot`, `projectsRoot`, `dailyPlansRelative`, `sources`, `templates`) only in project-scope profiles.
-   - Never persist credentials, message bodies, or cache paths in `profile.json`.
-   - Do not append a project decision-log entry for personal-scope setup or updates.
-4. **Place visible workspace templates** *(skip for personal-only setup)*:
-   - Follow [custom templates](../references/templates.md) and [template updates](../references/template-updates.md) to place missing active templates (`projectIndex`, `dailyPlan`, `milestone`, `task`, `planDayReview`) in the workspace's templates directory and record initial baselines in `templates/updates.json`.
-   - Preserve existing custom template files, pointers, and `null` resets without reformatting existing records.
-   - Provide clickable links to the workspace templates directory and registered template files in the setup summary.
+## 2. Harness-aware communication sources, identity, and confirmation
 
-## 3. MCP server registration
-
-1. **Self-contained plugin discovery (`.mcp.json` / `mcp.json` / `mcp_config.json`)**:
-   - Bundled host packages ship self-contained stdio declarations anchored to the plugin bundle (`uv run --directory ${CLAUDE_PLUGIN_ROOT} daily-tasks-mcp` in `.mcp.json`, `uv run daily-tasks-mcp` in portable/Cursor/OpenClaw `mcp.json`, and `mcp_config.json` in `artifacts/antigravity`).
-   - Verify `uv` (recommended) or Python >=3.12 is installed on the host machine so the bundled server starts cleanly from `pyproject.toml` and `src/` without requiring a separate global `PATH` binary install.
-2. **Manual host registration (when bundle-mcp is not automatic)**:
-   - Run a single lookup (`where.exe uv` on Windows or `which uv` on POSIX). **Never** recursively scan the filesystem for `uv.exe`.
-   - With `uv`: `agy mcp add daily-tasks uv run --directory <pluginRoot> daily-tasks-mcp`
-   - With host Python (>=3.12): `agy mcp add --env "PYTHONPATH=<pluginRoot>/src" --env "DAILY_TASKS_LOG_LEVEL=Debug" daily-tasks python -m daily_tasks.server`
-   - Confirm MCP registration and `daily_tasks_*` tool availability to the user. Never invoke `daily-tasks-mcp` directly as a CLI subprocess.
-
-## 4. Communication sources and initial lookback
-
-1. **Step 1 (Inventory & Present)**:
-   - Inspect which Email (Gmail, Outlook) and Chat (Slack, Teams) integrations or MCP servers the host already provides (Claude, Codex, Antigravity, Cursor), and check whether standalone Gmail or Slack credentials are already stored in the local profile or secrets vault.
-   - **MUST** output a clear Markdown table or bulleted summary to the user displaying the detected connections across Email (Gmail, Outlook) and Chat (Slack, Teams) **before** prompting for choices:
+1. **Inventory Email and Chat connections** *(skip for personal-only setup)*:
+   - Inspect Email (`gmail`, `outlook`) and Chat (`slack`, `teams`) integrations available in the **detected harness** per [harness connector discovery](../references/harness-setup.md#harness-aware-connector-discovery) plus stored standalone credentials in `<userHome>/.nyssa-ai/daily-tasks`.
+   - **MUST** render a clear Markdown summary table of detected Email and Chat connections **before** prompting for choices:
 
      | Channel / Source | Discovered Host Connections / MCP Servers | Stored Standalone Credentials |
      | :--- | :--- | :--- |
-     | **Email** (Gmail, Outlook) | `<e.g. Composio, native host tools, or "None detected">` | `<e.g. Stored in local profile/secrets vault, or "None">` |
-     | **Chat** (Slack, Teams) | `<e.g. Composio, native host tools, or "None detected">` | `<e.g. Stored in local profile/secrets vault, or "None">` |
+     | **Email** (Gmail, Outlook) | `<e.g. OpenClaw/MCP integration name, or "None detected">` | `<e.g. Stored in local profile/secrets vault, or "None">` |
+     | **Chat** (Slack, Teams) | `<e.g. OpenClaw/MCP integration name, or "None detected">` | `<e.g. Stored in local profile/secrets vault, or "None">` |
 
-   - **Do not call interactive question tools (e.g. `ask_question`) without first rendering the discovered connection inventory to the user.**
-2. **Step 2 (Dynamic Prompting)** *(never choose silently or treat silence as a choice)*:
-   - Formulate the per-source selection options dynamically based strictly on the inventory rendered in Step 1:
-     - **Existing assistant connection (`<discovered-integration-name>`)**: Offer this option **only** if a host MCP server or harness integration was actually detected in Step 1 (e.g., `Existing assistant connection (Composio)` or `Existing assistant connection (claude-gmail)`). **Never** presume or hardcode `"Composio"` if Composio is not registered in the host's MCP configuration. When selected, record `{"source": "<name>", "via": "<discovered-integration-name>"}` in `sources.harnessConnections` (strictly read-only; never send, reply, draft, label, archive, or mark read).
-     - **Standalone read-only connector**: Always offer this option, explicitly noting whether standalone credentials are already saved or whether credential setup is needed via [Out-of-band credentials](#out-of-band-credentials) and Gmail OAuth sign-in.
-     - **Disabled**: Always offer this option; when selected, omit the source so planning operates without message ingestion.
-3. **Step 3 (Configure initial lookback window)**:
-   - Inform the user that a source's first pull without a saved cursor reads back **7 days** by default (`sources.initialLookbackDays: 7`).
-   - Accept `7` or another positive integer supplied by the user; reject zero, negative, or non-integer values and ask again.
-   - Persist `sources.initialLookbackDays` in the project `profile.json` (subsequent pulls automatically resume from `<stateRoot>/fetch-cursors.json`).
+2. **Prompt once for missing or unconfirmed choices** *(never choose silently or treat silence as consent)*:
+   - **Identity & timezone**: Reuse confirmed `user.name` and `user.email`; ask if missing or migrating from v1. Require an explicit IANA timezone (e.g. `"America/Chicago"`, never `"system"`). When `host_timezone_needs_user_confirmation` is `true` (for example on a `UTC` Linux server), ask the user to confirm their local IANA timezone and **never** silently write `"UTC"`. Update `priorities` only from explicit user statements or confirmed v1 migration.
+   - **Storage & templates** *(workspace scope)*: Confirm `projects_root` and `daily_plans_relative` (`1-projects` and `2-areas/daily-plans` for PARA vaults; `projects` and `daily-plans` otherwise) and note any `discovered_existing_templates` that will be preserved untouched.
+   - **Connectors & lookback** *(workspace scope)*: Offer **Existing assistant connection (`<discovered-integration-name>`)** *only* when actually detected in Step 1, **Standalone read-only connector**, or **Disabled** for Email/Chat, plus `initial_lookback_days` (default `7` days, positive integer).
+3. **Persist deterministically via `daily_tasks_configure_workspace`**:
+   - Once the user explicitly confirms, call `daily_tasks_configure_workspace` with `confirmed=true`, `scope`, `workspace_root`, `user_name`, `user_email`, `timezone`, `priorities`, `projects_root`, `daily_plans_relative`, `harness_connections`, `standalone_sources`, `disabled_sources`, and `initial_lookback_days`.
+   - Verify `payload.setup_complete == true` (for workspace scope) and confirm connectivity with `daily_tasks_get_fetch_window(workspace_root="<workspaceRoot>")`.
+
+## 3. Manual MCP registration fallback *(only when bundled MCP is not already live)*
+
+1. **Do NOT re-register an active bundled server**:
+   - Bundled `.mcp.json` / `mcp.json` / `mcp_config.json` launches `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py` (which uses installed Python packages directly or falls back to `uv run`).
+   - **OpenClaw**: OpenClaw's `bundle-mcp` loader starts `.mcp.json` automatically when the extension is enabled. Use `tool_search` (`query: "daily_tasks"`) to load `daily_tasks_*` tools. **Never** run `openclaw mcp add` or `openclaw mcp set` from shell while the OpenClaw Gateway service is active (offline state lock). If `daily_tasks_*` tools are unavailable, report the exact status to the operator instead of improvising shell workarounds.
+2. **Register on CLI harnesses when needed** ([exact syntax](../references/harness-setup.md#per-harness-mcp-server-registration)):
+   - **Google Antigravity**: `agy mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py`
+   - **Claude Code / Cowork**: Approve `.mcp.json` in `claude mcp list` or run `claude mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py`; in Cowork, enable local plugin MCP execution under **Customize > Plugins** if blocked.
+   - **Codex**: `codex mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py`
+   - **Cursor / Grok Bot / Hermes**: Enable the bundled `mcp.json` or register `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py` per [harness setup](../references/harness-setup.md); stop cleanly if a session reload is required.
 
 ### Out-of-band credentials
 
@@ -94,17 +64,13 @@ Enforce strict secret hygiene whenever standalone connectors or cloud vaults are
 - If the user pastes a secret into chat, do not echo it; instruct them to rotate the credential and capture the replacement out of band.
 - Capture required secrets using one of two sanctioned paths:
   1. **Via MCP tool**: Call `daily_tasks_capture_secret(namespace, key, prompt_message?, provider?)`, inform the user that a local `127.0.0.1` loopback browser page has opened, and report the returned receipt (`namespace`, `key`, `provider`, `stored_at`).
-  2. **Via user terminal**: Ask the user to run `uv run python -m daily_tasks.auth.secret` directly in their terminal:
-     - Gmail OAuth client (`communication/gmail-client-id` and `communication/gmail-client-secret`): `uv run python -m daily_tasks.auth.secret gmail` (add `--no-client-secret` for public clients).
-     - Slack token (`communication/slack`): `uv run python -m daily_tasks.auth.secret slack`.
-     - Cloud key vault (`bitwarden-secrets` / `bws` / `bitwarden`): `uv run python -m daily_tasks.auth.secret vault --name NAME --kind bitwarden-secrets --project-id ID`.
-- For first-run interactive Gmail OAuth (`gmail.readonly`), ask the user to run `uv run python -m daily_tasks.auth.gmail --config-dir <userHome>/.nyssa-ai/daily-tasks` after storing the Gmail client credentials.
+  2. **Via user terminal**: Ask the user to run `daily_tasks.auth.secret` directly in their terminal (`uv run python -m daily_tasks.auth.secret gmail|slack|vault ...` or `PYTHONPATH=<pluginRoot>/src python3 -m daily_tasks.auth.secret ...`), followed by `python -m daily_tasks.auth.gmail --config-dir <userHome>/.nyssa-ai/daily-tasks` for first-run interactive Gmail OAuth (`gmail.readonly`).
 
 ## Verification
 
 Before reporting setup completion or continuing to a downstream workflow:
-- [ ] Confirm the target `profile.json` exists on disk, uses `schema_version: 2`, and contains no credentials or invalid traversal paths.
-- [ ] Confirm personal-only setup created no workspace bindings, workspace templates, project records, or project decision-log entries.
-- [ ] Confirm workspace setup resolved distinct configuration, operating-state (`.nyssa-ai/daily-tasks`), `projectsRoot`, and `dailyPlansRelative` locations, and placed/linked visible workspace templates.
-- [ ] Confirm the discovered Email/Chat connection inventory was rendered to the user before prompting for connector choices, and only detected host integrations were offered as `Existing assistant connection (<discovered-integration-name>)`.
-- [ ] Report the saved profile path(s), resolved IANA timezone, and registered MCP/connector status to the user, then continue the original request if setup was triggered as a prerequisite.
+- [ ] Confirm the active harness was identified, `daily_tasks_setup_status` was inspected, and no agent persona workspace (`SOUL.md` + `IDENTITY.md`) was bound as `workspaceRoot`.
+- [ ] Confirm the discovered Email/Chat connection inventory (and any legacy `.nyssaai` v1 values) was presented to the user and explicit confirmation was obtained before calling `daily_tasks_configure_workspace(confirmed=true, ...)`.
+- [ ] Confirm personal-only setup (`scope="personal"`) created no workspace bindings, workspace templates, or project files.
+- [ ] Confirm workspace setup (`scope="workspace"`) persisted Schema Version 2 `profile.json` with an explicit IANA `timezone`, preserved any existing customized templates, recorded `templates/updates.json`, and passed `daily_tasks_setup_status` (`setup_complete: true`).
+- [ ] Report the saved profile path(s), resolved IANA timezone, active harness MCP status, and template links to the user, then continue the original request only if all four setup gates are live.

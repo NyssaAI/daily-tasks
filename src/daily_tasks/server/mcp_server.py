@@ -19,7 +19,8 @@ from pydantic import JsonValue
 from daily_tasks.server.planning_session_port import PlanningSessionPort
 from daily_tasks.server.planning_tools import ToolBody
 from daily_tasks.server.secret_tools import SecretTools
-from daily_tasks.server.tool_definitions import SECRET_TOOL_DEFINITIONS, TOOL_DEFINITIONS
+from daily_tasks.server.setup_tools import SetupTools
+from daily_tasks.server.tool_definitions import SECRET_TOOL_DEFINITIONS, SETUP_TOOL_DEFINITIONS, TOOL_DEFINITIONS
 
 _LOGGER: Final = logging.getLogger(__name__)
 _OPERATION: Final = "mcp.request"
@@ -52,6 +53,71 @@ def _objects(arguments: Mapping[str, JsonValue], key: str) -> Sequence[Mapping[s
     return [item for item in value if isinstance(item, dict)]
 
 
+def _optional_string(arguments: Mapping[str, JsonValue], key: str) -> tuple[bool, str | None]:
+    if key not in arguments or arguments[key] is None:
+        return True, None
+    value = arguments[key]
+    return (True, value) if isinstance(value, str) else (False, None)
+
+
+def _call_configure_workspace(setup: SetupTools, arguments: Mapping[str, JsonValue]) -> ToolBody | None:
+    confirmed = arguments.get("confirmed")
+    if not isinstance(confirmed, bool):
+        return None
+    scope = arguments.get("scope", "workspace")
+    if not isinstance(scope, str):
+        return None
+    lookback = arguments.get("initial_lookback_days", 7)
+    if not isinstance(lookback, int) or isinstance(lookback, bool):
+        return None
+    set_default = arguments.get("set_default_workspace", True)
+    if not isinstance(set_default, bool):
+        return None
+    str_fields: dict[str, str | None] = {}
+    for field in (
+        "workspace_root",
+        "user_name",
+        "user_email",
+        "timezone",
+        "projects_root",
+        "daily_plans_relative",
+        "templates_dir",
+    ):
+        valid, extracted = _optional_string(arguments, field)
+        if not valid:
+            return None
+        str_fields[field] = extracted
+    priorities = _strings(arguments, "priorities") if "priorities" in arguments else None
+    if "priorities" in arguments and priorities is None:
+        return None
+    standalone = _strings(arguments, "standalone_sources") if "standalone_sources" in arguments else None
+    if "standalone_sources" in arguments and standalone is None:
+        return None
+    disabled = _strings(arguments, "disabled_sources") if "disabled_sources" in arguments else None
+    if "disabled_sources" in arguments and disabled is None:
+        return None
+    conns = _objects(arguments, "harness_connections") if "harness_connections" in arguments else None
+    if "harness_connections" in arguments and conns is None:
+        return None
+    return setup.configure_workspace(
+        confirmed=confirmed,
+        scope=scope,
+        workspace_root=str_fields["workspace_root"],
+        user_name=str_fields["user_name"],
+        user_email=str_fields["user_email"],
+        timezone=str_fields["timezone"],
+        priorities=priorities,
+        projects_root=str_fields["projects_root"],
+        daily_plans_relative=str_fields["daily_plans_relative"],
+        templates_dir=str_fields["templates_dir"],
+        harness_connections=conns,
+        standalone_sources=standalone,
+        disabled_sources=disabled,
+        initial_lookback_days=lookback,
+        set_default_workspace=set_default,
+    )
+
+
 @final
 class McpServer:
     """Borrow `tools`; emit one structured log record per request, never with arguments or screens."""
@@ -59,16 +125,25 @@ class McpServer:
     PROTOCOL_VERSION: ClassVar[str] = "2025-06-18"
 
     def __init__(
-        self, tools: PlanningSessionPort, version: str, secrets: SecretTools | None = None
+        self,
+        tools: PlanningSessionPort,
+        version: str,
+        secrets: SecretTools | None = None,
+        setup: SetupTools | None = None,
     ) -> None:
         """Keep the collaborators; `version` is reported as `serverInfo.version`.
 
-        `daily_tasks_capture_secret` is listed and callable only when `secrets` is supplied.
+        `daily_tasks_capture_secret` and `daily_tasks_setup_*` are listed when `secrets` / `setup` are supplied.
         """
         self._tools = tools
         self._version = version
         self._secrets = secrets
-        self._definitions = (*TOOL_DEFINITIONS, *(SECRET_TOOL_DEFINITIONS if secrets is not None else ()))
+        self._setup = setup
+        self._definitions = (
+            *TOOL_DEFINITIONS,
+            *(SECRET_TOOL_DEFINITIONS if secrets is not None else ()),
+            *(SETUP_TOOL_DEFINITIONS if setup is not None else ()),
+        )
         self._tool_names = frozenset(str(tool["name"]) for tool in self._definitions)
 
     async def handle(self, message: str) -> str | None:
@@ -134,6 +209,12 @@ class McpServer:
 
     async def _call(self, name: str, arguments: Mapping[str, JsonValue]) -> ToolBody | None:
         tools = self._tools
+        if name == SetupTools.STATUS_TOOL and self._setup is not None:
+            if "workspace_root" in arguments and not isinstance(arguments["workspace_root"], str):
+                return None
+            return self._setup.setup_status(_string(arguments, "workspace_root"))
+        if name == SetupTools.CONFIGURE_TOOL and self._setup is not None:
+            return _call_configure_workspace(self._setup, arguments)
         if name == SecretTools.TOOL and self._secrets is not None:
             namespace, key = _string(arguments, "namespace"), _string(arguments, "key")
             if not namespace or not key:

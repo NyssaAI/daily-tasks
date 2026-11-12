@@ -192,6 +192,12 @@ def test_cli_without_user_or_timezone_boots_and_returns_error_on_start_session(
     fake_home = tmp_path / "fake_home"
     fake_home.mkdir()
     monkeypatch.setattr(Path, "home", lambda: fake_home)
+    ws_state = tmp_path / ".nyssa-ai" / "daily-tasks"
+    ws_state.mkdir(parents=True)
+    (ws_state / "profile.json").write_text(
+        json.dumps({"schema_version": 2, "projectsRoot": "projects", "dailyPlansRelative": "daily-plans"}),
+        encoding="utf-8",
+    )
     lines = [
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
         {"jsonrpc": "2.0", "method": "notifications/initialized"},
@@ -219,6 +225,12 @@ def test_cli_invalid_workspace_root_or_lookback_exits_2() -> None:
 def test_start_session_surfaces_malformed_files(tmp_path: Path) -> None:
     (tmp_path / "projects").mkdir()
     (tmp_path / "projects/t1-broken.md").write_text("---\nid: 1\n", encoding="utf-8")
+    ws_state = tmp_path / ".nyssa-ai" / "daily-tasks"
+    ws_state.mkdir(parents=True)
+    (ws_state / "profile.json").write_text(
+        json.dumps({"schema_version": 2, "projectsRoot": "projects", "dailyPlansRelative": "daily-plans"}),
+        encoding="utf-8",
+    )
     lines = [
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
         {"jsonrpc": "2.0", "method": "notifications/initialized"},

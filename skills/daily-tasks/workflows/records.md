@@ -7,9 +7,10 @@ Execute canonical record mutations and surgical Markdown repairs under the domai
 
 ## 1. Pre-flight and acceptance gates
 
-1. **Ensure workspace setup is complete**:
-   - If project setup is not already done, trigger and complete [Setup](setup.md) first to establish `workspaceRoot`, `projectsRoot`, and `dailyPlansRelative`.
-   - Reuse established profile settings and `<workspaceRoot>/.nyssa-ai/daily-tasks/` operating state without prompting for separate setup approval.
+1. **Enforce all four full-setup gates**:
+   - Verify live `daily_tasks_*` MCP tools in the current harness, `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`), resolved `user.email` and IANA `timezone`, and workspace templates baseline (`templates/updates.json`).
+   - If **any** gate is incomplete or uses legacy `.nyssaai/daily-tasks/profile.json`, **immediately halt** and complete [Setup](setup.md) before touching workspace records.
+   - Reuse verified profile settings and `<workspaceRoot>/.nyssa-ai/daily-tasks/` operating state without prompting for separate setup approval.
 2. **Verify identity and acceptance**:
    - Resolve existing projects, milestones, tasks, and blockers by their frontmatter UUIDv7 `id`.
    - Require explicit user acceptance via [Capture](capture.md) (or a direct user command naming the work to create) before creating any new project, milestone, or task.

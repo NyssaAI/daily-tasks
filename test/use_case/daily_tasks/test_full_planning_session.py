@@ -254,7 +254,19 @@ def test_full_planning_session_dispatcher_recovers_after_unconfirmed_attempt(tmp
     config_dir = tmp_path / "config"
     config_dir.mkdir()
     (config_dir / "profile.json").write_text(
-        json.dumps({"user": {"name": "Jordan", "email": "jordan@example.com"}, "timezone": "America/Chicago"}),
+        json.dumps(
+            {
+                "schema_version": 2,
+                "user": {"name": "Jordan", "email": "jordan@example.com"},
+                "timezone": "America/Chicago",
+            }
+        ),
+        encoding="utf-8",
+    )
+    ws_state = ws / ".nyssa-ai" / "daily-tasks"
+    ws_state.mkdir(parents=True, exist_ok=True)
+    (ws_state / "profile.json").write_text(
+        json.dumps({"schema_version": 2, "projectsRoot": "projects", "dailyPlansRelative": "daily-plans"}),
         encoding="utf-8",
     )
     numbers = count(1)

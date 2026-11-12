@@ -18,6 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 _EXCLUDED_DIRS = frozenset({".nyssa-ai", ".temp", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"})
 _EXCLUDED_PRIVATE_FILES = frozenset({"CODE_MAP.md"})
+_MCP_SCHEMA_V1 = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
 
 
 def _encode_json(value: object) -> str:
@@ -66,7 +67,7 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
             "category": "Productivity",
         },
     }
-    manifests: dict[str, str] = {
+    host_manifests: dict[str, str] = {
         ".claude-plugin/plugin.json": _encode_json(host),
         ".cursor-plugin/plugin.json": _encode_json(host),
         ".codex-plugin/plugin.json": _encode_json(codex_manifest),
@@ -74,20 +75,26 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
 
     portable_mcp = _encode_json(
         {
+            "$schema": _MCP_SCHEMA_V1,
             "mcpServers": {
                 "daily-tasks": {
-                    "command": "uv",
-                    "args": ["run", "daily-tasks-mcp"],
+                    "type": "stdio",
+                    "command": "python3",
+                    "args": ["./src/daily_tasks/launch_mcp.py"],
                 }
-            }
+            },
         }
     )
+    manifests: dict[str, str] = {
+        **host_manifests,
+        "mcp.json": portable_mcp,
+    }
     antigravity_mcp = _encode_json(
         {
             "mcpServers": {
                 "daily-tasks": {
-                    "command": "uv",
-                    "args": ["run", "daily-tasks-mcp"],
+                    "command": "python3",
+                    "args": ["./src/daily_tasks/launch_mcp.py"],
                     "disabled": False,
                 }
             }
@@ -103,13 +110,13 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
         shared.update(tree(ROOT / folder, f"{folder}/", exclude_private=True))
 
     claude_mcp = (ROOT / ".mcp.json").read_text(encoding="utf-8").replace("\r\n", "\n")
-    portable = {**shared, ".mcp.json": claude_mcp, "mcp.json": portable_mcp, **manifests}
+    portable = {**shared, ".mcp.json": claude_mcp, **manifests}
     antigravity = {
         **shared,
         "plugin.json": _encode_json({"name": identity["name"], "description": identity["description"]}),
         "mcp_config.json": antigravity_mcp,
     }
-    cowork = {**shared, ".mcp.json": claude_mcp, **manifests}
+    cowork = {**shared, ".mcp.json": claude_mcp, **host_manifests}
     hermes = {k: v for k, v in shared.items() if k != "plugin.json"}
     hermes["mcp.json"] = portable_mcp
     hermes["plugin.yaml"] = (

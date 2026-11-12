@@ -96,7 +96,11 @@ class GmailOauth:
             return client
         return ok(cls(client.value, client_id, browser_launcher))
 
-    def authorize(self, scopes: Sequence[str] = (GMAIL_READONLY_SCOPE,)) -> Result[None]:
+    def authorize(
+        self,
+        scopes: Sequence[str] = (GMAIL_READONLY_SCOPE,),
+        redirect_port: int | None = None,
+    ) -> Result[None]:
         """Run the interactive PKCE sign-in and seal the grant.
 
         Fails with `Validation` unless `scopes` is exactly `gmail.readonly`, `Forbidden` when the user
@@ -111,6 +115,7 @@ class GmailOauth:
             token_endpoint=GOOGLE_TOKEN_ENDPOINT,
             client_id=self._client_id.reveal(),
             scopes=(GMAIL_READONLY_SCOPE,),
+            redirect_port=redirect_port,
         )
         stored = self._store.authorize(self._namespace, self._key, options, self._browser_launcher)
         if not stored.ok:

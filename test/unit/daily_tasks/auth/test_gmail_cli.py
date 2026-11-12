@@ -55,7 +55,7 @@ def test_gmail_cli_sign_in_seals_grant_and_returns_zero(tmp_path: Path, log_capt
     keyring = KeyringInMemory()
     out = io.StringIO()
 
-    code = main(_argv(tmp_path), ENV, keyring, _google, _ConsentingBrowser(), out)
+    code = main([*_argv(tmp_path), "--redirect-port", "0"], ENV, keyring, _google, _ConsentingBrowser(), out)
 
     assert code == 0
     assert "authorized" in out.getvalue()

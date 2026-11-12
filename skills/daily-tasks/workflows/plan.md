@@ -13,9 +13,9 @@ Execute the interactive daily planning session in order. Reference [planning flo
 
 ## 2. Pre-flight and workspace preparation
 
-1. **Verify workspace setup**:
-   - Check that `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` exists with resolved `user.email`, `timezone`, `projectsRoot`, and `dailyPlansRelative` ([resolve once](../references/planning-flow.md#resolve-once)).
-   - If project setup is not already done, immediately trigger and complete [Setup](setup.md) before starting the planning session.
+1. **Enforce all four full-setup gates**:
+   - Confirm that `daily_tasks_*` MCP tools are registered and callable in the active harness, `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` exists with `"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, and `sources`, layered profile resolution supplies `user.email` and an explicit IANA `timezone`, and `<workspaceRoot>/.nyssa-ai/daily-tasks/templates/updates.json` is present ([resolve once](../references/planning-flow.md#resolve-once)).
+   - If **any** setup gate fails (including missing `daily_tasks_*` MCP tools or an unmigrated legacy `.nyssaai/daily-tasks/profile.json`), **immediately halt** planning and execute [Setup](setup.md) first. **Never** read vault Markdown files to synthesize a prose summary or run ad-hoc Python scripts when setup or MCP tools are missing.
    - Check [template updates](../references/template-updates.md) only when `shouldOfferTemplates` is true.
    - When manual edits or conflicts are reported prior to planning, reconcile affected baselines per [operations](../references/operations.md) and [record conventions](../references/records.md), and run the daily source scan via [Capture](capture.md) if `sources.autoScan` is enabled and `<stateRoot>/source-scans/YYYY.MM.DD.json` is absent.
 

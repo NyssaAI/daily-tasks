@@ -28,7 +28,7 @@ from pydantic import JsonValue
 
 from daily_tasks.server.markdown_workspace_reader import MarkdownWorkspaceReader
 from daily_tasks.server.planning_tools import PlanningTools, ToolBody
-from daily_tasks.server.resolve_server_settings import resolve_server_settings
+from daily_tasks.server.resolve_server_settings import resolve_default_workspace_root, resolve_server_settings
 from daily_tasks.server.tool_reply import tool_reply
 from daily_tasks.server.types import ServerOverrides
 from daily_tasks.storage.cursor_store import CursorStore
@@ -73,12 +73,20 @@ class PlanningToolsDispatcher:
             if not candidate.is_absolute():
                 return fail("workspace_root must be an absolute path.", ErrorCategory.VALIDATION)
             return ok(candidate)
-        if self._overrides.workspace_root is None:
-            return fail(
-                "Workspace root is required. Pass workspace_root or launch with --workspace-root.",
-                ErrorCategory.VALIDATION,
-            )
-        return ok(self._overrides.workspace_root)
+        if self._overrides.workspace_root is not None:
+            return ok(self._overrides.workspace_root)
+        if self._overrides.config_dir is not None:
+            default_ws = resolve_default_workspace_root(self._overrides.config_dir)
+            if not default_ws.ok:
+                return fail(default_ws.message, default_ws.category)
+            if default_ws.value is not None:
+                return ok(default_ws.value)
+        return fail(
+            "Workspace root is required. Pass workspace_root, run Daily Tasks Setup "
+            "(daily_tasks_setup_status / daily_tasks_configure_workspace) to bind defaultWorkspaceRoot, "
+            "or launch with --workspace-root.",
+            ErrorCategory.VALIDATION,
+        )
 
     def _create_tools(self, workspace_root: str | None) -> Result[PlanningTools]:
         ws_result = self._resolve_workspace_path(workspace_root)

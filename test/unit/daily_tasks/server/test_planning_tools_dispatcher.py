@@ -45,7 +45,15 @@ def _seed_workspace(root: Path, email: str = "jordan@example.com") -> Path:
     state_dir = root / ".nyssa-ai" / "daily-tasks"
     state_dir.mkdir(parents=True, exist_ok=True)
     (state_dir / "profile.json").write_text(
-        json.dumps({"user": {"name": "Jordan", "email": email}, "timezone": "America/Chicago"}),
+        json.dumps(
+            {
+                "schema_version": 2,
+                "user": {"name": "Jordan", "email": email},
+                "timezone": "America/Chicago",
+                "projectsRoot": "projects",
+                "dailyPlansRelative": "daily-plans",
+            }
+        ),
         encoding="utf-8",
     )
     return root

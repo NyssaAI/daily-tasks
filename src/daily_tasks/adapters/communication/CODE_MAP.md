@@ -57,7 +57,7 @@ gmail_message_part.py
 gmail_oauth.py
 `-- class GmailOauth
     |-- def __init__( self, store: GmailTokenStore, client_id: SecretString, browser_launcher: BrowserLauncher | None = None, namespace: str = DEFAULT_NAMESPACE, key: str = DEFAULT_KEY, ) -> None
-    |-- def authorize(self, scopes: Sequence[str] = (GMAIL_READONLY_SCOPE,)) -> Result[None]
+    |-- def authorize( self, scopes: Sequence[str] = (GMAIL_READONLY_SCOPE,), redirect_port: int | None = None, ) -> Result[None]
     `-- def access_token(self) -> Result[SecretString]
 
 gmail_part_body.py
