@@ -21,12 +21,12 @@ A Daily Plan is a dated, editable document (`YYYY.MM.DD-daily-plan.md`) that cap
 
 - **Zero Time-Fitting**: Daily plans never assign hours, time blocks, duration estimates, or automatic execution order; the user decides the order of execution.
 - **Selection Does Not Mutate Task State**: Adding, carrying forward, moving, or removing a task on a daily plan changes only its day selection and never implicitly starts, completes, or cancels the underlying task record.
-- **Blocked Work Can Be Planned**: Tasks with open blockers display a warning indicator (`⛔`) so the user can see the impediment, but they are not barred from being planned for a day.
+- **Blocked Work Can Be Planned**: Tasks with open blockers display a warning indicator (`⛔`) so the user can see the blocker, but they are not barred from being planned for a day.
 - **Future Selections Hide from Today's Additions**: Tasks already planned for a future date are excluded from today's unplanned additions unless the user explicitly moves them back to today.
 
 ## Participating Features
 
-- [F-00.01: Workspace, Identity & Template Setup](../features/f-00.01/feature.md) — configures the user's local timezone and daily plan template.
-- [F-00.02: Canonical Work Record Storage & Surgical Updates](../features/f-00.02/feature.md) — reads prior daily plans and writes the confirmed daily plan document.
+- [F-00.01: Vault, Identity & Template Setup](../features/f-00.01/feature.md) — configures the user's local timezone and daily plan template.
+- [F-00.02: Canonical Work Record Persistence & Non-Destructive Updates](../features/f-00.02/feature.md) — reads prior daily plans and writes the confirmed daily plan document.
 - [F-02.02: Three-Screen Daily Planning & Day Assignment](../features/f-02.02/feature.md) — displays carried-forward selections, assigns tasks and blockers to today or future days, and confirms the daily plan.
 - [F-02.03: Anytime Check-In & Manual Edit Reconciliation](../features/f-02.03/feature.md) — opens or creates today's local-day plan with carry-forward and reconciles manual daily plan edits.

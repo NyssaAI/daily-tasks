@@ -12,6 +12,6 @@ waza run evals/waza/skills/daily-tasks/eval.yaml
 
 ## Isolated behavioral setup checks
 
-[`behavior.yaml`](waza/skills/daily-tasks/behavior.yaml) runs the isolated personal-only setup scenario ([`tasks/behavior/personal-only.yaml`](waza/skills/daily-tasks/tasks/behavior/personal-only.yaml)) against [`fixtures/personal-only/synthetic-home/`](waza/skills/daily-tasks/fixtures/personal-only/synthetic-home/README.md) and grades the resulting profile and directory tree deterministically with [`graders/validate-personal-only.py`](waza/skills/daily-tasks/graders/validate-personal-only.py).
+[`behavior.yaml`](waza/skills/daily-tasks/behavior.yaml) runs the isolated personal-only setup scenario ([`tasks/behavior/personal-only.yaml`](waza/skills/daily-tasks/tasks/behavior/personal-only.yaml)) against [`fixtures/personal-only/synthetic-home/`](waza/skills/daily-tasks/fixtures/personal-only/synthetic-home/README.md) and grades the resulting `~/.nyssa-ai/daily-tasks/profile.json` and directory tree deterministically with [`graders/validate-personal-only.py`](waza/skills/daily-tasks/graders/validate-personal-only.py).
 
-The [setup acceptance catalog](waza/skills/daily-tasks/scenario-catalog.yaml) documents the 29 setup behavior scenarios across personal and workspace scopes, and [`LATEST.md`](LATEST.md) records the current verification status and evaluation receipts.
+The [setup acceptance catalog](waza/skills/daily-tasks/scenario-catalog.yaml) documents the 29 setup behavior scenarios across personal and vault scopes, and [`LATEST.md`](LATEST.md) records the current verification status and evaluation receipts.

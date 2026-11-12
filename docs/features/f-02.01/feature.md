@@ -17,7 +17,7 @@ Users want status updates, newly requested tasks, completed checklist items, and
 ## Conceptual Context
 
 - [C-03: Explicit Adjudication & Decision Log](../../concepts/c-03-explicit-adjudication-and-decision-log.md) — generates numbered, source-cited suggestions in the pending buffer without auto-applying them.
-- [C-04: Three-Screen Planning Session Macro-Flow](../../concepts/c-04-three-screen-planning-session.md) — correlates ingested messages against the state graph to populate Screen 1's suggested updates.
+- [C-04: Three-Screen Planning Session Macro-Flow](../../concepts/c-04-three-screen-planning-session.md) — correlates fetched messages against the state graph to populate Screen 1's suggested updates.
 
 ## Use Cases
 
@@ -33,13 +33,13 @@ Users want status updates, newly requested tasks, completed checklist items, and
 
 ## Out of Scope
 
-- Fetching raw messages from external email or chat providers (owned by [F-00.03](../f-00.03/feature.md)).
+- Fetching raw messages from external email or chat providers (owned by [F-00.03](../f-00.03/feature.md) and [F-00.04](../f-00.04/feature.md)).
 - Applying any suggested update without an explicit user `accept` or `edit` verdict.
 
 ## Inputs
 
 - In-memory state graph of current projects, milestones, tasks, and blockers.
-- Unreviewed messages from the local message store and existing pending suggestions.
+- Unreviewed messages from configured communication sources and existing pending suggestions.
 
 ## Outputs
 
@@ -54,6 +54,6 @@ Users want status updates, newly requested tasks, completed checklist items, and
 
 ## Dependencies
 
-- [F-00.02: Canonical Work Record Storage & Surgical Updates](../f-00.02/feature.md)
+- [F-00.02: Canonical Work Record Persistence & Non-Destructive Updates](../f-00.02/feature.md)
 - [F-00.03: Credential Privacy & Read-Only Communication Connections](../f-00.03/feature.md)
 - [F-01.02: Project, Milestone, Task & Blocker Lifecycle Management](../f-01.02/feature.md)

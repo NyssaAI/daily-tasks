@@ -30,7 +30,7 @@ When carried-forward work appears on the screen, `· ↺ carried forward` is app
 
 ## Numbered-reply semantics
 
-Actionable table rows on a planning screen are numbered in a single continuous 1-based sequence (`#`), while section headings and summary counters remain unnumbered. Row numbers serve strictly as transient session handles bound to the active workspace (`mappingBinding`); they carry no priority ranking, are never reused or renumbered as pages advance, and are never applied across different workspaces.
+Actionable table rows on a planning screen are numbered in a single continuous 1-based sequence (`#`), while section headings and summary counters remain unnumbered. Row numbers serve strictly as transient session handles bound to the active vault (`mappingBinding`); they carry no priority ranking, are never reused or renumbered as pages advance, and are never applied across different vaults.
 
 Users may reply using status symbols (with or without brackets), row lists, or natural-language directives such as `1 accept`, `1 x, 2 >, 3 cancel`, `add 2, 4`, or `2 delegate to Alex`. Because a bare row number without an action or verdict is ambiguous, the agent asks for the user's intended action on that row while retaining unambiguous decisions from the same batch. Collective status reports (for example, `2, 4, 6 in progress`) apply to each identified record in memory and commit to canonical records, parent milestones/projects, and daily plan views upon plan confirmation.
 
@@ -39,7 +39,7 @@ Users may reply using status symbols (with or without brackets), row lists, or n
 | User Reply Action | Domain Semantics |
 | :--- | :--- |
 | **add / today** | Assigns an eligible `not-started` task to today's plan (`assign-to-day`) without altering its lifecycle state, `target_date`, or `assignee`. |
-| **remove / unplan** | For `not-started` work, deselects the task from today's plan and suppresses automatic carry-forward (`removedIds`) without requiring a new date. For `in-progress` work, prompts for an explicit reschedule date, completion, or cancellation because active work cannot silently drop from plans. |
+| **remove / unplan** | For `not-started` work, deselects the task from today's plan and suppresses automatic carry-forward (`removedIds`) without requiring a new date. For `in-progress` work, prompts for an explicit future date, completion, or cancellation because active work cannot silently drop from plans. |
 | **keep** | Retains current selections and statuses; omitted rows remain untouched. |
 | **show details** | Displays the full requirements, embedded DoD criteria, and blocker/dependency context for the identified row. |
 | **next / show more** | Advances Screen 2 to the next project page of eligible tasks (`Page X of Y`), preserving stable row numbers and prior selections. |

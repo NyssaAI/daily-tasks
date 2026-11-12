@@ -1,4 +1,4 @@
-"""Responsibility: Validate canonical skills, relative links, path hygiene, and manifest version parity.
+"""Responsibility: Validate canonical skills, relative links, path hygiene, harness adapters, and version parity.
 Public interface:
 +-- validate()
 `-- validate_repository(root)
@@ -20,7 +20,7 @@ _LEAK_RE = re.compile(r"C:[\\/]|D:[\\/]|\.codex/plugins/cache")
 
 
 def validate_repository(root: Path = ROOT) -> list[str]:
-    """Validate skill frontmatter, relative Markdown links, path hygiene, and version parity."""
+    """Validate skill frontmatter, relative Markdown links, path hygiene, harness adapters, and version parity."""
     files = tree(root / "skills", "skills/")
     errors: list[str] = []
     names: set[str] = set()
@@ -64,16 +64,23 @@ def validate_repository(root: Path = ROOT) -> list[str]:
         if version_match is None or version_match.group(1) != identity.get("version"):
             errors.append("README.md version mismatch")
 
-    hermes_adapter = root / "adapters" / "hermes" / "__init__.py"
+    hermes_adapter = root / "harness-adapters" / "hermes" / "__init__.py"
     if not hermes_adapter.is_file():
-        errors.append("Missing adapters/hermes/__init__.py")
+        errors.append("Missing harness-adapters/hermes/__init__.py")
+    if (root / "adapters").exists():
+        errors.append("Retired adapters/ directory must not exist; use harness-adapters/")
+    if (root / "artifacts").exists():
+        errors.append("Retired artifacts/ directory must not exist; stage bundles into .temp/dist/")
 
     mcp_path = root / ".mcp.json"
     if not mcp_path.exists():
         errors.append("Missing .mcp.json manifest")
     else:
         try:
-            mcp_data = json.loads(mcp_path.read_text(encoding="utf-8"))
+            mcp_raw = mcp_path.read_text(encoding="utf-8")
+            if "${PLUGIN_DATA}" in mcp_raw:
+                errors.append("Retired ${PLUGIN_DATA} placeholder must not appear in .mcp.json")
+            mcp_data = json.loads(mcp_raw)
             servers = mcp_data.get("mcpServers") if isinstance(mcp_data, dict) else None
             server_cfg = servers.get("daily-tasks") if isinstance(servers, dict) else None
             if (
@@ -84,7 +91,7 @@ def validate_repository(root: Path = ROOT) -> list[str]:
                 or not server_cfg["args"]
             ):
                 errors.append("Malformed .mcp.json: daily-tasks server requires command and non-empty args")
-        except Exception as exc:
+        except (OSError, ValueError) as exc:
             errors.append(f"Invalid .mcp.json: {exc}")
 
     portable_mcp_path = root / "mcp.json"
@@ -92,7 +99,10 @@ def validate_repository(root: Path = ROOT) -> list[str]:
         errors.append("Missing mcp.json portable manifest")
     else:
         try:
-            portable_mcp_data = json.loads(portable_mcp_path.read_text(encoding="utf-8"))
+            portable_raw = portable_mcp_path.read_text(encoding="utf-8")
+            if "${PLUGIN_DATA}" in portable_raw:
+                errors.append("Retired ${PLUGIN_DATA} placeholder must not appear in mcp.json")
+            portable_mcp_data = json.loads(portable_raw)
             portable_servers = portable_mcp_data.get("mcpServers") if isinstance(portable_mcp_data, dict) else None
             portable_server_cfg = portable_servers.get("daily-tasks") if isinstance(portable_servers, dict) else None
             if (
@@ -106,10 +116,8 @@ def validate_repository(root: Path = ROOT) -> list[str]:
                 or not isinstance(portable_server_cfg.get("args"), list)
                 or not portable_server_cfg["args"]
             ):
-                errors.append(
-                    "Malformed mcp.json: requires Agent Plugins v1 $schema and stdio daily-tasks server"
-                )
-        except Exception as exc:
+                errors.append("Malformed mcp.json: requires Agent Plugins v1 $schema and stdio daily-tasks server")
+        except (OSError, ValueError) as exc:
             errors.append(f"Invalid mcp.json: {exc}")
 
     return errors
@@ -121,7 +129,7 @@ def validate() -> int:
     if errors:
         print("\n".join(errors), file=sys.stderr)
         return 1
-    print("Validated 1 skill, workflows, relative links, path hygiene, and plugin/pyproject version parity")
+    print("Validated 1 skill, workflows, relative links, path hygiene, harness adapters, and version parity")
     return 0
 
 

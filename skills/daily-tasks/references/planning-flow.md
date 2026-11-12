@@ -3,23 +3,23 @@
 > [!IMPORTANT] Scope Directive
 > This reference owns the domain architecture, lifecycle invariants, review eligibility rules, once-per-day carry-forward model, and future-day selection semantics for Daily Tasks planning sessions. It does NOT own step-by-step workflow execution checklists (owned by [`../workflows/plan.md`](../workflows/plan.md) and [`../workflows/checkin.md`](../workflows/checkin.md)), MCP/CLI invocation syntax (owned by [`cli.md`](cli.md)), transactional checkpoint mechanics (owned by [`operations.md`](operations.md)), record schemas (owned by [`records.md`](records.md)), or interactive screen legends and reply parsing (owned by [`response-conventions.md`](response-conventions.md)).
 
-Daily Tasks planning operates within a single bound workspace context and its associated projects, daily plans, and operating state roots.
+Daily Tasks planning operates within a single bound vault context (`vault_root`) and its associated projects, daily plans, and `runtime_root` operational state.
 
 ```text
 Daily Tasks Planning Architecture
 │
-├── 1. Workspace & Context Binding (## Resolve once)
-│   ├── Single bound context (workspaceRoot, projectsRoot, dailyPlansRoot)
+├── 1. Vault & Runtime Binding (## Resolve once)
+│   ├── Single bound vault (vault_root, projectsRoot, dailyPlansRoot)
 │   ├── Host clock & local IANA day resolution
-│   └── Workspace-isolated operating state in stateRoot (.nyssa-ai/daily-tasks)
+│   └── Mutable operating state in runtime_root (zero .nyssa-ai/ in vault_root)
 │
 ├── 2. Inventory & Maintenance Boundaries (## Load and maintain)
 │   ├── Cached project-index in .temp/ with freshness sidecar
 │   └── Scoped diagnostic isolation (malformed files or broken links never freeze unrelated work)
 │
-├── 3. Communication Ingestion (## Message collection)
+├── 3. Communication Collection (## Message collection)
 │   ├── Per-source fetch window (saved cursor or 7-day default initial lookback)
-│   └── Shared cursor filtering across standalone connectors and host connections
+│   └── Shared cursor filtering across CommunicationClient connectors and host connections
 │
 ├── 4. Daily Carry-Forward (## Once-per-day rollover)
 │   ├── In-progress persistence and unfinished selection carry (↺)
@@ -36,23 +36,23 @@ Daily Tasks Planning Architecture
 
 ## Resolve once
 
-A planning session binds exactly one `workspaceRoot`, one `projectsRoot`, and one `dailyPlansRoot` for the duration of the session. Inventories, numbered screen handles, and record mutations are never mixed across workspaces. Operational state—including fetch cursors, decision logs, checkpoints, rollover receipts, and review mappings—lives in `stateRoot` (`<workspaceRoot>/.nyssa-ai/daily-tasks`), strictly isolated per workspace even when personal preferences are shared through the user home profile.
+A planning session binds exactly one `vault_root`, one `projectsRoot` (default `1-projects`), one `dailyPlansRoot` (default `2-areas/daily-plans`), and one `runtime_root` for the duration of the session. Inventories, numbered screen handles, and record mutations are never mixed across vaults. Operational state—including `fetch-cursors.json`, `suggestions.json`, `decision-log.json`, `sessions/`, checkpoints, rollover receipts, and review mappings—lives in `runtime_root` (`--runtime-root` -> `NYSSA_RUNTIME_ROOT` -> agent persona `cwd` with `SOUL.md`+`IDENTITY.md` -> `~/.nyssa-ai/daily-tasks/runtime/`), never inside `<vault_root>/.nyssa-ai/`.
 
 When resolving the planning date for today, the host clock and configured IANA timezone determine the local calendar day, even when the current UTC date differs. Requesting a plan for a specific target date scopes the plan selection to that date without overriding the system clock used for audit timestamps. Context bindings (`planningBinding`, `contextBinding`, `inventoryBinding`, and `mappingBinding`) act as opaque hashes over the normalized roots and inventory state so any intervening write or root mismatch invalidates stale session state before side effects can occur.
 
 ## Load and maintain
 
-Workspace inventory discovery indexes valid project, milestone, task, and blocker records under `projectsRoot`. When a cached index exists at `<workspaceRoot>/.temp/daily-tasks/project-index.json` with a valid freshness sidecar, readers can reuse the parsed graph without re-reading unchanged task files; any committed record or plan write immediately invalidates that sidecar. Relative paths remain anchored to their logical roots, with external project collections outside the workspace anchored as `@projectsRoot`.
+Vault inventory discovery indexes valid project, milestone, task, and blocker records under `projectsRoot`. When a cached index exists at `<vault_root>/.temp/daily-tasks/project-index.json` with a valid freshness sidecar, readers can reuse the parsed graph without re-reading unchanged task files; any committed record or plan write immediately invalidates that sidecar. Relative paths remain anchored to their logical roots, with external project collections outside the vault anchored as `@projectsRoot`.
 
-Diagnostic issues discovered during workspace reading—such as a malformed Markdown record (`payload.malformed_files`) or a broken navigation link—are treated as scoped diagnostics rather than a global freeze. Only the affected record is suspended or routed for surgical repair via [`../workflows/records.md`](../workflows/records.md), while independent rollover, message matching, and daily planning continue normally. Maintenance inspections are strictly read-only and never fabricate worker evidence or mutate canonical Markdown records.
+Diagnostic issues discovered during vault reading—such as a malformed Markdown record (`payload.malformed_files`) or a broken navigation link—are treated as scoped diagnostics rather than a global freeze. Only the affected record is suspended or routed for non-destructive repair via [`../workflows/records.md`](../workflows/records.md), while independent rollover, message matching, and daily planning continue normally. Maintenance inspections are strictly read-only and never fabricate worker evidence or mutate canonical Markdown records.
 
 ## Message collection
 
-Stage 0 of a planning session gathers unread email and chat messages from enabled communication sources using a single shared cursor per source stored in `<stateRoot>/fetch-cursors.json`. Both standalone read-only connectors and host-supplied assistant connections (`sources.harnessConnections`) share the same fetch-window and deduplication semantics.
+Stage 0 of a planning session gathers unread email and chat messages from enabled communication sources using a single shared cursor per source stored in `<runtime_root>/fetch-cursors.json`. Both standalone read-only `CommunicationClient` implementations (`CommunicationClientGmail`, `CommunicationClientSlack`) and host-supplied assistant connections (`sources.harnessConnections`) share the same fetch-window and deduplication semantics.
 
-`daily_tasks_get_fetch_window` computes each source's `since` timestamp (ISO-8601 UTC), `after_epoch` (Unix seconds), `last_external_id`, and `has_cursor` flag. When a saved cursor exists, it governs the window start; on a first pull without a cursor, the window reaches back `initial_lookback_days` (7 days by default, configured via `sources.initialLookbackDays` or `--initial-lookback-days`). All harness ingestion is strictly read-only and never sends, replies to, drafts, labels, archives, or marks messages read.
+`daily_tasks_get_fetch_window` computes each source's `since` timestamp (ISO-8601 UTC), `after_epoch` (Unix seconds), `last_external_id`, and `has_cursor` flag. When a saved cursor exists, it governs the window start; on a first pull without a cursor, the window reaches back `initial_lookback_days` (7 days by default, configured via `sources.initialLookbackDays` or `--initial-lookback-days`). All host message reads are strictly read-only and never send, reply to, draft, label, archive, or mark messages read.
 
-Incoming messages at or before `since`, prior to the first-pull cutoff, or matching `last_external_id` are filtered out, and duplicate `(source, external_id)` pairs are collapsed. Remaining messages are correlated against the workspace `StateGraph` to produce numbered Screen 1 update suggestions citing their source. Each checked source's cursor advances in memory only and is persisted to disk exclusively when `daily_tasks_confirm_plan(confirmed=true)` succeeds; cancelling a session leaves stored cursors untouched so unread messages are re-evaluated on the next run. If a communication source fails to connect, it is reported to the user and omitted from `checked_sources` without blocking the planning session.
+Incoming messages at or before `since`, prior to the first-pull cutoff, or matching `last_external_id` are filtered out, and duplicate `(source, external_id)` pairs are collapsed. Remaining messages are correlated against the vault `StateGraph` to produce numbered Screen 1 update suggestions citing their source. Each checked source's cursor advances in memory only and is persisted to disk exclusively when `daily_tasks_confirm_plan(confirmed=true)` succeeds; cancelling a session leaves stored cursors untouched so unread messages are re-evaluated on the next run. If a communication source fails to connect, it is reported to the user and omitted from `checked_sources` without blocking the planning session.
 
 ## Build and review
 
@@ -88,10 +88,10 @@ Task cells render human-readable wiki-links with escaped pipes and hidden UUID r
 Carry-forward from the nearest preceding daily plan into today's plan runs deterministically once per local calendar day. If today's plan already exists on disk, rollover preserves its frontmatter `id`, original `created_at` timestamp, existing selections, and user prose.
 
 Carry-forward obeys three core domain invariants:
-- **In-progress persistence**: Every valid `in-progress` task in the workspace inventory is carried into today's plan—even if it was absent from yesterday's plan or previously deselected—until it is explicitly completed, cancelled, or rescheduled to a future date.
+- **In-progress persistence**: Every valid `in-progress` task in the vault inventory is carried into today's plan—even if it was absent from yesterday's plan or previously deselected—until it is explicitly completed, cancelled, or moved to a future date.
 - **Unfinished selection carry**: Unfinished `not-started` tasks selected on the nearest prior plan carry forward into today's plan with carry provenance (`carriedFrom`) and the `↺` marker, unless the user explicitly deselects (`unplan`) them for today (recorded in `removedIds`).
 - **Terminal and future exclusion**: Completed (`[x]`), cancelled (`[-]`), and future-allocated tasks do not carry forward into subsequent days, while unresolved or missing task references are preserved visibly to prevent silent data loss.
 
 ## Future-selection transaction
 
-Assigning a `not-started` task to an explicit future date (`assign-to-day` with a future `YYYY-MM-DD`) ensures that each task has at most one active planning date across the workspace. Moving a task from today's plan to a future date writes or updates the target future daily plan and records the deselection in today's state (`removedIds`) so the task is removed from today's active selections and excluded from today's available-options list until that future date arrives or the task is explicitly re-selected.
+Assigning a `not-started` task to an explicit future date (`assign-to-day` with a future `YYYY-MM-DD`) ensures that each task has at most one active planning date across the vault. Moving a task from today's plan to a future date writes or updates the target future daily plan and records the deselection in today's state (`removedIds`) so the task is removed from today's active selections and excluded from today's available-options list until that future date arrives or the task is explicitly re-selected.

@@ -1,0 +1,396 @@
+"""Responsibility: Prove McpServer answers JSON-RPC 2.0 requests cleanly and keeps stdout free of logs.
+Public interface:
++-- test_capture_secret_tool_is_unknown_without_secret_tools(tmp_path)
++-- test_capture_secret_tool_missing_key_is_invalid_params(tmp_path)
++-- test_capture_secret_tool_store_failure_is_tool_error(tmp_path, log_capture)
++-- test_capture_secret_tool_stores_secret_from_loopback_and_replies_with_receipt_only(tmp_path, log_capture)
++-- test_cli_invalid_vault_root_or_lookback_exits_2()
++-- test_cli_stdout_carries_only_json_rpc_responses(tmp_path, capsys)
++-- test_cli_without_user_or_timezone_boots_and_returns_error_on_start_session(tmp_path)
++-- test_initialize_reports_protocol_and_tools_capability(tmp_path)
++-- test_invalid_request_returns_json_rpc_error(tmp_path, request_text, code)
++-- test_notification_gets_no_response(tmp_path)
++-- test_start_session_surfaces_malformed_files(tmp_path)
++-- test_tool_failure_is_tool_error_result_not_protocol_error(tmp_path)
++-- test_tools_list_names_capture_secret_when_secret_tools_are_wired(tmp_path)
++-- test_tools_list_names_every_planning_tool(tmp_path)
+`-- test_unknown_session_is_reported_as_not_found(tmp_path)
+
+Protocol handling through `McpServer.handle` and the `daily-tasks-mcp` CLI with in-memory pipes.
+"""
+
+import asyncio
+import io
+import json
+import threading
+import urllib.parse
+import urllib.request
+from collections.abc import Mapping
+from datetime import UTC, datetime
+from pathlib import Path
+from uuid import UUID
+
+import pytest
+from nyssa_ai_configuration import BootstrapOptions, KeyringInMemory, LoopbackSecretInputProvider
+from nyssa_ai_result import Ok, Result, fail, ok
+from pydantic import JsonValue
+
+from conftest import LogCapture
+from daily_tasks.cli import cli
+from daily_tasks.communications import CursorStoreJson, SecretCaptureService, SecretResolver, SuggestionsRepositoryJson
+from daily_tasks.core.planning import PlanningContext, PlanningTools, VaultSnapshot
+from daily_tasks.hosting import SecretTools
+from daily_tasks.planning import DecisionLogStoreJson, SessionCommitterLocal, SessionStoreJson
+from daily_tasks.records import FileStoreLocal
+from daily_tasks.transports.mcp import McpServer
+
+_NOW = datetime(2026, 11, 3, 14, 30, tzinfo=UTC)
+
+
+class _UnavailableReader:
+    async def read(self, now: datetime) -> Result[VaultSnapshot]:
+        return fail("projects root not found", "Unavailable")
+
+
+def _server(tmp_path: Path, secrets: SecretTools | None = None) -> McpServer:
+    vault = tmp_path / "vault"
+    vault.mkdir(exist_ok=True)
+    runtime = tmp_path / "runtime"
+    vault_posix = vault.as_posix()
+    file_store = FileStoreLocal(vault, lambda: _NOW)
+    committer = SessionCommitterLocal(
+        file_store=file_store,
+        decision_log_store=DecisionLogStoreJson(runtime, vault_posix),
+        session_store=SessionStoreJson(runtime),
+        suggestions_repository=SuggestionsRepositoryJson(runtime, vault_posix, lambda: _NOW),
+        cursor_store=CursorStoreJson(runtime, vault_posix),
+    )
+    ctx = PlanningContext(
+        vault_root=vault_posix,
+        projects_prefix="1-projects",
+        user_email="jordan@example.com",
+        initial_lookback_days=7,
+    )
+    new_id = lambda: UUID("019a4b2c-9000-7000-8000-000000000001")  # noqa: E731
+    tools = PlanningTools(ctx, _UnavailableReader(), committer, lambda: _NOW, new_id)
+    return McpServer(tools, "1.2.3", secrets)
+
+
+def _handle(server: McpServer, request: Mapping[str, JsonValue] | str) -> dict[str, JsonValue] | None:
+    text = request if isinstance(request, str) else json.dumps(request)
+    response = asyncio.run(server.handle(text))
+    return None if response is None else json.loads(response)
+
+
+def test_initialize_reports_protocol_and_tools_capability(tmp_path: Path) -> None:
+    response = _handle(_server(tmp_path), {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}})
+
+    assert response == {
+        "jsonrpc": "2.0",
+        "id": 1,
+        "result": {
+            "protocolVersion": McpServer.PROTOCOL_VERSION,
+            "capabilities": {"tools": {"listChanged": False}},
+            "serverInfo": {"name": "daily-tasks", "version": "1.2.3"},
+        },
+    }
+
+
+def test_tools_list_names_every_planning_tool(tmp_path: Path) -> None:
+    response = _handle(_server(tmp_path), {"jsonrpc": "2.0", "id": "a", "method": "tools/list"})
+
+    assert response is not None and isinstance(response["result"], dict)
+    tools = response["result"]["tools"]
+    assert isinstance(tools, list)
+    assert [t["name"] for t in tools if isinstance(t, dict)] == [
+        "daily_tasks_start_session",
+        "daily_tasks_get_fetch_window",
+        "daily_tasks_get_session_state",
+        "daily_tasks_execute_operations",
+        "daily_tasks_advance_screen",
+        "daily_tasks_confirm_plan",
+        "daily_tasks_cancel_session",
+    ]
+
+
+def test_notification_gets_no_response(tmp_path: Path) -> None:
+    assert _handle(_server(tmp_path), {"jsonrpc": "2.0", "method": "notifications/initialized"}) is None
+
+
+@pytest.mark.parametrize(
+    ("request_text", "code"),
+    [
+        ("{not json", -32700),
+        (json.dumps({"id": 1, "method": "ping"}), -32600),
+        (json.dumps({"jsonrpc": "2.0", "id": 1, "method": "resources/list"}), -32601),
+        (json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "nope"}}), -32602),
+        (
+            json.dumps(
+                {
+                    "jsonrpc": "2.0",
+                    "id": 1,
+                    "method": "tools/call",
+                    "params": {"name": "daily_tasks_advance_screen", "arguments": {"session_id": "x"}},
+                }
+            ),
+            -32602,
+        ),
+    ],
+)
+def test_invalid_request_returns_json_rpc_error(tmp_path: Path, request_text: str, code: int) -> None:
+    response = _handle(_server(tmp_path), request_text)
+
+    assert response is not None and isinstance(response["error"], dict)
+    assert response["error"]["code"] == code
+
+
+def test_tool_failure_is_tool_error_result_not_protocol_error(tmp_path: Path) -> None:
+    request: dict[str, JsonValue] = {
+        "jsonrpc": "2.0",
+        "id": 9,
+        "method": "tools/call",
+        "params": {"name": "daily_tasks_start_session"},
+    }
+
+    response = _handle(_server(tmp_path), request)
+
+    assert response is not None and isinstance(response["result"], dict)
+    result = response["result"]
+    assert result["isError"] is True
+    body = result["structuredContent"]
+    assert isinstance(body, dict)
+    assert (body["status"], body["code"], body["message"]) == ("error", "Unavailable", "projects root not found")
+
+
+def test_unknown_session_is_reported_as_not_found(tmp_path: Path) -> None:
+    arguments: dict[str, JsonValue] = {"session_id": "019a4b2c-9000-7000-8000-0000000000ff"}
+    request: dict[str, JsonValue] = {
+        "jsonrpc": "2.0",
+        "id": 3,
+        "method": "tools/call",
+        "params": {"name": "daily_tasks_get_session_state", "arguments": arguments},
+    }
+
+    response = _handle(_server(tmp_path), request)
+
+    assert response is not None and isinstance(response["result"], dict)
+    body = response["result"]["structuredContent"]
+    assert isinstance(body, dict) and body["code"] == "NotFound"
+
+
+def test_cli_stdout_carries_only_json_rpc_responses(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    vault = tmp_path / "vault"
+    (vault / "1-projects").mkdir(parents=True)
+    lines = [
+        {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+        {"jsonrpc": "2.0", "method": "notifications/initialized"},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "daily_tasks_start_session"}},
+    ]
+    stdin = io.StringIO("\n".join(json.dumps(line) for line in lines) + "\n")
+    stdout = io.StringIO()
+    argv = [
+        "--vault-root",
+        str(vault),
+        "--config-dir",
+        str(tmp_path / "config"),
+        "--runtime-root",
+        str(tmp_path / "runtime"),
+        "--user-email",
+        "jordan@example.com",
+        "--timezone",
+        "UTC",
+    ]
+
+    code = cli(argv, environ={}, stdin=stdin, stdout=stdout)
+
+    responses = [json.loads(line) for line in stdout.getvalue().splitlines()]
+    assert code == 0
+    assert [r["id"] for r in responses] == [1, 2]
+    assert "server started" in capsys.readouterr().err
+
+
+def test_cli_without_user_or_timezone_boots_and_returns_error_on_start_session(tmp_path: Path) -> None:
+    vault = tmp_path / "vault"
+    vault.mkdir()
+    lines = [
+        {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+        {"jsonrpc": "2.0", "method": "notifications/initialized"},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "daily_tasks_start_session"}},
+    ]
+    stdin = io.StringIO("\n".join(json.dumps(line) for line in lines) + "\n")
+    stdout = io.StringIO()
+
+    code = cli(
+        [
+            "--vault-root",
+            str(vault),
+            "--config-dir",
+            str(tmp_path / "empty_config"),
+            "--runtime-root",
+            str(tmp_path / "runtime"),
+        ],
+        environ={},
+        stdin=stdin,
+        stdout=stdout,
+    )
+
+    assert code == 0
+    responses = [json.loads(line) for line in stdout.getvalue().splitlines()]
+    assert len(responses) == 2
+    assert responses[0]["result"]["serverInfo"]["name"] == "daily-tasks"
+    tool_reply = responses[1]["result"]["structuredContent"]
+    assert tool_reply["status"] == "error"
+    assert "user.email and timezone" in tool_reply["message"]
+
+
+def test_cli_invalid_vault_root_or_lookback_exits_2() -> None:
+    assert cli(["--vault-root", "relative/path"], environ={}, stdin=io.StringIO(""), stdout=io.StringIO()) == 2
+    assert cli(["--runtime-root", "relative/runtime"], environ={}, stdin=io.StringIO(""), stdout=io.StringIO()) == 2
+    assert cli(["--initial-lookback-days", "0"], environ={}, stdin=io.StringIO(""), stdout=io.StringIO()) == 2
+
+
+def test_start_session_surfaces_malformed_files(tmp_path: Path) -> None:
+    vault = tmp_path / "vault"
+    (vault / "1-projects").mkdir(parents=True)
+    (vault / "1-projects/t1-broken.md").write_text("---\nid: 1\n", encoding="utf-8")
+    lines = [
+        {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
+        {"jsonrpc": "2.0", "method": "notifications/initialized"},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "daily_tasks_start_session"}},
+    ]
+    stdin = io.StringIO("\n".join(json.dumps(line) for line in lines) + "\n")
+    stdout = io.StringIO()
+    argv = [
+        "--vault-root",
+        str(vault),
+        "--config-dir",
+        str(tmp_path / "config"),
+        "--runtime-root",
+        str(tmp_path / "runtime"),
+        "--user-email",
+        "jordan@example.com",
+        "--timezone",
+        "UTC",
+    ]
+
+    code = cli(argv, environ={}, stdin=stdin, stdout=stdout)
+
+    assert code == 0
+    responses = [json.loads(line) for line in stdout.getvalue().splitlines()]
+    result = responses[1]["result"]["structuredContent"]
+    assert result["status"] == "ok"
+    assert "malformed or unreadable file(s) were skipped" in result["message"]
+    payload = result["payload"]
+    assert "malformed_files" in payload
+    assert len(payload["malformed_files"]) == 1
+    assert payload["malformed_files"][0]["path"] == "t1-broken.md"
+    assert payload["malformed_files"][0]["code"] == "unclosed-frontmatter"
+    assert not (vault / ".nyssa-ai").exists()
+
+
+_SECRET = "bws-machine-token-0123456789"
+
+
+class _NoBrowser:
+    def open_url(self, url: str) -> Result[None]:
+        return ok(None)
+
+
+def _secret_options(root: Path) -> BootstrapOptions:
+    return BootstrapOptions(
+        application_name="daily-tasks-test",
+        configuration_directory=str(root / "config"),
+        manifest_path=str(root / "manifest.json"),
+    )
+
+
+def _capture_call(arguments: Mapping[str, JsonValue]) -> dict[str, JsonValue]:
+    return {
+        "jsonrpc": "2.0",
+        "id": 7,
+        "method": "tools/call",
+        "params": {"name": "daily_tasks_capture_secret", "arguments": dict(arguments)},
+    }
+
+
+def test_tools_list_names_capture_secret_when_secret_tools_are_wired(tmp_path: Path) -> None:
+    secrets = SecretTools(lambda: fail("unused", "Unavailable"))
+
+    response = _handle(_server(tmp_path, secrets), {"jsonrpc": "2.0", "id": 1, "method": "tools/list"})
+
+    assert response is not None and isinstance(response["result"], dict)
+    tools = response["result"]["tools"]
+    assert isinstance(tools, list)
+    names = [t["name"] for t in tools if isinstance(t, dict)]
+    assert names[-1] == "daily_tasks_capture_secret" and len(names) == 8
+
+
+def test_capture_secret_tool_stores_secret_from_loopback_and_replies_with_receipt_only(
+    tmp_path: Path, log_capture: LogCapture
+) -> None:
+    keyring, status = KeyringInMemory(), io.StringIO()
+    loopback = LoopbackSecretInputProvider(_NoBrowser(), status)
+
+    def open_service() -> Result[SecretCaptureService]:
+        return SecretCaptureService.create(_secret_options(tmp_path), None, keyring, loopback, status)
+
+    def user_submits_form() -> None:
+        url = loopback.wait_for_url()
+        assert url is not None
+        form = {"session_token": loopback.session_token, "secret": _SECRET, "confirm_secret": _SECRET}
+        request = urllib.request.Request(url, data=urllib.parse.urlencode(form).encode(), method="POST")
+        with urllib.request.urlopen(request, timeout=5) as response:
+            response.read()
+
+    user = threading.Thread(target=user_submits_form)
+    user.start()
+    server = _server(tmp_path, SecretTools(open_service))
+
+    response = _handle(server, _capture_call({"namespace": "vault", "key": "bws-access-token"}))
+    user.join(timeout=10)
+
+    assert response is not None and isinstance(response["result"], dict)
+    body = response["result"]["structuredContent"]
+    assert isinstance(body, dict) and body["status"] == "ok"
+    assert isinstance(body["payload"], dict)
+    receipt = body["payload"]
+    assert set(receipt) == {"namespace", "key", "provider", "stored_at"}
+    assert (receipt["namespace"], receipt["key"], receipt["provider"]) == ("vault", "bws-access-token", "aesLocal")
+    assert _SECRET not in json.dumps(response) + repr(log_capture.records) + status.getvalue()
+    disk = "\n".join(p.read_text(encoding="utf-8", errors="replace") for p in tmp_path.rglob("*") if p.is_file())
+    assert _SECRET not in disk
+    resolver = SecretResolver.create(
+        "daily-tasks-test", str(tmp_path / "config"), keyring, {}, str(tmp_path / "manifest.json")
+    )
+    assert isinstance(resolver, Ok)
+    resolved = resolver.value.resolve("vault", "bws-access-token")
+    assert isinstance(resolved, Ok) and resolved.value.reveal() == _SECRET
+
+
+def test_capture_secret_tool_store_failure_is_tool_error(tmp_path: Path, log_capture: LogCapture) -> None:
+    secrets = SecretTools(lambda: fail("keyring locked", "Unavailable"))
+
+    response = _handle(_server(tmp_path, secrets), _capture_call({"namespace": "communication", "key": "slack"}))
+
+    assert response is not None and isinstance(response["result"], dict)
+    assert response["result"]["isError"] is True
+    body = response["result"]["structuredContent"]
+    assert isinstance(body, dict)
+    assert (body["status"], body["code"], body["message"]) == ("error", "Unavailable", "keyring locked")
+    assert ("warn", "secret not captured") in [r[:2] for r in log_capture.records]
+
+
+def test_capture_secret_tool_missing_key_is_invalid_params(tmp_path: Path) -> None:
+    secrets = SecretTools(lambda: fail("unused", "Unavailable"))
+
+    response = _handle(_server(tmp_path, secrets), _capture_call({"namespace": "communication"}))
+
+    assert response is not None and isinstance(response["error"], dict)
+    assert response["error"]["code"] == -32602
+
+
+def test_capture_secret_tool_is_unknown_without_secret_tools(tmp_path: Path) -> None:
+    response = _handle(_server(tmp_path), _capture_call({"namespace": "communication", "key": "slack"}))
+
+    assert response is not None and isinstance(response["error"], dict)
+    assert response["error"]["code"] == -32602

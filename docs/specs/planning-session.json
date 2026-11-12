@@ -1,7 +1,7 @@
 {
-  "_note": "Persisted at .nyssa-ai/daily-tasks/sessions/YYYY.MM.DD.json (one per workspace per local day), overwritten as the session advances. A second 'plan the day' the same day resumes it; after confirmed_at it reopens on screen 3. Survives server restarts. Pending suggestions live in suggestions.json, not here. RAM-only: background task handle, state graph, message graph, rendered screens. Replies are checked against what is pending, not a strict linear stage, so a pending suggestion can still be answered on a later screen.",
+  "_note": "Persisted at <runtime_root>/sessions/YYYY.MM.DD.json (one per vault per local day), overwritten as the session advances. A second 'plan the day' the same day resumes it; after confirmed_at it reopens on screen 3. Survives server restarts. Pending suggestions live in suggestions.json, not here. RAM-only: background task handle, state graph, message graph, rendered screens. Replies are checked against what is pending, not a strict linear stage, so a pending suggestion can still be answered on a later screen.",
   "id": "019a4b2c-9000-7000-8000-0000000000a1",
-  "workspace_root": "D:/vaults/work",
+  "vault_root": "D:/vaults/work",
   "local_date": "2026-11-03",
   "timezone": "America/Chicago",
   "started_at": "2026-11-03T14:02:00Z",
@@ -18,7 +18,7 @@
       { "name": "slack", "status": "error", "fetched": 0, "new": 0, "error": "token_revoked" }
     ]
   },
-  "suggestions_file": ".nyssa-ai/daily-tasks/suggestions.json",
+  "suggestions_file": "suggestions.json",
   "current_screen": "s2:019a4b2c-1f00-7a10-8000-000000000001",
   "assign_days": {
     "project_order": [

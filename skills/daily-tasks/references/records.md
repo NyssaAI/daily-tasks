@@ -3,25 +3,26 @@
 > [!IMPORTANT] Scope Directive
 > This reference owns the canonical Markdown schemas, UUIDv7 identity model, directory layout, reciprocal link conventions, and closure/reopening domain rules for project, milestone, task, and blocker records. It does NOT own step-by-step record creation or repair execution checklists (owned by [`../workflows/records.md`](../workflows/records.md)), MCP/CLI invocation syntax (owned by [`cli.md`](cli.md)), transactional checkpoint mechanics (owned by [`operations.md`](operations.md)), daily planning flows (owned by [`planning-flow.md`](planning-flow.md)), or interactive screen formatting (owned by [`response-conventions.md`](response-conventions.md)).
 
-## Workspace structure and paths
+## Vault structure and paths
 
-Daily Tasks operates on a bound workspace context with four distinct logical roots: `workspaceRoot` (the base directory for the active workspace), `projectsRoot` (the root directory containing all project folders, which may reside in external storage bound to the workspace), `dailyPlansRoot` (the destination for dated `<dailyPlansRoot>/YYYY.MM.DD-daily-plan.md` files), and `stateRoot` (the workspace-isolated operational state directory at `<workspaceRoot>/.nyssa-ai/daily-tasks`). Every record or planning session binds to a single workspace context and never mixes inventories or resolves UUIDs across separate workspaces.
+Daily Tasks operates on a bound vault context using the canonical 5-root model: `vault_root` (the user or shared vault directory), `projectsRoot` (default `1-projects` inside `vault_root`), `dailyPlansRoot` (default `2-areas/daily-plans` inside `vault_root` for `<dailyPlansRoot>/YYYY.MM.DD-daily-plan.md`), `user_home` (`~/.nyssa-ai/daily-tasks/` for configuration and secrets, with optional `repo_root` override), and `runtime_root` (for mutable operational state such as `fetch-cursors.json`, `suggestions.json`, and `decision-log.json`). Zero `.nyssa-ai/` directories are ever created inside `vault_root`, and every session binds to a single `vault_root` without mixing inventories across vaults.
 
 ### Project directory layout
 
-Project content resides under `projectsRoot` using a two-level hierarchy of project folders, milestone folders (`m{N}-{name}/`), and project-scoped blocker folders (`blockers/`):
+Project content resides under `projectsRoot` (`1-projects` by default) using a two-level hierarchy of project folders, milestone folders (`m{N}-{name}/`), and project-scoped blocker folders (`blockers/`):
 
 ```text
-project/
-  project-index.md
-  m1-milestone-name/
-    m1-milestone-name.md
-    t1-task-name.md
-    t2-task-name.md
-    inputs/
-    outputs/
-  blockers/
-    b1-approval-needed.md
+1-projects/
+  2026.11.01-project-slug/
+    project-index.md
+    m1-milestone-name/
+      m1-milestone-name.md
+      t1-task-name.md
+      t2-task-name.md
+      inputs/
+      outputs/
+    blockers/
+      b1-approval-needed.md
 ```
 
 `project-index.md` owns the project-level metadata and milestone navigation table. Each milestone directory contains a milestone definition file (`m{N}-{name}.md`) owning the milestone explanation, milestone Definition of Done (DoD), and child task links, alongside sibling task files (`t{N}-{name}.md`). Each task file is the single authoritative record for that task's requirements, embedded DoD criteria, input links, and output links. Flat `inputs/` and `outputs/` directories sit beside task files for attachments and deliverables; they never contain nested subdirectories or task definitions and are excluded from record discovery. External blockers reside under `blockers/b{N}-{name}.md` within their single owning project, though they may link reciprocally to affected records in other projects.
@@ -36,11 +37,11 @@ Record filenames use lowercase kebab-case (`m{N}-{name}.md`, `t{N}-{name}.md`, `
 
 Every tracked Markdown record begins with flat scalar YAML frontmatter containing a unique UUIDv7 `id`. Nested YAML objects, YAML anchors, and multiline scalars are prohibited; only single scalar key-value pairs (strings, numbers, booleans, `null`) and `tags` (formatted as a single-line JSON array of strings) are permitted.
 
-For `project`, `milestone`, and `task` records (`record_version: 2`), required keys are `id` (UUIDv7), `type` (`project` | `milestone` | `task`), `title` (string), `owner` (human email address), `created_at` (UTC ISO-8601 ending in `Z`), `updated_at` (UTC ISO-8601), and the type-specific lifecycle state key (`project-state`, `milestone-state`, or `task-state` with values `not-started` | `in-progress` | `completed` | `cancelled`). Optional keys include `assignee` (human email or agent name, defaulting to `owner` when omitted), `started_at` (UTC ISO-8601), `resolved_at` (UTC ISO-8601), `target_date` (`YYYY-MM-DD`), `tags`, and parent lineage IDs (`project_id`, `milestone_id`). For `blocker` records, required keys are `id` (UUIDv7), `type: blocker`, `title`, `owner`, `created_at`, `updated_at`, and `blocker-state` (`open` | `resolved`).
+For `project`, `milestone`, and `task` records (`record_version: 2`, `RecordKind`), required keys are `id` (UUIDv7), `type` (`project` | `milestone` | `task`), `title` (string), `owner` (human email address), `created_at` (UTC ISO-8601 ending in `Z`), `updated_at` (UTC ISO-8601), and `state` (`not-started` | `in-progress` | `completed` | `cancelled`; legacy `<kind>-state` keys are accepted on read). Work records do not require `document-maturity`. Optional keys include `assignee` (human email or agent name, defaulting to `owner` when omitted), `started_at` (UTC ISO-8601), `resolved_at` (UTC ISO-8601), `target_date` (`YYYY-MM-DD`), `tags`, and parent lineage IDs (`project_id`, `milestone_id`). For `blocker` records, required keys are `id` (UUIDv7), `type: blocker`, `title`, `owner`, `created_at`, `updated_at`, and `state` (`open` | `resolved`).
 
 ### Definition of Done (DoD)
 
-Tasks and milestones each contain exactly one embedded `## Definition of Done` section; standalone DoD files are prohibited. Each DoD criterion is a Markdown checkbox (`- [ ]` or `- [x]`) paired with a unique UUIDv7 HTML comment (`<!-- id: UUIDv7 -->`) on the same line or the immediately following comment line. Embedded DoD criteria use `id:` comments, whereas task and milestone projections inside views use `ref:` comments.
+Tasks and milestones each contain exactly one embedded `## Definition of Done` section; standalone DoD files are prohibited. Each DoD criterion (`DodItem`) is a Markdown checkbox (`- [ ]` or `- [x]`) paired with a unique UUIDv7 HTML comment (`<!-- id: UUIDv7 -->`) on the same line or the immediately following comment line. Embedded DoD criteria use `id:` comments, whereas task and milestone projections inside views use `ref:` comments.
 
 ### Projection formatting and inter-record references
 

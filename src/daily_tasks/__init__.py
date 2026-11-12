@@ -1,6 +1,3 @@
-"""Responsibility: Mark the Daily Tasks Python package root.
-Public interface:
-(none)
+"""Daily Tasks Scale B modular monolith: core domain, feature slices, MCP transport, and 5-root hosting."""
 
-Daily Tasks planning session server package.
-"""
+__all__: list[str] = []

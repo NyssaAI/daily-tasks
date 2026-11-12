@@ -2,7 +2,7 @@
 id: PROJECT_UUID
 type: project
 title: "PROJECT_TITLE"
-project-state: not-started
+state: not-started
 owner: "OWNER_EMAIL"
 created_at: "GMT_TIMESTAMP"
 updated_at: "GMT_TIMESTAMP"

@@ -40,7 +40,7 @@ Users need a fast, predictable daily planning ritual that carries forward unfini
 
 ## Inputs
 
-- Workspace state graph (projects, milestones, tasks, blockers, and recent daily plans) and pending suggestions.
+- Vault state graph (projects, milestones, tasks, blockers, and recent daily plans) and pending suggestions.
 - User navigation commands (`yes`, `next`, `previous`, `finish`, `Back to <Project>`, `Confirm`, or `cancel`) and numbered batch operations.
 
 ## Outputs
@@ -56,6 +56,6 @@ Users need a fast, predictable daily planning ritual that carries forward unfini
 
 ## Dependencies
 
-- [F-00.02: Canonical Work Record Storage & Surgical Updates](../f-00.02/feature.md)
+- [F-00.02: Canonical Work Record Persistence & Non-Destructive Updates](../f-00.02/feature.md)
 - [F-01.02: Project, Milestone, Task & Blocker Lifecycle Management](../f-01.02/feature.md)
 - [F-02.01: Communication Correlation & Update Suggestions](../f-02.01/feature.md)

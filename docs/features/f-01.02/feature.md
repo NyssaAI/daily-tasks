@@ -12,7 +12,7 @@ Create accepted projects, milestones, tasks, and external blockers; manage Defin
 
 ## User Need
 
-Users need structured records for projects, milestones, tasks, and external blockers so they can track both their own work and delegated commitments, verify that every Definition of Done item and blocker is satisfied before marking work complete, and keep a clear audit trail of changes.
+Users need structured records for projects, milestones, tasks, and external blockers so they can track both their own work and delegated commitments, verify that every Definition of Done item and blocker is satisfied before marking work complete, and keep a clear decision history of changes.
 
 ## Conceptual Context
 
@@ -25,7 +25,7 @@ Users need structured records for projects, milestones, tasks, and external bloc
 
 ## Scope
 
-- Create accepted projects, milestones, tasks, and external blockers using active workspace templates.
+- Create accepted projects, milestones, tasks, and external blockers using active vault templates.
 - Update lifecycle states (`not-started`, `in-progress`, `completed`, `cancelled` for projects/milestones/tasks; `open` and `resolved` for blockers).
 - Manage embedded Definition of Done checklist criteria within milestones and tasks.
 - Assign and update ownership, delegation (assignee), optional target dates, task dependencies (`Depends on` / `Required by`), and blocker links (`Blocked by`).
@@ -44,7 +44,7 @@ Users need structured records for projects, milestones, tasks, and external bloc
 
 ## Outputs
 
-- Created or surgically updated Project, Milestone, Task, and Blocker documents with synchronized parent index tables.
+- Created or non-destructively updated Project, Milestone, Task, and Blocker documents with synchronized parent index tables.
 - Validation messages explaining any unmet Definition of Done criteria or open blockers when completion is refused.
 - Appended decision log entries for every applied change.
 
@@ -57,5 +57,5 @@ Users need structured records for projects, milestones, tasks, and external bloc
 
 ## Dependencies
 
-- [F-00.01: Workspace, Identity & Template Setup](../f-00.01/feature.md)
-- [F-00.02: Canonical Work Record Storage & Surgical Updates](../f-00.02/feature.md)
+- [F-00.01: Vault, Identity & Template Setup](../f-00.01/feature.md)
+- [F-00.02: Canonical Work Record Persistence & Non-Destructive Updates](../f-00.02/feature.md)

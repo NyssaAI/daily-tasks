@@ -7,7 +7,7 @@
 
 Template revision checks occur strictly on demand when a requested workflow uses a specific template kind (`dailyPlan`, `planDayReview`, `projectIndex`, `milestone`, or `task`); Daily Tasks never runs background watchers or automatic template updaters. Template content defines Markdown layout and structure only and never conveys task acceptance or executable instructions.
 
-Each preference scope (`user` or `project`) tracks its own retained template baselines and upgrade choices in `<resolved preference scope>/templates/updates.json`, kept separate from workspace runtime operational state. Inherited user snapshots remain in the user layer so workspace-level baseline checks never mistake personal template settings for project-wide replacement consent.
+Retained template baselines and upgrade choices are stored in `~/.nyssa-ai/daily-tasks/templates/updates.json` (`user_home`), kept separate from `runtime_root` operational state and never written inside `<vault_root>/.nyssa-ai/`.
 
 When an upstream bundled template changes (`shouldOffer: true`), the upgrade offer summarizes `comparison.bundledChanges` alongside any `comparison.localChanges` detected in the user's customized template file, links the active Markdown file, previews the layout, and presents three explicit options: **Use new layout**, **Keep current layout**, or **Postpone**. If the user postpones or does not answer, the workflow proceeds immediately using the current `active.content`; silence is never treated as consent to overwrite a template, and an upgrade is offered at most once per request. Declining a revision suppresses prompts for that specific upstream version without disabling future template updates.
 
@@ -28,7 +28,7 @@ Long-term template update behavior is governed per template kind by three policy
 | `latest` | Automatically adopts compatible bundled revisions when the local template file is unmodified, still enforcing the fingerprint check before writing. |
 | `keep` | Pins the current active template layout and suppresses update offers until the user explicitly requests a template review. |
 
-Even under the `latest` policy, automatic replacement is blocked (`automaticBlocked: true`) whenever the active file contains unrecognized local customizations or when an upstream revision crosses a breaking record contract version. User-level template policies inherit into workspaces unless overridden at the project layer, and resetting a scope clears retained choices and suppression state without deleting or reformatting existing Markdown files.
+Even under the `latest` policy, automatic replacement is blocked (`automaticBlocked: true`) whenever the active file contains unrecognized local customizations or when an upstream revision crosses a breaking record contract version.
 
 ## Existing documents vs. new documents
 

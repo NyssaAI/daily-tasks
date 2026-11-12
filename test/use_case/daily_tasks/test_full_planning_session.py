@@ -1,4 +1,4 @@
-"""Responsibility: Prove a full MCP planning session over stdio reads a vault, adjudicates and writes on confirm only.
+"""Responsibility: Prove a full MCP planning session over stdio reads a vault, adjudicates, and writes on confirm only.
 Public interface:
 +-- BLOCKER_ID
 +-- MILESTONE
@@ -6,10 +6,10 @@ Public interface:
 +-- PROJECT
 +-- TASK_ID
 +-- test_full_planning_session_cancelled_writes_nothing(tmp_path)
-+-- test_full_planning_session_confirmed_writes_records_plan_and_logs(tmp_path)
++-- test_full_planning_session_confirmed_writes_records_plan_and_logs_without_touching_vault_nyssa_ai(tmp_path)
 `-- test_full_planning_session_dispatcher_recovers_after_unconfirmed_attempt(tmp_path)
 
-End-to-end use-case: JSON-RPC lines in, Markdown records, daily plan, decision log, suggestions and cursors out.
+End-to-end use-case: JSON-RPC lines in, Markdown records + daily plan in vault_root, and runtime state in runtime_root.
 """
 
 import asyncio
@@ -29,23 +29,26 @@ from uuid import UUID
 from nyssa_ai_result import Result, ok
 from pydantic import JsonValue, TypeAdapter
 
-from daily_tasks.domain import FetchCursor, FetchCursors, GraphUser, Message
-from daily_tasks.ports import FetchBatch
-from daily_tasks.server import (
-    MarkdownWorkspaceReader,
-    McpServer,
-    PlanningTools,
-    PlanningToolsDispatcher,
-    ServerOverrides,
-    ServerSettings,
-    serve_stdio,
-)
-from daily_tasks.storage.cursor_store import CursorStore
-from daily_tasks.storage.markdown_file_store import MarkdownFileStore
+from daily_tasks.communications.cursor_store_json import CursorStoreJson
+from daily_tasks.communications.suggestions_repository_json import SuggestionsRepositoryJson
+from daily_tasks.core.communications import CommunicationMessage, FetchBatch, FetchCursor, FetchCursors
+from daily_tasks.core.planning.planning_tools import PlanningTools
+from daily_tasks.core.planning.planning_tools_dispatcher import PlanningToolsDispatcher
+from daily_tasks.core.planning.types import PlanningContext
+from daily_tasks.core.records.graph_user import GraphUser
+from daily_tasks.hosting.types import ServerOverrides, ServerSettings
+from daily_tasks.hosting.vault_collaborator_resolver import VaultCollaboratorResolver
+from daily_tasks.hosting.vault_reader_markdown import VaultReaderMarkdown
+from daily_tasks.planning.decision_log_store_json import DecisionLogStoreJson
+from daily_tasks.planning.session_committer_local import SessionCommitterLocal
+from daily_tasks.planning.session_store_json import SessionStoreJson
+from daily_tasks.records.file_store_local import FileStoreLocal
+from daily_tasks.transports.mcp.mcp_server import McpServer
+from daily_tasks.transports.mcp.serve_stdio import serve_stdio
 
-_SPECS_ROOT: Final[Path] = Path(__file__).resolve().parents[3] / "docs" / "specs"
+_SAMPLES_ROOT: Final[Path] = Path(__file__).resolve().parents[2] / "unit" / "daily_tasks" / "samples"
 NOW = datetime(2026, 11, 3, 14, 30, tzinfo=UTC)
-PROJECT = "projects/2026.10.20-daily-tasks-mcp-server"
+PROJECT = "1-projects/2026.10.20-daily-tasks-mcp-server"
 MILESTONE = f"{PROJECT}/m2-planning-session-spike"
 TASK_ID = "019a4b2c-1f00-7a10-8000-000000000003"
 BLOCKER_ID = "019a4b2c-1f00-7a10-8000-000000000005"
@@ -79,12 +82,12 @@ def _captured_logs() -> Iterator[list[tuple[str, str, Mapping[str, object]]]]:
 
 @dataclass
 class _Inbox:
-    """Communication source returning one message that says the OAuth verification blocker is resolved."""
+    """Communication client returning one message stating the OAuth verification blocker is resolved."""
 
     name: str = "gmail"
 
     async def fetch_new_messages(self, since: FetchCursors) -> Result[FetchBatch]:
-        message = TypeAdapter(Message).validate_python(
+        message = TypeAdapter(CommunicationMessage).validate_python(
             {
                 "id": "gmail:m1",
                 "source": "gmail",
@@ -105,27 +108,27 @@ class _Inbox:
             }
         )
         cursor = FetchCursor(since=NOW, last_external_id="m1", last_run_at=NOW, last_status="ok", last_error=None)
-        return ok(FetchBatch(messages=(message,), cursors=FetchCursors(workspace_root="", cursors={"gmail": cursor})))
+        return ok(FetchBatch(messages=(message,), cursors=FetchCursors(vault_root="", cursors={"gmail": cursor})))
 
 
-def _vault(root: Path) -> None:
+def _vault(vault_root: Path) -> None:
     for relative, sample in (
         (f"{PROJECT}/project-index.md", "5-sample-project-index.md"),
         (f"{MILESTONE}/m2-planning-session-spike.md", "6-sample-milestone.md"),
         (f"{MILESTONE}/t1-wire-gmail-connector.md", "4-sample-task.md"),
         (f"{PROJECT}/blockers/b1-google-oauth-app-verification.md", "7-sample-blocker.md"),
     ):
-        (root / relative).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(_SPECS_ROOT / sample, root / relative)
-    (root / "daily-plans").mkdir()
+        (vault_root / relative).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(_SAMPLES_ROOT / sample, vault_root / relative)
+    (vault_root / "2-areas" / "daily-plans").mkdir(parents=True)
 
 
-def _server(root: Path) -> McpServer:
+def _server(vault_root: Path, runtime_root: Path) -> McpServer:
     settings = ServerSettings(
-        workspace_root=root,
-        projects_root=root / "projects",
-        daily_plans_root=root / "daily-plans",
-        state_root=root / ".nyssa-ai/daily-tasks",
+        vault_root=vault_root,
+        projects_root=vault_root / "1-projects",
+        daily_plans_root=vault_root / "2-areas" / "daily-plans",
+        runtime_root=runtime_root,
         user=GraphUser(name="Jordan", email="jordan@example.com"),
         timezone="America/Chicago",
     )
@@ -134,10 +137,29 @@ def _server(root: Path) -> McpServer:
     def new_id() -> UUID:
         return UUID(f"019a4b2c-9000-7000-8000-{next(numbers):012x}")
 
-    cursors = CursorStore(settings.state_root, root.as_posix())
-    store = MarkdownFileStore(root, lambda: NOW, settings.projects_root, settings.daily_plans_root, settings.state_root)
-    reader = MarkdownWorkspaceReader(settings, _Inbox(), cursors)
-    return McpServer(PlanningTools(settings, reader, store, lambda: NOW, new_id, cursors), "test")
+    vault_key = vault_root.as_posix()
+    cursors = CursorStoreJson(runtime_root, vault_key)
+    file_store = FileStoreLocal(
+        vault_root,
+        lambda: NOW,
+        records_root=settings.projects_root,
+        daily_plans_root=settings.daily_plans_root,
+    )
+    committer = SessionCommitterLocal(
+        file_store=file_store,
+        decision_log_store=DecisionLogStoreJson(runtime_root, vault_key),
+        session_store=SessionStoreJson(runtime_root),
+        suggestions_repository=SuggestionsRepositoryJson(runtime_root, vault_key, lambda: NOW),
+        cursor_store=cursors,
+    )
+    reader = VaultReaderMarkdown(settings, _Inbox(), cursors)
+    context = PlanningContext(
+        vault_root=vault_key,
+        projects_prefix="1-projects",
+        user_email=settings.user.email,
+        initial_lookback_days=settings.initial_lookback_days,
+    )
+    return McpServer(PlanningTools(context, reader, committer, lambda: NOW, new_id, cursors), "test")
 
 
 def _call(request_id: int, name: str, **arguments: JsonValue) -> str:
@@ -166,13 +188,21 @@ def _screen(body: dict[str, JsonValue]) -> str:
     return payload["screen"]
 
 
-def test_full_planning_session_confirmed_writes_records_plan_and_logs(tmp_path: Path) -> None:
-    _vault(tmp_path)
-    server = _server(tmp_path)
+def test_full_planning_session_confirmed_writes_records_plan_and_logs_without_touching_vault_nyssa_ai(
+    tmp_path: Path,
+) -> None:
+    vault_root = tmp_path / "vault"
+    runtime_root = tmp_path / "runtime"
+    vault_root.mkdir()
+    runtime_root.mkdir()
+    _vault(vault_root)
+    server = _server(vault_root, runtime_root)
 
     with _captured_logs() as log_records:
         started = _run(
-            server, '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}', _call(2, "daily_tasks_start_session")
+            server,
+            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{}}',
+            _call(2, "daily_tasks_start_session"),
         )
         body = _body(started[1])
         session_id = str(body["session_id"])
@@ -199,7 +229,7 @@ def test_full_planning_session_confirmed_writes_records_plan_and_logs(tmp_path: 
                     {
                         "kind": "assign-to-day",
                         "row": 1,
-                        "item_type": "task",
+                        "record_kind": "task",
                         "item_id": TASK_ID,
                         "local_date": "2026-11-03",
                     }
@@ -211,27 +241,33 @@ def test_full_planning_session_confirmed_writes_records_plan_and_logs(tmp_path: 
 
     statuses = [_body(r)["status"] for r in responses]
     assert statuses == ["ok"] * 5, [_body(r)["message"] for r in responses]
-    blocker_text = (tmp_path / f"{PROJECT}/blockers/b1-google-oauth-app-verification.md").read_text(encoding="utf-8")
-    assert "blocker-state: resolved" in blocker_text
-    plan = (tmp_path / "daily-plans/2026.11.03-daily-plan.md").read_text(encoding="utf-8")
+    assert not (vault_root / ".nyssa-ai").exists()
+    blocker_text = (vault_root / f"{PROJECT}/blockers/b1-google-oauth-app-verification.md").read_text(encoding="utf-8")
+    assert "blocker-state: resolved" in blocker_text or "state: resolved" in blocker_text
+    plan = (vault_root / "2-areas/daily-plans/2026.11.03-daily-plan.md").read_text(encoding="utf-8")
     assert "Wire Gmail connector behind Communication-Port" in plan and "## Decisions" in plan
-    state = tmp_path / ".nyssa-ai/daily-tasks"
-    decisions = json.loads((state / "decision-log.json").read_text(encoding="utf-8"))["entries"]
+    decisions = json.loads((runtime_root / "decision-log.json").read_text(encoding="utf-8"))["entries"]
     assert [d["verdict"] for d in decisions] == ["accept", None]
-    assert json.loads((state / "suggestions.json").read_text(encoding="utf-8"))["suggestions"] == []
+    assert json.loads((runtime_root / "suggestions.json").read_text(encoding="utf-8"))["suggestions"] == []
     assert (
-        json.loads((state / "fetch-cursors.json").read_text(encoding="utf-8"))["cursors"]["gmail"]["last_external_id"]
+        json.loads((runtime_root / "fetch-cursors.json").read_text(encoding="utf-8"))["cursors"]["gmail"][
+            "last_external_id"
+        ]
         == "m1"
     )
-    assert (state / "sessions/2026.11.03.json").exists()
+    assert (runtime_root / "sessions/2026.11.03.json").exists()
     handled = [f for level, msg, f in log_records if msg.startswith("mcp request")]
     assert [f["status"] for f in handled][-1] == "ok" and handled[-1]["session_id"] == session_id
 
 
 def test_full_planning_session_cancelled_writes_nothing(tmp_path: Path) -> None:
-    _vault(tmp_path)
-    before = sorted(p.relative_to(tmp_path).as_posix() for p in tmp_path.rglob("*"))
-    server = _server(tmp_path)
+    vault_root = tmp_path / "vault"
+    runtime_root = tmp_path / "runtime"
+    vault_root.mkdir()
+    runtime_root.mkdir()
+    _vault(vault_root)
+    before = sorted(p.relative_to(vault_root).as_posix() for p in vault_root.rglob("*"))
+    server = _server(vault_root, runtime_root)
 
     session_id = str(_body(_run(server, _call(1, "daily_tasks_start_session"))[0])["session_id"])
     responses = _run(
@@ -244,13 +280,16 @@ def test_full_planning_session_cancelled_writes_nothing(tmp_path: Path) -> None:
 
     assert [_body(r)["status"] for r in responses] == ["ok", "error", "ok", "error"]
     assert "not_confirmed" in str(_body(responses[1])["message"])
-    assert sorted(p.relative_to(tmp_path).as_posix() for p in tmp_path.rglob("*")) == before
+    assert sorted(p.relative_to(vault_root).as_posix() for p in vault_root.rglob("*")) == before
+    assert not (vault_root / ".nyssa-ai").exists()
 
 
 def test_full_planning_session_dispatcher_recovers_after_unconfirmed_attempt(tmp_path: Path) -> None:
-    ws = tmp_path / "vault"
-    ws.mkdir()
-    _vault(ws)
+    vault_root = tmp_path / "vault"
+    runtime_root = tmp_path / "runtime"
+    vault_root.mkdir()
+    runtime_root.mkdir()
+    _vault(vault_root)
     config_dir = tmp_path / "config"
     config_dir.mkdir()
     (config_dir / "profile.json").write_text(
@@ -263,21 +302,19 @@ def test_full_planning_session_dispatcher_recovers_after_unconfirmed_attempt(tmp
         ),
         encoding="utf-8",
     )
-    ws_state = ws / ".nyssa-ai" / "daily-tasks"
-    ws_state.mkdir(parents=True, exist_ok=True)
-    (ws_state / "profile.json").write_text(
-        json.dumps({"schema_version": 2, "projectsRoot": "projects", "dailyPlansRelative": "daily-plans"}),
-        encoding="utf-8",
-    )
     numbers = count(1)
+    resolver = VaultCollaboratorResolver(
+        overrides=ServerOverrides(config_dir=config_dir, runtime_root=runtime_root),
+        clock=lambda: NOW,
+    )
     dispatcher = PlanningToolsDispatcher(
-        overrides=ServerOverrides(config_dir=config_dir),
+        resolver=resolver,
         clock=lambda: NOW,
         new_id=lambda: UUID(f"019a4b2c-9000-7000-8000-{next(numbers):012x}"),
     )
     server = McpServer(dispatcher, "test")
 
-    started = _run(server, _call(1, "daily_tasks_start_session", date="2026-11-03", workspace_root=str(ws)))
+    started = _run(server, _call(1, "daily_tasks_start_session", date="2026-11-03", vault_root=str(vault_root)))
     session_id = str(_body(started[0])["session_id"])
     responses = _run(
         server,
@@ -291,7 +328,7 @@ def test_full_planning_session_dispatcher_recovers_after_unconfirmed_attempt(tmp
                 {
                     "kind": "assign-to-day",
                     "row": 1,
-                    "item_type": "task",
+                    "record_kind": "task",
                     "item_id": TASK_ID,
                     "local_date": "2026-11-03",
                 }
@@ -307,5 +344,6 @@ def test_full_planning_session_dispatcher_recovers_after_unconfirmed_attempt(tmp
     assert [_body(r)["status"] for r in responses] == ["ok", "ok", "ok", "error", "ok", "ok", "error"]
     assert _body(responses[3])["code"] == "Forbidden"
     assert _body(responses[6])["code"] == "NotFound"
-    plan = (ws / "daily-plans/2026.11.03-daily-plan.md").read_text(encoding="utf-8")
+    assert not (vault_root / ".nyssa-ai").exists()
+    plan = (vault_root / "2-areas/daily-plans/2026.11.03-daily-plan.md").read_text(encoding="utf-8")
     assert "Wire Gmail connector behind Communication-Port" in plan

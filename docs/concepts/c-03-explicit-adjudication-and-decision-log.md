@@ -15,14 +15,14 @@ Daily Tasks enforces a strict boundary between candidate proposals and accepted 
 - **Candidate vs. Accepted Work**: Action items extracted from notes, quoted requests, inferred promises, or incoming messages begin as **Candidates** or **Pending Suggestions** (`new_task`, `status`, `dod`, `blocker`). Only a direct user instruction to create named work or an explicit `accept` / `edit` verdict promotes a candidate into a canonical record change.
 - **Numbered Row Protocol**: Interactive planning and review screens assign stable 1-based integers to every displayed task, blocker, and suggestion row. Users reply with compact batch instructions (such as `3 accept, 4 accept but due Friday, 7 reject` or `14 today, 12 done`).
 - **Verdict (`accept` | `reject` | `edit`)**: The user's explicit adjudication of a pending suggestion. Accepted and edited suggestions stage validated record changes and prune the suggestion from the pending buffer; rejected suggestions are logged and pruned without modifying records.
-- **Decision Log Entry**: An immutable audit record capturing the question or suggestion presented, the user's original words, the structured decision (`accept`, `reject`, `edit`, or direct operation), the actor who decided (`decided_by`), the timestamp (`decided_at`), and the affected record or message references.
+- **Decision Log Entry**: An immutable decision record in `runtime_root` capturing the question or suggestion presented, the user's original words, the structured decision (`accept`, `reject`, `edit`, or direct operation), the actor who decided (`decided_by`), the timestamp (`decided_at`), and the affected record or message references.
 
 ## Invariants & Rules
 
 - **No Implicit Acceptance**: A bare row number without an action or status symbol requires clarification and is never treated as acceptance. Unanswered suggestions remain pending across sessions; nothing unanswered is ever applied.
-- **Message Review Coupling**: An ingested email or chat message is marked `reviewed` only after its linked suggestion is explicitly adjudicated by the user (or when analysis determines it contains no actionable suggestion). If a session ends or crashes before adjudication, the message and its suggestion reappear in the next session.
+- **Message Review Coupling**: A fetched email or chat message is marked `reviewed` only after its linked suggestion is explicitly adjudicated by the user (or when analysis determines it contains no actionable suggestion). If a session ends or crashes before adjudication, the message and its suggestion reappear in the next session.
 - **All-or-Nothing Batch Validation**: If any verdict or operation in a batch fails validation (such as an invalid row number, wrong screen scope, or unmet completion criteria), the entire batch is refused with a clear explanation and no state is mutated.
-- **Append-Only Auditability**: Existing entries in the decision log are never overwritten or deleted.
+- **Append-Only Decision History**: Existing entries in the decision log are never overwritten or deleted.
 
 ## Participating Features
 

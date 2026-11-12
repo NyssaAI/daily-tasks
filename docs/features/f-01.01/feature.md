@@ -33,7 +33,7 @@ Users need a safe way to gather potential action items from meeting notes, messa
 ## Out of Scope
 
 - Writing canonical project, milestone, or task files directly without user acceptance.
-- Automated background ingestion of email and chat during the three-screen planning session (owned by [F-02.01](../f-02.01/feature.md)).
+- Automated background retrieval of email and chat during the three-screen planning session (owned by [F-02.01](../f-02.01/feature.md)).
 
 ## Inputs
 
@@ -48,11 +48,11 @@ Users need a safe way to gather potential action items from meeting notes, messa
 
 ## Acceptance
 
-- Quoted requests, inferred promises, and action items extracted from notes never create or modify workspace files until the user explicitly accepts them.
+- Quoted requests, inferred promises, and action items extracted from notes never create or modify vault files until the user explicitly accepts them.
 - Candidates that closely match an existing open task or milestone flag the existing record so the user can avoid creating duplicates.
 - Users can accept, edit, or reject multiple candidates in a single batch reply, and unanswered candidates remain uncreated.
 
 ## Dependencies
 
-- [F-00.01: Workspace, Identity & Template Setup](../f-00.01/feature.md)
-- [F-00.02: Canonical Work Record Storage & Surgical Updates](../f-00.02/feature.md)
+- [F-00.01: Vault, Identity & Template Setup](../f-00.01/feature.md)
+- [F-00.02: Canonical Work Record Persistence & Non-Destructive Updates](../f-00.02/feature.md)

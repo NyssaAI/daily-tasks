@@ -1,6 +1,6 @@
 [project]
 name = "daily-tasks"
-version = "0.11.1"
+version = "0.11.2"
 description = "Daily Tasks planning session MCP server domain models"
 readme = "README.md"
 license = "LicenseRef-PolyForm-Small-Business-1.0.0"
@@ -31,7 +31,7 @@ build-backend = "hatchling.build"
 packages = ["src/daily_tasks"]
 
 [tool.pytest.ini_options]
-testpaths = ["test/unit"]
+testpaths = ["test/unit", "test/use_case"]
 pythonpath = ["src"]
 addopts = "-p no:cacheprovider"
 
@@ -39,7 +39,7 @@ addopts = "-p no:cacheprovider"
 line-length = 120
 target-version = "py312"
 src = ["src", "test/unit/daily_tasks", "test/use_case/daily_tasks"]
-include = ["src/daily_tasks/**/*.py", "test/**/*.py", "scripts/**/*.py", "adapters/**/*.py"]
+include = ["src/daily_tasks/**/*.py", "test/**/*.py", "scripts/**/*.py", "harness-adapters/**/*.py"]
 cache-dir = ".temp/ruff"
 
 [tool.ruff.lint]
