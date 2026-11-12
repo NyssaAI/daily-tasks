@@ -42,10 +42,17 @@ def launch(
     except ModuleNotFoundError as exc:
         uv_bin = which_uv("uv")
         if uv_bin is not None:
-            return exec_uv(uv_bin, [uv_bin, "run", "--directory", str(PLUGIN_ROOT), "daily-tasks-mcp", *forwarded])
+            plugin_data = os.environ.get("PLUGIN_DATA", "").strip()
+            if plugin_data and not os.environ.get("UV_PROJECT_ENVIRONMENT", "").strip():
+                os.putenv("UV_PROJECT_ENVIRONMENT", str(Path(plugin_data) / ".venv"))
+            uv_args = [uv_bin, "run", "--no-dev"]
+            if (PLUGIN_ROOT / "uv.lock").is_file():
+                uv_args.append("--frozen")
+            uv_args.extend(["--directory", str(PLUGIN_ROOT), "daily-tasks-mcp", *forwarded])
+            return exec_uv(uv_bin, uv_args)
         sys.stderr.write(
             f"daily-tasks-mcp could not start: missing Python dependency ({exc.name}) in {sys.executable} "
-            f"and 'uv' was not found on PATH. Install uv or run '{sys.executable} -m pip install -e {PLUGIN_ROOT}'.\n"
+            f"and 'uv' was not found on PATH. Install uv on PATH or pre-sync runtime dependencies for {PLUGIN_ROOT}.\n"
         )
         return 2
 

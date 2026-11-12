@@ -51,11 +51,12 @@ Reference [harness setup](../references/harness-setup.md) for per-harness MCP di
 1. **Do NOT re-register an active bundled server**:
    - Bundled `.mcp.json` / `mcp.json` / `mcp_config.json` launches `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py` (which uses installed Python packages directly or falls back to `uv run`).
    - **OpenClaw**: OpenClaw's `bundle-mcp` loader starts `.mcp.json` automatically when the extension is enabled. Use `tool_search` (`query: "daily_tasks"`) to load `daily_tasks_*` tools. **Never** run `openclaw mcp add` or `openclaw mcp set` from shell while the OpenClaw Gateway service is active (offline state lock). If `daily_tasks_*` tools are unavailable, report the exact status to the operator instead of improvising shell workarounds.
+   - **Hermes Agent**: Portable Dashboard UI installs (`https://github.com/NyssaAI/daily-tasks`) auto-connect bundled `mcp.json` (`cwd: ${PLUGIN_DATA}`). Call `tool_search` (`query: "daily_tasks"`) to load `mcp__daily_tasks__*` tools; never duplicate `daily-tasks` into host YAML MCP settings or run `hermes plugins search`.
 2. **Register on CLI harnesses when needed** ([exact syntax](../references/harness-setup.md#per-harness-mcp-server-registration)):
    - **Google Antigravity**: `agy mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py`
    - **Claude Code / Cowork**: Approve `.mcp.json` in `claude mcp list` or run `claude mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py`; in Cowork, enable local plugin MCP execution under **Customize > Plugins** if blocked.
    - **Codex**: `codex mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py`
-   - **Cursor / Grok Bot / Hermes**: Enable the bundled `mcp.json` or register `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py` per [harness setup](../references/harness-setup.md); stop cleanly if a session reload is required.
+   - **Cursor / Grok Bot**: Enable the bundled `mcp.json` or register `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py` per [harness setup](../references/harness-setup.md); stop cleanly if a session reload is required.
 
 ### Out-of-band credentials
 

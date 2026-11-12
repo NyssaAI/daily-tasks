@@ -15,13 +15,13 @@ Daily Tasks runs across multiple agent harnesses with distinct MCP discovery mec
 | **Claude Cowork** | Desktop/cloud Cowork plugin session without host CLI installers | Consumes bundled `.mcp.json` from the uploaded Cowork archive (`artifacts/cowork`); local stdio MCP requires desktop execution permission in Customize > Plugins. |
 | **Codex** | `codex` CLI, `~/.codex/config.toml`, or `.codex-plugin/plugin.json` context | Auto-discovers portable `mcp.json` from installed plugin bundles or registers via `codex mcp add`. |
 | **Cursor / Grok Bot** | `.cursor-plugin/plugin.json` or `.cursor/mcp.json` workspace context | Cursor reads installed plugin `mcp.json` or `<workspaceRoot>/.cursor/mcp.json`. Grok Bot shares `.cursor-plugin` packaging and requires verifying MCP tool availability before execution. |
-| **Hermes Agent** | `hermes` CLI, `HERMES_ENABLE_PROJECT_PLUGINS`, or `~/.hermes/` runtime | Reads `mcp.json` in `.hermes/plugins/daily-tasks/` (when project plugins are enabled) or MCP declarations in `~/.hermes/config.yaml`. |
+| **Hermes Agent** | `hermes` CLI, `HERMES_HOME`, or portable `$HERMES_HOME/plugins/daily-tasks/` bundle | Dashboard UI / GitHub installs (`NyssaAI/daily-tasks`) auto-register bundled `mcp.json` (`daily-tasks` stdio server) and isolate runtime state under `$PLUGIN_DATA`; discover `mcp__daily_tasks__*` tools via `tool_search`. Never duplicate `daily-tasks` into host YAML MCP config, never query the upstream Nous catalog via `hermes plugins search`, and never bind `$HERMES_HOME` as `workspaceRoot`. |
 
 ## Portable Python MCP launcher (`launch_mcp.py`)
 
 All bundled MCP manifests (`.mcp.json`, portable `mcp.json`, and Antigravity `mcp_config.json`) invoke `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py`:
 1. **In-process Python `>=3.12` fast path**: Prepends `<pluginRoot>/src` to `sys.path` in-process (avoiding host `PYTHONPATH` environment filters) and starts `daily_tasks.cli:cli` directly when runtime dependencies are installed in the active Python environment.
-2. **Automatic `uv` fallback**: When `python3` lacks installed package dependencies and `uv` is available on `PATH`, execs `uv run --directory <pluginRoot> daily-tasks-mcp` automatically.
+2. **Automatic `uv` fallback (`$PLUGIN_DATA` isolated)**: When `python3` lacks installed package dependencies and `uv` is available on `PATH`, execs `uv run --no-dev` (`--frozen` when `uv.lock` is present) `--directory <pluginRoot> daily-tasks-mcp`, routing `UV_PROJECT_ENVIRONMENT` to `$PLUGIN_DATA/.venv` whenever `PLUGIN_DATA` is set so `<pluginRoot>` remains clean and immutable.
 3. **Zero-arg startup + setup-gated mode**: The MCP server boots cleanly without `--workspace-root`, immediately exposing `daily_tasks_setup_status` and `daily_tasks_configure_workspace` while failing closed on session/fetch tools until Schema Version 2 setup is completed. Once `daily_tasks_configure_workspace` binds `defaultWorkspaceRoot` in `~/.nyssa-ai/daily-tasks/profile.json`, zero-arg `daily_tasks_start_session` and `daily_tasks_get_fetch_window` calls resolve that vault automatically.
 
 Always resolve `<pluginRoot>` from the physical installed plugin directory (`realpath` on the loaded skill directory's `../..` parent when skills are symlinked) and `<workspaceRoot>` from the user's authorized vault path—never from `os.getcwd()` or an agent persona directory (`SOUL.md` + `IDENTITY.md`).
@@ -59,7 +59,7 @@ codex mcp add daily-tasks -- python3 <pluginRoot>/src/daily_tasks/launch_mcp.py
 
 - **Cursor**: When bundle `mcp.json` is not already active from the Cursor plugin install, add `"daily-tasks": {"command": "python3", "args": ["<pluginRoot>/src/daily_tasks/launch_mcp.py"]}` under `mcpServers` in `<workspaceRoot>/.cursor/mcp.json`.
 - **Grok Bot**: Verify `daily_tasks_*` MCP tools are exposed in the session; if local stdio MCP is unsupported by the host environment, stop and report the exact capability requirement.
-- **Hermes Agent**: Enable `.hermes/plugins/daily-tasks/` (`HERMES_ENABLE_PROJECT_PLUGINS` and `hermes plugins enable daily-tasks`), or register `python3 <pluginRoot>/src/daily_tasks/launch_mcp.py` under `mcp_servers` in `~/.hermes/config.yaml`.
+- **Hermes Agent**: Portable installs under `$HERMES_HOME/plugins/daily-tasks/` (installed from `https://github.com/NyssaAI/daily-tasks` in the Hermes Web Dashboard UI) auto-connect bundled `mcp.json` on install/update and expose deferred tools behind `tool_search` (`query: "daily_tasks"` -> `mcp__daily_tasks__daily_tasks_setup_status`, `mcp__daily_tasks__daily_tasks_configure_workspace`, etc.). Do not duplicate `daily-tasks` into host YAML MCP declarations (which causes Hermes to skip the portable server) and do not run `hermes plugins search` (which only queries the upstream Nous catalog).
 
 ## Harness-aware connector discovery
 

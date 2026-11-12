@@ -58,7 +58,11 @@ def test_build_packages_generates_matching_host_manifests_and_clean_bundles() ->
             "daily-tasks": {
                 "type": "stdio",
                 "command": "python3",
-                "args": ["./src/daily_tasks/launch_mcp.py"],
+                "args": ["${PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py"],
+                "cwd": "${PLUGIN_DATA}",
+                "env": {
+                    "UV_PROJECT_ENVIRONMENT": "${PLUGIN_DATA}/.venv",
+                },
             }
         },
     }

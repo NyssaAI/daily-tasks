@@ -1,6 +1,6 @@
 # Daily Tasks
 
-Version **0.11.0**
+Version **0.11.1**
 
 Personal task management and daily planning through an encapsulated `daily-tasks` agent skill,
 five focused workflows, and a deterministic Python Model Context Protocol (MCP) planning server.
