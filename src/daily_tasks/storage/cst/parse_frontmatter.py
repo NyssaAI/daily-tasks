@@ -73,7 +73,7 @@ def parse_frontmatter(lines: tuple[SourceLine, ...]) -> Result[Frontmatter | Non
 
     Fails with `unclosed-frontmatter`, `non-scalar-field`, `duplicate-field` or a value code.
     """
-    if not lines or lines[0].text.lstrip("﻿") != _DELIMITER:
+    if not lines or lines[0].text.lstrip("\ufeff") != _DELIMITER:
         return ok(None)
     fields: list[FrontmatterField] = []
     for index in range(1, len(lines)):
