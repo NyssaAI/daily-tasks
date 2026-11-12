@@ -1,10 +1,11 @@
-"""Responsibility: Locate canonical spec examples and capture structured package logs for unit tests.
+"""Responsibility: Locate canonical spec examples, Markdown samples, and capture structured package logs for unit tests.
 Public interface:
++-- SAMPLES_ROOT
 +-- SPECS_ROOT
 +-- load_spec(name)
 `-- log_capture()
 
-Shared test helpers for reading `docs/specs/*.json` and capturing `daily_tasks` stdlib logs.
+Shared test helpers for reading `docs/specs/*.json`, `samples/*.md`, and capturing `daily_tasks` stdlib logs.
 """
 
 import json
@@ -19,6 +20,7 @@ from pydantic import JsonValue, TypeAdapter
 from log_capture import LogCapture as LogCapture
 
 SPECS_ROOT: Final[Path] = Path(__file__).resolve().parents[3] / "docs" / "specs"
+SAMPLES_ROOT: Final[Path] = Path(__file__).resolve().parent / "samples"
 _JSON: Final[TypeAdapter[JsonValue]] = TypeAdapter(JsonValue)
 
 

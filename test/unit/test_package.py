@@ -48,6 +48,8 @@ def test_build_packages_generates_matching_host_manifests_and_clean_bundles() ->
         assert not any(
             name.startswith(("evals/", "docs/", "test/", "scripts/", ".temp/", ".nyssa-ai/")) for name in files
         ), f"Leak in {fmt}"
+        for rel, content in files.items():
+            assert "PLUGIN_DATA" not in content, f"Retired PLUGIN_DATA leaked into {fmt}/{rel}"
 
     portable_mcp = json.loads(packages["portable"]["mcp.json"])
     assert "mcp.json" in manifests
@@ -59,10 +61,6 @@ def test_build_packages_generates_matching_host_manifests_and_clean_bundles() ->
                 "type": "stdio",
                 "command": "python3",
                 "args": ["${PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py"],
-                "cwd": "${PLUGIN_DATA}",
-                "env": {
-                    "UV_PROJECT_ENVIRONMENT": "${PLUGIN_DATA}/.venv",
-                },
             }
         },
     }
@@ -130,8 +128,11 @@ def test_validate_repository_passes_canonical_source_and_catches_broken_links(tm
     # Verify broken link and README mismatch detection on a synthetic copy
     for filename in ("plugin.json", "pyproject.toml", "README.md", ".mcp.json", "mcp.json"):
         shutil.copyfile(ROOT / filename, tmp_path / filename)
-    (tmp_path / "adapters" / "hermes").mkdir(parents=True)
-    shutil.copyfile(ROOT / "adapters" / "hermes" / "__init__.py", tmp_path / "adapters" / "hermes" / "__init__.py")
+    (tmp_path / "harness-adapters" / "hermes").mkdir(parents=True)
+    shutil.copyfile(
+        ROOT / "harness-adapters" / "hermes" / "__init__.py",
+        tmp_path / "harness-adapters" / "hermes" / "__init__.py",
+    )
     shutil.copytree(ROOT / "skills", tmp_path / "skills")
 
     assert validate_mod.validate_repository(tmp_path) == []

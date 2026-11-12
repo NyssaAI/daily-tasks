@@ -3,16 +3,16 @@
   "title": "PortConfig",
   "description": "Profile extension defining pluggable port configurations and adapter bindings for the Daily Tasks MCP server.",
   "type": "object",
-  "workspace_root": "D:/vaults/work",
+  "vault_root": "D:/vaults/work",
   "messages_root": "D:/vaults/work/inbox",
-  "credentials_root": ".nyssa-ai/daily-tasks/credentials",
+  "credentials_root": "~/.nyssa-ai/daily-tasks/credentials",
   "ports": {
     "project_plan": [
       {
         "name": "markdown-projects",
-        "adapter": "MarkdownProjectSource",
+        "adapter": "ProjectPlanRepositoryMarkdown",
         "enabled": true,
-        "path": "projects/**/*.md",
+        "path": "1-projects/**/*.md",
         "settings": {
           "exclude_patterns": ["**/inputs/**", "**/outputs/**", "**/.trash/**"],
           "cache_ttl_seconds": 14400
@@ -22,9 +22,9 @@
     "daily_plan": [
       {
         "name": "markdown-daily-plans",
-        "adapter": "MarkdownDailyPlanSource",
+        "adapter": "DailyPlanRepositoryMarkdown",
         "enabled": true,
-        "path": "daily-plans/YYYY.MM.DD-daily-plan.md",
+        "path": "2-areas/daily-plans/YYYY.MM.DD-daily-plan.md",
         "settings": {
           "active_template": "dailyPlan"
         }
@@ -33,12 +33,12 @@
     "communication": [
       {
         "name": "gmail",
-        "adapter": "GmailSource",
+        "adapter": "CommunicationClientGmail",
         "enabled": true,
         "package": "daily-tasks[gmail]",
         "read_only": true,
         "scopes": ["https://www.googleapis.com/auth/gmail.readonly"],
-        "credentials_file": ".nyssa-ai/daily-tasks/credentials/gmail-oauth.json",
+        "credentials_file": "~/.nyssa-ai/daily-tasks/credentials/gmail-oauth.json",
         "fetch_limit": 50,
         "poll_interval_seconds": 300,
         "download_attachments": true,
@@ -46,7 +46,7 @@
       },
       {
         "name": "slack",
-        "adapter": "SlackSource",
+        "adapter": "CommunicationClientSlack",
         "enabled": true,
         "package": "daily-tasks[slack]",
         "read_only": true,
@@ -58,11 +58,11 @@
       }
     ],
     "file_store": {
-      "name": "markdown-file-store",
-      "adapter": "MarkdownFileStore",
-      "records_root": "projects",
-      "daily_plans_root": "daily-plans",
-      "state_root": ".nyssa-ai/daily-tasks",
+      "name": "file-store-local",
+      "adapter": "FileStoreLocal",
+      "records_root": "1-projects",
+      "daily_plans_root": "2-areas/daily-plans",
+      "runtime_root": "~/.nyssa-ai/daily-tasks/runtime",
       "settings": {
         "enforce_optimistic_locking": true,
         "atomic_writes": true,

@@ -3,8 +3,7 @@ id: MILESTONE_UUID
 type: milestone
 record_version: 2
 title: "MILESTONE_TITLE"
-document-maturity: reviewed
-milestone-state: not-started
+state: not-started
 owner: "OWNER_EMAIL"
 project_id: "PROJECT_UUID"
 created_at: "GMT_TIMESTAMP"

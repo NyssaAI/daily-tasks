@@ -8,34 +8,34 @@
     {
       "kind": "assign-to-day",
       "row": 13,
-      "item_type": "task",
+      "record_kind": "task",
       "item_id": "019a4b2c-1f00-7a10-8000-000000000007",
       "local_date": "2026-11-05"
     },
     {
       "kind": "assign-to-day",
       "row": 14,
-      "item_type": "task",
+      "record_kind": "task",
       "item_id": "019a4b2c-1f00-7a10-8000-000000000008",
       "local_date": "2026-11-03"
     },
     {
       "kind": "assign-to-day",
       "row": 18,
-      "item_type": "blocker",
+      "record_kind": "blocker",
       "item_id": "019a4b2c-1f00-7a10-8000-000000000005",
       "local_date": "2026-11-03"
     },
     {
       "kind": "unplan",
       "row": 17,
-      "item_type": "task",
+      "record_kind": "task",
       "item_id": "019a4b2c-1f00-7a10-8000-000000000017"
     },
     {
       "kind": "set-status",
       "row": 12,
-      "record_type": "task",
+      "record_kind": "task",
       "record_id": "019a4b2c-1f00-7a10-8000-000000000004",
       "state": "completed",
       "activity_at": "2026-11-03T14:24:00Z"
@@ -43,7 +43,7 @@
     {
       "kind": "set-status",
       "label": "M2",
-      "record_type": "milestone",
+      "record_kind": "milestone",
       "record_id": "019a4b2c-1f00-7a10-8000-000000000002",
       "state": "completed",
       "activity_at": "2026-11-03T14:24:00Z"
@@ -51,7 +51,7 @@
     {
       "kind": "set-status",
       "row": 18,
-      "record_type": "blocker",
+      "record_kind": "blocker",
       "record_id": "019a4b2c-1f00-7a10-8000-000000000005",
       "state": "resolved",
       "activity_at": "2026-11-03T14:24:00Z"
@@ -59,13 +59,13 @@
     {
       "kind": "reassign",
       "row": 18,
-      "item_type": "blocker",
+      "record_kind": "blocker",
       "item_id": "019a4b2c-1f00-7a10-8000-000000000005",
       "owner": "dana@example.com"
     }
   ],
   "_rules": {
-    "assign-to-day": "Supports item_type 'task' and 'blocker'. Blockers scheduled for today appear in user's today tasks.",
+    "assign-to-day": "Supports record_kind 'task' and 'blocker'. Blockers scheduled for today appear in user's today tasks.",
     "set-status": {
       "task": ["not-started", "in-progress", "completed", "cancelled"],
       "blocker": ["open", "resolved"],

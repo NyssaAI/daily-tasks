@@ -1,6 +1,6 @@
 {
-  "_note": "Temporary store of pending suggestions, used by the app. Path: .nyssa-ai/daily-tasks/suggestions.json (one per workspace, not per day). plan_suggest writes here; screens read pending items from here. When a suggestion is acted on (accepted, edited or rejected) it is removed from this file and recorded as a decision-log entry, which carries its question, origin and message IDs. A suggestion that is never acted on exists only here: it is shown again in later sessions, and its messages stay unreviewed in the message log. No new suggestion is proposed for a message that already has a pending one. (Acted suggestions 019a4b2c-9000-7000-8000-0000000000b1, b2, and b3 were adjudicated in session 019a4b2c-9000-7000-8000-0000000000a1 and moved to decision-log.json).",
-  "workspace_root": "D:/vaults/work",
+  "_note": "Temporary store of pending suggestions, used by the app. Path: <runtime_root>/suggestions.json (one per vault, not per day). plan_suggest writes here; screens read pending items from here. When a suggestion is acted on (accepted, edited or rejected) it is removed from this file and recorded as a decision-log entry, which carries its question, origin and message IDs. A suggestion that is never acted on exists only here: it is shown again in later sessions, and its messages stay unreviewed in the message log. No new suggestion is proposed for a message that already has a pending one. (Acted suggestions 019a4b2c-9000-7000-8000-0000000000b1, b2, and b3 were adjudicated in session 019a4b2c-9000-7000-8000-0000000000a1 and moved to decision-log.json).",
+  "vault_root": "D:/vaults/work",
   "updated_at": "2026-11-03T14:20:05Z",
   "no_suggestion_message_ids": ["gmail:18f2a9c3e4b5aaaa"],
   "suggestions": [
@@ -12,7 +12,7 @@
       "source_message_ids": ["slack:C04ABC123:1730650000.000300"],
       "evidence": "started on the background fetch this morning",
       "rationale": "Alex reports work has started.",
-      "target": { "record_type": "task", "record_id": "019a4b2c-1f00-7a10-8000-000000000004", "expected_updated_at": "2026-11-01T16:00:00Z" },
+      "target": { "record_kind": "task", "record_id": "019a4b2c-1f00-7a10-8000-000000000004", "expected_updated_at": "2026-11-01T16:00:00Z" },
       "current": { "state": "not-started" },
       "proposed": { "state": "in-progress" },
       "validation": { "ok": true, "issues": [] }
@@ -25,7 +25,7 @@
       "source_message_ids": ["gmail:18f2a9c3e4b5cccc"],
       "evidence": "contract is signed",
       "rationale": "The blocker's resolution condition is met.",
-      "target": { "record_type": "blocker", "record_id": "019a4b2c-1f00-7a10-8000-000000000016", "expected_updated_at": "2026-10-29T10:00:00Z" },
+      "target": { "record_kind": "blocker", "record_id": "019a4b2c-1f00-7a10-8000-000000000016", "expected_updated_at": "2026-10-29T10:00:00Z" },
       "current": { "state": "open" },
       "proposed": { "action": "resolve" },
       "validation": { "ok": true, "issues": [] }

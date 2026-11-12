@@ -1,16 +1,16 @@
 > [!IMPORTANT] Scope Directive
-> This workflow owns creating, updating, moving, delegating, closing, reopening, and surgically repairing canonical Markdown project, milestone, task, and blocker records. It does NOT own candidate extraction (`capture.md`), daily plan selection (`plan.md`), anytime check-in orchestration (`checkin.md`), or canonical schema specifications (owned by `../references/records.md`).
+> This workflow owns creating, updating, moving, delegating, closing, reopening, and non-destructively repairing canonical Markdown project, milestone, task, and blocker records. It does NOT own candidate extraction (`capture.md`), daily plan selection (`plan.md`), anytime check-in orchestration (`checkin.md`), or canonical schema specifications (owned by `../references/records.md`).
 
 # Manage records
 
-Execute canonical record mutations and surgical Markdown repairs under the domain contracts in [records](../references/records.md), [operation protocol](../references/operations.md), and [MCP / CLI interface](../references/cli.md).
+Execute canonical record mutations and non-destructive Markdown repairs under the domain contracts in [records](../references/records.md), [operation protocol](../references/operations.md), and [MCP / CLI interface](../references/cli.md).
 
 ## 1. Pre-flight and acceptance gates
 
 1. **Enforce all four full-setup gates**:
-   - Verify live `daily_tasks_*` MCP tools in the current harness, `<workspaceRoot>/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`), resolved `user.email` and IANA `timezone`, and workspace templates baseline (`templates/updates.json`).
-   - If **any** gate is incomplete or uses legacy `.nyssaai/daily-tasks/profile.json`, **immediately halt** and complete [Setup](setup.md) before touching workspace records.
-   - Reuse verified profile settings and `<workspaceRoot>/.nyssa-ai/daily-tasks/` operating state without prompting for separate setup approval.
+   - Verify live `daily_tasks_*` MCP tools in the current harness, `~/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`, `user.email`, IANA `timezone`), and vault templates baseline (`~/.nyssa-ai/daily-tasks/templates/updates.json`).
+   - If **any** gate is incomplete, **immediately halt** and complete [Setup](setup.md) before touching vault records.
+   - Reuse verified profile settings and `<runtime_root>` operating state without creating `.nyssa-ai/` inside `vault_root`.
 2. **Verify identity and acceptance**:
    - Resolve existing projects, milestones, tasks, and blockers by their frontmatter UUIDv7 `id`.
    - Require explicit user acceptance via [Capture](capture.md) (or a direct user command naming the work to create) before creating any new project, milestone, or task.
@@ -22,7 +22,7 @@ Execute canonical record mutations and surgical Markdown repairs under the domai
    - Use the bundled blocker layout for external blockers under `blockers/b{number}-{name}.md`.
    - Keep Definition of Done (`## Definition of Done`) embedded inside each milestone or task file with `<!-- id: UUIDv7 -->` comments; **never** create standalone DoD files.
 2. **Enforce frontmatter and ownership rules**:
-   - Set `record_version: 2`, a unique UUIDv7 `id`, `type` (`project` | `milestone` | `task` | `blocker`), `title`, `created_at` (UTC ISO-8601 ending in `Z`), `updated_at` (UTC ISO-8601), and lifecycle state (`project-state`, `milestone-state`, `task-state`, or `blocker-state`).
+   - Set `record_version: 2`, a unique UUIDv7 `id`, `type` (`project` | `milestone` | `task` | `blocker`), `title`, `created_at` (UTC ISO-8601 ending in `Z`), `updated_at` (UTC ISO-8601), and canonical `state` (`not-started` | `in-progress` | `completed` | `cancelled` for project/milestone/task; `open` | `resolved` for blocker). Do not require `document-maturity` on work records.
    - Set `owner` to a human email address (defaulting to the current user); **never** alter `owner` without an explicit human instruction.
    - Set optional `assignee` when delegated (human email or agent name; omitted means `owner` performs the work).
    - Set `target_date` (`YYYY-MM-DD`) only when explicitly provided by the user.
@@ -35,7 +35,7 @@ Execute canonical record mutations and surgical Markdown repairs under the domai
 ## 3. Lifecycle transitions, moves, and closure
 
 1. **Record lifecycle transitions**:
-   - Update `task-state` / `milestone-state` / `project-state` (`not-started`, `in-progress`, `completed`, `cancelled`) or `blocker-state` (`open`, `resolved`) using UTC ISO-8601 timestamps (`started_at`, `resolved_at`, `updated_at`), preserving prior timestamps in append-only history.
+   - Update `state` (`not-started`, `in-progress`, `completed`, `cancelled` for project/milestone/task; `open`, `resolved` for blocker) using UTC ISO-8601 timestamps (`started_at`, `resolved_at`, `updated_at`), preserving prior timestamps in append-only history.
    - Keep cancelled records visible in parent and daily views with strike-through and `[-]` status markers.
 2. **Enforce closure and reopening gates**:
    - **Before marking completed**: Verify all embedded `## Definition of Done` checkboxes are `[x]`, all child tasks/milestones are terminal (`completed` or `cancelled`), and no open preventing blockers exist. Never silently check DoD items or complete children.
@@ -47,29 +47,29 @@ Execute canonical record mutations and surgical Markdown repairs under the domai
    - Update parent lineage IDs (`project_id`, `milestone_id`) and reciprocal backlinks, verify the new file on disk, and remove the old file only after verification so duplicate live IDs never coexist.
    - If an unfinished task is moved into a completed milestone or project, reopen the destination parent hierarchy.
 
-## 4. Surgical repair of malformed files
+## 4. Non-destructive repair of malformed files
 
 When a work record (`project-index.md`, milestone, task, or blocker) is reported as malformed (e.g., in `payload.malformed_files` from `daily_tasks_start_session` or `daily_tasks_get_session_state`, during check-in, or directly by the user):
 1. Read the malformed Markdown file directly at the reported path and inspect the diagnostic code (e.g., `unclosed-frontmatter`, `invalid-record`, missing `id`, non-canonical state such as `state: done`, or missing `# <title>`).
-2. Surgically repair the YAML frontmatter and required structural headings according to [records and views](../references/records.md):
+2. Repair the YAML frontmatter and required structural headings in place according to [records and views](../references/records.md):
    - Assign a new UUIDv7 `id` if the frontmatter `id` is missing.
-   - Normalize the state key and value (`task-state`, `milestone-state`, `project-state`, or `blocker-state`).
-   - Ensure required scalar keys (`id`, `type`, `title`, `owner`, state, `record_version: 2`) and the top-level `# <title>` heading are present.
+   - Normalize the state key (`state`) and canonical value (`not-started` | `in-progress` | `completed` | `cancelled` or `open` | `resolved`).
+   - Ensure required scalar keys (`id`, `type`, `title`, `owner`, `state`, `record_version: 2`) and the top-level `# <title>` heading are present.
    - Repair reciprocal project/milestone wiki-links and `<!-- ref: UUID -->` / `<!-- id: UUID -->` comments.
 3. Preserve all user prose, body notes, checkboxes, and extra lines byte-for-byte.
-4. Re-validate the repaired file and report the exact surgical fixes applied.
+4. Re-validate the repaired file and report the exact fixes applied.
 
 ## 5. Transactional persistence
 
 1. Apply standalone record edits in order per [operation protocol](../references/operations.md):
-   - Write checkpoint -> update canonical task/milestone/project records -> update `project-index.md` views -> update affected daily-plan views -> append decision log and refresh baselines.
-2. Invalidate the cached project index (`<workspaceRoot>/.temp/daily-tasks/project-index.json`) immediately after any committed batch modifies canonical records or views.
+   - Write checkpoint in `<runtime_root>/operations/` -> update canonical task/milestone/project records -> update `project-index.md` views -> update affected daily-plan views -> append `<runtime_root>/decision-log.json` and refresh baselines in `<runtime_root>/reconciliation.json`.
+2. Invalidate any cached project index (`<vault_root>/.temp/daily-tasks/project-index.json`) immediately after any committed batch modifies canonical records or views.
 3. If any step or decision-log write fails, retain the recovery checkpoint and report what changed on disk without claiming completion.
 
 ## Verification
 
 Before reporting completion of any record management or repair task:
-- [ ] Confirm all modified or created Markdown files contain valid flat scalar YAML frontmatter (`record_version: 2`, UUIDv7 `id`, `type`, `title`, `owner`, UTC timestamps, and canonical state key).
+- [ ] Confirm all modified or created Markdown files contain valid flat scalar YAML frontmatter (`record_version: 2`, UUIDv7 `id`, `type`, `title`, `owner`, UTC timestamps, and canonical `state`).
 - [ ] Confirm parent milestone and `project-index.md` views contain matching `[[relative-path|Title]] <!-- ref: UUID -->` links and no duplicate UUIDs exist.
-- [ ] Confirm surgical repairs preserved all user notes and body text intact.
-- [ ] Confirm the decision log and baseline state were updated (or staged via the active MCP session) and provide clickable file links to all changed records.
+- [ ] Confirm repairs preserved all user notes and body text intact.
+- [ ] Confirm `<runtime_root>/decision-log.json` and baseline state were updated (or staged via the active MCP session) and provide clickable file links to all changed records.

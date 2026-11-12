@@ -1,12 +1,12 @@
 # Daily Tasks
 
-Version **0.11.1**
+Version **0.11.2**
 
 Personal task management and daily planning through an encapsulated `daily-tasks` agent skill,
 five focused workflows, and a deterministic Python Model Context Protocol (MCP) planning server.
-Maintain projects, milestones, tasks and external blockers in editable Markdown; review your own
-and delegated work in a local-day plan. The skill provides capabilities to your agent, without
-becoming an autonomous assistant persona or fitting work into a timeframe.
+Maintain projects, milestones, tasks and external blockers in editable Markdown inside your vault;
+review your own and delegated work in a local-day plan. The skill provides capabilities to your agent,
+without becoming an autonomous assistant persona or fitting work into a timeframe.
 
 ## Use
 
@@ -20,71 +20,53 @@ manual checkbox edits.
 | Workflow | Path | Purpose |
 | --- | --- | --- |
 | Entry / Router | `skills/daily-tasks/SKILL.md` | Route a request to the matching workflow |
-| Setup | `skills/daily-tasks/workflows/setup.md` | Identity, timezone, priorities, storage scope and MCP connector setup |
+| Setup | `skills/daily-tasks/workflows/setup.md` | Identity, timezone, priorities, vault bindings and MCP communication setup |
 | Capture | `skills/daily-tasks/workflows/capture.md` | Candidate review and explicit acceptance |
 | Records | `skills/daily-tasks/workflows/records.md` | Accepted work, delegation, progress, DoD, blockers and malformed-file repair |
 | Plan | `skills/daily-tasks/workflows/plan.md` | Daily selections, ownership review and explicit future planning |
 | Check-in | `skills/daily-tasks/workflows/checkin.md` | Reconciliation, progress reports and resumable decisions |
 
-## Storage and authority
+## 5-Root Model & Authority
 
-- Preferences: version-2 layers at `<workspace root>/.nyssa-ai/daily-tasks/profile.json`
-  and `~/.nyssa-ai/daily-tasks/profile.json`. Project leaves override user defaults;
-  omission inherits and documented null leaves select packaged defaults. Reuse accepted
-  explicit pointers. Portable `.` and `./...` paths resolve against the explicitly
-  captured workspace binding; `~/...` resolves against the current host's home directory.
-- Operating state: `<workspace root>/.nyssa-ai/daily-tasks/`, independent of shared
-  preferences. Divergent stores require reconciliation. Reuse a verified established binding.
-- Decision log: `<workspace root>/.nyssa-ai/daily-tasks/decision-log.json`, append-only
-  logical history written by the planning session server upon explicit confirmation.
-- Daily plans: `<workspace root>/2-areas/daily-plans/YYYY.MM.DD-daily-plan.md` (or
-  `<workspace root>/daily-plans/YYYY.MM.DD-daily-plan.md`) by default.
-- Project index plus `m1-name/m1-name.md` milestones and sibling `t1-name.md` tasks.
-  Each milestone and task owns its own Definition of Done; tasks also own requirements.
-  Flat milestone `inputs/` and `outputs/` hold files linked by tasks. Navigation follows
-  `project -> milestone -> task -> files`. Project-wide blockers stay in `blockers/`.
-  All local work stays in the project, including `.temp/` scratch.
-- UUIDv7 document IDs use frontmatter `id`.
-  DoD criterion IDs and projection `ref` IDs use hidden comments. Wiki links use readable labels.
-- Store GMT, present configured local time with timezone. Human email owner; optional
-  person/agent assignee, falling back to owner. Target dates are optional and explicit.
+- **Configuration (`user_home` -> `repo_root`)**: Schema Version 2 profiles are resolved via `NyssaAI.Configuration` conventions from `~/.nyssa-ai/daily-tasks/profile.json` (`user_home`, precedence #1) and `<repo_root>/.nyssa-ai/daily-tasks/profile.json` (`repo_root`, precedence #2). Per-vault bindings live under the profile's `"vaults"` map alongside `defaultVaultRoot`. **Zero `.nyssa-ai/` files are ever read from or written inside `vault_root`.**
+- **Vault (`vault_root`)**: Holds editable Markdown work records for both PARA and non-PARA vaults. Default mappings are `<vault_root>/1-projects` (`projectsRoot`) and `<vault_root>/2-areas/daily-plans/YYYY.MM.DD-daily-plan.md` (`dailyPlansRelative`). Agent persona runtime directories (`SOUL.md` + `IDENTITY.md`) are rejected if passed as `vault_root`.
+- **Runtime state (`runtime_root`)**: Mutable operational state (`fetch-cursors.json`, `suggestions.json`, append-only `decision-log.json`, `sessions/`, `.venv/`, and runtime `.temp/`) lives strictly in `runtime_root`, resolved in order: (1) `--runtime-root` -> (2) `NYSSA_RUNTIME_ROOT` -> (3) `cwd` containing `SOUL.md` + `IDENTITY.md` -> (4) configured `runtimeRoot` or `~/.nyssa-ai/daily-tasks/runtime/`.
+- **Project structure**: Project index (`1-projects/YYYY.MM.DD-<slug>/project-index.md`) plus `m1-name/m1-name.md` milestones and sibling `t1-name.md` tasks. Each milestone and task owns its own Definition of Done; tasks also own requirements. Flat milestone `inputs/` and `outputs/` hold files linked by tasks (`project -> milestone -> task -> files`). Project-wide blockers stay in `blockers/`. Work records use `state:` frontmatter (`not-started`, `in-progress`, `completed`, `cancelled`; blockers use `open`, `resolved`) and UUIDv7 `id`. DoD criterion IDs and projection `ref` IDs use hidden comments.
+- **Time & ownership**: Store UTC (`Z`), present configured local time with IANA timezone. Human email owner; optional person/agent assignee falling back to owner. Target dates are optional and explicit.
 
 ## Runtime and packaging
 
 Python 3.12 or later (managed with `uv` via `pyproject.toml`) runs the deterministic
-MCP planning session server (`daily-tasks-mcp`). The planning server is accessed strictly
-via host MCP tool calls (`daily_tasks_*`); agents never invoke it as a CLI command.
+MCP planning session server (`daily-tasks-mcp`, structured as a Scale B SOLID Modular Monolith under `src/daily_tasks/`).
+The planning server is accessed strictly via host MCP tool calls (`daily_tasks_*`); agents never invoke it as a CLI command.
 All diagnostic logging goes to `stderr` so `stdout` remains pure for MCP JSON-RPC 2.0 frames.
 
 Daily Tasks enforces a mandatory full-setup gate: downstream workflows (`plan`, `records`, `checkin`,
 and `capture`) never run unless `daily_tasks_*` MCP tools are live in the active harness, Schema
-Version 2 `profile.json` bindings (`projectsRoot`, `dailyPlansRelative`, `user.email`, IANA `timezone`,
-and `sources`) are present, and workspace templates are initialized. When any setup gate is incomplete
-or uses a legacy `.nyssaai` v1 profile, the skill immediately halts downstream work and runs harness-aware
-setup (`skills/daily-tasks/workflows/setup.md` and `skills/daily-tasks/references/harness-setup.md`).
-Malformed files and unparseable records trigger surgical repairs (`skills/daily-tasks/workflows/records.md`).
+Version 2 `profile.json` bindings (`vaultRoot`, `projectsRoot`, `dailyPlansRelative`, `user.email`, IANA `timezone`,
+and `sources`) are present in `~/.nyssa-ai/daily-tasks/`, and vault templates are initialized. When any setup gate is incomplete,
+the skill immediately halts downstream work and runs harness-aware setup (`skills/daily-tasks/workflows/setup.md`
+and `skills/daily-tasks/references/harness-setup.md`). Malformed files trigger non-destructive repairs (`skills/daily-tasks/workflows/records.md`).
 
 ```text
 # Host registration / direct server launch:
-uv run daily-tasks-mcp --workspace-root /absolute/workspace
-uv run python -m daily_tasks.server --workspace-root /absolute/workspace
+uv run daily-tasks-mcp --vault-root /absolute/vault --runtime-root /absolute/runtime
+uv run python -m daily_tasks --vault-root /absolute/vault --runtime-root /absolute/runtime
 # Out-of-band secrets (masked prompt or loopback page; never pasted into chat):
-uv run python -m daily_tasks.auth.secret gmail
-uv run python -m daily_tasks.auth.secret vault --name bws --kind bitwarden-secrets --project-id ID
+uv run python -m daily_tasks.communications.secret gmail
+uv run python -m daily_tasks.communications.secret vault --name bws --kind bitwarden-secrets --project-id ID
 # Gmail OAuth setup:
-uv run python -m daily_tasks.auth.gmail --config-dir /absolute/home/.nyssa-ai/daily-tasks
+uv run python -m daily_tasks.communications.gmail --config-dir /absolute/home/.nyssa-ai/daily-tasks
 ```
 
 See [MCP & CLI contract](skills/daily-tasks/references/cli.md), [record conventions](skills/daily-tasks/references/records.md)
 and [reconciliation](skills/daily-tasks/references/operations.md).
 
 Install a host bundle from the [latest release](https://github.com/NyssaAI/daily-tasks/releases/latest),
-or build from source with `python scripts/assemble.py write`. Generated artifact bundles (`artifacts/`)
-and workspace tool dot-directories are not tracked in Git, while canonical root host harnesses
-(`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`) are assembled from `plugin.json`; a source
-checkout should run `python scripts/assemble.py write` before host installation. `artifacts/portable`
-contains the portable/Codex/Claude/Cursor bundle, `artifacts/cowork` contains the Cowork bundle, and
-`artifacts/antigravity` and `artifacts/hermes` provide host-specific manifests and MCP configurations.
+or stage distribution bundles from source with `python scripts/assemble.py write`. Staged distribution bundles
+(`.temp/dist/` — `portable`, `cowork`, `antigravity`, and `hermes`) are written under gitignored `.temp/`, while
+root `harness-adapter` manifests (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.mcp.json`, `mcp.json`,
+and `harness-adapters/hermes/`) are tracked in the repository.
 
 ## Verification
 
@@ -96,7 +78,5 @@ python scripts/assemble.py write
 python scripts/assemble.py check
 python scripts/validate.py
 ```
-
-Contributors with the `dev-standards` plugin installed can sync and run the local structural standards suite via `python <dev-standards-plugin>/src/python/check_adoption.py . --sync` followed by `python .nyssa-ai/dev-standards/python/scripts/check_adoption.py . --run` (`.nyssa-ai/` remains gitignored to preserve clean plugin packaging).
 
 Canonical procedures and templates live under [skills/](skills/).

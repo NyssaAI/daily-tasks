@@ -8,11 +8,11 @@ status: implemented
 
 ## Summary
 
-Route user requests to the appropriate Daily Tasks workflow skill and package ready-to-install skill bundles across supported AI assistant environments.
+Route user requests to the appropriate Daily Tasks workflow and package ready-to-install skill bundles across supported AI assistant environments.
 
 ## User Need
 
-Users want to ask naturally to set up their workspace, capture commitments, update records, plan their day, or check in across their preferred AI coding or chat client, with only the relevant workflow loaded and optional index prewarming available.
+Users want to ask naturally to set up their vault, capture commitments, update records, plan their day, or check in across their preferred AI coding or chat client, with only the relevant workflow loaded.
 
 ## Conceptual Context
 
@@ -24,10 +24,9 @@ None yet.
 
 ## Scope
 
-- Route incoming user requests through the top-level `daily-tasks` skill to the specific child workflow (`setup`, `capture`, `records`, `plan`, or `checkin`) without loading unnecessary instructions.
-- Allow each of the six skills to be invoked directly or composed when a request spans multiple workflows (such as check-in followed by record updates and daily planning).
-- Assemble and verify host-specific plugin manifests and distribution bundles from the single canonical `skills/` source.
-- Provide an optional, silent project-index prewarm command for supported hosts that refreshes stale inventory metadata without invoking an assistant model or sending chat messages.
+- Route incoming user requests through the encapsulated `daily-tasks` facade skill to the specific child workflow (`setup`, `capture`, `records`, `plan`, or `checkin`) without loading unnecessary instructions.
+- Allow workflows to compose cleanly when a request spans multiple steps (such as check-in followed by record updates and daily planning).
+- Assemble and verify host-specific `harness-adapter` manifests and staged distribution bundles (`.temp/dist/`) from the single canonical `skills/` source.
 
 ## Out of Scope
 
@@ -36,21 +35,19 @@ None yet.
 
 ## Inputs
 
-- Canonical skill instructions, references, and templates under `skills/`.
+- Canonical skill instructions, workflows, references, and templates under `skills/daily-tasks/`.
 - User natural-language requests in a supported AI assistant host.
 
 ## Outputs
 
 - Routed workflow execution in the calling assistant.
-- Generated and verified distribution bundles and manifests for supported assistant hosts.
-- Fresh disposable project inventory cache when prewarmed or requested on demand.
+- Generated and verified `harness-adapter` manifests and staged distribution bundles for supported assistant hosts.
 
 ## Acceptance
 
 - Asking to set up, capture work, update records, plan the day, or check in loads only the corresponding workflow procedure.
 - Generated host bundles match the canonical skill definitions and pass bundle integrity verification checks.
-- Disabling or omitting the optional prewarm automation affects only startup latency; every workflow still verifies inventory freshness on demand.
 
 ## Dependencies
 
-- [F-00.01: Workspace, Identity & Template Setup](../f-00.01/feature.md)
+- [F-00.01: Vault, Identity & Template Setup](../f-00.01/feature.md)

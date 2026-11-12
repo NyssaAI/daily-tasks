@@ -1,8 +1,8 @@
 {
-  "_note": "Point-in-time snapshot built in memory by collect_current_state from all configured Project-Plan-Port and Daily-Plan-Port sources. Never persisted; rebuilt each session and after each applied change. Writes are refused if the source files no longer match inventory_hash. Layers: context → records (flat, by ID) → tree (nesting by ID) → index (relations and lookups) → derived (computed facts) → diagnostics.",
+  "_note": "Point-in-time snapshot built in memory by collect_current_state from all configured ProjectPlanRepository and DailyPlanRepository sources. Never persisted; rebuilt each session and after each applied change. Writes are refused if the source files no longer match inventory_hash. Layers: context → records (flat, by ID) → tree (nesting by ID) → index (relations and lookups) → derived (computed facts) → diagnostics.",
 
   "context": {
-    "workspace_root": "D:/vaults/work",
+    "vault_root": "D:/vaults/work",
     "projects_root": "D:/vaults/work/projects",
     "daily_plans_root": "D:/vaults/work/daily-plans",
     "user": { "name": "Jordan", "email": "jordan@example.com" },
@@ -211,12 +211,12 @@
     "today": {
       "selected": {
         "mine": [
-          { "item_type": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000008" },
-          { "item_type": "blocker", "item_id": "019a4b2c-1f00-7a10-8000-000000000005" }
+          { "record_kind": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000008" },
+          { "record_kind": "blocker", "item_id": "019a4b2c-1f00-7a10-8000-000000000005" }
         ],
         "delegated": [
-          { "item_type": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000003" },
-          { "item_type": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000004" }
+          { "record_kind": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000003" },
+          { "record_kind": "task", "item_id": "019a4b2c-1f00-7a10-8000-000000000004" }
         ],
         "follow_up": []
       },

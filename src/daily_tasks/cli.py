@@ -2,13 +2,6 @@
 Public interface:
 +-- cli(argv, environ, stdin, stdout)
 `-- main
-
-`daily-tasks-mcp [--workspace-root DIR]`: serve MCP over stdio.
-
-Roots resolve against the absolute workspace root, never the working directory. Unset options reuse
-user (`~/.nyssa-ai/daily-tasks/profile.json`) and workspace (`<workspace>/.nyssa-ai/daily-tasks/profile.json`)
-profiles (`user`, `timezone`, `projectsRoot`, `dailyPlansRelative`, `sources.initialLookbackDays` or
-`initialLookbackDays`). Fetch cursors live in `<state_root>/fetch-cursors.json`.
 """
 
 import argparse
@@ -23,34 +16,18 @@ from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Final, TextIO
 
-from nyssa_ai_configuration import BootstrapOptions
-from nyssa_ai_result import Result
-
-from daily_tasks.credentials import SecretCaptureService
+from daily_tasks.hosting.compose_mcp_server import compose_mcp_server
+from daily_tasks.hosting.new_uuid7 import new_uuid7
+from daily_tasks.hosting.resolve_runtime_root import RUNTIME_ROOT_ENV_VAR, is_agent_runtime_root
+from daily_tasks.hosting.types import ServerOverrides
 from daily_tasks.logging_setup import logging_setup
-from daily_tasks.server.mcp_server import McpServer
-from daily_tasks.server.new_uuid7 import new_uuid7
-from daily_tasks.server.planning_tools_dispatcher import PlanningToolsDispatcher
-from daily_tasks.server.secret_tools import SecretTools
-from daily_tasks.server.serve_stdio import serve_stdio
-from daily_tasks.server.setup_tools import SetupTools
-from daily_tasks.server.types import ServerOverrides
+from daily_tasks.transports.mcp.serve_stdio import serve_stdio
 
 _LOGGER: Final = logging.getLogger(__name__)
-_APPLICATION_NAME: Final = "daily-tasks"
 
 
 def _utc_now() -> datetime:
     return datetime.now(UTC)
-
-
-def _secret_tools(config_dir: Path) -> SecretTools:
-    options = BootstrapOptions(application_name=_APPLICATION_NAME, configuration_directory=str(config_dir))
-
-    def open_service() -> Result[SecretCaptureService]:
-        return SecretCaptureService.create(options)
-
-    return SecretTools(open_service)
 
 
 def _version() -> str:
@@ -64,6 +41,15 @@ def _version() -> str:
             return "0.0.0"
         ver = data.get("version") if isinstance(data, dict) else None
         return ver if isinstance(ver, str) and ver else "0.0.0"
+
+
+def _require_absolute(raw: str | None, flag: str) -> tuple[bool, Path | None, str | None]:
+    if not raw:
+        return True, None, None
+    candidate = Path(raw).expanduser()
+    if not candidate.is_absolute():
+        return False, None, f"{flag} must be an absolute path."
+    return True, candidate, None
 
 
 def cli(
@@ -82,35 +68,53 @@ def cli(
         sys.stderr.write(message + "\n")
         return 2
 
-    default_workspace = None
-    if args.workspace_root:
-        candidate = Path(args.workspace_root).expanduser()
-        if not candidate.is_absolute():
-            message = "--workspace-root must be an absolute path."
-            _LOGGER.error("server not started", extra={"operation": "mcp.start", "fields": {"reason": message}})
-            sys.stderr.write(message + "\n")
-            return 2
-        default_workspace = candidate
+    ok_vault, default_vault, err_vault = _require_absolute(args.vault_root, "--vault-root")
+    if not ok_vault and err_vault is not None:
+        _LOGGER.error("server not started", extra={"operation": "mcp.start", "fields": {"reason": err_vault}})
+        sys.stderr.write(err_vault + "\n")
+        return 2
+    if default_vault is not None and is_agent_runtime_root(default_vault.resolve()):
+        reason = (
+            f"Refusing to use agent runtime root {default_vault.resolve().as_posix()} "
+            "(contains SOUL.md and IDENTITY.md) as --vault-root."
+        )
+        _LOGGER.error("server not started", extra={"operation": "mcp.start", "fields": {"reason": reason}})
+        sys.stderr.write(reason + "\n")
+        return 2
+
+    ok_rt, runtime_root, err_rt = _require_absolute(args.runtime_root, "--runtime-root")
+    if not ok_rt and err_rt is not None:
+        _LOGGER.error("server not started", extra={"operation": "mcp.start", "fields": {"reason": err_rt}})
+        sys.stderr.write(err_rt + "\n")
+        return 2
+
+    ok_repo, repo_root, err_repo = _require_absolute(args.repo_root, "--repo-root")
+    if not ok_repo and err_repo is not None:
+        _LOGGER.error("server not started", extra={"operation": "mcp.start", "fields": {"reason": err_repo}})
+        sys.stderr.write(err_repo + "\n")
+        return 2
 
     resolved_config_dir = Path(args.config_dir).expanduser().resolve()
     overrides = ServerOverrides(
-        workspace_root=default_workspace,
+        vault_root=default_vault,
+        projects_root=args.projects_root,
+        daily_plans_root=args.daily_plans_root,
+        runtime_root=runtime_root,
+        repo_root=repo_root,
         user_email=args.user_email,
         user_name=args.user_name,
         timezone=args.timezone,
-        projects_root=args.projects_root,
-        daily_plans_root=args.daily_plans_root,
         initial_lookback_days=args.initial_lookback_days,
         config_dir=resolved_config_dir,
     )
     resolved_version = _version()
-    dispatcher = PlanningToolsDispatcher(
+    server = compose_mcp_server(
         overrides=overrides,
+        version=resolved_version,
         clock=_utc_now,
         new_id=new_uuid7,
+        environ=env,
     )
-    setup_tools = SetupTools(overrides=overrides, clock=_utc_now, plugin_version=resolved_version)
-    server = McpServer(dispatcher, resolved_version, _secret_tools(resolved_config_dir), setup_tools)
     _LOGGER.info("server started", extra={"operation": "mcp.start", "fields": {"version": resolved_version}})
     return asyncio.run(serve_stdio(server, stdin or sys.stdin, stdout or sys.stdout))
 
@@ -121,10 +125,12 @@ main: Final = cli
 
 def _parser(environ: Mapping[str, str]) -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="daily-tasks-mcp", description=__doc__)
-    parser.add_argument("--workspace-root", default=environ.get("DAILY_TASKS_WORKSPACE_ROOT"))
-    parser.add_argument("--projects-root", default=None, help="absolute or workspace-relative (default: projects)")
+    parser.add_argument("--vault-root", default=environ.get("DAILY_TASKS_VAULT_ROOT"))
+    parser.add_argument("--runtime-root", default=environ.get(RUNTIME_ROOT_ENV_VAR))
+    parser.add_argument("--repo-root", default=environ.get("DAILY_TASKS_REPO_ROOT"))
+    parser.add_argument("--projects-root", default=None, help="absolute or vault-relative (default: 1-projects)")
     parser.add_argument(
-        "--daily-plans-root", default=None, help="absolute or workspace-relative (default: daily-plans)"
+        "--daily-plans-root", default=None, help="absolute or vault-relative (default: 2-areas/daily-plans)"
     )
     parser.add_argument("--user-email", default=environ.get("DAILY_TASKS_USER_EMAIL"))
     parser.add_argument("--user-name", default=environ.get("DAILY_TASKS_USER_NAME"))

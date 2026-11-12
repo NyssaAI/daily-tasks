@@ -1,8 +1,17 @@
-# Generated distribution bundles
-/artifacts/
+# Single root scratch directory (REPO-SCRATCH; includes .temp/dist/ staged bundles)
+.temp/
 
-# Dot-prefixed directories at any depth, except required host plugin manifests
-.*/
+# Mutable runtime state & self-loaded harness plugin trees (never inside repo_root)
+.nyssa-ai/*/runtime/
+.agents/
+.hermes/
+
+# Tracked documentation and CodeGraph AST snapshot
+!docs/
+!docs/code-map/
+!docs/code-map/codegraph.db
+
+# Host plugin manifests
 !/.claude-plugin/
 !/.codex-plugin/
 !/.cursor-plugin/
@@ -17,6 +26,8 @@ __pycache__/
 *$py.class
 *.egg-info/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .coverage
 .coverage.*
 htmlcov/
@@ -36,6 +47,4 @@ env/
 *.sln.ide
 *.vcxproj.user
 
-# Mandatory repository-local scratch directory (REPO-SCRATCH)
-.temp/
 .worktrees/

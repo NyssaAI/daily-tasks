@@ -3,7 +3,7 @@ id: BLOCKER_UUID
 type: blocker
 record_version: 2
 title: "BLOCKER_TITLE"
-blocker-state: open
+state: open
 owner: "OWNER_EMAIL"
 project_id: "PROJECT_UUID"
 created_at: "GMT_TIMESTAMP"

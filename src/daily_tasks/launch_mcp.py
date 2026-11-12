@@ -2,11 +2,9 @@
 Public interface:
 +-- PLUGIN_ROOT
 +-- SRC_DIR
-+-- launch(argv, which_uv, exec_uv)
++-- launch
++-- launch_mcp(argv, which_uv, exec_uv)
 `-- main()
-
-Portable stdio launcher invoked from `.mcp.json`, `mcp.json`, and `mcp_config.json` without requiring `PYTHONPATH`
-environment overrides or a globally installed `uv` binary when runtime dependencies are already available in Python.
 """
 
 from __future__ import annotations
@@ -26,7 +24,30 @@ def _default_exec(executable: str, args: Sequence[str]) -> int:
     os.execv(executable, list(args))
 
 
-def launch(
+def _extract_flag_value(args: Sequence[str], flag: str) -> str | None:
+    prefix = f"{flag}="
+    for index, token in enumerate(args):
+        if token == flag and index + 1 < len(args):
+            return args[index + 1]
+        if token.startswith(prefix):
+            return token[len(prefix) :]
+    return None
+
+
+def _bootstrap_runtime_root(forwarded: Sequence[str]) -> Path:
+    cli_rt = _extract_flag_value(forwarded, "--runtime-root")
+    if cli_rt and cli_rt.strip():
+        return Path(cli_rt.strip()).expanduser().resolve()
+    env_rt = os.environ.get("NYSSA_RUNTIME_ROOT", "").strip()
+    if env_rt:
+        return Path(env_rt).expanduser().resolve()
+    cwd = Path.cwd().resolve()
+    if (cwd / "SOUL.md").is_file() and (cwd / "IDENTITY.md").is_file():
+        return cwd
+    return (Path.home() / ".nyssa-ai" / "daily-tasks" / "runtime").resolve()
+
+
+def launch_mcp(
     argv: Sequence[str] | None = None,
     which_uv: Callable[[str], str | None] = shutil.which,
     exec_uv: Callable[[str, Sequence[str]], int] = _default_exec,
@@ -42,9 +63,9 @@ def launch(
     except ModuleNotFoundError as exc:
         uv_bin = which_uv("uv")
         if uv_bin is not None:
-            plugin_data = os.environ.get("PLUGIN_DATA", "").strip()
-            if plugin_data and not os.environ.get("UV_PROJECT_ENVIRONMENT", "").strip():
-                os.putenv("UV_PROJECT_ENVIRONMENT", str(Path(plugin_data) / ".venv"))
+            if not os.environ.get("UV_PROJECT_ENVIRONMENT", "").strip():
+                runtime_root = _bootstrap_runtime_root(forwarded)
+                os.environ["UV_PROJECT_ENVIRONMENT"] = str(runtime_root / ".venv")
             uv_args = [uv_bin, "run", "--no-dev"]
             if (PLUGIN_ROOT / "uv.lock").is_file():
                 uv_args.append("--frozen")
@@ -59,9 +80,12 @@ def launch(
     return cli(forwarded)
 
 
+launch: Final = launch_mcp
+
+
 def main() -> int:
     """Console/script entry point for `.mcp.json` and portable `mcp.json` bundles."""
-    return launch()
+    return launch_mcp()
 
 
 if __name__ == "__main__":

@@ -38,7 +38,7 @@ Users need the freedom to check boxes or edit project and daily plan files direc
 
 ## Inputs
 
-- Current workspace Markdown files (daily plans, projects, milestones, tasks, blockers) and prior reconciliation state.
+- Current vault Markdown files (daily plans, projects, milestones, tasks, blockers) and prior reconciliation state.
 - User progress reports and conflict resolution decisions during check-in.
 
 ## Outputs
@@ -54,6 +54,6 @@ Users need the freedom to check boxes or edit project and daily plan files direc
 
 ## Dependencies
 
-- [F-00.02: Canonical Work Record Storage & Surgical Updates](../f-00.02/feature.md)
+- [F-00.02: Canonical Work Record Persistence & Non-Destructive Updates](../f-00.02/feature.md)
 - [F-01.01: Candidate Work Capture & Deduplication](../f-01.01/feature.md)
 - [F-01.02: Project, Milestone, Task & Blocker Lifecycle Management](../f-01.02/feature.md)

@@ -3,8 +3,7 @@ id: TASK_UUID
 type: task
 record_version: 2
 title: "TASK_TITLE"
-document-maturity: draft
-task-state: not-started
+state: not-started
 owner: "OWNER_EMAIL"
 project_id: "PROJECT_UUID"
 milestone_id: "MILESTONE_UUID"

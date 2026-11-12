@@ -1,0 +1,26 @@
+"""Responsibility: Represent an immutable BackgroundFetch DTO.
+Public interface:
+`-- BackgroundFetch
+    +-- completed_at
+    +-- sources
+    +-- started_at
+    `-- status
+
+BackgroundFetch DTO.
+"""
+
+from pydantic.dataclasses import dataclass
+
+from daily_tasks.core.planning.background_source import BackgroundSource
+from daily_tasks.core.records.dto_config import DTO_CONFIG
+from daily_tasks.core.records.utc_timestamp import UtcTimestamp
+
+
+@dataclass(frozen=True, slots=True, kw_only=True, config=DTO_CONFIG)
+class BackgroundFetch:
+    """Background message fetch started with the session."""
+
+    status: str
+    started_at: UtcTimestamp
+    completed_at: UtcTimestamp | None
+    sources: tuple[BackgroundSource, ...]

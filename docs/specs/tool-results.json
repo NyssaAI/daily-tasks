@@ -19,7 +19,7 @@
     "progress": null,
     "payload": {
       "for_review": { "$ref": "message-graph.json#/derived/for_review" },
-      "screen": { "$ref": "1-plan-the-day-screen.md" }
+      "screen": { "$ref": "planning-session.json#/screens/s1" }
     }
   },
   {
@@ -41,7 +41,7 @@
     "message": "5 suggestions saved to suggestions.json.",
     "payload": {
       "saved_count": 5,
-      "suggestions_file": ".nyssa-ai/daily-tasks/suggestions.json"
+      "suggestions_file": "suggestions.json"
     }
   }
 ]

@@ -16,8 +16,8 @@ The Daily Tasks planning session guides the user from initial state collection a
 "Let's plan the day"
   |
   +-- Stage 0: Collect Current State & Start Background Message Analysis
-  |     +-- Read projects, milestones, tasks, blockers, and recent daily plans into an in-memory State Graph
-  |     \-- Fetch unread email/chat messages (via existing assistant connections or standalone connectors) since last cursor (or bounded to the configured initial lookback, default 7 days, on first pull), correlate with open work, and draft suggestions
+  |     +-- Read projects, milestones, tasks, blockers, and recent daily plans from vault_root into an in-memory State Graph
+  |     \-- Fetch unread email/chat messages (via existing assistant connections or standalone clients) since last cursor in runtime_root (or bounded to the configured initial lookback, default 7 days, on first pull), correlate with open work, and draft suggestions
   |
   +-- Stage 1 (Screen 1): Plan the Day & Adjudicate Suggestions
   |     +-- Show headline counts, carried-forward selections (↺), and numbered message suggestions (1..N)
@@ -32,13 +32,13 @@ The Daily Tasks planning session guides the user from initial state collection a
   |
   +-- Stage 3 (Screen 3): Confirm Today's Plan Recap
   |     +-- Restart row numbering at 1 for today's recap (My work, Delegated work, and today's Blockers)
-  |     +-- Warn if any suggestions remain unanswered (they stay pending for next session)
+  |     +-- Warn if any suggestions remain unanswered (they stay pending in runtime_root for next session)
   |     +-- Allow lightweight final adjustments (remove from today, move to tomorrow, status/assignee tweaks)
   |     \-- Handoff trigger: User replies "Confirm"
   |
   \-- Stage 4 (Confirmed): Atomic Persistence
-        +-- Verify no underlying record file changed on disk since session snapshot
-        \-- Write staged record updates, append decision log entries, prune acted suggestions, update cursors, and write YYYY.MM.DD-daily-plan.md
+        +-- Verify no underlying record file changed on disk in vault_root since session snapshot
+        \-- Write staged record updates and YYYY.MM.DD-daily-plan.md to vault_root, and append decision log entries, prune acted suggestions, and update cursors in runtime_root
 ```
 
 ## Invariants & Rules
@@ -50,9 +50,9 @@ The Daily Tasks planning session guides the user from initial state collection a
 
 ## Participating Features
 
-- [F-00.02: Canonical Work Record Storage & Surgical Updates](../features/f-00.02/feature.md) — loads the initial workspace snapshot and atomically persists staged record edits and the daily plan upon confirmation.
+- [F-00.02: Canonical Work Record Persistence & Non-Destructive Updates](../features/f-00.02/feature.md) — loads the initial vault snapshot and atomically persists staged record edits and the daily plan upon confirmation.
 - [F-00.03: Credential Privacy & Read-Only Communication Connections](../features/f-00.03/feature.md) — supplies incremental unread emails and chat messages during Stage 0 without blocking the session start.
-- [F-00.04: Existing Assistant Connection Discovery & Bounded Lookback Ingestion](../features/f-00.04/feature.md) — discovers existing assistant email and chat integrations during setup, bounds first-pull message retrieval to 7 days by default (user-configurable), and ingests messages through shared per-source checkpoints.
-- [F-02.01: Communication Correlation & Update Suggestions](../features/f-02.01/feature.md) — correlates ingested messages against the state graph to populate Screen 1's suggested updates.
+- [F-00.04: Existing Assistant Connection Discovery & Bounded Lookback Retrieval](../features/f-00.04/feature.md) — discovers existing assistant email and chat integrations during setup, bounds first-pull message retrieval to 7 days by default (user-configurable), and fetches messages through shared per-source checkpoints.
+- [F-02.01: Communication Correlation & Update Suggestions](../features/f-02.01/feature.md) — correlates fetched messages against the state graph to populate Screen 1's suggested updates.
 - [F-02.02: Three-Screen Daily Planning & Day Assignment](../features/f-02.02/feature.md) — manages the Screen 1 → Screen 2 → Screen 3 state machine, row numbering, and confirmation flow.
-- [F-03.02: Planning Session Tool Service & Syndication](../features/f-03.02/feature.md) — exposes the session stages as structured tool calls for AI assistant hosts.
+- [F-03.02: Planning Session Tool Service & Host Integration](../features/f-03.02/feature.md) — exposes the session stages as structured tool calls for AI assistant hosts.
