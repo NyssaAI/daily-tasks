@@ -282,15 +282,23 @@ def test_launch_mcp_runs_in_process_and_falls_back_to_uv_or_stderr_when_deps_mis
     monkeypatch.setattr(builtins, "__import__", fake_missing_import)
 
     exec_calls: list[tuple[str, list[str]]] = []
+    putenv_calls: list[tuple[str, str]] = []
 
     def fake_exec(exe: str, argv: Any) -> int:
         exec_calls.append((exe, list(argv)))
         return 0
 
+    monkeypatch.setenv("PLUGIN_DATA", "/tmp/fake-plugin-data")
+    monkeypatch.delenv("UV_PROJECT_ENVIRONMENT", raising=False)
+    monkeypatch.setattr("os.putenv", lambda key, val: putenv_calls.append((key, val)))
+
     assert launch_mcp.launch(["--help"], which_uv=lambda _: "/usr/bin/uv", exec_uv=fake_exec) == 0
-    assert exec_calls == [
-        ("/usr/bin/uv", ["/usr/bin/uv", "run", "--directory", str(launch_mcp.PLUGIN_ROOT), "daily-tasks-mcp", "--help"])
-    ]
+    expected_uv_args = ["/usr/bin/uv", "run", "--no-dev"]
+    if (launch_mcp.PLUGIN_ROOT / "uv.lock").is_file():
+        expected_uv_args.append("--frozen")
+    expected_uv_args.extend(["--directory", str(launch_mcp.PLUGIN_ROOT), "daily-tasks-mcp", "--help"])
+    assert exec_calls == [("/usr/bin/uv", expected_uv_args)]
+    assert putenv_calls == [("UV_PROJECT_ENVIRONMENT", str(Path("/tmp/fake-plugin-data") / ".venv"))]
 
     assert launch_mcp.launch([], which_uv=lambda _: None, exec_uv=fake_exec) == 2
     assert "missing Python dependency (pydantic)" in capsys.readouterr().err
