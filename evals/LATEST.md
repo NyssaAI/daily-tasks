@@ -1,7 +1,7 @@
 # Latest plugin evaluation
 
 Generated from [matrix.json](matrix.json), [waza/skills/daily-tasks/eval.yaml](waza/skills/daily-tasks/eval.yaml), [waza/skills/daily-tasks/behavior.yaml](waza/skills/daily-tasks/behavior.yaml), and verified `.temp/evals/evidence/` receipts by `uv run python evals/report.py generate`.
-Candidate SHA-256: `1bd0de4c77d926ba8b7a32c15a1fcdb848af9e9150bb2fa4205448d7a6322635`. Suite revision: `0.11.3`.
+Candidate SHA-256: `931456497b7c37828b08fe63e6500b7781c244ce0ec369549adf9515cdb1f251`. Suite revision: `0.11.3`.
 
 A missing or failing required row blocks release. A consistent report does not imply release readiness.
 
