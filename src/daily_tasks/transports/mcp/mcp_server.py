@@ -3,13 +3,13 @@ Public interface:
 `-- McpServer
     +-- PROTOCOL_VERSION
     +-- handle(message)
-    `-- new(tools, version, secrets, setup)
+    `-- new(tools, version, secrets, setup, on_tool_call)
 """
 
 import json
 import logging
 import time
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from typing import ClassVar, Final, final
 
 from pydantic import JsonValue
@@ -138,12 +138,14 @@ class McpServer:
         version: str,
         secrets: SecretCapturer | None = None,
         setup: SetupHandler | None = None,
+        on_tool_call: Callable[[str, str, float], None] | None = None,
     ) -> None:
         """Keep the collaborators; `version` is reported as `serverInfo.version`."""
         self._tools = tools
         self._version = version
         self._secrets = secrets
         self._setup = setup
+        self._on_tool_call = on_tool_call
         self._definitions = (
             *TOOL_DEFINITIONS,
             *(SECRET_TOOL_DEFINITIONS if secrets is not None else ()),
@@ -168,17 +170,22 @@ class McpServer:
         request_id: JsonValue = request["id"]
         params = request.get("params") or {}
         response = await self._dispatch(request_id, str(method), params if isinstance(params, dict) else {})
+        elapsed_ms = round((time.monotonic() - started) * 1000, 3)
         fields: dict[str, object] = {
             "request_id": str(request_id),
             "method": str(method),
             "outcome": "error" if "error" in response else "ok",
-            "elapsed_ms": round((time.monotonic() - started) * 1000, 3),
+            "elapsed_ms": elapsed_ms,
         }
         result = response.get("result")
         body = result.get("structuredContent") if isinstance(result, dict) else None
-        fields["tool"] = str(params.get("name", "")) if isinstance(params, dict) else ""
+        tool_name = str(params.get("name", "")) if isinstance(params, dict) else ""
+        fields["tool"] = tool_name
         fields["session_id"] = str(body.get("session_id")) if isinstance(body, dict) else ""
-        fields["status"] = str(body.get("status")) if isinstance(body, dict) else fields["outcome"]
+        status_str = str(body.get("status")) if isinstance(body, dict) else str(fields["outcome"])
+        fields["status"] = status_str
+        if self._on_tool_call is not None and str(method) == "tools/call" and tool_name:
+            self._on_tool_call(tool_name, status_str, elapsed_ms)
         summary = (
             f"mcp request {fields['request_id']} {fields['method']} {fields['tool']} -> {fields['status']} "
             f"(session {fields['session_id']}, {fields['elapsed_ms']} ms)"

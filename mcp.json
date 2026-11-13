@@ -3,8 +3,11 @@
   "mcpServers": {
     "daily-tasks": {
       "type": "stdio",
-      "command": "python3",
+      "command": "uv",
       "args": [
+        "run",
+        "--no-project",
+        "python",
         "${PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py"
       ]
     }

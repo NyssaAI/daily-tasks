@@ -292,7 +292,7 @@ def test_full_planning_session_dispatcher_recovers_after_unconfirmed_attempt(tmp
     _vault(vault_root)
     config_dir = tmp_path / "config"
     config_dir.mkdir()
-    (config_dir / "profile.json").write_text(
+    (config_dir / "config.json").write_text(
         json.dumps(
             {
                 "schema_version": 2,

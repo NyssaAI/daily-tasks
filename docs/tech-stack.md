@@ -33,11 +33,11 @@ Daily Tasks is a Python Hybrid Plugin (encapsulated agent skill facade + MCP ser
   - Blockers: `1-projects/YYYY.MM.DD-<slug>/blockers/bN-<slug>.md`
   - Daily Plans: `2-areas/daily-plans/YYYY.MM.DD-daily-plan.md`
 - **Configuration (`user_home` -> `repo_root`)**:
-  - User profile & OAuth/vault credentials: `~/.nyssa-ai/daily-tasks/` (`profile.json` with per-vault `"vaults"` map)
-  - Optional repo profile: `<repo_root>/.nyssa-ai/daily-tasks/profile.json`
+  - User configuration & OAuth/vault credentials: `~/.nyssa-ai/daily-tasks/` (`config.json` with per-vault `"vaults"` map and optional `"telemetry": {"enabled": false}`, plus read-only legacy fallback to `profile.json`)
+  - Optional repo configuration: `<repo_root>/.nyssa-ai/daily-tasks/config.json`
 - **Mutable Operational State (`runtime_root`)**:
-  - Resolved via `--runtime-root` -> `NYSSA_RUNTIME_ROOT` -> `cwd` (`SOUL.md` + `IDENTITY.md`) -> configured `runtimeRoot` / `~/.nyssa-ai/daily-tasks/runtime/`
-  - Holds `fetch-cursors.json`, `suggestions.json`, `decision-log.json`, `sessions/YYYY.MM.DD.json`, `.venv/`, and `.temp/`
+  - Resolved via `--runtime-root` -> `NYSSA_RUNTIME_ROOT` -> `<cwd>/.nyssa-ai/daily-tasks/runtime/` (`SOUL.md` + `IDENTITY.md`) -> configured `runtimeRoot` / `<repo_root>/.nyssa-ai/daily-tasks/runtime/` / `~/.nyssa-ai/daily-tasks/runtime/`
+  - Holds `fetch-cursors.json`, `suggestions.json`, `decision-log.json`, `sessions/YYYY.MM.DD.json`, opt-in `usage/events.jsonl` (only when `telemetry.enabled: true`), `.venv/`, and `.temp/`
 
 ## Tooling
 

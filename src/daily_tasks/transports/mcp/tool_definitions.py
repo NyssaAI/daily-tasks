@@ -168,7 +168,7 @@ SECRET_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
 SETUP_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
     {
         "name": SETUP_STATUS_TOOL,
-        "description": "Inspect Daily Tasks setup gates read-only: user/repo Schema Version 2 profile.json, "
+        "description": "Inspect Daily Tasks setup gates read-only: user/repo Schema Version 2 config.json, "
         "vault layout, existing formatting templates, and communication source configuration. "
         "Call before Setup or when any gate fails. Writes nothing.",
         "inputSchema": {
@@ -181,7 +181,7 @@ SETUP_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
     },
     {
         "name": CONFIGURE_VAULT_TOOL,
-        "description": "Deterministically write Schema Version 2 user/repo profile.json, seed missing "
+        "description": "Deterministically write Schema Version 2 user/repo config.json, seed missing "
         "vault formatting templates without overwriting existing customized templates, and record "
         "templates/updates.json baselines after the user explicitly confirms settings. Refused without confirmed=true.",
         "inputSchema": {
@@ -251,7 +251,7 @@ SETUP_TOOL_DEFINITIONS: Final[tuple[dict[str, JsonValue], ...]] = (
                 },
                 "set_default_vault": {
                     "type": "boolean",
-                    "description": "Bind vault_root as defaultVaultRoot in user profile.json (default: true)",
+                    "description": "Bind vault_root as defaultVaultRoot in user config.json (default: true)",
                 },
             },
             "required": ["confirmed"],

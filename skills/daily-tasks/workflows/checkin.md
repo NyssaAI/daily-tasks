@@ -8,7 +8,7 @@ Reconcile manual Markdown edits, reported progress, and pending operations befor
 ## 1. Pre-flight and resumable state
 
 1. **Enforce all four full-setup gates**:
-   - Verify live `daily_tasks_*` MCP tools in the current harness, Schema Version 2 `~/.nyssa-ai/daily-tasks/profile.json` (`projectsRoot`, `dailyPlansRelative`, `sources`, `user.email`, IANA `timezone`), and vault templates baseline (`~/.nyssa-ai/daily-tasks/templates/updates.json`).
+   - Verify live `daily_tasks_*` MCP tools in the current harness, Schema Version 2 `~/.nyssa-ai/daily-tasks/config.json` (`projectsRoot`, `dailyPlansRelative`, `sources`, `user.email`, IANA `timezone`), and vault templates baseline (`~/.nyssa-ai/daily-tasks/templates/updates.json`).
    - If **any** gate fails, **immediately halt** check-in and complete [Setup](setup.md) first; never improvise a prose check-in by manually scraping vault files.
    - Bind one `vault_root`, `projectsRoot`, `dailyPlansRoot`, and `runtime_root` throughout recovery and follow-up turns; never mix inventories or numbered replies across vaults.
 2. **Track resumable check-in progress**:

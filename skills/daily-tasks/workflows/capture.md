@@ -1,5 +1,5 @@
 > [!IMPORTANT] Scope Directive
-> This workflow owns extracting candidate commitments from authorized sources, deduplicating against existing vault records, and obtaining explicit individual or batch user acceptance before record creation. It does NOT own vault/profile setup (`setup.md`), canonical Markdown record creation or repair (`records.md`), or daily plan task selection (`plan.md`).
+> This workflow owns extracting candidate commitments from authorized sources, deduplicating against existing vault records, and obtaining explicit individual or batch user acceptance before record creation. It does NOT own vault/profile setup (`setup.md`), canonical Markdown record creation or repair (`records.md`), daily plan task selection (`plan.md`), or non-actionable PARA reference/knowledge note filing (route to `para-vault` in `agent-skills`).
 
 # Capture and accept
 
@@ -8,7 +8,7 @@ Extract candidate tasks, milestones, and projects from user notes or configured 
 ## 1. Scope and source scan gates
 
 1. **Enforce all four full-setup gates**:
-   - Verify live `daily_tasks_*` MCP tools in the current harness, `~/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`, `user.email`, IANA `timezone`), and vault templates baseline (`~/.nyssa-ai/daily-tasks/templates/updates.json`).
+   - Verify live `daily_tasks_*` MCP tools in the current harness, `~/.nyssa-ai/daily-tasks/config.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`, `user.email`, IANA `timezone`), and vault templates baseline (`~/.nyssa-ai/daily-tasks/templates/updates.json`).
    - If **any** gate is incomplete, **immediately halt** capture and complete [Setup](setup.md) first.
    - Read only user-supplied inputs and explicitly authorized `sources` (`directories`, `mcps`, `harnessConnections`).
 2. **Check the daily auto-scan gate** *(when `sources.autoScan: true` or on explicit `"scan my sources"` / `"check inbox"` commands)*:
@@ -21,7 +21,7 @@ Extract candidate tasks, milestones, and projects from user notes or configured 
 ## 2. Candidate extraction and deduplication
 
 1. **Classify and deduplicate**:
-   - Distinguish actionable requests, commitments, ideas, and status updates on existing work.
+   - Distinguish actionable requests, commitments, ideas, and status updates on existing work; non-actionable reference/knowledge notes and source-record filing belong to `para-vault` (`agent-skills`) rather than candidate tasks.
    - Match extracted items against existing record UUIDs and source references in `projectsRoot` before proposing a new candidate.
    - Treat repeated mentions of an existing task as context or a status update on that record, never as a duplicate task.
    - Keep `in-progress` tasks in ongoing selections rather than the candidate acceptance queue.

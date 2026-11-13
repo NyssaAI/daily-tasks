@@ -96,7 +96,7 @@ class TemplateSynchronizer:
     def __init__(
         self,
         clock: Callable[[], datetime],
-        plugin_version: str = "0.11.2",
+        plugin_version: str = "0.11.3",
         assets_dir: Path | None = None,
     ) -> None:
         """Store UTC clock, plugin version, and bundled template assets directory."""

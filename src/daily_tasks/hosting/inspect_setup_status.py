@@ -57,7 +57,7 @@ def _sources_valid(sources_map: JsonValue) -> bool:
 
 
 def build_sources_config(existing_sources: JsonValue, spec: VaultSetupSpec) -> Result[dict[str, JsonValue]]:
-    """Validate and merge source settings for `profile.json`."""
+    """Validate and merge source settings for `config.json`."""
     base: dict[str, JsonValue] = dict(existing_sources) if isinstance(existing_sources, dict) else {}
     base["initialLookbackDays"] = spec.initial_lookback_days
     if spec.harness_connections is not None:
@@ -125,7 +125,7 @@ def inspect_setup_status(
     vault_root: str | None,
     status_tool: str,
 ) -> Result[dict[str, JsonValue]]:
-    """Inspect `user_home` / `repo_root` Schema Version 2 profiles, templates, and all four setup gates."""
+    """Inspect `user_home` / `repo_root` Schema Version 2 `config.json`, templates, and all four setup gates."""
     user_raw = store.read_raw(store.user_profile_path)
     if not user_raw.ok:
         return fail(user_raw.message, user_raw.category)
@@ -148,6 +148,7 @@ def inspect_setup_status(
                 "payload": {
                     "setup_complete": False,
                     "vault_bound": False,
+                    "user_config_path": store.user_config_path.as_posix(),
                     "user_profile_path": store.user_profile_path.as_posix(),
                     "user_profile_v2_present": bool(user_v2),
                     "host_timezone": host_tz,
@@ -166,7 +167,11 @@ def inspect_setup_status(
     layered = layered_res.value if layered_res.ok else {}
     settings_check = resolve_server_settings(
         resolved_vault,
-        ServerOverrides(config_dir=store.user_dir, repo_root=overrides.repo_root),
+        ServerOverrides(
+            config_dir=store.user_dir,
+            repo_root=overrides.repo_root,
+            runtime_root=overrides.runtime_root,
+        ),
     )
     tpl_check = templates.validate_baseline(
         resolved_vault, store.home_root, store.templates_updates_path, layered.get("templates")
@@ -201,6 +206,7 @@ def inspect_setup_status(
             "sources_configured": sources_valid,
         },
         "missing_gates": list(missing_gates),
+        "user_config_path": store.user_config_path.as_posix(),
         "user_profile_path": store.user_profile_path.as_posix(),
         "host_timezone": host_tz,
         "host_timezone_needs_user_confirmation": host_tz_ambiguous,

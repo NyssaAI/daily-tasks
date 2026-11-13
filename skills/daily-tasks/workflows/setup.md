@@ -5,9 +5,9 @@
 
 Run this workflow on first use, whenever **any** mandatory setup gate is incomplete, or when the user explicitly requests a configuration change. **Let the deterministic MCP setup tools do the file work**:
 1. Discover/activate `daily_tasks_*` MCP tools in the harness (`tool_search` / `catalog.search("daily_tasks")`).
-2. Call `daily_tasks_setup_status(vault_root="<authorizedVaultPath>")` to inspect Schema Version 2 `profile.json` in `user_home` (`~/.nyssa-ai/daily-tasks/`), vault layout, and existing formatting templates in one read-only call.
+2. Call `daily_tasks_setup_status(vault_root="<authorizedVaultPath>")` to inspect Schema Version 2 `config.json` in `user_home` (`~/.nyssa-ai/daily-tasks/`), vault layout, and existing formatting templates in one read-only call.
 3. Present discovered settings + the Email/Chat connector inventory table to the user and obtain **explicit confirmation** (never guess `"UTC"` or silently assume connector choices).
-4. Call `daily_tasks_configure_vault(confirmed=true, ...)` to atomically write Schema Version 2 `profile.json` in `~/.nyssa-ai/daily-tasks/`, seed missing templates in `<vault_root>` without overwriting customized ones, and record `~/.nyssa-ai/daily-tasks/templates/updates.json` (never writing `.nyssa-ai/` inside `vault_root`). **Never** hand-write `profile.json` or templates when `daily_tasks_configure_vault` is callable.
+4. Call `daily_tasks_configure_vault(confirmed=true, ...)` to atomically write Schema Version 2 `config.json` in `~/.nyssa-ai/daily-tasks/`, seed missing templates in `<vault_root>` without overwriting customized ones, and record `~/.nyssa-ai/daily-tasks/templates/updates.json` (never writing `.nyssa-ai/` inside `vault_root`). **Never** hand-write `config.json` or templates when `daily_tasks_configure_vault` is callable.
 
 Reference [harness setup](../references/harness-setup.md) for per-harness MCP discovery/registration, [MCP / CLI interface](../references/cli.md) for tool parameters, and [record conventions](../references/records.md) for output root rules.
 
@@ -24,7 +24,7 @@ Reference [harness setup](../references/harness-setup.md) for per-harness MCP di
 4. **Inspect existing state via `daily_tasks_setup_status`**:
    - Call `daily_tasks_setup_status(vault_root="<vault_root>")` (or with no arguments for personal-only setup).
    - If `daily_tasks_setup_status` reports malformed JSON in any inspected file, stop and report the exact parse error and path without overwriting the file.
-   - Select `"personal"` scope only when the user explicitly requests a personal-only setting with no vault; otherwise use `"vault"` scope (which also binds `defaultVaultRoot` in `~/.nyssa-ai/daily-tasks/profile.json` for zero-arg tool calls).
+   - Select `"personal"` scope only when the user explicitly requests a personal-only setting with no vault; otherwise use `"vault"` scope (which also binds `defaultVaultRoot` in `~/.nyssa-ai/daily-tasks/config.json` for zero-arg tool calls).
 
 ## 2. Harness-aware communication sources, identity, and confirmation
 
@@ -72,5 +72,5 @@ Before reporting setup completion or continuing to a downstream workflow:
 - [ ] Confirm the active harness was identified, `daily_tasks_setup_status` was inspected, and no agent runtime root (`SOUL.md` + `IDENTITY.md`) was bound as `vault_root`.
 - [ ] Confirm the discovered Email/Chat connection inventory was presented to the user and explicit confirmation was obtained before calling `daily_tasks_configure_vault(confirmed=true, ...)`.
 - [ ] Confirm personal-only setup (`scope="personal"`) created no vault bindings, vault templates, or project files.
-- [ ] Confirm vault setup (`scope="vault"`) persisted Schema Version 2 `profile.json` in `user_home` with an explicit IANA `timezone`, created zero `.nyssa-ai/` directories inside `vault_root`, preserved any existing customized templates, recorded `templates/updates.json` in `user_home`, and passed `daily_tasks_setup_status` (`setup_complete: true`).
-- [ ] Report the saved profile path, resolved IANA timezone, active harness MCP status, and template links to the user, then continue the original request only if all four setup gates are live.
+- [ ] Confirm vault setup (`scope="vault"`) persisted Schema Version 2 `config.json` in `user_home` with an explicit IANA `timezone`, created zero `.nyssa-ai/` directories inside `vault_root`, preserved any existing customized templates, recorded `templates/updates.json` in `user_home`, and passed `daily_tasks_setup_status` (`setup_complete: true`).
+- [ ] Report the saved `config.json` path, resolved IANA timezone, active harness MCP status, and template links to the user, then continue the original request only if all four setup gates are live.

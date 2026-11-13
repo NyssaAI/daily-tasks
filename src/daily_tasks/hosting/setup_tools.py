@@ -67,7 +67,7 @@ class SetupTools:
         self,
         overrides: ServerOverrides,
         clock: Callable[[], datetime],
-        plugin_version: str = "0.11.2",
+        plugin_version: str = "0.11.3",
         assets_dir: Path | None = None,
     ) -> None:
         """Store server overrides, UTC clock, and template synchronizer."""
@@ -198,10 +198,11 @@ class SetupTools:
             return {
                 "tool": self.CONFIGURE_TOOL,
                 "status": "ok",
-                "message": f"Saved personal Schema Version 2 profile at {store.user_profile_path.as_posix()}.",
+                "message": f"Saved personal Schema Version 2 config at {store.user_config_path.as_posix()}.",
                 "payload": {
                     "scope": "personal",
-                    "user_profile_path": store.user_profile_path.as_posix(),
+                    "user_config_path": store.user_config_path.as_posix(),
+                    "user_profile_path": store.user_config_path.as_posix(),
                     "timezone": resolved_tz,
                 },
             }
@@ -283,6 +284,8 @@ class SetupTools:
             ServerOverrides(
                 projects_root=eff_projects,
                 daily_plans_root=eff_plans,
+                runtime_root=self._overrides.runtime_root,
+                repo_root=self._overrides.repo_root,
                 user_email=resolved_email,
                 user_name=resolved_name,
                 timezone=resolved_tz,
@@ -309,7 +312,8 @@ class SetupTools:
                 "scope": "vault",
                 "setup_complete": True,
                 "vault_root": vault_posix,
-                "user_profile_path": store.user_profile_path.as_posix(),
+                "user_config_path": store.user_config_path.as_posix(),
+                "user_profile_path": store.user_config_path.as_posix(),
                 "templates_updates_path": updates_path.as_posix(),
                 "timezone": resolved_tz,
                 "projects_root": check.value.projects_root.as_posix(),

@@ -54,7 +54,7 @@ def _dispatcher(
     runtime_root = tmp_path / "runtime"
     config_dir.mkdir(exist_ok=True)
     runtime_root.mkdir(exist_ok=True)
-    (config_dir / "profile.json").write_text(
+    (config_dir / "config.json").write_text(
         json.dumps(
             {
                 "schema_version": 2,
