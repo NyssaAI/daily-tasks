@@ -99,8 +99,8 @@ The planning session operates as a deterministic tool service with explicit sepa
 ### Session Lifecycle & 5-Root Persistence Rules
 
 - **Canonical Vault State (`vault_root`)**: Markdown records in `1-projects/` and `2-areas/daily-plans/`. Zero `.nyssa-ai/` files or runtime state live inside `vault_root`.
-- **Configuration (`user_home` -> `repo_root`)**: User and vault bindings live in `~/.nyssa-ai/daily-tasks/profile.json` (and optional `<repo_root>/.nyssa-ai/daily-tasks/profile.json`).
-- **Mutable Operational State (`runtime_root`)**: Session snapshots (`sessions/`), per-source fetch cursors (`fetch-cursors.json`), pending suggestions (`suggestions.json`), and append-only `decision-log.json` live strictly in `runtime_root`.
+- **Configuration (`user_home` -> `repo_root`)**: User and vault bindings live in `~/.nyssa-ai/daily-tasks/config.json` (and optional `<repo_root>/.nyssa-ai/daily-tasks/config.json`, with read-only legacy fallback to `profile.json`).
+- **Mutable Operational State (`runtime_root`)**: Session snapshots (`sessions/`), per-source fetch cursors (`fetch-cursors.json`), pending suggestions (`suggestions.json`), append-only `decision-log.json`, and opt-in usage telemetry (`usage/events.jsonl`, disabled by default) live strictly in `runtime_root`.
 - **Context Budget**: Messages passed to the assistant are trimmed (sender, subject, short snippet, linked task IDs, signal flags).
 - **Stage-Gated Tools**: Calls made out of sequence return a structured `refused` response naming the expected next tool.
 

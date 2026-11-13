@@ -1,8 +1,11 @@
 """Responsibility: Verify SetupTools zero-.nyssa-ai vault writes, defaultVaultRoot fallback, and launch_mcp.
 Public interface:
++-- test_bootstrap_runtime_root_routes_agent_persona_cwd_and_repo_root_to_runtime_subdir(tmp_path, monkeypatch)
++-- test_configure_vault_migrates_legacy_profile_json_to_config_json_and_preserves_telemetry(tmp_path)
 +-- test_configure_vault_personal_scope_creates_no_vault_files(tmp_path)
 +-- test_configure_vault_preserves_custom_templates_seeds_missing_ones_and_writes_zero_nyssa_ai_in_vault(tmp_path)
 +-- test_configure_vault_rejects_unconfirmed_invalid_tz_or_agent_runtime_root(tmp_path)
++-- test_default_exec_uses_subprocess_run_on_windows_and_os_execv_on_posix(monkeypatch)
 +-- test_dispatcher_resolves_default_vault_root_from_user_profile_for_zero_arg_mcp(tmp_path)
 +-- test_launch_mcp_runs_in_process_and_falls_back_to_uv_using_runtime_root_venv(monkeypatch, capsys)
 +-- test_mcp_server_exposes_and_dispatches_setup_tools_via_cli(tmp_path)
@@ -17,6 +20,7 @@ import builtins
 import io
 import json
 import os
+import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -106,9 +110,10 @@ def test_configure_vault_preserves_custom_templates_seeds_missing_ones_and_write
     assert templates["dailyPlan"] == "./3-resources/templates/daily-tasks-daily-plan.md"
     assert templates["projectIndex"] == "./3-resources/templates/project-index.md"
     assert (tpl_dir / "project-index.md").is_file()
-    # updates.json and profile.json live strictly in config_dir, NEVER inside vault_root!
+    # updates.json and config.json live strictly in config_dir, NEVER inside vault_root!
     assert (config_dir / "templates" / "updates.json").is_file()
-    assert (config_dir / "profile.json").is_file()
+    assert (config_dir / "config.json").is_file()
+    assert not (config_dir / "profile.json").exists()
     assert not (vault / ".nyssa-ai").exists()
 
 
@@ -129,6 +134,7 @@ def test_configure_vault_rejects_unconfirmed_invalid_tz_or_agent_runtime_root(tm
     )
     assert unconfirmed["status"] == "error"
     assert unconfirmed["code"] == "Forbidden"
+    assert not (config_dir / "config.json").exists()
     assert not (config_dir / "profile.json").exists()
 
     system_tz = tools.configure_vault(
@@ -182,8 +188,49 @@ def test_configure_vault_personal_scope_creates_no_vault_files(tmp_path: Path) -
     )
 
     assert res["status"] == "ok"
-    assert (config_dir / "profile.json").is_file()
+    assert (config_dir / "config.json").is_file()
+    assert not (config_dir / "profile.json").exists()
     assert not untouched.exists()
+
+
+def test_configure_vault_migrates_legacy_profile_json_to_config_json_and_preserves_telemetry(tmp_path: Path) -> None:
+    config_dir = tmp_path / "config"
+    config_dir.mkdir(parents=True)
+    legacy_payload = {
+        "schema_version": 2,
+        "user": {"name": "Old Alex", "email": "old@example.com"},
+        "timezone": "UTC",
+        "telemetry": {"enabled": True},
+    }
+    legacy_path = config_dir / "profile.json"
+    legacy_path.write_text(json.dumps(legacy_payload), encoding="utf-8")
+    legacy_before = legacy_path.read_text(encoding="utf-8")
+
+    tools = SetupTools(ServerOverrides(config_dir=config_dir), lambda: _NOW)
+    status_res = tools.setup_status()
+    assert status_res["status"] == "ok"
+    status_payload = status_res["payload"]
+    assert isinstance(status_payload, dict)
+    assert status_payload["user_config_path"] == (config_dir / "config.json").resolve().as_posix()
+    assert status_payload["user_profile_path"] == legacy_path.resolve().as_posix()
+
+    cfg_res = tools.configure_vault(
+        VaultSetupSpec(
+            confirmed=True,
+            scope="personal",
+            user_name="Alex",
+            user_email="alex@example.com",
+            timezone="America/Chicago",
+            priorities=["Ship Dimension 4"],
+        )
+    )
+    assert cfg_res["status"] == "ok"
+    config_path = config_dir / "config.json"
+    assert config_path.is_file()
+    assert legacy_path.read_text(encoding="utf-8") == legacy_before
+    saved = json.loads(config_path.read_text(encoding="utf-8"))
+    assert saved["telemetry"] == {"enabled": True}
+    assert saved["user"] == {"name": "Alex", "email": "alex@example.com"}
 
 
 def test_dispatcher_resolves_default_vault_root_from_user_profile_for_zero_arg_mcp(tmp_path: Path) -> None:
@@ -312,3 +359,67 @@ def test_launch_mcp_runs_in_process_and_falls_back_to_uv_using_runtime_root_venv
 
     assert launch_mcp_mod.launch_mcp([], which_uv=lambda _: None, exec_uv=fake_exec) == 2
     assert "missing Python dependency (pydantic)" in capsys.readouterr().err
+
+
+def test_bootstrap_runtime_root_routes_agent_persona_cwd_and_repo_root_to_runtime_subdir(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    persona_cwd = tmp_path / "agent-work" / "hermes" / "nyssa"
+    persona_cwd.mkdir(parents=True)
+    (persona_cwd / "SOUL.md").write_text("# Soul\n", encoding="utf-8")
+    (persona_cwd / "IDENTITY.md").write_text("# Identity\n", encoding="utf-8")
+
+    monkeypatch.delenv("NYSSA_RUNTIME_ROOT", raising=False)
+    monkeypatch.chdir(persona_cwd)
+    expected_persona_rt = (persona_cwd / ".nyssa-ai" / "daily-tasks" / "runtime").resolve()
+    assert launch_mcp_mod._bootstrap_runtime_root([]) == expected_persona_rt
+
+    normal_cwd = tmp_path / "normal-cwd"
+    normal_cwd.mkdir()
+    monkeypatch.chdir(normal_cwd)
+    repo_root = tmp_path / "repo"
+    (repo_root / ".nyssa-ai" / "daily-tasks").mkdir(parents=True)
+    assert launch_mcp_mod._bootstrap_runtime_root(["--repo-root", str(repo_root)]) == (
+        repo_root / ".nyssa-ai" / "daily-tasks" / "runtime"
+    ).resolve()
+
+
+def test_default_exec_uses_subprocess_run_on_windows_and_os_execv_on_posix(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    run_calls: list[tuple[list[str], bool]] = []
+
+    def fake_subprocess_run(cmd: list[str], *, check: bool = False) -> subprocess.CompletedProcess[bytes]:
+        run_calls.append((list(cmd), check))
+        return subprocess.CompletedProcess(args=cmd, returncode=5)
+
+    def forbidden_execv(exe: str, argv: list[str]) -> None:
+        raise AssertionError(f"os.execv must not be called on win32 ({exe}, {argv})")
+
+    monkeypatch.setattr(launch_mcp_mod.sys, "platform", "win32")
+    monkeypatch.setattr(launch_mcp_mod.subprocess, "run", fake_subprocess_run)
+    monkeypatch.setattr(launch_mcp_mod.os, "execv", forbidden_execv)
+
+    win_code = launch_mcp_mod._default_exec(
+        "C:/bin/uv.exe",
+        ["C:/bin/uv.exe", "run", "--no-dev", "daily-tasks-mcp", "--help"],
+    )
+    assert win_code == 5
+    assert run_calls == [(["C:/bin/uv.exe", "run", "--no-dev", "daily-tasks-mcp", "--help"], False)]
+
+    execv_calls: list[tuple[str, list[str]]] = []
+
+    class _ExecInterceptedError(RuntimeError):
+        pass
+
+    def fake_posix_execv(exe: str, argv: list[str]) -> None:
+        execv_calls.append((exe, list(argv)))
+        raise _ExecInterceptedError
+
+    monkeypatch.setattr(launch_mcp_mod.sys, "platform", "linux")
+    monkeypatch.setattr(launch_mcp_mod.os, "execv", fake_posix_execv)
+
+    with pytest.raises(_ExecInterceptedError):
+        launch_mcp_mod._default_exec("/usr/bin/uv", ["/usr/bin/uv", "run", "--no-dev", "daily-tasks-mcp"])
+    assert execv_calls == [("/usr/bin/uv", ["/usr/bin/uv", "run", "--no-dev", "daily-tasks-mcp"])]

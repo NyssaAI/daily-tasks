@@ -1,0 +1,95 @@
+{
+  "schema": 1,
+  "version": "0.11.3",
+  "suite_revision": "0.11.3",
+  "rows": [
+    {
+      "suite": "daily-tasks",
+      "harness": "Codex",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": true,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Codex session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Claude Code",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": true,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Claude Code session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Claude Cowork",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": true,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Claude Cowork session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Antigravity CLI",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": true,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Antigravity CLI session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Antigravity 2.0",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": true,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Antigravity 2.0 session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Antigravity IDE",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": true,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Antigravity IDE session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Hermes Agent",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": true,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Hermes Agent session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "OpenClaw",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": true,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated OpenClaw session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Cursor",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": false,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Cursor session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Grok Bot",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": false,
+      "remaining": "Install staged bundle and verify MCP stdio launch, first-use setup, and daily-tasks scenarios in an isolated Grok Bot session outside repo_root; static validation, 18/18 offline Waza trigger tasks, and unit/use-case suites pass locally."
+    },
+    {
+      "suite": "daily-tasks",
+      "harness": "Muse",
+      "platform": "windows-x86_64",
+      "config": "default",
+      "required": false,
+      "remaining": "Provisional: establish loader contract before producing or validating an artifact."
+    }
+  ]
+}

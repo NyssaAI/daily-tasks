@@ -4,7 +4,7 @@ Public interface:
 +-- test_cli_layered_profile_merges_user_home_and_repo_root(tmp_path)
 `-- test_cli_rejects_agent_runtime_root_as_vault_root_flag(tmp_path, capsys)
 
-Tests for `daily-tasks-mcp` booting without `--vault-root` and merging `user_home` + `repo_root` `profile.json` files.
+Tests for `daily-tasks-mcp` booting without `--vault-root` and merging `user_home` + `repo_root` `config.json` files.
 """
 
 import io
@@ -30,7 +30,7 @@ def test_cli_boot_without_vault_root_accepts_vault_root_in_start_session(tmp_pat
         "user": {"name": "Test User", "email": "test@example.com"},
         "timezone": "America/Chicago",
     }
-    (config_dir / "profile.json").write_text(json.dumps(profile), encoding="utf-8")
+    (config_dir / "config.json").write_text(json.dumps(profile), encoding="utf-8")
 
     lines = [
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
@@ -62,7 +62,7 @@ def test_cli_boot_without_vault_root_accepts_vault_root_in_start_session(tmp_pat
 def test_cli_layered_profile_merges_user_home_and_repo_root(tmp_path: Path) -> None:
     config_dir = tmp_path / "user_config"
     config_dir.mkdir(parents=True)
-    (config_dir / "profile.json").write_text(
+    (config_dir / "config.json").write_text(
         json.dumps(
             {
                 "schema_version": 2,
@@ -78,7 +78,7 @@ def test_cli_layered_profile_merges_user_home_and_repo_root(tmp_path: Path) -> N
     repo_cfg = repo_root / ".nyssa-ai" / "daily-tasks"
     repo_cfg.mkdir(parents=True)
     vault = (tmp_path / "vault").resolve()
-    (repo_cfg / "profile.json").write_text(
+    (repo_cfg / "config.json").write_text(
         json.dumps(
             {
                 "schema_version": 2,

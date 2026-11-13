@@ -4,6 +4,7 @@ Public interface:
 +-- test_profile_store_ignores_any_files_inside_vault_root(tmp_path)
 +-- test_profile_store_merges_user_home_and_repo_root_and_per_vault_map(tmp_path)
 +-- test_profile_store_missing_files_returns_empty_dict(tmp_path)
++-- test_profile_store_reads_legacy_profile_json_as_readonly_fallback_and_config_json_wins(tmp_path)
 +-- test_profile_store_rejects_non_v2_schema_version(tmp_path, bad_version)
 +-- test_resolve_server_settings_defaults_to_1_projects_and_2_areas_daily_plans(tmp_path)
 +-- test_resolve_server_settings_permits_explicit_absolute_external_projects_root(tmp_path)
@@ -12,26 +13,41 @@ Public interface:
 +-- test_resolve_server_settings_rejects_daily_plans_escaping_vault_or_inside_nyssa_ai(tmp_path, plans_path)
 +-- test_resolve_server_settings_rejects_missing_or_relative_vault_root(tmp_path)
 +-- test_resolve_server_settings_rejects_relative_projects_root_traversal(tmp_path)
-`-- test_resolve_server_settings_validates_identity_timezone_and_lookback(tmp_path, email, tz, lookback)
++-- test_resolve_server_settings_rejects_vault_root_colliding_with_runtime_root(tmp_path)
++-- test_resolve_server_settings_validates_identity_timezone_and_lookback(tmp_path, email, tz, lookback)
+`-- test_usage_telemetry_opt_in_default_false_writes_zero_files_and_true_appends_jsonl(tmp_path)
 
 Unit tests for `ProfileStore` and `resolve_server_settings`.
 """
 
 from __future__ import annotations
 
+import asyncio
 import json
+from datetime import UTC, datetime
 from pathlib import Path
+from uuid import UUID
 
 import pytest
 from nyssa_ai_result import Err, Ok
 
-from daily_tasks.hosting import ProfileStore, ServerOverrides, resolve_default_vault_root, resolve_server_settings
+from daily_tasks.hosting import (
+    LEGACY_PROFILE_FILENAME,
+    USAGE_EVENTS_RELATIVE_PATH,
+    USER_CONFIG_FILENAME,
+    ProfileStore,
+    ServerOverrides,
+    compose_mcp_server,
+    record_usage_event,
+    resolve_default_vault_root,
+    resolve_server_settings,
+)
 
 
-def _write_profile(directory: Path, payload: object) -> None:
+def _write_profile(directory: Path, payload: object, *, filename: str = USER_CONFIG_FILENAME) -> None:
     directory.mkdir(parents=True, exist_ok=True)
     text = payload if isinstance(payload, str) else json.dumps(payload)
-    (directory / "profile.json").write_text(text, encoding="utf-8")
+    (directory / filename).write_text(text, encoding="utf-8")
 
 
 def test_profile_store_missing_files_returns_empty_dict(tmp_path: Path) -> None:
@@ -324,3 +340,193 @@ def test_resolve_server_settings_validates_identity_timezone_and_lookback(
 
     assert isinstance(result, Err)
     assert result.category == "Validation"
+
+
+def test_profile_store_reads_legacy_profile_json_as_readonly_fallback_and_config_json_wins(tmp_path: Path) -> None:
+    config_dir = tmp_path / "home" / ".nyssa-ai" / "daily-tasks"
+    repo_root = tmp_path / "repo"
+    repo_dir = repo_root / ".nyssa-ai" / "daily-tasks"
+    vault = (tmp_path / "vault").resolve()
+    vault.mkdir()
+
+    # Legacy profile.json in both user_dir and repo_dir when config.json is absent
+    legacy_user = {
+        "schema_version": 2,
+        "user": {"name": "Legacy User", "email": "legacy@example.com"},
+        "timezone": "America/Chicago",
+    }
+    legacy_repo = {
+        "schema_version": 2,
+        "sources": {"initialLookbackDays": 5},
+    }
+    _write_profile(config_dir, legacy_user, filename=LEGACY_PROFILE_FILENAME)
+    _write_profile(repo_dir, legacy_repo, filename=LEGACY_PROFILE_FILENAME)
+
+    store = ProfileStore(config_dir=config_dir, repo_root=repo_root)
+    assert store.user_config_path == config_dir / USER_CONFIG_FILENAME
+    assert store.repo_config_path == repo_dir / USER_CONFIG_FILENAME
+    assert store.user_profile_path == config_dir / LEGACY_PROFILE_FILENAME
+    assert store.repo_profile_path == repo_dir / LEGACY_PROFILE_FILENAME
+
+    fallback_res = store.read_layered(vault)
+    assert isinstance(fallback_res, Ok)
+    assert fallback_res.value["user"] == {"name": "Legacy User", "email": "legacy@example.com"}
+    assert fallback_res.value["sources"] == {"initialLookbackDays": 5}
+
+    # Writing via write_user_profile ALWAYS writes config.json and leaves legacy profile.json untouched
+    legacy_before = (config_dir / LEGACY_PROFILE_FILENAME).read_text(encoding="utf-8")
+    canonical_user = {
+        "schema_version": 2,
+        "user": {"name": "Canonical User", "email": "canonical@example.com"},
+        "timezone": "America/New_York",
+    }
+    write_res = store.write_user_profile(canonical_user)
+    assert isinstance(write_res, Ok)
+    assert (config_dir / USER_CONFIG_FILENAME).is_file()
+    assert (config_dir / LEGACY_PROFILE_FILENAME).read_text(encoding="utf-8") == legacy_before
+    assert store.user_profile_path == config_dir / USER_CONFIG_FILENAME
+
+    # Canonical config.json in user_dir and repo_dir takes precedence over legacy profile.json
+    _write_profile(
+        repo_dir,
+        {"schema_version": 2, "sources": {"initialLookbackDays": 12}},
+        filename=USER_CONFIG_FILENAME,
+    )
+    assert store.repo_profile_path == repo_dir / USER_CONFIG_FILENAME
+
+    precedence_res = store.read_layered(vault)
+    assert isinstance(precedence_res, Ok)
+    assert precedence_res.value["user"] == {"name": "Canonical User", "email": "canonical@example.com"}
+    assert precedence_res.value["timezone"] == "America/New_York"
+    assert precedence_res.value["sources"] == {"initialLookbackDays": 12}
+
+
+def test_resolve_server_settings_rejects_vault_root_colliding_with_runtime_root(tmp_path: Path) -> None:
+    config_dir = tmp_path / "config"
+    vault = tmp_path / "vault"
+    vault.mkdir()
+    _write_profile(
+        config_dir,
+        {"schema_version": 2, "user": {"email": "jordan@example.com"}, "timezone": "UTC"},
+    )
+
+    exact_collision = resolve_server_settings(
+        vault,
+        ServerOverrides(config_dir=config_dir, runtime_root=vault),
+        environ={},
+        cwd=tmp_path,
+    )
+    assert isinstance(exact_collision, Err)
+    assert "must not collide" in exact_collision.message
+
+    nested_collision = resolve_server_settings(
+        vault,
+        ServerOverrides(config_dir=config_dir, runtime_root=vault / "runtime"),
+        environ={},
+        cwd=tmp_path,
+    )
+    assert isinstance(nested_collision, Err)
+    assert "must not collide" in nested_collision.message
+
+
+def test_usage_telemetry_opt_in_default_false_writes_zero_files_and_true_appends_jsonl(tmp_path: Path) -> None:
+    config_dir = tmp_path / "config"
+    runtime_root = tmp_path / "runtime"
+    vault = tmp_path / "vault"
+    vault.mkdir()
+    _write_profile(
+        config_dir,
+        {"schema_version": 2, "user": {"email": "jordan@example.com"}, "timezone": "UTC"},
+    )
+
+    # Default telemetry_enabled is False and creates zero usage/ directories or files
+    default_settings = resolve_server_settings(
+        vault,
+        ServerOverrides(config_dir=config_dir, runtime_root=runtime_root),
+        environ={},
+        cwd=tmp_path,
+    )
+    assert isinstance(default_settings, Ok)
+    assert default_settings.value.telemetry_enabled is False
+
+    disabled_event = record_usage_event(runtime_root, {"event": "noop"}, enabled=False)
+    assert isinstance(disabled_event, Ok) and disabled_event.value is None
+    assert not (runtime_root / "usage").exists()
+
+    def clock() -> datetime:
+        return datetime(2026, 11, 13, 14, 0, tzinfo=UTC)
+
+    def new_id() -> UUID:
+        return UUID("019a4b2c-9000-7000-8000-000000000001")
+    server_disabled = compose_mcp_server(
+        ServerOverrides(config_dir=config_dir, runtime_root=runtime_root),
+        version="0.11.2",
+        clock=clock,
+        new_id=new_id,
+        environ={},
+        cwd=tmp_path,
+    )
+    call_line = json.dumps(
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "tools/call",
+            "params": {"name": "daily_tasks_setup_status", "arguments": {"vault_root": str(vault)}},
+        }
+    )
+    assert asyncio.run(server_disabled.handle(call_line)) is not None
+    assert not (runtime_root / "usage").exists()
+
+    # Invalid telemetry shape is rejected by strict v2 config validation
+    _write_profile(
+        config_dir,
+        {
+            "schema_version": 2,
+            "user": {"email": "jordan@example.com"},
+            "timezone": "UTC",
+            "telemetry": {"enabled": "yes"},
+        },
+    )
+    bad_telemetry = resolve_server_settings(
+        vault,
+        ServerOverrides(config_dir=config_dir, runtime_root=runtime_root),
+        environ={},
+        cwd=tmp_path,
+    )
+    assert isinstance(bad_telemetry, Err) and "telemetry.enabled" in bad_telemetry.message
+
+    # Opt-in telemetry.enabled = True resolves True and appends JSONL to <runtime_root>/usage/events.jsonl
+    _write_profile(
+        config_dir,
+        {
+            "schema_version": 2,
+            "user": {"email": "jordan@example.com"},
+            "timezone": "UTC",
+            "telemetry": {"enabled": True},
+        },
+    )
+    enabled_settings = resolve_server_settings(
+        vault,
+        ServerOverrides(config_dir=config_dir, runtime_root=runtime_root),
+        environ={},
+        cwd=tmp_path,
+    )
+    assert isinstance(enabled_settings, Ok)
+    assert enabled_settings.value.telemetry_enabled is True
+
+    server_enabled = compose_mcp_server(
+        ServerOverrides(config_dir=config_dir, runtime_root=runtime_root),
+        version="0.11.2",
+        clock=clock,
+        new_id=new_id,
+        environ={},
+        cwd=tmp_path,
+    )
+    assert asyncio.run(server_enabled.handle(call_line)) is not None
+    events_file = runtime_root / USAGE_EVENTS_RELATIVE_PATH
+    assert events_file.is_file()
+    lines = [json.loads(line) for line in events_file.read_text(encoding="utf-8").splitlines()]
+    assert len(lines) == 1
+    assert lines[0]["event"] == "mcp.tool_call"
+    assert lines[0]["tool"] == "daily_tasks_setup_status"
+    assert lines[0]["status"] == "ok"

@@ -17,6 +17,7 @@ from pydantic import JsonValue
 
 from daily_tasks.core.records.graph_user import GraphUser
 from daily_tasks.hosting.profile_store import ProfileStore
+from daily_tasks.hosting.record_usage_event import extract_telemetry_enabled
 from daily_tasks.hosting.resolve_runtime_root import is_agent_runtime_root, resolve_runtime_root
 from daily_tasks.hosting.types import ServerOverrides, ServerSettings
 
@@ -76,7 +77,7 @@ def _resolve_lookback_days(profile: Mapping[str, JsonValue], explicit: int | Non
 
 
 def resolve_default_vault_root(config_dir: Path | None = None, repo_root: Path | None = None) -> Result[Path | None]:
-    """Read `defaultVaultRoot` (or `vaultRoot`) across `user_home` -> `repo_root` Schema Version 2 profiles."""
+    """Read `defaultVaultRoot` (or `vaultRoot`) across `user_home` -> `repo_root` Schema Version 2 `config.json`."""
     store = ProfileStore(config_dir=config_dir, repo_root=repo_root)
     layered = store.read_layered()
     if not layered.ok:
@@ -86,7 +87,7 @@ def resolve_default_vault_root(config_dir: Path | None = None, repo_root: Path |
         return ok(None)
     candidate = Path(raw_vault).expanduser()
     if not candidate.is_absolute():
-        return fail("defaultVaultRoot in profile.json must be an absolute path.", ErrorCategory.VALIDATION)
+        return fail("defaultVaultRoot in config.json must be an absolute path.", ErrorCategory.VALIDATION)
     resolved = candidate.resolve()
     if is_agent_runtime_root(resolved):
         return fail(
@@ -138,7 +139,7 @@ def resolve_server_settings(
     if not email or not tz or tz == "system":
         return fail(
             "Daily Tasks setup is incomplete: set --user-email and --timezone (IANA), "
-            "or configure user.email and timezone in ~/.nyssa-ai/daily-tasks/profile.json (run Setup).",
+            "or configure user.email and timezone in ~/.nyssa-ai/daily-tasks/config.json (run Setup).",
             ErrorCategory.VALIDATION,
         )
 
@@ -149,6 +150,13 @@ def resolve_server_settings(
             "Initial lookback days must be a positive integer (--initial-lookback-days or initialLookbackDays).",
             ErrorCategory.VALIDATION,
         )
+
+    telemetry_res = extract_telemetry_enabled(profile)
+    if not telemetry_res.ok:
+        return fail(telemetry_res.message, telemetry_res.category)
+    telemetry_enabled = (
+        overrides.telemetry_enabled if overrides.telemetry_enabled is not None else telemetry_res.value
+    )
 
     projects_raw = overrides.projects_root or _extract_text(profile, "projectsRoot") or DEFAULT_PROJECTS_ROOT
     daily_plans_raw = (
@@ -168,19 +176,32 @@ def resolve_server_settings(
         cwd=cwd,
         configured=_extract_text(profile, "runtimeRoot"),
         config_dir=store.user_dir,
+        repo_root=overrides.repo_root,
     )
     if not runtime_result.ok:
         return fail(runtime_result.message, runtime_result.category)
+    resolved_runtime = runtime_result.value
+    if (
+        resolved_vault == resolved_runtime
+        or resolved_runtime.is_relative_to(resolved_vault)
+        or resolved_vault.is_relative_to(resolved_runtime)
+    ):
+        return fail(
+            f"vault_root ({resolved_vault.as_posix()}) must not collide with runtime_root "
+            f"({resolved_runtime.as_posix()}).",
+            ErrorCategory.VALIDATION,
+        )
 
     return ok(
         ServerSettings(
             vault_root=resolved_vault,
             projects_root=projects_result.value,
             daily_plans_root=plans_result.value,
-            runtime_root=runtime_result.value,
+            runtime_root=resolved_runtime,
             user=GraphUser(name=name, email=email),
             timezone=tz,
             initial_lookback_days=lookback,
             config_dir=store.user_dir,
+            telemetry_enabled=telemetry_enabled,
         )
     )

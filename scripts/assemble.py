@@ -22,6 +22,17 @@ DEFAULT_DIST_DIR = ROOT / ".temp" / "dist"
 _EXCLUDED_DIRS = frozenset({".nyssa-ai", ".temp", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"})
 _EXCLUDED_PRIVATE_FILES = frozenset({"CODE_MAP.md"})
 _MCP_SCHEMA_V1 = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+_MCP_BOOTSTRAP_PY = (
+    "import os,runpy,sys;"
+    "from pathlib import Path;"
+    "h=Path.home();"
+    "roots=[Path(x).expanduser() for k in ('DAILY_TASKS_PLUGIN_ROOT','CLAUDE_PLUGIN_ROOT','PLUGIN_ROOT') "
+    "if (x:=os.environ.get(k,'').strip()) and '${' not in x]"
+    "+[h/'.gemini/config/plugins/daily-tasks',h/'.agents/plugins/daily-tasks',Path.cwd()];"
+    "hit=next((f for r in roots if (f:=r/'src/daily_tasks/launch_mcp.py').is_file()),None);"
+    "(sys.stderr.write('daily-tasks-mcp: launch_mcp.py not found\\n'),sys.exit(2)) if hit is None "
+    "else runpy.run_path(str(hit),run_name='__main__')"
+)
 
 
 def _encode_json(value: object) -> str:
@@ -68,7 +79,23 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
             "shortDescription": "Personal tasks and daily planning",
             "developerName": "NyssaAI",
             "category": "Productivity",
+            "capabilities": ["Interactive", "Read", "Write"],
+            "websiteURL": identity["homepage"],
+            "defaultPrompt": ["Plan my day", "Check in and reconcile edits"],
         },
+    }
+    tessl_manifest = {
+        "name": f"nyssa-ai/{identity['name']}",
+        "version": identity["version"],
+        "description": identity["description"],
+        "private": True,
+        "skills": "./skills",
+        "mcpServers": ".mcp.json",
+    }
+    gemini_manifest = {
+        "name": identity["name"],
+        "version": identity["version"],
+        "description": identity["description"],
     }
     host_manifests: dict[str, str] = {
         ".claude-plugin/plugin.json": _encode_json(host),
@@ -76,33 +103,56 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
         ".codex-plugin/plugin.json": _encode_json(codex_manifest),
     }
 
+    claude_mcp = _encode_json(
+        {
+            "mcpServers": {
+                "daily-tasks": {
+                    "command": "uv",
+                    "args": [
+                        "run",
+                        "--no-project",
+                        "python",
+                        "${CLAUDE_PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py",
+                    ],
+                }
+            }
+        }
+    )
     portable_mcp = _encode_json(
         {
             "$schema": _MCP_SCHEMA_V1,
             "mcpServers": {
                 "daily-tasks": {
                     "type": "stdio",
-                    "command": "python3",
-                    "args": ["${PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py"],
+                    "command": "uv",
+                    "args": [
+                        "run",
+                        "--no-project",
+                        "python",
+                        "${PLUGIN_ROOT}/src/daily_tasks/launch_mcp.py",
+                    ],
                 }
             },
         }
     )
-    manifests: dict[str, str] = {
-        **host_manifests,
-        "mcp.json": portable_mcp,
-    }
     antigravity_mcp = _encode_json(
         {
             "mcpServers": {
                 "daily-tasks": {
-                    "command": "python3",
-                    "args": ["./src/daily_tasks/launch_mcp.py"],
-                    "disabled": False,
+                    "command": "uv",
+                    "args": ["run", "--no-project", "python", "-c", _MCP_BOOTSTRAP_PY],
                 }
             }
         }
     )
+    manifests: dict[str, str] = {
+        **host_manifests,
+        ".tessl-plugin/plugin.json": _encode_json(tessl_manifest),
+        "gemini-extension.json": _encode_json(gemini_manifest),
+        ".mcp.json": claude_mcp,
+        "mcp.json": portable_mcp,
+        "mcp_config.json": antigravity_mcp,
+    }
 
     shared: dict[str, str] = {
         "plugin.json": _encode_json(identity),
@@ -112,11 +162,19 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
     for folder in ("skills", "src"):
         shared.update(tree(ROOT / folder, f"{folder}/", exclude_private=True))
 
-    claude_mcp = (ROOT / ".mcp.json").read_text(encoding="utf-8").replace("\r\n", "\n")
-    portable = {**shared, ".mcp.json": claude_mcp, **manifests}
+    portable = {**shared, **manifests}
     antigravity = {
         **shared,
-        "plugin.json": _encode_json({"name": identity["name"], "description": identity["description"]}),
+        "plugin.json": _encode_json(
+            {
+                "name": identity["name"],
+                "version": identity["version"],
+                "description": identity["description"],
+                "author": identity["author"],
+                "homepage": identity["homepage"],
+                "repository": identity["repository"],
+            }
+        ),
         "mcp_config.json": antigravity_mcp,
     }
     cowork = {**shared, ".mcp.json": claude_mcp, **host_manifests}
@@ -126,7 +184,7 @@ def build_packages() -> tuple[dict[str, str], dict[str, dict[str, str]]]:
         f'name: daily-tasks\nversion: "{identity["version"]}"\n'
         f"description: {json.dumps(identity['description'])}\n"
     )
-    hermes["__init__.py"] = (ROOT / "harness-adapters" / "hermes" / "__init__.py").read_text(encoding="utf-8").replace(
+    hermes["__init__.py"] = (ROOT / "harness-adapters" / "hermes" / "plugin.py").read_text(encoding="utf-8").replace(
         "\r\n", "\n"
     )
 
@@ -155,14 +213,16 @@ def _assert_safe_ancestors(destination: Path, boundary: Path) -> None:
         current = current.parent
 
 
-def _parse_args(argv: list[str] | None) -> tuple[str, Path] | None:
+def _parse_args(argv: list[str] | None) -> tuple[str, Path, bool] | None:
     parser = argparse.ArgumentParser(prog="assemble.py", add_help=False)
     parser.add_argument("mode", nargs="?", default="write")
-    parser.add_argument("--output-dir", default=str(DEFAULT_DIST_DIR))
+    parser.add_argument("--output-dir", default=None)
     parsed, unknown = parser.parse_known_args(argv if argv is not None else sys.argv[1:])
     if unknown or parsed.mode not in {"write", "check"}:
         return None
-    return str(parsed.mode), Path(parsed.output_dir).expanduser().resolve()
+    explicit_output_dir = parsed.output_dir is not None
+    raw_output_dir = parsed.output_dir if explicit_output_dir else str(DEFAULT_DIST_DIR)
+    return str(parsed.mode), Path(raw_output_dir).expanduser().resolve(), explicit_output_dir
 
 
 def assemble(argv: list[str] | None = None) -> int:
@@ -171,7 +231,7 @@ def assemble(argv: list[str] | None = None) -> int:
     if parsed is None:
         print("Use assemble.py [write|check] [--output-dir DIR]", file=sys.stderr)
         return 1
-    mode, dist_root = parsed
+    mode, dist_root, explicit_output_dir = parsed
 
     manifests, packages = build_packages()
     mismatches: list[str] = []
@@ -185,44 +245,49 @@ def assemble(argv: list[str] | None = None) -> int:
         elif not destination.is_file() or destination.read_text(encoding="utf-8").replace("\r\n", "\n") != content:
             mismatches.append(relative)
 
+    check_bundles = mode == "write" or explicit_output_dir or dist_root.exists()
     bundle_count = 0
-    for fmt, files in packages.items():
-        for key, value in files.items():
-            bundle_count += 1
-            destination = dist_root / fmt / key
-            _assert_safe_ancestors(destination, dist_root.parent)
-            if mode == "write":
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                destination.write_text(value, encoding="utf-8", newline="\n")
-            elif not destination.is_file() or destination.read_text(encoding="utf-8").replace("\r\n", "\n") != value:
-                mismatches.append(f"{dist_root.as_posix()}/{fmt}/{key}")
-
-    if dist_root.exists():
-        for child in sorted(dist_root.iterdir(), key=lambda p: p.name):
-            if child.name not in packages:
+    if check_bundles:
+        for fmt, files in packages.items():
+            for key, value in files.items():
+                bundle_count += 1
+                destination = dist_root / fmt / key
+                _assert_safe_ancestors(destination, dist_root.parent)
                 if mode == "write":
-                    if child.is_dir():
-                        shutil.rmtree(child)
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_text(value, encoding="utf-8", newline="\n")
+                elif (
+                    not destination.is_file()
+                    or destination.read_text(encoding="utf-8").replace("\r\n", "\n") != value
+                ):
+                    mismatches.append(f"{dist_root.as_posix()}/{fmt}/{key}")
+
+        if dist_root.exists():
+            for child in sorted(dist_root.iterdir(), key=lambda p: p.name):
+                if child.name not in packages:
+                    if mode == "write":
+                        if child.is_dir():
+                            shutil.rmtree(child)
+                        else:
+                            child.unlink()
                     else:
-                        child.unlink()
-                else:
-                    mismatches.append(f"Unexpected dist bundle: {child.name}")
+                        mismatches.append(f"Unexpected dist bundle: {child.name}")
 
-    for fmt, files in packages.items():
-        bundle_dir = dist_root / fmt
-        actual = tree(bundle_dir)
-        for name in actual:
-            if name not in files:
-                if mode == "write":
-                    stale = bundle_dir / name
-                    if stale.exists():
-                        stale.unlink()
-                else:
-                    mismatches.append(f"Unexpected bundle file: {fmt}/{name}")
-        if mode == "write" and bundle_dir.exists():
-            for dirpath in sorted((p for p in bundle_dir.rglob("*") if p.is_dir()), reverse=True):
-                if not any(dirpath.iterdir()):
-                    dirpath.rmdir()
+        for fmt, files in packages.items():
+            bundle_dir = dist_root / fmt
+            actual = tree(bundle_dir)
+            for name in actual:
+                if name not in files:
+                    if mode == "write":
+                        stale = bundle_dir / name
+                        if stale.exists():
+                            stale.unlink()
+                    else:
+                        mismatches.append(f"Unexpected bundle file: {fmt}/{name}")
+            if mode == "write" and bundle_dir.exists():
+                for dirpath in sorted((p for p in bundle_dir.rglob("*") if p.is_dir()), reverse=True):
+                    if not any(dirpath.iterdir()):
+                        dirpath.rmdir()
 
     if mismatches:
         print("\n".join(mismatches), file=sys.stderr)

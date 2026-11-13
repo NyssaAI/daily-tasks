@@ -1,5 +1,5 @@
 > [!IMPORTANT] Scope Directive
-> This workflow owns creating, updating, moving, delegating, closing, reopening, and non-destructively repairing canonical Markdown project, milestone, task, and blocker records. It does NOT own candidate extraction (`capture.md`), daily plan selection (`plan.md`), anytime check-in orchestration (`checkin.md`), or canonical schema specifications (owned by `../references/records.md`).
+> This workflow owns creating, updating, moving, delegating, closing, reopening, and non-destructively repairing canonical Markdown project, milestone, task, and blocker records. It does NOT own candidate extraction (`capture.md`), daily plan selection (`plan.md`), anytime check-in orchestration (`checkin.md`), canonical schema specifications (owned by `../references/records.md`), PARA prose note classification/reconciliation (route to `para-vault` in `agent-skills`), or standalone filesystem moves outside work records (route to `manage-file-operations` in `agent-skills`).
 
 # Manage records
 
@@ -8,7 +8,7 @@ Execute canonical record mutations and non-destructive Markdown repairs under th
 ## 1. Pre-flight and acceptance gates
 
 1. **Enforce all four full-setup gates**:
-   - Verify live `daily_tasks_*` MCP tools in the current harness, `~/.nyssa-ai/daily-tasks/profile.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`, `user.email`, IANA `timezone`), and vault templates baseline (`~/.nyssa-ai/daily-tasks/templates/updates.json`).
+   - Verify live `daily_tasks_*` MCP tools in the current harness, `~/.nyssa-ai/daily-tasks/config.json` (`"schema_version": 2`, `projectsRoot`, `dailyPlansRelative`, `sources`, `user.email`, IANA `timezone`), and vault templates baseline (`~/.nyssa-ai/daily-tasks/templates/updates.json`).
    - If **any** gate is incomplete, **immediately halt** and complete [Setup](setup.md) before touching vault records.
    - Reuse verified profile settings and `<runtime_root>` operating state without creating `.nyssa-ai/` inside `vault_root`.
 2. **Verify identity and acceptance**:
@@ -56,7 +56,7 @@ When a work record (`project-index.md`, milestone, task, or blocker) is reported
    - Normalize the state key (`state`) and canonical value (`not-started` | `in-progress` | `completed` | `cancelled` or `open` | `resolved`).
    - Ensure required scalar keys (`id`, `type`, `title`, `owner`, `state`, `record_version: 2`) and the top-level `# <title>` heading are present.
    - Repair reciprocal project/milestone wiki-links and `<!-- ref: UUID -->` / `<!-- id: UUID -->` comments.
-3. Preserve all user prose, body notes, checkboxes, and extra lines byte-for-byte.
+3. Preserve all user prose, body notes, checkboxes, and extra lines byte-for-byte, and leave `para-vault` prose notes and non-work-record files untouched (route standalone non-record file moves to `manage-file-operations` in `agent-skills`).
 4. Re-validate the repaired file and report the exact fixes applied.
 
 ## 5. Transactional persistence

@@ -8,10 +8,10 @@ Anchor all domain nouns, state transitions, and boundary contracts to the Ubiqui
 
 ## 5-Root Model & Configuration Boundaries
 
-- **`user_home` (`~`)**: Owns `~/.nyssa-ai/daily-tasks/` (`NyssaAI.Configuration` precedence #1).
-- **`repo_root`**: Owns `AGENTS.md`, `docs/`, `src/`, `test/`, single root `.temp/` (including `.temp/dist/` staged bundles), and optional `<repo_root>/.nyssa-ai/daily-tasks/` (`NyssaAI.Configuration` precedence #2). Never assemble or self-load plugin trees (`.agents/`, `.hermes/`, `artifacts/`) inside `repo_root`.
+- **`user_home` (`~`)**: Owns `~/.nyssa-ai/daily-tasks/config.json` (`NyssaAI.Configuration` precedence #1, with read-only legacy fallback to `profile.json`).
+- **`repo_root`**: Owns `AGENTS.md`, `docs/`, `src/`, `test/`, single root `.temp/` (including `.temp/dist/` staged bundles), and optional `<repo_root>/.nyssa-ai/daily-tasks/config.json` (`NyssaAI.Configuration` precedence #2). Never assemble or self-load plugin trees (`.agents/`, `.hermes/`, `artifacts/`) inside `repo_root`.
 - **`vault_root`**: User or shared PARA/non-PARA work-record vault (`projectsRoot` defaults to `1-projects`, `dailyPlansRelative` defaults to `2-areas/daily-plans`). **Zero `.nyssa-ai/` files or runtime state may ever be read from or written inside `vault_root`**, and agent persona runtime directories (`SOUL.md` + `IDENTITY.md`) are rejected as `vault_root`.
-- **`runtime_root`**: Mutable operational state (`fetch-cursors.json`, `suggestions.json`, `decision-log.json`, `sessions/`, `.venv/`, and runtime `.temp/`), resolved deterministically: (1) `--runtime-root` -> (2) `NYSSA_RUNTIME_ROOT` -> (3) `cwd` containing `SOUL.md` + `IDENTITY.md` -> (4) configured `runtimeRoot` or `~/.nyssa-ai/daily-tasks/runtime/`.
+- **`runtime_root`**: Mutable operational state (`fetch-cursors.json`, `suggestions.json`, `decision-log.json`, `sessions/`, opt-in `usage/events.jsonl`, `.venv/`, and runtime `.temp/`), resolved deterministically: (1) `--runtime-root` -> (2) `NYSSA_RUNTIME_ROOT` -> (3) `<cwd>/.nyssa-ai/daily-tasks/runtime/` when `cwd` contains `SOUL.md` + `IDENTITY.md` -> (4) configured `runtimeRoot`, `<repo_root>/.nyssa-ai/daily-tasks/runtime/`, or `~/.nyssa-ai/daily-tasks/runtime/`.
 - **`plugin_root`**: Read-only installed or source plugin bundle directory.
 
 ## Scale B SOLID Modular Monolith (`src/daily_tasks/`)

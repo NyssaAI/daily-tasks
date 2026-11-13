@@ -79,7 +79,7 @@ class VaultCollaboratorResolver:
             if explicit_path is None:
                 return fail(
                     "No vault_root was supplied and no defaultVaultRoot is configured in "
-                    "~/.nyssa-ai/daily-tasks/profile.json. Run the Daily Tasks Setup workflow or pass vault_root.",
+                    "~/.nyssa-ai/daily-tasks/config.json. Run the Daily Tasks Setup workflow or pass vault_root.",
                     ErrorCategory.VALIDATION,
                 )
 

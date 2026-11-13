@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "daily-tasks": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--no-project",
+        "python",
+        "-c",
+        "import os,runpy,sys;from pathlib import Path;h=Path.home();roots=[Path(x).expanduser() for k in ('DAILY_TASKS_PLUGIN_ROOT','CLAUDE_PLUGIN_ROOT','PLUGIN_ROOT') if (x:=os.environ.get(k,'').strip()) and '${' not in x]+[h/'.gemini/config/plugins/daily-tasks',h/'.agents/plugins/daily-tasks',Path.cwd()];hit=next((f for r in roots if (f:=r/'src/daily_tasks/launch_mcp.py').is_file()),None);(sys.stderr.write('daily-tasks-mcp: launch_mcp.py not found\\n'),sys.exit(2)) if hit is None else runpy.run_path(str(hit),run_name='__main__')"
+      ]
+    }
+  }
+}

@@ -58,7 +58,7 @@ def _serve(tmp_path: Path, *calls: dict[str, JsonValue], extra: tuple[str, ...] 
     vault.mkdir(exist_ok=True)
     config_dir = tmp_path / "config"
     runtime_root = tmp_path / "runtime"
-    profile_path = config_dir / "profile.json"
+    profile_path = config_dir / "config.json"
     if not profile_path.exists():
         config_dir.mkdir(parents=True, exist_ok=True)
         profile_path.write_text(json.dumps({"schema_version": 2}), encoding="utf-8")
@@ -152,7 +152,7 @@ def test_get_fetch_window_custom_lookback_bounds_first_pull(
     config_dir = tmp_path / "config"
     config_dir.mkdir(parents=True)
     full_profile = {"schema_version": 2, **profile}
-    (config_dir / "profile.json").write_text(json.dumps(full_profile), encoding="utf-8")
+    (config_dir / "config.json").write_text(json.dumps(full_profile), encoding="utf-8")
 
     body = _serve(tmp_path, _call(1, "daily_tasks_get_fetch_window", sources=["slack"]), extra=extra)[0]
 

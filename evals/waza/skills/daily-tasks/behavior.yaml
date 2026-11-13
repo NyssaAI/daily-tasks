@@ -10,7 +10,7 @@ config:
   executor: copilot-sdk
   model: claude-sonnet-4.6
   skill_directories:
-    - skills
+    - ../../../../skills
 metrics:
   - name: task_completion
     weight: 1.0

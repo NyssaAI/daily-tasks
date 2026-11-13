@@ -1,16 +1,22 @@
-"""Responsibility: Read and write Schema Version 2 Daily Tasks profiles in user_home and repo_root.
+"""Responsibility: Read and write Schema Version 2 Daily Tasks config.json in user_home and repo_root.
 Public interface:
-`-- ProfileStore
-    +-- home_root
-    +-- new(config_dir, repo_root)
-    +-- read_layered(vault_root)
-    +-- read_raw(path)
-    +-- read_strict_v2(path)
-    +-- repo_profile_path
-    +-- templates_updates_path
-    +-- user_dir
-    +-- user_profile_path
-    `-- write_user_profile(payload)
++-- LEGACY_PROFILE_FILENAME
++-- ProfileStore
+|   +-- home_root
+|   +-- new(config_dir, repo_root)
+|   +-- read_layered(vault_root)
+|   +-- read_raw(path)
+|   +-- read_strict_v2(path)
+|   +-- repo_config_path
+|   +-- repo_dir
+|   +-- repo_profile_path
+|   +-- templates_updates_path
+|   +-- user_config_path
+|   +-- user_dir
+|   +-- user_profile_path
+|   +-- write_user_config(payload)
+|   `-- write_user_profile(payload)
+`-- USER_CONFIG_FILENAME
 """
 
 from __future__ import annotations
@@ -24,12 +30,26 @@ from typing import Final, final
 from nyssa_ai_result import ErrorCategory, Result, fail, ok
 from pydantic import JsonValue
 
+from daily_tasks.hosting.record_usage_event import extract_telemetry_enabled
+
+USER_CONFIG_FILENAME: Final = "config.json"
+LEGACY_PROFILE_FILENAME: Final = "profile.json"
 _APP_SUBDIR: Final = Path(".nyssa-ai") / "daily-tasks"
 _REQUIRED_SCHEMA_VERSION: Final = 2
 
 
 def _is_schema_v2(value: JsonValue) -> bool:
     return isinstance(value, int) and not isinstance(value, bool) and value == _REQUIRED_SCHEMA_VERSION
+
+
+def _resolve_read_path(directory: Path) -> Path:
+    canonical = directory / USER_CONFIG_FILENAME
+    if canonical.is_symlink() or canonical.exists():
+        return canonical
+    legacy = directory / LEGACY_PROFILE_FILENAME
+    if legacy.is_symlink() or legacy.exists():
+        return legacy
+    return canonical
 
 
 def _merge_profile_layer(base: Mapping[str, JsonValue], overlay: Mapping[str, JsonValue]) -> dict[str, JsonValue]:
@@ -61,9 +81,10 @@ def _apply_vault_section(
 
 @final
 class ProfileStore:
-    """Layered Schema Version 2 `profile.json` store across `user_home` and optional `repo_root`.
+    """Layered Schema Version 2 `config.json` store across `user_home` and optional `repo_root`.
 
-    Never reads or writes `<vault_root>/.nyssa-ai/` or retired `.nyssaai/` directories.
+    Reads canonical `config.json` first, falling back read-only to legacy `profile.json` when `config.json`
+    is absent. Always writes canonical `<user_dir>/config.json` and never reads or writes `<vault_root>/.nyssa-ai/`.
     """
 
     def __init__(self, config_dir: Path | None = None, repo_root: Path | None = None) -> None:
@@ -85,19 +106,34 @@ class ProfileStore:
         return self._user_dir
 
     @property
+    def repo_dir(self) -> Path | None:
+        """Optional resolved `<repo_root>/.nyssa-ai/daily-tasks` configuration directory."""
+        return self._repo_dir
+
+    @property
     def home_root(self) -> Path:
         """Resolved user home root directory."""
         return self._home_root
 
     @property
+    def user_config_path(self) -> Path:
+        """Canonical path to `<user_dir>/config.json`."""
+        return self._user_dir / USER_CONFIG_FILENAME
+
+    @property
+    def repo_config_path(self) -> Path | None:
+        """Optional canonical path to `<repo_root>/.nyssa-ai/daily-tasks/config.json`."""
+        return (self._repo_dir / USER_CONFIG_FILENAME) if self._repo_dir is not None else None
+
+    @property
     def user_profile_path(self) -> Path:
-        """Path to `<user_dir>/profile.json`."""
-        return self._user_dir / "profile.json"
+        """Active read path (`<user_dir>/config.json`, or read-only fallback `<user_dir>/profile.json`)."""
+        return _resolve_read_path(self._user_dir)
 
     @property
     def repo_profile_path(self) -> Path | None:
-        """Optional path to `<repo_root>/.nyssa-ai/daily-tasks/profile.json`."""
-        return (self._repo_dir / "profile.json") if self._repo_dir is not None else None
+        """Optional active read path (`<repo_dir>/config.json`, or read-only fallback `<repo_dir>/profile.json`)."""
+        return _resolve_read_path(self._repo_dir) if self._repo_dir is not None else None
 
     @property
     def templates_updates_path(self) -> Path:
@@ -125,7 +161,7 @@ class ProfileStore:
         return ok(parsed)
 
     def read_strict_v2(self, path: Path) -> Result[dict[str, JsonValue] | None]:
-        """Read `profile.json` at `path`, failing closed if present without `schema_version == 2`."""
+        """Read `config.json` (or legacy `profile.json`) at `path`, requiring `schema_version == 2`."""
         loaded = self.read_raw(path)
         if not loaded.ok:
             return loaded
@@ -134,9 +170,12 @@ class ProfileStore:
             return ok(None)
         if not _is_schema_v2(doc.get("schema_version")):
             return fail(
-                f'Setup incomplete: profile.json at {path.as_posix()} must declare "schema_version": 2 (run Setup).',
+                f'Setup incomplete: {path.name} at {path.as_posix()} must declare "schema_version": 2 (run Setup).',
                 ErrorCategory.VALIDATION,
             )
+        telemetry_check = extract_telemetry_enabled(doc)
+        if not telemetry_check.ok:
+            return fail(telemetry_check.message, telemetry_check.category)
         return ok(doc)
 
     def read_layered(self, vault_root: Path | None = None) -> Result[dict[str, JsonValue]]:
@@ -162,10 +201,10 @@ class ProfileStore:
 
         return ok(merged)
 
-    def write_user_profile(self, payload: Mapping[str, JsonValue]) -> Result[None]:
-        """Write `<user_dir>/profile.json` with private POSIX permissions (`0700` dir, `0600` file)."""
-        path = self.user_profile_path
-        if path.exists() and path.is_symlink():
+    def write_user_config(self, payload: Mapping[str, JsonValue]) -> Result[None]:
+        """Write canonical `<user_dir>/config.json` with private POSIX permissions (`0700` dir, `0600` file)."""
+        path = self.user_config_path
+        if path.is_symlink():
             return fail(f"Refusing to write through symlink at {path.as_posix()}.", ErrorCategory.VALIDATION)
         try:
             parent_existed = path.parent.exists()
@@ -180,3 +219,7 @@ class ProfileStore:
         except OSError as exc:
             return fail(f"Unable to write {path.as_posix()}: {exc}", ErrorCategory.VALIDATION)
         return ok(None)
+
+    def write_user_profile(self, payload: Mapping[str, JsonValue]) -> Result[None]:
+        """Persist user configuration strictly to canonical `<user_dir>/config.json`."""
+        return self.write_user_config(payload)

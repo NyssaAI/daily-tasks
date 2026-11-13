@@ -7,7 +7,7 @@
 
 Formatting templates control the visible headings, section ordering, spacing, and table styling of Daily Tasks documents. A template is strictly a presentation contract and never grants task acceptance, alters ownership, or embeds executable commands.
 
-During vault setup (`daily_tasks_configure_vault`) or first use of a template kind, active templates are placed in a visible vault directory (`./3-resources/templates/` by default) where the user can inspect and edit them directly, with initial baselines recorded in `~/.nyssa-ai/daily-tasks/templates/updates.json` (`user_home`) and portable paths registered under the `templates` map in `profile.json`:
+During vault setup (`daily_tasks_configure_vault`) or first use of a template kind, active templates are placed in a visible vault directory (`./3-resources/templates/` by default) where the user can inspect and edit them directly, with initial baselines recorded in `~/.nyssa-ai/daily-tasks/templates/updates.json` (`user_home`) and portable paths registered under the `templates` map in `config.json`:
 
 ```json
 {

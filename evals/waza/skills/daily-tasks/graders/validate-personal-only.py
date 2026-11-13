@@ -17,11 +17,11 @@ def main() -> None:
     workspace = Path(workspace_env).resolve()
     home = workspace / "synthetic-home"
     config_dir = home / ".nyssa-ai" / "daily-tasks"
-    profile_path = config_dir / "profile.json"
+    profile_path = config_dir / "config.json"
 
     allowed_files = {
         "README.md",
-        ".nyssa-ai/daily-tasks/profile.json",
+        ".nyssa-ai/daily-tasks/config.json",
     }
     allowed_directories = {
         ".nyssa-ai",
@@ -65,7 +65,7 @@ def main() -> None:
                 fail(f"Required directory is missing: {exp}")
 
         if not profile_path.is_file() or profile_path.is_symlink():
-            fail("profile.json must be a regular file")
+            fail("config.json must be a regular file")
 
         with profile_path.open("r", encoding="utf-8") as pf:
             profile = json.load(pf)

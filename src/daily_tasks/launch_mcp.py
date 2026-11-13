@@ -1,4 +1,4 @@
-"""Responsibility: Boot the bundled Daily Tasks MCP stdio server across python3 and uv host runtimes.
+"""Responsibility: Boot the bundled Daily Tasks MCP stdio server across uv and python host runtimes.
 Public interface:
 +-- PLUGIN_ROOT
 +-- SRC_DIR
@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import os
 import shutil
+import subprocess
 import sys
 from collections.abc import Callable, Sequence
 from pathlib import Path
@@ -21,7 +22,10 @@ SRC_DIR: Final = PLUGIN_ROOT / "src"
 
 
 def _default_exec(executable: str, args: Sequence[str]) -> int:
-    os.execv(executable, list(args))
+    argv = list(args)
+    if sys.platform == "win32":
+        return subprocess.run([executable, *argv[1:]], check=False).returncode
+    os.execv(executable, argv)
 
 
 def _extract_flag_value(args: Sequence[str], flag: str) -> str | None:
@@ -40,10 +44,21 @@ def _bootstrap_runtime_root(forwarded: Sequence[str]) -> Path:
         return Path(cli_rt.strip()).expanduser().resolve()
     env_rt = os.environ.get("NYSSA_RUNTIME_ROOT", "").strip()
     if env_rt:
-        return Path(env_rt).expanduser().resolve()
+        env_dir = Path(env_rt).expanduser().resolve()
+        if (env_dir / "SOUL.md").is_file() and (env_dir / "IDENTITY.md").is_file():
+            return (env_dir / ".nyssa-ai" / "daily-tasks" / "runtime").resolve()
+        return env_dir
     cwd = Path.cwd().resolve()
     if (cwd / "SOUL.md").is_file() and (cwd / "IDENTITY.md").is_file():
-        return cwd
+        return (cwd / ".nyssa-ai" / "daily-tasks" / "runtime").resolve()
+    cli_repo = _extract_flag_value(forwarded, "--repo-root") or os.environ.get("DAILY_TASKS_REPO_ROOT", "")
+    if cli_repo and cli_repo.strip():
+        repo_app_dir = Path(cli_repo.strip()).expanduser().resolve() / ".nyssa-ai" / "daily-tasks"
+        if repo_app_dir.is_dir():
+            return (repo_app_dir / "runtime").resolve()
+    cli_cfg = _extract_flag_value(forwarded, "--config-dir")
+    if cli_cfg and cli_cfg.strip():
+        return (Path(cli_cfg.strip()).expanduser().resolve() / "runtime").resolve()
     return (Path.home() / ".nyssa-ai" / "daily-tasks" / "runtime").resolve()
 
 

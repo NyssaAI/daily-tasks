@@ -5,6 +5,13 @@ description: Use this skill when the user asks to "set up Daily Tasks", "capture
 
 # Daily Tasks
 
+> [!IMPORTANT] Scope Directive
+> `daily-tasks` is the encapsulated facade skill for personal work planning, candidate capture, structured `RecordKind` Markdown work records (`project`, `milestone`, `task`, `blocker`, `daily-plan`), daily plan selection, and anytime check-ins inside `vault_root` via the `daily-tasks` MCP server.
+> - **Calendar time-blocking, duration estimation, or scheduling into time slots**: **out of scope** (never performed).
+> - **General PARA prose/knowledge note classification** (`0-inbox/`, `2-areas/` non-plan notes, `3-resources/`, `4-archives/`), MOC navigation repair, prose note reconciliation, or email/calendar source-record filing: route to **`para-vault`** (`agent-skills`).
+> - **Standalone safe filesystem moves, renames, copies, or collision recovery** outside `daily-tasks` MCP record operations: route to **`manage-file-operations`** (`agent-skills`).
+> - **Drafting outbound emails or messages in the user's personal voice**: route to **`write-like-me`** (`agent-skills`).
+
 Supply capabilities to the calling agent; do not assume its persona or autonomously run a personal operating system. Maintain one authoritative Markdown record per item and route each request to the matching workflow:
 
 | Request | Load |
@@ -18,19 +25,19 @@ Supply capabilities to the calling agent; do not assume its persona or autonomou
 ## Mandatory full-setup gate
 
 Daily Tasks **must not run** downstream workflows ([Capture](workflows/capture.md), [Records](workflows/records.md), [Daily plan](workflows/plan.md), or [Check-in](workflows/checkin.md)) unless setup is completely finished. Always verify setup deterministically through the bundled MCP server (`daily_tasks_setup_status(vault_root="<vaultPath>")`) rather than guessing file layouts or hand-editing JSON:
-- **Configuration (`user_home` -> `repo_root`)**: `~/.nyssa-ai/daily-tasks/profile.json` (and optional `<repo_root>/.nyssa-ai/daily-tasks/profile.json`) with `schema_version: 2`, `user.name`, `user.email`, `timezone`, `priorities`, optional `defaultVaultRoot`, and per-vault overrides under `vaults`.
+- **Configuration (`user_home` -> `repo_root`)**: `~/.nyssa-ai/daily-tasks/config.json` (and optional `<repo_root>/.nyssa-ai/daily-tasks/config.json`, with read-only fallback to legacy `profile.json` when `config.json` is absent) with `schema_version: 2`, `user.name`, `user.email`, `timezone`, `priorities`, optional `defaultVaultRoot`, optional `telemetry.enabled` (`false` by default), and per-vault overrides under `vaults`.
 - **Vault (`vault_root`)**: Contains Markdown projects (`1-projects` by default), daily plans (`2-areas/daily-plans` by default), and visible templates (`./3-resources/templates` by default), with **zero** `.nyssa-ai/` directories inside `vault_root`. Never bind an agent runtime root (`SOUL.md` + `IDENTITY.md`) as `vault_root`.
-- **Runtime state (`runtime_root`)**: Mutable operational state (`fetch-cursors.json`, `suggestions.json`, `decision-log.json`, `sessions/`) lives in `runtime_root` (`--runtime-root` -> `NYSSA_RUNTIME_ROOT` -> agent persona `cwd` with `SOUL.md`+`IDENTITY.md` -> `~/.nyssa-ai/daily-tasks/runtime/`).
+- **Runtime state (`runtime_root`)**: Mutable operational state (`fetch-cursors.json`, `suggestions.json`, `decision-log.json`, `sessions/`, and opt-in `usage/events.jsonl` when `telemetry.enabled: true`) lives in `runtime_root` (`--runtime-root` -> `NYSSA_RUNTIME_ROOT` -> `<cwd>/.nyssa-ai/daily-tasks/runtime/` when `cwd` has `SOUL.md`+`IDENTITY.md` -> configured `runtimeRoot` / `<repo_root>/.nyssa-ai/daily-tasks/runtime/` / `~/.nyssa-ai/daily-tasks/runtime/`).
 
 Before executing any non-setup workflow, verify **all four** setup gates (reported by `daily_tasks_setup_status`):
 1. **Live MCP tools in current harness**: `daily_tasks_*` MCP tools (`daily_tasks_setup_status`, `daily_tasks_configure_vault`, `daily_tasks_start_session`, `daily_tasks_get_fetch_window`, `daily_tasks_execute_operations`, `daily_tasks_advance_screen`, `daily_tasks_confirm_plan`, `daily_tasks_get_session_state`, `daily_tasks_cancel_session`) are registered and callable in the active harness (use `tool_search` / `catalog.search("daily_tasks")` first when tool search is active).
-2. **Schema Version 2 profiles and roots**: `~/.nyssa-ai/daily-tasks/profile.json` exists with `"schema_version": 2`, resolving `user.email`, an explicit IANA `timezone` (never `"system"`), `projectsRoot` (default `"1-projects"`), and `dailyPlansRelative` (default `"2-areas/daily-plans"`).
+2. **Schema Version 2 configuration and roots**: `~/.nyssa-ai/daily-tasks/config.json` exists with `"schema_version": 2`, resolving `user.email`, an explicit IANA `timezone` (never `"system"`), `projectsRoot` (default `"1-projects"`), and `dailyPlansRelative` (default `"2-areas/daily-plans"`).
 3. **Vault templates baseline**: Active formatting templates in `<vault_root>` and `~/.nyssa-ai/daily-tasks/templates/updates.json` are present.
-4. **Communication sources configured**: Connector selections and `initialLookbackDays` are recorded under `sources` in `profile.json`.
+4. **Communication sources configured**: Connector selections and `initialLookbackDays` are recorded under `sources` in `config.json`.
 
 If **any** gate above fails:
 - **Immediately halt** the downstream workflow and load [Setup](workflows/setup.md) (with [harness-aware setup](references/harness-setup.md)) to inspect via `daily_tasks_setup_status`, confirm choices with the user, and persist via `daily_tasks_configure_vault(confirmed=true, ...)`.
-- **Never** hand-author `profile.json` or vault templates when `daily_tasks_configure_vault` is available, **never** create `.nyssa-ai/` inside `vault_root`, **never** manually scan vault Markdown files to synthesize a read-only plan summary, and **never** write or execute ad-hoc Python scripts importing `daily_tasks` internals.
+- **Never** hand-author `config.json` or vault templates when `daily_tasks_configure_vault` is available, **never** create `.nyssa-ai/` inside `vault_root`, **never** manually scan vault Markdown files to synthesize a read-only plan summary, and **never** write or execute ad-hoc Python scripts importing `daily_tasks` internals.
 - If a harness requires a session reload or user action before newly registered `daily_tasks_*` MCP tools become callable, stop after completing the harness registration step and ask the user to continue once the MCP tools are active.
 - Do not re-run Setup when all four gates are already satisfied unless the user explicitly asks to change settings. Isolate mutable operating state under `runtime_root`, and never enable background monitoring or time-slot scheduling.
 

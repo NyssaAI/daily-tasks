@@ -1,6 +1,6 @@
 # Daily Tasks
 
-Version **0.11.2**
+Version **0.11.3**
 
 Personal task management and daily planning through an encapsulated `daily-tasks` agent skill,
 five focused workflows, and a deterministic Python Model Context Protocol (MCP) planning server.
@@ -28,9 +28,9 @@ manual checkbox edits.
 
 ## 5-Root Model & Authority
 
-- **Configuration (`user_home` -> `repo_root`)**: Schema Version 2 profiles are resolved via `NyssaAI.Configuration` conventions from `~/.nyssa-ai/daily-tasks/profile.json` (`user_home`, precedence #1) and `<repo_root>/.nyssa-ai/daily-tasks/profile.json` (`repo_root`, precedence #2). Per-vault bindings live under the profile's `"vaults"` map alongside `defaultVaultRoot`. **Zero `.nyssa-ai/` files are ever read from or written inside `vault_root`.**
+- **Configuration (`user_home` -> `repo_root`)**: Schema Version 2 settings are resolved via `NyssaAI.Configuration` conventions from `~/.nyssa-ai/daily-tasks/config.json` (`user_home`, precedence #1) and `<repo_root>/.nyssa-ai/daily-tasks/config.json` (`repo_root`, precedence #2), with read-only fallback to legacy `profile.json` when `config.json` is absent. Per-vault bindings live under `"vaults"` alongside `defaultVaultRoot` and optional `"telemetry": {"enabled": false}`. **Zero `.nyssa-ai/` files are ever read from or written inside `vault_root`.**
 - **Vault (`vault_root`)**: Holds editable Markdown work records for both PARA and non-PARA vaults. Default mappings are `<vault_root>/1-projects` (`projectsRoot`) and `<vault_root>/2-areas/daily-plans/YYYY.MM.DD-daily-plan.md` (`dailyPlansRelative`). Agent persona runtime directories (`SOUL.md` + `IDENTITY.md`) are rejected if passed as `vault_root`.
-- **Runtime state (`runtime_root`)**: Mutable operational state (`fetch-cursors.json`, `suggestions.json`, append-only `decision-log.json`, `sessions/`, `.venv/`, and runtime `.temp/`) lives strictly in `runtime_root`, resolved in order: (1) `--runtime-root` -> (2) `NYSSA_RUNTIME_ROOT` -> (3) `cwd` containing `SOUL.md` + `IDENTITY.md` -> (4) configured `runtimeRoot` or `~/.nyssa-ai/daily-tasks/runtime/`.
+- **Runtime state (`runtime_root`)**: Mutable operational state (`fetch-cursors.json`, `suggestions.json`, append-only `decision-log.json`, `sessions/`, opt-in `usage/events.jsonl`, `.venv/`, and runtime `.temp/`) lives strictly in `runtime_root`, resolved in order: (1) `--runtime-root` -> (2) `NYSSA_RUNTIME_ROOT` -> (3) `<cwd>/.nyssa-ai/daily-tasks/runtime/` when `cwd` contains `SOUL.md` + `IDENTITY.md` -> (4) configured `runtimeRoot`, `<repo_root>/.nyssa-ai/daily-tasks/runtime/`, or `~/.nyssa-ai/daily-tasks/runtime/`.
 - **Project structure**: Project index (`1-projects/YYYY.MM.DD-<slug>/project-index.md`) plus `m1-name/m1-name.md` milestones and sibling `t1-name.md` tasks. Each milestone and task owns its own Definition of Done; tasks also own requirements. Flat milestone `inputs/` and `outputs/` hold files linked by tasks (`project -> milestone -> task -> files`). Project-wide blockers stay in `blockers/`. Work records use `state:` frontmatter (`not-started`, `in-progress`, `completed`, `cancelled`; blockers use `open`, `resolved`) and UUIDv7 `id`. DoD criterion IDs and projection `ref` IDs use hidden comments.
 - **Time & ownership**: Store UTC (`Z`), present configured local time with IANA timezone. Human email owner; optional person/agent assignee falling back to owner. Target dates are optional and explicit.
 
@@ -43,7 +43,7 @@ All diagnostic logging goes to `stderr` so `stdout` remains pure for MCP JSON-RP
 
 Daily Tasks enforces a mandatory full-setup gate: downstream workflows (`plan`, `records`, `checkin`,
 and `capture`) never run unless `daily_tasks_*` MCP tools are live in the active harness, Schema
-Version 2 `profile.json` bindings (`vaultRoot`, `projectsRoot`, `dailyPlansRelative`, `user.email`, IANA `timezone`,
+Version 2 `config.json` bindings (`vaultRoot`, `projectsRoot`, `dailyPlansRelative`, `user.email`, IANA `timezone`,
 and `sources`) are present in `~/.nyssa-ai/daily-tasks/`, and vault templates are initialized. When any setup gate is incomplete,
 the skill immediately halts downstream work and runs harness-aware setup (`skills/daily-tasks/workflows/setup.md`
 and `skills/daily-tasks/references/harness-setup.md`). Malformed files trigger non-destructive repairs (`skills/daily-tasks/workflows/records.md`).
@@ -80,3 +80,7 @@ python scripts/validate.py
 ```
 
 Canonical procedures and templates live under [skills/](skills/).
+
+## License
+
+Licensed under the [Apache License 2.0](LICENSE). Release history is tracked in [CHANGELOG.md](CHANGELOG.md).
